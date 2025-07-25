@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IIM Mumbai Fantasy League 2025/26</title>
+    <title>IIM Mumbai Fantasy League</title>
     
-    <!-- This imports the new 'Poppins' font from Google Fonts -->
+    <!-- This imports the 'Poppins' font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* This is our new, upgraded CSS for a jazzy and responsive design */
+        /* This is our upgraded CSS for a jazzy and responsive design */
         
         /* Basic Setup */
         :root {
@@ -106,8 +106,11 @@
             padding: 20px; 
         }
 
+        /* Style for the new counter */
+        .counter-section { text-align: center; }
+        .counter-number { font-weight: 700; font-size: 3rem; color: var(--primary-color); }
+
         /* --- THIS IS THE RESPONSIVE DESIGN PART --- */
-        /* It applies special styles only for screens smaller than 600px (like phones) */
         @media (max-width: 600px) {
             body {
                 line-height: 1.6;
@@ -136,11 +139,18 @@
         </header>
 
         <main>
+            <!-- NEW SECTION FOR THE COUNTER -->
+            <section class="counter-section">
+                <h2>Total Registered Players</h2>
+                <div id="player-count" class="counter-number">--</div>
+                <p><em>This counter updates automatically every hour!</em></p>
+            </section>
+
             <section id="register">
                 <h2>Join the League!</h2>
                 <p>Ready to prove your FPL skills? Registration is now open. Click the button below to fill out the form and join the action.</p>
                 <!-- IMPORTANT: Make sure this link is correct -->
-                <a href="https://forms.gle/t2faM3TcPQWMmwPi8" class="cta-button" target="_blank">Register Now</a>
+                <a href="YOUR_GOOGLE_FORM_LINK_HERE" class="cta-button" target="_blank">Register Now</a>
             </section>
 
             <section id="rules">
@@ -148,9 +158,9 @@
                 <p><strong>Entry Fee:</strong> ₹3,000</p>
                 <h3>Prizes</h3>
                 <ul>
-                    <li><strong>Weekly Prizes:</strong> Top 2 managers every gameweek win cash prizes.</li>
-                    <li><strong>Monthly Prizes:</strong> Top 2 managers each month are rewarded from the prize pool.</li>
-                    <li><strong>Overall Prizes:</strong> Top 10 managers at the end of the season will win substantial rewards from the grand prize pool.</li>
+                    <li><strong>Weekly Prizes:</strong> The top 2 managers every gameweek win cash prizes.</li>
+                    <li><strong>Monthly Prizes:</strong> The best managers each month are rewarded from the prize pool.</li>
+                    <li><strong>Overall Prizes:</strong> The top 10 managers at the end of the season will win substantial rewards from the grand prize pool.</li>
                 </ul>
                 <p><em>(Full prize amounts are shared in the weekly emails and are based on the final number of players.)</em></p>
             </section>
@@ -162,8 +172,32 @@
         </main>
         
         <footer>
-            <p>&copy; 2025 IIM Mumbai Fantasy League Organising Committee</p>
+            <p>&copy; 2025 IIM Mumbai Fantasy League Organizing Committee</p>
         </footer>
     </div>
+
+    <!-- NEW JAVASCRIPT TO FETCH THE COUNT -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // We add a cache-busting query to ensure we get the latest file
+        const url = 'https://raw.githubusercontent.com/adigunners/adigunners.github.io/main/player_count.json?cache=' + new Date().getTime();
+        
+        fetch(url)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            const countElement = document.getElementById('player-count');
+            countElement.textContent = data.count;
+          })
+          .catch(error => {
+            console.error('Error fetching player count:', error);
+            document.getElementById('player-count').textContent = 'N/A';
+          });
+      });
+    </script>
 </body>
 </html>
