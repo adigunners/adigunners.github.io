@@ -4,16 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IIM Mumbai Fantasy League</title>
+    
+    <!-- This imports the new 'Poppins' font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; background-color: #f0f2f5; color: #333; }
-        .container { max-width: 800px; margin: 20px auto; padding: 0; background-color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 8px; }
-        header { background-color: #37003c; color: #fff; text-align: center; padding: 20px; border-radius: 8px 8px 0 0; }
-        header h1 { margin: 0; }
-        main { padding: 20px 30px; }
-        section { margin-bottom: 30px; }
-        h2 { color: #37003c; border-bottom: 2px solid #f0f2f5; padding-bottom: 10px; }
-        .cta-button { display: inline-block; background-color: #00ff85; color: #37003c; padding: 12px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; margin-top: 10px; }
-        footer { text-align: center; font-size: 12px; color: #888; padding: 20px; }
+        /* This is our new, upgraded CSS for a jazzy and responsive design */
+        
+        /* Basic Setup */
+        :root {
+            --primary-color: #37003c;
+            --secondary-color: #00ff85;
+            --background-color: #f0f2f5;
+            --card-background: #ffffff;
+            --text-color: #333;
+            --heading-color: #5d2163;
+        }
+
+        body { 
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            line-height: 1.7; 
+            margin: 0; 
+            background-color: var(--background-color); 
+            color: var(--text-color);
+        }
+
+        /* Main container and Header */
+        .container { 
+            max-width: 800px; 
+            margin: 20px auto; 
+            background-color: transparent;
+        }
+
+        header { 
+            background: linear-gradient(135deg, var(--primary-color), var(--heading-color)); 
+            color: #fff; 
+            text-align: center; 
+            padding: 40px 20px; 
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+        }
+
+        header h1 { 
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Content Sections styled as "cards" */
+        main { 
+            padding: 0;
+        }
+
+        section {
+            background-color: var(--card-background);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h2 { 
+            color: var(--heading-color); 
+            border-bottom: 2px solid #f0f2f5; 
+            padding-bottom: 10px; 
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        /* The main "Call to Action" button */
+        .cta-button { 
+            display: inline-block; 
+            background-color: var(--secondary-color); 
+            color: var(--primary-color); 
+            padding: 12px 25px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            border-radius: 5px; 
+            margin-top: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 255, 133, 0.3);
+        }
+        
+        footer { 
+            text-align: center; 
+            font-size: 0.8rem; 
+            color: #888; 
+            padding: 20px; 
+        }
+
+        /* --- THIS IS THE RESPONSIVE DESIGN PART --- */
+        /* It applies special styles only for screens smaller than 600px (like phones) */
+        @media (max-width: 600px) {
+            body {
+                line-height: 1.6;
+            }
+            .container {
+                margin: 10px;
+                width: auto;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+            section {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -27,8 +139,8 @@
             <section id="register">
                 <h2>Join the League!</h2>
                 <p>Ready to prove your FPL skills? Registration is now open. Click the button below to fill out the form and join the action.</p>
-                <!-- IMPORTANT: REPLACE THIS LINK with the public link to your Google Form -->
-                <a href="https://forms.gle/67oCDL3A8tWtzxnx6" class="cta-button" target="_blank">Register Now</a>
+                <!-- IMPORTANT: Make sure this link is correct -->
+                <a href="https://forms.gle/t2faM3TcPQWMmwPi8" class="cta-button" target="_blank">Register Now</a>
             </section>
 
             <section id="rules">
@@ -36,9 +148,9 @@
                 <p><strong>Entry Fee:</strong> ₹3,000</p>
                 <h3>Prizes</h3>
                 <ul>
-                    <li><strong>Weekly Prizes:</strong> The top 2 managers every gameweek win cash prizes.</li>
-                    <li><strong>Monthly Prizes:</strong> The best managers each month are rewarded from the prize pool.</li>
-                    <li><strong>Overall Prizes:</strong> The top 10 managers at the end of the season will win substantial rewards from the grand prize pool.</li>
+                    <li><strong>Weekly Prizes:</strong> Top 2 managers every gameweek win cash prizes.</li>
+                    <li><strong>Monthly Prizes:</strong> Top 2 managers each month are rewarded from the prize pool.</li>
+                    <li><strong>Overall Prizes:</strong> Top 10 managers at the end of the season will win substantial rewards from the grand prize pool.</li>
                 </ul>
                 <p><em>(Full prize amounts are shared in the weekly emails and are based on the final number of players.)</em></p>
             </section>
@@ -46,7 +158,6 @@
             <section id="leaderboard">
                 <h2>Leaderboard</h2>
                 <p>The live leaderboard will be published here after the season begins. For now, all official standings are sent via the weekly email update.</p>
-                <!-- In a future version, you could embed a Google Sheet here -->
             </section>
         </main>
         
