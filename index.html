@@ -109,6 +109,7 @@
         /* Style for the new counter */
         .counter-section { text-align: center; }
         .counter-number { font-weight: 700; font-size: 3rem; color: var(--primary-color); }
+        #last-updated { font-style: italic; color: #777; font-size: 0.9rem; }
 
         /* --- THIS IS THE RESPONSIVE DESIGN PART --- */
         @media (max-width: 600px) {
@@ -139,11 +140,12 @@
         </header>
 
         <main>
-            <!-- NEW SECTION FOR THE COUNTER -->
+            <!-- UPDATED COUNTER SECTION -->
             <section class="counter-section">
                 <h2>Total Registered Players</h2>
                 <div id="player-count" class="counter-number">--</div>
-                <p><em>This counter updates automatically every hour!</em></p>
+                <!-- This <p> tag will now be filled by our script -->
+                <p id="last-updated"><em>Fetching latest data...</em></p>
             </section>
 
             <section id="register">
@@ -176,7 +178,7 @@
         </footer>
     </div>
 
-    <!-- NEW JAVASCRIPT TO FETCH THE COUNT -->
+    <!-- UPDATED JAVASCRIPT TO FETCH COUNT AND TIMESTAMP -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // We add a cache-busting query to ensure we get the latest file
@@ -190,12 +192,25 @@
             return response.json();
           })
           .then(data => {
-            const countElement = document.getElementById('player-count');
-            countElement.textContent = data.count;
+            // Update the player count
+            document.getElementById('player-count').textContent = data.count;
+
+            // Update the timestamp
+            const lastUpdatedElement = document.getElementById('last-updated');
+            const date = new Date(data.lastUpdated);
+            
+            // This formats the date into a readable string in the CET time zone
+            const formattedDate = date.toLocaleString('en-GB', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+              timeZone: 'CET'
+            });
+            lastUpdatedElement.textContent = `Last updated: ${formattedDate}`;
           })
           .catch(error => {
             console.error('Error fetching player count:', error);
             document.getElementById('player-count').textContent = 'N/A';
+            document.getElementById('last-updated').textContent = 'Could not load live data.';
           });
       });
     </script>
