@@ -4,18 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IIM Mumbai Fantasy League</title>
-    
+  
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* All of your existing jazzy CSS styles are here */
-        :root{--primary-color:#37003c;--secondary-color:#00ff85;--background-color:#f0f2f5;--card-background:#fff;--text-color:#333;--heading-color:#5d2163}body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;line-height:1.7;margin:0;background-color:var(--background-color);color:var(--text-color)}.container{max-width:800px;margin:20px auto;background-color:transparent}header{background:linear-gradient(135deg,var(--primary-color),var(--heading-color));color:#fff;text-align:center;padding:40px 20px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.15);margin-bottom:30px}header h1{margin:0;font-size:2.5rem;font-weight:700}header p{margin:5px 0 0;font-size:1.1rem;opacity:.9}main{padding:0}section{background-color:var(--card-background);padding:30px;margin-bottom:20px;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,.08)}h2{color:var(--heading-color);border-bottom:2px solid #f0f2f5;padding-bottom:10px;margin-top:0;font-size:1.8rem}.cta-button{display:inline-block;background-color:var(--secondary-color);color:var(--primary-color);padding:12px 25px;text-decoration:none;font-weight:600;border-radius:5px;margin-top:10px;transition:transform .2s ease,box-shadow .2s ease}.cta-button:hover{transform:translateY(-3px);box-shadow:0 6px 12px rgba(0,255,133,.3)}footer{text-align:center;font-size:.8rem;color:#888;padding:20px}
-        .counter-section { text-align: center; }
-        .counter-number { font-weight: 700; font-size: 3rem; color: var(--primary-color); }
-        #last-updated { font-style: italic; color: #777; font-size: 0.9rem; }
-        @media (max-width:600px){body{line-height:1.6}.container{margin:10px;width:auto}header h1{font-size:1.8rem}section{padding:20px}h2{font-size:1.5rem}}
+        :root{
+          --primary-color:#37003c;
+          --secondary-color:#00ff85;
+          --background-color:#f0f2f5;
+          --card-background:#fff;
+          --text-color:#333;
+          --heading-color:#5d2163
+        }
+        body{
+          font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+          line-height:1.7;
+          margin:0;
+          background-color:var(--background-color);
+          color:var(--text-color)
+        }
+        .container{
+          max-width:1000px;
+          margin:20px auto;
+          background-color:transparent
+        }
+        header{
+          background:linear-gradient(135deg,var(--primary-color),var(--heading-color));
+          color:#fff;
+          text-align:center;
+          padding:40px 20px;
+          border-radius:12px;
+          box-shadow:0 8px 20px rgba(0,0,0,.15);
+          margin-bottom:30px
+        }
+        header h1{
+          margin:0;
+          font-size:2.5rem;
+          font-weight:700
+        }
+        header p{
+          margin:5px 0 0;
+          font-size:1.1rem;
+          opacity:.9
+        }
+        main{padding:0}
+        section{
+          background-color:var(--card-background);
+          padding:30px;
+          margin-bottom:20px;
+          border-radius:8px;
+          box-shadow:0 4px 15px rgba(0,0,0,.08)
+        }
+        h2{
+          color:var(--heading-color);
+          border-bottom:2px solid #f0f2f5;
+          padding-bottom:10px;
+          margin-top:0;
+          font-size:1.8rem
+        }
+        .cta-button{
+          display:inline-block;
+          background-color:var(--secondary-color);
+          color:var(--primary-color);
+          padding:12px 25px;
+          text-decoration:none;
+          font-weight:600;
+          border-radius:5px;
+          margin-top:10px;
+          transition:transform .2s ease,box-shadow .2s ease
+        }
+        .cta-button:hover{
+          transform:translateY(-3px);
+          box-shadow:0 6px 12px rgba(0,255,133,.3)
+        }
+        footer{
+          text-align:center;
+          font-size:.8rem;
+          color:#888;
+          padding:20px
+        }
+        
+        /* --- New Stats Row for player and pot --- */
+        .stats-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 24px;
+          justify-content: center;
+          margin-bottom: 20px;
+        }
+        .stat-box {
+          flex: 1 1 220px;
+          min-width: 220px;
+          max-width: 360px;
+          background: var(--card-background);
+          border-radius: 8px;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+          padding: 28px 20px 22px 20px;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .stat-icon {
+          font-size: 2.2rem;
+          margin-bottom: 10px;
+        }
+        .stat-title {
+          font-weight: 700;
+          font-size: 1.35rem;
+          color: var(--heading-color);
+          margin-bottom: 8px;
+        }
+        .stat-number {
+          font-weight: 700;
+          font-size: 2.5rem;
+          color: var(--primary-color);
+          letter-spacing: 1px;
+        }
+        .stat-label {
+          font-size: 0.93rem;
+          color: #777;
+          margin-top: 8px;
+          font-style: italic;
+        }
+
+        /* Existing section styles for the rest of the content... */
+
+        @media (max-width: 800px){
+          .container { max-width:98vw; }
+          .stats-row { gap: 14px; }
+        }
+        @media (max-width: 600px){
+          .stats-row {
+            flex-direction: column;
+            gap: 12px;
+          }
+          .stat-box {
+            min-width: unset;
+            max-width: unset;
+            width: 100%;
+            padding: 20px 10px 16px 10px;
+          }
+          header h1 { font-size:1.8rem }
+          section {padding:20px}
+          h2{font-size:1.5rem}
+        }
     </style>
 </head>
 <body>
@@ -26,11 +162,23 @@
         </header>
 
         <main>
-            <section class="counter-section">
-                <h2>Total Registered Players</h2>
-                <div id="player-count" class="counter-number">--</div>
-                <p id="last-updated"><em>Fetching latest data...</em></p>
-            </section>
+            <!-- STATS ROW -->
+            <div class="stats-row">
+                <!-- PLAYER COUNT BOX -->
+                <div class="stat-box">
+                    <div class="stat-icon" title="Players">&#9917;</div> <!-- Football player Unicode/emoji -->
+                    <div class="stat-title">Total Registered Players</div>
+                    <div id="player-count" class="stat-number">--</div>
+                    <div id="players-last-updated" class="stat-label">Fetching latest data...</div>
+                </div>
+                <!-- POT AMOUNT BOX -->
+                <div class="stat-box">
+                    <div class="stat-icon" title="Prize Pot">&#8377;</div> <!-- INR sign -->
+                    <div class="stat-title">Total Pot Amount</div>
+                    <div id="pot-amount" class="stat-number">--</div>
+                    <div id="pot-last-updated" class="stat-label"></div>
+                </div>
+            </div>
 
             <section id="register">
                 <h2>Join the League!</h2>
@@ -60,33 +208,38 @@
         </footer>
     </div>
 
-    <!-- === JAVASCRIPT SECTION WITH DYNAMIC TIMEZONE === -->
+    <!-- === JS: DYNAMIC DATA FROM league_stats.json === -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        const url = 'https://raw.githubusercontent.com/adigunners/adigunners.github.io/main/player_count.json?cache=' + new Date().getTime();
-        
+        const url = 'https://raw.githubusercontent.com/adigunners/adigunners.github.io/main/league_stats.json?cache=' + new Date().getTime();
+
         fetch(url)
           .then(response => response.json())
           .then(data => {
-            document.getElementById('player-count').textContent = data.count;
+            // Player Count
+            document.getElementById('player-count').textContent = data.playerCount;
 
-            const lastUpdatedElement = document.getElementById('last-updated');
-            const date = new Date(data.lastUpdated);
-            
-            // --- THIS IS THE CHANGE ---
-            // By REMOVING the timeZone option, the browser automatically uses the visitor's local timezone.
-            const formattedDate = date.toLocaleString('en-GB', {
+            // Pot Amount (format as INR with commas)
+            document.getElementById('pot-amount').textContent = '₹' + Number(data.potAmount).toLocaleString('en-IN');
+
+            // Last updated times
+            const lastUpdated = new Date(data.lastUpdated);
+            const formattedDate = lastUpdated.toLocaleString('en-GB', {
               dateStyle: 'medium',
               timeStyle: 'short',
             });
-            lastUpdatedElement.textContent = `Last updated: ${formattedDate} (your local time)`;
+
+            // Show same last updated for both (optional: split if you want separate update times)
+            document.getElementById('players-last-updated').textContent = `Last updated: ${formattedDate} (your local time)`;
+            document.getElementById('pot-last-updated').textContent = `Last updated: ${formattedDate} (your local time)`;
           })
           .catch(error => {
-            console.error('Error fetching player count:', error);
+            console.error('Error fetching league stats:', error);
             document.getElementById('player-count').textContent = 'N/A';
-            document.getElementById('last-updated').textContent = 'Could not load live data.';
+            document.getElementById('pot-amount').textContent = 'N/A';
+            document.getElementById('players-last-updated').textContent = 'Could not load live data.';
+            document.getElementById('pot-last-updated').textContent = '';
           });
-      });
     </script>
 </body>
 </html>
