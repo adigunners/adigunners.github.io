@@ -211,7 +211,7 @@
     <!-- === JS: DYNAMIC DATA FROM league_stats.json === -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        const url = 'https://raw.githubusercontent.com/adigunners/adigunners.github.io/main/league_stats.json?cache=' + new Date().getTime();
+        const url = 'league_stats.json?cache=' + new Date().getTime();
 
         fetch(url)
           .then(response => response.json())
