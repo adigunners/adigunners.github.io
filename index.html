@@ -229,6 +229,16 @@
             document.getElementById('player-count').textContent = data.playerCount;
             document.getElementById('pot-amount').textContent = '₹' + Number(data.potAmount).toLocaleString('en-IN');
             // ... update last updated time if you wish ...
+            document.getElementById('player-count').textContent = data.playerCount;
+            document.getElementById('pot-amount').textContent = '₹' + Number(data.potAmount).toLocaleString('en-IN');
+
+            // Show last updated time
+            const lastUpdated = new Date(data.lastUpdated);
+            const formattedDate = lastUpdated.toLocaleString('en-GB', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+            });
+            document.getElementById('players-last-updated').textContent = `Last updated: ${formattedDate} (your local time)`;
           })
           .catch(error => {
             // This prints errors to the debug console!
