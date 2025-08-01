@@ -211,35 +211,32 @@
     <!-- === JS: DYNAMIC DATA FROM league_stats.json === -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+        // This will load data from your public GitHub Pages JSON
         const url = 'league_stats.json?cache=' + new Date().getTime();
 
         fetch(url)
-          .then(response => response.json())
+          .then(response => {
+            // This line prints details to the debug console!
+            console.log('Fetch response:', response);
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
           .then(data => {
-            // Player Count
+            // This prints your JSON to the debug console!
+            console.log('Fetched league_stats.json:', data);
             document.getElementById('player-count').textContent = data.playerCount;
-
-            // Pot Amount (format as INR with commas)
             document.getElementById('pot-amount').textContent = '₹' + Number(data.potAmount).toLocaleString('en-IN');
-
-            // Last updated times
-            const lastUpdated = new Date(data.lastUpdated);
-            const formattedDate = lastUpdated.toLocaleString('en-GB', {
-              dateStyle: 'medium',
-              timeStyle: 'short',
-            });
-
-            // Show same last updated for both (optional: split if you want separate update times)
-            document.getElementById('players-last-updated').textContent = `Last updated: ${formattedDate} (your local time)`;
-            document.getElementById('pot-last-updated').textContent = `Last updated: ${formattedDate} (your local time)`;
+            // ... update last updated time if you wish ...
           })
           .catch(error => {
-            console.error('Error fetching league stats:', error);
-            document.getElementById('player-count').textContent = 'N/A';
-            document.getElementById('pot-amount').textContent = 'N/A';
-            document.getElementById('players-last-updated').textContent = 'Could not load live data.';
-            document.getElementById('pot-last-updated').textContent = '';
+            // This prints errors to the debug console!
+            console.error('Fetch error:', error);
+            document.getElementById('player-count').textContent = '--';
+            document.getElementById('pot-amount').textContent = '--';
           });
+      });
     </script>
 </body>
 </html>
