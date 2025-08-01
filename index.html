@@ -102,16 +102,26 @@
           border-radius: 8px;
           box-shadow: 0 4px 15px rgba(0,0,0,0.08);
           padding: 28px 20px 22px 20px;
-          text-align: center;
           display: flex;
           flex-direction: column;
-          align-items: center;
+          align-items: stretch;
           justify-content: center;
+          text-align: center;
         }
-        .stat-icon {
-          font-size: 2.2rem;
-          margin-bottom: 10px;
+        .stat-icon, .stat-title, .stat-number, .stat-label {
+          width: 100%;
+          text-align: center;
         }
+.stat-icon {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  height: 2.5em;
+  line-height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
         .stat-title {
           font-weight: 700;
           font-size: 1.35rem;
