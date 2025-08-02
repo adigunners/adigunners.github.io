@@ -26,10 +26,12 @@
           background-color:var(--background-color);
           color:var(--text-color)
         }
-        .container{
-          max-width:1000px;
-          margin:20px auto;
-          background-color:transparent
+        .container {
+          width: 100%;
+          max-width: 1000px;
+          margin: 20px auto;
+          padding: 0 16px;
+          background-color: transparent;
         }
         header{
           background:linear-gradient(135deg,var(--primary-color),var(--heading-color));
@@ -192,9 +194,9 @@
           margin-bottom: 20px;
         }
         .stat-box {
-          flex: 1 1 220px;
-          min-width: 220px;
-          max-width: 360px;
+          flex: 1 1 0;
+          min-width: 0;
+          max-width: none;
           background: var(--card-background);
           border-radius: 8px;
           box-shadow: 0 4px 15px rgba(0,0,0,0.08);
@@ -204,6 +206,17 @@
           align-items: stretch;
           justify-content: center;
           text-align: center;
+        }
+
+        /* Style "Last updated" line as transparent, centered */
+        #stats-last-updated {
+          background: transparent;
+          box-shadow: none;
+          padding: 20px;
+          margin: 0 0 20px;
+          text-align: center;
+          color: var(--text-color);
+          font-style: italic;
         }
         .stat-icon, .stat-title, .stat-number, .stat-label {
           width: 100%;
@@ -219,7 +232,6 @@
         }
         
         .stat-icon {
-          height: 3rem;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -227,7 +239,6 @@
         }
         
         .stat-title {
-          height: 1.5rem;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -235,7 +246,6 @@
         }
         
         .stat-number {
-          height: 3rem;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -265,16 +275,6 @@
           font-style: italic;
         }
         
-        /* Shared last updated text that spans both boxes */
-        .stats-last-updated {
-          text-align: center;
-          font-size: 0.93rem;
-          color: #777;
-          font-style: italic;
-          margin-top: 20px;
-          margin-bottom: 20px;
-          width: 100%;
-        }
 
         /* Winner Scorecard Styles */
         .winner-scorecard {
@@ -449,7 +449,6 @@
         /* Existing section styles for the rest of the content... */
 
         @media (max-width: 800px){
-          .container { max-width:98vw; }
           .stats-row { gap: 14px; }
         }
         @media (max-width: 600px){
@@ -458,18 +457,25 @@
             text-align: center;
             align-items: center;
             padding: 20px;
+            margin-bottom: 20px;
           }
           .stats-row {
             flex-direction: column;
             gap: 8px;
           }
           .stat-box {
-            min-width: unset;
-            max-width: unset;
+            flex: 0 0 auto;
             width: 100%;
-            padding: 12px 8px;
+            padding: 20px;
           }
-          header h1 { font-size:1.8rem }
+          header h1 {
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            white-space: nowrap;
+          }
+          header p {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            white-space: nowrap;
+          }
           section {padding:20px}
           h2{font-size:1.5rem}
           
@@ -588,7 +594,9 @@
                 </div>
             </div>
             <!-- SHARED LAST UPDATED TEXT -->
-            <div id="stats-last-updated" class="stats-last-updated">Fetching latest data...</div>
+            <section id="stats-last-updated" class="stats-last-updated season-section">
+              Fetching latest data...
+            </section>
 
             <!-- REGISTRATION SECTION (Before Season) -->
             <section id="register" class="season-section pre-season">
@@ -1086,3 +1094,8 @@
     </script>
 </body>
 </html>
+        @media (min-width: 600px) {
+          .container {
+            padding: 0 24px;
+          }
+        }
