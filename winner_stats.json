@@ -1,80 +1,15 @@
 {
-  "lastUpdated": "2025-08-02T12:28:27.900Z",
-  "winners": [
-    {
-      "playerName": "Aditya",
-      "totalPrizeWon": 1500,
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 1,
-        "overallRank": null
-      },
-      "achievements": [
-        {
-          "type": "gameWeek",
-          "week": 3,
-          "prize": 500,
-          "date": "2025-01-15"
-        },
-        {
-          "type": "gameWeek", 
-          "week": 7,
-          "prize": 500,
-          "date": "2025-02-12"
-        },
-        {
-          "type": "gameMonth",
-          "month": "January",
-          "prize": 500,
-          "date": "2025-02-01"
-        }
-      ]
-    },
-    {
-      "playerName": "Rahul",
-      "totalPrizeWon": 1200,
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 1,
-        "overallRank": null
-      },
-      "achievements": [
-        {
-          "type": "gameWeek",
-          "week": 5,
-          "prize": 500,
-          "date": "2025-01-29"
-        },
-        {
-          "type": "gameMonth",
-          "month": "February",
-          "prize": 700,
-          "date": "2025-03-01"
-        }
-      ]
-    },
-    {
-      "playerName": "Priya",
-      "totalPrizeWon": 800,
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": null
-      },
-      "achievements": [
-        {
-          "type": "gameWeek",
-          "week": 2,
-          "prize": 500,
-          "date": "2025-01-08"
-        },
-        {
-          "type": "gameWeek",
-          "week": 4,
-          "prize": 300,
-          "date": "2025-01-22"
-        }
-      ]
-    }
-  ]
-} 
+  "lastUpdated": "2025-08-02T19:27:14.674Z",
+  "summary": {
+    "totalPrizeDistributed": 0,
+    "totalPaid": 0,
+    "totalPending": 0,
+    "gameweekPrizes": 0,
+    "monthlyPrizes": 0,
+    "completedGameweeks": 0,
+    "completedMonths": 0,
+    "totalWinners": 0,
+    "lastProcessedGW": 0
+  },
+  "winners": []
+}
