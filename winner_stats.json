@@ -1,80 +1,190 @@
 {
-  "lastUpdated": "2025-08-02T12:28:27.900Z",
+  "lastUpdated": "2025-08-02T19:12:54.243Z",
+  "summary": {
+    "totalPrizeDistributed": 8900,
+    "totalPaid": 4100,
+    "totalPending": 4800,
+    "gameweekPrizes": 4500,
+    "monthlyPrizes": 4400,
+    "completedGameweeks": 4,
+    "completedMonths": 0,
+    "totalWinners": 5,
+    "lastProcessedGW": 0
+  },
   "winners": [
     {
-      "playerName": "Aditya",
-      "totalPrizeWon": 1500,
+      "playerName": "Aditya Kumar",
+      "totalPrizeWon": 3600,
+      "totalPaid": 2300,
+      "totalPending": 1300,
+      "prizeBreakdown": {
+        "gameweek": 1600,
+        "monthly": 2000
+      },
+      "highlights": {
+        "gameWeeks": 3,
+        "gameMonths": 0,
+        "overallRank": null
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 1,
+            "position": "1st",
+            "prize": 500,
+            "status": "Paid"
+          },
+          {
+            "week": 2,
+            "position": "2nd",
+            "prize": 300,
+            "status": "Paid"
+          },
+          {
+            "week": 4,
+            "position": "2nd",
+            "prize": 300,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 4,
+        "second": 2
+      }
+    },
+    {
+      "playerName": "Priya Patel",
+      "totalPrizeWon": 2200,
+      "totalPaid": 500,
+      "totalPending": 1700,
+      "prizeBreakdown": {
+        "gameweek": 1200,
+        "monthly": 1000
+      },
       "highlights": {
         "gameWeeks": 2,
-        "gameMonths": 1,
+        "gameMonths": 0,
         "overallRank": null
       },
-      "achievements": [
-        {
-          "type": "gameWeek",
-          "week": 3,
-          "prize": 500,
-          "date": "2025-01-15"
-        },
-        {
-          "type": "gameWeek", 
-          "week": 7,
-          "prize": 500,
-          "date": "2025-02-12"
-        },
-        {
-          "type": "gameMonth",
-          "month": "January",
-          "prize": 500,
-          "date": "2025-02-01"
-        }
-      ]
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "1st",
+            "prize": 500,
+            "status": "Paid"
+          },
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 200,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 3,
+        "second": 1
+      }
     },
     {
-      "playerName": "Rahul",
-      "totalPrizeWon": 1200,
+      "playerName": "Rahul Sharma",
+      "totalPrizeWon": 1600,
+      "totalPaid": 1300,
+      "totalPending": 300,
+      "prizeBreakdown": {
+        "gameweek": 900,
+        "monthly": 700
+      },
       "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 1,
+        "gameWeeks": 2,
+        "gameMonths": 0,
         "overallRank": null
       },
-      "achievements": [
-        {
-          "type": "gameWeek",
-          "week": 5,
-          "prize": 500,
-          "date": "2025-01-29"
-        },
-        {
-          "type": "gameMonth",
-          "month": "February",
-          "prize": 700,
-          "date": "2025-03-01"
-        }
-      ]
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 1,
+            "position": "2nd",
+            "prize": 300,
+            "status": "Paid"
+          },
+          {
+            "week": 3,
+            "position": "1st",
+            "prize": 300,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 3
+      }
     },
     {
-      "playerName": "Priya",
-      "totalPrizeWon": 800,
+      "playerName": "Amit Singh",
+      "totalPrizeWon": 1000,
+      "totalPaid": 0,
+      "totalPending": 1000,
+      "prizeBreakdown": {
+        "gameweek": 300,
+        "monthly": 700
+      },
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": null
       },
-      "achievements": [
-        {
-          "type": "gameWeek",
-          "week": 2,
-          "prize": 500,
-          "date": "2025-01-08"
-        },
-        {
-          "type": "gameWeek",
-          "week": 4,
-          "prize": 300,
-          "date": "2025-01-22"
-        }
-      ]
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "1st",
+            "prize": 300,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 1
+      }
+    },
+    {
+      "playerName": "Neha Gupta",
+      "totalPrizeWon": 500,
+      "totalPaid": 0,
+      "totalPending": 500,
+      "prizeBreakdown": {
+        "gameweek": 500,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": null
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 4,
+            "position": "1st",
+            "prize": 500,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 0
+      }
     }
   ]
-} 
+}
