@@ -287,10 +287,22 @@
 
           // Show last updated time
           const lastUpdated = new Date(data.lastUpdated);
+          const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          
+          // Debug logging
+          console.log('Original timestamp from JSON:', data.lastUpdated);
+          console.log('Parsed Date object:', lastUpdated);
+          console.log('User timezone:', userTimeZone);
+          console.log('Current local time:', new Date().toLocaleString());
+          
           const formattedDate = lastUpdated.toLocaleString('en-GB', {
             dateStyle: 'medium',
             timeStyle: 'short',
+            timeZone: userTimeZone
           });
+          
+          console.log('Formatted date:', formattedDate);
+          
           document.getElementById('stats-last-updated').textContent =
             `Last updated: ${formattedDate} (your local time)`;
       })
