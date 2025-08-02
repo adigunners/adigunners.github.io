@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root{
@@ -113,13 +114,14 @@
           text-align: center;
         }
 .stat-icon {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   margin-bottom: 10px;
   height: 2.5em;
   line-height: 2.5em;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--primary-color);
 }
 
         .stat-title {
@@ -176,14 +178,18 @@
             <div class="stats-row">
                 <!-- PLAYER COUNT BOX -->
                 <div class="stat-box">
-                    <div class="stat-icon" title="Players">&#9917;</div> <!-- Football player Unicode/emoji -->
+                    <div class="stat-icon" title="Fantasy Football Managers">
+                        <i class="fas fa-users"></i>
+                    </div>
                     <div class="stat-title">Total Registered Players</div>
                     <div id="player-count" class="stat-number">--</div>
                     <div id="players-last-updated" class="stat-label">Fetching latest data...</div>
                 </div>
                 <!-- POT AMOUNT BOX -->
                 <div class="stat-box">
-                    <div class="stat-icon" title="Prize Pot">&#8377;</div> <!-- INR sign -->
+                    <div class="stat-icon" title="Prize Money Pot">
+                        <i class="fas fa-coins"></i>
+                    </div>
                     <div class="stat-title">Total Pot Amount</div>
                     <div id="pot-amount" class="stat-number">--</div>
                     <div id="pot-last-updated" class="stat-label"></div>
