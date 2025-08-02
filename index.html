@@ -34,11 +34,21 @@
         header{
           background:linear-gradient(135deg,var(--primary-color),var(--heading-color));
           color:#fff;
-          text-align:center;
-          padding:40px 20px;
+          padding:40px 40px 40px 20px;
           border-radius:12px;
           box-shadow:0 8px 20px rgba(0,0,0,.15);
-          margin-bottom:30px
+          margin-bottom:30px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .header-main {
+          flex: 0 0 82%;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
         }
         header h1{
           margin:0;
@@ -49,6 +59,92 @@
           margin:5px 0 0;
           font-size:1.1rem;
           opacity:.9
+        }
+
+        /* Digital Countdown Clock */
+        .countdown-clock {
+          flex: 0 0 18%;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(10px);
+          border-radius: 12px;
+          padding: 15px 8px;
+          border: 2px solid rgba(0, 255, 133, 0.3);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 133, 0.2);
+          text-align: center;
+          min-width: 0;
+          overflow: hidden;
+          animation: pulseBorder 3s infinite;
+        }
+
+        @keyframes pulseBorder {
+          0%, 100% { 
+            border-color: rgba(0, 255, 133, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 133, 0.2);
+          }
+          50% { 
+            border-color: rgba(0, 255, 133, 0.6);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 255, 133, 0.4);
+          }
+        }
+
+        .countdown-label {
+          font-size: 1rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          margin-bottom: 8px;
+          opacity: 0.9;
+          animation: flash 2s infinite;
+        }
+
+        @keyframes flash {
+          0%, 50% { 
+            opacity: 1;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+          }
+          25%, 75% { 
+            opacity: 0.7;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+          }
+        }
+
+        .countdown-time {
+          font-family: 'Courier New', monospace;
+          font-size: 0.85rem;
+          font-weight: 700;
+          letter-spacing: 0.3px;
+          color: var(--secondary-color);
+          text-shadow: 0 0 8px rgba(0, 255, 133, 0.4);
+          line-height: 1.1;
+          white-space: nowrap;
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 6px;
+          padding: 4px 6px;
+          margin-top: 5px;
+        }
+
+        .countdown-separator {
+          animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+
+        .countdown-unit {
+          display: inline-block;
+          min-width: 14px;
+          text-align: center;
+        }
+
+        .countdown-unit-label {
+          font-size: 0.55rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.1px;
+          opacity: 0.9;
+          margin-left: 0.5px;
         }
         main{padding:0}
         section{
@@ -180,6 +276,176 @@
           width: 100%;
         }
 
+        /* Winner Scorecard Styles */
+        .winner-scorecard {
+          background: var(--card-background);
+          border-radius: 8px;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+          padding: 30px;
+          margin-bottom: 20px;
+        }
+
+        .winner-preview {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 20px;
+          margin-top: 20px;
+        }
+
+        .winner-card {
+          background: white;
+          border-radius: 8px;
+          padding: 20px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+          border-left: 4px solid var(--secondary-color);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .winner-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .winner-rank {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: var(--primary-color);
+          margin-bottom: 8px;
+        }
+
+        .winner-name {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: var(--heading-color);
+          margin-bottom: 12px;
+          line-height: 1.3;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+        }
+
+        .winner-prize {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: var(--primary-color);
+          margin-bottom: 12px;
+        }
+
+        .winner-highlights {
+          display: flex;
+          gap: 6px;
+          flex-wrap: wrap;
+          margin-bottom: 15px;
+        }
+
+        .winner-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+          background: white;
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .winner-table th {
+          background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+          color: white;
+          padding: 15px 12px;
+          text-align: left;
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+
+        .winner-table td {
+          padding: 15px 12px;
+          border-bottom: 1px solid #f0f2f5;
+          font-size: 0.9rem;
+        }
+
+        .winner-table tr:hover {
+          background-color: #f8f9fa;
+        }
+
+        .winner-table tr:last-child td {
+          border-bottom: none;
+        }
+
+        .player-name {
+          font-weight: 600;
+          color: var(--heading-color);
+        }
+
+        .prize-amount {
+          font-weight: 700;
+          color: var(--primary-color);
+          font-size: 1.1rem;
+        }
+
+        .highlights {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+
+        .highlight-badge {
+          padding: 4px 8px;
+          border-radius: 12px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+
+        .highlight-badge.gw {
+          background: var(--secondary-color);
+          color: var(--primary-color);
+        }
+
+        .highlight-badge.gm {
+          background: #ff6b6b;
+          color: white;
+        }
+
+        .winner-loading {
+          text-align: center;
+          padding: 40px;
+          color: #777;
+          font-style: italic;
+        }
+
+        .winner-error {
+          text-align: center;
+          padding: 40px;
+          color: #d32f2f;
+          background: #ffebee;
+          border-radius: 8px;
+          margin-top: 20px;
+        }
+
+        .view-all-winners {
+          display: inline-block;
+          background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+          color: white;
+          padding: 12px 25px;
+          text-decoration: none;
+          font-weight: 600;
+          border-radius: 5px;
+          margin-top: 20px;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          text-align: center;
+        }
+
+        .view-all-winners:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 12px rgba(93, 33, 99, 0.3);
+        }
+
+        .winner-summary {
+          text-align: center;
+          margin-top: 15px;
+          color: #777;
+          font-size: 0.9rem;
+        }
+
         /* Existing section styles for the rest of the content... */
 
         @media (max-width: 800px){
@@ -200,14 +466,104 @@
           header h1 { font-size:1.8rem }
           section {padding:20px}
           h2{font-size:1.5rem}
+          
+          /* Winner scorecard mobile styles */
+          .winner-scorecard {
+            padding: 20px;
+          }
+          .winner-preview {
+            grid-template-columns: 1fr;
+            gap: 15px;
+          }
+          .winner-card {
+            padding: 15px;
+          }
+          .winner-name {
+            font-size: 1.1rem;
+          }
+          .winner-prize {
+            font-size: 1.3rem;
+          }
+          .winner-table {
+            font-size: 0.8rem;
+          }
+          .winner-table th,
+          .winner-table td {
+            padding: 10px 8px;
+          }
+          .highlights {
+            gap: 4px;
+          }
+          .highlight-badge {
+            font-size: 0.7rem;
+            padding: 3px 6px;
+          }
+          
+          /* Mobile countdown clock */
+          header {
+            flex-direction: column;
+            text-align: center;
+          }
+          
+          .header-main {
+            flex: none;
+            width: 100%;
+            margin-bottom: 20px;
+          }
+          
+          .countdown-clock {
+            flex: none;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            padding: 12px 15px;
+          }
+          
+          .countdown-time {
+            font-size: 1.1rem;
+            letter-spacing: 0.8px;
+            white-space: nowrap;
+          }
+          
+          .countdown-unit {
+            min-width: 20px;
+          }
+          
+          .countdown-unit-label {
+            font-size: 0.7rem;
+          }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🏆 IIM Mumbai Fantasy League 🏆</h1>
-            <p>Season 2025-26</p>
+            <!-- Main Content (85%) -->
+            <div class="header-main">
+                <h1>🏆 IIM Mumbai Fantasy League 🏆</h1>
+                <p>Season 2025-26</p>
+            </div>
+            
+            <!-- Digital Countdown Clock (15%) -->
+            <div id="countdown-clock" class="countdown-clock" style="display: none;">
+                <div class="countdown-label" id="countdown-label">Time Until Kickoff</div>
+                <div class="countdown-time">
+                    <span class="countdown-unit">
+                        <span id="countdown-days">00</span>
+                        <span class="countdown-unit-label">D</span>
+                    </span>
+                    <span class="countdown-separator">:</span>
+                    <span class="countdown-unit">
+                        <span id="countdown-hours">00</span>
+                        <span class="countdown-unit-label">H</span>
+                    </span>
+                    <span class="countdown-separator">:</span>
+                    <span class="countdown-unit">
+                        <span id="countdown-minutes">00</span>
+                        <span class="countdown-unit-label">M</span>
+                    </span>
+                </div>
+            </div>
         </header>
 
         <main>
@@ -233,12 +589,64 @@
             <!-- SHARED LAST UPDATED TEXT -->
             <div id="stats-last-updated" class="stats-last-updated">Fetching latest data...</div>
 
-            <section id="register">
+            <!-- REGISTRATION SECTION (Before Season) -->
+            <section id="register" class="season-section pre-season">
                 <h2>Join the League!</h2>
                 <p>Ready to prove your FPL skills? Registration is now open. Click the button below to fill out the form and join the action.</p>
                 <a href="https://forms.gle/xXRXCMKNtNMcGxsr9" class="cta-button" target="_blank">Register Now</a>
             </section>
 
+            <!-- WINNER SCORECARD SECTION (During Season) -->
+            <section class="winner-scorecard season-section during-season" style="display: none;">
+                <h2>🏆 Top Earners So Far...</h2>
+                <p>Leading players and their prize money achievements this season.</p>
+                
+                <div id="winner-preview-container">
+                    <div class="winner-loading">Loading winner data...</div>
+                </div>
+                
+                <div class="winner-summary" id="winner-summary"></div>
+                
+                <div style="text-align: center;">
+                    <a href="winners.html" class="view-all-winners">
+                        <i class="fas fa-trophy"></i> View Complete Winner Scorecard
+                    </a>
+                </div>
+                
+                <div id="winner-last-updated" class="stats-last-updated">Fetching latest winner data...</div>
+            </section>
+
+            <!-- TESTING SECTION - Remove this after testing -->
+            <section class="winner-scorecard" style="margin-top: 20px; border: 2px dashed #ff6b6b;">
+                <h2>🧪 Testing Mode - Top Earners So Far...</h2>
+                <p><em>This section is visible for testing purposes only. It will be hidden during actual season.</em></p>
+                
+                <div id="test-winner-preview-container">
+                    <div class="winner-loading">Loading test winner data...</div>
+                </div>
+                
+                <div class="winner-summary" id="test-winner-summary"></div>
+                
+                <div style="text-align: center;">
+                    <a href="winners.html" class="view-all-winners">
+                        <i class="fas fa-trophy"></i> View Complete Winner Scorecard
+                    </a>
+                </div>
+                
+                <div style="text-align: center; margin-top: 15px;">
+                    <button onclick="toggleSeasonMode()" style="background: #ff6b6b; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+                        🎭 Toggle Season Mode (Testing)
+                    </button>
+                </div>
+            </section>
+
+            <!-- LEADERBOARD SECTION (During Season) -->
+            <section id="leaderboard" class="season-section during-season" style="display: none;">
+                <h2>Leaderboard</h2>
+                <p>The live leaderboard will be published here after the season begins. For now, all official standings are sent via the weekly email update.</p>
+            </section>
+
+            <!-- RULES SECTION -->
             <section id="rules">
                 <h2>League Rules & Prize Structure</h2>
                 <p><strong>Entry Fee:</strong> ₹3,000</p>
@@ -250,9 +658,11 @@
                 </ul>
             </section>
 
-            <section id="leaderboard">
-                <h2>Leaderboard</h2>
-                <p>The live leaderboard will be published here after the season begins. For now, all official standings are sent via the weekly email update.</p>
+            <!-- LATE REGISTRATION SECTION (During Season) -->
+            <section id="late-register" class="season-section during-season" style="display: none;">
+                <h2>Still Want to Join?</h2>
+                <p>Missed the initial registration? Contact us to check if late entries are still available.</p>
+                <a href="https://forms.gle/xXRXCMKNtNMcGxsr9" class="cta-button" target="_blank">Contact for Late Entry</a>
             </section>
         </main>
         
@@ -265,6 +675,9 @@
     <!-- === JS: DYNAMIC DATA FROM league_stats.json === -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+        // Load FPL season data first
+        loadFPLSeasonData();
+        
         // This will load data from your public GitHub Pages JSON
         const url = 'league_stats.json?cache=' + new Date().getTime();
 
@@ -312,7 +725,409 @@
             document.getElementById('player-count').textContent = '--';
             document.getElementById('pot-amount').textContent = '--';
           });
+
+        // Load winner data (only if season has started)
+        if (isSeasonStarted()) {
+          loadWinnerData();
+        }
+
+        // Load test winner data for preview
+        loadTestWinnerData();
       });
+
+      // Testing function to toggle season mode
+      function toggleSeasonMode() {
+        const preSeasonElements = document.querySelectorAll('.pre-season');
+        const duringSeasonElements = document.querySelectorAll('.during-season');
+        const headerP = document.querySelector('header p');
+        
+        // Toggle visibility
+        preSeasonElements.forEach(el => {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        });
+        
+        duringSeasonElements.forEach(el => {
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        });
+        
+        // Toggle header text
+        if (headerP) {
+          if (headerP.textContent.includes('Registration Open')) {
+            headerP.textContent = 'Season 2025-26 - Live Updates (Testing Mode)';
+          } else {
+            headerP.textContent = 'Season 2025-26 - Registration Open (Testing Mode)';
+          }
+        }
+      }
+
+      function loadTestWinnerData() {
+        // Use the same winner_stats.json file for testing
+        const winnerUrl = 'winner_stats.json?cache=' + new Date().getTime();
+        
+        fetch(winnerUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Test winner data fetch failed');
+            }
+            return response.json();
+          })
+          .then(data => {
+            displayTestWinnerTable(data.winners);
+          })
+          .catch(error => {
+            console.error('Test winner fetch error:', error);
+            document.getElementById('test-winner-preview-container').innerHTML = 
+              '<div class="winner-error">Unable to load test winner data. Please try again later.</div>';
+          });
+      }
+
+      function displayTestWinnerTable(winners) {
+        if (!winners || winners.length === 0) {
+          document.getElementById('test-winner-preview-container').innerHTML = 
+            '<div class="winner-loading">No test winner data available yet.</div>';
+          return;
+        }
+
+        // Sort winners by total prize won (descending)
+        const sortedWinners = winners.sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
+        
+        // Show top 6 winners in preview
+        const topWinners = sortedWinners.slice(0, 6);
+
+        const previewHTML = `
+          <div class="winner-preview">
+            ${topWinners.map((winner, index) => `
+              <div class="winner-card">
+                <div class="winner-rank">#${index + 1}</div>
+                <div class="winner-name">${winner.playerName}</div>
+                <div class="winner-prize">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</div>
+                <div class="winner-highlights">
+                  ${winner.highlights.gameWeeks > 0 ? 
+                    `<span class="highlight-badge gw">${winner.highlights.gameWeeks}GW</span>` : ''}
+                  ${winner.highlights.gameMonths > 0 ? 
+                    `<span class="highlight-badge gm">${winner.highlights.gameMonths}GM</span>` : ''}
+                  ${winner.highlights.overallRank ? 
+                    `<span class="highlight-badge">Rank ${winner.highlights.overallRank}</span>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        document.getElementById('test-winner-preview-container').innerHTML = previewHTML;
+        
+        // Show summary
+        const totalWinners = winners.length;
+        const totalPrizeMoney = winners.reduce((sum, winner) => sum + winner.totalPrizeWon, 0);
+        
+        document.getElementById('test-winner-summary').innerHTML = 
+          `Showing top 6 of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString('en-IN')}`;
+      }
+
+      function handleSeasonDisplay() {
+        const seasonStartDate = new Date('2025-08-15T00:00:00');
+        const currentDate = new Date();
+        const isSeasonStarted = currentDate >= seasonStartDate;
+        
+        console.log('Season start date:', seasonStartDate);
+        console.log('Current date:', currentDate);
+        console.log('Is season started:', isSeasonStarted);
+        
+        if (isSeasonStarted) {
+          // Season has started - show leaderboard and winners, hide registration
+          document.querySelectorAll('.pre-season').forEach(el => el.style.display = 'none');
+          document.querySelectorAll('.during-season').forEach(el => el.style.display = 'block');
+          
+          // Update header message
+          const headerP = document.querySelector('header p');
+          if (headerP) {
+            headerP.textContent = 'Season 2025-26 - Live Updates';
+          }
+        } else {
+          // Season hasn't started - show registration prominently
+          document.querySelectorAll('.pre-season').forEach(el => el.style.display = 'block');
+          document.querySelectorAll('.during-season').forEach(el => el.style.display = 'none');
+          
+          // Update header message
+          const headerP = document.querySelector('header p');
+          if (headerP) {
+            const daysUntilSeason = Math.ceil((seasonStartDate - currentDate) / (1000 * 60 * 60 * 24));
+            headerP.textContent = `Season 2025-26 - Registration Open (${daysUntilSeason} days until kickoff)`;
+          }
+        }
+      }
+
+      function loadFPLSeasonData() {
+        const fplApiUrl = 'https://fantasy.premierleague.com/api/bootstrap-static/';
+        
+        fetch(fplApiUrl)
+          .then(response => {
+            console.log('FPL API response:', response);
+            if (!response.ok) {
+              throw new Error('FPL API fetch failed');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Fetched FPL API data:', data);
+            
+            // Find the next gameweek (is_next: true)
+            const nextGameweek = data.events.find(event => event.is_next === true);
+            
+            if (nextGameweek) {
+              console.log('Next gameweek found:', nextGameweek);
+              const deadlineTime = new Date(nextGameweek.deadline_time);
+              console.log('Deadline time:', deadlineTime);
+              
+              // Store gameweek data for later use
+              window.currentGameweek = nextGameweek;
+              
+              // Handle season display with FPL data
+              handleSeasonDisplay(deadlineTime, nextGameweek);
+              
+              // Start countdown timer
+              startCountdown(deadlineTime, nextGameweek);
+            } else {
+              console.log('No next gameweek found, using fallback date');
+              const fallbackDate = new Date('2025-08-15T17:30:00Z');
+              handleSeasonDisplay(fallbackDate);
+              startCountdown(fallbackDate);
+            }
+          })
+          .catch(error => {
+            console.error('FPL API fetch error:', error);
+            console.log('Using fallback date due to API error');
+            const fallbackDate = new Date('2025-08-15T17:30:00Z');
+            handleSeasonDisplay(fallbackDate);
+            startCountdown(fallbackDate);
+          });
+      }
+
+      function handleSeasonDisplay(seasonStartDate, gameweek = null) {
+        const currentDate = new Date();
+        const isSeasonStarted = currentDate >= seasonStartDate;
+        
+        console.log('Season start date (from FPL):', seasonStartDate);
+        console.log('Current date:', currentDate);
+        console.log('Is season started:', isSeasonStarted);
+        
+        if (isSeasonStarted) {
+          // Season has started - show leaderboard and winners, hide registration
+          document.querySelectorAll('.pre-season').forEach(el => el.style.display = 'none');
+          document.querySelectorAll('.during-season').forEach(el => el.style.display = 'block');
+          
+          // Update header message
+          const headerP = document.querySelector('header p');
+          if (headerP) {
+            headerP.textContent = 'Season 2025-26 - Live Updates';
+          }
+          
+          // Show gameweek countdown
+          if (gameweek) {
+            updateGameweekCountdown(gameweek);
+          }
+        } else {
+          // Season hasn't started - show registration prominently
+          document.querySelectorAll('.pre-season').forEach(el => el.style.display = 'block');
+          document.querySelectorAll('.during-season').forEach(el => el.style.display = 'none');
+          
+          // Update header message with countdown
+          updateCountdownDisplay(seasonStartDate);
+        }
+      }
+
+      function startCountdown(deadlineTime, gameweek = null) {
+        // Update countdown every second
+        setInterval(() => {
+          if (gameweek && new Date() >= deadlineTime) {
+            // Season has started, switch to gameweek mode
+            updateGameweekCountdown(gameweek);
+          } else {
+            updateCountdownDisplay(deadlineTime);
+          }
+        }, 1000);
+        
+        // Initial update
+        updateCountdownDisplay(deadlineTime);
+      }
+
+      function updateCountdownDisplay(deadlineTime) {
+        const currentDate = new Date();
+        const timeDifference = deadlineTime - currentDate;
+        
+        if (timeDifference <= 0) {
+          // Season has started
+          const headerP = document.querySelector('header p');
+          const countdownClock = document.getElementById('countdown-clock');
+          
+          if (headerP) {
+            headerP.textContent = 'Season 2025-26 - Live Updates';
+          }
+          
+          if (countdownClock) {
+            countdownClock.style.display = 'none';
+          }
+          return;
+        }
+        
+        // Calculate time components
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        
+        // Update digital clock
+        const countdownClock = document.getElementById('countdown-clock');
+        if (countdownClock) {
+          countdownClock.style.display = 'block';
+          
+          document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
+          document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+          document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
+        }
+        
+        // Format countdown text for header
+        let countdownText = 'Season 2025-26 - Registration Open (';
+        
+        if (days > 0) {
+          countdownText += `${days}d ${hours}h ${minutes}m until kickoff)`;
+        } else if (hours > 0) {
+          countdownText += `${hours}h ${minutes}m until kickoff)`;
+        } else if (minutes > 0) {
+          countdownText += `${minutes}m until kickoff)`;
+        } else {
+          countdownText += `Less than 1m until kickoff)`;
+        }
+        
+        // Update header text (cleaner version without countdown)
+        const headerP = document.querySelector('header p');
+        if (headerP) {
+          headerP.textContent = 'Season 2025-26 - Registration Open';
+        }
+      }
+
+      function updateGameweekCountdown(gameweek) {
+        const countdownClock = document.getElementById('countdown-clock');
+        const countdownLabel = document.getElementById('countdown-label');
+        
+        if (countdownClock && countdownLabel) {
+          countdownClock.style.display = 'block';
+          countdownLabel.textContent = `GW${gameweek.id} DEADLINE`;
+          
+          // Update the countdown display with gameweek deadline
+          const deadlineTime = new Date(gameweek.deadline_time);
+          const currentDate = new Date();
+          const timeDifference = deadlineTime - currentDate;
+          
+          if (timeDifference <= 0) {
+            // Deadline passed, show "Live" status
+            document.getElementById('countdown-days').textContent = 'LIVE';
+            document.getElementById('countdown-hours').textContent = '';
+            document.getElementById('countdown-minutes').textContent = '';
+            
+            // Hide separators
+            document.querySelectorAll('.countdown-separator').forEach(sep => sep.style.display = 'none');
+            document.querySelectorAll('.countdown-unit-label').forEach(label => label.style.display = 'none');
+          } else {
+            // Show countdown to deadline
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
+            
+            // Show separators and labels
+            document.querySelectorAll('.countdown-separator').forEach(sep => sep.style.display = 'inline');
+            document.querySelectorAll('.countdown-unit-label').forEach(label => label.style.display = 'block');
+          }
+        }
+      }
+
+      function isSeasonStarted() {
+        // This function is now handled by FPL API data
+        // Keeping for backward compatibility
+        const fallbackDate = new Date('2025-08-15T17:30:00Z');
+        const currentDate = new Date();
+        return currentDate >= fallbackDate;
+      }
+
+      function loadWinnerData() {
+        const winnerUrl = 'winner_stats.json?cache=' + new Date().getTime();
+        
+        fetch(winnerUrl)
+          .then(response => {
+            console.log('Winner fetch response:', response);
+            if (!response.ok) {
+              throw new Error('Winner data fetch failed');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Fetched winner_stats.json:', data);
+            displayWinnerPreview(data.winners);
+            
+            // Show last updated time for winners
+            const lastUpdated = new Date(data.lastUpdated);
+            const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const formattedDate = lastUpdated.toLocaleString('en-GB', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+              timeZone: userTimeZone
+            });
+            
+            document.getElementById('winner-last-updated').textContent =
+              `Last updated: ${formattedDate} (your local time)`;
+          })
+          .catch(error => {
+            console.error('Winner fetch error:', error);
+            document.getElementById('winner-table-container').innerHTML = 
+              '<div class="winner-error">Unable to load winner data. Please try again later.</div>';
+          });
+      }
+
+      function displayWinnerPreview(winners) {
+        if (!winners || winners.length === 0) {
+          document.getElementById('winner-preview-container').innerHTML = 
+            '<div class="winner-loading">No winner data available yet.</div>';
+          return;
+        }
+
+        // Sort winners by total prize won (descending)
+        const sortedWinners = winners.sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
+        
+        // Show top 6 winners in preview
+        const topWinners = sortedWinners.slice(0, 6);
+
+        const previewHTML = `
+          <div class="winner-preview">
+            ${topWinners.map((winner, index) => `
+              <div class="winner-card">
+                <div class="winner-rank">#${index + 1}</div>
+                <div class="winner-name">${winner.playerName}</div>
+                <div class="winner-prize">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</div>
+                <div class="winner-highlights">
+                  ${winner.highlights.gameWeeks > 0 ? 
+                    `<span class="highlight-badge gw">${winner.highlights.gameWeeks}GW</span>` : ''}
+                  ${winner.highlights.gameMonths > 0 ? 
+                    `<span class="highlight-badge gm">${winner.highlights.gameMonths}GM</span>` : ''}
+                  ${winner.highlights.overallRank ? 
+                    `<span class="highlight-badge">Rank ${winner.highlights.overallRank}</span>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        document.getElementById('winner-preview-container').innerHTML = previewHTML;
+        
+        // Show summary
+        const totalWinners = winners.length;
+        const totalPrizeMoney = winners.reduce((sum, winner) => sum + winner.totalPrizeWon, 0);
+        
+        document.getElementById('winner-summary').innerHTML = 
+          `Showing top 6 of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString('en-IN')}`;
+      }
     </script>
 </body>
 </html>
