@@ -113,14 +113,40 @@
           width: 100%;
           text-align: center;
         }
+        
+        /* Ensure consistent alignment across boxes */
+        .stat-box {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+        }
+        
+        .stat-icon {
+          height: 3rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 12px;
+        }
+        
+        .stat-title {
+          height: 1.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 8px;
+        }
+        
+        .stat-number {
+          height: 3rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 8px;
+        }
 .stat-icon {
   font-size: 2.5rem;
-  margin-bottom: 10px;
-  height: 2.5em;
-  line-height: 2.5em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: var(--primary-color);
 }
 
@@ -141,6 +167,17 @@
           color: #777;
           margin-top: 8px;
           font-style: italic;
+        }
+        
+        /* Shared last updated text that spans both boxes */
+        .stats-last-updated {
+          text-align: center;
+          font-size: 0.93rem;
+          color: #777;
+          font-style: italic;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          width: 100%;
         }
 
         /* Existing section styles for the rest of the content... */
@@ -183,7 +220,6 @@
                     </div>
                     <div class="stat-title">Total Registered Players</div>
                     <div id="player-count" class="stat-number">--</div>
-                    <div id="players-last-updated" class="stat-label">Fetching latest data...</div>
                 </div>
                 <!-- POT AMOUNT BOX -->
                 <div class="stat-box">
@@ -192,9 +228,10 @@
                     </div>
                     <div class="stat-title">Total Pot Amount</div>
                     <div id="pot-amount" class="stat-number">--</div>
-                    <div id="pot-last-updated" class="stat-label"></div>
                 </div>
             </div>
+            <!-- SHARED LAST UPDATED TEXT -->
+            <div id="stats-last-updated" class="stats-last-updated">Fetching latest data...</div>
 
             <section id="register">
                 <h2>Join the League!</h2>
@@ -254,7 +291,7 @@
             dateStyle: 'medium',
             timeStyle: 'short',
           });
-          document.getElementById('players-last-updated').textContent =
+          document.getElementById('stats-last-updated').textContent =
             `Last updated: ${formattedDate} (your local time)`;
       })
           .catch(error => {
