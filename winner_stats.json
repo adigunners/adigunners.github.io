@@ -1,148 +1,15 @@
 {
-  "lastUpdated": "2025-08-02T19:21:00.055Z",
+  "lastUpdated": "2025-08-02T19:27:14.674Z",
   "summary": {
-    "totalPrizeDistributed": 3900,
-    "totalPaid": 1800,
-    "totalPending": 2100,
-    "gameweekPrizes": 2200,
-    "monthlyPrizes": 1700,
-    "completedGameweeks": 3,
+    "totalPrizeDistributed": 0,
+    "totalPaid": 0,
+    "totalPending": 0,
+    "gameweekPrizes": 0,
+    "monthlyPrizes": 0,
+    "completedGameweeks": 0,
     "completedMonths": 0,
-    "totalWinners": 4,
+    "totalWinners": 0,
     "lastProcessedGW": 0
   },
-  "winners": [
-    {
-      "playerName": "Aditya Kumar",
-      "totalPrizeWon": 1800,
-      "totalPaid": 1500,
-      "totalPending": 300,
-      "prizeBreakdown": {
-        "gameweek": 800,
-        "monthly": 1000
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 0,
-        "overallRank": null
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 1,
-            "position": "1st",
-            "prize": 500,
-            "status": "Paid"
-          },
-          {
-            "week": 2,
-            "position": "2nd",
-            "prize": 300,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 2,
-        "second": 1
-      }
-    },
-    {
-      "playerName": "Rahul Sharma",
-      "totalPrizeWon": 1300,
-      "totalPaid": 300,
-      "totalPending": 1000,
-      "prizeBreakdown": {
-        "gameweek": 600,
-        "monthly": 700
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 0,
-        "overallRank": null
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 1,
-            "position": "2nd",
-            "prize": 300,
-            "status": "Paid"
-          },
-          {
-            "week": 3,
-            "position": "1st",
-            "prize": 300,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 2
-      }
-    },
-    {
-      "playerName": "Priya Patel",
-      "totalPrizeWon": 500,
-      "totalPaid": 0,
-      "totalPending": 500,
-      "prizeBreakdown": {
-        "gameweek": 500,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": null
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 2,
-            "position": "1st",
-            "prize": 500,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      }
-    },
-    {
-      "playerName": "Amit Singh",
-      "totalPrizeWon": 300,
-      "totalPaid": 0,
-      "totalPending": 300,
-      "prizeBreakdown": {
-        "gameweek": 300,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": null
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "1st",
-            "prize": 300,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      }
-    }
-  ]
+  "winners": []
 }
