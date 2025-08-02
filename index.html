@@ -783,65 +783,44 @@
       document.addEventListener('DOMContentLoaded', function() {
           // Load FPL season data first
           loadFPLSeasonData();
-          
-          // Your existing code for loading league stats...
-          
+
+          // Load league stats JSON and update UI
+          const url = 'league_stats.json?cache=' + new Date().getTime();
+          fetch(url)
+            .then(response => {
+              console.log('Fetch response:', response);
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              document.getElementById('player-count').textContent = data.playerCount;
+              document.getElementById('pot-amount').textContent = '₹' + Number(data.potAmount).toLocaleString('en-IN');
+
+              const lastUpdated = new Date(data.lastUpdated);
+              const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+              const formattedDate = lastUpdated.toLocaleString('en-GB', {
+                dateStyle: 'medium',
+                timeStyle: 'short',
+                timeZone: userTimeZone
+              });
+              document.getElementById('stats-last-updated').textContent =
+                `Last updated: ${formattedDate} (your local time)`;
+            })
+            .catch(error => {
+              console.error('Fetch error:', error);
+              document.getElementById('player-count').textContent = '--';
+              document.getElementById('pot-amount').textContent = '--';
+            });
+
+          // Load winner data (only if season has started)
+          if (isSeasonStarted()) {
+            loadWinnerData();
+          }
+
           // Add this at the end
           checkTestMode();
-      });
-        
-        // This will load data from your public GitHub Pages JSON
-        const url = 'league_stats.json?cache=' + new Date().getTime();
-
-        fetch(url)
-          .then(response => {
-            // This line prints details to the debug console!
-            console.log('Fetch response:', response);
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-           // Debug logs
-           console.log('Fetched league_stats.json:', data);
-
-          // Set the numbers
-          document.getElementById('player-count').textContent = data.playerCount;
-          document.getElementById('pot-amount').textContent = '₹' + Number(data.potAmount).toLocaleString('en-IN');
-
-          // Show last updated time
-          const lastUpdated = new Date(data.lastUpdated);
-          const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          
-          // Debug logging
-          console.log('Original timestamp from JSON:', data.lastUpdated);
-          console.log('Parsed Date object:', lastUpdated);
-          console.log('User timezone:', userTimeZone);
-          console.log('Current local time:', new Date().toLocaleString());
-          
-          const formattedDate = lastUpdated.toLocaleString('en-GB', {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-            timeZone: userTimeZone
-          });
-          
-          console.log('Formatted date:', formattedDate);
-          
-          document.getElementById('stats-last-updated').textContent =
-            `Last updated: ${formattedDate} (your local time)`;
-      })
-          .catch(error => {
-            // This prints errors to the debug console!
-            console.error('Fetch error:', error);
-            document.getElementById('player-count').textContent = '--';
-            document.getElementById('pot-amount').textContent = '--';
-          });
-
-        // Load winner data (only if season has started)
-        if (isSeasonStarted()) {
-          loadWinnerData();
-        }
       });
 
 
