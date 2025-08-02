@@ -690,13 +690,6 @@
           }
       }
 
-      // Call this when page loads
-      document.addEventListener('DOMContentLoaded', function() {
-          // Your existing code...
-          
-          // Add this at the end
-          checkTestMode();
-      });
 
       // Testing function to toggle season mode
       function toggleSeasonMode() {
@@ -851,38 +844,6 @@
         }
       });
 
-      function handleSeasonDisplay() {
-        const seasonStartDate = new Date('2025-08-15T00:00:00');
-        const currentDate = new Date();
-        const isSeasonStarted = currentDate >= seasonStartDate;
-        
-        console.log('Season start date:', seasonStartDate);
-        console.log('Current date:', currentDate);
-        console.log('Is season started:', isSeasonStarted);
-        
-        if (isSeasonStarted) {
-          // Season has started - show leaderboard and winners, hide registration
-          document.querySelectorAll('.pre-season').forEach(el => el.style.display = 'none');
-          document.querySelectorAll('.during-season').forEach(el => el.style.display = 'block');
-          
-          // Update header message
-          const headerP = document.querySelector('header p');
-          if (headerP) {
-            headerP.textContent = 'Season 2025-26 - Live Updates';
-          }
-        } else {
-          // Season hasn't started - show registration prominently
-          document.querySelectorAll('.pre-season').forEach(el => el.style.display = 'block');
-          document.querySelectorAll('.during-season').forEach(el => el.style.display = 'none');
-          
-          // Update header message
-          const headerP = document.querySelector('header p');
-          if (headerP) {
-            const daysUntilSeason = Math.ceil((seasonStartDate - currentDate) / (1000 * 60 * 60 * 24));
-            headerP.textContent = `Season 2025-26 - Registration Open (${daysUntilSeason} days until kickoff)`;
-          }
-        }
-      }
 
       function loadFPLSeasonData() {
         const fplApiUrl = 'https://fantasy.premierleague.com/api/bootstrap-static/';
@@ -1025,10 +986,10 @@
           countdownText += `Less than 1m until kickoff)`;
         }
         
-        // Update header text (cleaner version without countdown)
+        // Update header text with live countdown
         const headerP = document.querySelector('header p');
         if (headerP) {
-          headerP.textContent = 'Season 2025-26 - Registration Open';
+          headerP.textContent = countdownText;
         }
       }
 
