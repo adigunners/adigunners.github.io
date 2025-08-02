@@ -598,7 +598,7 @@
 
             <!-- WINNER SCORECARD SECTION (During Season) -->
             <section class="winner-scorecard season-section during-season" style="display: none;">
-                <h2>🏆 Top Earners So Far...</h2>
+                <h2>🏆 Top earners so far...</h2>
                 <p>Leading players and their prize money achievements this season.</p>
                 
                 <div id="winner-preview-container">
@@ -616,29 +616,7 @@
                 <div id="winner-last-updated" class="stats-last-updated">Fetching latest winner data...</div>
             </section>
 
-            <!-- TESTING SECTION - Remove this after testing -->
-            <section class="winner-scorecard" style="margin-top: 20px; border: 2px dashed #ff6b6b;">
-                <h2>🧪 Testing Mode - Top Earners So Far...</h2>
-                <p><em>This section is visible for testing purposes only. It will be hidden during actual season.</em></p>
-                
-                <div id="test-winner-preview-container">
-                    <div class="winner-loading">Loading test winner data...</div>
-                </div>
-                
-                <div class="winner-summary" id="test-winner-summary"></div>
-                
-                <div style="text-align: center;">
-                    <a href="winners.html" class="view-all-winners">
-                        <i class="fas fa-trophy"></i> View Complete Winner Scorecard
-                    </a>
-                </div>
-                
-                <div style="text-align: center; margin-top: 15px;">
-                    <button onclick="toggleSeasonMode()" style="background: #ff6b6b; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
-                        🎭 Toggle Season Mode (Testing)
-                    </button>
-                </div>
-            </section>
+
 
             <!-- LEADERBOARD SECTION (During Season) -->
             <section id="leaderboard" class="season-section during-season" style="display: none;">
@@ -730,99 +708,7 @@
         if (isSeasonStarted()) {
           loadWinnerData();
         }
-
-        // Load test winner data for preview
-        loadTestWinnerData();
       });
-
-      // Testing function to toggle season mode
-      function toggleSeasonMode() {
-        const preSeasonElements = document.querySelectorAll('.pre-season');
-        const duringSeasonElements = document.querySelectorAll('.during-season');
-        const headerP = document.querySelector('header p');
-        
-        // Toggle visibility
-        preSeasonElements.forEach(el => {
-          el.style.display = el.style.display === 'none' ? 'block' : 'none';
-        });
-        
-        duringSeasonElements.forEach(el => {
-          el.style.display = el.style.display === 'none' ? 'block' : 'none';
-        });
-        
-        // Toggle header text
-        if (headerP) {
-          if (headerP.textContent.includes('Registration Open')) {
-            headerP.textContent = 'Season 2025-26 - Live Updates (Testing Mode)';
-          } else {
-            headerP.textContent = 'Season 2025-26 - Registration Open (Testing Mode)';
-          }
-        }
-      }
-
-      function loadTestWinnerData() {
-        // Use the same winner_stats.json file for testing
-        const winnerUrl = 'winner_stats.json?cache=' + new Date().getTime();
-        
-        fetch(winnerUrl)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Test winner data fetch failed');
-            }
-            return response.json();
-          })
-          .then(data => {
-            displayTestWinnerTable(data.winners);
-          })
-          .catch(error => {
-            console.error('Test winner fetch error:', error);
-            document.getElementById('test-winner-preview-container').innerHTML = 
-              '<div class="winner-error">Unable to load test winner data. Please try again later.</div>';
-          });
-      }
-
-      function displayTestWinnerTable(winners) {
-        if (!winners || winners.length === 0) {
-          document.getElementById('test-winner-preview-container').innerHTML = 
-            '<div class="winner-loading">No test winner data available yet.</div>';
-          return;
-        }
-
-        // Sort winners by total prize won (descending)
-        const sortedWinners = winners.sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
-        
-        // Show top 6 winners in preview
-        const topWinners = sortedWinners.slice(0, 6);
-
-        const previewHTML = `
-          <div class="winner-preview">
-            ${topWinners.map((winner, index) => `
-              <div class="winner-card">
-                <div class="winner-rank">#${index + 1}</div>
-                <div class="winner-name">${winner.playerName}</div>
-                <div class="winner-prize">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</div>
-                <div class="winner-highlights">
-                  ${winner.highlights.gameWeeks > 0 ? 
-                    `<span class="highlight-badge gw">${winner.highlights.gameWeeks}GW</span>` : ''}
-                  ${winner.highlights.gameMonths > 0 ? 
-                    `<span class="highlight-badge gm">${winner.highlights.gameMonths}GM</span>` : ''}
-                  ${winner.highlights.overallRank ? 
-                    `<span class="highlight-badge">Rank ${winner.highlights.overallRank}</span>` : ''}
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-
-        document.getElementById('test-winner-preview-container').innerHTML = previewHTML;
-        
-        // Show summary
-        const totalWinners = winners.length;
-        const totalPrizeMoney = winners.reduce((sum, winner) => sum + winner.totalPrizeWon, 0);
-        
-        document.getElementById('test-winner-summary').innerHTML = 
-          `Showing top 6 of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString('en-IN')}`;
-      }
 
       function handleSeasonDisplay() {
         const seasonStartDate = new Date('2025-08-15T00:00:00');
