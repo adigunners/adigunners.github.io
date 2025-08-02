@@ -453,15 +453,21 @@
           .stats-row { gap: 14px; }
         }
         @media (max-width: 600px){
+          header {
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            padding: 20px;
+          }
           .stats-row {
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
           }
           .stat-box {
             min-width: unset;
             max-width: unset;
             width: 100%;
-            padding: 20px 10px 16px 10px;
+            padding: 12px 8px;
           }
           header h1 { font-size:1.8rem }
           section {padding:20px}
@@ -500,11 +506,6 @@
           }
           
           /* Mobile countdown clock */
-          header {
-            flex-direction: column;
-            text-align: center;
-          }
-          
           .header-main {
             flex: none;
             width: 100%;
@@ -898,7 +899,12 @@
           document.querySelectorAll('.pre-season').forEach(el => el.style.display = 'block');
           document.querySelectorAll('.during-season').forEach(el => el.style.display = 'none');
           
-          // Update header message with countdown
+          // Set header message without countdown
+          const headerP = document.querySelector('header p');
+          if (headerP) {
+            headerP.textContent = 'Season 2025-26 - Registration Open';
+          }
+          // Update only the digital countdown clock
           updateCountdownDisplay(seasonStartDate);
         }
       }
@@ -951,25 +957,7 @@
           document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
           document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
         }
-        
-        // Format countdown text for header
-        let countdownText = 'Season 2025-26 - Registration Open (';
-        
-        if (days > 0) {
-          countdownText += `${days}d ${hours}h ${minutes}m until kickoff)`;
-        } else if (hours > 0) {
-          countdownText += `${hours}h ${minutes}m until kickoff)`;
-        } else if (minutes > 0) {
-          countdownText += `${minutes}m until kickoff)`;
-        } else {
-          countdownText += `Less than 1m until kickoff)`;
-        }
-        
-        // Update header text with live countdown
-        const headerP = document.querySelector('header p');
-        if (headerP) {
-          headerP.textContent = countdownText;
-        }
+        // No header countdown formatting here; header text is set in handleSeasonDisplay.
       }
 
       function updateGameweekCountdown(gameweek) {
