@@ -17,7 +17,8 @@
           --background-color:#f0f2f5;
           --card-background:#fff;
           --text-color:#333;
-          --heading-color:#5d2163
+          --heading-color:#5d2163;
+          --border-radius: 12px; /*for rounded corners*/
         }
         body{
           font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
@@ -37,7 +38,7 @@
           background:linear-gradient(135deg,var(--primary-color),var(--heading-color));
           color:#fff;
           padding:40px 40px 40px 20px;
-          border-radius:12px;
+          border-radius:var(--border-radius);
           box-shadow:0 8px 20px rgba(0,0,0,.15);
           margin-bottom:30px;
           display: flex;
@@ -68,7 +69,7 @@
           flex: 0 0 18%;
           background: rgba(255, 255, 255, 0.15);
           backdrop-filter: blur(10px);
-          border-radius: 12px;
+          border-radius: var(--border-radius);
           padding: 15px 8px;
           border: 2px solid rgba(0, 255, 133, 0.3);
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 133, 0.2);
@@ -120,7 +121,7 @@
           line-height: 1.1;
           white-space: nowrap;
           background: rgba(0, 0, 0, 0.2);
-          border-radius: 6px;
+          border-radius: var(--border-radius);
           padding: 4px 6px;
           margin-top: 5px;
         }
@@ -153,7 +154,7 @@
           background-color:var(--card-background);
           padding:30px;
           margin-bottom:20px;
-          border-radius:8px;
+          border-radius:var(--border-radius);
           box-shadow:0 4px 15px rgba(0,0,0,.08)
         }
         h2{
@@ -170,7 +171,7 @@
           padding:12px 25px;
           text-decoration:none;
           font-weight:600;
-          border-radius:5px;
+          border-radius:var(--border-radius);
           margin-top:10px;
           transition:transform .2s ease,box-shadow .2s ease
         }
@@ -198,7 +199,7 @@
           min-width: 0;
           max-width: none;
           background: var(--card-background);
-          border-radius: 8px;
+          border-radius: var(--border-radius);
           box-shadow: 0 4px 15px rgba(0,0,0,0.08);
           padding: 28px 20px 22px 20px;
           display: flex;
@@ -279,7 +280,7 @@
         /* Winner Scorecard Styles */
         .winner-scorecard {
           background: var(--card-background);
-          border-radius: 8px;
+          border-radius: var(--border-radius);
           box-shadow: 0 4px 15px rgba(0,0,0,0.08);
           padding: 30px;
           margin-bottom: 20px;
@@ -294,7 +295,7 @@
 
         .winner-card {
           background: white;
-          border-radius: 8px;
+          border-radius: var(--border-radius);
           padding: 20px;
           box-shadow: 0 2px 10px rgba(0,0,0,0.05);
           border-left: 4px solid var(--secondary-color);
@@ -342,7 +343,7 @@
           border-collapse: collapse;
           margin-top: 20px;
           background: white;
-          border-radius: 8px;
+          border-radius: var(--border-radius);
           overflow: hidden;
           box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
@@ -389,7 +390,7 @@
 
         .highlight-badge {
           padding: 4px 8px;
-          border-radius: 12px;
+          border-radius: var(--border-radius);
           font-size: 0.75rem;
           font-weight: 600;
           white-space: nowrap;
@@ -417,7 +418,7 @@
           padding: 40px;
           color: #d32f2f;
           background: #ffebee;
-          border-radius: 8px;
+          border-radius: var(--border-radius);
           margin-top: 20px;
         }
 
@@ -428,7 +429,7 @@
           padding: 12px 25px;
           text-decoration: none;
           font-weight: 600;
-          border-radius: 5px;
+          border-radius: var(--border-radius);
           margin-top: 20px;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
           text-align: center;
@@ -469,12 +470,16 @@
             padding: 20px;
           }
           header h1 {
-            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            font-size: clamp(1.2rem, 5vw, 2rem);
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
           header p {
-            font-size: clamp(1rem, 4vw, 1.2rem);
+            font-size: clamp(0.9rem, 3.5vw, 1.1rem);
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
           section {padding:20px}
           h2{font-size:1.5rem}
@@ -643,7 +648,7 @@
             </div>
             
             <div style="text-align: center; margin-top: 15px;">
-                <button onclick="toggleSeasonMode()" style="background: #ff6b6b; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+                <button onclick="toggleSeasonMode()" style="background: #ff6b6b; color: white; border: none; padding: 8px 16px; border-radius: var(--border-radius); cursor: pointer;">
                     🎭 Toggle Season Mode (Testing)
                 </button>
             </div>
