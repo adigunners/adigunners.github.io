@@ -193,6 +193,8 @@
           gap: 24px;
           justify-content: center;
           margin-bottom: 20px;
+          width: 100%;
+          box-sizing: border-box;
         }
         .stat-box {
           flex: 1 1 0;
@@ -213,14 +215,15 @@
         #stats-last-updated {
           background: transparent;
           box-shadow: none;
-          padding: 20px;
-          margin: 0 0 20px;
+          padding: 12px 10px; /* Reduced from 20px */
+          margin: 0 0 16px; /* Reduced from 20px */
           text-align: center;
           color: var(--text-color);
           font-style: italic;
-          white-space: nowrap; /* Add this */
-          overflow: hidden; /* Add this */
-          text-overflow: ellipsis; /* Add this */
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 0.85rem; /* Slightly smaller */
         }
         .stat-icon, .stat-title, .stat-number, .stat-label {
           width: 100%;
@@ -457,18 +460,21 @@
         }
         @media (max-width: 600px){
           .container {
-            padding: 0 12px; /* Consistent side padding */
-          }
-          main > * {
             width: 100%;
             max-width: 100%;
+            padding: 0 16px;
             box-sizing: border-box;
-            margin-left: 0;
-            margin-right: 0;
-            margin-bottom: 16px; /* Equal spacing between all main elements */
+          }
+            /* Apply consistent width to all main children */
+          main {
+            width: 100%;
+          }
+          /* Consistent spacing between all elements */
+          main > * {
+            margin-bottom: 16px;
           }
           main > *:last-child {
-            margin-bottom: 0; /* Remove margin from last element */
+            margin-bottom: 0;
           }
           header {
             flex-direction: column;
@@ -479,15 +485,15 @@
           }
         /* Mobile styles */
           .stats-row {
+            display: flex;
             flex-direction: column;
-            gap: 16px; /* Equal gap between stat boxes */
-            margin-bottom: 16px;
+            gap: 16px;
+            padding: 0;
           }
           .stat-box {
-            flex: 0 0 auto;
             width: 100%;
-            padding: 20px 16px; /* Good internal padding */
-            max-width: 100%; /* To ensure full width */
+            margin: 0;
+            box-sizing: border-box;
           }
           header h1 {
             font-size: clamp(1.2rem, 5vw, 2rem);
@@ -502,17 +508,21 @@
             text-overflow: ellipsis;
           }
           section {
-            padding: 20px 16px; /* Consistent section padding */
-            margin-bottom: 16px; /* Equal spacing */
-            width: 100%; /* Add this */
-            box-sizing: border-box; /* Add this */
+            width: calc(100% - 0px); /* Full width minus nothing */
+            max-width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            box-sizing: border-box;
           }
-          h2{font-size:1.5rem}
+          h2 {
+            font-size:1.5rem
+          }
+          /* Minimal height for last updated */
           #stats-last-updated {
-            font-size: clamp(0.75rem, 3vw, 0.93rem); /* Dynamic font size */
-            padding: 15px 10px; /* Reduce padding on mobile */
+            padding: 8px 10px;
+            margin-bottom: 12px;
+            min-height: auto; /* Remove any minimum height */
           }
-          
           /* Winner scorecard mobile styles */
           .winner-scorecard {
             padding: 20px;
