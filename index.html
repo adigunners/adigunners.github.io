@@ -197,7 +197,7 @@
         .stat-box {
           flex: 1 1 0;
           min-width: 0;
-          max-width: none;
+          /*max-width: none;*/
           background: var(--card-background);
           border-radius: var(--border-radius);
           box-shadow: 0 4px 15px rgba(0,0,0,0.08);
@@ -218,6 +218,9 @@
           text-align: center;
           color: var(--text-color);
           font-style: italic;
+          white-space: nowrap; /* Add this */
+          overflow: hidden; /* Add this */
+          text-overflow: ellipsis; /* Add this */
         }
         .stat-icon, .stat-title, .stat-number, .stat-label {
           width: 100%;
@@ -252,10 +255,10 @@
           justify-content: center;
           margin-bottom: 8px;
         }
-.stat-icon {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-}
+        .stat-icon {
+          font-size: 2.5rem;
+          color: var(--primary-color);
+        }
 
         .stat-title {
           font-weight: 700;
@@ -453,21 +456,38 @@
           .stats-row { gap: 14px; }
         }
         @media (max-width: 600px){
+          .container {
+            padding: 0 12px; /* Consistent side padding */
+          }
+          main > * {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin-left: 0;
+            margin-right: 0;
+            margin-bottom: 16px; /* Equal spacing between all main elements */
+          }
+          main > *:last-child {
+            margin-bottom: 0; /* Remove margin from last element */
+          }
           header {
             flex-direction: column;
             text-align: center;
             align-items: center;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 24px 16px; /* Adequate padding */
+            margin-bottom: 16px; /* Consistent spacing */
           }
+        /* Mobile styles */
           .stats-row {
             flex-direction: column;
-            gap: 8px;
+            gap: 16px; /* Equal gap between stat boxes */
+            margin-bottom: 16px;
           }
           .stat-box {
             flex: 0 0 auto;
             width: 100%;
-            padding: 20px;
+            padding: 20px 16px; /* Good internal padding */
+            max-width: 100%; /* To ensure full width */
           }
           header h1 {
             font-size: clamp(1.2rem, 5vw, 2rem);
@@ -481,8 +501,17 @@
             overflow: hidden;
             text-overflow: ellipsis;
           }
-          section {padding:20px}
+          section {
+            padding: 20px 16px; /* Consistent section padding */
+            margin-bottom: 16px; /* Equal spacing */
+            width: 100%; /* Add this */
+            box-sizing: border-box; /* Add this */
+          }
           h2{font-size:1.5rem}
+          #stats-last-updated {
+            font-size: clamp(0.75rem, 3vw, 0.93rem); /* Dynamic font size */
+            padding: 15px 10px; /* Reduce padding on mobile */
+          }
           
           /* Winner scorecard mobile styles */
           .winner-scorecard {
@@ -527,8 +556,9 @@
             flex: none;
             width: 100%;
             max-width: 280px;
-            margin: 0 auto;
+            margin: 0 auto 0 auto; /* Remove extra margin */
             padding: 12px 15px;
+            border-radius: var(--border-radius); /* Use consistent radius */
           }
           
           .countdown-time {
