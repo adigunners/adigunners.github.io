@@ -1022,11 +1022,6 @@
             document.getElementById("pot-amount").textContent = "--";
           });
 
-        // Load winner data (only if season has started)
-        if (isSeasonStarted()) {
-          loadWinnerData();
-        }
-
         // Add this at the end
         checkTestMode();
       });
@@ -1102,6 +1097,9 @@
           if (headerP) {
             headerP.textContent = "Season 2025-26 - Live Updates";
           }
+
+          // Load winner data now that the season has started
+          loadWinnerData();
 
           // Show gameweek countdown
           if (gameweek) {
@@ -1241,14 +1239,6 @@
               .forEach((label) => (label.style.display = "block"));
           }
         }
-      }
-
-      function isSeasonStarted() {
-        // This function is now handled by FPL API data
-        // Keeping for backward compatibility
-        const fallbackDate = new Date("2025-08-15T17:30:00Z");
-        const currentDate = new Date();
-        return currentDate >= fallbackDate;
       }
 
       function loadWinnerData() {
