@@ -854,9 +854,10 @@
           // Show summary
           const totalWinners = winners.length;
           const totalPrizeMoney = winners.reduce((sum, winner) => sum + winner.totalPrizeWon, 0);
-          
-          document.getElementById('test-winner-summary').innerHTML = 
-              `Showing top 6 of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString('en-IN')}`;
+          const displayCount = Math.min(6, totalWinners);
+
+          document.getElementById('test-winner-summary').innerHTML =
+              `Showing top ${displayCount} of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString('en-IN')}`;
       }
 
       document.addEventListener('DOMContentLoaded', function() {
@@ -1155,9 +1156,10 @@
         // Show summary
         const totalWinners = winners.length;
         const totalPrizeMoney = winners.reduce((sum, winner) => sum + winner.totalPrizeWon, 0);
-        
-        document.getElementById('winner-summary').innerHTML = 
-          `Showing top 6 of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString('en-IN')}`;
+        const displayCount = Math.min(6, totalWinners);
+
+        document.getElementById('winner-summary').innerHTML =
+          `Showing top ${displayCount} of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString('en-IN')}`;
       }
 
       function adjustForZFold() {
