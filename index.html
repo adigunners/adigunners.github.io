@@ -52,16 +52,14 @@
           min-width: 0; /* Prevent overflow */
           text-align: center;
         }
+        /* Base styles - should still have these */
         header h1 {
           margin: 0;
-          font-size: clamp(1rem, 6vw, 2.5rem);
+          font-size: clamp(1.2rem, 5vw, 2.5rem);
           font-weight: 700;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          /* Add fallback for extremely narrow screens */
-          min-width: 0;
-          max-width: 100%;
         }
         header p{
           margin:5px 0 0;
@@ -599,6 +597,12 @@
             align-items: center;
             padding: 24px 16px; /* Adequate padding */
             margin-bottom: 16px; /* Consistent spacing */
+          }
+          header h1 {
+            font-size: clamp(1rem, 6vw, 1.8rem);
+            white-space: nowrap; /* Keep on one line */
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         /* Mobile styles */
           .stats-row {
@@ -1254,15 +1258,20 @@
           `Showing top 6 of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString('en-IN')}`;
       }
 
-      // Add this to your JavaScript
       function adjustForZFold() {
         const width = window.innerWidth;
         const h1 = document.querySelector('header h1');
         
         if (width <= 360 && h1) {
-          h1.innerHTML = '🏆 IIM M Fantasy League 🏆'; // Shortened version
-        } else {
+          // Only change for ultra-narrow screens
+          h1.innerHTML = '🏆 IIMB Fantasy League 🏆'; // Shortened version
+        } else if (h1) {
+          // Restore original for all other screens
           h1.innerHTML = '🏆 IIM Mumbai Fantasy League 🏆'; // Full version
+          h1.style.fontSize = ''; // Clear any inline styles
+          h1.style.whiteSpace = ''; // Clear any inline styles
+          h1.style.overflow = ''; // Clear any inline styles
+          h1.style.textOverflow = ''; // Clear any inline styles
         }
       }
 
