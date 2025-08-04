@@ -11,713 +11,618 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        :root{
-          --primary-color:#37003c;
-          --secondary-color:#00ff85;
-          --background-color:#f0f2f5;
-          --card-background:#fff;
-          --text-color:#333;
-          --heading-color:#5d2163;
-          --border-radius: 12px; /*for rounded corners*/
-        }
-        body{
-          font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-          line-height:1.7;
-          margin:0;
-          background-color:var(--background-color);
-          color:var(--text-color)
-        }
-        .container {
-          width: 100%;
-          max-width: 1000px;
-          margin: 20px auto;
-          padding: 0 16px;
-          background-color: transparent;
-        }
-        header {
-          background: linear-gradient(135deg,var(--primary-color),var(--heading-color));
-          color: #fff;
-          padding: 40px 20px;
-          border-radius: var(--border-radius);
-          box-shadow: 0 8px 20px rgba(0,0,0,.15);
-          margin-bottom: 30px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 20px; /* Add gap between elements */
-          flex-wrap: wrap; /* Allow wrapping on smaller screens */
-        }
-        .header-main {
-          flex: 1 1 auto; /* Change from fixed percentage */
-          min-width: 0; /* Prevent overflow */
-          text-align: center;
-        }
-        /* Base styles - should still have these */
-        header h1 {
-          margin: 0;
-          font-size: clamp(1.2rem, 5vw, 2.5rem);
-          font-weight: 700;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        header p{
-          margin:5px 0 0;
-          font-size: clamp(0.8rem, 3vw, 1.1rem); /* Dynamic sizing for ALL screens */
-          opacity:.9;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+        /* =============== CSS VARIABLES =============== */
+        :root {
+            --primary-color: #37003c;
+            --secondary-color: #00ff85;
+            --background-color: #f0f2f5;
+            --card-background: #fff;
+            --text-color: #333;
+            --heading-color: #5d2163;
+            --border-radius: 12px;
         }
 
-        /* Digital Countdown Clock */
+        /* =============== RESET & BASE STYLES =============== */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        /* =============== CONTAINER =============== */
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 16px;
+            background-color: transparent;
+        }
+
+        /* =============== HEADER STYLES =============== */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+            color: #fff;
+            padding: 40px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 20px rgba(0,0,0,.15);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header-main {
+            flex: 1 1 auto;
+            min-width: 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: clamp(1rem, 4vw, 2.5rem);
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: clamp(0.8rem, 3vw, 1.1rem);
+            opacity: .9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* =============== COUNTDOWN CLOCK =============== */
         .countdown-clock {
-          flex: 0 0 auto; /* Don't grow or shrink */
-          max-width: 300px; /* Set maximum width */
-          width: auto; /* Let content determine width */
-          background: rgba(255, 255, 255, 0.15);
-          backdrop-filter: blur(10px);
-          border-radius: var(--border-radius);
-          padding: 15px 20px; /* More horizontal padding */
-          border: 2px solid rgba(0, 255, 133, 0.3);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 133, 0.2);
-          text-align: center;
-          animation: pulseBorder 3s infinite;
+            flex: 0 0 auto;
+            max-width: 300px;
+            width: auto;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 15px 20px;
+            border: 2px solid rgba(0, 255, 133, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 133, 0.2);
+            text-align: center;
+            animation: pulseBorder 3s infinite;
         }
 
         @keyframes pulseBorder {
-          0%, 100% { 
-            border-color: rgba(0, 255, 133, 0.3);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 133, 0.2);
-          }
-          50% { 
-            border-color: rgba(0, 255, 133, 0.6);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 255, 133, 0.4);
-          }
+            0%, 100% { 
+                border-color: rgba(0, 255, 133, 0.3);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 133, 0.2);
+            }
+            50% { 
+                border-color: rgba(0, 255, 133, 0.6);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 255, 133, 0.4);
+            }
         }
 
         .countdown-label {
-          font-size: 1rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 1.5px;
-          margin-bottom: 8px;
-          opacity: 0.9;
-          animation: flash 2s infinite;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+            animation: flash 2s infinite;
         }
 
         @keyframes flash {
-          0%, 50% { 
-            opacity: 1;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-          }
-          25%, 75% { 
-            opacity: 0.7;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
-          }
+            0%, 50% { 
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            }
+            25%, 75% { 
+                opacity: 0.7;
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+            }
         }
 
         .countdown-time {
-          font-family: 'Courier New', monospace;
-          font-size: 0.85rem;
-          font-weight: 700;
-          letter-spacing: 0.3px;
-          color: var(--secondary-color);
-          text-shadow: 0 0 8px rgba(0, 255, 133, 0.4);
-          line-height: 1.1;
-          white-space: nowrap;
-          background: rgba(0, 0, 0, 0.2);
-          border-radius: var(--border-radius);
-          padding: 4px 6px;
-          margin-top: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: var(--secondary-color);
+            text-shadow: 0 0 8px rgba(0, 255, 133, 0.4);
+            line-height: 1.1;
+            white-space: nowrap;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            padding: 4px 6px;
+            margin-top: 5px;
         }
 
         .countdown-separator {
-          animation: pulse 1s infinite;
+            animation: pulse 1s infinite;
         }
 
         @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .countdown-unit {
-          display: inline-block;
-          min-width: 14px;
-          text-align: center;
+            display: inline-block;
+            min-width: 14px;
+            text-align: center;
         }
 
         .countdown-unit-label {
-          font-size: 0.55rem;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.1px;
-          opacity: 0.9;
-          margin-left: 0.5px;
+            font-size: 0.55rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1px;
+            opacity: 0.9;
+            margin-left: 0.5px;
         }
-        main{padding:0}
-        section{
-          background-color:var(--card-background);
-          padding:30px;
-          margin-bottom:20px;
-          border-radius:var(--border-radius);
-          box-shadow:0 4px 15px rgba(0,0,0,.08)
+
+        /* =============== MAIN CONTENT =============== */
+        main {
+            padding: 0;
         }
-        h2{
-          color:var(--heading-color);
-          border-bottom:2px solid #f0f2f5;
-          padding-bottom:10px;
-          margin-top:0;
-          font-size:1.8rem
+
+        main > * {
+            margin-bottom: 20px;
         }
-        .cta-button{
-          display:inline-block;
-          background-color:var(--secondary-color);
-          color:var(--primary-color);
-          padding:12px 25px;
-          text-decoration:none;
-          font-weight:600;
-          border-radius:var(--border-radius);
-          margin-top:10px;
-          transition:transform .2s ease,box-shadow .2s ease
+
+        main > *:last-child {
+            margin-bottom: 0;
         }
-        .cta-button:hover{
-          transform:translateY(-3px);
-          box-shadow:0 6px 12px rgba(0,255,133,.3)
+
+        /* =============== SECTIONS =============== */
+        section {
+            background-color: var(--card-background);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
+            width: 100%;
         }
-        footer{
-          text-align:center;
-          font-size:.8rem;
-          color:#888;
-          padding:20px
+
+        h2 {
+            color: var(--heading-color);
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.8rem;
         }
-        
-        /* --- New Stats Row for player and pot --- */
+
+        /* =============== STATS ROW =============== */
         .stats-row {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 24px;
-          justify-content: center;
-          margin-bottom: 20px;
-          width: 100%;
-          box-sizing: border-box;
-        }
-        .stat-box {
-          flex: 1 1 0;
-          min-width: 0;
-          /*max-width: none;*/
-          background: var(--card-background);
-          border-radius: var(--border-radius);
-          box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-          padding: 28px 20px 22px 20px;
-          display: flex;
-          flex-direction: column;
-          align-items: stretch;
-          justify-content: center;
-          text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 20px;
+            width: 100%;
         }
 
-        /* Style "Last updated" line as transparent, centered */
+        .stat-box {
+            flex: 1 1 0;
+            min-width: 220px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 28px 20px 22px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .stat-title {
+            font-weight: 700;
+            font-size: 1.35rem;
+            color: var(--heading-color);
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        /* =============== LAST UPDATED =============== */
         #stats-last-updated {
-          background: transparent;
-          box-shadow: none;
-          padding: 12px 10px; /* Reduced from 20px */
-          margin: 0 0 16px; /* Reduced from 20px */
-          text-align: center;
-          color: var(--text-color);
-          font-style: italic;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          font-size: 0.85rem; /* Slightly smaller */
-        }
-        .stat-icon, .stat-title, .stat-number, .stat-label {
-          width: 100%;
-          text-align: center;
-        }
-        
-        /* Ensure consistent alignment across boxes */
-        .stat-box {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: flex-start;
-        }
-        
-        .stat-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 12px;
-        }
-        
-        .stat-title {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 8px;
-        }
-        
-        .stat-number {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 8px;
-        }
-        .stat-icon {
-          font-size: 2.5rem;
-          color: var(--primary-color);
+            background: transparent;
+            box-shadow: none;
+            padding: 12px 10px;
+            margin: 0 0 16px;
+            text-align: center;
+            color: var(--text-color);
+            font-style: italic;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .stat-title {
-          font-weight: 700;
-          font-size: 1.35rem;
-          color: var(--heading-color);
-          margin-bottom: 8px;
+        /* =============== BUTTONS =============== */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 12px 25px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: transform .2s ease, box-shadow .2s ease;
         }
-        .stat-number {
-          font-weight: 700;
-          font-size: 2.5rem;
-          color: var(--primary-color);
-          letter-spacing: 1px;
-        }
-        .stat-label {
-          font-size: 0.93rem;
-          color: #777;
-          margin-top: 8px;
-          font-style: italic;
-        }
-        
 
-        /* Winner Scorecard Styles */
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,255,133,.3);
+        }
+
+        /* =============== WINNER STYLES =============== */
         .winner-scorecard {
-          background: var(--card-background);
-          border-radius: var(--border-radius);
-          box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-          padding: 30px;
-          margin-bottom: 20px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 30px;
+            margin-bottom: 20px;
         }
 
         .winner-preview {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 20px;
-          margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
         .winner-card {
-          background: white;
-          border-radius: var(--border-radius);
-          padding: 20px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-          border-left: 4px solid var(--secondary-color);
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .winner-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .winner-rank {
-          font-size: 1.2rem;
-          font-weight: 700;
-          color: var(--primary-color);
-          margin-bottom: 8px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
         }
 
         .winner-name {
-          font-size: 1.1rem;
-          font-weight: 600;
-          color: var(--heading-color);
-          margin-bottom: 12px;
-          line-height: 1.3;
-          word-wrap: break-word;
-          overflow-wrap: break-word;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--heading-color);
+            margin-bottom: 12px;
+            line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .winner-prize {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: var(--primary-color);
-          margin-bottom: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 12px;
         }
 
         .winner-highlights {
-          display: flex;
-          gap: 6px;
-          flex-wrap: wrap;
-          margin-bottom: 15px;
-        }
-
-        .winner-table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-top: 20px;
-          background: white;
-          border-radius: var(--border-radius);
-          overflow: hidden;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .winner-table th {
-          background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
-          color: white;
-          padding: 15px 12px;
-          text-align: left;
-          font-weight: 600;
-          font-size: 0.95rem;
-        }
-
-        .winner-table td {
-          padding: 15px 12px;
-          border-bottom: 1px solid #f0f2f5;
-          font-size: 0.9rem;
-        }
-
-        .winner-table tr:hover {
-          background-color: #f8f9fa;
-        }
-
-        .winner-table tr:last-child td {
-          border-bottom: none;
-        }
-
-        .player-name {
-          font-weight: 600;
-          color: var(--heading-color);
-        }
-
-        .prize-amount {
-          font-weight: 700;
-          color: var(--primary-color);
-          font-size: 1.1rem;
-        }
-
-        .highlights {
-          display: flex;
-          gap: 8px;
-          flex-wrap: wrap;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
         .highlight-badge {
-          padding: 4px 8px;
-          border-radius: var(--border-radius);
-          font-size: 0.75rem;
-          font-weight: 600;
-          white-space: nowrap;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
         .highlight-badge.gw {
-          background: var(--secondary-color);
-          color: var(--primary-color);
+            background: var(--secondary-color);
+            color: var(--primary-color);
         }
 
         .highlight-badge.gm {
-          background: #ff6b6b;
-          color: white;
+            background: #ff6b6b;
+            color: white;
         }
 
         .winner-loading {
-          text-align: center;
-          padding: 40px;
-          color: #777;
-          font-style: italic;
+            text-align: center;
+            padding: 40px;
+            color: #777;
+            font-style: italic;
         }
 
         .winner-error {
-          text-align: center;
-          padding: 40px;
-          color: #d32f2f;
-          background: #ffebee;
-          border-radius: var(--border-radius);
-          margin-top: 20px;
+            text-align: center;
+            padding: 40px;
+            color: #d32f2f;
+            background: #ffebee;
+            border-radius: 8px;
+            margin-top: 20px;
         }
 
         .view-all-winners {
-          display: inline-block;
-          background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
-          color: white;
-          padding: 12px 25px;
-          text-decoration: none;
-          font-weight: 600;
-          border-radius: var(--border-radius);
-          margin-top: 20px;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-          text-align: center;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
         }
 
         .view-all-winners:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 12px rgba(93, 33, 99, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(93, 33, 99, 0.3);
         }
 
         .winner-summary {
-          text-align: center;
-          margin-top: 15px;
-          color: #777;
-          font-size: 0.9rem;
+            text-align: center;
+            margin-top: 15px;
+            color: #777;
+            font-size: 0.9rem;
         }
 
-        /* Large tablets and small desktops */
-        @media (min-width: 769px) and (max-width: 1200px) {
-          header {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-          }
-          
-          .header-main {
-            flex: 1 1 60%;
-            text-align: left;
-            padding-right: 20px;
-          }
-          
-          .countdown-clock {
-            flex: 0 0 auto;
-            max-width: 250px;
-          }
+        /* =============== FOOTER =============== */
+        footer {
+            text-align: center;
+            font-size: .8rem;
+            color: #888;
+            padding: 20px;
         }
 
+        /* =============== MEDIA QUERIES =============== */
+        
         /* Wide screens */
         @media (min-width: 1201px) {
-          header {
-            padding: 40px;
-          }
-          
-          .container {
-            max-width: 1200px; /* Increase max width for wide screens */
-          }
-          
-          .countdown-clock {
-            margin-left: auto; /* Push to right but with proper spacing */
-          }
+            header {
+                padding: 40px;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .container {
+                max-width: 1200px;
+            }
+            
+            .header-main {
+                flex: 1 1 auto;
+                text-align: left;
+                padding-right: 20px;
+            }
+            
+            .countdown-clock {
+                flex: 0 0 auto;
+                margin-left: auto;
+            }
         }
 
-        /* Tablets in portrait */
-        @media (min-width: 601px) and (max-width: 768px) {
-          header {
-            flex-direction: column;
-            text-align: center;
-          }
-          
-          .header-main {
-            flex: 1 1 100%;
-            margin-bottom: 20px;
-          }
-          
-          .countdown-clock {
-            flex: 0 0 auto;
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-          }
+        /* Tablets and medium screens */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            header h1 {
+                font-size: clamp(1.3rem, 3.5vw, 2rem);
+                letter-spacing: -0.3px;
+            }
+            
+            header p {
+                font-size: clamp(0.85rem, 2.5vw, 1rem);
+            }
+            
+            .header-main {
+                flex: 1 1 60%;
+                text-align: center;
+            }
+            
+            .countdown-clock {
+                flex: 0 0 auto;
+                max-width: 250px;
+                margin-left: auto;
+            }
         }
-        /* Ultra-narrow screens (Galaxy Z Fold cover display) */
+
+        /* Small tablets */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            header h1 {
+                font-size: clamp(1.2rem, 4vw, 1.8rem);
+                letter-spacing: -0.3px;
+            }
+            
+            .header-main {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .countdown-clock {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Specific fix for iPad Air, Surface Pro (820-950px) */
+        @media (min-width: 820px) and (max-width: 950px) {
+            header {
+                padding: 30px 15px;
+            }
+            
+            header h1 {
+                font-size: 1.4rem;
+                letter-spacing: -0.5px;
+            }
+            
+            header p {
+                font-size: 0.9rem;
+            }
+            
+            .countdown-clock {
+                padding: 12px 15px;
+            }
+        }
+
+        /* Mobile devices */
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 12px;
+            }
+            
+            header {
+                padding: 20px 10px;
+                margin-bottom: 16px;
+            }
+            
+            header h1 {
+                font-size: clamp(0.9rem, 5vw, 1.6rem);
+                letter-spacing: -0.5px;
+            }
+            
+            header p {
+                font-size: clamp(0.8rem, 3.5vw, 1rem);
+            }
+            
+            main > * {
+                margin-bottom: 16px;
+            }
+            
+            section {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .stats-row {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .stat-box {
+                width: 100%;
+                min-width: unset;
+                padding: 20px 16px;
+            }
+            
+            #stats-last-updated {
+                font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+                padding: 8px 5px;
+                margin-bottom: 12px;
+            }
+            
+            .countdown-clock {
+                max-width: 280px;
+                padding: 12px 15px;
+            }
+            
+            .winner-preview {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .winner-card {
+                padding: 15px;
+            }
+            
+            .winner-name {
+                font-size: 1rem;
+            }
+            
+            .winner-prize {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Ultra-narrow screens (Galaxy Z Fold) */
         @media (max-width: 360px) {
-          /* Fix the header container */
-          header {
-            padding: 15px 10px;
-            flex-direction: column; /* Stack vertically */
-            gap: 10px;
-          }
-          
-          /* Make header main take full width */
-          .header-main {
-            width: 100%;
-            flex: 1 1 100%;
-          }
-          
-          /* Smaller title that fits */
-          header h1 {
-            font-size: 0.9rem; /* Even smaller to fit */
-            letter-spacing: -1px; /* Tighter letter spacing */
-            padding: 0 2px;
-            white-space: nowrap;
-            overflow: visible; /* Don't hide overflow */
-            text-overflow: unset; /* No ellipsis */
-            transform: scale(0.95); /* Slightly compress horizontally */
-            transform-origin: center;
-          }
-          
-          header p {
-            font-size: 0.75rem;
-          }
-          
-          /* Fix countdown overflow */
-          .countdown-clock {
-            width: 100%;
-            max-width: 100%;
-            margin: 0;
-            padding: 8px 5px;
-            box-sizing: border-box;
-            overflow: hidden; /* Prevent overflow */
-          }
-          
-          .countdown-label {
-            font-size: 0.7rem;
-            letter-spacing: 0;
-          }
-          
-          .countdown-time {
-            font-size: 0.8rem;
-            letter-spacing: 0;
-          }
-          
-          .countdown-unit {
-            min-width: 12px;
-          }
-          
-          .countdown-unit-label {
-            font-size: 0.5rem;
-          }
-        }
-        /* Keep your existing mobile styles */
-        @media (max-width: 600px){
-          .container {
-            width: 100%;
-            max-width: 100%;
-            padding: 0 16px;
-            box-sizing: border-box;
-          }
-            /* Apply consistent width to all main children */
-          main {
-            width: 100%;
-          }
-          /* Consistent spacing between all elements */
-          main > * {
-            margin-bottom: 16px;
-          }
-          main > *:last-child {
-            margin-bottom: 0;
-          }
-          header {
-            flex-direction: column;
-            text-align: center;
-            align-items: center;
-            padding: 24px 16px; /* Adequate padding */
-            margin-bottom: 16px; /* Consistent spacing */
-          }
-          header h1 {
-            font-size: clamp(1rem, 6vw, 1.8rem);
-            white-space: nowrap; /* Keep on one line */
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-        /* Mobile styles */
-          .stats-row {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            padding: 0;
-          }
-          .stat-box {
-            width: 100%;
-            margin: 0;
-            box-sizing: border-box;
-          }
-          header h1 {
-            font-size: clamp(1.2rem, 5vw, 2rem);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          header p {
-            font-size: clamp(0.9rem, 3.5vw, 1.1rem);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          section {
-            width: calc(100% - 0px); /* Full width minus nothing */
-            max-width: 100%;
-            margin-left: 0;
-            margin-right: 0;
-            box-sizing: border-box;
-          }
-          h2 {
-            font-size:1.5rem
-          }
-          /* Minimal height for last updated */
-          #stats-last-updated {
-            padding: 8px 10px;
-            margin-bottom: 12px;
-            min-height: auto; /* Remove any minimum height */
-          }
-          /* Winner scorecard mobile styles */
-          .winner-scorecard {
-            padding: 20px;
-          }
-          .winner-preview {
-            grid-template-columns: 1fr;
-            gap: 15px;
-          }
-          .winner-card {
-            padding: 15px;
-          }
-          .winner-name {
-            font-size: 1.1rem;
-          }
-          .winner-prize {
-            font-size: 1.3rem;
-          }
-          .winner-table {
-            font-size: 0.8rem;
-          }
-          .winner-table th,
-          .winner-table td {
-            padding: 10px 8px;
-          }
-          .highlights {
-            gap: 4px;
-          }
-          .highlight-badge {
-            font-size: 0.7rem;
-            padding: 3px 6px;
-          }
-          
-          /* Mobile countdown clock */
-          .header-main {
-            flex: none;
-            width: 100%;
-            margin-bottom: 20px;
-          }
-          
-          .countdown-clock {
-            flex: none;
-            width: 100%;
-            max-width: 280px;
-            margin: 0 auto 0 auto; /* Remove extra margin */
-            padding: 12px 15px;
-            border-radius: var(--border-radius); /* Use consistent radius */
-          }
-          
-          .countdown-time {
-            font-size: 1.1rem;
-            letter-spacing: 0.8px;
-            white-space: nowrap;
-          }
-          
-          .countdown-unit {
-            min-width: 20px;
-          }
-          
-          .countdown-unit-label {
-            font-size: 0.7rem;
-          }
+            header {
+                padding: 15px 10px;
+            }
+            
+            header h1 {
+                font-size: 0.95rem;
+                letter-spacing: -0.5px;
+                white-space: normal;
+                line-height: 1.2;
+                text-overflow: unset;
+                overflow: visible;
+            }
+            
+            header p {
+                font-size: 0.75rem;
+            }
+            
+            .countdown-clock {
+                padding: 8px 5px;
+            }
+            
+            .countdown-label {
+                font-size: 0.7rem;
+                letter-spacing: 0;
+            }
+            
+            .countdown-time {
+                font-size: 0.8rem;
+                letter-spacing: 0;
+            }
+            
+            .countdown-unit {
+                min-width: 12px;
+            }
+            
+            .countdown-unit-label {
+                font-size: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <!-- Main Content (85%) -->
+            <!-- Main Content -->
             <div class="header-main">
                 <h1>🏆 IIM Mumbai Fantasy League 🏆</h1>
                 <p>Season 2025-26</p>
             </div>
             
-            <!-- Digital Countdown Clock (15%) -->
+            <!-- Digital Countdown Clock -->
             <div id="countdown-clock" class="countdown-clock" style="display: none;">
                 <div class="countdown-label" id="countdown-label">Time Until Kickoff</div>
                 <div class="countdown-time">
@@ -791,29 +696,29 @@
                 <div id="winner-last-updated" class="stats-last-updated">Fetching latest winner data...</div>
             </section>
 
-          <!-- TESTING SECTION - Hidden by default, shown with ?test=true -->
-          <section class="winner-scorecard test-section" style="display: none; margin-top: 20px; border: 2px dashed #ff6b6b;">
-            <h2>🧪 Testing Mode - Top Earners So Far...</h2>
-            <p><em>This section is visible for testing purposes only. It will be hidden during actual season.</em></p>
-            
-            <div id="test-winner-preview-container">
-                <div class="winner-loading">Loading test winner data...</div>
-            </div>
-            
-            <div class="winner-summary" id="test-winner-summary"></div>
-            
-            <div style="text-align: center;">
-                <a href="winners.html" class="view-all-winners">
-                    <i class="fas fa-trophy"></i> View Complete Winner Scorecard
-                </a>
-            </div>
-            
-            <div style="text-align: center; margin-top: 15px;">
-                <button onclick="toggleSeasonMode()" style="background: #ff6b6b; color: white; border: none; padding: 8px 16px; border-radius: var(--border-radius); cursor: pointer;">
-                    🎭 Toggle Season Mode (Testing)
-                </button>
-            </div>
-          </section>
+            <!-- TESTING SECTION - Hidden by default, shown with ?test=true -->
+            <section class="winner-scorecard test-section" style="display: none; margin-top: 20px; border: 2px dashed #ff6b6b;">
+                <h2>🧪 Testing Mode - Top Earners So Far...</h2>
+                <p><em>This section is visible for testing purposes only. It will be hidden during actual season.</em></p>
+                
+                <div id="test-winner-preview-container">
+                    <div class="winner-loading">Loading test winner data...</div>
+                </div>
+                
+                <div class="winner-summary" id="test-winner-summary"></div>
+                
+                <div style="text-align: center;">
+                    <a href="winners.html" class="view-all-winners">
+                        <i class="fas fa-trophy"></i> View Complete Winner Scorecard
+                    </a>
+                </div>
+                
+                <div style="text-align: center; margin-top: 15px;">
+                    <button onclick="toggleSeasonMode()" style="background: #ff6b6b; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">
+                        🎭 Toggle Season Mode (Testing)
+                    </button>
+                </div>
+            </section>
 
             <!-- LEADERBOARD SECTION (During Season) -->
             <section id="leaderboard" class="season-section during-season" style="display: none;">
@@ -864,7 +769,6 @@
               console.log('🧪 Test mode activated!');
           }
       }
-
 
       // Testing function to toggle season mode
       function toggleSeasonMode() {
@@ -998,7 +902,6 @@
           checkTestMode();
       });
 
-
       function loadFPLSeasonData() {
         const fplApiUrl = 'https://fantasy.premierleague.com/api/bootstrap-static/';
         
@@ -1131,7 +1034,6 @@
           document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
           document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
         }
-        // No header countdown formatting here; header text is set in handleSeasonDisplay.
       }
 
       function updateGameweekCountdown(gameweek) {
@@ -1210,7 +1112,7 @@
           })
           .catch(error => {
             console.error('Winner fetch error:', error);
-            document.getElementById('winner-table-container').innerHTML = 
+            document.getElementById('winner-preview-container').innerHTML = 
               '<div class="winner-error">Unable to load winner data. Please try again later.</div>';
           });
       }
