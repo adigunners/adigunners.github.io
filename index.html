@@ -1077,6 +1077,10 @@
 
       function handleSeasonDisplay(seasonStartDate, gameweek = null) {
         const currentDate = new Date();
+        // Temporary fallback: checks if the season has started when FPL data
+        // isn't available or fails to return a valid gameweek. Compares the
+        // provided start date (from API or hardcoded fallback) with the
+        // current time.
         const isSeasonStarted = currentDate >= seasonStartDate;
 
         console.log("Season start date (from FPL):", seasonStartDate);
