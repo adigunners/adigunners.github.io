@@ -34,48 +34,56 @@
           padding: 0 16px;
           background-color: transparent;
         }
-        header{
-          background:linear-gradient(135deg,var(--primary-color),var(--heading-color));
-          color:#fff;
-          padding:40px 40px 40px 20px;
-          border-radius:var(--border-radius);
-          box-shadow:0 8px 20px rgba(0,0,0,.15);
-          margin-bottom:30px;
+        header {
+          background: linear-gradient(135deg,var(--primary-color),var(--heading-color));
+          color: #fff;
+          padding: 40px 20px;
+          border-radius: var(--border-radius);
+          box-shadow: 0 8px 20px rgba(0,0,0,.15);
+          margin-bottom: 30px;
           display: flex;
           align-items: center;
           justify-content: space-between;
+          gap: 20px; /* Add gap between elements */
+          flex-wrap: wrap; /* Allow wrapping on smaller screens */
         }
         .header-main {
-          flex: 0 0 82%;
+          flex: 1 1 auto; /* Change from fixed percentage */
+          min-width: 0; /* Prevent overflow */
           text-align: center;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
         }
-        header h1{
-          margin:0;
-          font-size:2.5rem;
-          font-weight:700
+        header h1 {
+          margin: 0;
+          font-size: clamp(1rem, 6vw, 2.5rem);
+          font-weight: 700;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          /* Add fallback for extremely narrow screens */
+          min-width: 0;
+          max-width: 100%;
         }
         header p{
           margin:5px 0 0;
-          font-size:1.1rem;
-          opacity:.9
+          font-size: clamp(0.8rem, 3vw, 1.1rem); /* Dynamic sizing for ALL screens */
+          opacity:.9;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         /* Digital Countdown Clock */
         .countdown-clock {
-          flex: 0 0 18%;
+          flex: 0 0 auto; /* Don't grow or shrink */
+          max-width: 300px; /* Set maximum width */
+          width: auto; /* Let content determine width */
           background: rgba(255, 255, 255, 0.15);
           backdrop-filter: blur(10px);
           border-radius: var(--border-radius);
-          padding: 15px 8px;
+          padding: 15px 20px; /* More horizontal padding */
           border: 2px solid rgba(0, 255, 133, 0.3);
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 133, 0.2);
           text-align: center;
-          min-width: 0;
-          overflow: hidden;
           animation: pulseBorder 3s infinite;
         }
 
@@ -453,11 +461,120 @@
           font-size: 0.9rem;
         }
 
-        /* Existing section styles for the rest of the content... */
-
-        @media (max-width: 800px){
-          .stats-row { gap: 14px; }
+        /* Large tablets and small desktops */
+        @media (min-width: 769px) and (max-width: 1200px) {
+          header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+          }
+          
+          .header-main {
+            flex: 1 1 60%;
+            text-align: left;
+            padding-right: 20px;
+          }
+          
+          .countdown-clock {
+            flex: 0 0 auto;
+            max-width: 250px;
+          }
         }
+
+        /* Wide screens */
+        @media (min-width: 1201px) {
+          header {
+            padding: 40px;
+          }
+          
+          .container {
+            max-width: 1200px; /* Increase max width for wide screens */
+          }
+          
+          .countdown-clock {
+            margin-left: auto; /* Push to right but with proper spacing */
+          }
+        }
+
+        /* Tablets in portrait */
+        @media (min-width: 601px) and (max-width: 768px) {
+          header {
+            flex-direction: column;
+            text-align: center;
+          }
+          
+          .header-main {
+            flex: 1 1 100%;
+            margin-bottom: 20px;
+          }
+          
+          .countdown-clock {
+            flex: 0 0 auto;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+          }
+        }
+        /* Ultra-narrow screens (Galaxy Z Fold cover display) */
+        @media (max-width: 360px) {
+          /* Fix the header container */
+          header {
+            padding: 15px 10px;
+            flex-direction: column; /* Stack vertically */
+            gap: 10px;
+          }
+          
+          /* Make header main take full width */
+          .header-main {
+            width: 100%;
+            flex: 1 1 100%;
+          }
+          
+          /* Smaller title that fits */
+          header h1 {
+            font-size: 0.9rem; /* Even smaller to fit */
+            letter-spacing: -1px; /* Tighter letter spacing */
+            padding: 0 2px;
+            white-space: nowrap;
+            overflow: visible; /* Don't hide overflow */
+            text-overflow: unset; /* No ellipsis */
+            transform: scale(0.95); /* Slightly compress horizontally */
+            transform-origin: center;
+          }
+          
+          header p {
+            font-size: 0.75rem;
+          }
+          
+          /* Fix countdown overflow */
+          .countdown-clock {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 8px 5px;
+            box-sizing: border-box;
+            overflow: hidden; /* Prevent overflow */
+          }
+          
+          .countdown-label {
+            font-size: 0.7rem;
+            letter-spacing: 0;
+          }
+          
+          .countdown-time {
+            font-size: 0.8rem;
+            letter-spacing: 0;
+          }
+          
+          .countdown-unit {
+            min-width: 12px;
+          }
+          
+          .countdown-unit-label {
+            font-size: 0.5rem;
+          }
+        }
+        /* Keep your existing mobile styles */
         @media (max-width: 600px){
           .container {
             width: 100%;
@@ -1136,6 +1253,22 @@
         document.getElementById('winner-summary').innerHTML = 
           `Showing top 6 of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString('en-IN')}`;
       }
+
+      // Add this to your JavaScript
+      function adjustForZFold() {
+        const width = window.innerWidth;
+        const h1 = document.querySelector('header h1');
+        
+        if (width <= 360 && h1) {
+          h1.innerHTML = '🏆 IIM M Fantasy League 🏆'; // Shortened version
+        } else {
+          h1.innerHTML = '🏆 IIM Mumbai Fantasy League 🏆'; // Full version
+        }
+      }
+
+      window.addEventListener('load', adjustForZFold);
+      window.addEventListener('resize', adjustForZFold);
+
     </script>
 </body>
 </html>
