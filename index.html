@@ -897,8 +897,9 @@
       }
 
       function loadTestWinnerData() {
-        // Use the same winner_stats.json file for testing
-        const winnerUrl = "winner_stats.json?cache=" + new Date().getTime();
+        // Use TEST winner_stats.json file for testing
+        const winnerUrl =
+          "test_winner_stats.json?cache=" + new Date().getTime();
 
         fetch(winnerUrl)
           .then((response) => {
@@ -908,12 +909,24 @@
             return response.json();
           })
           .then((data) => {
+            console.log("🧪 Loaded TEST winner data:", data);
+
+            // Add test mode indicator to page
+            if (data.testMode) {
+              const headerP = document.querySelector("header p");
+              if (headerP) {
+                headerP.textContent =
+                  headerP.textContent + " [TEST MODE - Demo Data]";
+                headerP.style.color = "#ff6b6b";
+              }
+            }
+
             displayTestWinnerTable(data.winners);
           })
           .catch((error) => {
             console.error("Test winner fetch error:", error);
             document.getElementById("test-winner-preview-container").innerHTML =
-              '<div class="winner-error">Unable to load test winner data. Please try again later.</div>';
+              '<div class="winner-error">Unable to load test winner data. Please check if test_winner_stats.json exists.</div>';
           });
       }
 
@@ -1246,7 +1259,19 @@
       }
 
       function loadWinnerData() {
-        const winnerUrl = "winner_stats.json?cache=" + new Date().getTime();
+        // Check if we're in test mode and load appropriate file
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTestMode = urlParams.get("test") === "true";
+
+        const winnerUrl = isTestMode
+          ? "test_winner_stats.json?cache=" + new Date().getTime()
+          : "winner_stats.json?cache=" + new Date().getTime();
+
+        console.log(
+          isTestMode
+            ? "🧪 Loading TEST winner data"
+            : "📊 Loading LIVE winner data"
+        );
 
         fetch(winnerUrl)
           .then((response) => {
@@ -1257,7 +1282,18 @@
             return response.json();
           })
           .then((data) => {
-            console.log("Fetched winner_stats.json:", data);
+            console.log("Fetched winner data:", data);
+
+            // Add test mode indicator if needed
+            if (isTestMode && data.testMode) {
+              const headerP = document.querySelector("header p");
+              if (headerP && !headerP.textContent.includes("[TEST MODE]")) {
+                headerP.textContent =
+                  headerP.textContent + " [TEST MODE - Demo Data]";
+                headerP.style.color = "#ff6b6b";
+              }
+            }
+
             displayWinnerPreview(data.winners);
 
             // Show last updated time for winners
@@ -1270,9 +1306,12 @@
               timeZone: userTimeZone,
             });
 
-            document.getElementById(
-              "winner-last-updated"
-            ).textContent = `Last updated: ${formattedDate} (your local time)`;
+            const updateText = isTestMode
+              ? `Last updated: ${formattedDate} (test data)`
+              : `Last updated: ${formattedDate} (your local time)`;
+
+            document.getElementById("winner-last-updated").textContent =
+              updateText;
           })
           .catch((error) => {
             console.error("Winner fetch error:", error);
