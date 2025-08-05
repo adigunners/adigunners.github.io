@@ -1,0 +1,108 @@
+{
+  "lastUpdated": "2025-08-05T18:33:02.881Z",
+  "summary": {
+    "totalPrizeDistributed": 500,
+    "totalPaid": 0,
+    "totalPending": 500,
+    "gameweekPrizes": 500,
+    "monthlyPrizes": 0,
+    "completedGameweeks": 1,
+    "completedMonths": 0,
+    "totalWinners": 3,
+    "lastProcessedGW": 4
+  },
+  "winners": [
+    {
+      "playerName": "Vikranth Reddy",
+      "totalPrizeWon": 300,
+      "totalPaid": 0,
+      "totalPending": 300,
+      "prizeBreakdown": {
+        "gameweek": 300,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 1
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 1,
+            "position": "1st",
+            "prize": 300,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 0
+      }
+    },
+    {
+      "playerName": "Soman Panda",
+      "totalPrizeWon": 100,
+      "totalPaid": 0,
+      "totalPending": 100,
+      "prizeBreakdown": {
+        "gameweek": 100,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 14
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 1,
+            "position": "2nd",
+            "prize": 100,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      }
+    },
+    {
+      "playerName": "Somnath Pawar ",
+      "totalPrizeWon": 100,
+      "totalPaid": 0,
+      "totalPending": 100,
+      "prizeBreakdown": {
+        "gameweek": 100,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 6
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 1,
+            "position": "2nd",
+            "prize": 100,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      }
+    }
+  ],
+  "testMode": true,
+  "message": "This is test data for demonstration purposes only"
+}
