@@ -897,9 +897,19 @@
       }
 
       function loadTestWinnerData() {
-        // Use TEST winner_stats.json file for testing
-        const winnerUrl =
-          "test_winner_stats.json?cache=" + new Date().getTime();
+        // Check if we're in test mode and load appropriate file
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTestMode = urlParams.get("test") === "true";
+
+        const winnerUrl = isTestMode
+          ? "test_winner_stats.json?cache=" + new Date().getTime()
+          : "winner_stats.json?cache=" + new Date().getTime();
+
+        console.log(
+          isTestMode
+            ? "🧪 Loading TEST winner data"
+            : "📊 Loading LIVE winner data"
+        );
 
         fetch(winnerUrl)
           .then((response) => {
