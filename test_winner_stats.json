@@ -1,25 +1,25 @@
 {
-  "lastUpdated": "2025-08-07T08:28:18.703Z",
+  "lastUpdated": "2025-08-07T08:28:41.970Z",
   "summary": {
-    "totalPrizeDistributed": 1500.0100000000002,
+    "totalPrizeDistributed": 4300.01,
     "totalPaid": 0,
-    "totalPending": 1500.0100000000002,
-    "gameweekPrizes": 1500.0100000000002,
-    "monthlyPrizes": 0,
-    "completedGameweeks": 3,
+    "totalPending": 4300.01,
+    "gameweekPrizes": 2000.0100000000002,
+    "monthlyPrizes": 2300,
+    "completedGameweeks": 4,
     "completedMonths": 0,
-    "totalWinners": 8,
+    "totalWinners": 10,
     "lastProcessedGW": 4
   },
   "winners": [
     {
       "playerName": "Vikranth Reddy",
-      "totalPrizeWon": 300,
+      "totalPrizeWon": 1700,
       "totalPaid": 0,
-      "totalPending": 300,
+      "totalPending": 1700,
       "prizeBreakdown": {
         "gameweek": 300,
-        "monthly": 0
+        "monthly": 1400
       },
       "highlights": {
         "gameWeeks": 1,
@@ -38,8 +38,74 @@
         "months": []
       },
       "positions": {
-        "first": 1,
+        "first": 2,
         "second": 0
+      }
+    },
+    {
+      "playerName": "Ankur Prasad",
+      "totalPrizeWon": 966.67,
+      "totalPaid": 0,
+      "totalPending": 966.67,
+      "prizeBreakdown": {
+        "gameweek": 66.67,
+        "monthly": 900
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 2
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 66.67,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 2
+      }
+    },
+    {
+      "playerName": "Harshit Gupta",
+      "totalPrizeWon": 366.67,
+      "totalPaid": 0,
+      "totalPending": 366.67,
+      "prizeBreakdown": {
+        "gameweek": 366.67,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 4
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 66.67,
+            "status": "Pending"
+          },
+          {
+            "week": 4,
+            "position": "1st",
+            "prize": 300,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 1
       }
     },
     {
@@ -163,25 +229,25 @@
       }
     },
     {
-      "playerName": "Harshit Gupta",
-      "totalPrizeWon": 66.67,
+      "playerName": "Pallab Pegu",
+      "totalPrizeWon": 100,
       "totalPaid": 0,
-      "totalPending": 66.67,
+      "totalPending": 100,
       "prizeBreakdown": {
-        "gameweek": 66.67,
+        "gameweek": 100,
         "monthly": 0
       },
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 4
+        "overallRank": 22
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 3,
+            "week": 4,
             "position": "2nd",
-            "prize": 66.67,
+            "prize": 100,
             "status": "Pending"
           }
         ],
@@ -193,25 +259,25 @@
       }
     },
     {
-      "playerName": "Ankur Prasad",
-      "totalPrizeWon": 66.67,
+      "playerName": "Rahul Sahai",
+      "totalPrizeWon": 100,
       "totalPaid": 0,
-      "totalPending": 66.67,
+      "totalPending": 100,
       "prizeBreakdown": {
-        "gameweek": 66.67,
+        "gameweek": 100,
         "monthly": 0
       },
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 2
+        "overallRank": 9
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 3,
+            "week": 4,
             "position": "2nd",
-            "prize": 66.67,
+            "prize": 100,
             "status": "Pending"
           }
         ],
