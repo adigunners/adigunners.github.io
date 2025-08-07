@@ -257,6 +257,63 @@
           max-width: 200px;
         }
       }
+      
+      /* Additional styles that were misplaced */
+      .test-section {
+        display: none;
+        border: 2px dashed #ff6b6b;
+        padding: 10px;
+        margin: 20px;
+        text-align: center;
+        background: #fff5f5;
+        border-radius: 8px;
+        font-weight: 600;
+        color: #ff6b6b;
+      }
+      
+      .winner-last-updated {
+        text-align: center;
+        font-size: 0.93rem;
+        color: #777;
+        font-style: italic;
+        margin-top: 20px;
+      }
+      
+      .footer-last-updated {
+        font-size: 0.7rem;
+        color: #ccc;
+        margin-top: 5px;
+      }
+      
+      .winner-rank {
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+
+      /* Gold, Silver, Bronze styling for top 3 ranks */
+      .rank-1 {
+        background: linear-gradient(135deg, #FFD700, #FFA500);
+        color: #8B4513;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+      
+      .rank-2 {
+        background: linear-gradient(135deg, #C0C0C0, #808080);
+        color: #2F4F4F;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+      
+      .rank-3 {
+        background: linear-gradient(135deg, #CD7F32, #A0522D);
+        color: #FFFFFF;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
     </style>
   </head>
   <body>
@@ -306,11 +363,7 @@
       <footer>
         <p>&copy; 2025 IIM Mumbai Fantasy League Organising Committee</p>
         <p class="footer-last-updated">
-          .test-section { display: none; border: 2px dashed red; padding: 10px;
-          margin: 20px; text-align: center; } .winner-last-updated { text-align:
-          center; font-size: 0.93rem; color: #777; font-style: italic;
-          margin-top: 20px; } .footer-last-updated { font-size: 0.7rem; color:
-          #ccc; margin-top: 5px; } Last updated: August 2025
+          Last updated: August 2025
         </p>
       </footer>
     </div>
@@ -415,17 +468,7 @@
                 <tr>
                   <td class="winner-rank ${
                     index < 3 ? `rank-${index + 1}` : ""
-                  }">#${index + 1}
-                    .winner-rank {
-                font-weight: 600;
-                color: var(--primary-color);
-              }
-
-              /* Gold, Silver, Bronze styling for top 3 ranks */
-              .rank-1 { background: linear-gradient(135deg, #FFD700, #FFA500); color: #8B4513; }
-              .rank-2 { background: linear-gradient(135deg, #C0C0C0, #808080); color: #2F4F4F; }  
-              .rank-3 { background: linear-gradient(135deg, #CD7F32, #A0522D); color: #FFFFFF; }
-                  }</td>
+                  }">#{index + 1}</td>
                   <td class="player-name">${winner.playerName}</td>
                   <td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString(
                     "en-IN"
