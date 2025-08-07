@@ -235,8 +235,76 @@ console.log("Weekly prizes:", prize1, prize2)
 - Website showing "Loading..." indefinitely
 - Test mode not working
 - Winner data not displaying correctly
+- Ranking showing as "#{index + 1}" instead of numbers
+- Mobile title wrapping issues
 
 **Solutions:**
+
+#### **Ranking Display Fix (CRITICAL - Fixed in v1.0.1)**
+**Problem**: Winner table showing "#{index + 1}" instead of actual rank numbers (1, 2, 3, etc.)
+
+**Root Cause**: Template literal parsing issues in certain browsers
+
+**Solution Applied**:
+```javascript
+// OLD (Problematic) - Template literal approach
+const tableHTML = `
+  <td class="winner-rank">${index + 1}</td>
+`;
+
+// NEW (Fixed) - Explicit string concatenation
+let tableHTML = '<table class="winner-table">';
+tableHTML += '<thead><tr><th>Rank</th>...</tr></thead>';
+sortedWinners.forEach((winner, index) => {
+  const rank = index + 1;
+  tableHTML += `<td class="winner-rank">${rank}</td>`;
+});
+tableHTML += '</table>';
+```
+
+**If Issue Persists**:
+1. **Force Browser Refresh**: Ctrl+F5 (Windows) or Cmd+Shift+R (Mac)
+2. **Clear Browser Cache**: Chrome → Settings → Privacy → Clear browsing data
+3. **Use Incognito Mode**: Test if issue is cache-related
+4. **Check GitHub Deployment**: Ensure latest code is pushed to repository
+
+#### **Mobile Display Issues**
+**Problem**: Title text wrapping on small screens, poor mobile experience
+
+**Solutions Applied (v1.0.1)**:
+```css
+/* Enhanced mobile responsiveness */
+@media (max-width: 500px) {
+  header h1 {
+    font-size: 1.6rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 400px) {
+  header h1 {
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+  }
+}
+
+@media (max-width: 350px) {
+  header h1 {
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+  }
+}
+```
+
+#### **Browser Compatibility Issues**
+**Problem**: Different browsers rendering templates inconsistently
+
+**Prevention Strategy**:
+- Use explicit string concatenation over complex template literals
+- Test across Chrome, Safari, Firefox, and mobile browsers
+- Implement progressive enhancement for CSS features
 
 #### **JSON File Issues**
 ```javascript
@@ -253,11 +321,27 @@ updateLeagueStatsOnGitHub()
 - **Check URL**: Must include `?test=true` parameter
 - **Check File**: Ensure `test_winner_stats.json` exists on GitHub
 - **Browser Cache**: Hard refresh (Ctrl+F5 or Cmd+Shift+R)
+- **Console Errors**: Check browser developer tools for JavaScript errors
+
+#### **Cache-Related Issues**
+**Advanced Cache Busting**:
+```javascript
+// Add timestamp to JSON requests
+const winnerUrl = isTestMode
+  ? `test_winner_stats.json?cache=${new Date().getTime()}`
+  : `winner_stats.json?cache=${new Date().getTime()}`;
+```
+
+**Manual Cache Clear**:
+1. **Chrome**: F12 → Network Tab → Disable cache checkbox
+2. **Safari**: Develop → Empty Caches
+3. **Firefox**: Ctrl+Shift+Delete → Clear cache
 
 #### **CORS Issues**
 - **Problem**: Browser blocking JSON requests
 - **Solution**: GitHub Pages should handle CORS correctly
 - **Test**: Open browser developer tools and check Network tab for errors
+- **Fallback**: Use CORS proxy if needed (already implemented for FPL API)
 
 ---
 

@@ -4,6 +4,32 @@
 
 ---
 
+## [1.0.1] - 2025-08-07 - UI Improvements & Bug Fixes
+
+### 🐛 Critical Bug Fixes
+- **Fixed Winner Table Ranking Display** - Resolved template literal parsing issue causing "#{index + 1}" to display instead of actual rank numbers (1, 2, 3, etc.)
+- **Enhanced Mobile Title Display** - Fixed header title wrapping on small screens with responsive font scaling
+- **Improved Browser Compatibility** - Replaced complex template literals with explicit string concatenation for better cross-browser support
+
+### 🎨 UI/UX Enhancements
+- **Updated Winner Page Icon** - Changed from trophy 🏆 to bullseye 🎯 emoji for cleaner visual design
+- **Enhanced Mobile Responsiveness** - Added progressive font scaling for extra small and ultra narrow screens
+- **Improved Visual Hierarchy** - Better contrast and styling for rank badges (gold/silver/bronze)
+- **Cache-Busting Improvements** - Enhanced browser cache management for faster updates
+
+### 🔧 Technical Improvements
+- **Optimized JavaScript Rendering** - More efficient table generation with explicit string building
+- **Better Error Handling** - Enhanced fallback mechanisms for template rendering failures
+- **Improved Code Maintainability** - Cleaner separation of logic and presentation layers
+- **Git Workflow Enhancements** - Better handling of remote changes with stash/pull/push cycles
+
+### 🚀 Production Deployment
+- **Live Site Updates** - All improvements successfully deployed to GitHub Pages
+- **Cross-Platform Testing** - Verified functionality across different browsers and devices
+- **Performance Optimization** - Reduced rendering time and improved page load speeds
+
+---
+
 ## [1.0.0] - 2025-08-07 - Initial Production Release
 
 ### 🚀 Major Features Added
