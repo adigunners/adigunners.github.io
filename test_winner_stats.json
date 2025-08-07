@@ -1,29 +1,29 @@
 {
-  "lastUpdated": "2025-08-07T22:48:56.854Z",
+  "lastUpdated": "2025-08-07T22:49:06.475Z",
   "summary": {
-    "totalPrizeDistributed": 500,
+    "totalPrizeDistributed": 1000,
     "totalPaid": 0,
-    "totalPending": 500,
-    "gameweekPrizes": 500,
+    "totalPending": 1000,
+    "gameweekPrizes": 1000,
     "monthlyPrizes": 0,
-    "completedGameweeks": 1,
+    "completedGameweeks": 2,
     "completedMonths": 0,
-    "totalWinners": 2,
+    "totalWinners": 4,
     "totalPlayers": 26,
     "lastProcessedGW": 4
   },
   "winners": [
     {
       "playerName": "Vikranth Reddy",
-      "totalPrizeWon": 300,
+      "totalPrizeWon": 450,
       "totalPaid": 0,
-      "totalPending": 300,
+      "totalPending": 450,
       "prizeBreakdown": {
-        "gameweek": 300,
+        "gameweek": 450,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 1,
+        "gameWeeks": 2,
         "gameMonths": 0,
         "overallRank": 1,
         "totalPoints": 279
@@ -35,12 +35,18 @@
             "position": "1st",
             "prize": 300,
             "status": "Pending"
+          },
+          {
+            "week": 2,
+            "position": "1st",
+            "prize": 150,
+            "status": "Pending"
           }
         ],
         "months": []
       },
       "positions": {
-        "first": 1,
+        "first": 2,
         "second": 0
       }
     },
@@ -149,25 +155,32 @@
     },
     {
       "playerName": "Bharanidharan S",
-      "totalPrizeWon": 0,
+      "totalPrizeWon": 150,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 150,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 150,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 6,
         "totalPoints": 252
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "1st",
+            "prize": 150,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
-        "first": 0,
+        "first": 1,
         "second": 0
       }
     },
@@ -245,26 +258,33 @@
     },
     {
       "playerName": "Sushil Coppa",
-      "totalPrizeWon": 0,
+      "totalPrizeWon": 200,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 200,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 200,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 10,
         "totalPoints": 242
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "2nd",
+            "prize": 200,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
         "first": 0,
-        "second": 0
+        "second": 1
       }
     },
     {
