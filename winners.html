@@ -268,18 +268,7 @@
           <i class="fas fa-arrow-left"></i> Back to Home
         </a>
       </header>
-      <div
-        class="test-section"
-        style="
-          display: none;
-          border: 2px dashed red;
-          padding: 10px;
-          margin: 20px;
-          text-align: center;
-        "
-      >
-        🧪 Testing Mode Active
-      </div>
+      <div class="test-section">🧪 Testing Mode Active</div>
 
       <main>
         <section>
@@ -308,16 +297,7 @@
             <div class="winner-loading">Loading complete winner data...</div>
           </div>
 
-          <div
-            id="winner-last-updated"
-            style="
-              text-align: center;
-              font-size: 0.93rem;
-              color: #777;
-              font-style: italic;
-              margin-top: 20px;
-            "
-          >
+          <div id="winner-last-updated" class="winner-last-updated">
             Fetching latest winner data...
           </div>
         </section>
@@ -325,8 +305,12 @@
 
       <footer>
         <p>&copy; 2025 IIM Mumbai Fantasy League Organising Committee</p>
-        <p style="font-size: 0.7rem; color: #ccc; margin-top: 5px">
-          Last updated: August 2025
+        <p class="footer-last-updated">
+          .test-section { display: none; border: 2px dashed red; padding: 10px;
+          margin: 20px; text-align: center; } .winner-last-updated { text-align:
+          center; font-size: 0.93rem; color: #777; font-style: italic;
+          margin-top: 20px; } .footer-last-updated { font-size: 0.7rem; color:
+          #ccc; margin-top: 5px; } Last updated: August 2025
         </p>
       </footer>
     </div>
@@ -429,8 +413,11 @@
                 .map(
                   (winner, index) => `
                 <tr>
-                  <td style="font-weight: 600; color: var(--primary-color);">#${
-                    index + 1
+                  <td class="winner-rank">#${index + 1}
+      .winner-rank {
+        font-weight: 600;
+        color: var(--primary-color);
+      }
                   }</td>
                   <td class="player-name">${winner.playerName}</td>
                   <td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString(
