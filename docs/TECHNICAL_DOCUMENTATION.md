@@ -1,0 +1,357 @@
+# IIM Mumbai Fantasy Premier League - Technical Documentation
+
+## Project Overview
+Automated FPL (Fantasy Premier League) league management system for IIM Mumbai alumni, handling player registration, weekly/monthly winner calculations, prize distribution tracking, email notifications, and live website updates.
+
+## Tech Stack
+- **Backend**: Google Apps Script (JavaScript)
+- **Database**: Google Sheets
+- **Frontend**: Static HTML/CSS/JavaScript website
+- **Hosting**: GitHub Pages
+- **Email**: Gmail API via Google Apps Script
+- **Data Source**: Official FPL API
+- **Version Control**: GitHub
+
+## System Architecture
+
+### Core Components
+
+#### 1. **Google Sheets Database Structure**
+```
+Main Spreadsheet: "IIM Mumbai FPL Master Database"
+├── Players Tab - Player registration data
+├── Weekly Scores Tab - GW-by-GW player scores
+├── Weekly Winners Tab - Weekly prize winners
+├── Monthly Winners Tab - Monthly prize winners  
+├── Prize Tracking Tab - All prize distribution records
+├── Settings Tab - Configuration and league parameters
+└── Form Responses Tab - Raw registration form data
+```
+
+#### 2. **Google Apps Script Files**
+```
+Project Structure:
+├── FPL Registration Automation Script.js - Registration processing
+├── FPL_Data_Fetcher.js - Main data processing engine
+├── New_Email_System.js - Email template system
+├── UpdateWebsiteCounter.js - GitHub integration
+├── WeeklyEmailTemplate.html - Weekly email template
+├── MonthlyEmailTemplate.html - Monthly email template
+└── FPL_Test_System.js - Testing framework (optional)
+```
+
+#### 3. **Website Structure**
+```
+GitHub Pages Repository:
+├── index.html - Main landing page
+├── winners.html - Winner leaderboard page
+├── league_stats.json - Live player/pot stats
+├── winner_stats.json - Live winner data
+└── test_winner_stats.json - Test data for demos
+```
+
+## Data Flow
+
+### 1. **Player Registration Flow**
+```
+Google Form → Form Responses Sheet → FPL API Validation → Players Sheet → Confirmation Email
+```
+
+### 2. **Weekly Processing Flow**
+```
+FPL API → Player Scores Update → Winner Calculation → Prize Tracking → Email System → Website JSON Update
+```
+
+### 3. **Website Update Flow**
+```
+Google Sheets Data → Apps Script Processing → GitHub API → JSON Files → Live Website Display
+```
+
+## Key Configuration
+
+### Google Apps Script Properties
+```javascript
+// Required in Script Properties:
+GITHUB_TOKEN: "ghp_xxxxx"  // GitHub Personal Access Token
+```
+
+### Main Configuration Objects
+```javascript
+// FPL_Data_Fetcher.js
+const FPL_CONFIG = {
+  SHEET_NAME: "IIM Mumbai FPL Master Database",
+  ADMIN_EMAIL: "aditya.garg.2006@gmail.com",
+  FPL_BASE_URL: "https://fantasy.premierleague.com/api/",
+  TOTAL_GAMEWEEKS: 38
+};
+
+// GitHub Integration
+const GITHUB_CONFIG = {
+  REPO_OWNER: "adigunners",
+  REPO_NAME: "adigunners.github.io", 
+  FILE_PATH: "winner_stats.json",
+  BRANCH: "main"
+};
+```
+
+## Core Functions & Workflows
+
+### 1. **Registration System**
+- **File**: `FPL Registration Automation Script.js`
+- **Trigger**: Hourly or form submission
+- **Key Function**: `processNewRegistrations()`
+- **Process**: Validates FPL team IDs, prevents duplicates, sends confirmation emails
+
+### 2. **Daily Data Processing** 
+- **File**: `FPL_Data_Fetcher.js`
+- **Trigger**: Daily at 9 AM
+- **Key Function**: `dailyMasterProcess()`
+- **Process**: 
+  1. Check for completed gameweeks
+  2. Update player scores from FPL API
+  3. Calculate weekly winners (handles ties)
+  4. Calculate monthly winners (every 4 gameweeks)
+  5. Update overall standings with ranking
+  6. Generate winner stats JSON
+  7. Trigger email system
+
+### 3. **Email System**
+- **File**: `New_Email_System.js`
+- **Templates**: `WeeklyEmailTemplate.html`, `MonthlyEmailTemplate.html`
+- **Key Functions**: `sendWeeklyEmails()`, `sendMonthlyEmails()`
+- **Features**: Personalized content, league standings, winner announcements
+
+### 4. **Website Integration**
+- **File**: `UpdateWebsiteCounter.js`
+- **Trigger**: Every 15 minutes
+- **Key Function**: `updateLeagueStatsOnGitHub()`
+- **Updates**: Player count, prize pool, winner statistics
+
+## Data Models
+
+### Player Record
+```javascript
+{
+  name: "Player Name",
+  email: "email@example.com", 
+  phone: "WhatsApp number",
+  fplTeamName: "FPL Team Name",
+  fplTeamId: "123456",
+  paymentStatus: "Paid/Pending",
+  registrationDate: Date,
+  status: "Active/Pending"
+}
+```
+
+### Winner Record
+```javascript
+{
+  playerName: "Player Name",
+  totalPrizeWon: 1500,
+  totalPaid: 500,
+  totalPending: 1000,
+  highlights: {
+    gameWeeks: 2,      // Number of weekly wins
+    gameMonths: 1,     // Number of monthly wins
+    overallRank: 3
+  },
+  prizeBreakdown: {
+    gameweek: 800,     // Weekly prize money
+    monthly: 700       // Monthly prize money
+  }
+}
+```
+
+## Prize Structure
+
+### Current Settings (in Settings Sheet)
+- **Weekly Prizes**: ₹500 (1st), ₹300 (2nd)
+- **Monthly Prizes**: ₹1000 (1st), ₹700 (2nd)
+- **Entry Fee**: ₹3,000 per player
+- **Monthly Periods**: Every 4 gameweeks (GW1-4, GW5-8, etc.)
+
+## API Integrations
+
+### 1. **FPL API Endpoints**
+```javascript
+// Main data
+"https://fantasy.premierleague.com/api/bootstrap-static/"
+
+// Player scores  
+"https://fantasy.premierleague.com/api/entry/{team_id}/event/{gw}/picks/"
+
+// Team validation
+"https://fantasy.premierleague.com/api/entry/{team_id}/"
+```
+
+### 2. **GitHub API Integration**
+```javascript
+// File update endpoint
+"https://api.github.com/repos/{owner}/{repo}/contents/{path}"
+
+// Authentication via Personal Access Token
+Headers: { "Authorization": "token {GITHUB_TOKEN}" }
+```
+
+## Error Handling & Monitoring
+
+### Admin Notifications
+- **Function**: `sendAdminAlert(subject, message)`
+- **Triggers**: API failures, data processing errors, email failures
+- **Recipient**: `aditya.garg.2006@gmail.com`
+
+### Data Validation
+- FPL team ID validation against official API
+- Duplicate registration prevention
+- Prize calculation verification
+- Tie-handling in winner calculations
+
+## Testing System
+
+### Test Framework
+- **File**: `FPL_Test_System.js`
+- **Purpose**: Generate realistic demo data for presentations
+- **Key Function**: `setupCompleteTestDemo()`
+- **Safety**: Uses separate test JSON files, sends emails only to admin
+
+### Test Data Generation
+- Creates 4 gameweeks of realistic player scores (40-90 point range)
+- Generates weekly winners with prize distribution
+- Calculates monthly winners (Month 1 = GW1-4)
+- Updates test website JSON files
+- Sends test emails to admin only
+
+## Deployment Instructions
+
+### Initial Setup
+1. **Create Google Sheets** with required tab structure
+2. **Set up Google Apps Script** project with all .js files
+3. **Configure Script Properties** with GitHub token
+4. **Set up GitHub Pages** repository with HTML files
+5. **Configure email templates** in Apps Script
+6. **Set up triggers** for automated processing
+
+### Configuration Steps
+```javascript
+// 1. Set GitHub token in Script Properties
+PropertiesService.getScriptProperties().setProperty('GITHUB_TOKEN', 'ghp_xxxxx');
+
+// 2. Set up daily trigger
+setupDailyMasterTrigger();
+
+// 3. Set up website update trigger  
+setupHourlyCounterTrigger();
+
+// 4. Initialize prize tracking sheet
+initializePrizeTrackingSheet();
+```
+
+## Monitoring & Maintenance
+
+### Daily Checks
+- Verify `dailyMasterProcess()` executed successfully
+- Check winner calculation accuracy
+- Monitor email delivery
+- Verify website JSON updates
+
+### Monthly Tasks
+- Review prize distribution
+- Validate FPL API data accuracy  
+- Check GitHub Pages functionality
+- Update league statistics
+
+## Security Considerations
+
+### Data Protection
+- Email addresses secured in Google Sheets
+- GitHub token stored in Script Properties
+- Prize information access-controlled
+- FPL team IDs validated against official API
+
+### Access Control
+- Google Sheets: Editor access for admin only
+- Apps Script: Admin access only
+- GitHub repository: Admin push access
+- Email templates: No external dependencies
+
+## Troubleshooting Guide
+
+### Common Issues
+1. **FPL API Rate Limiting**: Built-in delays between requests
+2. **GitHub API Failures**: Error handling with fallback logging
+3. **Email Delivery Issues**: Individual error catching per recipient
+4. **Data Sync Issues**: Manual validation functions available
+
+### Debug Functions
+```javascript
+// Check current gameweek
+getCurrentGameweek()
+
+// Validate sheet structure  
+validateSheetStructure()
+
+// Test GitHub integration
+testGitHubToken()
+
+// Manual winner stats update
+manualUpdateWinnerStats()
+```
+
+## Performance Optimizations
+
+### Efficiency Measures
+- Batch API calls with delays to avoid rate limiting
+- Incremental data updates (only new gameweeks)
+- Cached JSON files with timestamp validation
+- Optimized email template rendering
+
+### Scalability
+- Current capacity: ~50 players (tested with 26)
+- API rate limits: Built-in protection
+- Storage: Google Sheets limits sufficient
+- Email: Gmail API daily limits adequate
+
+## Future Enhancement Opportunities
+
+### Potential Improvements
+1. **Real-time leaderboard** with live FPL data
+2. **Mobile app integration** via APIs
+3. **Payment tracking integration** with UPI/banking
+4. **Advanced analytics dashboard** 
+5. **Multi-league support** for different seasons
+
+### Technical Debt
+- Consider database migration for >100 players
+- API key rotation strategy
+- Enhanced error recovery mechanisms
+- Automated backup systems
+
+---
+
+## Quick Reference Commands
+
+### Essential Functions
+```javascript
+// Daily processing
+dailyMasterProcess()
+
+// Manual winner update  
+manualUpdateWinnerStats()
+
+// Test email system
+testEmailSending()
+
+// Clean up test data
+cleanupTestDataDirect()
+
+// Website test mode
+// Visit: https://adigunners.github.io/?test=true
+```
+
+### Contact & Support
+- **Admin**: Aditya Garg (aditya.garg.2006@gmail.com)
+- **Repository**: https://github.com/adigunners/adigunners.github.io
+- **Website**: https://adigunners.github.io/
+
+---
+*Last Updated: August 2025*
