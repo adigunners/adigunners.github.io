@@ -1,1 +1,16 @@
 .DS_Store
+
+# Development and temporary files
+clean_function.js
+server.log
+updated_test_winner_stats_function.js
+updated_winner_stats_function.js
+*.log
+
+# Google Apps Script development files
+*_function.js
+*_script.js
+
+# Temporary files
+*.tmp
+*.temp
