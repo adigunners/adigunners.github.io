@@ -413,11 +413,18 @@
                 .map(
                   (winner, index) => `
                 <tr>
-                  <td class="winner-rank">#${index + 1}
-      .winner-rank {
-        font-weight: 600;
-        color: var(--primary-color);
-      }
+                  <td class="winner-rank ${
+                    index < 3 ? `rank-${index + 1}` : ""
+                  }">#${index + 1}
+                    .winner-rank {
+                font-weight: 600;
+                color: var(--primary-color);
+              }
+
+              /* Gold, Silver, Bronze styling for top 3 ranks */
+              .rank-1 { background: linear-gradient(135deg, #FFD700, #FFA500); color: #8B4513; }
+              .rank-2 { background: linear-gradient(135deg, #C0C0C0, #808080); color: #2F4F4F; }  
+              .rank-3 { background: linear-gradient(135deg, #CD7F32, #A0522D); color: #FFFFFF; }
                   }</td>
                   <td class="player-name">${winner.playerName}</td>
                   <td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString(
@@ -437,7 +444,7 @@
                       }
                       ${
                         winner.highlights.overallRank
-                          ? `<span class="highlight-badge">Rank ${winner.highlights.overallRank}</span>`
+                          ? `<span class="highlight-badge">League Rank: ${winner.highlights.overallRank}</span>`
                           : ""
                       }
                     </div>
