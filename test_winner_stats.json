@@ -1,25 +1,61 @@
 {
-  "lastUpdated": "2025-08-07T19:48:04.779Z",
+  "lastUpdated": "2025-08-07T19:48:13.784Z",
   "summary": {
-    "totalPrizeDistributed": 1500,
+    "totalPrizeDistributed": 4300,
     "totalPaid": 0,
-    "totalPending": 1500,
-    "gameweekPrizes": 1500,
-    "monthlyPrizes": 0,
-    "completedGameweeks": 3,
+    "totalPending": 4300,
+    "gameweekPrizes": 2000,
+    "monthlyPrizes": 2300,
+    "completedGameweeks": 4,
     "completedMonths": 0,
     "totalWinners": 6,
     "lastProcessedGW": 4
   },
   "winners": [
     {
-      "playerName": "Vikranth Reddy",
-      "totalPrizeWon": 500,
+      "playerName": "Vinod Shankar",
+      "totalPrizeWon": 1700,
       "totalPaid": 0,
-      "totalPending": 500,
+      "totalPending": 1700,
+      "prizeBreakdown": {
+        "gameweek": 300,
+        "monthly": 1400
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 1
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 1,
+            "position": "2nd",
+            "prize": 100,
+            "status": "Pending"
+          },
+          {
+            "week": 4,
+            "position": "2nd",
+            "prize": 200,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 2
+      }
+    },
+    {
+      "playerName": "Vikranth Reddy",
+      "totalPrizeWon": 1400,
+      "totalPaid": 0,
+      "totalPending": 1400,
       "prizeBreakdown": {
         "gameweek": 500,
-        "monthly": 0
+        "monthly": 900
       },
       "highlights": {
         "gameWeeks": 2,
@@ -38,6 +74,42 @@
             "week": 2,
             "position": "2nd",
             "prize": 200,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 2
+      }
+    },
+    {
+      "playerName": "Harshit Gupta",
+      "totalPrizeWon": 500,
+      "totalPaid": 0,
+      "totalPending": 500,
+      "prizeBreakdown": {
+        "gameweek": 500,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 5
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 200,
+            "status": "Pending"
+          },
+          {
+            "week": 4,
+            "position": "1st",
+            "prize": 300,
             "status": "Pending"
           }
         ],
@@ -106,66 +178,6 @@
       "positions": {
         "first": 1,
         "second": 0
-      }
-    },
-    {
-      "playerName": "Harshit Gupta",
-      "totalPrizeWon": 200,
-      "totalPaid": 0,
-      "totalPending": 200,
-      "prizeBreakdown": {
-        "gameweek": 200,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 5
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "2nd",
-            "prize": 200,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 1
-      }
-    },
-    {
-      "playerName": "Vinod Shankar",
-      "totalPrizeWon": 100,
-      "totalPaid": 0,
-      "totalPending": 100,
-      "prizeBreakdown": {
-        "gameweek": 100,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 1
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 1,
-            "position": "2nd",
-            "prize": 100,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 1
       }
     },
     {
