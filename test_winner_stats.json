@@ -1,14 +1,14 @@
 {
-  "lastUpdated": "2025-08-07T22:49:06.475Z",
+  "lastUpdated": "2025-08-07T22:49:14.776Z",
   "summary": {
-    "totalPrizeDistributed": 1000,
+    "totalPrizeDistributed": 1500,
     "totalPaid": 0,
-    "totalPending": 1000,
-    "gameweekPrizes": 1000,
+    "totalPending": 1500,
+    "gameweekPrizes": 1500,
     "monthlyPrizes": 0,
-    "completedGameweeks": 2,
+    "completedGameweeks": 3,
     "completedMonths": 0,
-    "totalWinners": 4,
+    "totalWinners": 6,
     "totalPlayers": 26,
     "lastProcessedGW": 4
   },
@@ -52,25 +52,32 @@
     },
     {
       "playerName": "Aditya Garg",
-      "totalPrizeWon": 0,
+      "totalPrizeWon": 300,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 300,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 300,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 2,
         "totalPoints": 269
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "1st",
+            "prize": 300,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
-        "first": 0,
+        "first": 1,
         "second": 0
       }
     },
@@ -107,26 +114,33 @@
     },
     {
       "playerName": "Harshit Gupta",
-      "totalPrizeWon": 0,
+      "totalPrizeWon": 200,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 200,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 200,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 4,
         "totalPoints": 264
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 200,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
         "first": 0,
-        "second": 0
+        "second": 1
       }
     },
     {
