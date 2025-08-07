@@ -451,54 +451,32 @@
           (a, b) => b.totalPrizeWon - a.totalPrizeWon
         );
 
-        const tableHTML = `
-          <table class="winner-table">
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>Player</th>
-                <th>Total Prize Won</th>
-                <th>Highlights</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${sortedWinners
-                .map(
-                  (winner, index) => `
-                <tr>
-                  <td class="winner-rank ${
-                    index < 3 ? `rank-${index + 1}` : ""
-                  }">#{index + 1}</td>
-                  <td class="player-name">${winner.playerName}</td>
-                  <td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString(
-                    "en-IN"
-                  )}</td>
-                  <td>
-                    <div class="highlights">
-                      ${
-                        winner.highlights.gameWeeks > 0
-                          ? `<span class="highlight-badge gw">${winner.highlights.gameWeeks}GW</span>`
-                          : ""
-                      }
-                      ${
-                        winner.highlights.gameMonths > 0
-                          ? `<span class="highlight-badge gm">${winner.highlights.gameMonths}GM</span>`
-                          : ""
-                      }
-                      ${
-                        winner.highlights.overallRank
-                          ? `<span class="highlight-badge">League Rank: ${winner.highlights.overallRank}</span>`
-                          : ""
-                      }
-                    </div>
-                  </td>
-                </tr>
-              `
-                )
-                .join("")}
-            </tbody>
-          </table>
-        `;
+        let tableHTML = '<table class="winner-table">';
+        tableHTML += '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead>';
+        tableHTML += '<tbody>';
+        
+        sortedWinners.forEach((winner, index) => {
+          const rank = index + 1;
+          const rankClass = index < 3 ? ` rank-${rank}` : '';
+          const gameWeeksBadge = winner.highlights.gameWeeks > 0 
+            ? `<span class="highlight-badge gw">${winner.highlights.gameWeeks}GW</span>` 
+            : '';
+          const gameMonthsBadge = winner.highlights.gameMonths > 0 
+            ? `<span class="highlight-badge gm">${winner.highlights.gameMonths}GM</span>` 
+            : '';
+          const overallRankBadge = winner.highlights.overallRank 
+            ? `<span class="highlight-badge">League Rank: ${winner.highlights.overallRank}</span>` 
+            : '';
+            
+          tableHTML += `<tr>`;
+          tableHTML += `<td class="winner-rank${rankClass}">${rank}</td>`;
+          tableHTML += `<td class="player-name">${winner.playerName}</td>`;
+          tableHTML += `<td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</td>`;
+          tableHTML += `<td><div class="highlights">${gameWeeksBadge}${gameMonthsBadge}${overallRankBadge}</div></td>`;
+          tableHTML += `</tr>`;
+        });
+        
+        tableHTML += '</tbody></table>';
 
         document.getElementById("winner-table-container").innerHTML = tableHTML;
       }
