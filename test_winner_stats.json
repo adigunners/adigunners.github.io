@@ -1,14 +1,14 @@
 {
-  "lastUpdated": "2025-08-08T14:40:50.994Z",
+  "lastUpdated": "2025-08-08T14:40:55.850Z",
   "summary": {
-    "totalPrizeDistributed": 1200,
+    "totalPrizeDistributed": 1800,
     "totalPaid": 0,
-    "totalPending": 1200,
-    "gameweekPrizes": 1200,
+    "totalPending": 1800,
+    "gameweekPrizes": 1800,
     "monthlyPrizes": 0,
-    "completedGameweeks": 2,
+    "completedGameweeks": 3,
     "completedMonths": 0,
-    "totalWinners": 6,
+    "totalWinners": 8,
     "totalPlayers": 27,
     "lastProcessedGW": 4
   },
@@ -125,50 +125,64 @@
     },
     {
       "playerName": "Aditya Garg",
-      "totalPrizeWon": 0,
+      "totalPrizeWon": 400,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 400,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 400,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 5,
         "totalPoints": 269
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "1st",
+            "prize": 400,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
-        "first": 0,
+        "first": 1,
         "second": 0
       }
     },
     {
       "playerName": "Harshit Gupta",
-      "totalPrizeWon": 0,
+      "totalPrizeWon": 200,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 200,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 200,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 6,
         "totalPoints": 264
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 200,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
         "first": 0,
-        "second": 0
+        "second": 1
       }
     },
     {
