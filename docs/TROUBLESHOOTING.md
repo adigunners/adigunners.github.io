@@ -152,7 +152,56 @@ players.forEach((player, index) => {
 
 ## ⚠️ Moderate Issues (Plan for Fix)
 
-### 4. FPL API Rate Limiting
+### 4. CORS Proxy Failures (New Aug 2024)
+
+**Symptoms:**
+- Countdown clock not appearing on website
+- Console shows "All CORS proxies failed, using fallback date"
+- Fallback date appears to be in the past, hiding countdown
+
+**Diagnosis:**
+```javascript
+// Check browser console for these error messages:
+// "❌ Proxy 1 failed: ..."
+// "❌ Proxy 2 failed: ..."
+// "All CORS proxies failed, using fallback date"
+```
+
+**Root Cause:**
+Third-party CORS proxies used to fetch FPL API data become unreliable or change their policies.
+
+**Solutions:**
+
+#### **Option A: Update Fallback Date (Quick Fix)**
+```javascript
+// In index.html, update both fallback dates:
+const fallbackDate = new Date("2025-08-15T17:30:00Z"); // Update to current season's GW1
+```
+
+#### **Option B: Add New CORS Proxy**
+```javascript
+// In loadFPLSeasonData(), add new proxy to array:
+const corsProxies = [
+  "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://fantasy.premierleague.com/api/bootstrap-static/"),
+  "https://corsproxy.io/?" + encodeURIComponent("https://fantasy.premierleague.com/api/bootstrap-static/"),
+  "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent("https://fantasy.premierleague.com/api/bootstrap-static/"),
+  "https://new-proxy.com/api?url=" + encodeURIComponent("https://fantasy.premierleague.com/api/bootstrap-static/") // Add new proxy
+];
+```
+
+#### **Option C: Server-Side Solution (Long-term)**
+- Set up your own CORS proxy server
+- Use backend service to fetch FPL data
+- Update API endpoints to point to your server
+
+**Prevention:**
+- Monitor CORS proxy uptime
+- Keep fallback dates updated each season
+- Test countdown functionality regularly
+
+---
+
+### 5. FPL API Rate Limiting
 
 **Symptoms:**
 - Some player scores showing as 0 or null
