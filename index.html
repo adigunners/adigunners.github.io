@@ -1233,7 +1233,9 @@
         function tryNextProxy() {
           if (currentProxyIndex >= corsProxies.length) {
             console.error("All CORS proxies failed, using fallback date");
+            // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
             const fallbackDate = new Date("2025-08-15T17:30:00Z");
+            console.log("🚨 Using hardcoded GW1 deadline as fallback:", fallbackDate);
             handleSeasonDisplay(fallbackDate);
             startCountdown(fallbackDate);
             return;
@@ -1273,7 +1275,9 @@
               startCountdown(deadlineTime, nextGameweek);
             } else {
               console.log("No next gameweek found, using fallback date");
+              // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
               const fallbackDate = new Date("2025-08-15T17:30:00Z");
+              console.log("🚨 Using hardcoded GW1 deadline as fallback:", fallbackDate);
               handleSeasonDisplay(fallbackDate);
               startCountdown(fallbackDate);
             }
