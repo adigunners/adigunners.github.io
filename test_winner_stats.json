@@ -1,14 +1,14 @@
 {
-  "lastUpdated": "2025-08-08T14:40:44.582Z",
+  "lastUpdated": "2025-08-08T14:40:50.994Z",
   "summary": {
-    "totalPrizeDistributed": 600,
+    "totalPrizeDistributed": 1200,
     "totalPaid": 0,
-    "totalPending": 600,
-    "gameweekPrizes": 600,
+    "totalPending": 1200,
+    "gameweekPrizes": 1200,
     "monthlyPrizes": 0,
-    "completedGameweeks": 1,
+    "completedGameweeks": 2,
     "completedMonths": 0,
-    "totalWinners": 2,
+    "totalWinners": 6,
     "totalPlayers": 27,
     "lastProcessedGW": 4
   },
@@ -70,25 +70,32 @@
     },
     {
       "playerName": "Sanchay Srivastava",
-      "totalPrizeWon": 0,
+      "totalPrizeWon": 200,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 200,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 200,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 3,
         "totalPoints": 276
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "1st",
+            "prize": 200,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
-        "first": 0,
+        "first": 1,
         "second": 0
       }
     },
@@ -166,25 +173,32 @@
     },
     {
       "playerName": "Kashyap Rana",
-      "totalPrizeWon": 0,
+      "totalPrizeWon": 200,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 200,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 200,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 7,
         "totalPoints": 260
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "1st",
+            "prize": 200,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
-        "first": 0,
+        "first": 1,
         "second": 0
       }
     },
@@ -269,50 +283,64 @@
     },
     {
       "playerName": "Varun Elango",
-      "totalPrizeWon": 0,
+      "totalPrizeWon": 100,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 100,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 100,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 11,
         "totalPoints": 247
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "2nd",
+            "prize": 100,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
         "first": 0,
-        "second": 0
+        "second": 1
       }
     },
     {
       "playerName": "Soman Panda",
-      "totalPrizeWon": 0,
+      "totalPrizeWon": 100,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 100,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 100,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 12,
         "totalPoints": 243
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "2nd",
+            "prize": 100,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
         "first": 0,
-        "second": 0
+        "second": 1
       }
     },
     {
