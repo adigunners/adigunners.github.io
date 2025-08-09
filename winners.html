@@ -723,10 +723,16 @@
 
       function checkTestMode() {
         const params = new URLSearchParams(window.location.search);
-        if (params.get("test") === "true") {
+        const isTestMode = params.get("test") === "true";
+        
+        if (isTestMode) {
           console.log("🧪 Test mode activated!");
           const section = document.querySelector(".test-section");
           if (section) section.style.display = "block";
+        } else {
+          // Ensure test section is hidden in live mode
+          const section = document.querySelector(".test-section");
+          if (section) section.style.display = "none";
         }
       }
     </script>
