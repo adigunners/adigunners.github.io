@@ -422,38 +422,123 @@
         h2 {
           font-size: 1.5rem;
         }
+        /* Mobile table: Transform to card-like layout */
         .winner-table {
           font-size: 0.8rem;
-        }
-        .winner-table th,
-        .winner-table td {
-          padding: 10px 8px;
+          border-collapse: separate;
+          border-spacing: 0;
         }
         
-        /* Mobile-specific column adjustments */
-        .winner-table th:nth-child(1),
-        .winner-table td:nth-child(1) {
-          width: 50px !important;
-          min-width: 50px !important;
-          max-width: 50px !important;
+        /* Hide traditional table headers on mobile */
+        .winner-table thead {
+          position: absolute;
+          left: -9999px;
+          top: -9999px;
         }
         
-        .winner-table th:nth-child(3),
-        .winner-table td:nth-child(3) {
-          width: 100px !important;
-          min-width: 100px !important;
-          max-width: 100px !important;
-          font-size: 0.75rem;
+        /* Make each row a card */
+        .winner-table tbody tr {
+          display: block;
+          background: white;
+          margin-bottom: 12px;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          border: 1px solid #f0f2f5;
+          padding: 16px;
+          position: relative;
         }
         
+        .winner-table tbody tr:hover {
+          transform: none;
+          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* Style each cell as a row item */
+        .winner-table tbody td {
+          display: block;
+          padding: 4px 0;
+          border: none;
+          text-align: left !important;
+        }
+        
+        /* Add labels before each data item */
+        .winner-table tbody td:nth-child(1)::before {
+          content: "Rank: ";
+          font-weight: 700;
+          color: var(--primary-color);
+          display: inline-block;
+          width: 80px;
+        }
+        
+        .winner-table tbody td:nth-child(2)::before {
+          content: "Player: ";
+          font-weight: 700;
+          color: var(--primary-color);
+          display: inline-block;
+          width: 80px;
+        }
+        
+        .winner-table tbody td:nth-child(3)::before {
+          content: "Prize: ";
+          font-weight: 700;
+          color: var(--primary-color);
+          display: inline-block;
+          width: 80px;
+        }
+        
+        .winner-table tbody td:nth-child(4)::before {
+          content: "Highlights: ";
+          font-weight: 700;
+          color: var(--primary-color);
+          display: inline-block;
+          width: 80px;
+          vertical-align: top;
+        }
+        
+        /* Position rank badge absolutely in top-right */
+        .winner-table tbody td:nth-child(1) {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          padding: 0;
+          width: auto;
+        }
+        
+        .winner-table tbody td:nth-child(1)::before {
+          display: none; /* Hide "Rank:" label for the badge */
+        }
+        
+        /* Adjust other cells to account for rank badge */
+        .winner-table tbody td:nth-child(2) {
+          margin-bottom: 8px;
+          padding-right: 60px; /* Space for rank badge */
+        }
+        
+        .winner-table tbody td:nth-child(3) {
+          margin-bottom: 8px;
+        }
+        
+        .winner-table tbody td:nth-child(4) {
+          margin-bottom: 0;
+        }
+        
+        /* Highlights styling for mobile cards */
         .highlights {
-          gap: 4px;
-          flex-direction: column;
-          align-items: flex-end;
+          gap: 6px;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          align-items: flex-start;
+          display: inline-flex;
+          vertical-align: top;
+          margin-left: 80px;
+          margin-top: -4px;
         }
+        
         .highlight-badge {
           font-size: 0.65rem;
-          padding: 2px 4px;
+          padding: 3px 6px;
+          margin: 1px;
         }
         /* Mobile optimization: Stack vertically with Total Prize Money first */
         .stats-summary {
@@ -545,28 +630,37 @@
           font-size: 1.3rem;
         }
 
-        .winner-table {
-          font-size: 0.7rem;
-        }
-
-        .winner-table th,
-        .winner-table td {
-          padding: 8px 6px;
+        /* Ultra-narrow: Use same card layout as mobile but more compact */
+        .winner-table tbody tr {
+          padding: 12px;
+          margin-bottom: 10px;
         }
         
-        .winner-table th:nth-child(1),
-        .winner-table td:nth-child(1) {
-          width: 40px !important;
-          min-width: 40px !important;
-          max-width: 40px !important;
+        .winner-table tbody td:nth-child(1) {
+          top: 12px;
+          right: 12px;
         }
         
-        .winner-table th:nth-child(3),
-        .winner-table td:nth-child(3) {
-          width: 80px !important;
-          min-width: 80px !important;
-          max-width: 80px !important;
+        .winner-table tbody td:nth-child(2) {
+          padding-right: 50px; /* Less space for rank badge */
+        }
+        
+        .winner-table tbody td:nth-child(1)::before,
+        .winner-table tbody td:nth-child(2)::before,
+        .winner-table tbody td:nth-child(3)::before,
+        .winner-table tbody td:nth-child(4)::before {
+          width: 70px; /* Narrower labels */
           font-size: 0.65rem;
+        }
+        
+        .highlights {
+          margin-left: 70px;
+          gap: 4px;
+        }
+        
+        .highlight-badge {
+          font-size: 0.6rem;
+          padding: 2px 4px;
         }
 
         .summary-card {
