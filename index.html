@@ -1012,8 +1012,8 @@
           </div>
         </section>
 
-        <!-- IN-SEASON VIEW TOGGLE (Before Season - Live Mode Only) -->
-        <section id="season-toggle" class="season-section pre-season" style="text-align: center; display: none;">
+        <!-- IN-SEASON VIEW TOGGLE (Test Mode Only) -->
+        <section id="season-toggle" class="season-section pre-season test-only" style="text-align: center; display: none;">
           <button
             onclick="toggleSeasonMode()"
             style="
@@ -1234,15 +1234,13 @@
       function checkTestMode() {
         const urlParams = new URLSearchParams(window.location.search);
         const testMode = urlParams.get("test") === "true";
-        const currentDate = new Date();
-        const seasonStartDate = new Date("2025-08-15T17:30:00Z"); // GW1 deadline
-        const isPreSeason = currentDate < seasonStartDate;
 
         if (testMode) {
-          // Show test-only elements (like preview button)
+          // Show ALL test-only elements (including toggle button)
           document.querySelectorAll('.test-only').forEach(el => {
             el.style.display = 'block';
           });
+          console.log("🧪 Test mode: Showing test-only elements including toggle button");
 
           // Update winners link to include test parameter
           const winnersLink = document.getElementById('winners-link');
@@ -1250,25 +1248,20 @@
             winnersLink.href = 'winners.html?test=true';
           }
 
-          // Load test data
-          loadTestWinnerData();
-
           console.log("🧪 Test mode activated!");
         } else {
-          // In live mode during pre-season, show the toggle button
-          if (isPreSeason) {
-            const toggleSection = document.getElementById('season-toggle');
-            if (toggleSection) {
-              toggleSection.style.display = 'block';
-              console.log("📊 Pre-season: Showing season preview toggle button");
-            }
-          }
+          // Live mode: FORCE HIDE all test-only elements
+          document.querySelectorAll('.test-only').forEach(el => {
+            el.style.display = 'none !important';
+            el.style.visibility = 'hidden';
+          });
           
-          // Ensure winners link is clean (no test parameter) in live mode
           const winnersLink = document.getElementById('winners-link');
           if (winnersLink) {
             winnersLink.href = 'winners.html';
           }
+
+          console.log("🌐 Live mode: All test-only elements hidden");
         }
       }
 
@@ -1298,6 +1291,12 @@
             console.log("🔄 Toggle: Loading data for season mode...");
             loadWinnerData("winner-preview-container", "winner-summary", true); // Use test data
             loadTestLeaderboardData();
+            
+            // Update winners link to test version when in season mode
+            const winnersLink = document.getElementById('winners-link');
+            if (winnersLink) {
+              winnersLink.href = 'winners.html?test=true';
+            }
           } else {
             headerP.textContent =
               "Season 2025-26 - Registration Open (Testing Mode)";
@@ -1429,41 +1428,25 @@
           }
         }
         
-        // Render immediately using cached deadline if available and still in the future
-        const cachedDeadline = getCachedDeadline();
-        if (cachedDeadline && cachedDeadline - new Date() > 0) {
-          const countdownClock = document.getElementById("countdown-clock");
-          if (countdownClock) countdownClock.style.display = "block";
-          const label = document.getElementById("countdown-label");
-          if (label && !label.textContent.includes("(cached)")) {
-            label.textContent = label.textContent + " (cached)";
+        // Only use cached deadline in test mode to avoid showing "cached" in live mode
+        if (isTestMode) {
+          const cachedDeadline = getCachedDeadline();
+          if (cachedDeadline && cachedDeadline - new Date() > 0) {
+            const countdownClock = document.getElementById("countdown-clock");
+            if (countdownClock) countdownClock.style.display = "block";
+            const label = document.getElementById("countdown-label");
+            if (label && !label.textContent.includes("(cached)")) {
+              label.textContent = label.textContent + " (cached)";
+            }
+            usedCachedOnLoad = true;
+            handleSeasonDisplay(cachedDeadline);
+            startCountdown(cachedDeadline);
+            markCountdownShown();
           }
-          usedCachedOnLoad = true;
-          handleSeasonDisplay(cachedDeadline);
-          startCountdown(cachedDeadline);
-          markCountdownShown();
         }
         
-        // For pre-season, don't use cached gameweek data that would trigger during-season UI
-        // Only use cached gameweek if we're in test mode
-        if (isTestMode) {
-          const cachedGW = getCachedGameweek();
-          if (cachedGW) {
-            const gwDeadline = new Date(cachedGW.deadline_time);
-            if (gwDeadline - new Date() > 0) {
-              const countdownClock2 = document.getElementById("countdown-clock");
-              if (countdownClock2) countdownClock2.style.display = "block";
-              const label2 = document.getElementById("countdown-label");
-              if (label2)
-                label2.textContent = `GW${cachedGW.id} DEADLINE (cached)`;
-              // Switch UI to during-season immediately
-              usedCachedOnLoad = true;
-              showDuringSeasonUI();
-              startCountdown(gwDeadline, cachedGW);
-              markCountdownShown();
-            }
-          }
-        }
+        // Don't use cached gameweek data in DOM ready - let test mode start with pre-season view
+        // The toggle button will handle switching to during-season view when clicked
         // Load FPL season data first
         loadFPLSeasonData();
 
@@ -1672,17 +1655,27 @@
         console.log("Is active season (current >= start date):", isActiveSeason);
         console.log("Gameweek:", gameweek);
 
-        // In test mode, always show during-season UI regardless of actual dates
+        // In test mode, start with pre-season view (same as live mode)
+        // The toggle button will allow switching to during-season view
         if (isTestMode) {
-          console.log("🧪 TEST MODE: Showing during-season UI for demo");
-          showDuringSeasonUI();
-          loadMainWinnerData();
-          loadLeaderboardData();
-          if (gameweek) {
-            updateGameweekCountdown(gameweek);
-          } else {
-            updateCountdownDisplay(seasonStartDate);
+          console.log("🧪 TEST MODE: Starting with pre-season UI (same as live)");
+          // Start with pre-season view, toggle will switch to during-season
+          document
+            .querySelectorAll(".pre-season")
+            .forEach((el) => (el.style.display = "block"));
+          document
+            .querySelectorAll(".during-season")
+            .forEach((el) => (el.style.display = "none"));
+
+          // Set header message for pre-season
+          const headerP = document.querySelector("header p");
+          if (headerP) {
+            headerP.textContent = "Season 2025-26 - Registration Open [TEST MODE]";
+            headerP.style.color = "#ff6b6b";
           }
+          
+          // Show countdown for season start
+          updateCountdownDisplay(seasonStartDate);
           return;
         }
 
