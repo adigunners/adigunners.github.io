@@ -99,7 +99,9 @@
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        font-variant-numeric: tabular-nums; /* Ensures consistent digit alignment */
       }
+      
       .winner-table th {
         background: linear-gradient(
           135deg,
@@ -107,19 +109,87 @@
           var(--heading-color)
         );
         color: white;
-        padding: 15px 12px;
+        padding: 14px 16px;
         text-align: left;
-        font-weight: 600;
+        font-weight: 700;
         font-size: 0.95rem;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        position: sticky;
+        top: 0;
+        z-index: 10;
       }
+      
+      /* Specific alignment for table headers */
+      .winner-table th:nth-child(1) {
+        text-align: center; /* Rank column */
+        width: 70px;
+        min-width: 70px;
+        max-width: 70px;
+      }
+      
+      .winner-table th:nth-child(2) {
+        text-align: left; /* Player column */
+        /* Dynamic width - will be set by JavaScript based on longest name */
+        min-width: 120px;
+      }
+      
+      .winner-table th:nth-child(3) {
+        text-align: right; /* Total Prize Won column */
+        width: 130px;
+        min-width: 130px;
+        max-width: 130px;
+      }
+      
+      .winner-table th:nth-child(4) {
+        text-align: right; /* Highlights column */
+        /* Dynamic width - takes remaining space */
+        min-width: 200px;
+      }
+      
       .winner-table td {
-        padding: 15px 12px;
+        padding: 14px 16px;
         border-bottom: 1px solid #f0f2f5;
         font-size: 0.9rem;
+        transition: background-color 0.2s ease;
       }
-      .winner-table tr:hover {
+      
+      /* Zebra striping for better row scanning */
+      .winner-table tbody tr:nth-child(even) {
         background-color: #f8f9fa;
       }
+      
+      .winner-table tbody tr:nth-child(odd) {
+        background-color: white;
+      }
+      
+      /* Enhanced hover state */
+      .winner-table tbody tr:hover {
+        background-color: #e3f2fd !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      
+      /* Specific alignment for table data cells */
+      .winner-table td:nth-child(1) {
+        text-align: center; /* Rank column */
+        font-weight: 600;
+      }
+      
+      .winner-table td:nth-child(2) {
+        text-align: left; /* Player column */
+      }
+      
+      .winner-table td:nth-child(3) {
+        text-align: right; /* Total Prize Won column */
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+      }
+      
+      .winner-table td:nth-child(4) {
+        text-align: right; /* Highlights column */
+      }
+      
       .winner-table tr:last-child td {
         border-bottom: none;
       }
@@ -136,6 +206,7 @@
         display: flex;
         gap: 8px;
         flex-wrap: wrap;
+        justify-content: flex-end; /* Right-align the badges */
       }
       .highlight-badge {
         padding: 4px 8px;
@@ -143,16 +214,39 @@
         font-size: 0.75rem;
         font-weight: 600;
         white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: transform 0.2s ease;
+      }
+      
+      .highlight-badge:hover {
+        transform: translateY(-1px);
       }
 
       .highlight-badge.gw {
         background: var(--secondary-color);
         color: var(--primary-color);
       }
+      
+      .highlight-badge.gw::before {
+        content: "🏆";
+        font-size: 0.8em;
+      }
 
       .highlight-badge.gm {
         background: #ff6b6b;
         color: white;
+      }
+      
+      .highlight-badge.gm::before {
+        content: "📅";
+        font-size: 0.8em;
+      }
+      
+      .highlight-badge:not(.gw):not(.gm)::before {
+        content: "📊";
+        font-size: 0.8em;
       }
       .winner-loading {
         text-align: center;
@@ -241,12 +335,31 @@
         .winner-table td {
           padding: 10px 8px;
         }
+        
+        /* Mobile-specific column adjustments */
+        .winner-table th:nth-child(1),
+        .winner-table td:nth-child(1) {
+          width: 50px !important;
+          min-width: 50px !important;
+          max-width: 50px !important;
+        }
+        
+        .winner-table th:nth-child(3),
+        .winner-table td:nth-child(3) {
+          width: 100px !important;
+          min-width: 100px !important;
+          max-width: 100px !important;
+          font-size: 0.75rem;
+        }
+        
         .highlights {
           gap: 4px;
+          flex-direction: column;
+          align-items: flex-end;
         }
         .highlight-badge {
-          font-size: 0.7rem;
-          padding: 3px 6px;
+          font-size: 0.65rem;
+          padding: 2px 4px;
         }
         .stats-summary {
           flex-direction: column;
@@ -255,6 +368,11 @@
         .summary-card {
           width: 100%;
           max-width: 200px;
+        }
+        
+        /* Override dynamic styles on mobile for better fit */
+        #dynamic-table-styles {
+          display: none !important;
         }
       }
       
@@ -371,7 +489,6 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         loadWinnerData();
-        loadFPLData();
         checkTestMode();
       });
 
@@ -413,6 +530,11 @@
 
             displayWinnerTable(data.winners);
             updateStatsSummary(data.winners);
+            
+            // Update completed gameweeks from the JSON data summary
+            if (data.summary && data.summary.completedGameweeks !== undefined) {
+              document.getElementById("completed-gameweeks").textContent = data.summary.completedGameweeks;
+            }
 
             // Show last updated time for winners
             const lastUpdated = new Date(data.lastUpdated);
@@ -451,7 +573,7 @@
           (a, b) => b.totalPrizeWon - a.totalPrizeWon
         );
 
-        let tableHTML = '<table class="winner-table">';
+        let tableHTML = '<table class="winner-table" id="dynamic-winner-table">';
         tableHTML += '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead>';
         tableHTML += '<tbody>';
         
@@ -479,6 +601,85 @@
         tableHTML += '</tbody></table>';
 
         document.getElementById("winner-table-container").innerHTML = tableHTML;
+        
+        // Apply dynamic column widths after table is rendered
+        setTimeout(() => {
+          optimizeTableColumnWidths(sortedWinners);
+        }, 50);
+      }
+      
+      function optimizeTableColumnWidths(winners) {
+        const table = document.getElementById('dynamic-winner-table');
+        if (!table || !winners || winners.length === 0) return;
+        
+        console.log('🔧 Optimizing table column widths...');
+        
+        // Create a temporary invisible element to measure text widths
+        const measureEl = document.createElement('span');
+        measureEl.style.visibility = 'hidden';
+        measureEl.style.position = 'absolute';
+        measureEl.style.whiteSpace = 'nowrap';
+        measureEl.style.fontFamily = 'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+        measureEl.style.fontSize = '0.9rem';
+        measureEl.style.fontWeight = '600';
+        document.body.appendChild(measureEl);
+        
+        try {
+          // Find the longest player name
+          let maxPlayerNameWidth = 0;
+          let longestName = 'Player'; // Default to header text
+          
+          winners.forEach(winner => {
+            measureEl.textContent = winner.playerName;
+            const width = measureEl.offsetWidth;
+            if (width > maxPlayerNameWidth) {
+              maxPlayerNameWidth = width;
+              longestName = winner.playerName;
+            }
+          });
+          
+          // Also check header width
+          measureEl.style.fontWeight = '700';
+          measureEl.style.fontSize = '0.95rem';
+          measureEl.style.letterSpacing = '0.3px';
+          measureEl.textContent = 'PLAYER';
+          const headerWidth = measureEl.offsetWidth;
+          
+          // Use the larger of content width or header width, plus padding
+          const playerColumnWidth = Math.max(maxPlayerNameWidth, headerWidth) + 32; // 16px padding on each side
+          
+          console.log(`📏 Longest player name: "${longestName}" (${maxPlayerNameWidth}px)`);
+          console.log(`📏 Header width: ${headerWidth}px`);
+          console.log(`📏 Final player column width: ${playerColumnWidth}px`);
+          
+          // Apply the calculated width to player column
+          // Use CSS custom properties for dynamic widths
+          const styleElement = document.createElement('style');
+          styleElement.innerHTML = `
+            .winner-table th:nth-child(2),
+            .winner-table td:nth-child(2) {
+              width: ${playerColumnWidth}px;
+              max-width: ${playerColumnWidth}px;
+            }
+          `;
+          
+          // Remove any existing dynamic styles
+          const existingStyle = document.getElementById('dynamic-table-styles');
+          if (existingStyle) {
+            existingStyle.remove();
+          }
+          
+          styleElement.id = 'dynamic-table-styles';
+          document.head.appendChild(styleElement);
+          
+          console.log('✅ Dynamic column widths applied successfully');
+          
+        } catch (error) {
+          console.error('❌ Error optimizing column widths:', error);
+        } finally {
+          // Clean up measurement element
+          document.body.removeChild(measureEl);
+        }
       }
 
       function loadFPLData() {

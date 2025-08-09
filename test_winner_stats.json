@@ -7,7 +7,7 @@
     "gameweekPrizes": 2400,
     "monthlyPrizes": 2500,
     "completedGameweeks": 4,
-    "completedMonths": 0,
+    "completedMonths": 1,
     "totalWinners": 7,
     "lastProcessedGW": 4
   },
@@ -23,7 +23,7 @@
       },
       "highlights": {
         "gameWeeks": 1,
-        "gameMonths": 0,
+        "gameMonths": 1,
         "overallRank": 1
       },
       "achievements": {
@@ -35,7 +35,14 @@
             "status": "Pending"
           }
         ],
-        "months": []
+        "months": [
+          {
+            "month": "August",
+            "position": "1st",
+            "prize": 1500,
+            "status": "Pending"
+          }
+        ]
       },
       "positions": {
         "first": 2,
@@ -149,7 +156,7 @@
       },
       "highlights": {
         "gameWeeks": 2,
-        "gameMonths": 0,
+        "gameMonths": 1,
         "overallRank": 9
       },
       "achievements": {
