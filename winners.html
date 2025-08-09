@@ -34,8 +34,10 @@
         color: var(--text-color);
       }
       .container {
+        width: 100%;
         max-width: 1200px;
         margin: 20px auto;
+        padding: 0 16px;
         background-color: transparent;
       }
       header {
@@ -392,12 +394,31 @@
         }
       }
       @media (max-width: 600px) {
-        header h1 {
-          font-size: 1.8rem;
+        .container {
+          padding: 0 12px;
         }
+
+        header {
+          padding: 20px 10px;
+          margin-bottom: 16px;
+        }
+
+        header h1 {
+          font-size: clamp(1rem, 5vw, 1.8rem);
+        }
+
+        header p {
+          font-size: clamp(0.8rem, 3.5vw, 1rem);
+        }
+
+        main > * {
+          margin-bottom: 16px;
+        }
+
         section {
           padding: 20px;
         }
+
         h2 {
           font-size: 1.5rem;
         }
@@ -493,6 +514,97 @@
         /* Override dynamic styles on mobile for better fit */
         #dynamic-table-styles {
           display: none !important;
+        }
+      }
+      
+      /* Ultra-narrow screens (Galaxy Z Fold, very small devices) */
+      @media (max-width: 360px) {
+        .container {
+          padding: 0 8px;
+        }
+
+        header {
+          padding: 15px 10px;
+        }
+
+        header h1 {
+          font-size: clamp(0.9rem, 4.5vw, 1.4rem);
+          letter-spacing: -0.5px;
+          line-height: 1.2;
+        }
+
+        header p {
+          font-size: clamp(0.7rem, 3vw, 0.9rem);
+        }
+
+        section {
+          padding: 15px;
+        }
+
+        h2 {
+          font-size: 1.3rem;
+        }
+
+        .winner-table {
+          font-size: 0.7rem;
+        }
+
+        .winner-table th,
+        .winner-table td {
+          padding: 8px 6px;
+        }
+        
+        .winner-table th:nth-child(1),
+        .winner-table td:nth-child(1) {
+          width: 40px !important;
+          min-width: 40px !important;
+          max-width: 40px !important;
+        }
+        
+        .winner-table th:nth-child(3),
+        .winner-table td:nth-child(3) {
+          width: 80px !important;
+          min-width: 80px !important;
+          max-width: 80px !important;
+          font-size: 0.65rem;
+        }
+
+        .summary-card {
+          padding: 15px 8px;
+        }
+        
+        .summary-card.primary-metric {
+          padding: 18px 10px;
+        }
+        
+        .summary-icon {
+          font-size: 1.2rem;
+          margin-bottom: 6px;
+        }
+        
+        .summary-card.primary-metric .summary-icon {
+          font-size: 1.5rem;
+          margin-bottom: 8px;
+        }
+        
+        .summary-number {
+          font-size: 1.4rem;
+        }
+        
+        .summary-card.primary-metric .summary-number {
+          font-size: 1.9rem;
+        }
+        
+        .summary-label {
+          font-size: 0.7rem;
+        }
+        
+        .summary-card.primary-metric .summary-label {
+          font-size: 0.75rem;
+        }
+
+        .stats-summary {
+          gap: 8px;
         }
       }
       
