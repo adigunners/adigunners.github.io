@@ -1968,12 +1968,58 @@
             console.log("🧪 Loaded TEST leaderboard data for toggle:", data);
 
             if (data.winners) {
-              // Sort by overall rank (ascending) - lower rank number = better position
-              leaderboardData = data.winners
-                .filter((winner) => winner.highlights.overallRank !== 999) // Exclude placeholder ranks
-                .sort(
-                  (a, b) => a.highlights.overallRank - b.highlights.overallRank
-                );
+              // For leaderboard, we need ALL players from winner_stats.json (which has all players)
+              // But since we're in test mode, we'll create a combined dataset
+              const liveUrl = "winner_stats.json?cache=" + new Date().getTime();
+              
+              return fetch(liveUrl)
+                .then(response => response.json())
+                .then(liveData => {
+                  // Create a map of test data winners by name
+                  const testWinnersMap = new Map();
+                  data.winners.forEach(winner => {
+                    testWinnersMap.set(winner.playerName, winner);
+                  });
+                  
+                  // Update live data with test rankings for players who have them
+                  leaderboardData = liveData.winners.map(player => {
+                    const testData = testWinnersMap.get(player.playerName);
+                    if (testData) {
+                      // Use test data for winners
+                      return {
+                        ...testData
+                      };
+                    } else {
+                      // Use live data but assign a lower rank for non-winners
+                      return {
+                        ...player,
+                        highlights: {
+                          ...player.highlights,
+                          overallRank: 999 + Math.random() * 1000 // Give them ranks > 999
+                        }
+                      };
+                    }
+                  }).sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+                  
+                  displayLeaderboard();
+                  
+                  // Show last updated time
+                  const lastUpdated = new Date(data.lastUpdated);
+                  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                  const formattedDate = lastUpdated.toLocaleString("en-GB", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                    timeZone: userTimeZone,
+                  });
+                  
+                  const updateElement = document.getElementById("leaderboard-last-updated");
+                  if (updateElement) {
+                    updateElement.textContent = `Last updated: ${formattedDate} (test data)`;
+                  }
+                  
+                  return data;
+                });
+            }
 
               displayLeaderboard();
 
