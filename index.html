@@ -833,7 +833,7 @@
         </div>
 
         <!-- Digital Countdown Clock -->
-        <div id="countdown-clock" class="countdown-clock" style="display: none">
+        <div id="countdown-clock" class="countdown-clock" style="display: block">
           <div class="countdown-label" id="countdown-label">
             Time Until Kickoff
           </div>
@@ -1236,6 +1236,17 @@
             // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
             const fallbackDate = new Date("2025-08-15T17:30:00Z");
             console.log("🚨 Using hardcoded GW1 deadline as fallback:", fallbackDate);
+            console.log("📝 Current time:", new Date());
+            console.log("📝 Time difference (ms):", fallbackDate - new Date());
+            console.log("📝 Time until deadline (days):", Math.floor((fallbackDate - new Date()) / (1000 * 60 * 60 * 24)));
+            
+            // Force countdown to show
+            const countdownClock = document.getElementById("countdown-clock");
+            if (countdownClock) {
+              countdownClock.style.display = "block";
+              console.log("🕰️ Forced countdown clock to be visible");
+            }
+            
             handleSeasonDisplay(fallbackDate);
             startCountdown(fallbackDate);
             return;
@@ -1367,9 +1378,16 @@
       function updateCountdownDisplay(deadlineTime) {
         const currentDate = new Date();
         const timeDifference = deadlineTime - currentDate;
+        
+        console.log("🕑 updateCountdownDisplay called");
+        console.log("  - Deadline:", deadlineTime);
+        console.log("  - Current:", currentDate);
+        console.log("  - Difference (ms):", timeDifference);
+        console.log("  - Days remaining:", Math.floor(timeDifference / (1000 * 60 * 60 * 24)));
 
         if (timeDifference <= 0) {
           // Season has started
+          console.log("⚠️ Season has started - hiding countdown");
           const headerP = document.querySelector("header p");
           const countdownClock = document.getElementById("countdown-clock");
 
