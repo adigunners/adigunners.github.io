@@ -420,7 +420,19 @@
         }
 
         h2 {
-          font-size: 1.5rem;
+          font-size: clamp(1.2rem, 4vw, 1.5rem);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        
+        /* Make description text wrap properly on mobile */
+        section p {
+          font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+          white-space: normal;
+          overflow: visible;
+          text-overflow: unset;
+          line-height: 1.4;
         }
         /* Mobile table: Transform to compact card layout */
         .winner-table {
@@ -498,12 +510,12 @@
           content: ".";
         }
         
-        /* Highlights styling for mobile cards */
+        /* Highlights styling for mobile cards - right aligned */
         .highlights {
           gap: 4px;
           flex-direction: row;
           flex-wrap: wrap;
-          justify-content: flex-start;
+          justify-content: flex-end;
           align-items: center;
           display: flex;
           margin-top: 2px;
@@ -515,17 +527,35 @@
           margin: 0;
         }
         
-        /* Special styling for top 3 ranks */
-        .winner-table tbody tr:nth-child(1) td:nth-child(1)::before {
-          content: "🥇 ";
+        /* Subtle gold/silver/bronze backgrounds for top 3 mobile cards */
+        .winner-table tbody tr:nth-child(1) {
+          background: linear-gradient(145deg, #fffbf0, #fff8e1) !important;
+          border-left: 4px solid #f9a825;
+          box-shadow: 0 2px 8px rgba(249, 168, 37, 0.15) !important;
         }
         
-        .winner-table tbody tr:nth-child(2) td:nth-child(1)::before {
-          content: "🥈 ";
+        .winner-table tbody tr:nth-child(1):hover {
+          box-shadow: 0 3px 12px rgba(249, 168, 37, 0.25) !important;
         }
         
-        .winner-table tbody tr:nth-child(3) td:nth-child(1)::before {
-          content: "🥉 ";
+        .winner-table tbody tr:nth-child(2) {
+          background: linear-gradient(145deg, #f8f9fa, #f1f3f4) !important;
+          border-left: 4px solid #9e9e9e;
+          box-shadow: 0 2px 8px rgba(158, 158, 158, 0.15) !important;
+        }
+        
+        .winner-table tbody tr:nth-child(2):hover {
+          box-shadow: 0 3px 12px rgba(158, 158, 158, 0.25) !important;
+        }
+        
+        .winner-table tbody tr:nth-child(3) {
+          background: linear-gradient(145deg, #fef7e0, #fff3cd) !important;
+          border-left: 4px solid #d4b106;
+          box-shadow: 0 2px 8px rgba(212, 177, 6, 0.15) !important;
+        }
+        
+        .winner-table tbody tr:nth-child(3):hover {
+          box-shadow: 0 3px 12px rgba(212, 177, 6, 0.25) !important;
         }
         /* Mobile optimization: Stack vertically with Total Prize Money first */
         .stats-summary {
@@ -723,29 +753,48 @@
         color: var(--primary-color);
       }
 
-      /* Gold, Silver, Bronze styling for top 3 ranks */
-      .rank-1 {
-        background: linear-gradient(135deg, #FFD700, #FFA500);
-        color: #8B4513;
-        font-weight: 700;
-        padding: 4px 8px;
-        border-radius: 4px;
+      /* Winner navigation pagination styles */
+      .winner-navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin: 20px 0;
+        flex-wrap: wrap;
       }
       
-      .rank-2 {
-        background: linear-gradient(135deg, #C0C0C0, #808080);
-        color: #2F4F4F;
-        font-weight: 700;
-        padding: 4px 8px;
-        border-radius: 4px;
+      .winner-nav-btn {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
       }
       
-      .rank-3 {
-        background: linear-gradient(135deg, #CD7F32, #A0522D);
-        color: #FFFFFF;
-        font-weight: 700;
-        padding: 4px 8px;
-        border-radius: 4px;
+      .winner-nav-btn:hover:not(:disabled) {
+        background: var(--heading-color);
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(93, 33, 99, 0.3);
+      }
+      
+      .winner-nav-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+      
+      .page-info {
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 0.9rem;
+        white-space: nowrap;
       }
     </style>
   </head>
@@ -803,6 +852,16 @@
             <div class="winner-loading">Loading complete winner data...</div>
           </div>
 
+          <div class="winner-navigation" id="winner-navigation" style="display: none">
+            <button id="winner-prev-page" class="winner-nav-btn" onclick="previousWinnerPage()" disabled>
+              <i class="fas fa-chevron-left"></i> Previous
+            </button>
+            <span id="winner-page-info" class="page-info">Page 1 of 1</span>
+            <button id="winner-next-page" class="winner-nav-btn" onclick="nextWinnerPage()" disabled>
+              Next <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
           <div id="winner-last-updated" class="winner-last-updated">
             Fetching latest winner data...
           </div>
@@ -818,6 +877,11 @@
     </div>
 
     <script>
+      // Global variables for winner pagination
+      let allWinners = [];
+      let currentWinnerPage = 1;
+      const winnerItemsPerPage = 10;
+      
       document.addEventListener("DOMContentLoaded", function () {
         loadWinnerData();
         checkTestMode();
@@ -859,7 +923,11 @@
               }
             }
 
-            displayWinnerTable(data.winners);
+            // Store sorted winners globally for pagination
+            allWinners = data.winners.sort(
+              (a, b) => b.totalPrizeWon - a.totalPrizeWon
+            );
+            displayWinnerTable();
             updateStatsSummary(data.winners);
             
             // Update statistics from the JSON data summary
@@ -897,25 +965,38 @@
           });
       }
 
-      function displayWinnerTable(winners) {
-        if (!winners || winners.length === 0) {
-          document.getElementById("winner-table-container").innerHTML =
-            '<div class="winner-loading">No winner data available yet.</div>';
+      // Display winners table with pagination
+      function displayWinnerTable() {
+        const container = document.getElementById("winner-table-container");
+        const navigation = document.getElementById("winner-navigation");
+
+        if (!container) {
+          console.error("Winner table container not found");
           return;
         }
 
-        // Sort winners by total prize won (descending)
-        const sortedWinners = winners.sort(
-          (a, b) => b.totalPrizeWon - a.totalPrizeWon
-        );
+        if (!allWinners || allWinners.length === 0) {
+          container.innerHTML = '<div class="winner-loading">No winner data available yet.</div>';
+          if (navigation) navigation.style.display = "none";
+          return;
+        }
 
+        console.log(`📊 Displaying winners: ${allWinners.length} total, page ${currentWinnerPage}`);
+
+        // Calculate pagination
+        const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
+        const startIndex = (currentWinnerPage - 1) * winnerItemsPerPage;
+        const endIndex = startIndex + winnerItemsPerPage;
+        const currentPageData = allWinners.slice(startIndex, endIndex);
+
+        // Generate table HTML with paginated data
         let tableHTML = '<table class="winner-table" id="dynamic-winner-table">';
         tableHTML += '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead>';
         tableHTML += '<tbody>';
         
-        sortedWinners.forEach((winner, index) => {
-          const rank = index + 1;
-          const rankClass = index < 3 ? ` rank-${rank}` : '';
+        currentPageData.forEach((winner, pageIndex) => {
+          const globalIndex = startIndex + pageIndex;
+          const rank = globalIndex + 1;
           const gameWeeksBadge = winner.highlights.gameWeeks > 0 
             ? `<span class="highlight-badge gw">${winner.highlights.gameWeeks}GW</span>` 
             : '';
@@ -927,7 +1008,7 @@
             : '';
             
           tableHTML += `<tr>`;
-          tableHTML += `<td class="winner-rank${rankClass}">${rank}</td>`;
+          tableHTML += `<td class="winner-rank">${rank}</td>`;
           tableHTML += `<td class="player-name">${winner.playerName}</td>`;
           tableHTML += `<td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</td>`;
           tableHTML += `<td><div class="highlights">${gameWeeksBadge}${gameMonthsBadge}${overallRankBadge}</div></td>`;
@@ -935,13 +1016,51 @@
         });
         
         tableHTML += '</tbody></table>';
+        container.innerHTML = tableHTML;
 
-        document.getElementById("winner-table-container").innerHTML = tableHTML;
+        // Show/hide navigation based on total pages
+        if (navigation) {
+          if (totalPages > 1) {
+            navigation.style.display = "flex";
+            updateWinnerNavigation(totalPages);
+          } else {
+            navigation.style.display = "none";
+          }
+        }
         
         // Apply dynamic column widths after table is rendered
         setTimeout(() => {
-          optimizeTableColumnWidths(sortedWinners);
+          optimizeTableColumnWidths(currentPageData);
         }, 50);
+      }
+      
+      // Update navigation buttons and page info
+      function updateWinnerNavigation(totalPages) {
+        const prevBtn = document.getElementById("winner-prev-page");
+        const nextBtn = document.getElementById("winner-next-page");
+        const pageInfo = document.getElementById("winner-page-info");
+
+        if (prevBtn) prevBtn.disabled = currentWinnerPage === 1;
+        if (nextBtn) nextBtn.disabled = currentWinnerPage === totalPages;
+        if (pageInfo) pageInfo.textContent = `Page ${currentWinnerPage} of ${totalPages}`;
+      }
+      
+      // Pagination functions
+      function previousWinnerPage() {
+        if (currentWinnerPage > 1) {
+          currentWinnerPage--;
+          displayWinnerTable();
+          console.log(`📄 Navigated to page ${currentWinnerPage}`);
+        }
+      }
+      
+      function nextWinnerPage() {
+        const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
+        if (currentWinnerPage < totalPages) {
+          currentWinnerPage++;
+          displayWinnerTable();
+          console.log(`📄 Navigated to page ${currentWinnerPage}`);
+        }
       }
       
       function optimizeTableColumnWidths(winners) {
