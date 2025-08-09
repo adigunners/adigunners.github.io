@@ -55,7 +55,8 @@ This system automatically manages a complete fantasy football league for 26+ IIM
 
 Experience the system with realistic test data:
 
-**<a href="https://adigunners.github.io/?test=true" target="_blank">📱 Live Demo</a>** - See the system in action with test winner data
+**[📱 Live Demo](https://adigunners.github.io/?test=true)** - See the system in action with test winner data  
+*💡 Tip: Right-click links to open in new tab*
 
 ## 📚 Documentation
 
@@ -156,10 +157,12 @@ This project is currently in private development for IIM Mumbai alumni. For tech
 
 ## 📱 Quick Links
 
-- **<a href="https://adigunners.github.io/" target="_blank">Live Website</a>** - Current league standings
-- **<a href="https://adigunners.github.io/?test=true" target="_blank">Test Demo</a>** - Experience with sample data
-- **<a href="https://adigunners.github.io/winners.html" target="_blank">Winner Leaderboard</a>** - Complete winner rankings
-- **<a href="docs/TECHNICAL_DOCUMENTATION.md" target="_blank">Technical Docs</a>** - Full implementation details
+> 💡 **Tip:** Right-click any link below and select "Open in new tab" to keep this README open
+
+- **[🌐 Live Website](https://adigunners.github.io/)** - Current league standings
+- **[🧪 Test Demo](https://adigunners.github.io/?test=true)** - Experience with sample data
+- **[🏆 Winner Leaderboard](https://adigunners.github.io/winners.html)** - Complete winner rankings
+- **[📖 Technical Docs](docs/TECHNICAL_DOCUMENTATION.md)** - Full implementation details
 
 ---
 
