@@ -371,7 +371,6 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         loadWinnerData();
-        loadFPLData();
         checkTestMode();
       });
 
@@ -413,6 +412,11 @@
 
             displayWinnerTable(data.winners);
             updateStatsSummary(data.winners);
+            
+            // Update completed gameweeks from the JSON data summary
+            if (data.summary && data.summary.completedGameweeks !== undefined) {
+              document.getElementById("completed-gameweeks").textContent = data.summary.completedGameweeks;
+            }
 
             // Show last updated time for winners
             const lastUpdated = new Date(data.lastUpdated);
