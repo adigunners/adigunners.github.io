@@ -1012,8 +1012,8 @@
           </div>
         </section>
 
-        <!-- IN-SEASON VIEW TOGGLE (Before Season - Test Mode Only) -->
-        <section id="season-toggle" class="season-section pre-season test-only" style="text-align: center; display: none;">
+        <!-- IN-SEASON VIEW TOGGLE (Before Season - Live Mode Only) -->
+        <section id="season-toggle" class="season-section pre-season" style="text-align: center; display: none;">
           <button
             onclick="toggleSeasonMode()"
             style="
@@ -1234,6 +1234,9 @@
       function checkTestMode() {
         const urlParams = new URLSearchParams(window.location.search);
         const testMode = urlParams.get("test") === "true";
+        const currentDate = new Date();
+        const seasonStartDate = new Date("2025-08-15T17:30:00Z"); // GW1 deadline
+        const isPreSeason = currentDate < seasonStartDate;
 
         if (testMode) {
           // Show test-only elements (like preview button)
@@ -1252,11 +1255,15 @@
 
           console.log("🧪 Test mode activated!");
         } else {
-          // Ensure test-only elements are hidden in live mode
-          document.querySelectorAll('.test-only').forEach(el => {
-            el.style.display = 'none';
-          });
-
+          // In live mode during pre-season, show the toggle button
+          if (isPreSeason) {
+            const toggleSection = document.getElementById('season-toggle');
+            if (toggleSection) {
+              toggleSection.style.display = 'block';
+              console.log("📊 Pre-season: Showing season preview toggle button");
+            }
+          }
+          
           // Ensure winners link is clean (no test parameter) in live mode
           const winnersLink = document.getElementById('winners-link');
           if (winnersLink) {
@@ -1650,32 +1657,50 @@
 
       function handleSeasonDisplay(seasonStartDate, gameweek = null) {
         const currentDate = new Date();
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTestMode = urlParams.get("test") === "true";
         
         console.log("Season start date (from FPL):", seasonStartDate);
         console.log("Current date:", currentDate);
+        console.log("Test mode:", isTestMode);
         
-        // If we have a gameweek, it means the season has started and we're in active play
-        const isActiveSeason = gameweek && gameweek.id;
+        // Determine if season is active based on current date vs season start
+        // For pre-season: current date < season start date
+        // For during-season: current date >= season start date
+        const isActiveSeason = currentDate >= seasonStartDate;
         
-        console.log("Is active season (has gameweek):", isActiveSeason);
+        console.log("Is active season (current >= start date):", isActiveSeason);
         console.log("Gameweek:", gameweek);
 
+        // In test mode, always show during-season UI regardless of actual dates
+        if (isTestMode) {
+          console.log("🧪 TEST MODE: Showing during-season UI for demo");
+          showDuringSeasonUI();
+          loadMainWinnerData();
+          loadLeaderboardData();
+          if (gameweek) {
+            updateGameweekCountdown(gameweek);
+          } else {
+            updateCountdownDisplay(seasonStartDate);
+          }
+          return;
+        }
+
+        // Normal logic for live mode
         if (isActiveSeason) {
           // Season is active - show leaderboard and winners, hide registration
-          console.log("🎯 Showing during-season UI (active gameweeks)");
+          console.log("🎯 LIVE MODE: Showing during-season UI (season started)");
           showDuringSeasonUI();
-
-          // Load winner data now that the season has started
           loadMainWinnerData();
-
-          // Load leaderboard data now that the season has started
           loadLeaderboardData();
-
-          // Show gameweek countdown
-          updateGameweekCountdown(gameweek);
+          if (gameweek) {
+            updateGameweekCountdown(gameweek);
+          } else {
+            updateCountdownDisplay(seasonStartDate);
+          }
         } else {
-          // Pre-season - show registration prominently
-          console.log("📝 Showing pre-season UI (registration phase)");
+          // Pre-season - show registration prominently, hide leaderboards
+          console.log("📝 LIVE MODE: Showing pre-season UI (registration phase)");
           document
             .querySelectorAll(".pre-season")
             .forEach((el) => (el.style.display = "block"));
