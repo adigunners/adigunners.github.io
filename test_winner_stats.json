@@ -1,25 +1,25 @@
 {
-  "lastUpdated": "2025-08-09T08:21:12.860Z",
+  "lastUpdated": "2025-08-09T08:21:23.496Z",
   "summary": {
-    "totalPrizeDistributed": 1800,
+    "totalPrizeDistributed": 4900,
     "totalPaid": 0,
-    "totalPending": 1800,
-    "gameweekPrizes": 1800,
-    "monthlyPrizes": 0,
-    "completedGameweeks": 3,
+    "totalPending": 4900,
+    "gameweekPrizes": 2400,
+    "monthlyPrizes": 2500,
+    "completedGameweeks": 4,
     "completedMonths": 0,
-    "totalWinners": 6,
+    "totalWinners": 7,
     "lastProcessedGW": 4
   },
   "winners": [
     {
       "playerName": "Vikranth Reddy",
-      "totalPrizeWon": 400,
+      "totalPrizeWon": 1900,
       "totalPaid": 0,
-      "totalPending": 400,
+      "totalPending": 1900,
       "prizeBreakdown": {
         "gameweek": 400,
-        "monthly": 0
+        "monthly": 1500
       },
       "highlights": {
         "gameWeeks": 1,
@@ -38,8 +38,74 @@
         "months": []
       },
       "positions": {
-        "first": 1,
+        "first": 2,
         "second": 0
+      }
+    },
+    {
+      "playerName": "Aditya Garg",
+      "totalPrizeWon": 1400,
+      "totalPaid": 0,
+      "totalPending": 1400,
+      "prizeBreakdown": {
+        "gameweek": 400,
+        "monthly": 1000
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 2
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "1st",
+            "prize": 400,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 1
+      }
+    },
+    {
+      "playerName": "Harshit Gupta",
+      "totalPrizeWon": 500,
+      "totalPaid": 0,
+      "totalPending": 500,
+      "prizeBreakdown": {
+        "gameweek": 500,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 3
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 100,
+            "status": "Pending"
+          },
+          {
+            "week": 4,
+            "position": "1st",
+            "prize": 400,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 1
       }
     },
     {
@@ -60,36 +126,6 @@
         "gameweeks": [
           {
             "week": 2,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      }
-    },
-    {
-      "playerName": "Aditya Garg",
-      "totalPrizeWon": 400,
-      "totalPaid": 0,
-      "totalPending": 400,
-      "prizeBreakdown": {
-        "gameweek": 400,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 2
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
             "position": "1st",
             "prize": 400,
             "status": "Pending"
@@ -169,25 +205,25 @@
       }
     },
     {
-      "playerName": "Harshit Gupta",
-      "totalPrizeWon": 100,
+      "playerName": "Anish Banerjee",
+      "totalPrizeWon": 200,
       "totalPaid": 0,
-      "totalPending": 100,
+      "totalPending": 200,
       "prizeBreakdown": {
-        "gameweek": 100,
+        "gameweek": 200,
         "monthly": 0
       },
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 3
+        "overallRank": 13
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 3,
+            "week": 4,
             "position": "2nd",
-            "prize": 100,
+            "prize": 200,
             "status": "Pending"
           }
         ],
