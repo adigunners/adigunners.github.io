@@ -355,9 +355,10 @@
       }
       
       .summary-card.primary-metric .summary-label {
-        font-size: 0.9rem;
-        font-weight: 600;
+        font-size: 0.95rem;
+        font-weight: 700;
         color: var(--heading-color);
+        letter-spacing: 0.6px;
       }
       footer {
         text-align: center;
@@ -366,6 +367,22 @@
         padding: 20px;
       }
 
+      /* Tablet optimization: 2x2 grid layout */
+      @media (max-width: 900px) and (min-width: 601px) {
+        .container {
+          max-width: 98vw;
+        }
+        .stats-summary {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+        
+        /* Ensure primary metric maintains prominence in 2x2 grid */
+        .summary-card.primary-metric {
+          grid-column: span 1; /* Don't span multiple columns on tablet */
+        }
+      }
+      
       @media (max-width: 800px) {
         .container {
           max-width: 98vw;
