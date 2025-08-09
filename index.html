@@ -1229,8 +1229,8 @@
 
             // Load data when switching to season mode
             console.log("🔄 Toggle: Loading data for season mode...");
-            loadMainWinnerData();
-            loadLeaderboardData();
+            loadWinnerData("winner-preview-container", "winner-summary", true); // Use test data
+            loadTestLeaderboardData();
           } else {
             headerP.textContent =
               "Season 2025-26 - Registration Open (Testing Mode)";
@@ -1958,6 +1958,63 @@
       let currentLeaderboardPage = 1;
       const leaderboardItemsPerPage = 15;
 
+      // Load test leaderboard data
+      function loadTestLeaderboardData() {
+        const winnerUrl = "test_winner_stats.json?cache=" + new Date().getTime();
+        console.log("🧪 Loading TEST leaderboard data for toggle");
+
+        return fetchWithRetry(winnerUrl, 3)
+          .then((data) => {
+            console.log("🧪 Loaded TEST leaderboard data for toggle:", data);
+
+            if (data.winners) {
+              // Sort by overall rank (ascending) - lower rank number = better position
+              leaderboardData = data.winners
+                .filter((winner) => winner.highlights.overallRank !== 999) // Exclude placeholder ranks
+                .sort(
+                  (a, b) => a.highlights.overallRank - b.highlights.overallRank
+                );
+
+              displayLeaderboard();
+
+              // Show last updated time
+              const lastUpdated = new Date(data.lastUpdated);
+              const userTimeZone =
+                Intl.DateTimeFormat().resolvedOptions().timeZone;
+              const formattedDate = lastUpdated.toLocaleString("en-GB", {
+                dateStyle: "medium",
+                timeStyle: "short",
+                timeZone: userTimeZone,
+              });
+
+              const updateElement = document.getElementById(
+                "leaderboard-last-updated"
+              );
+              if (updateElement) {
+                updateElement.textContent = `Last updated: ${formattedDate} (test data)`;
+              }
+            }
+
+            return data;
+          })
+          .catch((error) => {
+            console.error("Test leaderboard fetch error:", error);
+            const container = document.getElementById("leaderboard-container");
+            if (container) {
+              container.innerHTML = `
+                <div class="winner-error">
+                  <h3>Unable to load test league standings</h3>
+                  <p>There was a problem loading the test league standings. Please try again.</p>
+                  <button onclick="loadTestLeaderboardData()" 
+                          style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
+                    <i class="fas fa-redo"></i> Retry
+                  </button>
+                </div>
+              `;
+            }
+          });
+      }
+      
       // Load leaderboard data from the same winner_stats.json
       function loadLeaderboardData() {
         const urlParams = new URLSearchParams(window.location.search);
