@@ -2018,27 +2018,31 @@
                   }
                   
                   return data;
+                })
+                .catch((fetchError) => {
+                  console.error("Error fetching live data for comparison:", fetchError);
+                  // Fallback to just test data
+                  leaderboardData = data.winners
+                    .filter((winner) => winner.highlights.overallRank)
+                    .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+                  
+                  displayLeaderboard();
+                  
+                  const lastUpdated = new Date(data.lastUpdated);
+                  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                  const formattedDate = lastUpdated.toLocaleString("en-GB", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                    timeZone: userTimeZone,
+                  });
+                  
+                  const updateElement = document.getElementById("leaderboard-last-updated");
+                  if (updateElement) {
+                    updateElement.textContent = `Last updated: ${formattedDate} (test data)`;
+                  }
+                  
+                  return data;
                 });
-            }
-
-              displayLeaderboard();
-
-              // Show last updated time
-              const lastUpdated = new Date(data.lastUpdated);
-              const userTimeZone =
-                Intl.DateTimeFormat().resolvedOptions().timeZone;
-              const formattedDate = lastUpdated.toLocaleString("en-GB", {
-                dateStyle: "medium",
-                timeStyle: "short",
-                timeZone: userTimeZone,
-              });
-
-              const updateElement = document.getElementById(
-                "leaderboard-last-updated"
-              );
-              if (updateElement) {
-                updateElement.textContent = `Last updated: ${formattedDate} (test data)`;
-              }
             }
 
             return data;
