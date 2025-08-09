@@ -1,3 +1,11 @@
 {
-    "editor.linkedEditing": true
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": true
+  },
+  "markdownlint.config": {
+    "MD013": false, // disable line length rule
+    "MD033": false  // allow inline HTML (needed for README badges)
+  }
 }
