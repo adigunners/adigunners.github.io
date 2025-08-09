@@ -953,46 +953,28 @@
           </div>
         </section>
 
-        <!-- TESTING SECTION - Hidden by default, shown with ?test=true -->
-        <section
-          class="winner-scorecard test-section"
-          style="display: none; margin-top: 20px; border: 2px dashed #ff6b6b"
-        >
-          <h2>🧪 Testing Mode - Top Earners</h2>
-          <p>
-            <em
-              >This section is visible for testing purposes only. It will be
-              hidden during actual season.</em
-            >
+        <!-- IN-SEASON VIEW TOGGLE (Before Season) -->
+        <section id="season-toggle" class="season-section pre-season" style="text-align: center;">
+          <button
+            onclick="toggleSeasonMode()"
+            style="
+              background: var(--primary-color);
+              color: white;
+              border: none;
+              padding: 12px 25px;
+              border-radius: var(--border-radius);
+              cursor: pointer;
+              font-weight: 600;
+              transition: transform 0.2s ease, box-shadow 0.2s ease;
+            "
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(93, 33, 99, 0.3)'"
+            onmouseout="this.style.transform=''; this.style.boxShadow=''"
+          >
+            📊 Preview In-season View
+          </button>
+          <p style="font-size: 0.9rem; color: #777; margin-top: 10px;">
+            See how the website will look during the active season
           </p>
-
-          <div id="test-winner-preview-container">
-            <div class="winner-loading">Loading test winner data...</div>
-          </div>
-
-          <div class="winner-summary" id="test-winner-summary"></div>
-
-          <div style="text-align: center">
-            <a href="winners.html?test=true" class="view-all-winners">
-              🎯 View Complete Scorecard
-            </a>
-          </div>
-
-          <div style="text-align: center; margin-top: 15px">
-            <button
-              onclick="toggleSeasonMode()"
-              style="
-                background: #ff6b6b;
-                color: white;
-                border: none;
-                padding: 8px 16px;
-                border-radius: 5px;
-                cursor: pointer;
-              "
-            >
-              🎭 Toggle Season Mode (Testing)
-            </button>
-          </div>
         </section>
 
         <!-- LEADERBOARD SECTION (During Season) -->
@@ -1076,21 +1058,6 @@
     <!-- === JS: DYNAMIC DATA FROM league_stats.json === -->
     <!-- Cache buster: v2.1 -->
     <script>
-      // Check if we're in test mode
-      function checkTestMode() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const testMode = urlParams.get("test") === "true";
-
-        if (testMode) {
-          // Show test section
-          document.querySelector(".test-section").style.display = "block";
-
-          // Load test data
-          loadTestWinnerData();
-
-          console.log("🧪 Test mode activated!");
-        }
-      }
 
       // Testing function to toggle season mode
       function toggleSeasonMode() {
@@ -1565,10 +1532,10 @@
           return;
         }
 
-        // Sort winners by total prize won (descending)
-        const sortedWinners = winners.sort(
-          (a, b) => b.totalPrizeWon - a.totalPrizeWon
-        );
+        // Sort winners by overall rank (ascending) - lower rank number = better position
+        const sortedWinners = winners
+          .filter(winner => winner.highlights.overallRank) // Only include players with a rank
+          .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
 
         // Show top 6 winners in preview
         const topWinners = sortedWinners.slice(0, 6);
