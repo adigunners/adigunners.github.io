@@ -553,35 +553,62 @@
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        font-variant-numeric: tabular-nums; /* Ensures consistent digit alignment */
       }
 
       .leaderboard-table th {
-        background: var(--primary-color);
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--heading-color)
+        );
         color: white;
-        padding: 12px;
+        padding: 14px 16px;
         text-align: left;
-        font-weight: 600;
-        font-size: 0.9rem;
+        font-weight: 700;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        position: sticky;
+        top: 0;
+        z-index: 10;
       }
 
-      .leaderboard-table th:first-child {
-        width: 60px;
-        text-align: center;
+      .leaderboard-table th:nth-child(1) {
+        width: 80px;
+        text-align: center; /* Rank column */
       }
 
-      .leaderboard-table th:last-child {
-        text-align: center;
-        width: 100px;
+      .leaderboard-table th:nth-child(2) {
+        text-align: left; /* Player column */
+      }
+
+      .leaderboard-table th:nth-child(3) {
+        text-align: right; /* Prize column */
+        width: 140px;
       }
 
       .leaderboard-table td {
-        padding: 12px;
+        padding: 14px 16px;
         border-bottom: 1px solid #f0f2f5;
         font-size: 0.9rem;
+        transition: background-color 0.2s ease;
       }
 
+      /* Zebra striping for better row scanning */
+      .leaderboard-table tbody tr:nth-child(even) {
+        background-color: #f8f9fa;
+      }
+
+      .leaderboard-table tbody tr:nth-child(odd) {
+        background-color: white;
+      }
+
+      /* Enhanced hover state */
       .leaderboard-table tbody tr:hover {
-        background: #f8f9fa;
+        background-color: #e3f2fd !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
 
       .leaderboard-table tbody tr:last-child td {
@@ -592,30 +619,44 @@
         text-align: center;
         font-weight: 700;
         color: var(--primary-color);
-        width: 60px;
+        width: 80px;
       }
 
       .leaderboard-rank.rank-1 {
-        color: #f9a825;
+        background: linear-gradient(135deg, #FFD700, #FFA500);
+        color: #8B4513;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 4px;
       }
 
       .leaderboard-rank.rank-2 {
-        color: #9e9e9e;
+        background: linear-gradient(135deg, #C0C0C0, #808080);
+        color: #2F4F4F;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 4px;
       }
 
       .leaderboard-rank.rank-3 {
-        color: #d4b106;
+        background: linear-gradient(135deg, #CD7F32, #A0522D);
+        color: #FFFFFF;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 4px;
       }
 
       .leaderboard-player {
         font-weight: 600;
         color: var(--heading-color);
+        text-align: left;
       }
 
       .leaderboard-prize {
-        text-align: center;
+        text-align: right;
         font-weight: 700;
         color: var(--primary-color);
+        font-variant-numeric: tabular-nums;
       }
 
       .leaderboard-navigation {
@@ -1956,7 +1997,7 @@
       // Global variables for leaderboard pagination
       let leaderboardData = [];
       let currentLeaderboardPage = 1;
-      const leaderboardItemsPerPage = 15;
+      const leaderboardItemsPerPage = 10;
 
       // Load test leaderboard data
       function loadTestLeaderboardData() {
@@ -2182,23 +2223,26 @@
             <tbody>
               ${currentPageData
                 .map(
-                  (player) => `
+                  (player, index) => {
+                    const displayRank = startIndex + index + 1;
+                    return `
                 <tr>
                   <td class="leaderboard-rank${
-                    player.highlights.overallRank === 1
+                    displayRank === 1
                       ? " rank-1"
-                      : player.highlights.overallRank === 2
+                      : displayRank === 2
                       ? " rank-2"
-                      : player.highlights.overallRank === 3
+                      : displayRank === 3
                       ? " rank-3"
                       : ""
-                  }">${player.highlights.overallRank}</td>
+                  }">${displayRank}</td>
                   <td class="leaderboard-player">${player.playerName}</td>
                   <td class="leaderboard-prize">₹${player.totalPrizeWon.toLocaleString(
                     "en-IN"
                   )}</td>
                 </tr>
-              `
+              `;
+                  }
                 )
                 .join("")}
             </tbody>
