@@ -1,14 +1,14 @@
 {
-  "lastUpdated": "2025-08-09T08:21:03.857Z",
+  "lastUpdated": "2025-08-09T08:21:12.860Z",
   "summary": {
-    "totalPrizeDistributed": 1200,
+    "totalPrizeDistributed": 1800,
     "totalPaid": 0,
-    "totalPending": 1200,
-    "gameweekPrizes": 1200,
+    "totalPending": 1800,
+    "gameweekPrizes": 1800,
     "monthlyPrizes": 0,
-    "completedGameweeks": 2,
+    "completedGameweeks": 3,
     "completedMonths": 0,
-    "totalWinners": 4,
+    "totalWinners": 6,
     "lastProcessedGW": 4
   },
   "winners": [
@@ -73,16 +73,46 @@
       }
     },
     {
-      "playerName": "Bharanidharan S",
-      "totalPrizeWon": 200,
+      "playerName": "Aditya Garg",
+      "totalPrizeWon": 400,
       "totalPaid": 0,
-      "totalPending": 200,
+      "totalPending": 400,
       "prizeBreakdown": {
-        "gameweek": 200,
+        "gameweek": 400,
         "monthly": 0
       },
       "highlights": {
         "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 2
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "1st",
+            "prize": 400,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 0
+      }
+    },
+    {
+      "playerName": "Bharanidharan S",
+      "totalPrizeWon": 300,
+      "totalPaid": 0,
+      "totalPending": 300,
+      "prizeBreakdown": {
+        "gameweek": 300,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
         "gameMonths": 0,
         "overallRank": 9
       },
@@ -93,13 +123,19 @@
             "position": "2nd",
             "prize": 200,
             "status": "Pending"
+          },
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 100,
+            "status": "Pending"
           }
         ],
         "months": []
       },
       "positions": {
         "first": 0,
-        "second": 1
+        "second": 2
       }
     },
     {
@@ -122,6 +158,36 @@
             "week": 2,
             "position": "2nd",
             "prize": 200,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      }
+    },
+    {
+      "playerName": "Harshit Gupta",
+      "totalPrizeWon": 100,
+      "totalPaid": 0,
+      "totalPending": 100,
+      "prizeBreakdown": {
+        "gameweek": 100,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 3
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 100,
             "status": "Pending"
           }
         ],
