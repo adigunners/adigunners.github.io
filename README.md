@@ -2,8 +2,12 @@
 
 **Automated fantasy football league management system for IIM Mumbai alumni**
 
-[![Live Website](https://img.shields.io/badge/Live-Website-success?style=for-the-badge)](https://adigunners.github.io/)
-[![Test Demo](https://img.shields.io/badge/Test-Demo-orange?style=for-the-badge)](https://adigunners.github.io/?test=true)
+<a href="https://adigunners.github.io/" target="_blank">
+  <img src="https://img.shields.io/badge/Live-Website-success?style=for-the-badge" alt="Live Website" />
+</a>
+<a href="https://adigunners.github.io/?test=true" target="_blank">
+  <img src="https://img.shields.io/badge/Test-Demo-orange?style=for-the-badge" alt="Test Demo" />
+</a>
 
 ---
 
@@ -55,13 +59,13 @@ Experience the system with realistic test data:
 
 ## 📚 Documentation
 
-| Document | Purpose |
-|----------|---------|
+| Document                                                     | Purpose                                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------- |
 | [🔧 Technical Documentation](docs/TECHNICAL_DOCUMENTATION.md) | Complete system architecture and implementation details |
-| [⚙️ Setup Guide](docs/SETUP_GUIDE.md) | Step-by-step deployment instructions |
-| [📖 API Reference](docs/API_REFERENCE.md) | All functions, endpoints, and configurations |
-| [🔍 Troubleshooting](docs/TROUBLESHOOTING.md) | Common issues and solutions |
-| [📝 Changelog](docs/CHANGELOG.md) | Version history and updates |
+| [⚙️ Setup Guide](docs/SETUP_GUIDE.md)                         | Step-by-step deployment instructions                    |
+| [📖 API Reference](docs/API_REFERENCE.md)                     | All functions, endpoints, and configurations            |
+| [🔍 Troubleshooting](docs/TROUBLESHOOTING.md)                 | Common issues and solutions                             |
+| [📝 Changelog](docs/CHANGELOG.md)                             | Version history and updates                             |
 
 ## 🚀 Quick Start
 
