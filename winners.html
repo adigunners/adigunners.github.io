@@ -122,30 +122,28 @@
         z-index: 10;
       }
       
-      /* Specific alignment for table headers */
+      /* UX-Optimized column widths for desktop/wide screens */
       .winner-table th:nth-child(1) {
-        text-align: center; /* Rank column */
-        width: 70px;
-        min-width: 70px;
-        max-width: 70px;
+        width: 8%; /* Rank column - minimal space for numbers */
+        text-align: center;
+        min-width: 60px;
       }
       
       .winner-table th:nth-child(2) {
-        text-align: left; /* Player column */
-        /* Dynamic width - will be set by JavaScript based on longest name */
-        min-width: 120px;
+        width: 25%; /* Player column - accommodates longest names */
+        text-align: left;
+        min-width: 150px;
       }
       
       .winner-table th:nth-child(3) {
-        text-align: right; /* Total Prize Won column */
-        width: 130px;
-        min-width: 130px;
-        max-width: 130px;
+        width: 15%; /* Prize column - handles currency format */
+        text-align: right;
+        min-width: 100px;
       }
       
       .winner-table th:nth-child(4) {
-        text-align: right; /* Highlights column */
-        /* Dynamic width - takes remaining space */
+        width: 52%; /* Highlights column - maximum space for complex content */
+        text-align: right;
         min-width: 200px;
       }
       
@@ -369,6 +367,25 @@
         padding: 20px;
       }
 
+      /* Tablet breakpoint adjustments for table column widths */
+      @media (max-width: 768px) and (min-width: 601px) {
+        .winner-table th:nth-child(1) {
+          width: 10%; /* Rank column */
+        }
+        
+        .winner-table th:nth-child(2) {
+          width: 30%; /* Player column */
+        }
+        
+        .winner-table th:nth-child(3) {
+          width: 20%; /* Prize column */
+        }
+        
+        .winner-table th:nth-child(4) {
+          width: 40%; /* Highlights column */
+        }
+      }
+      
       /* Tablet optimization: 2x2 grid layout */
       @media (max-width: 900px) and (min-width: 601px) {
         .container {
