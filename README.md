@@ -27,7 +27,7 @@ This system automatically manages a complete fantasy football league for 26+ IIM
 - Automatic score tracking from official FPL API
 - Weekly and monthly prize calculations
 - Personalized email updates with league standings
-- Live website with winner leaderboards
+- Live website with winner leaderboards and paginated rankings
 
 ### For Admins
 - One-click league processing with `dailyMasterProcess()`
@@ -161,7 +161,7 @@ This project is currently in private development for IIM Mumbai alumni. For tech
 
 - **[🌐 Live Website](https://adigunners.github.io/)** - Current league standings
 - **[🧪 Test Demo](https://adigunners.github.io/?test=true)** - Experience with sample data
-- **[🏆 Winner Leaderboard](https://adigunners.github.io/winners.html)** - Complete winner rankings
+- **[🏆 Winner Leaderboard](https://adigunners.github.io/winners.html)** - Complete winner rankings (paginated)
 - **[📖 Technical Docs](docs/TECHNICAL_DOCUMENTATION.md)** - Full implementation details
 
 ---

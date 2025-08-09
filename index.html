@@ -1002,7 +1002,7 @@
           <div class="winner-summary" id="winner-summary"></div>
 
           <div style="text-align: center">
-            <a href="winners.html?test=true" class="view-all-winners">
+            <a href="winners.html" class="view-all-winners" id="winners-link">
               🎯 View Complete Scorecard
             </a>
           </div>
@@ -1012,8 +1012,8 @@
           </div>
         </section>
 
-        <!-- IN-SEASON VIEW TOGGLE (Before Season) -->
-        <section id="season-toggle" class="season-section pre-season" style="text-align: center;">
+        <!-- IN-SEASON VIEW TOGGLE (Before Season - Test Mode Only) -->
+        <section id="season-toggle" class="season-section pre-season test-only" style="text-align: center; display: none;">
           <button
             onclick="toggleSeasonMode()"
             style="
@@ -1236,13 +1236,32 @@
         const testMode = urlParams.get("test") === "true";
 
         if (testMode) {
-          // Show test section
-          document.querySelector(".test-section").style.display = "block";
+          // Show test-only elements (like preview button)
+          document.querySelectorAll('.test-only').forEach(el => {
+            el.style.display = 'block';
+          });
+
+          // Update winners link to include test parameter
+          const winnersLink = document.getElementById('winners-link');
+          if (winnersLink) {
+            winnersLink.href = 'winners.html?test=true';
+          }
 
           // Load test data
           loadTestWinnerData();
 
           console.log("🧪 Test mode activated!");
+        } else {
+          // Ensure test-only elements are hidden in live mode
+          document.querySelectorAll('.test-only').forEach(el => {
+            el.style.display = 'none';
+          });
+
+          // Ensure winners link is clean (no test parameter) in live mode
+          const winnersLink = document.getElementById('winners-link');
+          if (winnersLink) {
+            winnersLink.href = 'winners.html';
+          }
         }
       }
 
@@ -1388,6 +1407,21 @@
       }
 
       document.addEventListener("DOMContentLoaded", function () {
+        // Check if we're in test mode first
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTestMode = urlParams.get("test") === "true";
+        
+        if (!isTestMode) {
+          // For live mode, clear any cached gameweek data that might show during-season UI
+          // This ensures we always start fresh in pre-season mode for live users
+          console.log("🧹 Live mode: Clearing cached gameweek data to ensure pre-season UI");
+          try {
+            localStorage.removeItem("fpl_cached_gw");
+          } catch (e) {
+            // ignore storage errors
+          }
+        }
+        
         // Render immediately using cached deadline if available and still in the future
         const cachedDeadline = getCachedDeadline();
         if (cachedDeadline && cachedDeadline - new Date() > 0) {
@@ -1402,21 +1436,25 @@
           startCountdown(cachedDeadline);
           markCountdownShown();
         }
-        // Render immediately using cached next gameweek if available
-        const cachedGW = getCachedGameweek();
-        if (cachedGW) {
-          const gwDeadline = new Date(cachedGW.deadline_time);
-          if (gwDeadline - new Date() > 0) {
-            const countdownClock2 = document.getElementById("countdown-clock");
-            if (countdownClock2) countdownClock2.style.display = "block";
-            const label2 = document.getElementById("countdown-label");
-            if (label2)
-              label2.textContent = `GW${cachedGW.id} DEADLINE (cached)`;
-            // Switch UI to during-season immediately
-            usedCachedOnLoad = true;
-            showDuringSeasonUI();
-            startCountdown(gwDeadline, cachedGW);
-            markCountdownShown();
+        
+        // For pre-season, don't use cached gameweek data that would trigger during-season UI
+        // Only use cached gameweek if we're in test mode
+        if (isTestMode) {
+          const cachedGW = getCachedGameweek();
+          if (cachedGW) {
+            const gwDeadline = new Date(cachedGW.deadline_time);
+            if (gwDeadline - new Date() > 0) {
+              const countdownClock2 = document.getElementById("countdown-clock");
+              if (countdownClock2) countdownClock2.style.display = "block";
+              const label2 = document.getElementById("countdown-label");
+              if (label2)
+                label2.textContent = `GW${cachedGW.id} DEADLINE (cached)`;
+              // Switch UI to during-season immediately
+              usedCachedOnLoad = true;
+              showDuringSeasonUI();
+              startCountdown(gwDeadline, cachedGW);
+              markCountdownShown();
+            }
           }
         }
         // Load FPL season data first
@@ -1612,18 +1650,19 @@
 
       function handleSeasonDisplay(seasonStartDate, gameweek = null) {
         const currentDate = new Date();
-        // Temporary fallback: checks if the season has started when FPL data
-        // isn't available or fails to return a valid gameweek. Compares the
-        // provided start date (from API or hardcoded fallback) with the
-        // current time.
-        const isSeasonStarted = currentDate >= seasonStartDate;
-
+        
         console.log("Season start date (from FPL):", seasonStartDate);
         console.log("Current date:", currentDate);
-        console.log("Is season started:", isSeasonStarted);
+        
+        // If we have a gameweek, it means the season has started and we're in active play
+        const isActiveSeason = gameweek && gameweek.id;
+        
+        console.log("Is active season (has gameweek):", isActiveSeason);
+        console.log("Gameweek:", gameweek);
 
-        if (isSeasonStarted) {
-          // Season has started - show leaderboard and winners, hide registration
+        if (isActiveSeason) {
+          // Season is active - show leaderboard and winners, hide registration
+          console.log("🎯 Showing during-season UI (active gameweeks)");
           showDuringSeasonUI();
 
           // Load winner data now that the season has started
@@ -1633,11 +1672,10 @@
           loadLeaderboardData();
 
           // Show gameweek countdown
-          if (gameweek) {
-            updateGameweekCountdown(gameweek);
-          }
+          updateGameweekCountdown(gameweek);
         } else {
-          // Season hasn't started - show registration prominently
+          // Pre-season - show registration prominently
+          console.log("📝 Showing pre-season UI (registration phase)");
           document
             .querySelectorAll(".pre-season")
             .forEach((el) => (el.style.display = "block"));
@@ -1645,12 +1683,12 @@
             .querySelectorAll(".during-season")
             .forEach((el) => (el.style.display = "none"));
 
-          // Set header message without countdown
+          // Set header message for pre-season
           const headerP = document.querySelector("header p");
           if (headerP) {
             headerP.textContent = "Season 2025-26 - Registration Open";
           }
-          // Update only the digital countdown clock
+          // Update only the digital countdown clock for season start
           updateCountdownDisplay(seasonStartDate);
         }
       }
