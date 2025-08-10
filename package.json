@@ -1,0 +1,30 @@
+{
+  "name": "adigunners-github-io",
+  "version": "1.0.0",
+  "description": "IIM Mumbai Fantasy Premier League - Automated fantasy football league management system",
+  "main": "index.html",
+  "scripts": {
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0"
+  },
+  "keywords": [
+    "fantasy-football",
+    "premier-league",
+    "automation",
+    "github-pages"
+  ],
+  "author": "Aditya Garg <aditya.garg.2006@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adigunners/adigunners.github.io.git"
+  },
+  "homepage": "https://adigunners.github.io"
+}
