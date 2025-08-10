@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-10T16:41:45.174Z",
+  "lastUpdated": "2025-08-10T16:47:14.332Z",
   "summary": {
     "totalPrizeDistributed": 5400,
     "totalPaid": 0,
@@ -7,7 +7,7 @@
     "gameweekPrizes": 2800,
     "monthlyPrizes": 2600,
     "completedGameweeks": 4,
-    "completedMonths": 0,
+    "completedMonths": 1,
     "totalWinners": 13,
     "lastProcessedGW": 4
   },
