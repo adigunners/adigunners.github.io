@@ -14,3 +14,6 @@ updated_winner_stats_function.js
 # Temporary files
 *.tmp
 *.temp
+
+# Node.js dependencies
+node_modules/
