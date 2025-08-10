@@ -929,8 +929,8 @@
         isDebugMode = isTestMode || urlParams.get('debug') === '1';
 
         const winnerUrl = isTestMode
-          ? 'test_winner_stats.json?cache=' + new Date().getTime()
-          : 'winner_stats.json?cache=' + new Date().getTime();
+          ? 'data/test_winner_stats.json?cache=' + new Date().getTime()
+          : 'data/winner_stats.json?cache=' + new Date().getTime();
 
         if (isDebugMode)
           console.log(isTestMode ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
