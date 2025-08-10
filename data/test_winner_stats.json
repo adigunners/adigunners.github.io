@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-10T16:47:14.332Z",
+  "lastUpdated": "2025-08-10T18:25:45.538Z",
   "summary": {
     "totalPrizeDistributed": 5400,
     "totalPaid": 0,
@@ -23,7 +23,7 @@
       },
       "highlights": {
         "gameWeeks": 1,
-        "gameMonths": 0,
+        "gameMonths": 1,
         "overallRank": 1
       },
       "achievements": {
@@ -35,7 +35,14 @@
             "status": "Pending"
           }
         ],
-        "months": []
+        "months": [
+          {
+            "month": 1,
+            "position": "1st",
+            "prize": 1600,
+            "status": "Pending"
+          }
+        ]
       },
       "positions": {
         "first": 2,
@@ -53,7 +60,7 @@
       },
       "highlights": {
         "gameWeeks": 1,
-        "gameMonths": 0,
+        "gameMonths": 1,
         "overallRank": 2
       },
       "achievements": {
@@ -65,7 +72,14 @@
             "status": "Pending"
           }
         ],
-        "months": []
+        "months": [
+          {
+            "month": 1,
+            "position": "2nd",
+            "prize": 1000,
+            "status": "Pending"
+          }
+        ]
       },
       "positions": {
         "first": 0,
