@@ -1,136 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Debug - Data Fetching Test</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            line-height: 1.6;
-        }
-        .test-result {
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
-        pre {
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 3px;
-            overflow-x: auto;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+      }
+      .test-result {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .info {
+        background: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+      pre {
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 3px;
+        overflow-x: auto;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>🔍 Data Fetching Debug Tool</h1>
     <p>This tool will test if your JSON files are loading correctly.</p>
-    
+
     <div id="results"></div>
-    
+
     <script>
-        const resultsDiv = document.getElementById('results');
-        
-        function addResult(message, type = 'info') {
-            const div = document.createElement('div');
-            div.className = `test-result ${type}`;
-            div.innerHTML = message;
-            resultsDiv.appendChild(div);
+      const resultsDiv = document.getElementById('results');
+
+      function addResult(message, type = 'info') {
+        const div = document.createElement('div');
+        div.className = `test-result ${type}`;
+        div.innerHTML = message;
+        resultsDiv.appendChild(div);
+      }
+
+      function formatJSON(obj) {
+        return '<pre>' + JSON.stringify(obj, null, 2) + '</pre>';
+      }
+
+      async function testDataFetching() {
+        addResult('🚀 Starting data fetch tests...', 'info');
+
+        // Test 1: League Stats
+        try {
+          addResult('📊 Testing league_stats.json...', 'info');
+          const leagueResponse = await fetch('league_stats.json?cache=' + new Date().getTime());
+          if (!leagueResponse.ok) {
+            throw new Error(`HTTP ${leagueResponse.status}: ${leagueResponse.statusText}`);
+          }
+          const leagueData = await leagueResponse.json();
+          addResult('✅ League stats loaded successfully!', 'success');
+          addResult('League Stats Data:' + formatJSON(leagueData), 'success');
+        } catch (error) {
+          addResult('❌ Failed to load league_stats.json: ' + error.message, 'error');
         }
-        
-        function formatJSON(obj) {
-            return '<pre>' + JSON.stringify(obj, null, 2) + '</pre>';
+
+        // Test 2: Winner Stats (Live)
+        try {
+          addResult('🏆 Testing winner_stats.json...', 'info');
+          const winnerResponse = await fetch('winner_stats.json?cache=' + new Date().getTime());
+          if (!winnerResponse.ok) {
+            throw new Error(`HTTP ${winnerResponse.status}: ${winnerResponse.statusText}`);
+          }
+          const winnerData = await winnerResponse.json();
+          addResult('✅ Winner stats loaded successfully!', 'success');
+          addResult(
+            'Winner Stats Summary:' +
+              formatJSON({
+                lastUpdated: winnerData.lastUpdated,
+                totalWinners: winnerData.winners ? winnerData.winners.length : 0,
+                summary: winnerData.summary,
+              }),
+            'success'
+          );
+        } catch (error) {
+          addResult('❌ Failed to load winner_stats.json: ' + error.message, 'error');
         }
-        
-        async function testDataFetching() {
-            addResult('🚀 Starting data fetch tests...', 'info');
-            
-            // Test 1: League Stats
-            try {
-                addResult('📊 Testing league_stats.json...', 'info');
-                const leagueResponse = await fetch('league_stats.json?cache=' + new Date().getTime());
-                if (!leagueResponse.ok) {
-                    throw new Error(`HTTP ${leagueResponse.status}: ${leagueResponse.statusText}`);
-                }
-                const leagueData = await leagueResponse.json();
-                addResult('✅ League stats loaded successfully!', 'success');
-                addResult('League Stats Data:' + formatJSON(leagueData), 'success');
-            } catch (error) {
-                addResult('❌ Failed to load league_stats.json: ' + error.message, 'error');
-            }
-            
-            // Test 2: Winner Stats (Live)
-            try {
-                addResult('🏆 Testing winner_stats.json...', 'info');
-                const winnerResponse = await fetch('winner_stats.json?cache=' + new Date().getTime());
-                if (!winnerResponse.ok) {
-                    throw new Error(`HTTP ${winnerResponse.status}: ${winnerResponse.statusText}`);
-                }
-                const winnerData = await winnerResponse.json();
-                addResult('✅ Winner stats loaded successfully!', 'success');
-                addResult('Winner Stats Summary:' + formatJSON({
-                    lastUpdated: winnerData.lastUpdated,
-                    totalWinners: winnerData.winners ? winnerData.winners.length : 0,
-                    summary: winnerData.summary
-                }), 'success');
-            } catch (error) {
-                addResult('❌ Failed to load winner_stats.json: ' + error.message, 'error');
-            }
-            
-            // Test 3: Test Winner Stats
-            try {
-                addResult('🧪 Testing test_winner_stats.json...', 'info');
-                const testWinnerResponse = await fetch('test_winner_stats.json?cache=' + new Date().getTime());
-                if (!testWinnerResponse.ok) {
-                    throw new Error(`HTTP ${testWinnerResponse.status}: ${testWinnerResponse.statusText}`);
-                }
-                const testWinnerData = await testWinnerResponse.json();
-                addResult('✅ Test winner stats loaded successfully!', 'success');
-                addResult('Test Winner Stats Summary:' + formatJSON({
-                    lastUpdated: testWinnerData.lastUpdated,
-                    totalWinners: testWinnerData.winners ? testWinnerData.winners.length : 0,
-                    summary: testWinnerData.summary,
-                    testMode: testWinnerData.testMode
-                }), 'success');
-            } catch (error) {
-                addResult('❌ Failed to load test_winner_stats.json: ' + error.message, 'error');
-            }
-            
-            // Test 4: Browser Environment Info
-            addResult('🌐 Browser Environment Info:', 'info');
-            addResult('Browser Environment:' + formatJSON({
-                userAgent: navigator.userAgent,
-                location: {
-                    protocol: window.location.protocol,
-                    hostname: window.location.hostname,
-                    port: window.location.port,
-                    pathname: window.location.pathname
-                },
-                currentTime: new Date().toISOString(),
-                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
-            }), 'info');
-            
-            addResult('🏁 All tests completed!', 'info');
+
+        // Test 3: Test Winner Stats
+        try {
+          addResult('🧪 Testing test_winner_stats.json...', 'info');
+          const testWinnerResponse = await fetch(
+            'test_winner_stats.json?cache=' + new Date().getTime()
+          );
+          if (!testWinnerResponse.ok) {
+            throw new Error(`HTTP ${testWinnerResponse.status}: ${testWinnerResponse.statusText}`);
+          }
+          const testWinnerData = await testWinnerResponse.json();
+          addResult('✅ Test winner stats loaded successfully!', 'success');
+          addResult(
+            'Test Winner Stats Summary:' +
+              formatJSON({
+                lastUpdated: testWinnerData.lastUpdated,
+                totalWinners: testWinnerData.winners ? testWinnerData.winners.length : 0,
+                summary: testWinnerData.summary,
+                testMode: testWinnerData.testMode,
+              }),
+            'success'
+          );
+        } catch (error) {
+          addResult('❌ Failed to load test_winner_stats.json: ' + error.message, 'error');
         }
-        
-        // Run tests when page loads
-        document.addEventListener('DOMContentLoaded', testDataFetching);
+
+        // Test 4: Browser Environment Info
+        addResult('🌐 Browser Environment Info:', 'info');
+        addResult(
+          'Browser Environment:' +
+            formatJSON({
+              userAgent: navigator.userAgent,
+              location: {
+                protocol: window.location.protocol,
+                hostname: window.location.hostname,
+                port: window.location.port,
+                pathname: window.location.pathname,
+              },
+              currentTime: new Date().toISOString(),
+              timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            }),
+          'info'
+        );
+
+        addResult('🏁 All tests completed!', 'info');
+      }
+
+      // Run tests when page loads
+      document.addEventListener('DOMContentLoaded', testDataFetching);
     </script>
-</body>
+  </body>
 </html>

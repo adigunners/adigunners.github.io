@@ -1,9 +1,11 @@
 # IIM Mumbai Fantasy Premier League - Technical Documentation
 
 ## Project Overview
+
 Automated FPL (Fantasy Premier League) league management system for IIM Mumbai alumni, handling player registration, weekly/monthly winner calculations, prize distribution tracking, email notifications, and live website updates.
 
 ## Tech Stack
+
 - **Backend**: Google Apps Script (JavaScript)
 - **Database**: Google Sheets
 - **Frontend**: Static HTML/CSS/JavaScript website
@@ -17,18 +19,20 @@ Automated FPL (Fantasy Premier League) league management system for IIM Mumbai a
 ### Core Components
 
 #### 1. **Google Sheets Database Structure**
+
 ```
 Main Spreadsheet: "IIM Mumbai FPL Master Database"
 ├── Players Tab - Player registration data
 ├── Weekly Scores Tab - GW-by-GW player scores
 ├── Weekly Winners Tab - Weekly prize winners
-├── Monthly Winners Tab - Monthly prize winners  
+├── Monthly Winners Tab - Monthly prize winners
 ├── Prize Tracking Tab - All prize distribution records
 ├── Settings Tab - Configuration and league parameters
 └── Form Responses Tab - Raw registration form data
 ```
 
 #### 2. **Google Apps Script Files**
+
 ```
 Project Structure:
 ├── FPL Registration Automation Script.js - Registration processing
@@ -41,6 +45,7 @@ Project Structure:
 ```
 
 #### 3. **Website Structure**
+
 ```
 GitHub Pages Repository:
 ├── index.html - Main landing page
@@ -53,16 +58,19 @@ GitHub Pages Repository:
 ## Data Flow
 
 ### 1. **Player Registration Flow**
+
 ```
 Google Form → Form Responses Sheet → FPL API Validation → Players Sheet → Confirmation Email
 ```
 
 ### 2. **Weekly Processing Flow**
+
 ```
 FPL API → Player Scores Update → Winner Calculation → Prize Tracking → Email System → Website JSON Update
 ```
 
 ### 3. **Website Update Flow**
+
 ```
 Google Sheets Data → Apps Script Processing → GitHub API → JSON Files → Live Website Display
 ```
@@ -70,43 +78,47 @@ Google Sheets Data → Apps Script Processing → GitHub API → JSON Files → 
 ## Key Configuration
 
 ### Google Apps Script Properties
+
 ```javascript
 // Required in Script Properties:
-GITHUB_TOKEN: "ghp_xxxxx"  // GitHub Personal Access Token
+GITHUB_TOKEN: 'ghp_xxxxx'; // GitHub Personal Access Token
 ```
 
 ### Main Configuration Objects
+
 ```javascript
 // FPL_Data_Fetcher.js
 const FPL_CONFIG = {
-  SHEET_NAME: "IIM Mumbai FPL Master Database",
-  ADMIN_EMAIL: "aditya.garg.2006@gmail.com",
-  FPL_BASE_URL: "https://fantasy.premierleague.com/api/",
-  TOTAL_GAMEWEEKS: 38
+  SHEET_NAME: 'IIM Mumbai FPL Master Database',
+  ADMIN_EMAIL: 'aditya.garg.2006@gmail.com',
+  FPL_BASE_URL: 'https://fantasy.premierleague.com/api/',
+  TOTAL_GAMEWEEKS: 38,
 };
 
 // GitHub Integration
 const GITHUB_CONFIG = {
-  REPO_OWNER: "adigunners",
-  REPO_NAME: "adigunners.github.io", 
-  FILE_PATH: "winner_stats.json",
-  BRANCH: "main"
+  REPO_OWNER: 'adigunners',
+  REPO_NAME: 'adigunners.github.io',
+  FILE_PATH: 'winner_stats.json',
+  BRANCH: 'main',
 };
 ```
 
 ## Core Functions & Workflows
 
 ### 1. **Registration System**
+
 - **File**: `FPL Registration Automation Script.js`
 - **Trigger**: Hourly or form submission
 - **Key Function**: `processNewRegistrations()`
 - **Process**: Validates FPL team IDs, prevents duplicates, sends confirmation emails
 
-### 2. **Daily Data Processing** 
+### 2. **Daily Data Processing**
+
 - **File**: `FPL_Data_Fetcher.js`
 - **Trigger**: Daily at 9 AM
 - **Key Function**: `dailyMasterProcess()`
-- **Process**: 
+- **Process**:
   1. Check for completed gameweeks
   2. Update player scores from FPL API
   3. Calculate weekly winners (handles ties)
@@ -116,12 +128,14 @@ const GITHUB_CONFIG = {
   7. Trigger email system
 
 ### 3. **Email System**
+
 - **File**: `New_Email_System.js`
 - **Templates**: `WeeklyEmailTemplate.html`, `MonthlyEmailTemplate.html`
 - **Key Functions**: `sendWeeklyEmails()`, `sendMonthlyEmails()`
 - **Features**: Personalized content, league standings, winner announcements
 
 ### 4. **Website Integration**
+
 - **File**: `UpdateWebsiteCounter.js`
 - **Trigger**: Every 15 minutes
 - **Key Function**: `updateLeagueStatsOnGitHub()`
@@ -130,10 +144,11 @@ const GITHUB_CONFIG = {
 ## Data Models
 
 ### Player Record
+
 ```javascript
 {
   name: "Player Name",
-  email: "email@example.com", 
+  email: "email@example.com",
   phone: "WhatsApp number",
   fplTeamName: "FPL Team Name",
   fplTeamId: "123456",
@@ -144,6 +159,7 @@ const GITHUB_CONFIG = {
 ```
 
 ### Winner Record
+
 ```javascript
 {
   playerName: "Player Name",
@@ -165,6 +181,7 @@ const GITHUB_CONFIG = {
 ## Prize Structure
 
 ### Current Settings (in Settings Sheet)
+
 - **Weekly Prizes**: ₹500 (1st), ₹300 (2nd)
 - **Monthly Prizes**: ₹1000 (1st), ₹700 (2nd)
 - **Entry Fee**: ₹3,000 per player
@@ -173,18 +190,20 @@ const GITHUB_CONFIG = {
 ## API Integrations
 
 ### 1. **FPL API Endpoints**
+
 ```javascript
 // Main data
-"https://fantasy.premierleague.com/api/bootstrap-static/"
+'https://fantasy.premierleague.com/api/bootstrap-static/';
 
-// Player scores  
-"https://fantasy.premierleague.com/api/entry/{team_id}/event/{gw}/picks/"
+// Player scores
+'https://fantasy.premierleague.com/api/entry/{team_id}/event/{gw}/picks/';
 
 // Team validation
-"https://fantasy.premierleague.com/api/entry/{team_id}/"
+'https://fantasy.premierleague.com/api/entry/{team_id}/';
 ```
 
 ### 2. **GitHub API Integration**
+
 ```javascript
 // File update endpoint
 "https://api.github.com/repos/{owner}/{repo}/contents/{path}"
@@ -196,11 +215,13 @@ Headers: { "Authorization": "token {GITHUB_TOKEN}" }
 ## Error Handling & Monitoring
 
 ### Admin Notifications
+
 - **Function**: `sendAdminAlert(subject, message)`
 - **Triggers**: API failures, data processing errors, email failures
 - **Recipient**: `aditya.garg.2006@gmail.com`
 
 ### Data Validation
+
 - FPL team ID validation against official API
 - Duplicate registration prevention
 - Prize calculation verification
@@ -209,12 +230,14 @@ Headers: { "Authorization": "token {GITHUB_TOKEN}" }
 ## Testing System
 
 ### Test Framework
+
 - **File**: `FPL_Test_System.js`
 - **Purpose**: Generate realistic demo data for presentations
 - **Key Function**: `setupCompleteTestDemo()`
 - **Safety**: Uses separate test JSON files, sends emails only to admin
 
 ### Test Data Generation
+
 - Creates 4 gameweeks of realistic player scores (40-90 point range)
 - Generates weekly winners with prize distribution
 - Calculates monthly winners (Month 1 = GW1-4)
@@ -224,6 +247,7 @@ Headers: { "Authorization": "token {GITHUB_TOKEN}" }
 ## Deployment Instructions
 
 ### Initial Setup
+
 1. **Create Google Sheets** with required tab structure
 2. **Set up Google Apps Script** project with all .js files
 3. **Configure Script Properties** with GitHub token
@@ -232,6 +256,7 @@ Headers: { "Authorization": "token {GITHUB_TOKEN}" }
 6. **Set up triggers** for automated processing
 
 ### Configuration Steps
+
 ```javascript
 // 1. Set GitHub token in Script Properties
 PropertiesService.getScriptProperties().setProperty('GITHUB_TOKEN', 'ghp_xxxxx');
@@ -239,7 +264,7 @@ PropertiesService.getScriptProperties().setProperty('GITHUB_TOKEN', 'ghp_xxxxx')
 // 2. Set up daily trigger
 setupDailyMasterTrigger();
 
-// 3. Set up website update trigger  
+// 3. Set up website update trigger
 setupHourlyCounterTrigger();
 
 // 4. Initialize prize tracking sheet
@@ -249,26 +274,30 @@ initializePrizeTrackingSheet();
 ## Monitoring & Maintenance
 
 ### Daily Checks
+
 - Verify `dailyMasterProcess()` executed successfully
 - Check winner calculation accuracy
 - Monitor email delivery
 - Verify website JSON updates
 
 ### Monthly Tasks
+
 - Review prize distribution
-- Validate FPL API data accuracy  
+- Validate FPL API data accuracy
 - Check GitHub Pages functionality
 - Update league statistics
 
 ## Security Considerations
 
 ### Data Protection
+
 - Email addresses secured in Google Sheets
 - GitHub token stored in Script Properties
 - Prize information access-controlled
 - FPL team IDs validated against official API
 
 ### Access Control
+
 - Google Sheets: Editor access for admin only
 - Apps Script: Admin access only
 - GitHub repository: Admin push access
@@ -277,35 +306,39 @@ initializePrizeTrackingSheet();
 ## Troubleshooting Guide
 
 ### Common Issues
+
 1. **FPL API Rate Limiting**: Built-in delays between requests
 2. **GitHub API Failures**: Error handling with fallback logging
 3. **Email Delivery Issues**: Individual error catching per recipient
 4. **Data Sync Issues**: Manual validation functions available
 
 ### Debug Functions
+
 ```javascript
 // Check current gameweek
-getCurrentGameweek()
+getCurrentGameweek();
 
-// Validate sheet structure  
-validateSheetStructure()
+// Validate sheet structure
+validateSheetStructure();
 
 // Test GitHub integration
-testGitHubToken()
+testGitHubToken();
 
 // Manual winner stats update
-manualUpdateWinnerStats()
+manualUpdateWinnerStats();
 ```
 
 ## Performance Optimizations
 
 ### Efficiency Measures
+
 - Batch API calls with delays to avoid rate limiting
 - Incremental data updates (only new gameweeks)
 - Cached JSON files with timestamp validation
 - Optimized email template rendering
 
 ### Scalability
+
 - Current capacity: ~50 players (tested with 26)
 - API rate limits: Built-in protection
 - Storage: Google Sheets limits sufficient
@@ -314,19 +347,22 @@ manualUpdateWinnerStats()
 ## Recent Technical Improvements (v1.0.1)
 
 ### Frontend Optimization
+
 - **JavaScript Rendering Engine**: Replaced complex template literals with explicit string concatenation for better browser compatibility
 - **Mobile Responsive Design**: Enhanced progressive font scaling for ultra-narrow screens (320px and below)
 - **Cache Management**: Improved browser cache busting mechanisms for faster updates
 - **Cross-Browser Compatibility**: Eliminated template literal parsing issues that caused display errors
 
 ### UI/UX Engineering
+
 ```javascript
 // New optimized table rendering approach
 function displayWinnerTable(winners) {
   let tableHTML = '<table class="winner-table">';
-  tableHTML += '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead>';
+  tableHTML +=
+    '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead>';
   tableHTML += '<tbody>';
-  
+
   sortedWinners.forEach((winner, index) => {
     const rank = index + 1;
     const rankClass = index < 3 ? ` rank-${rank}` : '';
@@ -335,23 +371,25 @@ function displayWinnerTable(winners) {
     tableHTML += `<td class="winner-rank${rankClass}">${rank}</td>`;
     // ... rest of row construction
   });
-  
+
   tableHTML += '</tbody></table>';
-  document.getElementById("winner-table-container").innerHTML = tableHTML;
+  document.getElementById('winner-table-container').innerHTML = tableHTML;
 }
 ```
 
 ### Performance Optimizations
+
 - **Reduced DOM Manipulation**: Single innerHTML update instead of multiple append operations
 - **Efficient String Building**: Eliminated nested template literal complexity
 - **Better Memory Management**: Reduced object creation in rendering loops
 - **Faster Mobile Rendering**: Optimized CSS media queries with progressive enhancement
 
 ### Winners Page Pagination System (v1.0.2)
+
 ```javascript
 // Global pagination variables
-let allWinners = [];           // Stores all winner data
-let currentWinnerPage = 1;     // Current page number (1-indexed)
+let allWinners = []; // Stores all winner data
+let currentWinnerPage = 1; // Current page number (1-indexed)
 const winnerItemsPerPage = 10; // Winners per page
 
 // Enhanced displayWinnerTable with pagination support
@@ -365,14 +403,14 @@ function displayWinnerTable() {
   // Generate table HTML with paginated data
   let tableHTML = '<table class="winner-table">';
   // ... table generation for current page only
-  
+
   // Show/hide pagination controls based on total pages
-  const navigation = document.getElementById("winner-navigation");
+  const navigation = document.getElementById('winner-navigation');
   if (totalPages > 1) {
-    navigation.style.display = "flex";
+    navigation.style.display = 'flex';
     updateWinnerNavigation(totalPages);
   } else {
-    navigation.style.display = "none";
+    navigation.style.display = 'none';
   }
 }
 
@@ -394,6 +432,7 @@ function nextWinnerPage() {
 ```
 
 ### Pagination Features
+
 - **Performance Optimization**: Only renders 10 winners per page
 - **Global Ranking**: Maintains correct ranks (1, 2, 3...) across all pages
 - **Responsive Navigation**: Previous/Next buttons with proper state management
@@ -402,6 +441,7 @@ function nextWinnerPage() {
 - **Mobile Optimized**: Maintains compact card layout on mobile devices
 
 ### Git Workflow Improvements
+
 ```bash
 # Enhanced deployment workflow
 git stash            # Save local changes
@@ -413,12 +453,14 @@ git stash pop       # Restore local work
 ## Future Enhancement Opportunities
 
 ### Immediate Priorities (v1.1.x)
+
 1. **Progressive Web App (PWA)** - Service workers for offline functionality
 2. **Real-time WebSocket Updates** - Live leaderboard without page refresh
 3. **Advanced Caching Strategy** - Smart cache invalidation and preloading
 4. **Performance Monitoring** - Core Web Vitals tracking and optimization
 
 ### SaaS Product Roadmap
+
 1. **Multi-Tenant Architecture** - Support multiple leagues with isolated data
 2. **White-label Solution** - Customizable branding for different organizations
 3. **API-First Design** - RESTful APIs for third-party integrations
@@ -427,6 +469,7 @@ git stash pop       # Restore local work
 6. **Mobile App** - Native iOS/Android apps with push notifications
 
 ### Technical Debt & Infrastructure
+
 - **Database Migration**: Move from Google Sheets to PostgreSQL/MongoDB for >100 players
 - **Microservices Architecture**: Split monolithic Apps Script into distributed services
 - **CI/CD Pipeline**: Automated testing and deployment workflows
@@ -438,27 +481,30 @@ git stash pop       # Restore local work
 ## Quick Reference Commands
 
 ### Essential Functions
+
 ```javascript
 // Daily processing
-dailyMasterProcess()
+dailyMasterProcess();
 
-// Manual winner update  
-manualUpdateWinnerStats()
+// Manual winner update
+manualUpdateWinnerStats();
 
 // Test email system
-testEmailSending()
+testEmailSending();
 
 // Clean up test data
-cleanupTestDataDirect()
+cleanupTestDataDirect();
 
 // Website test mode
 // Visit: https://adigunners.github.io/?test=true
 ```
 
 ### Contact & Support
+
 - **Admin**: Aditya Garg (aditya.garg.2006@gmail.com)
 - **Repository**: https://github.com/adigunners/adigunners.github.io
 - **Website**: https://adigunners.github.io/
 
 ---
-*Last Updated: August 2025*
+
+_Last Updated: August 2025_

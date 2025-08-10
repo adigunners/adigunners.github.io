@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -26,8 +26,15 @@
         --heading-color: #5d2163;
       }
       body {
-        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Helvetica, Arial, sans-serif;
+        font-family:
+          'Poppins',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
         line-height: 1.7;
         margin: 0;
         background-color: var(--background-color);
@@ -41,11 +48,7 @@
         background-color: transparent;
       }
       header {
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--heading-color)
-        );
+        background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: #fff;
         text-align: center;
         padding: 40px 20px;
@@ -103,13 +106,9 @@
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         font-variant-numeric: tabular-nums; /* Ensures consistent digit alignment */
       }
-      
+
       .winner-table th {
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--heading-color)
-        );
+        background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: white;
         padding: 14px 16px;
         text-align: left;
@@ -121,75 +120,75 @@
         top: 0;
         z-index: 10;
       }
-      
+
       /* UX-Optimized column widths for desktop/wide screens */
       .winner-table th:nth-child(1) {
         width: 8%; /* Rank column - minimal space for numbers */
         text-align: center;
         min-width: 60px;
       }
-      
+
       .winner-table th:nth-child(2) {
         width: 25%; /* Player column - accommodates longest names */
         text-align: left;
         min-width: 150px;
       }
-      
+
       .winner-table th:nth-child(3) {
         width: 15%; /* Prize column - handles currency format */
         text-align: right;
         min-width: 100px;
       }
-      
+
       .winner-table th:nth-child(4) {
         width: 52%; /* Highlights column - maximum space for complex content */
         text-align: right;
         min-width: 200px;
       }
-      
+
       .winner-table td {
         padding: 14px 16px;
         border-bottom: 1px solid #f0f2f5;
         font-size: 0.9rem;
         transition: background-color 0.2s ease;
       }
-      
+
       /* Zebra striping for better row scanning */
       .winner-table tbody tr:nth-child(even) {
         background-color: #f8f9fa;
       }
-      
+
       .winner-table tbody tr:nth-child(odd) {
         background-color: white;
       }
-      
+
       /* Enhanced hover state */
       .winner-table tbody tr:hover {
         background-color: #e3f2fd !important;
         transform: translateY(-1px);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
-      
+
       /* Specific alignment for table data cells */
       .winner-table td:nth-child(1) {
         text-align: center; /* Rank column */
         font-weight: 600;
       }
-      
+
       .winner-table td:nth-child(2) {
         text-align: left; /* Player column */
       }
-      
+
       .winner-table td:nth-child(3) {
         text-align: right; /* Total Prize Won column */
         font-variant-numeric: tabular-nums;
         font-weight: 700;
       }
-      
+
       .winner-table td:nth-child(4) {
         text-align: right; /* Highlights column */
       }
-      
+
       .winner-table tr:last-child td {
         border-bottom: none;
       }
@@ -219,7 +218,7 @@
         gap: 4px;
         transition: transform 0.2s ease;
       }
-      
+
       .highlight-badge:hover {
         transform: translateY(-1px);
       }
@@ -228,9 +227,9 @@
         background: var(--secondary-color);
         color: var(--primary-color);
       }
-      
+
       .highlight-badge.gw::before {
-        content: "🏆";
+        content: '🏆';
         font-size: 0.8em;
       }
 
@@ -238,14 +237,14 @@
         background: #ff6b6b;
         color: white;
       }
-      
+
       .highlight-badge.gm::before {
-        content: "📅";
+        content: '📅';
         font-size: 0.8em;
       }
-      
+
       .highlight-badge:not(.gw):not(.gm)::before {
-        content: "📊";
+        content: '📊';
         font-size: 0.8em;
       }
       .winner-loading {
@@ -255,7 +254,7 @@
         font-style: italic;
       }
       .winner-loading:after {
-        content: "";
+        content: '';
         display: block;
         margin: 10px auto;
         width: 40px;
@@ -284,18 +283,20 @@
         gap: 20px;
         margin-bottom: 30px;
       }
-      
+
       .summary-card {
         background: white;
         padding: 25px 20px;
         border-radius: 12px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         text-align: center;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
         border: 2px solid transparent;
         position: relative;
       }
-      
+
       /* Primary metric - Total Prize Money gets enhanced treatment */
       .summary-card.primary-metric {
         grid-column: span 1;
@@ -303,19 +304,19 @@
         box-shadow: 0 6px 20px rgba(55, 0, 60, 0.12);
         background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 249, 250, 0.8));
       }
-      
+
       .summary-card:hover {
         transform: translateY(-3px);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         border-color: var(--secondary-color);
       }
-      
+
       .summary-card.primary-metric:hover {
         transform: translateY(-4px);
         box-shadow: 0 10px 30px rgba(55, 0, 60, 0.18);
         border-color: var(--primary-color);
       }
-      
+
       /* Icon styling */
       .summary-icon {
         font-size: 1.8rem;
@@ -323,12 +324,12 @@
         margin-bottom: 12px;
         opacity: 0.8;
       }
-      
+
       .summary-card.primary-metric .summary-icon {
         font-size: 2.2rem;
         opacity: 1;
       }
-      
+
       /* Typography hierarchy */
       .summary-number {
         font-size: 2rem;
@@ -337,14 +338,14 @@
         margin-bottom: 8px;
         line-height: 1.1;
       }
-      
+
       /* Primary metric gets larger font */
       .summary-card.primary-metric .summary-number {
         font-size: 2.8rem;
         font-weight: 700;
         margin-bottom: 12px;
       }
-      
+
       .summary-label {
         color: #666;
         font-size: 0.85rem;
@@ -353,7 +354,7 @@
         letter-spacing: 0.5px;
         line-height: 1.3;
       }
-      
+
       .summary-card.primary-metric .summary-label {
         font-size: 0.95rem;
         font-weight: 700;
@@ -372,20 +373,20 @@
         .winner-table th:nth-child(1) {
           width: 10%; /* Rank column */
         }
-        
+
         .winner-table th:nth-child(2) {
           width: 30%; /* Player column */
         }
-        
+
         .winner-table th:nth-child(3) {
           width: 20%; /* Prize column */
         }
-        
+
         .winner-table th:nth-child(4) {
           width: 40%; /* Highlights column */
         }
       }
-      
+
       /* Tablet optimization: 2x2 grid layout */
       @media (max-width: 900px) and (min-width: 601px) {
         .container {
@@ -395,13 +396,13 @@
           grid-template-columns: repeat(2, 1fr);
           gap: 18px;
         }
-        
+
         /* Ensure primary metric maintains prominence in 2x2 grid */
         .summary-card.primary-metric {
           grid-column: span 1; /* Don't span multiple columns on tablet */
         }
       }
-      
+
       @media (max-width: 800px) {
         .container {
           max-width: 98vw;
@@ -442,7 +443,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
         }
-        
+
         /* Make description text wrap properly on mobile */
         section p {
           font-size: clamp(0.8rem, 3.5vw, 0.9rem);
@@ -457,14 +458,14 @@
           border-collapse: separate;
           border-spacing: 0;
         }
-        
+
         /* Hide traditional table headers on mobile */
         .winner-table thead {
           position: absolute;
           left: -9999px;
           top: -9999px;
         }
-        
+
         /* Make each row a compact card */
         .winner-table tbody tr {
           display: block;
@@ -476,12 +477,12 @@
           padding: 10px 12px;
           position: relative;
         }
-        
+
         .winner-table tbody tr:hover {
           transform: none;
           box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
         }
-        
+
         /* Position all cells on the same row */
         .winner-table tbody td {
           display: inline-block;
@@ -490,7 +491,7 @@
           text-align: left !important;
           vertical-align: middle;
         }
-        
+
         /* First row: Rank + Player Name + Prize */
         .winner-table tbody td:nth-child(1) {
           display: inline-block;
@@ -498,14 +499,14 @@
           margin-right: 8px;
           font-weight: 700;
         }
-        
+
         .winner-table tbody td:nth-child(2) {
           display: inline-block;
           width: auto;
           font-weight: 600;
           margin-right: 5px;
         }
-        
+
         .winner-table tbody td:nth-child(3) {
           display: inline-block;
           width: auto;
@@ -513,7 +514,7 @@
           font-weight: 700;
           text-align: right !important;
         }
-        
+
         /* Second row: Highlights only */
         .winner-table tbody td:nth-child(4) {
           display: block;
@@ -521,12 +522,12 @@
           margin-top: 6px;
           clear: both;
         }
-        
+
         /* Remove decimal point from rank number */
         .winner-table tbody td:nth-child(1)::after {
-          content: ".";
+          content: '.';
         }
-        
+
         /* Highlights styling for mobile cards - right aligned */
         .highlights {
           gap: 4px;
@@ -537,40 +538,40 @@
           display: flex;
           margin-top: 2px;
         }
-        
+
         .highlight-badge {
           font-size: 0.7rem;
           padding: 2px 6px;
           margin: 0;
         }
-        
+
         /* Subtle gold/silver/bronze backgrounds for top 3 mobile cards */
         .winner-table tbody tr:nth-child(1) {
           background: linear-gradient(145deg, #fffbf0, #fff8e1) !important;
           border-left: 4px solid #f9a825;
           box-shadow: 0 2px 8px rgba(249, 168, 37, 0.15) !important;
         }
-        
+
         .winner-table tbody tr:nth-child(1):hover {
           box-shadow: 0 3px 12px rgba(249, 168, 37, 0.25) !important;
         }
-        
+
         .winner-table tbody tr:nth-child(2) {
           background: linear-gradient(145deg, #f8f9fa, #f1f3f4) !important;
           border-left: 4px solid #9e9e9e;
           box-shadow: 0 2px 8px rgba(158, 158, 158, 0.15) !important;
         }
-        
+
         .winner-table tbody tr:nth-child(2):hover {
           box-shadow: 0 3px 12px rgba(158, 158, 158, 0.25) !important;
         }
-        
+
         .winner-table tbody tr:nth-child(3) {
           background: linear-gradient(145deg, #fef7e0, #fff3cd) !important;
           border-left: 4px solid #d4b106;
           box-shadow: 0 2px 8px rgba(212, 177, 6, 0.15) !important;
         }
-        
+
         .winner-table tbody tr:nth-child(3):hover {
           box-shadow: 0 3px 12px rgba(212, 177, 6, 0.25) !important;
         }
@@ -579,63 +580,67 @@
           grid-template-columns: 1fr;
           gap: 12px;
         }
-        
+
         /* Reorder items for mobile - Total Prize Money first */
-        .summary-card:nth-child(4) { /* Total Prize Money */
+        .summary-card:nth-child(4) {
+          /* Total Prize Money */
           order: 1;
         }
-        .summary-card:nth-child(3) { /* Total Winners */
+        .summary-card:nth-child(3) {
+          /* Total Winners */
           order: 2;
         }
-        .summary-card:nth-child(1) { /* Completed Gameweeks */
+        .summary-card:nth-child(1) {
+          /* Completed Gameweeks */
           order: 3;
         }
-        .summary-card:nth-child(2) { /* Completed Gamemonths */
+        .summary-card:nth-child(2) {
+          /* Completed Gamemonths */
           order: 4;
         }
-        
+
         .summary-card {
           padding: 18px 12px;
         }
-        
+
         .summary-card.primary-metric {
           padding: 22px 15px;
         }
-        
+
         .summary-icon {
           font-size: 1.4rem;
           margin-bottom: 8px;
         }
-        
+
         .summary-card.primary-metric .summary-icon {
           font-size: 1.8rem;
           margin-bottom: 10px;
         }
-        
+
         .summary-number {
           font-size: 1.6rem;
         }
-        
+
         .summary-card.primary-metric .summary-number {
           font-size: 2.2rem;
         }
-        
+
         .summary-label {
           font-size: 0.75rem;
           font-weight: 600;
         }
-        
+
         .summary-card.primary-metric .summary-label {
           font-size: 0.8rem;
           font-weight: 700;
         }
-        
+
         /* Override dynamic styles on mobile for better fit */
         #dynamic-table-styles {
           display: none !important;
         }
       }
-      
+
       /* Ultra-narrow screens (Galaxy Z Fold, very small devices) */
       @media (max-width: 360px) {
         .container {
@@ -670,30 +675,30 @@
           margin-bottom: 8px;
           font-size: 0.75rem;
         }
-        
+
         .winner-table tbody td:nth-child(1) {
           font-size: 0.7rem;
           margin-right: 6px;
         }
-        
+
         .winner-table tbody td:nth-child(2) {
           font-size: 0.75rem;
           margin-right: 4px;
         }
-        
+
         .winner-table tbody td:nth-child(3) {
           font-size: 0.7rem;
         }
-        
+
         .winner-table tbody td:nth-child(4) {
           margin-top: 4px;
         }
-        
+
         .highlights {
           gap: 3px;
           margin-top: 1px;
         }
-        
+
         .highlight-badge {
           font-size: 0.6rem;
           padding: 1px 4px;
@@ -702,33 +707,33 @@
         .summary-card {
           padding: 15px 8px;
         }
-        
+
         .summary-card.primary-metric {
           padding: 18px 10px;
         }
-        
+
         .summary-icon {
           font-size: 1.2rem;
           margin-bottom: 6px;
         }
-        
+
         .summary-card.primary-metric .summary-icon {
           font-size: 1.5rem;
           margin-bottom: 8px;
         }
-        
+
         .summary-number {
           font-size: 1.4rem;
         }
-        
+
         .summary-card.primary-metric .summary-number {
           font-size: 1.9rem;
         }
-        
+
         .summary-label {
           font-size: 0.7rem;
         }
-        
+
         .summary-card.primary-metric .summary-label {
           font-size: 0.75rem;
         }
@@ -737,7 +742,7 @@
           gap: 8px;
         }
       }
-      
+
       /* Additional styles that were misplaced */
       .test-section {
         display: none;
@@ -750,7 +755,7 @@
         font-weight: 600;
         color: #ff6b6b;
       }
-      
+
       .winner-last-updated {
         text-align: center;
         font-size: 0.93rem;
@@ -758,13 +763,13 @@
         font-style: italic;
         margin-top: 20px;
       }
-      
+
       .footer-last-updated {
         font-size: 0.7rem;
         color: #ccc;
         margin-top: 5px;
       }
-      
+
       .winner-rank {
         font-weight: 600;
         color: var(--primary-color);
@@ -779,7 +784,7 @@
         margin: 20px 0;
         flex-wrap: wrap;
       }
-      
+
       .winner-nav-btn {
         background: var(--primary-color);
         color: white;
@@ -793,20 +798,20 @@
         align-items: center;
         gap: 5px;
       }
-      
+
       .winner-nav-btn:hover:not(:disabled) {
         background: var(--heading-color);
         transform: translateY(-1px);
         box-shadow: 0 3px 8px rgba(93, 33, 99, 0.3);
       }
-      
+
       .winner-nav-btn:disabled {
         background: #ccc;
         cursor: not-allowed;
         transform: none;
         box-shadow: none;
       }
-      
+
       .page-info {
         font-weight: 600;
         color: var(--primary-color);
@@ -870,11 +875,21 @@
           </div>
 
           <div class="winner-navigation" id="winner-navigation" style="display: none">
-            <button id="winner-prev-page" class="winner-nav-btn" onclick="previousWinnerPage()" disabled>
+            <button
+              id="winner-prev-page"
+              class="winner-nav-btn"
+              onclick="previousWinnerPage()"
+              disabled
+            >
               <i class="fas fa-chevron-left"></i> Previous
             </button>
             <span id="winner-page-info" class="page-info">Page 1 of 1</span>
-            <button id="winner-next-page" class="winner-nav-btn" onclick="nextWinnerPage()" disabled>
+            <button
+              id="winner-next-page"
+              class="winner-nav-btn"
+              onclick="nextWinnerPage()"
+              disabled
+            >
               Next <i class="fas fa-chevron-right"></i>
             </button>
           </div>
@@ -887,9 +902,7 @@
 
       <footer>
         <p>&copy; 2025 IIM Mumbai Fantasy League Organising Committee</p>
-        <p class="footer-last-updated">
-          Last updated: August 2025
-        </p>
+        <p class="footer-last-updated">Last updated: August 2025</p>
       </footer>
     </div>
 
@@ -898,8 +911,8 @@
       let allWinners = [];
       let currentWinnerPage = 1;
       const winnerItemsPerPage = 10;
-      
-      document.addEventListener("DOMContentLoaded", function () {
+
+      document.addEventListener('DOMContentLoaded', function () {
         loadWinnerData();
         checkTestMode();
       });
@@ -907,64 +920,58 @@
       function loadWinnerData() {
         // Check if we're in test mode and load appropriate file
         const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get("test") === "true";
+        const isTestMode = urlParams.get('test') === 'true';
 
         const winnerUrl = isTestMode
-          ? "test_winner_stats.json?cache=" + new Date().getTime()
-          : "winner_stats.json?cache=" + new Date().getTime();
+          ? 'test_winner_stats.json?cache=' + new Date().getTime()
+          : 'winner_stats.json?cache=' + new Date().getTime();
 
-        console.log(
-          isTestMode
-            ? "🧪 Loading TEST winner data"
-            : "📊 Loading LIVE winner data"
-        );
+        console.log(isTestMode ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
 
         fetch(winnerUrl)
           .then((response) => {
-            console.log("Winner fetch response:", response);
+            console.log('Winner fetch response:', response);
             if (!response.ok) {
-              throw new Error("Winner data fetch failed");
+              throw new Error('Winner data fetch failed');
             }
             return response.json();
           })
           .then((data) => {
-            console.log("Fetched winner data:", data);
+            console.log('Fetched winner data:', data);
 
             // Add test mode indicator if needed
             if (isTestMode && data.testMode) {
-              const headerP = document.querySelector("header p");
-              if (headerP && !headerP.textContent.includes("[TEST MODE]")) {
-                headerP.textContent =
-                  headerP.textContent + " [TEST MODE - Demo Data]";
-                headerP.style.color = "#ff6b6b";
+              const headerP = document.querySelector('header p');
+              if (headerP && !headerP.textContent.includes('[TEST MODE]')) {
+                headerP.textContent = headerP.textContent + ' [TEST MODE - Demo Data]';
+                headerP.style.color = '#ff6b6b';
               }
             }
 
             // Store sorted winners globally for pagination
-            allWinners = data.winners.sort(
-              (a, b) => b.totalPrizeWon - a.totalPrizeWon
-            );
+            allWinners = data.winners.sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
             displayWinnerTable();
             updateStatsSummary(data.winners);
-            
+
             // Update statistics from the JSON data summary
             if (data.summary && data.summary.completedGameweeks !== undefined) {
-              document.getElementById("completed-gameweeks").textContent = data.summary.completedGameweeks;
+              document.getElementById('completed-gameweeks').textContent =
+                data.summary.completedGameweeks;
             }
-            
+
             // Update completed gamemonths from the JSON data summary
             if (data.summary && data.summary.completedMonths !== undefined) {
-              document.getElementById("completed-gamemonths").textContent = data.summary.completedMonths;
+              document.getElementById('completed-gamemonths').textContent =
+                data.summary.completedMonths;
             }
 
             // Show last updated time for winners
             const lastUpdated = new Date(data.lastUpdated);
-            const userTimeZone =
-              Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const userLocale = navigator.language || "en-GB";
+            const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const userLocale = navigator.language || 'en-GB';
             const formattedDate = lastUpdated.toLocaleString(userLocale, {
-              dateStyle: "medium",
-              timeStyle: "short",
+              dateStyle: 'medium',
+              timeStyle: 'short',
               timeZone: userTimeZone,
             });
 
@@ -972,29 +979,28 @@
               ? `Last updated: ${formattedDate} (test data)`
               : `Last updated: ${formattedDate} (your local time)`;
 
-            document.getElementById("winner-last-updated").textContent =
-              updateText;
+            document.getElementById('winner-last-updated').textContent = updateText;
           })
           .catch((error) => {
-            console.error("Winner fetch error:", error);
-            document.getElementById("winner-table-container").innerHTML =
+            console.error('Winner fetch error:', error);
+            document.getElementById('winner-table-container').innerHTML =
               '<div class="winner-error">Unable to load winner data. Please try again later.</div>';
           });
       }
 
       // Display winners table with pagination
       function displayWinnerTable() {
-        const container = document.getElementById("winner-table-container");
-        const navigation = document.getElementById("winner-navigation");
+        const container = document.getElementById('winner-table-container');
+        const navigation = document.getElementById('winner-navigation');
 
         if (!container) {
-          console.error("Winner table container not found");
+          console.error('Winner table container not found');
           return;
         }
 
         if (!allWinners || allWinners.length === 0) {
           container.innerHTML = '<div class="winner-loading">No winner data available yet.</div>';
-          if (navigation) navigation.style.display = "none";
+          if (navigation) navigation.style.display = 'none';
           return;
         }
 
@@ -1008,22 +1014,25 @@
 
         // Generate table HTML with paginated data
         let tableHTML = '<table class="winner-table" id="dynamic-winner-table">';
-        tableHTML += '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead>';
+        tableHTML +=
+          '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead>';
         tableHTML += '<tbody>';
-        
+
         currentPageData.forEach((winner, pageIndex) => {
           const globalIndex = startIndex + pageIndex;
           const rank = globalIndex + 1;
-          const gameWeeksBadge = winner.highlights.gameWeeks > 0 
-            ? `<span class="highlight-badge gw">${winner.highlights.gameWeeks}GW</span>` 
+          const gameWeeksBadge =
+            winner.highlights.gameWeeks > 0
+              ? `<span class="highlight-badge gw">${winner.highlights.gameWeeks}GW</span>`
+              : '';
+          const gameMonthsBadge =
+            winner.highlights.gameMonths > 0
+              ? `<span class="highlight-badge gm">${winner.highlights.gameMonths}GM</span>`
+              : '';
+          const overallRankBadge = winner.highlights.overallRank
+            ? `<span class="highlight-badge">League Rank: ${winner.highlights.overallRank}</span>`
             : '';
-          const gameMonthsBadge = winner.highlights.gameMonths > 0 
-            ? `<span class="highlight-badge gm">${winner.highlights.gameMonths}GM</span>` 
-            : '';
-          const overallRankBadge = winner.highlights.overallRank 
-            ? `<span class="highlight-badge">League Rank: ${winner.highlights.overallRank}</span>` 
-            : '';
-            
+
           tableHTML += `<tr>`;
           tableHTML += `<td class="winner-rank">${rank}</td>`;
           tableHTML += `<td class="player-name">${winner.playerName}</td>`;
@@ -1031,37 +1040,37 @@
           tableHTML += `<td><div class="highlights">${gameWeeksBadge}${gameMonthsBadge}${overallRankBadge}</div></td>`;
           tableHTML += `</tr>`;
         });
-        
+
         tableHTML += '</tbody></table>';
         container.innerHTML = tableHTML;
 
         // Show/hide navigation based on total pages
         if (navigation) {
           if (totalPages > 1) {
-            navigation.style.display = "flex";
+            navigation.style.display = 'flex';
             updateWinnerNavigation(totalPages);
           } else {
-            navigation.style.display = "none";
+            navigation.style.display = 'none';
           }
         }
-        
+
         // Apply dynamic column widths after table is rendered
         setTimeout(() => {
           optimizeTableColumnWidths(currentPageData);
         }, 50);
       }
-      
+
       // Update navigation buttons and page info
       function updateWinnerNavigation(totalPages) {
-        const prevBtn = document.getElementById("winner-prev-page");
-        const nextBtn = document.getElementById("winner-next-page");
-        const pageInfo = document.getElementById("winner-page-info");
+        const prevBtn = document.getElementById('winner-prev-page');
+        const nextBtn = document.getElementById('winner-next-page');
+        const pageInfo = document.getElementById('winner-page-info');
 
         if (prevBtn) prevBtn.disabled = currentWinnerPage === 1;
         if (nextBtn) nextBtn.disabled = currentWinnerPage === totalPages;
         if (pageInfo) pageInfo.textContent = `Page ${currentWinnerPage} of ${totalPages}`;
       }
-      
+
       // Pagination functions
       function previousWinnerPage() {
         if (currentWinnerPage > 1) {
@@ -1070,7 +1079,7 @@
           console.log(`📄 Navigated to page ${currentWinnerPage}`);
         }
       }
-      
+
       function nextWinnerPage() {
         const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
         if (currentWinnerPage < totalPages) {
@@ -1079,29 +1088,30 @@
           console.log(`📄 Navigated to page ${currentWinnerPage}`);
         }
       }
-      
+
       function optimizeTableColumnWidths(winners) {
         const table = document.getElementById('dynamic-winner-table');
         if (!table || !winners || winners.length === 0) return;
-        
+
         console.log('🔧 Optimizing table column widths...');
-        
+
         // Create a temporary invisible element to measure text widths
         const measureEl = document.createElement('span');
         measureEl.style.visibility = 'hidden';
         measureEl.style.position = 'absolute';
         measureEl.style.whiteSpace = 'nowrap';
-        measureEl.style.fontFamily = 'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+        measureEl.style.fontFamily =
+          'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
         measureEl.style.fontSize = '0.9rem';
         measureEl.style.fontWeight = '600';
         document.body.appendChild(measureEl);
-        
+
         try {
           // Find the longest player name
           let maxPlayerNameWidth = 0;
           let longestName = 'Player'; // Default to header text
-          
-          winners.forEach(winner => {
+
+          winners.forEach((winner) => {
             measureEl.textContent = winner.playerName;
             const width = measureEl.offsetWidth;
             if (width > maxPlayerNameWidth) {
@@ -1109,21 +1119,21 @@
               longestName = winner.playerName;
             }
           });
-          
+
           // Also check header width
           measureEl.style.fontWeight = '700';
           measureEl.style.fontSize = '0.95rem';
           measureEl.style.letterSpacing = '0.3px';
           measureEl.textContent = 'PLAYER';
           const headerWidth = measureEl.offsetWidth;
-          
+
           // Use the larger of content width or header width, plus padding
           const playerColumnWidth = Math.max(maxPlayerNameWidth, headerWidth) + 32; // 16px padding on each side
-          
+
           console.log(`📏 Longest player name: "${longestName}" (${maxPlayerNameWidth}px)`);
           console.log(`📏 Header width: ${headerWidth}px`);
           console.log(`📏 Final player column width: ${playerColumnWidth}px`);
-          
+
           // Apply the calculated width to player column
           // Use CSS custom properties for dynamic widths
           const styleElement = document.createElement('style');
@@ -1134,18 +1144,17 @@
               max-width: ${playerColumnWidth}px;
             }
           `;
-          
+
           // Remove any existing dynamic styles
           const existingStyle = document.getElementById('dynamic-table-styles');
           if (existingStyle) {
             existingStyle.remove();
           }
-          
+
           styleElement.id = 'dynamic-table-styles';
           document.head.appendChild(styleElement);
-          
+
           console.log('✅ Dynamic column widths applied successfully');
-          
         } catch (error) {
           console.error('❌ Error optimizing column widths:', error);
         } finally {
@@ -1155,13 +1164,12 @@
       }
 
       function loadFPLData() {
-        const fplApiUrl =
-          "https://fantasy.premierleague.com/api/bootstrap-static/";
+        const fplApiUrl = 'https://fantasy.premierleague.com/api/bootstrap-static/';
 
         fetch(fplApiUrl)
           .then((response) => {
             if (!response.ok) {
-              throw new Error("FPL API fetch failed");
+              throw new Error('FPL API fetch failed');
             }
             return response.json();
           })
@@ -1170,12 +1178,11 @@
             const completedGameweeks = data.events.filter(
               (event) => event.finished === true
             ).length;
-            document.getElementById("completed-gameweeks").textContent =
-              completedGameweeks;
+            document.getElementById('completed-gameweeks').textContent = completedGameweeks;
           })
           .catch((error) => {
-            console.error("FPL API fetch error:", error);
-            document.getElementById("completed-gameweeks").textContent = "--";
+            console.error('FPL API fetch error:', error);
+            document.getElementById('completed-gameweeks').textContent = '--';
           });
       }
 
@@ -1183,28 +1190,25 @@
         if (!winners || winners.length === 0) return;
 
         const totalWinners = winners.length;
-        const totalPrizeMoney = winners.reduce(
-          (sum, winner) => sum + winner.totalPrizeWon,
-          0
-        );
+        const totalPrizeMoney = winners.reduce((sum, winner) => sum + winner.totalPrizeWon, 0);
 
-        document.getElementById("total-winners").textContent = totalWinners;
-        document.getElementById("total-prize-money").textContent =
-          "₹" + totalPrizeMoney.toLocaleString("en-IN");
+        document.getElementById('total-winners').textContent = totalWinners;
+        document.getElementById('total-prize-money').textContent =
+          '₹' + totalPrizeMoney.toLocaleString('en-IN');
       }
 
       function checkTestMode() {
         const params = new URLSearchParams(window.location.search);
-        const isTestMode = params.get("test") === "true";
-        
+        const isTestMode = params.get('test') === 'true';
+
         if (isTestMode) {
-          console.log("🧪 Test mode activated!");
-          const section = document.querySelector(".test-section");
-          if (section) section.style.display = "block";
+          console.log('🧪 Test mode activated!');
+          const section = document.querySelector('.test-section');
+          if (section) section.style.display = 'block';
         } else {
           // Ensure test section is hidden in live mode
-          const section = document.querySelector(".test-section");
-          if (section) section.style.display = "none";
+          const section = document.querySelector('.test-section');
+          if (section) section.style.display = 'none';
         }
       }
     </script>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -19,34 +19,22 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://adigunners.github.io/" />
-    <meta
-      property="og:title"
-      content="IIM Mumbai Fantasy League - Season 2025-26"
-    />
+    <meta property="og:title" content="IIM Mumbai Fantasy League - Season 2025-26" />
     <meta
       property="og:description"
       content="Join the premier fantasy football league for IIM Mumbai students. Weekly prizes, monthly rewards, and season-end championship!"
     />
-    <meta
-      property="og:image"
-      content="https://adigunners.github.io/assets/fpl-og-image.jpg"
-    />
+    <meta property="og:image" content="https://adigunners.github.io/assets/fpl-og-image.jpg" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://adigunners.github.io/" />
-    <meta
-      property="twitter:title"
-      content="IIM Mumbai Fantasy League - Season 2025-26"
-    />
+    <meta property="twitter:title" content="IIM Mumbai Fantasy League - Season 2025-26" />
     <meta
       property="twitter:description"
       content="Join the premier fantasy football league for IIM Mumbai students. Weekly prizes, monthly rewards, and season-end championship!"
     />
-    <meta
-      property="twitter:image"
-      content="https://adigunners.github.io/assets/fpl-og-image.jpg"
-    />
+    <meta property="twitter:image" content="https://adigunners.github.io/assets/fpl-og-image.jpg" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -54,11 +42,7 @@
 
     <!-- Performance Optimizations -->
     <link rel="dns-prefetch" href="//fantasy.premierleague.com" />
-    <link
-      rel="preconnect"
-      href="https://fantasy.premierleague.com"
-      crossorigin
-    />
+    <link rel="preconnect" href="https://fantasy.premierleague.com" crossorigin />
     <meta name="theme-color" content="#37003c" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -90,8 +74,15 @@
       }
 
       body {
-        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Helvetica, Arial, sans-serif;
+        font-family:
+          'Poppins',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
         line-height: 1.7;
         margin: 0;
         background-color: var(--background-color);
@@ -109,11 +100,7 @@
 
       /* =============== HEADER STYLES =============== */
       header {
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--heading-color)
-        );
+        background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: #fff;
         text-align: center;
         padding: 50px 20px;
@@ -161,14 +148,13 @@
         max-width: 300px;
         width: auto;
         background: rgba(255, 255, 255, 0.15);
-        -webkit-backdrop-filter: blur(
-          10px
-        ); /* For Safari 9+, Safari on iOS 9+ */
+        -webkit-backdrop-filter: blur(10px); /* For Safari 9+, Safari on iOS 9+ */
         backdrop-filter: blur(10px);
         border-radius: var(--border-radius);
         padding: 15px 20px;
         border: 2px solid rgba(0, 255, 133, 0.3);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1),
+        box-shadow:
+          0 4px 15px rgba(0, 0, 0, 0.1),
           0 0 20px rgba(0, 255, 133, 0.2);
         text-align: center;
         animation: pulseBorder 3s infinite;
@@ -178,12 +164,14 @@
         0%,
         100% {
           border-color: rgba(0, 255, 133, 0.3);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1),
+          box-shadow:
+            0 4px 15px rgba(0, 0, 0, 0.1),
             0 0 20px rgba(0, 255, 133, 0.2);
         }
         50% {
           border-color: rgba(0, 255, 133, 0.6);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1),
+          box-shadow:
+            0 4px 15px rgba(0, 0, 0, 0.1),
             0 0 30px rgba(0, 255, 133, 0.4);
         }
       }
@@ -230,7 +218,7 @@
       }
 
       .countdown-time {
-        font-family: "Courier New", monospace;
+        font-family: 'Courier New', monospace;
         font-size: 0.85rem;
         font-weight: 700;
         letter-spacing: 0.3px;
@@ -374,7 +362,9 @@
         font-weight: 600;
         border-radius: 5px;
         margin-top: 10px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
       }
 
       .cta-button:hover {
@@ -404,7 +394,9 @@
         padding: 20px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         border-left: 4px solid var(--secondary-color);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
         position: relative;
       }
 
@@ -510,18 +502,16 @@
 
       .view-all-winners {
         display: inline-block;
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--heading-color)
-        );
+        background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: white;
         padding: 12px 25px;
         text-decoration: none;
         font-weight: 600;
         border-radius: 5px;
         margin-top: 20px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
         text-align: center;
       }
 
@@ -557,11 +547,7 @@
       }
 
       .leaderboard-table th {
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--heading-color)
-        );
+        background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: white;
         padding: 14px 16px;
         text-align: left;
@@ -623,24 +609,24 @@
       }
 
       .leaderboard-rank.rank-1 {
-        background: linear-gradient(135deg, #FFD700, #FFA500);
-        color: #8B4513;
+        background: linear-gradient(135deg, #ffd700, #ffa500);
+        color: #8b4513;
         font-weight: 700;
         padding: 4px 8px;
         border-radius: 4px;
       }
 
       .leaderboard-rank.rank-2 {
-        background: linear-gradient(135deg, #C0C0C0, #808080);
-        color: #2F4F4F;
+        background: linear-gradient(135deg, #c0c0c0, #808080);
+        color: #2f4f4f;
         font-weight: 700;
         padding: 4px 8px;
         border-radius: 4px;
       }
 
       .leaderboard-rank.rank-3 {
-        background: linear-gradient(135deg, #CD7F32, #A0522D);
-        color: #FFFFFF;
+        background: linear-gradient(135deg, #cd7f32, #a0522d);
+        color: #ffffff;
         font-weight: 700;
         padding: 4px 8px;
         border-radius: 4px;
@@ -921,9 +907,7 @@
 
         <!-- Digital Countdown Clock -->
         <div id="countdown-clock" class="countdown-clock" style="display: none">
-          <div class="countdown-label" id="countdown-label">
-            Time Until Kickoff
-          </div>
+          <div class="countdown-label" id="countdown-label">Time Until Kickoff</div>
           <div class="countdown-time">
             <span class="countdown-unit">
               <span id="countdown-days">00</span>
@@ -964,10 +948,7 @@
           </div>
         </div>
         <!-- SHARED LAST UPDATED TEXT -->
-        <section
-          id="stats-last-updated"
-          class="stats-last-updated season-section"
-        >
+        <section id="stats-last-updated" class="stats-last-updated season-section">
           Fetching latest data...
         </section>
 
@@ -975,8 +956,8 @@
         <section id="register" class="season-section pre-season">
           <h2>Join the League!</h2>
           <p>
-            Ready to prove your FPL skills? Registration is now open. Click the
-            button below to fill out the form and join the action.
+            Ready to prove your FPL skills? Registration is now open. Click the button below to fill
+            out the form and join the action.
           </p>
           <a
             href="https://forms.gle/xXRXCMKNtNMcGxsr9"
@@ -988,10 +969,7 @@
         </section>
 
         <!-- WINNER SCORECARD SECTION (During Season) -->
-        <section
-          class="winner-scorecard season-section during-season"
-          style="display: none"
-        >
+        <section class="winner-scorecard season-section during-season" style="display: none">
           <h2>🎆 Top Earners So Far</h2>
           <p>Leading players and their prize money achievements this season.</p>
 
@@ -1013,7 +991,11 @@
         </section>
 
         <!-- IN-SEASON VIEW TOGGLE (Test Mode Only) -->
-        <section id="season-toggle" class="season-section pre-season test-only" style="text-align: center; display: none;">
+        <section
+          id="season-toggle"
+          class="season-section pre-season test-only"
+          style="text-align: center; display: none"
+        >
           <button
             onclick="toggleSeasonMode()"
             style="
@@ -1024,29 +1006,24 @@
               border-radius: var(--border-radius);
               cursor: pointer;
               font-weight: 600;
-              transition: transform 0.2s ease, box-shadow 0.2s ease;
+              transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
             "
             onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(93, 33, 99, 0.3)'"
             onmouseout="this.style.transform=''; this.style.boxShadow=''"
           >
             📊 Preview In-season View
           </button>
-          <p style="font-size: 0.9rem; color: #777; margin-top: 10px;">
+          <p style="font-size: 0.9rem; color: #777; margin-top: 10px">
             See how the website will look during the active season
           </p>
         </section>
 
         <!-- LEADERBOARD SECTION (During Season) -->
-        <section
-          id="leaderboard"
-          class="season-section during-season"
-          style="display: none"
-        >
+        <section id="leaderboard" class="season-section during-season" style="display: none">
           <h2>🏆 League Standings</h2>
-          <p>
-            Complete league table showing all players ranked by their overall
-            FPL performance.
-          </p>
+          <p>Complete league table showing all players ranked by their overall FPL performance.</p>
 
           <div id="leaderboard-container">
             <div class="leaderboard-loading">Loading league standings...</div>
@@ -1061,9 +1038,7 @@
             >
               <i class="fas fa-chevron-left"></i> Previous
             </button>
-            <span id="leaderboard-page-info" class="page-info"
-              >Page 1 of 1</span
-            >
+            <span id="leaderboard-page-info" class="page-info">Page 1 of 1</span>
             <button
               id="leaderboard-next-page"
               class="leaderboard-nav-btn"
@@ -1086,30 +1061,25 @@
           <h3>Prizes</h3>
           <ul>
             <li>
-              <strong>Weekly Prizes:</strong> The top 2 managers every gameweek
-              win cash prizes.
+              <strong>Weekly Prizes:</strong> The top 2 managers every gameweek win cash prizes.
             </li>
             <li>
-              <strong>Monthly Prizes:</strong> The best managers each month are
-              rewarded from the prize pool.
+              <strong>Monthly Prizes:</strong> The best managers each month are rewarded from the
+              prize pool.
             </li>
             <li>
-              <strong>Overall Prizes:</strong> The top 10 managers at the end of
-              the season will win substantial rewards from the grand prize pool.
+              <strong>Overall Prizes:</strong> The top 10 managers at the end of the season will win
+              substantial rewards from the grand prize pool.
             </li>
           </ul>
         </section>
 
         <!-- LATE REGISTRATION SECTION (During Season) -->
-        <section
-          id="late-register"
-          class="season-section during-season"
-          style="display: none"
-        >
+        <section id="late-register" class="season-section during-season" style="display: none">
           <h2>Still Want to Join?</h2>
           <p>
-            Missed the initial registration? Contact us to check if late entries
-            are still available.
+            Missed the initial registration? Contact us to check if late entries are still
+            available.
           </p>
           <a
             href="https://forms.gle/xXRXCMKNtNMcGxsr9"
@@ -1123,9 +1093,7 @@
 
       <footer>
         <p>&copy; 2025 IIM Mumbai Fantasy League Organising Committee</p>
-        <p style="font-size: 0.7rem; color: #ccc; margin-top: 5px">
-          Last updated: August 2025
-        </p>
+        <p style="font-size: 0.7rem; color: #ccc; margin-top: 5px">Last updated: August 2025</p>
       </footer>
     </div>
 
@@ -1142,7 +1110,7 @@
 
       function getCachedDeadline() {
         try {
-          const iso = localStorage.getItem("fpl_next_deadline");
+          const iso = localStorage.getItem('fpl_next_deadline');
           if (!iso) return null;
           const d = new Date(iso);
           return isNaN(d.getTime()) ? null : d;
@@ -1153,7 +1121,7 @@
 
       function setCachedDeadline(isoStr) {
         try {
-          localStorage.setItem("fpl_next_deadline", isoStr);
+          localStorage.setItem('fpl_next_deadline', isoStr);
         } catch (e) {
           // ignore quota / privacy errors
         }
@@ -1162,11 +1130,10 @@
       // Cache for next gameweek (id + deadline)
       function getCachedGameweek() {
         try {
-          const raw = localStorage.getItem("fpl_cached_gw");
+          const raw = localStorage.getItem('fpl_cached_gw');
           if (!raw) return null;
           const obj = JSON.parse(raw);
-          if (!obj || typeof obj.id === "undefined" || !obj.deadline_time)
-            return null;
+          if (!obj || typeof obj.id === 'undefined' || !obj.deadline_time) return null;
           const d = new Date(obj.deadline_time);
           if (isNaN(d.getTime())) return null;
           return { id: obj.id, deadline_time: obj.deadline_time };
@@ -1177,9 +1144,9 @@
 
       function setCachedGameweek(gw) {
         try {
-          if (gw && typeof gw.id !== "undefined" && gw.deadline_time) {
+          if (gw && typeof gw.id !== 'undefined' && gw.deadline_time) {
             const payload = { id: gw.id, deadline_time: gw.deadline_time };
-            localStorage.setItem("fpl_cached_gw", JSON.stringify(payload));
+            localStorage.setItem('fpl_cached_gw', JSON.stringify(payload));
           }
         } catch (e) {
           // ignore quota / privacy errors
@@ -1188,14 +1155,10 @@
 
       // Helper to flip UI into during-season mode immediately
       function showDuringSeasonUI() {
-        document
-          .querySelectorAll(".pre-season")
-          .forEach((el) => (el.style.display = "none"));
-        document
-          .querySelectorAll(".during-season")
-          .forEach((el) => (el.style.display = "block"));
-        const headerP = document.querySelector("header p");
-        if (headerP) headerP.textContent = "Season 2025-26 - Live Updates";
+        document.querySelectorAll('.pre-season').forEach((el) => (el.style.display = 'none'));
+        document.querySelectorAll('.during-season').forEach((el) => (el.style.display = 'block'));
+        const headerP = document.querySelector('header p');
+        if (headerP) headerP.textContent = 'Season 2025-26 - Live Updates';
       }
 
       // ======= SYNC BADGE FEATURE FLAG AND HELPERS =======
@@ -1204,28 +1167,28 @@
       let usedCachedOnLoad = false;
 
       function removeCachedLabel() {
-        const label = document.getElementById("countdown-label");
+        const label = document.getElementById('countdown-label');
         if (!label) return;
-        label.textContent = label.textContent.replace(/\s*\(cached\)$/i, "");
+        label.textContent = label.textContent.replace(/\s*\(cached\)$/i, '');
       }
 
       function showSyncedJustNow() {
         if (!SYNC_BADGE_ENABLED) return;
-        const label = document.getElementById("countdown-label");
+        const label = document.getElementById('countdown-label');
         if (!label) return;
         // Remove old badge if any
-        const old = label.querySelector(".sync-badge");
+        const old = label.querySelector('.sync-badge');
         if (old) old.remove();
-        const badge = document.createElement("span");
-        badge.className = "sync-badge";
-        badge.textContent = "Synced just now";
+        const badge = document.createElement('span');
+        badge.className = 'sync-badge';
+        badge.textContent = 'Synced just now';
         label.appendChild(badge);
         // force reflow to trigger transition
         void badge.offsetWidth;
-        badge.classList.add("show");
+        badge.classList.add('show');
         // auto fade out after 2s
         setTimeout(() => {
-          badge.classList.remove("show");
+          badge.classList.remove('show');
           setTimeout(() => badge.remove(), 350);
         }, 2000);
       }
@@ -1233,14 +1196,14 @@
       // Check if we're in test mode
       function checkTestMode() {
         const urlParams = new URLSearchParams(window.location.search);
-        const testMode = urlParams.get("test") === "true";
+        const testMode = urlParams.get('test') === 'true';
 
         if (testMode) {
           // Show ALL test-only elements (including toggle button)
-          document.querySelectorAll('.test-only').forEach(el => {
+          document.querySelectorAll('.test-only').forEach((el) => {
             el.style.display = 'block';
           });
-          console.log("🧪 Test mode: Showing test-only elements including toggle button");
+          console.log('🧪 Test mode: Showing test-only elements including toggle button');
 
           // Update winners link to include test parameter
           const winnersLink = document.getElementById('winners-link');
@@ -1248,106 +1211,93 @@
             winnersLink.href = 'winners.html?test=true';
           }
 
-          console.log("🧪 Test mode activated!");
+          console.log('🧪 Test mode activated!');
         } else {
           // Live mode: FORCE HIDE all test-only elements
-          document.querySelectorAll('.test-only').forEach(el => {
+          document.querySelectorAll('.test-only').forEach((el) => {
             el.style.display = 'none !important';
             el.style.visibility = 'hidden';
           });
-          
+
           const winnersLink = document.getElementById('winners-link');
           if (winnersLink) {
             winnersLink.href = 'winners.html';
           }
 
-          console.log("🌐 Live mode: All test-only elements hidden");
+          console.log('🌐 Live mode: All test-only elements hidden');
         }
       }
 
       // Testing function to toggle season mode
       function toggleSeasonMode() {
-        const preSeasonElements = document.querySelectorAll(".pre-season");
-        const duringSeasonElements =
-          document.querySelectorAll(".during-season");
-        const headerP = document.querySelector("header p");
+        const preSeasonElements = document.querySelectorAll('.pre-season');
+        const duringSeasonElements = document.querySelectorAll('.during-season');
+        const headerP = document.querySelector('header p');
 
         // Toggle visibility
         preSeasonElements.forEach((el) => {
-          el.style.display = el.style.display === "none" ? "block" : "none";
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
         });
 
         duringSeasonElements.forEach((el) => {
-          el.style.display = el.style.display === "none" ? "block" : "none";
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
         });
 
         // Toggle header text
         if (headerP) {
-          if (headerP.textContent.includes("Registration Open")) {
-            headerP.textContent =
-              "Season 2025-26 - Live Updates (Testing Mode)";
+          if (headerP.textContent.includes('Registration Open')) {
+            headerP.textContent = 'Season 2025-26 - Live Updates (Testing Mode)';
 
             // Load data when switching to season mode
-            console.log("🔄 Toggle: Loading data for season mode...");
-            loadWinnerData("winner-preview-container", "winner-summary", true); // Use test data
+            console.log('🔄 Toggle: Loading data for season mode...');
+            loadWinnerData('winner-preview-container', 'winner-summary', true); // Use test data
             loadTestLeaderboardData();
-            
+
             // Update winners link to test version when in season mode
             const winnersLink = document.getElementById('winners-link');
             if (winnersLink) {
               winnersLink.href = 'winners.html?test=true';
             }
           } else {
-            headerP.textContent =
-              "Season 2025-26 - Registration Open (Testing Mode)";
+            headerP.textContent = 'Season 2025-26 - Registration Open (Testing Mode)';
           }
         }
       }
 
       // Unified function to load winner data (both test and live)
       function loadWinnerData(
-        containerId = "winner-preview-container",
-        summaryId = "winner-summary",
+        containerId = 'winner-preview-container',
+        summaryId = 'winner-summary',
         isTestSection = false
       ) {
         const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get("test") === "true" || isTestSection;
+        const isTestMode = urlParams.get('test') === 'true' || isTestSection;
 
         const winnerUrl = isTestMode
-          ? "test_winner_stats.json?cache=" + new Date().getTime()
-          : "winner_stats.json?cache=" + new Date().getTime();
+          ? 'test_winner_stats.json?cache=' + new Date().getTime()
+          : 'winner_stats.json?cache=' + new Date().getTime();
 
-        console.log(
-          isTestMode
-            ? "🧪 Loading TEST winner data"
-            : "📊 Loading LIVE winner data"
-        );
-        console.log("🔍 Target container ID:", containerId);
-        console.log("🔍 Target summary ID:", summaryId);
-        console.log("🔍 Fetching URL:", winnerUrl);
+        console.log(isTestMode ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
+        console.log('🔍 Target container ID:', containerId);
+        console.log('🔍 Target summary ID:', summaryId);
+        console.log('🔍 Fetching URL:', winnerUrl);
 
         // Check if containers exist
         const container = document.getElementById(containerId);
         const summary = document.getElementById(summaryId);
-        console.log("🔍 Container exists:", !!container);
-        console.log("🔍 Summary exists:", !!summary);
+        console.log('🔍 Container exists:', !!container);
+        console.log('🔍 Summary exists:', !!summary);
 
         return fetchWithRetry(winnerUrl, 3)
           .then((data) => {
-            console.log(
-              `${
-                isTestMode ? "🧪 Loaded TEST" : "📊 Loaded LIVE"
-              } winner data:`,
-              data
-            );
+            console.log(`${isTestMode ? '🧪 Loaded TEST' : '📊 Loaded LIVE'} winner data:`, data);
 
             // Add test mode indicator if needed
             if (isTestMode && data.testMode) {
-              const headerP = document.querySelector("header p");
-              if (headerP && !headerP.textContent.includes("[TEST MODE]")) {
-                headerP.textContent =
-                  headerP.textContent + " [TEST MODE - Demo Data]";
-                headerP.style.color = "#ff6b6b";
+              const headerP = document.querySelector('header p');
+              if (headerP && !headerP.textContent.includes('[TEST MODE]')) {
+                headerP.textContent = headerP.textContent + ' [TEST MODE - Demo Data]';
+                headerP.style.color = '#ff6b6b';
               }
             }
 
@@ -1355,10 +1305,7 @@
             return data;
           })
           .catch((error) => {
-            console.error(
-              `Winner fetch error (${isTestMode ? "test" : "live"}):`,
-              error
-            );
+            console.error(`Winner fetch error (${isTestMode ? 'test' : 'live'}):`, error);
             const errorHTML = `
               <div class="winner-error">
                 <h3>Unable to load winner data</h3>
@@ -1378,25 +1325,15 @@
         return fetch(url)
           .then((response) => {
             if (!response.ok) {
-              throw new Error(
-                `HTTP ${response.status}: ${response.statusText}`
-              );
+              throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
             return response.json();
           })
           .catch((error) => {
             if (maxRetries > 1) {
-              console.log(
-                `Retrying fetch in ${delay}ms... (${
-                  maxRetries - 1
-                } attempts left)`
-              );
+              console.log(`Retrying fetch in ${delay}ms... (${maxRetries - 1} attempts left)`);
               return new Promise((resolve) => {
-                setTimeout(
-                  () =>
-                    resolve(fetchWithRetry(url, maxRetries - 1, delay * 1.5)),
-                  delay
-                );
+                setTimeout(() => resolve(fetchWithRetry(url, maxRetries - 1, delay * 1.5)), delay);
               });
             }
             throw error;
@@ -1405,38 +1342,34 @@
 
       // Consolidated function to load test winner data
       function loadTestWinnerData() {
-        loadWinnerData(
-          "test-winner-preview-container",
-          "test-winner-summary",
-          true
-        );
+        loadWinnerData('test-winner-preview-container', 'test-winner-summary', true);
       }
 
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener('DOMContentLoaded', function () {
         // Check if we're in test mode first
         const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get("test") === "true";
-        
+        const isTestMode = urlParams.get('test') === 'true';
+
         if (!isTestMode) {
           // For live mode, clear any cached gameweek data that might show during-season UI
           // This ensures we always start fresh in pre-season mode for live users
-          console.log("🧹 Live mode: Clearing cached gameweek data to ensure pre-season UI");
+          console.log('🧹 Live mode: Clearing cached gameweek data to ensure pre-season UI');
           try {
-            localStorage.removeItem("fpl_cached_gw");
+            localStorage.removeItem('fpl_cached_gw');
           } catch (e) {
             // ignore storage errors
           }
         }
-        
+
         // Only use cached deadline in test mode to avoid showing "cached" in live mode
         if (isTestMode) {
           const cachedDeadline = getCachedDeadline();
           if (cachedDeadline && cachedDeadline - new Date() > 0) {
-            const countdownClock = document.getElementById("countdown-clock");
-            if (countdownClock) countdownClock.style.display = "block";
-            const label = document.getElementById("countdown-label");
-            if (label && !label.textContent.includes("(cached)")) {
-              label.textContent = label.textContent + " (cached)";
+            const countdownClock = document.getElementById('countdown-clock');
+            if (countdownClock) countdownClock.style.display = 'block';
+            const label = document.getElementById('countdown-label');
+            if (label && !label.textContent.includes('(cached)')) {
+              label.textContent = label.textContent + ' (cached)';
             }
             usedCachedOnLoad = true;
             handleSeasonDisplay(cachedDeadline);
@@ -1444,7 +1377,7 @@
             markCountdownShown();
           }
         }
-        
+
         // Don't use cached gameweek data in DOM ready - let test mode start with pre-season view
         // The toggle button will handle switching to during-season view when clicked
         // Load FPL season data first
@@ -1453,11 +1386,11 @@
         // Safety: if nothing has shown the countdown within 1500ms, show a conservative fallback
         setTimeout(() => {
           if (!countdownShown) {
-            const fallbackDate = new Date("2025-08-15T17:30:00Z");
-            const countdownClock = document.getElementById("countdown-clock");
-            if (countdownClock) countdownClock.style.display = "block";
+            const fallbackDate = new Date('2025-08-15T17:30:00Z');
+            const countdownClock = document.getElementById('countdown-clock');
+            if (countdownClock) countdownClock.style.display = 'block';
             console.warn(
-              "[Countdown] Safety fallback engaged – showing hardcoded deadline while network initializes."
+              '[Countdown] Safety fallback engaged – showing hardcoded deadline while network initializes.'
             );
             handleSeasonDisplay(fallbackDate);
             startCountdown(fallbackDate);
@@ -1465,37 +1398,34 @@
         }, 1500);
 
         // Load league stats JSON and update UI
-        const url = "league_stats.json?cache=" + new Date().getTime();
+        const url = 'league_stats.json?cache=' + new Date().getTime();
         fetch(url)
           .then((response) => {
-            console.log("Fetch response:", response);
+            console.log('Fetch response:', response);
             if (!response.ok) {
-              throw new Error("Network response was not ok");
+              throw new Error('Network response was not ok');
             }
             return response.json();
           })
           .then((data) => {
-            document.getElementById("player-count").textContent =
-              data.playerCount;
-            document.getElementById("pot-amount").textContent =
-              "₹" + Number(data.potAmount).toLocaleString("en-IN");
+            document.getElementById('player-count').textContent = data.playerCount;
+            document.getElementById('pot-amount').textContent =
+              '₹' + Number(data.potAmount).toLocaleString('en-IN');
 
             const lastUpdated = new Date(data.lastUpdated);
-            const userTimeZone =
-              Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const formattedDate = lastUpdated.toLocaleString("en-GB", {
-              dateStyle: "medium",
-              timeStyle: "short",
+            const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const formattedDate = lastUpdated.toLocaleString('en-GB', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
               timeZone: userTimeZone,
             });
-            document.getElementById(
-              "stats-last-updated"
-            ).textContent = `Last updated: ${formattedDate} (your local time)`;
+            document.getElementById('stats-last-updated').textContent =
+              `Last updated: ${formattedDate} (your local time)`;
           })
           .catch((error) => {
-            console.error("Fetch error:", error);
-            document.getElementById("player-count").textContent = "--";
-            document.getElementById("pot-amount").textContent = "--";
+            console.error('Fetch error:', error);
+            document.getElementById('player-count').textContent = '--';
+            document.getElementById('pot-amount').textContent = '--';
           });
 
         // Add this at the end
@@ -1505,44 +1435,35 @@
       function loadFPLSeasonData() {
         // Multiple CORS proxy options - will try them in order if one fails
         const corsProxies = [
-          "https://api.allorigins.win/raw?url=" +
-            encodeURIComponent(
-              "https://fantasy.premierleague.com/api/bootstrap-static/"
-            ),
-          "https://corsproxy.io/?" +
-            encodeURIComponent(
-              "https://fantasy.premierleague.com/api/bootstrap-static/"
-            ),
-          "https://api.codetabs.com/v1/proxy?quest=" +
-            encodeURIComponent(
-              "https://fantasy.premierleague.com/api/bootstrap-static/"
-            ),
+          'https://api.allorigins.win/raw?url=' +
+            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
+          'https://corsproxy.io/?' +
+            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
+          'https://api.codetabs.com/v1/proxy?quest=' +
+            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
         ];
 
         let currentProxyIndex = 0;
 
         function tryNextProxy() {
           if (currentProxyIndex >= corsProxies.length) {
-            console.error("All CORS proxies failed, using fallback date");
+            console.error('All CORS proxies failed, using fallback date');
             // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
-            const fallbackDate = new Date("2025-08-15T17:30:00Z");
+            const fallbackDate = new Date('2025-08-15T17:30:00Z');
             setCachedDeadline(fallbackDate.toISOString());
+            console.log('🚨 Using hardcoded GW1 deadline as fallback:', fallbackDate);
+            console.log('📝 Current time:', new Date());
+            console.log('📝 Time difference (ms):', fallbackDate - new Date());
             console.log(
-              "🚨 Using hardcoded GW1 deadline as fallback:",
-              fallbackDate
-            );
-            console.log("📝 Current time:", new Date());
-            console.log("📝 Time difference (ms):", fallbackDate - new Date());
-            console.log(
-              "📝 Time until deadline (days):",
+              '📝 Time until deadline (days):',
               Math.floor((fallbackDate - new Date()) / (1000 * 60 * 60 * 24))
             );
 
             // Force countdown to show
-            const countdownClock = document.getElementById("countdown-clock");
+            const countdownClock = document.getElementById('countdown-clock');
             if (countdownClock) {
-              countdownClock.style.display = "block";
-              console.log("🕰️ Forced countdown clock to be visible");
+              countdownClock.style.display = 'block';
+              console.log('🕰️ Forced countdown clock to be visible');
             }
 
             if (usedCachedOnLoad) {
@@ -1564,33 +1485,26 @@
               console.log(`Proxy ${currentProxyIndex + 1} response:`, response);
               if (!response.ok) {
                 throw new Error(
-                  `Proxy ${currentProxyIndex + 1} failed with status ${
-                    response.status
-                  }`
+                  `Proxy ${currentProxyIndex + 1} failed with status ${response.status}`
                 );
               }
               return response.json();
             })
             .then((data) => {
-              console.log(
-                "✅ FPL API data successfully fetched via proxy:",
-                data
-              );
+              console.log('✅ FPL API data successfully fetched via proxy:', data);
 
               // Find the next gameweek (is_next: true)
-              const nextGameweek = data.events.find(
-                (event) => event.is_next === true
-              );
+              const nextGameweek = data.events.find((event) => event.is_next === true);
 
               if (nextGameweek) {
-                console.log("Next gameweek found:", nextGameweek);
+                console.log('Next gameweek found:', nextGameweek);
                 const deadlineTime = new Date(nextGameweek.deadline_time);
                 setCachedDeadline(deadlineTime.toISOString());
                 setCachedGameweek({
                   id: nextGameweek.id,
                   deadline_time: nextGameweek.deadline_time,
                 });
-                console.log("Deadline time:", deadlineTime);
+                console.log('Deadline time:', deadlineTime);
 
                 // Store gameweek data for later use
                 window.currentGameweek = nextGameweek;
@@ -1609,14 +1523,11 @@
                 startCountdown(deadlineTime, nextGameweek);
                 markCountdownShown();
               } else {
-                console.log("No next gameweek found, using fallback date");
+                console.log('No next gameweek found, using fallback date');
                 // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
-                const fallbackDate = new Date("2025-08-15T17:30:00Z");
+                const fallbackDate = new Date('2025-08-15T17:30:00Z');
                 setCachedDeadline(fallbackDate.toISOString());
-                console.log(
-                  "🚨 Using hardcoded GW1 deadline as fallback:",
-                  fallbackDate
-                );
+                console.log('🚨 Using hardcoded GW1 deadline as fallback:', fallbackDate);
                 if (usedCachedOnLoad) {
                   removeCachedLabel();
                   showSyncedJustNow();
@@ -1641,39 +1552,35 @@
       function handleSeasonDisplay(seasonStartDate, gameweek = null) {
         const currentDate = new Date();
         const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get("test") === "true";
-        
-        console.log("Season start date (from FPL):", seasonStartDate);
-        console.log("Current date:", currentDate);
-        console.log("Test mode:", isTestMode);
-        
+        const isTestMode = urlParams.get('test') === 'true';
+
+        console.log('Season start date (from FPL):', seasonStartDate);
+        console.log('Current date:', currentDate);
+        console.log('Test mode:', isTestMode);
+
         // Determine if season is active based on current date vs season start
         // For pre-season: current date < season start date
         // For during-season: current date >= season start date
         const isActiveSeason = currentDate >= seasonStartDate;
-        
-        console.log("Is active season (current >= start date):", isActiveSeason);
-        console.log("Gameweek:", gameweek);
+
+        console.log('Is active season (current >= start date):', isActiveSeason);
+        console.log('Gameweek:', gameweek);
 
         // In test mode, start with pre-season view (same as live mode)
         // The toggle button will allow switching to during-season view
         if (isTestMode) {
-          console.log("🧪 TEST MODE: Starting with pre-season UI (same as live)");
+          console.log('🧪 TEST MODE: Starting with pre-season UI (same as live)');
           // Start with pre-season view, toggle will switch to during-season
-          document
-            .querySelectorAll(".pre-season")
-            .forEach((el) => (el.style.display = "block"));
-          document
-            .querySelectorAll(".during-season")
-            .forEach((el) => (el.style.display = "none"));
+          document.querySelectorAll('.pre-season').forEach((el) => (el.style.display = 'block'));
+          document.querySelectorAll('.during-season').forEach((el) => (el.style.display = 'none'));
 
           // Set header message for pre-season
-          const headerP = document.querySelector("header p");
+          const headerP = document.querySelector('header p');
           if (headerP) {
-            headerP.textContent = "Season 2025-26 - Registration Open [TEST MODE]";
-            headerP.style.color = "#ff6b6b";
+            headerP.textContent = 'Season 2025-26 - Registration Open [TEST MODE]';
+            headerP.style.color = '#ff6b6b';
           }
-          
+
           // Show countdown for season start
           updateCountdownDisplay(seasonStartDate);
           return;
@@ -1682,7 +1589,7 @@
         // Normal logic for live mode
         if (isActiveSeason) {
           // Season is active - show leaderboard and winners, hide registration
-          console.log("🎯 LIVE MODE: Showing during-season UI (season started)");
+          console.log('🎯 LIVE MODE: Showing during-season UI (season started)');
           showDuringSeasonUI();
           loadMainWinnerData();
           loadLeaderboardData();
@@ -1693,18 +1600,14 @@
           }
         } else {
           // Pre-season - show registration prominently, hide leaderboards
-          console.log("📝 LIVE MODE: Showing pre-season UI (registration phase)");
-          document
-            .querySelectorAll(".pre-season")
-            .forEach((el) => (el.style.display = "block"));
-          document
-            .querySelectorAll(".during-season")
-            .forEach((el) => (el.style.display = "none"));
+          console.log('📝 LIVE MODE: Showing pre-season UI (registration phase)');
+          document.querySelectorAll('.pre-season').forEach((el) => (el.style.display = 'block'));
+          document.querySelectorAll('.during-season').forEach((el) => (el.style.display = 'none'));
 
           // Set header message for pre-season
-          const headerP = document.querySelector("header p");
+          const headerP = document.querySelector('header p');
           if (headerP) {
-            headerP.textContent = "Season 2025-26 - Registration Open";
+            headerP.textContent = 'Season 2025-26 - Registration Open';
           }
           // Update only the digital countdown clock for season start
           updateCountdownDisplay(seasonStartDate);
@@ -1719,9 +1622,9 @@
         }
 
         // Ensure the clock is visible immediately once we know a deadline
-        const countdownClock = document.getElementById("countdown-clock");
+        const countdownClock = document.getElementById('countdown-clock');
         if (countdownClock) {
-          countdownClock.style.display = "block";
+          countdownClock.style.display = 'block';
         }
 
         // Initial paint
@@ -1748,51 +1651,45 @@
 
         if (timeDifference <= 0) {
           // Season has started
-          const headerP = document.querySelector("header p");
-          const countdownClock = document.getElementById("countdown-clock");
+          const headerP = document.querySelector('header p');
+          const countdownClock = document.getElementById('countdown-clock');
 
           if (headerP) {
-            headerP.textContent = "Season 2025-26 - Live Updates";
+            headerP.textContent = 'Season 2025-26 - Live Updates';
           }
 
           if (countdownClock) {
-            countdownClock.style.display = "none";
+            countdownClock.style.display = 'none';
           }
           return;
         }
 
         // Calculate time components
         const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor(
-          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-        );
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
         // Update digital clock
-        const countdownClock = document.getElementById("countdown-clock");
+        const countdownClock = document.getElementById('countdown-clock');
         if (countdownClock) {
-          countdownClock.style.display = "block";
+          countdownClock.style.display = 'block';
 
-          document.getElementById("countdown-days").textContent = days
+          document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
+          document.getElementById('countdown-hours').textContent = hours
             .toString()
-            .padStart(2, "0");
-          document.getElementById("countdown-hours").textContent = hours
+            .padStart(2, '0');
+          document.getElementById('countdown-minutes').textContent = minutes
             .toString()
-            .padStart(2, "0");
-          document.getElementById("countdown-minutes").textContent = minutes
-            .toString()
-            .padStart(2, "0");
+            .padStart(2, '0');
         }
       }
 
       function updateGameweekCountdown(gameweek) {
-        const countdownClock = document.getElementById("countdown-clock");
-        const countdownLabel = document.getElementById("countdown-label");
+        const countdownClock = document.getElementById('countdown-clock');
+        const countdownLabel = document.getElementById('countdown-label');
 
         if (countdownClock && countdownLabel) {
-          countdownClock.style.display = "block";
+          countdownClock.style.display = 'block';
           countdownLabel.textContent = `GW${gameweek.id} DEADLINE`;
 
           // Update the countdown display with gameweek deadline
@@ -1802,44 +1699,40 @@
 
           if (timeDifference <= 0) {
             // Deadline passed, show "Live" status
-            document.getElementById("countdown-days").textContent = "LIVE";
-            document.getElementById("countdown-hours").textContent = "";
-            document.getElementById("countdown-minutes").textContent = "";
+            document.getElementById('countdown-days').textContent = 'LIVE';
+            document.getElementById('countdown-hours').textContent = '';
+            document.getElementById('countdown-minutes').textContent = '';
 
             // Hide separators
             document
-              .querySelectorAll(".countdown-separator")
-              .forEach((sep) => (sep.style.display = "none"));
+              .querySelectorAll('.countdown-separator')
+              .forEach((sep) => (sep.style.display = 'none'));
             document
-              .querySelectorAll(".countdown-unit-label")
-              .forEach((label) => (label.style.display = "none"));
+              .querySelectorAll('.countdown-unit-label')
+              .forEach((label) => (label.style.display = 'none'));
           } else {
             // Show countdown to deadline
             const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor(
-              (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
-            const minutes = Math.floor(
-              (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-            );
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
-            document.getElementById("countdown-days").textContent = days
+            document.getElementById('countdown-days').textContent = days
               .toString()
-              .padStart(2, "0");
-            document.getElementById("countdown-hours").textContent = hours
+              .padStart(2, '0');
+            document.getElementById('countdown-hours').textContent = hours
               .toString()
-              .padStart(2, "0");
-            document.getElementById("countdown-minutes").textContent = minutes
+              .padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = minutes
               .toString()
-              .padStart(2, "0");
+              .padStart(2, '0');
 
             // Show separators and labels
             document
-              .querySelectorAll(".countdown-separator")
-              .forEach((sep) => (sep.style.display = "inline"));
+              .querySelectorAll('.countdown-separator')
+              .forEach((sep) => (sep.style.display = 'inline'));
             document
-              .querySelectorAll(".countdown-unit-label")
-              .forEach((label) => (label.style.display = "block"));
+              .querySelectorAll('.countdown-unit-label')
+              .forEach((label) => (label.style.display = 'block'));
           }
         }
       }
@@ -1847,21 +1740,16 @@
       // Main winner data loader - now uses the unified function
       function loadMainWinnerData() {
         const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get("test") === "true";
+        const isTestMode = urlParams.get('test') === 'true';
 
-        loadWinnerData(
-          "winner-preview-container",
-          "winner-summary",
-          false
-        ).then((data) => {
+        loadWinnerData('winner-preview-container', 'winner-summary', false).then((data) => {
           if (data) {
             // Show last updated time for winners
             const lastUpdated = new Date(data.lastUpdated);
-            const userTimeZone =
-              Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const formattedDate = lastUpdated.toLocaleString("en-GB", {
-              dateStyle: "medium",
-              timeStyle: "short",
+            const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const formattedDate = lastUpdated.toLocaleString('en-GB', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
               timeZone: userTimeZone,
             });
 
@@ -1869,9 +1757,7 @@
               ? `Last updated: ${formattedDate} (test data)`
               : `Last updated: ${formattedDate} (your local time)`;
 
-            const updateElement = document.getElementById(
-              "winner-last-updated"
-            );
+            const updateElement = document.getElementById('winner-last-updated');
             if (updateElement) {
               updateElement.textContent = updateText;
             }
@@ -1882,19 +1768,19 @@
       // Unified display function for winner previews
       function displayWinnerPreview(
         winners,
-        containerId = "winner-preview-container",
-        summaryId = "winner-summary"
+        containerId = 'winner-preview-container',
+        summaryId = 'winner-summary'
       ) {
-        console.log("🎨 displayWinnerPreview called with:");
-        console.log("  - containerId:", containerId);
-        console.log("  - summaryId:", summaryId);
-        console.log("  - winners count:", winners ? winners.length : 0);
+        console.log('🎨 displayWinnerPreview called with:');
+        console.log('  - containerId:', containerId);
+        console.log('  - summaryId:', summaryId);
+        console.log('  - winners count:', winners ? winners.length : 0);
 
         const container = document.getElementById(containerId);
         const summaryContainer = document.getElementById(summaryId);
 
-        console.log("  - container found:", !!container);
-        console.log("  - summary container found:", !!summaryContainer);
+        console.log('  - container found:', !!container);
+        console.log('  - summary container found:', !!summaryContainer);
 
         if (!container) {
           console.error(`Container ${containerId} not found`);
@@ -1902,15 +1788,14 @@
         }
 
         if (!winners || winners.length === 0) {
-          console.log("⚠️ No winners data, showing loading message");
-          container.innerHTML =
-            '<div class="winner-loading">No winner data available yet.</div>';
+          console.log('⚠️ No winners data, showing loading message');
+          container.innerHTML = '<div class="winner-loading">No winner data available yet.</div>';
           return;
         }
 
         // Sort winners by overall rank (ascending) - lower rank number = better position
         const sortedWinners = winners
-          .filter(winner => winner.highlights.overallRank) // Only include players with a rank
+          .filter((winner) => winner.highlights.overallRank) // Only include players with a rank
           .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
 
         // Show top 6 winners in preview
@@ -1922,40 +1807,36 @@
               .map(
                 (winner, index) => `
               <div class="winner-card${
-                index < 3 ? ` rank-${index + 1}` : ""
-              }" role="article" aria-label="Winner ${index + 1}: ${
-                  winner.playerName
-                }">
+                index < 3 ? ` rank-${index + 1}` : ''
+              }" role="article" aria-label="Winner ${index + 1}: ${winner.playerName}">
                 <div class="winner-rank">#${index + 1}</div>
-                <div class="winner-name" title="${winner.playerName}">${
-                  winner.playerName
-                }</div>
+                <div class="winner-name" title="${winner.playerName}">${winner.playerName}</div>
                 <div class="winner-prize" title="Total prize won: ₹${winner.totalPrizeWon.toLocaleString(
-                  "en-IN"
+                  'en-IN'
                 )}">
-                  ₹${winner.totalPrizeWon.toLocaleString("en-IN")}
+                  ₹${winner.totalPrizeWon.toLocaleString('en-IN')}
                 </div>
                 <div class="winner-highlights" aria-label="Achievements">
                   ${
                     winner.highlights.gameWeeks > 0
                       ? `<span class="highlight-badge gw" title="${winner.highlights.gameWeeks} gameweek wins">${winner.highlights.gameWeeks}GW</span>`
-                      : ""
+                      : ''
                   }
                   ${
                     winner.highlights.gameMonths > 0
                       ? `<span class="highlight-badge gm" title="${winner.highlights.gameMonths} monthly wins">${winner.highlights.gameMonths}GM</span>`
-                      : ""
+                      : ''
                   }
                   ${
                     winner.highlights.overallRank
                       ? `<span class="highlight-badge" title="Current league position">League Rank ${winner.highlights.overallRank}</span>`
-                      : ""
+                      : ''
                   }
                 </div>
               </div>
             `
               )
-              .join("")}
+              .join('')}
           </div>
         `;
 
@@ -1964,13 +1845,10 @@
         // Show summary if summary container exists
         if (summaryContainer) {
           const totalWinners = winners.length;
-          const totalPrizeMoney = winners.reduce(
-            (sum, winner) => sum + winner.totalPrizeWon,
-            0
-          );
+          const totalPrizeMoney = winners.reduce((sum, winner) => sum + winner.totalPrizeWon, 0);
 
           summaryContainer.innerHTML = `Showing top 6 of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString(
-            "en-IN"
+            'en-IN'
           )}`;
         }
       }
@@ -1990,11 +1868,11 @@
 
       function adjustForZFold() {
         const width = window.innerWidth;
-        const h1 = document.querySelector("header h1");
+        const h1 = document.querySelector('header h1');
 
         if (width <= 360 && h1) {
           // Only change for ultra-narrow screens - update title container
-          const titleContainer = document.querySelector(".title-with-logo");
+          const titleContainer = document.querySelector('.title-with-logo');
           if (titleContainer) {
             titleContainer.innerHTML = `
               <span class="header-icon">⚽</span>
@@ -2005,7 +1883,7 @@
           }
         } else {
           // Restore original for all other screens
-          const titleContainer = document.querySelector(".title-with-logo");
+          const titleContainer = document.querySelector('.title-with-logo');
           if (titleContainer) {
             titleContainer.innerHTML = `
               <span class="header-icon">⚽</span>
@@ -2014,10 +1892,10 @@
               <span class="header-icon">🎯</span>
             `;
           }
-          h1.style.fontSize = ""; // Clear any inline styles
-          h1.style.whiteSpace = ""; // Clear any inline styles
-          h1.style.overflow = ""; // Clear any inline styles
-          h1.style.textOverflow = ""; // Clear any inline styles
+          h1.style.fontSize = ''; // Clear any inline styles
+          h1.style.whiteSpace = ''; // Clear any inline styles
+          h1.style.overflow = ''; // Clear any inline styles
+          h1.style.textOverflow = ''; // Clear any inline styles
         }
       }
 
@@ -2025,25 +1903,23 @@
       const debouncedAdjustForZFold = debounce(adjustForZFold, 250);
 
       // Enhanced error handling for missing elements
-      function safeElementUpdate(elementId, content, fallback = "--") {
+      function safeElementUpdate(elementId, content, fallback = '--') {
         const element = document.getElementById(elementId);
         if (element) {
           element.textContent = content;
         } else {
-          console.warn(
-            `Element with ID '${elementId}' not found, using fallback`
-          );
+          console.warn(`Element with ID '${elementId}' not found, using fallback`);
         }
       }
 
       // Service worker registration for offline support (if service-worker.js exists)
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
           navigator.serviceWorker
-            .register("/service-worker.js")
-            .then((registration) => console.log("SW registered:", registration))
+            .register('/service-worker.js')
+            .then((registration) => console.log('SW registered:', registration))
             .catch((registrationError) =>
-              console.log("SW registration failed:", registrationError)
+              console.log('SW registration failed:', registrationError)
             );
         });
       }
@@ -2057,87 +1933,89 @@
 
       // Load test leaderboard data
       function loadTestLeaderboardData() {
-        const winnerUrl = "test_winner_stats.json?cache=" + new Date().getTime();
-        console.log("🧪 Loading TEST leaderboard data for toggle");
+        const winnerUrl = 'test_winner_stats.json?cache=' + new Date().getTime();
+        console.log('🧪 Loading TEST leaderboard data for toggle');
 
         return fetchWithRetry(winnerUrl, 3)
           .then((data) => {
-            console.log("🧪 Loaded TEST leaderboard data for toggle:", data);
+            console.log('🧪 Loaded TEST leaderboard data for toggle:', data);
 
             if (data.winners) {
               // For leaderboard, we need ALL players from winner_stats.json (which has all players)
               // But since we're in test mode, we'll create a combined dataset
-              const liveUrl = "winner_stats.json?cache=" + new Date().getTime();
-              
+              const liveUrl = 'winner_stats.json?cache=' + new Date().getTime();
+
               return fetch(liveUrl)
-                .then(response => response.json())
-                .then(liveData => {
+                .then((response) => response.json())
+                .then((liveData) => {
                   // Create a map of test data winners by name
                   const testWinnersMap = new Map();
-                  data.winners.forEach(winner => {
+                  data.winners.forEach((winner) => {
                     testWinnersMap.set(winner.playerName, winner);
                   });
-                  
+
                   // Update live data with test rankings for players who have them
-                  leaderboardData = liveData.winners.map(player => {
-                    const testData = testWinnersMap.get(player.playerName);
-                    if (testData) {
-                      // Use test data for winners
-                      return {
-                        ...testData
-                      };
-                    } else {
-                      // Use live data but assign a lower rank for non-winners
-                      return {
-                        ...player,
-                        highlights: {
-                          ...player.highlights,
-                          overallRank: 999 + Math.random() * 1000 // Give them ranks > 999
-                        }
-                      };
-                    }
-                  }).sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
-                  
+                  leaderboardData = liveData.winners
+                    .map((player) => {
+                      const testData = testWinnersMap.get(player.playerName);
+                      if (testData) {
+                        // Use test data for winners
+                        return {
+                          ...testData,
+                        };
+                      } else {
+                        // Use live data but assign a lower rank for non-winners
+                        return {
+                          ...player,
+                          highlights: {
+                            ...player.highlights,
+                            overallRank: 999 + Math.random() * 1000, // Give them ranks > 999
+                          },
+                        };
+                      }
+                    })
+                    .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+
                   displayLeaderboard();
-                  
+
                   // Show last updated time
                   const lastUpdated = new Date(data.lastUpdated);
                   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                  const formattedDate = lastUpdated.toLocaleString("en-GB", {
-                    dateStyle: "medium",
-                    timeStyle: "short",
+                  const formattedDate = lastUpdated.toLocaleString('en-GB', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
                     timeZone: userTimeZone,
                   });
-                  
-                  const updateElement = document.getElementById("leaderboard-last-updated");
+
+                  const updateElement = document.getElementById('leaderboard-last-updated');
                   if (updateElement) {
                     updateElement.textContent = `Last updated: ${formattedDate} (test data)`;
                   }
-                  
+
                   return data;
                 })
                 .catch((fetchError) => {
-                  console.error("Error fetching live data for comparison:", fetchError);
+                  console.error('Error fetching live data for comparison:', fetchError);
                   // Fallback to just test data
                   leaderboardData = data.winners
                     .filter((winner) => winner.highlights.overallRank)
                     .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
-                  
+
                   displayLeaderboard();
-                  
+
                   const lastUpdated = new Date(data.lastUpdated);
                   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                  const formattedDate = lastUpdated.toLocaleString("en-GB", {
-                    dateStyle: "medium",
-                    timeStyle: "short",
+                  const formattedDate = lastUpdated.toLocaleString('en-GB', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
                     timeZone: userTimeZone,
                   });
-                  
-                  const updateElement = document.getElementById("leaderboard-last-updated");
+
+                  const updateElement = document.getElementById('leaderboard-last-updated');
                   if (updateElement) {
                     updateElement.textContent = `Last updated: ${formattedDate} (test data)`;
                   }
-                  
+
                   return data;
                 });
             }
@@ -2145,8 +2023,8 @@
             return data;
           })
           .catch((error) => {
-            console.error("Test leaderboard fetch error:", error);
-            const container = document.getElementById("leaderboard-container");
+            console.error('Test leaderboard fetch error:', error);
+            const container = document.getElementById('leaderboard-container');
             if (container) {
               container.innerHTML = `
                 <div class="winner-error">
@@ -2161,28 +2039,24 @@
             }
           });
       }
-      
+
       // Load leaderboard data from the same winner_stats.json
       function loadLeaderboardData() {
         const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get("test") === "true";
+        const isTestMode = urlParams.get('test') === 'true';
 
         const winnerUrl = isTestMode
-          ? "test_winner_stats.json?cache=" + new Date().getTime()
-          : "winner_stats.json?cache=" + new Date().getTime();
+          ? 'test_winner_stats.json?cache=' + new Date().getTime()
+          : 'winner_stats.json?cache=' + new Date().getTime();
 
         console.log(
-          isTestMode
-            ? "🧪 Loading TEST leaderboard data"
-            : "📊 Loading LIVE leaderboard data"
+          isTestMode ? '🧪 Loading TEST leaderboard data' : '📊 Loading LIVE leaderboard data'
         );
 
         return fetchWithRetry(winnerUrl, 3)
           .then((data) => {
             console.log(
-              `${
-                isTestMode ? "🧪 Loaded TEST" : "📊 Loaded LIVE"
-              } leaderboard data:`,
+              `${isTestMode ? '🧪 Loaded TEST' : '📊 Loaded LIVE'} leaderboard data:`,
               data
             );
 
@@ -2190,19 +2064,16 @@
               // Sort by overall rank (ascending) - lower rank number = better position
               leaderboardData = data.winners
                 .filter((winner) => winner.highlights.overallRank) // Only include players with a rank
-                .sort(
-                  (a, b) => a.highlights.overallRank - b.highlights.overallRank
-                );
+                .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
 
               displayLeaderboard();
 
               // Show last updated time
               const lastUpdated = new Date(data.lastUpdated);
-              const userTimeZone =
-                Intl.DateTimeFormat().resolvedOptions().timeZone;
-              const formattedDate = lastUpdated.toLocaleString("en-GB", {
-                dateStyle: "medium",
-                timeStyle: "short",
+              const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+              const formattedDate = lastUpdated.toLocaleString('en-GB', {
+                dateStyle: 'medium',
+                timeStyle: 'short',
                 timeZone: userTimeZone,
               });
 
@@ -2210,9 +2081,7 @@
                 ? `Last updated: ${formattedDate} (test data)`
                 : `Last updated: ${formattedDate} (your local time)`;
 
-              const updateElement = document.getElementById(
-                "leaderboard-last-updated"
-              );
+              const updateElement = document.getElementById('leaderboard-last-updated');
               if (updateElement) {
                 updateElement.textContent = updateText;
               }
@@ -2221,11 +2090,8 @@
             return data;
           })
           .catch((error) => {
-            console.error(
-              `Leaderboard fetch error (${isTestMode ? "test" : "live"}):`,
-              error
-            );
-            const container = document.getElementById("leaderboard-container");
+            console.error(`Leaderboard fetch error (${isTestMode ? 'test' : 'live'}):`, error);
+            const container = document.getElementById('leaderboard-container');
             if (container) {
               container.innerHTML = `
                 <div class="winner-error">
@@ -2243,11 +2109,11 @@
 
       // Display leaderboard with pagination
       function displayLeaderboard() {
-        const container = document.getElementById("leaderboard-container");
-        const navigation = document.querySelector(".leaderboard-navigation");
+        const container = document.getElementById('leaderboard-container');
+        const navigation = document.querySelector('.leaderboard-navigation');
 
         if (!container) {
-          console.error("Leaderboard container not found");
+          console.error('Leaderboard container not found');
           return;
         }
 
@@ -2258,11 +2124,8 @@
         }
 
         // Calculate pagination
-        const totalPages = Math.ceil(
-          leaderboardData.length / leaderboardItemsPerPage
-        );
-        const startIndex =
-          (currentLeaderboardPage - 1) * leaderboardItemsPerPage;
+        const totalPages = Math.ceil(leaderboardData.length / leaderboardItemsPerPage);
+        const startIndex = (currentLeaderboardPage - 1) * leaderboardItemsPerPage;
         const endIndex = startIndex + leaderboardItemsPerPage;
         const currentPageData = leaderboardData.slice(startIndex, endIndex);
 
@@ -2278,29 +2141,27 @@
             </thead>
             <tbody>
               ${currentPageData
-                .map(
-                  (player, index) => {
-                    const displayRank = startIndex + index + 1;
-                    return `
+                .map((player, index) => {
+                  const displayRank = startIndex + index + 1;
+                  return `
                 <tr>
                   <td class="leaderboard-rank${
                     displayRank === 1
-                      ? " rank-1"
+                      ? ' rank-1'
                       : displayRank === 2
-                      ? " rank-2"
-                      : displayRank === 3
-                      ? " rank-3"
-                      : ""
+                        ? ' rank-2'
+                        : displayRank === 3
+                          ? ' rank-3'
+                          : ''
                   }">${displayRank}</td>
                   <td class="leaderboard-player">${player.playerName}</td>
                   <td class="leaderboard-prize">₹${player.totalPrizeWon.toLocaleString(
-                    "en-IN"
+                    'en-IN'
                   )}</td>
                 </tr>
               `;
-                  }
-                )
-                .join("")}
+                })
+                .join('')}
             </tbody>
           </table>
         `;
@@ -2309,23 +2170,22 @@
 
         // Show/hide navigation if needed
         if (totalPages > 1) {
-          navigation.style.display = "flex";
+          navigation.style.display = 'flex';
           updateLeaderboardNavigation(totalPages);
         } else {
-          navigation.style.display = "none";
+          navigation.style.display = 'none';
         }
       }
 
       // Update navigation buttons and page info
       function updateLeaderboardNavigation(totalPages) {
-        const prevBtn = document.getElementById("leaderboard-prev-page");
-        const nextBtn = document.getElementById("leaderboard-next-page");
-        const pageInfo = document.getElementById("leaderboard-page-info");
+        const prevBtn = document.getElementById('leaderboard-prev-page');
+        const nextBtn = document.getElementById('leaderboard-next-page');
+        const pageInfo = document.getElementById('leaderboard-page-info');
 
         if (prevBtn) prevBtn.disabled = currentLeaderboardPage === 1;
         if (nextBtn) nextBtn.disabled = currentLeaderboardPage === totalPages;
-        if (pageInfo)
-          pageInfo.textContent = `Page ${currentLeaderboardPage} of ${totalPages}`;
+        if (pageInfo) pageInfo.textContent = `Page ${currentLeaderboardPage} of ${totalPages}`;
       }
 
       // Pagination functions
@@ -2337,17 +2197,15 @@
       }
 
       function nextLeaderboardPage() {
-        const totalPages = Math.ceil(
-          leaderboardData.length / leaderboardItemsPerPage
-        );
+        const totalPages = Math.ceil(leaderboardData.length / leaderboardItemsPerPage);
         if (currentLeaderboardPage < totalPages) {
           currentLeaderboardPage++;
           displayLeaderboard();
         }
       }
 
-      window.addEventListener("load", adjustForZFold);
-      window.addEventListener("resize", debouncedAdjustForZFold);
+      window.addEventListener('load', adjustForZFold);
+      window.addEventListener('resize', debouncedAdjustForZFold);
     </script>
   </body>
 </html>
