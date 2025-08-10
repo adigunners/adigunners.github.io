@@ -1433,7 +1433,7 @@
       // Helper to flip UI into during-season mode immediately
       function showDuringSeasonUI() {
         document.querySelectorAll('.pre-season').forEach((el) => (el.style.display = 'none'));
-        document.querySelectorAll('.during-season').forEach((el) => (el.style.display = 'none'));
+        document.querySelectorAll('.during-season').forEach((el) => (el.style.display = ''));
         const headerP = document.querySelector('header p');
         if (headerP) headerP.textContent = 'Season 2025-26 - Live Updates';
       }
