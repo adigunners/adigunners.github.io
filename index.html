@@ -70,13 +70,16 @@
     <style>
       /* =============== CSS VARIABLES =============== */
       :root {
-        --primary-color: #37003c;
-        --secondary-color: #00ff85;
-        --background-color: #f0f2f5;
-        --card-background: #fff;
-        --text-color: #333;
-        --heading-color: #5d2163;
-        --border-radius: 12px;
+        --primary-color: #37003c; /* Official FPL Purple */
+        --secondary-color: #00ff87; /* FPL Green (slightly adjusted from #00ff85) */
+        --accent-color: #5bbad5; /* Official FPL Teal/Cyan */
+        --background-color: #f8f9fa; /* Softer gray, closer to FPL */
+        --card-background: #fff; /* Pure white like FPL */
+        --text-color: #212529; /* Slightly darker for better contrast */
+        --heading-color: #37003c; /* Use primary color for headings */
+        --border-radius: 8px; /* More conservative radius like FPL */
+        --light-gray: #f1f3f4; /* For subtle backgrounds */
+        --border-color: #e9ecef; /* For subtle borders */
       }
 
       /* =============== RESET & BASE STYLES =============== */
@@ -163,10 +166,10 @@
         backdrop-filter: blur(10px);
         border-radius: var(--border-radius);
         padding: 15px 20px;
-        border: 2px solid rgba(0, 255, 133, 0.3);
+        border: 2px solid rgba(91, 186, 213, 0.4); /* FPL Accent Color */
         box-shadow:
           0 4px 15px rgba(0, 0, 0, 0.1),
-          0 0 20px rgba(0, 255, 133, 0.2);
+          0 0 20px rgba(91, 186, 213, 0.3);
         text-align: center;
         animation: pulseBorder 3s infinite;
       }
@@ -174,16 +177,16 @@
       @keyframes pulseBorder {
         0%,
         100% {
-          border-color: rgba(0, 255, 133, 0.3);
+          border-color: rgba(91, 186, 213, 0.4); /* FPL Accent Color */
           box-shadow:
             0 4px 15px rgba(0, 0, 0, 0.1),
-            0 0 20px rgba(0, 255, 133, 0.2);
+            0 0 20px rgba(91, 186, 213, 0.3);
         }
         50% {
-          border-color: rgba(0, 255, 133, 0.6);
+          border-color: rgba(91, 186, 213, 0.7); /* Stronger FPL accent */
           box-shadow:
             0 4px 15px rgba(0, 0, 0, 0.1),
-            0 0 30px rgba(0, 255, 133, 0.4);
+            0 0 30px rgba(91, 186, 213, 0.5);
         }
       }
 
@@ -862,21 +865,261 @@
           padding: 12px 15px;
         }
 
+        /* MOBILE WINNER CARD OPTIMIZATION */
         .winner-preview {
           grid-template-columns: 1fr;
-          gap: 15px;
+          gap: 8px; /* Reduced from 15px for tighter spacing */
         }
 
+        /* Transform winner cards to compact mobile layout */
         .winner-card {
-          padding: 15px;
+          padding: 12px 14px; /* Reduced from 15px */
+          border-radius: 6px; /* Reduced from 8px */
+          display: flex;
+          flex-direction: column;
+          gap: 4px; /* Compact vertical spacing */
+          position: relative;
+          min-height: unset; /* Remove any fixed height */
         }
 
+        /* Enhanced Gold/Silver/Bronze distinction for mobile */
+        .winner-card.rank-1 {
+          background: linear-gradient(145deg, #fff9e6, #ffecb3) !important;
+          border: 2px solid #f57c00 !important;
+          border-left: 5px solid #f57c00 !important;
+          box-shadow: 0 3px 12px rgba(245, 124, 0, 0.25) !important;
+        }
+
+        .winner-card.rank-2 {
+          background: linear-gradient(145deg, #f5f5f5, #e0e0e0) !important;
+          border: 2px solid #757575 !important;
+          border-left: 5px solid #757575 !important;
+          box-shadow: 0 3px 12px rgba(117, 117, 117, 0.25) !important;
+        }
+
+        .winner-card.rank-3 {
+          background: linear-gradient(145deg, #fff3e0, #ffe0b2) !important;
+          border: 2px solid #ff8f00 !important;
+          border-left: 5px solid #ff8f00 !important;
+          box-shadow: 0 3px 12px rgba(255, 143, 0, 0.25) !important;
+        }
+
+        /* Mobile-optimized rank styling */
+        .winner-rank {
+          font-size: 0.9rem; /* Reduced from 1.2rem */
+          font-weight: 700;
+          margin-bottom: 2px; /* Reduced from 8px */
+          color: var(--primary-color);
+          line-height: 1;
+        }
+
+        /* Compact player name */
         .winner-name {
-          font-size: 1rem;
+          font-size: 0.95rem; /* Reduced from 1rem */
+          font-weight: 600;
+          margin-bottom: 4px; /* Reduced from 12px */
+          line-height: 1.2;
+          color: var(--heading-color);
         }
 
+        /* Compact prize display */
         .winner-prize {
-          font-size: 1.3rem;
+          font-size: 1.1rem; /* Reduced from 1.3rem */
+          font-weight: 700;
+          margin-bottom: 6px; /* Reduced from 12px */
+          color: var(--primary-color);
+          line-height: 1;
+        }
+
+        /* Mobile-optimized highlight badges */
+        .winner-highlights {
+          display: flex;
+          gap: 4px; /* Reduced from 6px */
+          flex-wrap: wrap;
+          margin-top: 2px;
+          justify-content: flex-start; /* Left-align for mobile */
+        }
+
+        .highlight-badge {
+          padding: 2px 6px; /* Reduced from 4px 8px */
+          border-radius: 8px; /* Reduced from 12px */
+          font-size: 0.65rem; /* Reduced from 0.75rem */
+          font-weight: 600;
+          line-height: 1.1;
+          white-space: nowrap;
+        }
+
+        /* Show more winners on mobile due to compact design */
+        .winner-preview .winner-card:nth-child(n + 7) {
+          display: none; /* Still limit to 6 for performance */
+        }
+
+        /* MOBILE LEADERBOARD TABLE OPTIMIZATION */
+        .leaderboard-table {
+          font-size: 0.8rem;
+          border-collapse: separate;
+          border-spacing: 0;
+        }
+
+        /* Hide leaderboard headers on mobile */
+        .leaderboard-table thead {
+          position: absolute;
+          left: -9999px;
+          top: -9999px;
+        }
+
+        /* Transform leaderboard rows to compact mobile cards */
+        .leaderboard-table tbody tr {
+          display: block;
+          background: white;
+          margin-bottom: 10px;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          border: 1px solid #f0f2f5;
+          padding: 10px 12px;
+          position: relative;
+        }
+
+        .leaderboard-table tbody tr:hover {
+          transform: none;
+          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Mobile leaderboard card layout: Rank + Name + Prize on one row */
+        .leaderboard-table tbody td {
+          display: inline-block;
+          border: none;
+          padding: 0;
+          text-align: left !important;
+          vertical-align: middle;
+        }
+
+        /* Rank styling - compact badge */
+        .leaderboard-table tbody td:nth-child(1) {
+          display: inline-block;
+          width: auto;
+          margin-right: 8px;
+          font-weight: 700;
+          font-size: 0.75rem;
+        }
+
+        /* Player name - main content */
+        .leaderboard-table tbody td:nth-child(2) {
+          display: inline-block;
+          width: auto;
+          font-weight: 600;
+          margin-right: 5px;
+          font-size: 0.85rem;
+        }
+
+        /* Prize amount - right aligned */
+        .leaderboard-table tbody td:nth-child(3) {
+          display: inline-block;
+          width: auto;
+          float: right;
+          font-weight: 700;
+          text-align: right !important;
+          font-size: 0.8rem;
+          color: var(--primary-color);
+        }
+
+        /* Enhanced mobile styles for top 3 leaderboard positions */
+        .leaderboard-table tbody tr:nth-child(1) {
+          background: linear-gradient(145deg, #fffbf0, #fff8e1) !important;
+          border-left: 4px solid #f9a825;
+          box-shadow: 0 2px 8px rgba(249, 168, 37, 0.15) !important;
+        }
+
+        .leaderboard-table tbody tr:nth-child(1):hover {
+          box-shadow: 0 3px 12px rgba(249, 168, 37, 0.25) !important;
+        }
+
+        .leaderboard-table tbody tr:nth-child(2) {
+          background: linear-gradient(145deg, #f8f9fa, #f1f3f4) !important;
+          border-left: 4px solid #9e9e9e;
+          box-shadow: 0 2px 8px rgba(158, 158, 158, 0.15) !important;
+        }
+
+        .leaderboard-table tbody tr:nth-child(2):hover {
+          box-shadow: 0 3px 12px rgba(158, 158, 158, 0.25) !important;
+        }
+
+        .leaderboard-table tbody tr:nth-child(3) {
+          background: linear-gradient(145deg, #fef7e0, #fff3cd) !important;
+          border-left: 4px solid #d4b106;
+          box-shadow: 0 2px 8px rgba(212, 177, 6, 0.15) !important;
+        }
+
+        .leaderboard-table tbody tr:nth-child(3):hover {
+          box-shadow: 0 3px 12px rgba(212, 177, 6, 0.25) !important;
+        }
+
+        /* Mobile navigation optimization */
+        .leaderboard-navigation {
+          flex-direction: row;
+          gap: 10px;
+          padding: 10px 0;
+        }
+
+        .leaderboard-nav-btn {
+          padding: 6px 12px;
+          font-size: 0.8rem;
+          border-radius: 4px;
+        }
+
+        .page-info {
+          font-size: 0.8rem;
+          order: 2; /* Put page info in the middle */
+        }
+
+        /* MOBILE RULES SECTION OPTIMIZATION */
+        #rules ul {
+          padding-left: 16px;
+          margin: 12px 0;
+        }
+
+        #rules li {
+          margin-bottom: 8px;
+          line-height: 1.4;
+          font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+        }
+
+        #rules h3 {
+          font-size: clamp(1rem, 4vw, 1.2rem);
+          margin: 12px 0 8px 0;
+          color: var(--heading-color);
+        }
+
+        /* MOBILE CTA BUTTON IMPROVEMENTS */
+        .cta-button {
+          width: 100%;
+          text-align: center;
+          padding: 14px 20px;
+          font-size: 0.9rem;
+          border-radius: 6px;
+          margin-top: 12px;
+          box-shadow: 0 2px 8px rgba(0, 255, 133, 0.2);
+        }
+
+        .cta-button:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0, 255, 133, 0.3);
+        }
+
+        /* MOBILE VIEW ALL WINNERS BUTTON */
+        .view-all-winners {
+          width: 100%;
+          text-align: center;
+          padding: 14px 20px;
+          font-size: 0.9rem;
+          border-radius: 6px;
+          margin-top: 16px;
+          box-shadow: 0 2px 8px rgba(93, 33, 99, 0.2);
+        }
+
+        .view-all-winners:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(93, 33, 99, 0.3);
         }
       }
 
@@ -1024,36 +1267,6 @@
           </div>
         </section>
 
-        <!-- IN-SEASON VIEW TOGGLE (Test Mode Only) -->
-        <section
-          id="season-toggle"
-          class="season-section pre-season test-only"
-          style="text-align: center; display: none"
-        >
-          <button
-            onclick="toggleSeasonMode()"
-            style="
-              background: var(--primary-color);
-              color: white;
-              border: none;
-              padding: 12px 25px;
-              border-radius: var(--border-radius);
-              cursor: pointer;
-              font-weight: 600;
-              transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-            "
-            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(93, 33, 99, 0.3)'"
-            onmouseout="this.style.transform=''; this.style.boxShadow=''"
-          >
-            📊 Preview In-season View
-          </button>
-          <p style="font-size: 0.9rem; color: #777; margin-top: 10px">
-            See how the website will look during the active season
-          </p>
-        </section>
-
         <!-- LEADERBOARD SECTION (During Season) -->
         <section id="leaderboard" class="season-section during-season" style="display: none">
           <h2>🏆 League Standings</h2>
@@ -1123,10 +1336,40 @@
             >Contact for Late Entry</a
           >
         </section>
+
+        <!-- IN-SEASON VIEW TOGGLE (Test Mode Only) - Moved to bottom for better mobile UX -->
+        <section
+          id="season-toggle"
+          class="season-section pre-season test-only"
+          style="text-align: center; display: none"
+        >
+          <button
+            onclick="toggleSeasonMode()"
+            style="
+              background: var(--primary-color);
+              color: white;
+              border: none;
+              padding: 12px 25px;
+              border-radius: var(--border-radius);
+              cursor: pointer;
+              font-weight: 600;
+              transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+            "
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(93, 33, 99, 0.3)'"
+            onmouseout="this.style.transform=''; this.style.boxShadow=''"
+          >
+            📊 Preview In-season View
+          </button>
+          <p style="font-size: 0.9rem; color: #777; margin-top: 10px">
+            See how the website will look during the active season
+          </p>
+        </section>
       </main>
 
       <footer>
-        <p>&copy; 2025 IIM Mumbai Fantasy League Organising Committee</p>
+        <p>developed by Aditya Garg (@addygunners)</p>
         <p style="font-size: 0.7rem; color: #ccc; margin-top: 5px">Last updated: August 2025</p>
       </footer>
     </div>
