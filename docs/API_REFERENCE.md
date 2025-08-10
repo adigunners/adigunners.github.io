@@ -59,6 +59,243 @@ This ensures your email is not hardcoded in the codebase and can be changed with
 
 ---
 
+## 📧 Countdown Email System (`Countdown_mailers.js`)
+
+### `sendDailyCountdownEmail()` ⭐
+
+**Purpose**: Master function to send countdown emails based on current date
+**Trigger**: Daily at scheduled times (7:00 AM CET for days 4-1, 1:30 PM CET for day 0)
+**Returns**: `void`
+**Process Flow**:
+
+1. Calculate days remaining until GW1 deadline
+2. Skip if too early (>4 days) or deadline passed
+3. Call `sendCountdownEmailForDay()` with appropriate day
+4. Handle errors with admin notifications
+
+```javascript
+function sendDailyCountdownEmail()
+// Automatically determines which countdown email to send based on current date
+```
+
+#### `sendCountdownEmailForDay(daysRemaining)`
+
+**Purpose**: Send countdown email for specific day (0-4)
+**Parameters**: `daysRemaining` (number): Days until deadline (0-4)
+**Returns**: `void`
+**Features**:
+- Fetches active players from database
+- Gets live league statistics
+- Generates personalized emails
+- Sends to all active players with rate limiting
+
+```javascript
+sendCountdownEmailForDay(0); // Send Day 0 (6 hours remaining) email
+```
+
+#### `generateEmailContent(daysRemaining, currentPlayers, prizePool)`
+
+**Purpose**: Generate complete HTML email content for specific day
+**Parameters**:
+- `daysRemaining` (number): Days until deadline
+- `currentPlayers` (number): Current registered players
+- `prizePool` (number): Current prize pool amount
+
+**Returns**: `string` - Complete HTML email template
+**Special Logic**: Day 0 shows "6 HOURS REMAINING" with blinking animation
+
+```javascript
+const emailHTML = generateEmailContent(0, 26, 78000);
+// Returns HTML with 6 hours countdown and blinking animation
+```
+
+#### `personalizeEmail(emailTemplate, playerName)`
+
+**Purpose**: Personalize email for specific player with smart name handling
+**Parameters**:
+- `emailTemplate` (string): HTML email template
+- `playerName` (string): Player's full name
+
+**Returns**: `string` - Personalized HTML email
+**Smart Logic**: Uses full name if first name is less than 3 characters
+
+```javascript
+const personalizedEmail = personalizeEmail(template, "Jo Smith");
+// Uses "Jo Smith" (full name) instead of just "Jo"
+```
+
+#### `generateSubjectLine(daysRemaining)`
+
+**Purpose**: Generate appropriate subject line for each countdown day
+**Parameters**: `daysRemaining` (number): Days until deadline
+**Returns**: `string` - Email subject line
+
+**Subject Line Examples**:
+```javascript
+// Day 4: "IIM Mumbai Fantasy League: 4 days to prove your football knowledge! 🏆"
+// Day 0: "IIM Mumbai Fantasy League: 6 HOURS LEFT - Final call! 🚨"
+```
+
+### Testing Functions
+
+#### `testAllCountdownEmails()` ⭐
+
+**Purpose**: Send test emails for all 5 days to admin only
+**Safety**: Only sends to admin email, never to real players
+**Returns**: `void`
+**Usage**: Preview all countdown emails before going live
+
+```javascript
+testAllCountdownEmails();
+// Sends 5 test emails (Day 4, 3, 2, 1, 0) to admin
+```
+
+#### `testSpecificDay(dayNumber)`
+
+**Purpose**: Send test email for specific day
+**Parameters**: `dayNumber` (number): Day to test (0-4)
+**Returns**: `void`
+
+```javascript
+testSpecificDay(0); // Test Day 0 with 6 hours display
+```
+
+#### `testDay0WithBlinking()` 🚨
+
+**Purpose**: Specific test for Day 0 to verify 6 hours display and blinking animation
+**Returns**: `void`
+**Special**: Includes console logging for verification
+
+```javascript
+testDay0WithBlinking();
+// Console: "🚨 Testing Day 0 - Should show 6 HOURS REMAINING with blinking..."
+```
+
+### Scheduling Functions
+
+#### `setupCountdownEmailTriggers()` ⭐
+
+**Purpose**: Set up triggers for all 5 countdown emails
+**Returns**: `void`
+**Process**: Creates time-based triggers for each countdown day
+**Safety**: Only creates triggers for future dates
+
+```javascript
+setupCountdownEmailTriggers();
+// Creates 5 triggers for automated countdown campaign
+```
+
+#### `clearCountdownEmailTriggers()`
+
+**Purpose**: Clear all existing countdown email triggers
+**Returns**: `void`
+**Usage**: Clean up before setting new triggers
+
+#### `checkCountdownEmailTriggers()`
+
+**Purpose**: Check status of existing countdown email triggers
+**Returns**: `void` (logs to console)
+**Output**: Lists all active countdown triggers with scheduled times
+
+### Quick Setup Functions
+
+#### `quickSetupCountdownCampaign()` 🚀
+
+**Purpose**: Complete countdown campaign setup with testing
+**Returns**: `void`
+**Process**:
+1. Send test emails to admin
+2. Set up live triggers
+3. Check system status
+4. Log completion status
+
+```javascript
+quickSetupCountdownCampaign();
+// One-click setup for entire countdown campaign
+```
+
+### Utility Functions
+
+#### `calculateDaysRemaining()`
+
+**Purpose**: Calculate days remaining until GW1 deadline
+**Returns**: `number` - Days remaining (can be negative if past deadline)
+**Includes**: Comprehensive logging of current time, deadline, and calculation
+
+#### `calculateHoursRemaining()`
+
+**Purpose**: Calculate hours remaining until GW1 deadline
+**Returns**: `number` - Hours remaining
+**Usage**: For more precise timing calculations
+
+#### `getCountdownEmailTemplate()`
+
+**Purpose**: Get the complete HTML email template
+**Returns**: `string` - HTML template with placeholders
+**Features**:
+- Official FPL branding and colors
+- Responsive design with mobile optimization
+- CSS animations for blinking countdown
+- Professional styling with gradients
+
+### Configuration Objects
+
+#### COUNTDOWN_CONFIG
+
+```javascript
+const COUNTDOWN_CONFIG = {
+  SHEET_NAME: "IIM Mumbai FPL Master Database",
+  PLAYERS_TAB: "Players",
+  SETTINGS_TAB: "Settings",
+  ADMIN_EMAIL: "aditya.garg.2006@gmail.com",
+  LEAGUE_NAME: "IIM Mumbai Fantasy League",
+
+  // GW1 Deadline: Friday 16 Aug 2025, 7:30 PM CET
+  GW1_DEADLINE: new Date("2025-08-16T19:30:00+02:00"),
+
+  // Email scheduling (CET times)
+  SEND_TIMES: {
+    DAY_4: { hour: 7, minute: 0 },   // 11 Aug, 7:00 AM CET
+    DAY_3: { hour: 7, minute: 0 },   // 12 Aug, 7:00 AM CET
+    DAY_2: { hour: 7, minute: 0 },   // 13 Aug, 7:00 AM CET
+    DAY_1: { hour: 7, minute: 0 },   // 14 Aug, 7:00 AM CET
+    DAY_0: { hour: 13, minute: 30 }, // 15 Aug, 1:30 PM CET (6 hours before)
+  },
+};
+```
+
+#### PRO_TIPS Array
+
+```javascript
+const PRO_TIPS = [
+  "Fixtures are everything - plan 4-6 weeks ahead, not just the next gameweek",
+  "Captain choice can make or break your gameweek - go bold or go home!",
+  "Avoid template teams - your analytical skills give you an edge over casual players",
+  // ... 10 expert tips total, rotated through campaign
+];
+```
+
+#### DAILY_CONTENT Repository
+
+```javascript
+const DAILY_CONTENT = {
+  4: {
+    hook: "The squad is assembling, and it's looking mighty impressive",
+    message: "Your batch-mates have already started registering...",
+    tip: PRO_TIPS[2],
+    footer: "Your batch-mates are already strategising..."
+  },
+  0: {
+    hook: "6 hours left - This is where legends are made",
+    message: "The moment of truth has arrived. In just 6 hours...",
+    tip: PRO_TIPS[9],
+    footer: "Whatever happens from here, you're about to be part of something epic..."
+  }
+};
+```
+
+---
+
 ## 🏢 Core System Functions
 
 ### Registration System (`FPL Registration Automation Script.js`)

@@ -17,7 +17,7 @@ This system automatically manages a complete fantasy football mini-league for an
 
 - **🔄 Automated Data Processing** - Fetches live FPL scores and calculates winners
 - **💰 Prize Management** - Tracks weekly/monthly prizes and payments
-- **📧 Email Notifications** - Sends personalized league updates to all players
+- **📧 Email Notifications** - Sends personalized league updates and countdown campaigns to all players
 - **🌐 Live Website** - Real-time leaderboards and winner statistics
 - **📊 Admin Dashboard** - Complete league management in Google Sheets
 
@@ -114,6 +114,14 @@ cleanupTestDataDirect();
 - **Data validation** against official FPL API
 - **Comprehensive logging** for debugging and monitoring
 
+### 📧 Countdown Email System
+
+- **5-day countdown campaign** for registration deadlines with escalating urgency
+- **Smart personalization** with intelligent name handling for greetings
+- **Day 0 enhancement** shows "6 HOURS REMAINING" with blinking animation
+- **Mobile-responsive design** with optimized layouts for all devices
+- **Professional FPL branding** with official colors and styling
+
 ### 🧪 Testing & Demo System
 
 - **Test mode** with realistic demo data for presentations
@@ -156,7 +164,7 @@ This project is currently in private development for IIM Mumbai alumni. For tech
 
 ## 🏗 Project Status
 
-**Current Phase**: Active Season Management (2025-26) | **Version**: 1.0.3
+**Current Phase**: Active Season Management (2025-26) | **Version**: 1.0.4
 
 - ✅ Player registration completed (registration closes on 15th Aug)
 - ✅ Automated processing live

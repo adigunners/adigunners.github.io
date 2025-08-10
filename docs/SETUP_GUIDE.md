@@ -129,6 +129,16 @@ Create these files and copy the corresponding code:
 - Copy the GitHub integration script
 - Configure with your GitHub username and repository
 
+#### **File 5: Countdown_mailers.js**
+
+- Copy the 5-day countdown email system script
+- Update `COUNTDOWN_CONFIG` with your league details:
+  - GW1 deadline date and time
+  - Registration form link
+  - Website link
+  - Email scheduling times
+- Configure daily content and pro tips for your league
+
 #### **File 5: WeeklyEmailTemplate.html**
 
 - Create HTML file for weekly email template

@@ -4,6 +4,45 @@
 
 ---
 
+## [1.0.4] - 2025-08-10 - Countdown Email System Enhancements
+
+### 📧 Major Email System Improvements
+
+- **Day 0 Countdown Enhancement** - Final day now displays "6 HOURS REMAINING" instead of "0 DAYS REMAINING" with urgent blinking animation
+- **Smart Name Personalization** - If first name is less than 3 characters, uses full name for personalized greetings
+- **Center-Aligned Messaging** - Hook messages and main content now properly center-aligned for better visual presentation
+- **Mobile-Optimized Countdown** - Responsive design with appropriate font scaling and button stacking for mobile devices
+- **British English Consistency** - All email content uses British spellings ("analysing," "strategising," etc.)
+
+### 🚨 Urgency Features for Final Hours
+
+- **Blinking Animation** - Day 0 countdown number pulses with CSS animation to create urgency
+- **Updated Subject Lines** - Final email uses "6 HOURS LEFT - Final call! 🚨" for maximum impact
+- **Enhanced Visual Hierarchy** - Countdown display optimized for different screen sizes while maintaining urgency
+
+### 🎯 Technical Improvements
+
+- **Conditional Display Logic** - Smart countdown switching between days/hours based on remaining time
+- **CSS Animation Optimization** - Lightweight blinking animation using keyframes for better performance
+- **Template Flexibility** - Modular countdown display system for easy future customization
+- **Test Function Addition** - New `testDay0WithBlinking()` function for specific Day 0 testing
+
+### 📱 Mobile Responsiveness Enhancements
+
+- **Dynamic Font Scaling** - Countdown numbers scale appropriately on mobile devices (80px on small screens)
+- **Button Stacking** - Call-to-action buttons stack vertically on mobile for better usability
+- **Optimized Padding** - Mobile-specific padding adjustments for better content flow
+- **Center Alignment** - All message content centers properly across all device sizes
+
+### 🧪 Enhanced Testing Capabilities
+
+- **Dedicated Test Functions** - Individual test functions for each day (0-4) of the countdown
+- **Day 0 Specific Testing** - `testDay0WithBlinking()` function to verify 6-hour display and animation
+- **Quick Setup Function** - `quickSetupCountdownCampaign()` for complete campaign setup with testing
+- **Comprehensive Email Preview** - Test all 5 countdown emails in sequence before live deployment
+
+---
+
 ## [1.0.3] - 2025-08-10 - UI/UX Consistency & Performance Improvements
 
 ### 🎨 Major Visual Consistency Updates

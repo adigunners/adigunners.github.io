@@ -39,6 +39,7 @@ Project Structure:
 ├── FPL_Data_Fetcher.js - Main data processing engine
 ├── New_Email_System.js - Email template system
 ├── UpdateWebsiteCounter.js - GitHub integration
+├── Countdown_mailers.js - 5-day countdown email system
 ├── WeeklyEmailTemplate.html - Weekly email template
 ├── MonthlyEmailTemplate.html - Monthly email template
 └── FPL_Test_System.js - Testing framework (optional)
@@ -166,6 +167,98 @@ const GITHUB_CONFIG = {
 - **Trigger**: Every 15 minutes
 - **Key Function**: `updateLeagueStatsOnGitHub()`
 - **Updates**: Player count, prize pool, winner statistics
+
+### 5. **Countdown Email System**
+
+- **File**: `Countdown_mailers.js`
+- **Purpose**: 5-day countdown email campaign for league registration/GW1 deadline
+- **Key Function**: `sendDailyCountdownEmail()`
+- **Features**: Automated countdown with personalized content, urgency messaging
+
+#### Countdown Email Configuration
+
+```javascript
+const COUNTDOWN_CONFIG = {
+  SHEET_NAME: 'IIM Mumbai FPL Master Database',
+  PLAYERS_TAB: 'Players',
+  SETTINGS_TAB: 'Settings',
+  ADMIN_EMAIL: 'aditya.garg.2006@gmail.com',
+  LEAGUE_NAME: 'IIM Mumbai Fantasy League',
+
+  // GW1 Deadline: Friday 16 Aug 2025, 7:30 PM CET
+  GW1_DEADLINE: new Date('2025-08-16T19:30:00+02:00'),
+
+  // Registration and website links
+  REGISTRATION_LINK: 'https://forms.gle/qmq9n7KTtNLHaps28',
+  WEBSITE_LINK: 'https://adigunners.github.io/',
+
+  // Email scheduling (CET times)
+  SEND_TIMES: {
+    DAY_4: { hour: 7, minute: 0 }, // 11 Aug, 7:00 AM CET
+    DAY_3: { hour: 7, minute: 0 }, // 12 Aug, 7:00 AM CET
+    DAY_2: { hour: 7, minute: 0 }, // 13 Aug, 7:00 AM CET
+    DAY_1: { hour: 7, minute: 0 }, // 14 Aug, 7:00 AM CET
+    DAY_0: { hour: 13, minute: 30 }, // 15 Aug, 1:30 PM CET (6 hours before deadline)
+  },
+};
+```
+
+#### Key Countdown Features
+
+- **Day-Specific Content**: Tailored messages for each countdown day with escalating urgency
+- **Smart Name Handling**: Uses full name if first name is less than 3 characters
+- **Day 0 Enhancement**: Shows "6 HOURS REMAINING" with blinking animation instead of "0 DAYS"
+- **Mobile Responsive**: Optimized countdown display and button layouts for mobile devices
+- **Center Alignment**: Hook messages and main content properly center-aligned
+- **British English**: Consistent spelling throughout ("analysing," "strategising")
+- **Professional Styling**: Official FPL branding with gradient backgrounds and animations
+
+#### Countdown Email Workflow
+
+```javascript
+// Setup the entire 5-day campaign
+setupCountdownEmailTriggers();
+
+// Test individual days
+testSpecificDay(0); // Test Day 0 with 6 hours display
+testDay0WithBlinking(); // Specific Day 0 test with animation
+
+// Quick campaign setup with testing
+quickSetupCountdownCampaign();
+```
+
+#### Pro Tips Repository
+
+```javascript
+const PRO_TIPS = [
+  'Fixtures are everything - plan 4-6 weeks ahead, not just the next gameweek',
+  'Captain choice can make or break your gameweek - go bold or go home!',
+  'Avoid template teams - your analytical skills give you an edge over casual players',
+  'Check player prices daily - they change based on ownership. Buy before they rise!',
+  "Set up auto-subs wisely - nothing worse than fielding a player who doesn't play",
+  // ... 10 total expert tips rotated through the campaign
+];
+```
+
+#### Daily Content Structure
+
+```javascript
+const DAILY_CONTENT = {
+  4: {
+    hook: "The squad is assembling, and it's looking mighty impressive",
+    message: 'Your batch-mates have already started registering...',
+    tip: PRO_TIPS[2], // Rotated expert tip
+    footer: 'Your batch-mates are already strategising...',
+  },
+  // ... content for days 3, 2, 1
+  0: {
+    hook: '6 hours left - This is where legends are made',
+    message: 'The moment of truth has arrived. In just 6 hours...',
+    tip: PRO_TIPS[9], // Final expert tip
+    footer: "Whatever happens from here, you're about to be part of something epic...",
+  },
+};
+```
 
 ## Data Models
 
