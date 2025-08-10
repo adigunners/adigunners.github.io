@@ -1,0 +1,11 @@
+dist/
+build/
+node_modules/
+.tmp/
+.cache/
+docs/.vitepress/cache/
+logo images/
+*.min.js
+.DS_Store
+coverage/
+package-lock.json
