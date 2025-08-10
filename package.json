@@ -2,7 +2,7 @@
   "name": "adigunners-github-io",
   "version": "1.0.0",
   "description": "IIM Mumbai Fantasy Premier League - Automated fantasy football league management system",
-  "main": "index.html",
+  "private": true,
   "scripts": {
     "format": "prettier . --write",
     "format:check": "prettier . --check",

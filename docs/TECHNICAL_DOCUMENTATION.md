@@ -81,8 +81,34 @@ Google Sheets Data → Apps Script Processing → GitHub API → JSON Files → 
 
 ```javascript
 // Required in Script Properties:
-GITHUB_TOKEN: 'ghp_xxxxx'; // GitHub Personal Access Token
+GITHUB_TOKEN: 'ghp_xxxxx'; // GitHub Personal Access Token (PLACEHOLDER ONLY)
 ```
+
+> **WARNING:**
+
+> - **Never paste real Personal Access Tokens (PATs) in documentation, logs, screenshots, or code comments.**
+> - Always use placeholders (e.g., `ghp_xxxxx`) in all public or shared materials.
+> - Regularly rotate your tokens and immediately revoke any that may have been exposed.
+> - Mask tokens in any debug output or error logs before sharing.
+> - Prefer fine-grained PATs with only the required repo scope (e.g., contents:write on a single repo) and set an expiration date.
+> - Restrict editor access on the Apps Script project; Script Properties are readable by project editors.
+> - For higher security, consider storing tokens in Google Cloud Secret Manager and fetching them at runtime instead of Script Properties.
+
+#### Scanning for Accidental Token Leaks
+
+To scan your repository for accidentally committed GitHub tokens or authorization headers, you can use the following script:
+
+````sh
+# Scan for GitHub PATs and Authorization headers in your repo
+# Covers classic/fine-grained prefixes and common Authorization forms
+git grep -InE \
+  '(gh[pousr]_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{82}|Authorization: (Bearer|token) [A-Za-z0-9_]+)' .
+
+# Optional: use gitleaks for broader secret patterns
+# brew install gitleaks  # or see https://github.com/gitleaks/gitleaks
+gitleaks detect --no-git -v || true
+
+If any matches are found, **immediately revoke the exposed token** in your GitHub account settings and remove the sensitive data from your repository history.
 
 ### Main Configuration Objects
 
@@ -102,7 +128,7 @@ const GITHUB_CONFIG = {
   FILE_PATH: 'winner_stats.json',
   BRANCH: 'main',
 };
-```
+````
 
 ## Core Functions & Workflows
 
@@ -400,13 +426,15 @@ function displayWinnerTable() {
   const endIndex = startIndex + winnerItemsPerPage;
   const currentPageData = allWinners.slice(startIndex, endIndex);
 
-  // Generate table HTML with paginated data
-  let tableHTML = '<table class="winner-table">';
-  // ... table generation for current page only
-
   // Show/hide pagination controls based on total pages
   const navigation = document.getElementById('winner-navigation');
+  if (!navigation) return;
   if (totalPages > 1) {
+    navigation.style.display = 'flex';
+    updateWinnerNavigation(totalPages);
+  } else {
+    navigation.style.display = 'none';
+  }
     navigation.style.display = 'flex';
     updateWinnerNavigation(totalPages);
   } else {

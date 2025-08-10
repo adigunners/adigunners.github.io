@@ -3,6 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Helper to escape HTML special characters -->
+    <script>
+      function escapeHTML(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+    </script>
 
     <!-- SEO Meta Tags -->
     <title>IIM Mumbai Fantasy League - Season 2025-26 | Join Now</title>
@@ -18,14 +29,14 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://adigunners.github.io/" />
-    <meta property="og:title" content="IIM Mumbai Fantasy League - Season 2025-26" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://adigunners.github.io/" />
+    <meta name="twitter:title" content="IIM Mumbai Fantasy League - Season 2025-26" />
     <meta
-      property="og:description"
+      name="twitter:description"
       content="Join the premier fantasy football league for IIM Mumbai students. Weekly prizes, monthly rewards, and season-end championship!"
     />
-    <meta property="og:image" content="https://adigunners.github.io/assets/fpl-og-image.jpg" />
-
+    <meta name="twitter:image" content="https://adigunners.github.io/assets/fpl-og-image.jpg" />
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://adigunners.github.io/" />
@@ -1215,7 +1226,7 @@
         } else {
           // Live mode: FORCE HIDE all test-only elements
           document.querySelectorAll('.test-only').forEach((el) => {
-            el.style.display = 'none !important';
+            el.style.setProperty('display', 'none', 'important');
             el.style.visibility = 'hidden';
           });
 
@@ -1260,6 +1271,8 @@
             }
           } else {
             headerP.textContent = 'Season 2025-26 - Registration Open (Testing Mode)';
+            // Reset header color to original (unset or inherit)
+            headerP.style.color = '';
           }
         }
       }
@@ -1401,7 +1414,6 @@
         const url = 'league_stats.json?cache=' + new Date().getTime();
         fetch(url)
           .then((response) => {
-            console.log('Fetch response:', response);
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
@@ -1808,9 +1820,9 @@
                 (winner, index) => `
               <div class="winner-card${
                 index < 3 ? ` rank-${index + 1}` : ''
-              }" role="article" aria-label="Winner ${index + 1}: ${winner.playerName}">
+              }" role="article" aria-label="Winner ${index + 1}: ${escapeHTML(winner.playerName)}">
                 <div class="winner-rank">#${index + 1}</div>
-                <div class="winner-name" title="${winner.playerName}">${winner.playerName}</div>
+                <div class="winner-name" title="${escapeHTML(winner.playerName)}">${escapeHTML(winner.playerName)}</div>
                 <div class="winner-prize" title="Total prize won: ₹${winner.totalPrizeWon.toLocaleString(
                   'en-IN'
                 )}">
@@ -1819,17 +1831,17 @@
                 <div class="winner-highlights" aria-label="Achievements">
                   ${
                     winner.highlights.gameWeeks > 0
-                      ? `<span class="highlight-badge gw" title="${winner.highlights.gameWeeks} gameweek wins">${winner.highlights.gameWeeks}GW</span>`
+                      ? `<span class="highlight-badge gw" title="${escapeHTML(winner.highlights.gameWeeks + ' gameweek wins')}">${escapeHTML(winner.highlights.gameWeeks + 'GW')}</span>`
                       : ''
                   }
                   ${
                     winner.highlights.gameMonths > 0
-                      ? `<span class="highlight-badge gm" title="${winner.highlights.gameMonths} monthly wins">${winner.highlights.gameMonths}GM</span>`
+                      ? `<span class="highlight-badge gm" title="${escapeHTML(winner.highlights.gameMonths + ' monthly wins')}">${escapeHTML(winner.highlights.gameMonths + 'GM')}</span>`
                       : ''
                   }
                   ${
                     winner.highlights.overallRank
-                      ? `<span class="highlight-badge" title="Current league position">League Rank ${winner.highlights.overallRank}</span>`
+                      ? `<span class="highlight-badge" title="Current league position">League Rank ${escapeHTML(winner.highlights.overallRank)}</span>`
                       : ''
                   }
                 </div>
@@ -1846,10 +1858,7 @@
         if (summaryContainer) {
           const totalWinners = winners.length;
           const totalPrizeMoney = winners.reduce((sum, winner) => sum + winner.totalPrizeWon, 0);
-
-          summaryContainer.innerHTML = `Showing top 6 of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString(
-            'en-IN'
-          )}`;
+          summaryContainer.textContent = `Showing top 6 of ${totalWinners} winners • Total prize money distributed: ₹${totalPrizeMoney.toLocaleString('en-IN')}`;
         }
       }
 
@@ -2130,6 +2139,7 @@
         const currentPageData = leaderboardData.slice(startIndex, endIndex);
 
         // Generate table HTML
+
         const tableHTML = `
           <table class="leaderboard-table">
             <thead>
@@ -2154,7 +2164,7 @@
                           ? ' rank-3'
                           : ''
                   }">${displayRank}</td>
-                  <td class="leaderboard-player">${player.playerName}</td>
+                  <td class="leaderboard-player">${escapeHTML(player.playerName)}</td>
                   <td class="leaderboard-prize">₹${player.totalPrizeWon.toLocaleString(
                     'en-IN'
                   )}</td>
@@ -2169,11 +2179,13 @@
         container.innerHTML = tableHTML;
 
         // Show/hide navigation if needed
-        if (totalPages > 1) {
-          navigation.style.display = 'flex';
-          updateLeaderboardNavigation(totalPages);
-        } else {
-          navigation.style.display = 'none';
+        if (navigation) {
+          if (totalPages > 1) {
+            navigation.style.display = 'flex';
+            updateLeaderboardNavigation(totalPages);
+          } else {
+            navigation.style.display = 'none';
+          }
         }
       }
 

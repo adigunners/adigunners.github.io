@@ -1,11 +1,11 @@
-# Fantasy Mini-League Management
+# Fantasy Mini-League Management (FML)
 
-**Automated fantasy football mini-league management system**
+**Automated fantasy football mini-league management system for any private or public group**
 
-<a href="https://adigunners.github.io/" target="_blank">
+<a href="https://adigunners.github.io/" target="_blank" rel="noopener noreferrer">
   <img src="https://img.shields.io/badge/Live-Website-success?style=for-the-badge" alt="Live Website" />
 </a>
-<a href="https://adigunners.github.io/?test=true" target="_blank">
+<a href="https://adigunners.github.io/?test=true" target="_blank" rel="noopener noreferrer">
   <img src="https://img.shields.io/badge/Test-Demo-orange?style=for-the-badge" alt="Test Demo" />
 </a>
 
@@ -13,7 +13,7 @@
 
 ## 🎯 What This Project Does
 
-This system automatically manages a complete fantasy football league for 26+ IIM Mumbai alumni:
+This system automatically manages a complete fantasy football mini-league for any group, club, or organization (scalable to multiple leagues):
 
 - **🔄 Automated Data Processing** - Fetches live FPL scores and calculates winners
 - **💰 Prize Management** - Tracks weekly/monthly prizes and payments

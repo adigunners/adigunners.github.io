@@ -17,26 +17,45 @@ const FPL_CONFIG = {
   MONTHLY_WINNERS_TAB: 'Monthly Winners',
   PRIZE_TRACKING_TAB: 'Prize Tracking',
   SETTINGS_TAB: 'Settings',
-  ADMIN_EMAIL: 'aditya.garg.2006@gmail.com',
+  // ADMIN_EMAIL is now loaded from Script Properties for security and flexibility
+  ADMIN_EMAIL: PropertiesService.getScriptProperties().getProperty('ADMIN_EMAIL'),
   LAST_PROCESSED_GW_CELL: 'B49',
   FPL_BASE_URL: 'https://fantasy.premierleague.com/api/',
-  BOOTSTRAP_URL: 'https://fantasy.premierleague.com/api/bootstrap-static/',
+  // BOOTSTRAP_URL derived from FPL_BASE_URL to prevent URL drift
+  get BOOTSTRAP_URL() {
+    return this.FPL_BASE_URL + 'bootstrap-static/';
+  },
   CURRENT_SEASON: '2025-26',
   TOTAL_GAMEWEEKS: 38,
 };
 ```
 
-### GITHUB_CONFIG
+---
 
-```javascript
 const GITHUB_CONFIG = {
-  TOKEN: PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN'),
-  REPO_OWNER: 'adigunners',
-  REPO_NAME: 'adigunners.github.io',
-  FILE_PATH: 'winner_stats.json',
-  BRANCH: 'main',
+TOKEN: (() => {
+// Throw-if-missing pattern for robust config
+const t = PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
+if (!t) {
+throw new Error('Missing GITHUB_TOKEN in Script Properties. Please set this property in Project Settings > Script Properties.');
+}
+return t;
+})(),
+REPO_OWNER: 'adigunners',
+REPO_NAME: 'adigunners.github.io',
+FILE_PATH: 'winner_stats.json',
+BRANCH: 'main',
 };
-```
+
+**How to add Script Properties:**
+
+1. In the Apps Script editor, go to `Project Settings` > `Script Properties`.
+2. Add a new property with key `ADMIN_EMAIL` and your admin email as the value.
+3. Save changes.
+
+This ensures your email is not hardcoded in the codebase and can be changed without code edits.
+
+````
 
 ---
 
@@ -55,7 +74,7 @@ const GITHUB_CONFIG = {
 function processNewRegistrations()
 // Usage: Run manually or via hourly trigger
 // Processes all new form responses since last run
-```
+````
 
 #### `validateFPLTeam(teamId, teamName)`
 

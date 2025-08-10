@@ -49,10 +49,6 @@ A: Name | B: Email | C: Phone | D: FPL Team Name | E: FPL Team ID | F: Payment S
 
 Headers (Row 1):
 
-```
-A: Player Name | B: FPL Team ID | C: GW1 | D: GW2 | ... | AO: GW38 | AP: Total Points | AQ: Average | AR: Current Rank
-```
-
 #### **Weekly Winners Tab**
 
 Headers (Row 1):
@@ -200,14 +196,52 @@ Upload these files to your repository:
 Run these functions once to create automated triggers:
 
 ```javascript
-// Set up daily processing trigger
-setupDailyMasterTrigger();
+// Idempotent trigger helpers (Apps Script)
+function ensureClockTrigger(functionName, schedule) {
+  const exists = ScriptApp.getProjectTriggers().some(
+    (t) => t.getHandlerFunction() === functionName && t.getEventType() === ScriptApp.EventType.CLOCK
+  );
+  if (exists) return;
+  let builder = ScriptApp.newTrigger(functionName).timeBased();
+  if (schedule.everyHours) builder = builder.everyHours(schedule.everyHours);
+  if (schedule.everyMinutes) builder = builder.everyMinutes(schedule.everyMinutes);
+  if (schedule.atHour) builder = builder.atHour(schedule.atHour).everyDays(1);
+  if (schedule.onWeekDay) builder = builder.onWeekDay(schedule.onWeekDay);
+  builder.create();
+}
 
-// Set up website update trigger
-setupHourlyCounterTrigger();
+function ensureFormSubmitTrigger(functionName, { spreadsheetId, formId }) {
+  const exists = ScriptApp.getProjectTriggers().some(
+    (t) =>
+      t.getHandlerFunction() === functionName &&
+      t.getEventType() === ScriptApp.EventType.FORM_SUBMIT
+  );
+  if (exists) return;
+  let trig = ScriptApp.newTrigger(functionName);
+  if (spreadsheetId) {
+    trig = trig.forSpreadsheet(spreadsheetId).onFormSubmit();
+  } else if (formId) {
+    trig = trig.forForm(formId).onFormSubmit();
+  } else {
+    throw new Error('Provide spreadsheetId or formId for form-submit triggers');
+  }
+  trig.create();
+}
 
-// Set up registration processing trigger
-setupAutomaticTrigger();
+// Set up daily processing trigger (runs every day at 2am)
+ensureTrigger('dailyMasterProcess', ScriptApp.EventType.TIME_BASED, {
+  timeMethod: 'atHour',
+  value: 2,
+});
+
+// Set up website update trigger (runs every hour)
+ensureTrigger('updateWebsiteCounter', ScriptApp.EventType.TIME_BASED, {
+  timeMethod: 'everyHours',
+  value: 1,
+});
+
+// Set up registration processing trigger (runs on form submit)
+ensureTrigger('processRegistration', ScriptApp.EventType.ON_FORM_SUBMIT);
 ```
 
 ### Step 2: Initialize System
@@ -426,19 +460,80 @@ const FEATURE_FLAGS = {
 #### **API Key Rotation**
 
 ```javascript
-// Implement automatic token rotation
-function rotateGitHubToken() {
-  const oldToken = PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
-  const newToken = generateNewGitHubToken(); // Implement via GitHub API
+// Sanitizer to redact secrets from objects before logging or reporting
+function sanitizeForLogging(obj) {
+  const SENSITIVE_KEYS = ['token', 'key', 'secret', 'password', 'apiKey', 'accessToken'];
+  function redact(val) {
+    if (typeof val === 'string' && val.length > 6) return '***REDACTED***';
+    if (typeof val === 'object' && val !== null) return sanitizeForLogging(val);
+    return val;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(sanitizeForLogging);
+  }
+  if (typeof obj === 'object' && obj !== null) {
+    const out = {};
+    for (const k in obj) {
+      if (SENSITIVE_KEYS.some((s) => k.toLowerCase().includes(s))) {
+        out[k] = '***REDACTED***';
+      } else {
+        out[k] = sanitizeForLogging(obj[k]);
+      }
+    }
+    return out;
+  }
+  return obj;
+}
 
-  // Test new token
-  if (testTokenValidity(newToken)) {
-    PropertiesService.getScriptProperties().setProperty('GITHUB_TOKEN', newToken);
-    revokeGitHubToken(oldToken);
-    sendAdminAlert('Token Rotated', 'GitHub token successfully rotated');
+// Helper to validate a GitHub token by making a test API call
+function testTokenValidity(token) {
+  try {
+    const response = UrlFetchApp.fetch('https://api.github.com/user', {
+      method: 'get',
+      muteHttpExceptions: true,
+      headers: {
+        Authorization: 'token ' + token,
+        Accept: 'application/vnd.github.v3+json',
+      },
+    });
+    return response.getResponseCode() === 200;
+  } catch (e) {
+    return false;
   }
 }
+
+// Manual GitHub token update helper
+function updateGitHubToken(newToken) {
+  // Validate the new token by making a test API call
+  if (testTokenValidity(newToken)) {
+    PropertiesService.getScriptProperties().setProperty('GITHUB_TOKEN', newToken);
+    sendAdminAlert('Token Updated', 'GitHub token updated and validated.');
+  } else {
+    throw new Error('Invalid GitHub token. Please check and try again.');
+  }
+}
+
+// Example: Use sanitizer before logging or reporting errors/health
+function sendHealthCheck() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const settingsSheet = ss.getSheetByName('Settings');
+  const token = PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
+  const status = {
+    triggers: checkTriggers().length,
+    lastProcessed: settingsSheet.getRange('B49').getValue(),
+    currentGW: getCurrentGameweek(),
+    githubTokenPresent: !!token,
+    githubToken: token, // Will be redacted by sanitizer
+  };
+  const safeStatus = sanitizeForLogging(status);
+  sendAdminAlert('Daily Health Check', JSON.stringify(safeStatus, null, 2));
+}
 ```
+
+> **Note:**
+>
+> - GitHub does not support automated Personal Access Token (PAT) rotation via API. PATs must be created and revoked manually in your GitHub account settings.
+> - For improved security and automation, consider using a [GitHub App](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app) and generating short-lived installation tokens with JWT authentication instead of long-lived PATs.
 
 #### **Environment Variables**
 
@@ -509,29 +604,30 @@ class RateLimiter {
 
 #### **Health Check Endpoints**
 
-```javascript
-// System health monitoring
-function getSystemHealth() {
-  return {
-    timestamp: new Date().toISOString(),
-    version: '1.0.1',
-    services: {
-      sheets: checkSheetsAccess(),
-      github: testGitHubToken(),
-      email: testEmailConnectivity(),
-      fpl_api: testFPLAPIAccess(),
-    },
-    metrics: {
-      playersCount: getActivePlayersCount(),
-      lastProcessedGW: getLastProcessedGameweek(),
-      emailsSentToday: getEmailsSentCount(),
-      apiCallsToday: getAPICallsCount(),
-    },
-  };
-}
-```
+// Delete and recreate triggers
+ScriptApp.getProjectTriggers().forEach((trigger) => ScriptApp.deleteTrigger(trigger));
+ensureClockTrigger('dailyMasterProcess', { atHour: 2 });
+ensureClockTrigger('updateWebsiteCounter', { everyHours: 1 });
+ensureFormSubmitTrigger('processRegistration', { spreadsheetId: SpreadsheetApp.getActive().getId() });
+return {
+timestamp: new Date().toISOString(),
+version: '1.0.1',
+services: {
+sheets: checkSheetsAccess(),
+github: testGitHubToken(),
+email: testEmailConnectivity(),
+fpl_api: testFPLAPIAccess(),
+},
+metrics: {
+playersCount: getActivePlayersCount(),
+lastProcessedGW: getLastProcessedGameweek(),
+emailsSentToday: getEmailsSentCount(),
+userAgent: (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : 'Apps Script',
+};
 
-#### **Error Reporting**
+// Log to multiple destinations
+console.error(JSON.stringify(errorReport, null, 2));
+sendAdminAlert('System Error', JSON.stringify(errorReport, null, 2));
 
 ```javascript
 // Enhanced error reporting with context

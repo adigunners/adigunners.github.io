@@ -50,12 +50,30 @@
       function addResult(message, type = 'info') {
         const div = document.createElement('div');
         div.className = `test-result ${type}`;
-        div.innerHTML = message;
+        // If message is a Node, append directly; else, treat as text
+        if (message instanceof Node) {
+          div.appendChild(message);
+        } else {
+          div.textContent = message;
+        }
         resultsDiv.appendChild(div);
       }
 
+      // Helper to safely render a label and JSON object
+      function addLabelAndJSON(label, obj, type = 'info') {
+        const wrapper = document.createElement('div');
+        const labelEl = document.createElement('div');
+        labelEl.textContent = label;
+        labelEl.style.fontWeight = 'bold';
+        const pre = document.createElement('pre');
+        pre.textContent = formatJSON(obj);
+        wrapper.appendChild(labelEl);
+        wrapper.appendChild(pre);
+        addResult(wrapper, type);
+      }
+
       function formatJSON(obj) {
-        return '<pre>' + JSON.stringify(obj, null, 2) + '</pre>';
+        return JSON.stringify(obj, null, 2);
       }
 
       async function testDataFetching() {
@@ -70,7 +88,7 @@
           }
           const leagueData = await leagueResponse.json();
           addResult('✅ League stats loaded successfully!', 'success');
-          addResult('League Stats Data:' + formatJSON(leagueData), 'success');
+          addLabelAndJSON('League Stats Data:', leagueData, 'success');
         } catch (error) {
           addResult('❌ Failed to load league_stats.json: ' + error.message, 'error');
         }
@@ -84,13 +102,13 @@
           }
           const winnerData = await winnerResponse.json();
           addResult('✅ Winner stats loaded successfully!', 'success');
-          addResult(
-            'Winner Stats Summary:' +
-              formatJSON({
-                lastUpdated: winnerData.lastUpdated,
-                totalWinners: winnerData.winners ? winnerData.winners.length : 0,
-                summary: winnerData.summary,
-              }),
+          addLabelAndJSON(
+            'Winner Stats Summary:',
+            {
+              lastUpdated: winnerData.lastUpdated,
+              totalWinners: Array.isArray(winnerData.winners) ? winnerData.winners.length : 0,
+              summary: winnerData.summary,
+            },
             'success'
           );
         } catch (error) {
@@ -108,14 +126,16 @@
           }
           const testWinnerData = await testWinnerResponse.json();
           addResult('✅ Test winner stats loaded successfully!', 'success');
-          addResult(
-            'Test Winner Stats Summary:' +
-              formatJSON({
-                lastUpdated: testWinnerData.lastUpdated,
-                totalWinners: testWinnerData.winners ? testWinnerData.winners.length : 0,
-                summary: testWinnerData.summary,
-                testMode: testWinnerData.testMode,
-              }),
+          addLabelAndJSON(
+            'Test Winner Stats Summary:',
+            {
+              lastUpdated: testWinnerData.lastUpdated,
+              totalWinners: Array.isArray(testWinnerData.winners)
+                ? testWinnerData.winners.length
+                : 0,
+              summary: testWinnerData.summary,
+              testMode: testWinnerData.testMode,
+            },
             'success'
           );
         } catch (error) {
@@ -124,19 +144,19 @@
 
         // Test 4: Browser Environment Info
         addResult('🌐 Browser Environment Info:', 'info');
-        addResult(
-          'Browser Environment:' +
-            formatJSON({
-              userAgent: navigator.userAgent,
-              location: {
-                protocol: window.location.protocol,
-                hostname: window.location.hostname,
-                port: window.location.port,
-                pathname: window.location.pathname,
-              },
-              currentTime: new Date().toISOString(),
-              timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            }),
+        addLabelAndJSON(
+          'Browser Environment:',
+          {
+            userAgent: navigator.userAgent,
+            location: {
+              protocol: window.location.protocol,
+              hostname: window.location.hostname,
+              port: window.location.port,
+              pathname: window.location.pathname,
+            },
+            currentTime: new Date().toISOString(),
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          },
           'info'
         );
 

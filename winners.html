@@ -523,7 +523,7 @@
           clear: both;
         }
 
-        /* Remove decimal point from rank number */
+        /* Add a dot after the rank number for mobile cards */
         .winner-table tbody td:nth-child(1)::after {
           content: '.';
         }
@@ -912,7 +912,12 @@
       let currentWinnerPage = 1;
       const winnerItemsPerPage = 10;
 
+      // Determine debug mode from URL (?debug=1 or test mode)
+      let isDebugMode = false;
       document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTestMode = urlParams.get('test') === 'true';
+        isDebugMode = isTestMode || urlParams.get('debug') === '1';
         loadWinnerData();
         checkTestMode();
       });
@@ -921,23 +926,25 @@
         // Check if we're in test mode and load appropriate file
         const urlParams = new URLSearchParams(window.location.search);
         const isTestMode = urlParams.get('test') === 'true';
+        isDebugMode = isTestMode || urlParams.get('debug') === '1';
 
         const winnerUrl = isTestMode
           ? 'test_winner_stats.json?cache=' + new Date().getTime()
           : 'winner_stats.json?cache=' + new Date().getTime();
 
-        console.log(isTestMode ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
+        if (isDebugMode)
+          console.log(isTestMode ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
 
         fetch(winnerUrl)
           .then((response) => {
-            console.log('Winner fetch response:', response);
+            if (isDebugMode) console.log('Winner fetch response:', response);
             if (!response.ok) {
               throw new Error('Winner data fetch failed');
             }
             return response.json();
           })
           .then((data) => {
-            console.log('Fetched winner data:', data);
+            if (isDebugMode) console.log('Fetched winner data:', data);
 
             // Add test mode indicator if needed
             if (isTestMode && data.testMode) {
@@ -1004,7 +1011,10 @@
           return;
         }
 
-        console.log(`📊 Displaying winners: ${allWinners.length} total, page ${currentWinnerPage}`);
+        if (isDebugMode)
+          console.log(
+            `📊 Displaying winners: ${allWinners.length} total, page ${currentWinnerPage}`
+          );
 
         // Calculate pagination
         const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
@@ -1021,19 +1031,26 @@
         currentPageData.forEach((winner, pageIndex) => {
           const globalIndex = startIndex + pageIndex;
           const rank = globalIndex + 1;
+          const highlights = winner.highlights || {};
           const gameWeeksBadge =
-            winner.highlights.gameWeeks > 0
-              ? `<span class="highlight-badge gw">${winner.highlights.gameWeeks}GW</span>`
+            highlights.gameWeeks > 0
+              ? `<span class="highlight-badge gw">${highlights.gameWeeks}GW</span>`
               : '';
           const gameMonthsBadge =
-            winner.highlights.gameMonths > 0
-              ? `<span class="highlight-badge gm">${winner.highlights.gameMonths}GM</span>`
+            highlights.gameMonths > 0
+              ? `<span class="highlight-badge gm">${highlights.gameMonths}GM</span>`
               : '';
-          const overallRankBadge = winner.highlights.overallRank
-            ? `<span class="highlight-badge">League Rank: ${winner.highlights.overallRank}</span>`
+          const overallRankBadge = highlights.overallRank
+            ? `<span class="highlight-badge">League Rank: ${highlights.overallRank}</span>`
             : '';
 
-          tableHTML += `<tr>`;
+          // Assign rank-specific classes for top 3
+          let rankClass = '';
+          if (rank === 1) rankClass = 'winner-gold';
+          else if (rank === 2) rankClass = 'winner-silver';
+          else if (rank === 3) rankClass = 'winner-bronze';
+
+          tableHTML += `<tr${rankClass ? ' class="' + rankClass + '"' : ''}>`;
           tableHTML += `<td class="winner-rank">${rank}</td>`;
           tableHTML += `<td class="player-name">${winner.playerName}</td>`;
           tableHTML += `<td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</td>`;
@@ -1076,7 +1093,7 @@
         if (currentWinnerPage > 1) {
           currentWinnerPage--;
           displayWinnerTable();
-          console.log(`📄 Navigated to page ${currentWinnerPage}`);
+          if (isDebugMode) console.log(`📄 Navigated to page ${currentWinnerPage}`);
         }
       }
 
@@ -1085,7 +1102,7 @@
         if (currentWinnerPage < totalPages) {
           currentWinnerPage++;
           displayWinnerTable();
-          console.log(`📄 Navigated to page ${currentWinnerPage}`);
+          if (isDebugMode) console.log(`📄 Navigated to page ${currentWinnerPage}`);
         }
       }
 
@@ -1093,7 +1110,7 @@
         const table = document.getElementById('dynamic-winner-table');
         if (!table || !winners || winners.length === 0) return;
 
-        console.log('🔧 Optimizing table column widths...');
+        if (isDebugMode) console.log('🔧 Optimizing table column widths...');
 
         // Create a temporary invisible element to measure text widths
         const measureEl = document.createElement('span');
@@ -1130,9 +1147,10 @@
           // Use the larger of content width or header width, plus padding
           const playerColumnWidth = Math.max(maxPlayerNameWidth, headerWidth) + 32; // 16px padding on each side
 
-          console.log(`📏 Longest player name: "${longestName}" (${maxPlayerNameWidth}px)`);
-          console.log(`📏 Header width: ${headerWidth}px`);
-          console.log(`📏 Final player column width: ${playerColumnWidth}px`);
+          if (isDebugMode)
+            console.log(`📏 Longest player name: "${longestName}" (${maxPlayerNameWidth}px)`);
+          if (isDebugMode) console.log(`📏 Header width: ${headerWidth}px`);
+          if (isDebugMode) console.log(`📏 Final player column width: ${playerColumnWidth}px`);
 
           // Apply the calculated width to player column
           // Use CSS custom properties for dynamic widths
@@ -1154,7 +1172,7 @@
           styleElement.id = 'dynamic-table-styles';
           document.head.appendChild(styleElement);
 
-          console.log('✅ Dynamic column widths applied successfully');
+          if (isDebugMode) console.log('✅ Dynamic column widths applied successfully');
         } catch (error) {
           console.error('❌ Error optimizing column widths:', error);
         } finally {
@@ -1202,7 +1220,7 @@
         const isTestMode = params.get('test') === 'true';
 
         if (isTestMode) {
-          console.log('🧪 Test mode activated!');
+          if (isDebugMode) console.log('🧪 Test mode activated!');
           const section = document.querySelector('.test-section');
           if (section) section.style.display = 'block';
         } else {

@@ -36,14 +36,25 @@ console.log('Current GW:', currentGW);
 #### **Option A: Trigger Missing/Broken**
 
 ```javascript
-// Delete all triggers and recreate
-ScriptApp.getProjectTriggers().forEach((trigger) => ScriptApp.deleteTrigger(trigger));
+// Delete only specific triggers by handler function name
+const knownHandlers = ['dailyMasterProcess', 'setupDailyMasterTrigger']; // Add other known handler names as needed
+ScriptApp.getProjectTriggers().forEach((trigger) => {
+  if (knownHandlers.includes(trigger.getHandlerFunction())) {
+    try {
+      ScriptApp.deleteTrigger(trigger);
+      console.log('Deleted trigger:', trigger.getHandlerFunction());
+    } catch (err) {
+      console.error('Error deleting trigger', trigger.getHandlerFunction(), err);
+    }
+  }
+});
 
 // Recreate daily trigger
 setupDailyMasterTrigger();
 
-// Verify trigger created
-checkTriggers();
+// Verify triggers after recreation
+const activeTriggers = ScriptApp.getProjectTriggers().map((t) => t.getHandlerFunction());
+console.log('Active triggers after recreation:', activeTriggers);
 ```
 
 #### **Option B: Manual Processing**
@@ -75,30 +86,42 @@ dailyMasterProcess(); // This will process GW5
 **Diagnosis:**
 
 ```javascript
-testGitHubToken(); // Should show token found
+// Returns true if GitHub token exists in Script Properties, false otherwise
+function testGitHubToken() {
+  return !!PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
+}
+// Usage:
+// if (testGitHubToken()) { /* token present */ } else { /* token missing */ }
 ```
 
 **Solutions:**
 
 #### **Token Issues**
 
-```javascript
+````javascript
 // 1. Check if token exists
-const token = PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
-console.log('Token exists:', token ? 'Yes' : 'No');
+const tokenPresent = !!PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
+// Use tokenPresent (true/false) for diagnostics; do not log or output the token value
 
 // 2. If missing, add new token
-PropertiesService.getScriptProperties().setProperty('GITHUB_TOKEN', 'ghp_your_new_token_here');
+// IMPORTANT: Never commit real tokens. Prefer Script Properties UI (File > Project properties > Script properties).
+// If you must set via code, run once and then remove this line:
+// PropertiesService.getScriptProperties().setProperty('GITHUB_TOKEN', 'paste_token_here_temporarily');
 
 // 3. Test again
 testGitHubToken();
-```
 
 #### **Repository Access Issues**
 
 - **Check**: Repository is public or token has correct permissions
 - **Fix**: Go to GitHub Settings → Developer Settings → Personal Access Tokens
-- **Permissions needed**: `repo` (full repository access)
+- **Permissions needed**: Use the least-privilege scope required:
+  - For public repositories, use `public_repo`.
+  - For content updates only, create a fine-grained Personal Access Token (PAT) with “Contents: Read and Write” permission.
+
+> **Note:**
+> - Avoid using the full `repo` scope unless absolutely necessary. Fine-grained PATs are recommended for better security and control.
+> - Choose the scope that matches your repository type and the actions your script needs to perform.
 
 #### **Manual Website Update**
 
@@ -108,7 +131,7 @@ updateLeagueStatsOnGitHub();
 
 // Force update winner data
 manualUpdateWinnerStats();
-```
+````
 
 ---
 
@@ -491,29 +514,37 @@ fixMonthlyWinnersSheetFormatting();
 
 #### **Optimize Data Access**
 
-```javascript
-// Instead of multiple getRange() calls:
-const data = sheet.getDataRange().getValues(); // Get all data once
-// Then work with the array in memory
+const updates = [];
+// Build array of updates, then:
+if (updates.length > 0) {
+sheet.getRange(1, 1, updates.length, updates[0].length).setValues(updates);
+} else {
+console.log('No updates to apply');
+}
 
 // Instead of multiple setValue() calls:
 const updates = [];
 // Build array of updates, then:
+if (updates.length > 0) {
 sheet.getRange(1, 1, updates.length, updates[0].length).setValues(updates);
-```
+} else {
+console.log('No updates to apply');
+}
+
+````
 
 #### **Reduce API Calls**
 
 ```javascript
-// Cache API responses
 const cachedData = CacheService.getScriptCache();
 const cacheKey = `fpl_gw_${gameweek}`;
-let data = cachedData.get(cacheKey);
+const cached = cachedData.get(cacheKey);
+let data = cached ? JSON.parse(cached) : null;
 if (!data) {
   data = fetchFromAPI();
   cachedData.put(cacheKey, JSON.stringify(data), 3600); // Cache for 1 hour
 }
-```
+````
 
 ---
 
@@ -634,11 +665,16 @@ testEmailSending();
 ```javascript
 // Enhanced admin alerts
 function sendHealthCheck() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const settingsSheet = ss.getSheetByName('Settings'); // Update sheet name if different
+
+  // Check for GitHub token presence without logging or exposing the token
+  const token = PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
   const status = {
     triggers: checkTriggers().length,
     lastProcessed: settingsSheet.getRange('B49').getValue(),
     currentGW: getCurrentGameweek(),
-    githubToken: testGitHubToken(),
+    githubTokenPresent: !!token, // true if token exists, false otherwise
   };
 
   sendAdminAlert('Daily Health Check', JSON.stringify(status, null, 2));
@@ -709,7 +745,7 @@ When reporting issues, please provide:
 Current GW: [from getCurrentGameweek()]
 Last Processed: [from Settings B49]
 Trigger Status: [from checkTriggers()]
-GitHub Token: [from testGitHubToken()]
+GitHub Token Present: [true/false, do not include or request the actual token value]
 
 **Steps Already Tried:**
 [List what you've already attempted]
