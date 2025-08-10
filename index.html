@@ -813,11 +813,11 @@
         }
 
         main > * {
-          margin-bottom: 16px;
+          margin-bottom: 12px;
         }
 
         section {
-          padding: 20px;
+          padding: 16px;
         }
 
         h2 {
@@ -832,13 +832,29 @@
         .stat-box {
           width: 100%;
           min-width: unset;
-          padding: 20px 16px;
+          padding: 16px 12px;
+        }
+
+        .stat-icon {
+          font-size: 2rem;
+          margin-bottom: 8px;
+        }
+
+        .stat-title {
+          font-size: 1.1rem; /* Reduced from 1.35rem */
+          margin-bottom: 6px; /* Reduced from 8px */
+          line-height: 1.2;
+        }
+
+        .stat-number {
+          font-size: 2rem; /* Reduced from 2.5rem */
+          margin-bottom: 4px; /* Reduced from 8px */
         }
 
         #stats-last-updated {
           font-size: clamp(0.7rem, 2.5vw, 0.85rem);
-          padding: 8px 5px;
-          margin-bottom: 12px;
+          padding: 6px 5px;
+          margin-bottom: 8px;
         }
 
         .countdown-clock {
@@ -904,6 +920,13 @@
         .countdown-unit-label {
           font-size: 0.5rem;
         }
+      }
+      .pre-season {
+        margin-bottom: 12px !important;
+      }
+
+      .pre-season:last-of-type {
+        margin-bottom: 16px !important;
       }
     </style>
   </head>
@@ -1167,7 +1190,7 @@
       // Helper to flip UI into during-season mode immediately
       function showDuringSeasonUI() {
         document.querySelectorAll('.pre-season').forEach((el) => (el.style.display = 'none'));
-        document.querySelectorAll('.during-season').forEach((el) => (el.style.display = 'block'));
+        document.querySelectorAll('.during-season').forEach((el) => (el.style.display = 'none'));
         const headerP = document.querySelector('header p');
         if (headerP) headerP.textContent = 'Season 2025-26 - Live Updates';
       }
@@ -1585,7 +1608,6 @@
           // Start with pre-season view, toggle will switch to during-season
           document.querySelectorAll('.pre-season').forEach((el) => (el.style.display = 'block'));
           document.querySelectorAll('.during-season').forEach((el) => (el.style.display = 'none'));
-
           // Set header message for pre-season
           const headerP = document.querySelector('header p');
           if (headerP) {
