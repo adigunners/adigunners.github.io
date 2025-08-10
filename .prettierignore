@@ -9,3 +9,5 @@ logo images/
 .DS_Store
 coverage/
 package-lock.json
+# Ignore auto-generated JSON files
+data/*.json
