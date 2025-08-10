@@ -1,6 +1,6 @@
-# 🏆 IIM Mumbai Fantasy Premier League
+# Fantasy Mini-League Management
 
-**Automated fantasy football league management system for IIM Mumbai alumni**
+**Automated fantasy football mini-league management system**
 
 <a href="https://adigunners.github.io/" target="_blank">
   <img src="https://img.shields.io/badge/Live-Website-success?style=for-the-badge" alt="Live Website" />
@@ -24,12 +24,14 @@ This system automatically manages a complete fantasy football league for 26+ IIM
 ## 🚀 Live Features
 
 ### For Players
+
 - Automatic score tracking from official FPL API
 - Weekly and monthly prize calculations
 - Personalized email updates with league standings
 - Live website with winner leaderboards and paginated rankings
 
 ### For Admins
+
 - One-click league processing with `dailyMasterProcess()`
 - Automated winner calculations with tie-handling
 - Prize tracking with payment status management
@@ -46,8 +48,8 @@ This system automatically manages a complete fantasy football league for 26+ IIM
 
 ## 📈 Current Scale
 
-- **26 Active Players** from IIM Mumbai alumni network
-- **₹78,000 Prize Pool** (₹3,000 entry fee per player)
+- **~60 Active Players** from IIM Mumbai alumni network
+- **Prize Pool** (₹3,000 entry fee per player)
 - **Automated Processing** of 38 gameweeks per season
 - **Weekly & Monthly Prizes** with automated calculations
 
@@ -56,12 +58,12 @@ This system automatically manages a complete fantasy football league for 26+ IIM
 Experience the system with realistic test data:
 
 **[📱 Live Demo](https://adigunners.github.io/?test=true)** - See the system in action with test winner data  
-*💡 Tip: Right-click links to open in new tab*
+_💡 Tip: Right-click links to open in new tab_
 
 ## 📚 Documentation
 
-| Document                                                     | Purpose                                                 |
-| ------------------------------------------------------------ | ------------------------------------------------------- |
+| Document                                                      | Purpose                                                 |
+| ------------------------------------------------------------- | ------------------------------------------------------- |
 | [🔧 Technical Documentation](docs/TECHNICAL_DOCUMENTATION.md) | Complete system architecture and implementation details |
 | [⚙️ Setup Guide](docs/SETUP_GUIDE.md)                         | Step-by-step deployment instructions                    |
 | [📖 API Reference](docs/API_REFERENCE.md)                     | All functions, endpoints, and configurations            |
@@ -71,44 +73,49 @@ Experience the system with realistic test data:
 ## 🚀 Quick Start
 
 ### For Admins
+
 ```javascript
 // Daily league processing (run once per day)
-dailyMasterProcess()
+dailyMasterProcess();
 
 // Manual winner stats update
-manualUpdateWinnerStats()
+manualUpdateWinnerStats();
 
 // Send test emails
-testEmailSending()
+testEmailSending();
 ```
 
 ### For Developers
+
 ```javascript
 // Set up test environment
-setupCompleteTestDemo()
+setupCompleteTestDemo();
 
 // Check system status
-checkTestDataStatus()
+checkTestDataStatus();
 
 // Clean up test data
-cleanupTestDataDirect()
+cleanupTestDataDirect();
 ```
 
 ## 🎯 Key Features
 
 ### ⚡ Automated Workflows
+
 - **Daily processing** of FPL scores and winner calculations
 - **Tie-handling** for multiple winners with prize splitting
 - **Email automation** with personalized content for each player
 - **Website updates** via GitHub API integration
 
 ### 💎 Professional Features
+
 - **Prize tracking** with payment status management
 - **Admin notifications** for errors and important events
 - **Data validation** against official FPL API
 - **Comprehensive logging** for debugging and monitoring
 
 ### 🧪 Testing & Demo System
+
 - **Test mode** with realistic demo data for presentations
 - **Safe testing environment** that doesn't affect live data
 - **Email testing** with admin-only delivery
@@ -117,19 +124,21 @@ cleanupTestDataDirect()
 ## 🔗 System Integration
 
 ### External APIs
+
 - **FPL Official API** - Live player scores and gameweek data
 - **GitHub API** - Automated website updates
 - **Gmail API** - Email delivery system
 
 ### Data Flow
+
 ```
 FPL API → Google Sheets → Winner Calculations → Email System → Website Updates
 ```
 
 ## 📊 Prize Structure
 
-- **Weekly Prizes**: ₹500 (1st place), ₹300 (2nd place)
-- **Monthly Prizes**: ₹1000 (1st place), ₹700 (2nd place)  
+- **Weekly Prizes**: 1st and 2nd prizes
+- **Monthly Prizes**: 1st and 2nd prizes
 - **Season Prizes**: Top 10 players share remaining prize pool
 - **Entry Fee**: ₹3,000 per player
 
@@ -140,14 +149,16 @@ This project is currently in private development for IIM Mumbai alumni. For tech
 ## 📧 Contact
 
 **Project Admin**: Aditya Garg
+
 - Email: aditya.garg.2006@gmail.com
 - Based in: Amsterdam, NL
-- Role: Principal Pricing Manager at Just Eat Takeaway.com
+- Role: Chief Mini-League Manager (CML)
 
 ## 🏗 Project Status
 
 **Current Phase**: Active Season Management (2025-26)
-- ✅ Player registration completed (26 players)
+
+- ✅ Player registration completed (registration closes on 15th Aug)
 - ✅ Automated processing live
 - ✅ Email system operational
 - ✅ Website deployment successful
@@ -166,4 +177,4 @@ This project is currently in private development for IIM Mumbai alumni. For tech
 
 ---
 
-*Built with ❤️ for the IIM Mumbai alumni community*
+_Built with ❤️ for the FPL mini-league managers community_
