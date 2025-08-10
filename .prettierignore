@@ -1,13 +1,31 @@
+# Generated files
+data/*.json
 dist/
 build/
+
+# Dependencies
 node_modules/
-.tmp/
+
+# Cache directories
 .cache/
-docs/.vitepress/cache/
-logo images/
-*.min.js
+.temp/
+
+# Log files
+*.log
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Environment variables
+.env*
+
+# macOS specific
 .DS_Store
+
+# Test coverage output
 coverage/
-package-lock.json
-# Ignore auto-generated JSON files
-data/*.json
+
+# Build artifacts
+*.min.js
+*.min.css
