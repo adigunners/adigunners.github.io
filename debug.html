@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -75,7 +75,9 @@
         // Test 1: League Stats
         try {
           addResult('📊 Testing league_stats.json...', 'info');
-          const leagueResponse = await fetch('data/league_stats.json?cache=' + new Date().getTime());
+          const leagueResponse = await fetch(
+            'data/league_stats.json?cache=' + new Date().getTime()
+          );
           if (!leagueResponse.ok) {
             throw new Error(`HTTP ${leagueResponse.status}: ${leagueResponse.statusText}`);
           }
@@ -88,7 +90,9 @@
         // Test 2: Winner Stats (Live)
         try {
           addResult('🏆 Testing winner_stats.json...', 'info');
-          const winnerResponse = await fetch('data/winner_stats.json?cache=' + new Date().getTime());
+          const winnerResponse = await fetch(
+            'data/winner_stats.json?cache=' + new Date().getTime()
+          );
           if (!winnerResponse.ok) {
             throw new Error(`HTTP ${winnerResponse.status}: ${winnerResponse.statusText}`);
           }
