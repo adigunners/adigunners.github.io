@@ -1,11 +1,18 @@
 {
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.wordWrap": "on",
-    "editor.formatOnSave": true
-  },
-  "markdownlint.config": {
-    "MD013": false, // disable line length rule
-    "MD033": false  // allow inline HTML (needed for README badges)
-  }
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.formatOnSave": true,
+
+"[markdown]": {
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.wordWrap": "on",
+"editor.formatOnSave": true
+},
+
+"[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+"[javascriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+"[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+"[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+"[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+"[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+"[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" }
 }
