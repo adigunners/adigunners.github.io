@@ -156,12 +156,14 @@ This project is currently in private development for IIM Mumbai alumni. For tech
 
 ## 🏗 Project Status
 
-**Current Phase**: Active Season Management (2025-26)
+**Current Phase**: Active Season Management (2025-26) | **Version**: 1.0.3
 
 - ✅ Player registration completed (registration closes on 15th Aug)
 - ✅ Automated processing live
 - ✅ Email system operational
 - ✅ Website deployment successful
+- ✅ UI/UX consistency improvements deployed
+- ✅ Performance optimizations implemented
 - 🔄 Weekly/monthly winner calculations ongoing
 
 ---
