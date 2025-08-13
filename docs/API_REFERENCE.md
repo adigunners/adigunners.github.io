@@ -351,7 +351,7 @@ const validation = validateFPLTeam('123456', 'My Team Name');
 1. Check for completed gameweeks
 2. Update player scores from FPL API
 3. Calculate weekly winners with tie-handling
-4. Calculate monthly winners (every 4 GWs)
+4. Calculate monthly period winners (every 4 GWs)
 5. Update overall standings with ranking
 6. Generate winner stats JSON
 7. Trigger email system
@@ -388,16 +388,25 @@ const currentGW = getCurrentGameweek(); // Returns: 15
 
 #### `calculateMonthlyWinners(period)`
 
-**Purpose**: Calculates monthly winners for 4-gameweek periods
+**Purpose**: Calculates monthly period winners for fixed 4-gameweek prize periods
 **Parameters**: `period` (object): `{month: number, start: number, end: number}`
 **Returns**: `void`
-**Monthly Periods**:
+
+**Monthly Prize Periods**:
+These are fixed 4-gameweek periods that ensure fair competition with equal gameweek counts, unlike calendar months which vary in length (3-5 gameweeks).
 
 ```javascript
 const monthlyPeriods = [
-  { month: 1, start: 1, end: 4 },
-  { month: 2, start: 5, end: 8 },
-  // ... continues for 10 months
+  { month: 1, start: 1, end: 4 }, // Period 1: GW1-4
+  { month: 2, start: 5, end: 8 }, // Period 2: GW5-8
+  { month: 3, start: 9, end: 12 }, // Period 3: GW9-12
+  { month: 4, start: 13, end: 16 }, // Period 4: GW13-16
+  { month: 5, start: 17, end: 20 }, // Period 5: GW17-20
+  { month: 6, start: 21, end: 24 }, // Period 6: GW21-24
+  { month: 7, start: 25, end: 28 }, // Period 7: GW25-28
+  { month: 8, start: 29, end: 32 }, // Period 8: GW29-32
+  { month: 9, start: 33, end: 36 }, // Period 9: GW33-36
+  { month: 10, start: 37, end: 38 }, // Period 10: GW37-38 (final 2 GWs)
 ];
 ```
 
@@ -441,7 +450,7 @@ const monthlyPeriods = [
 **Purpose**: Master email function - determines weekly vs monthly emails
 **Trigger**: Called by `dailyMasterProcess()`
 **Returns**: `void`
-**Logic**: Sends monthly emails for GWs 4,8,12,16,20,24,28,32,36,38; weekly emails otherwise
+**Logic**: Sends monthly period emails for GWs 4,8,12,16,20,24,28,32,36,38; weekly emails otherwise
 
 #### `sendWeeklyEmails(gameweek)`
 
@@ -458,23 +467,23 @@ const monthlyPeriods = [
 
 #### `sendMonthlyEmails(gameweek)`
 
-**Purpose**: Sends enhanced monthly summary emails
-**Parameters**: `gameweek` (number): Final gameweek of the month
+**Purpose**: Sends enhanced monthly period summary emails
+**Parameters**: `gameweek` (number): Final gameweek of the monthly period
 **Template**: `MonthlyEmailTemplate.html`
 **Content Includes**:
 
-- Player's monthly journey (GW-by-GW performance)
-- Manager of the Month spotlight
-- Monthly awards and highlights
-- Complete monthly standings
+- Player's monthly period journey (GW-by-GW performance)
+- Manager of the Period spotlight
+- Monthly period awards and highlights
+- Complete monthly period standings
 
 #### `calculateMonthlyAwards(period, scoresData, headers)`
 
-**Purpose**: Calculates special awards for monthly emails
+**Purpose**: Calculates special awards for monthly period emails
 **Returns**: `{highRoller: {name: string, score: number}}`
 **Awards**:
 
-- High Roller: Highest single GW score in the month
+- High Roller: Highest single GW score in the monthly period
 
 ---
 
@@ -503,19 +512,19 @@ const monthlyPeriods = [
 
 #### `setupCompleteTestDemo()` ⭐
 
-**Purpose**: Creates comprehensive test data for 4 gameweeks + 1 month
+**Purpose**: Creates comprehensive test data for 4 gameweeks + 1 monthly period
 **Returns**: `void`
 **Creates**:
 
 - Realistic player scores (40-90 point range)
 - Weekly winners for GW1-4
-- Monthly winner for Month 1
+- Monthly period winner for Period 1
 - Complete prize tracking
 - Test JSON files
 
 #### `testEmailSending()`
 
-**Purpose**: Sends test emails (weekly + monthly) to admin only
+**Purpose**: Sends test emails (weekly + monthly period) to admin only
 **Safety**: Only sends to admin email, never to real players
 **Returns**: `void`
 

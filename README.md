@@ -16,7 +16,7 @@
 This system automatically manages a complete fantasy football mini-league for any group, club, or organization (scalable to multiple leagues):
 
 - **🔄 Automated Data Processing** - Fetches live FPL scores and calculates winners
-- **💰 Prize Management** - Tracks weekly/monthly prizes and payments
+- **💰 Prize Management** - Tracks weekly/monthly period prizes and payments
 - **📧 Email Notifications** - Sends personalized league updates and countdown campaigns to all players
 - **🌐 Live Website** - Real-time leaderboards and winner statistics
 - **📊 Admin Dashboard** - Complete league management in Google Sheets
@@ -26,7 +26,7 @@ This system automatically manages a complete fantasy football mini-league for an
 ### For Players
 
 - Automatic score tracking from official FPL API
-- Weekly and monthly prize calculations
+- Weekly and monthly period prize calculations
 - Personalized email updates with league standings
 - Live website with winner leaderboards and paginated rankings
 
@@ -51,7 +51,7 @@ This system automatically manages a complete fantasy football mini-league for an
 - **~60 Active Players** from IIM Mumbai alumni network
 - **Prize Pool** (₹3,000 entry fee per player)
 - **Automated Processing** of 38 gameweeks per season
-- **Weekly & Monthly Prizes** with automated calculations
+- **Weekly & Monthly Period Prizes** with automated calculations
 
 ## 🎮 Try the Demo
 
@@ -69,6 +69,7 @@ _💡 Tip: Right-click links to open in new tab_
 | [📖 API Reference](docs/API_REFERENCE.md)                     | All functions, endpoints, and configurations            |
 | [🔍 Troubleshooting](docs/TROUBLESHOOTING.md)                 | Common issues and solutions                             |
 | [📝 Changelog](docs/CHANGELOG.md)                             | Version history and updates                             |
+| [🔬 Game Month Research](docs/GAME_MONTH_RESEARCH.md)         | Research on monthly period definitions and terminology  |
 
 ## 🚀 Quick Start
 
@@ -146,7 +147,7 @@ FPL API → Google Sheets → Winner Calculations → Email System → Website U
 ## 📊 Prize Structure
 
 - **Weekly Prizes**: 1st and 2nd prizes
-- **Monthly Prizes**: 1st and 2nd prizes
+- **Monthly Period Prizes**: 1st and 2nd prizes (awarded every 4 gameweeks)
 - **Season Prizes**: Top 10 players share remaining prize pool
 - **Entry Fee**: ₹3,000 per player
 
@@ -172,7 +173,7 @@ This project is currently in private development for IIM Mumbai alumni. For tech
 - ✅ Website deployment successful
 - ✅ UI/UX consistency improvements deployed
 - ✅ Performance optimizations implemented
-- 🔄 Weekly/monthly winner calculations ongoing
+- 🔄 Weekly/monthly period winner calculations ongoing
 
 ---
 

@@ -149,7 +149,7 @@ const GITHUB_CONFIG = {
   1. Check for completed gameweeks
   2. Update player scores from FPL API
   3. Calculate weekly winners (handles ties)
-  4. Calculate monthly winners (every 4 gameweeks)
+  4. Calculate monthly period winners (every 4 gameweeks)
   5. Update overall standings with ranking
   6. Generate winner stats JSON
   7. Trigger email system
@@ -287,24 +287,61 @@ const DAILY_CONTENT = {
   totalPending: 1000,
   highlights: {
     gameWeeks: 2,      // Number of weekly wins
-    gameMonths: 1,     // Number of monthly wins
+    gameMonths: 1,     // Number of monthly period wins
     overallRank: 3
   },
   prizeBreakdown: {
     gameweek: 800,     // Weekly prize money
-    monthly: 700       // Monthly prize money
+    monthly: 700       // Monthly period prize money
   }
 }
 ```
 
 ## Prize Structure
 
+### Prize Pool Distribution
+
+The total prize pool comes from player entry fees (₹3,000 per player × number of players).
+
+### Prize Categories
+
+1. **Weekly Prizes** - Awarded every gameweek
+2. **Monthly Period Prizes** - Awarded every 4 gameweeks
+3. **Season-End Prizes** - Final standings bonus (if applicable)
+
 ### Current Settings (in Settings Sheet)
 
 - **Weekly Prizes**: ₹500 (1st), ₹300 (2nd)
-- **Monthly Prizes**: ₹1000 (1st), ₹700 (2nd)
+- **Monthly Period Prizes**: ₹1000 (1st), ₹700 (2nd)
 - **Entry Fee**: ₹3,000 per player
-- **Monthly Periods**: Every 4 gameweeks (GW1-4, GW5-8, etc.)
+- **Monthly Prize Periods**: Fixed 4-gameweek periods (GW1-4, GW5-8, etc.) ensuring fair competition with equal gameweek counts
+
+## Monthly Prize Period Definition
+
+### Terminology Clarification
+
+The system uses **"Monthly Prize Periods"** rather than calendar months. These are fixed 4-gameweek periods designed to ensure fairness:
+
+**Why Fixed 4-Gameweek Periods?**
+
+- **Fairness**: Each period has exactly 4 gameweeks, ensuring equal opportunity
+- **Predictability**: Easy to understand and calculate
+- **Consistency**: Avoids complications from calendar month variations (3-5 gameweeks)
+
+**Period Structure:**
+
+- Period 1: GW1-4 (typically August)
+- Period 2: GW5-8 (typically September)
+- Period 3: GW9-12 (typically October)
+- Period 4: GW13-16 (typically November)
+- Period 5: GW17-20 (typically December)
+- Period 6: GW21-24 (typically January)
+- Period 7: GW25-28 (typically February)
+- Period 8: GW29-32 (typically March)
+- Period 9: GW33-36 (typically April)
+- Period 10: GW37-38 (typically May - shortened final period)
+
+**Note**: The official Fantasy Premier League does not use "Game Month" terminology. This is a mini-league management concept for organizing prizes and competitions.
 
 ## API Integrations
 
@@ -359,7 +396,7 @@ Headers: { "Authorization": "token {GITHUB_TOKEN}" }
 
 - Creates 4 gameweeks of realistic player scores (40-90 point range)
 - Generates weekly winners with prize distribution
-- Calculates monthly winners (Month 1 = GW1-4)
+- Calculates monthly period winners (Period 1 = GW1-4)
 - Updates test website JSON files
 - Sends test emails to admin only
 

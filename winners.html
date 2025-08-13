@@ -633,7 +633,7 @@
           order: 3;
         }
         .summary-card:nth-child(2) {
-          /* Completed Gamemonths */
+          /* Completed Prize Periods */
           order: 4;
         }
 
@@ -885,7 +885,7 @@
                 <i class="fas fa-calendar-alt"></i>
               </div>
               <div class="summary-number" id="completed-gamemonths">--</div>
-              <div class="summary-label">Completed Gamemonths</div>
+              <div class="summary-label">Completed Prize Periods</div>
             </div>
             <div class="summary-card">
               <div class="summary-icon">
@@ -1004,7 +1004,7 @@
                 data.summary.completedGameweeks;
             }
 
-            // Update completed gamemonths from the JSON data summary
+            // Update completed prize periods from the JSON data summary
             if (data.summary && data.summary.completedMonths !== undefined) {
               document.getElementById('completed-gamemonths').textContent =
                 data.summary.completedMonths;
