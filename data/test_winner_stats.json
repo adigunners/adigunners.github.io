@@ -1,14 +1,14 @@
 {
-  "lastUpdated": "2025-08-13T07:29:37.265Z",
+  "lastUpdated": "2025-08-13T07:29:46.504Z",
   "summary": {
-    "totalPrizeDistributed": 2000,
+    "totalPrizeDistributed": 3000,
     "totalPaid": 0,
-    "totalPending": 2000,
-    "gameweekPrizes": 2000,
+    "totalPending": 3000,
+    "gameweekPrizes": 3000,
     "monthlyPrizes": 0,
-    "completedGameweeks": 2,
+    "completedGameweeks": 3,
     "completedMonths": 0,
-    "totalWinners": 5,
+    "totalWinners": 7,
     "lastProcessedGW": 4
   },
   "winners": [
@@ -73,6 +73,36 @@
       }
     },
     {
+      "playerName": "Aditya Garg",
+      "totalPrizeWon": 600,
+      "totalPaid": 0,
+      "totalPending": 600,
+      "prizeBreakdown": {
+        "gameweek": 600,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 2
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "1st",
+            "prize": 600,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 0
+      }
+    },
+    {
       "playerName": "Lakshman Aravind ",
       "totalPrizeWon": 400,
       "totalPaid": 0,
@@ -90,6 +120,36 @@
         "gameweeks": [
           {
             "week": 1,
+            "position": "2nd",
+            "prize": 400,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      }
+    },
+    {
+      "playerName": "Harshit Gupta",
+      "totalPrizeWon": 400,
+      "totalPaid": 0,
+      "totalPending": 400,
+      "prizeBreakdown": {
+        "gameweek": 400,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 4
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
             "position": "2nd",
             "prize": 400,
             "status": "Pending"
