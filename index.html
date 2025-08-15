@@ -2070,10 +2070,10 @@
           return;
         }
 
-        // Sort winners by overall rank (ascending) - lower rank number = better position
+        // Sort winners by total prize won (descending) - higher prize amount = better position
         const sortedWinners = winners
-          .filter((winner) => winner.highlights.overallRank) // Only include players with a rank
-          .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+          .filter((winner) => winner.totalPrizeWon > 0) // Only include players who have won prizes
+          .sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
 
         // Show top 6 winners in preview
         const topWinners = sortedWinners.slice(0, 6);
@@ -2337,7 +2337,12 @@
             if (data.winners) {
               // Sort by overall rank (ascending) - lower rank number = better position
               leaderboardData = data.winners
-                .filter((winner) => winner.highlights.overallRank) // Only include players with a rank
+                .filter(
+                  (winner) =>
+                    winner.highlights &&
+                    winner.highlights.overallRank !== null &&
+                    winner.highlights.overallRank !== undefined
+                ) // Include all players with a rank (including rank 0)
                 .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
 
               displayLeaderboard();
