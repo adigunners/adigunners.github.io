@@ -8,8 +8,8 @@
 
 ### 🐛 Bug Fixes
 
-- Fixed "League Standings" showing as empty in test mode when `winner_stats.json` is empty (pre-season).
-- Implemented safe fallback in `loadTestLeaderboardData()` to use `test_winner_stats.json` directly when live data has no winners.
+- Fixed "League Standings" showing as empty in test mode when `data/winner_stats.json` is empty (pre-season).
+- Implemented safe fallback in `loadTestLeaderboardData()` to use `data/test_winner_stats.json` directly when live data has no winners.
 - Improved merge logic when live data exists: overlays test ranks on matching names and safely pushes unranked players to the bottom.
 
 ### 🔧 Technical Notes

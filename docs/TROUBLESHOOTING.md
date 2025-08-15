@@ -14,7 +14,7 @@
 
 ### Resolution implemented
 
-- If live winners list is empty, the site now falls back to using `test_winner_stats.json` directly for standings.
+- If live winners list is empty, the site now falls back to using `data/test_winner_stats.json` directly for standings.
 - When live data exists, test ranks overlay matching players; others are kept with safe fallback ranks.
 
 ### How to validate

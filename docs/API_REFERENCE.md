@@ -43,7 +43,7 @@ return t;
 })(),
 REPO_OWNER: 'adigunners',
 REPO_NAME: 'adigunners.github.io',
-FILE_PATH: 'winner_stats.json',
+FILE_PATH: 'data/winner_stats.json',
 BRANCH: 'main',
 };
 

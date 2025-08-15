@@ -51,16 +51,16 @@ Project Structure:
 GitHub Pages Repository:
 ├── index.html - Main landing page
 ├── winners.html - Winner leaderboard page
-├── league_stats.json - Live player/pot stats
-├── winner_stats.json - Live winner data
-└── test_winner_stats.json - Test data for demos
+├── data/league_stats.json - Live player/pot stats
+├── data/winner_stats.json - Live winner data
+└── data/test_winner_stats.json - Test data for demos
 ```
 
 ### Website Test Mode & Standings Fallback (2025-08-15)
 
 - Add `?test=true` to URLs to enable test mode (e.g., `index.html?test=true`).
 - Test mode starts in pre-season view; use the "📊 Preview In-season View" toggle to reveal during-season sections.
-- When rendering League Standings during a pre-season demo, if `winner_stats.json` has no winners, the site now falls back to `test_winner_stats.json` directly.
+- When rendering League Standings during a pre-season demo, if `data/winner_stats.json` has no winners, the site now falls back to `data/test_winner_stats.json` directly.
 - If live data exists, test ranks overlay matching names; live-only players remain with their own ranks (or safe fallback rank to sort to the bottom).
 
 ## Data Flow

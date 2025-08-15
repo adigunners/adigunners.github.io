@@ -180,9 +180,9 @@ Upload these files to your repository:
 ```
 ├── index.html (Main landing page)
 ├── winners.html (Winner leaderboard page)
-├── league_stats.json (Will be auto-generated)
-├── winner_stats.json (Will be auto-generated)
-└── test_winner_stats.json (For testing)
+├── data/league_stats.json (Will be auto-generated)
+├── data/winner_stats.json (Will be auto-generated)
+└── data/test_winner_stats.json (For testing)
 ```
 
 ### Step 3: Enable GitHub Pages
