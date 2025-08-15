@@ -2215,44 +2215,63 @@
             console.log('🧪 Loaded TEST leaderboard data for toggle:', data);
 
             if (data.winners) {
-              // For leaderboard, we need ALL players from winner_stats.json (which has all players)
-              // But since we're in test mode, we'll create a combined dataset
+              // Prefer pure test data for standings in test mode, but if live data exists, merge.
               const liveUrl = 'data/winner_stats.json?cache=' + new Date().getTime();
 
               return fetch(liveUrl)
                 .then((response) => response.json())
                 .then((liveData) => {
-                  // Create a map of test data winners by name
-                  const testWinnersMap = new Map();
-                  data.winners.forEach((winner) => {
-                    testWinnersMap.set(winner.playerName, winner);
-                  });
+                  const hasLiveWinners =
+                    Array.isArray(liveData.winners) && liveData.winners.length > 0;
 
-                  // Update live data with test rankings for players who have them
-                  leaderboardData = liveData.winners
-                    .map((player) => {
-                      const testData = testWinnersMap.get(player.playerName);
-                      if (testData) {
-                        // Use test data for winners
-                        return {
-                          ...testData,
-                        };
-                      } else {
-                        // Use live data but assign a lower rank for non-winners
+                  if (!hasLiveWinners) {
+                    // Live data is empty — use test data directly so the table is populated.
+                    leaderboardData = data.winners
+                      .filter(
+                        (winner) =>
+                          winner.highlights &&
+                          winner.highlights.overallRank !== null &&
+                          winner.highlights.overallRank !== undefined
+                      )
+                      .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+                  } else {
+                    // Merge: overlay test ranks/details on top of live roster where available.
+                    const testWinnersMap = new Map();
+                    data.winners.forEach((winner) => {
+                      testWinnersMap.set(winner.playerName, winner);
+                    });
+
+                    leaderboardData = liveData.winners
+                      .map((player) => {
+                        const testData = testWinnersMap.get(player.playerName);
+                        if (testData) {
+                          return { ...testData };
+                        }
+                        // Keep live player; if no rank in live, push to bottom with placeholder
+                        const rank = player?.highlights?.overallRank;
                         return {
                           ...player,
                           highlights: {
                             ...player.highlights,
-                            overallRank: 999 + Math.random() * 1000, // Give them ranks > 999
+                            overallRank:
+                              rank !== null && rank !== undefined
+                                ? rank
+                                : 1999 + Math.random() * 1000,
                           },
                         };
-                      }
-                    })
-                    .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+                      })
+                      .filter(
+                        (p) =>
+                          p.highlights &&
+                          p.highlights.overallRank !== null &&
+                          p.highlights.overallRank !== undefined
+                      )
+                      .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+                  }
 
                   displayLeaderboard();
 
-                  // Show last updated time
+                  // Show last updated time (from test data)
                   const lastUpdated = new Date(data.lastUpdated);
                   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                   const formattedDate = lastUpdated.toLocaleString('en-GB', {
@@ -2272,7 +2291,12 @@
                   console.error('Error fetching live data for comparison:', fetchError);
                   // Fallback to just test data
                   leaderboardData = data.winners
-                    .filter((winner) => winner.highlights.overallRank)
+                    .filter(
+                      (winner) =>
+                        winner.highlights &&
+                        winner.highlights.overallRank !== null &&
+                        winner.highlights.overallRank !== undefined
+                    )
                     .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
 
                   displayLeaderboard();
@@ -2422,18 +2446,18 @@
             <tbody>
               ${currentPageData
                 .map((player, index) => {
-                  const displayRank = startIndex + index + 1;
+                  const actualRank = player.highlights.overallRank;
                   return `
                 <tr>
                   <td class="leaderboard-rank${
-                    displayRank === 1
+                    actualRank === 1
                       ? ' rank-1'
-                      : displayRank === 2
+                      : actualRank === 2
                         ? ' rank-2'
-                        : displayRank === 3
+                        : actualRank === 3
                           ? ' rank-3'
                           : ''
-                  }">${displayRank}</td>
+                  }">${actualRank}</td>
                   <td class="leaderboard-player">${escapeHTML(player.playerName)}</td>
                   <td class="leaderboard-prize">₹${player.totalPrizeWon.toLocaleString(
                     'en-IN'
