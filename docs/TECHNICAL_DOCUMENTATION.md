@@ -70,6 +70,12 @@ GitHub Pages Repository:
 - The “Back to Home” control is implemented as a floating button (bottom-right) and is not part of the header layout, avoiding overlap and spacing issues on both desktop and mobile.
 - The button preserves URL query parameters (test/data/phase/clockOffset) when navigating back to the home page.
 
+### Winners / Standings: Mobile & Data Refinements (2025-08-17)
+
+- Mobile winners now render as index-style winner cards to avoid prior table-row flex layout distortion on small viewports. Wide-screen/table rendering is preserved via viewport branching in `displayWinnerTable()`.
+- A new `Points` (Overall Score) column is available in leaderboards and demo/test data includes `totalPoints` to surface these values in previews.
+- Developers: check `winners.html` for `escapeHTML()` helper, card markup, and the `optimizeTableColumnWidths()` guard that runs only when a table is present.
+
 ## Data Flow
 
 ### 1. **Player Registration Flow**

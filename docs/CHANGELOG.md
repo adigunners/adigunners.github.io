@@ -44,6 +44,31 @@
 
 ---
 
+## [1.0.8] - 2025-08-17 - Winners / Leaderboard refinements: mobile card layout + data updates
+
+### 🎨 UI/UX & Mobile Fixes
+
+- Restored wide-screen winners layout to the original table while switching to index-style winner cards on small screens (prevents mobile distortion caused by table-row flex rules).
+- Floating phase/back toggle now matches the home page visually and by markup/IDs for consistent behaviour across pages.
+- Rank column is centered on mobile, and the #1 card keeps the left gold highlight border in the card layout.
+
+### 🧩 Data & Standings
+
+- Added a "Points" (Overall Score) column to the League Standings preview and populated demo/test data with `totalPoints` so preview and generators show consistent overall scores.
+
+### 🛠 Implementation Notes
+
+- File: `winners.html` — fixed malformed CSS, removed problematic row-level flex rules, added card-based mobile renderer and viewport-branching in `displayWinnerTable()` (table on wide screens, cards on mobile).
+- File: `index.html` — winner card styles used as canonical mobile card markup.
+- Data: `data/test_winner_stats.json` and Apps Script generators updated to include `totalPoints` for demo/test runs.
+- Added `escapeHTML()` helper and limited `optimizeTableColumnWidths()` to run only when a table is rendered.
+
+### ✅ QA
+
+- Desktop: winners table unchanged from previous wide-screen design.
+- Mobile: winners render as consistent cards (same visual style as index), no horizontal distortion.
+- Demo/test data now shows Overall Score values in previews.
+
 ## [1.0.5] - 2025-08-15 - Test Mode Standings Fix + Docs
 
 ### 🐛 Bug Fixes

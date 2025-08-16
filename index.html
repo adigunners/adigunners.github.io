@@ -112,6 +112,35 @@
         --border-color: #e9ecef; /* For subtle borders */
       }
 
+      /* =============== DESIGN SYSTEM: GLOBAL UTILS =============== */
+      /* Centralized rules to keep spacing, radii and alignment consistent */
+      .rounded {
+        border-radius: var(--border-radius) !important;
+      }
+
+      /* Table column alignment utilities (use nth-child to avoid touching markup)
+      Rank: center, Player: left, Prize: right, Points: right, Highlights: right */
+      .table-align-rank th:nth-child(1),
+      .table-align-rank td:nth-child(1) {
+        text-align: center;
+      }
+      .table-align-player th:nth-child(2),
+      .table-align-player td:nth-child(2) {
+        text-align: left;
+      }
+      .table-align-prize th:nth-child(3),
+      .table-align-prize td:nth-child(3) {
+        text-align: right;
+      }
+      .table-align-points th:nth-child(4),
+      .table-align-points td:nth-child(4) {
+        text-align: right;
+      }
+      .table-align-highlights th:nth-child(4),
+      .table-align-highlights td:nth-child(4) {
+        text-align: right;
+      }
+
       /* =============== RESET & BASE STYLES =============== */
       * {
         box-sizing: border-box;
@@ -642,8 +671,20 @@
       }
 
       .leaderboard-table th:nth-child(3) {
-        text-align: right; /* Prize column */
+        text-align: right; /* Prize column (was 4th) */
         width: 140px;
+      }
+
+      .leaderboard-table th:nth-child(4) {
+        text-align: right; /* Overall Score column (moved to last) */
+        width: 110px;
+      }
+
+      .leaderboard-score {
+        text-align: right;
+        font-weight: 700;
+        color: #333;
+        font-variant-numeric: tabular-nums;
       }
 
       .leaderboard-table td {
@@ -1019,16 +1060,46 @@
           border-spacing: 0;
         }
 
-        /* Hide leaderboard headers on mobile */
+        /* Show compact visual headers on mobile (assistive tech still reads them) */
         .leaderboard-table thead {
-          position: absolute;
-          left: -9999px;
-          top: -9999px;
+          position: relative;
+          left: auto;
+          top: auto;
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+        .leaderboard-table thead th {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: #6b6b6b;
+          background: transparent;
+          padding: 6px 8px;
+          border-radius: 6px;
+        }
+        .leaderboard-table thead th:nth-child(1) {
+          flex: 0 0 44px;
+          text-align: center;
+        }
+        .leaderboard-table thead th:nth-child(2) {
+          flex: 1 1 auto;
+          text-align: left;
+        }
+        .leaderboard-table thead th:nth-child(3) {
+          flex: 0 0 90px;
+          text-align: right;
+        }
+        .leaderboard-table thead th:nth-child(4) {
+          flex: 0 0 64px;
+          text-align: right;
         }
 
         /* Transform leaderboard rows to compact mobile cards */
         .leaderboard-table tbody tr {
-          display: block;
+          display: flex;
+          align-items: center;
+          gap: 8px;
           background: white;
           margin-bottom: 10px;
           border-radius: 8px;
@@ -1043,12 +1114,6 @@
           box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
         }
 
-        /* Mobile leaderboard card layout: Rank + Name + Prize on one row */
-        .leaderboard-table tbody tr {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
         .leaderboard-table tbody td {
           border: none;
           padding: 0;
@@ -1056,13 +1121,18 @@
           vertical-align: middle;
         }
 
-        /* Rank styling - compact badge */
+        /* Column mapping for mobile cards: 1=Rank, 2=Player, 3=Prize, 4=Overall Score */
         .leaderboard-table tbody td:nth-child(1) {
           font-weight: 700;
           font-size: 0.75rem;
+          /* give the rank a fixed, narrow column and center its contents */
+          flex: 0 0 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center !important;
         }
 
-        /* Player name - main content */
         .leaderboard-table tbody td:nth-child(2) {
           font-weight: 600;
           font-size: 0.85rem;
@@ -1070,24 +1140,39 @@
           min-width: 0;
         }
 
-        /* Prize amount - right aligned */
+        /* Prize amount (now 3rd column on desktop and mobile) */
         .leaderboard-table tbody td:nth-child(3) {
           font-weight: 700;
           text-align: right !important;
-          font-size: 0.8rem;
+          font-size: 0.9rem;
           color: var(--primary-color);
+          padding-right: 8px;
+          /* match the thead flex basis so header pill lines up with cells */
+          flex: 0 0 90px;
+        }
+
+        /* Overall Score (now last column) */
+        .leaderboard-table tbody td:nth-child(4) {
+          font-weight: 700;
+          text-align: right !important;
+          font-size: 0.9rem;
+          color: #333;
+          padding-left: 8px;
           margin-left: auto;
+          /* match the thead flex basis so header pill lines up with cells */
+          flex: 0 0 64px;
         }
 
         /* Enhanced mobile styles for top 3 leaderboard positions */
+        /* top row (rank 1) special accent */
         .leaderboard-table tbody tr:nth-child(1) {
-          background: linear-gradient(145deg, #fffbf0, #fff8e1) !important;
-          border-left: 4px solid #f9a825;
-          box-shadow: 0 2px 8px rgba(249, 168, 37, 0.15) !important;
+          background: linear-gradient(145deg, #fff8e6, #fff3d6) !important;
+          border-left: 4px solid #f4b400;
+          box-shadow: 0 2px 8px rgba(244, 180, 0, 0.12) !important;
         }
 
         .leaderboard-table tbody tr:nth-child(1):hover {
-          box-shadow: 0 3px 12px rgba(249, 168, 37, 0.25) !important;
+          box-shadow: 0 3px 12px rgba(244, 180, 0, 0.18) !important;
         }
 
         .leaderboard-table tbody tr:nth-child(2) {
@@ -1104,6 +1189,15 @@
           background: linear-gradient(145deg, #fef7e0, #fff3cd) !important;
           border-left: 4px solid #d4b106;
           box-shadow: 0 2px 8px rgba(212, 177, 6, 0.15) !important;
+        }
+
+        /* Center the rank badge on mobile cards */
+        .leaderboard-table tbody td:nth-child(1) {
+          flex: 0 0 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 6px 8px;
         }
 
         .leaderboard-table tbody tr:nth-child(3):hover {
@@ -3226,18 +3320,28 @@
         // Generate table HTML
 
         const tableHTML = `
-          <table class="leaderboard-table">
+          <table class="leaderboard-table table-align-rank table-align-player table-align-prize table-align-points">
             <thead>
               <tr>
                 <th>Rank</th>
                 <th>Player Name</th>
                 <th>Prize Won</th>
+                <th>Points</th>
               </tr>
             </thead>
             <tbody>
               ${currentPageData
                 .map((player, index) => {
                   const actualRank = player.highlights.overallRank;
+                  // Overall score field may be named differently depending on data source.
+                  const rawScore =
+                    (player.highlights && player.highlights.totalPoints) ||
+                    (typeof player.totalPoints !== 'undefined' ? player.totalPoints : null);
+                  const overallScore = rawScore === null ? null : Number(rawScore);
+                  const scoreDisplay =
+                    overallScore === null || isNaN(overallScore)
+                      ? '—'
+                      : overallScore.toLocaleString('en-IN');
                   return `
                 <tr>
                   <td class="leaderboard-rank${
@@ -3250,9 +3354,8 @@
                           : ''
                   }">${actualRank}</td>
                   <td class="leaderboard-player">${escapeHTML(player.playerName)}</td>
-                  <td class="leaderboard-prize">₹${player.totalPrizeWon.toLocaleString(
-                    'en-IN'
-                  )}</td>
+                  <td class="leaderboard-prize">₹${player.totalPrizeWon.toLocaleString('en-IN')}</td>
+                  <td class="leaderboard-score">${scoreDisplay}</td>
                 </tr>
               `;
                 })
