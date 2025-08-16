@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-16T20:06:48.873Z",
+  "lastUpdated": "2025-08-16T22:29:06.054067Z",
   "summary": {
     "totalPrizeDistributed": 97096,
     "totalPaid": 0,
@@ -71,7 +71,8 @@
       "positions": {
         "first": 6,
         "second": 0
-      }
+      },
+      "totalPoints": 2360
     },
     {
       "playerName": "Aditya Garg",
@@ -138,7 +139,8 @@
       "positions": {
         "first": 6,
         "second": 1
-      }
+      },
+      "totalPoints": 2392
     },
     {
       "playerName": "Pallab Pegu",
@@ -193,7 +195,8 @@
       "positions": {
         "first": 4,
         "second": 1
-      }
+      },
+      "totalPoints": 2344
     },
     {
       "playerName": "Vikash Kumar",
@@ -260,7 +263,8 @@
       "positions": {
         "first": 4,
         "second": 3
-      }
+      },
+      "totalPoints": 2256
     },
     {
       "playerName": "Raghav Verma",
@@ -315,7 +319,8 @@
       "positions": {
         "first": 3,
         "second": 2
-      }
+      },
+      "totalPoints": 2120
     },
     {
       "playerName": "Mayur Kriplani",
@@ -370,7 +375,8 @@
       "positions": {
         "first": 0,
         "second": 5
-      }
+      },
+      "totalPoints": 2368
     },
     {
       "playerName": "Sourabh Mandal",
@@ -413,7 +419,8 @@
       "positions": {
         "first": 2,
         "second": 1
-      }
+      },
+      "totalPoints": 2304
     },
     {
       "playerName": "Sivakumar N",
@@ -450,7 +457,8 @@
       "positions": {
         "first": 2,
         "second": 0
-      }
+      },
+      "totalPoints": 2072
     },
     {
       "playerName": "Somnath Pawar ",
@@ -493,7 +501,8 @@
       "positions": {
         "first": 1,
         "second": 2
-      }
+      },
+      "totalPoints": 2104
     },
     {
       "playerName": "Tulasi Ram Garapati",
@@ -530,7 +539,8 @@
       "positions": {
         "first": 2,
         "second": 0
-      }
+      },
+      "totalPoints": 2328
     },
     {
       "playerName": "Ashish Kumar",
@@ -573,7 +583,8 @@
       "positions": {
         "first": 1,
         "second": 2
-      }
+      },
+      "totalPoints": 2384
     },
     {
       "playerName": "Praveen Pujer",
@@ -622,7 +633,8 @@
       "positions": {
         "first": 0,
         "second": 4
-      }
+      },
+      "totalPoints": 2352
     },
     {
       "playerName": "Harshvardhan Maru",
@@ -659,7 +671,8 @@
       "positions": {
         "first": 1,
         "second": 1
-      }
+      },
+      "totalPoints": 2376
     },
     {
       "playerName": "Soubhik Chakraborty ",
@@ -713,7 +726,8 @@
       "positions": {
         "first": 3,
         "second": 2
-      }
+      },
+      "totalPoints": 2168
     },
     {
       "playerName": "Ankur Prasad",
@@ -750,7 +764,8 @@
       "positions": {
         "first": 0,
         "second": 2
-      }
+      },
+      "totalPoints": 2136
     },
     {
       "playerName": "Shivam Sachan",
@@ -787,7 +802,8 @@
       "positions": {
         "first": 0,
         "second": 2
-      }
+      },
+      "totalPoints": 2096
     },
     {
       "playerName": "Soman Panda",
@@ -829,7 +845,8 @@
       "positions": {
         "first": 2,
         "second": 1
-      }
+      },
+      "totalPoints": 2208
     },
     {
       "playerName": "Vikranth Reddy",
@@ -865,7 +882,8 @@
       "positions": {
         "first": 2,
         "second": 0
-      }
+      },
+      "totalPoints": 2320
     },
     {
       "playerName": "Sidharthshankar Pati",
@@ -907,7 +925,8 @@
       "positions": {
         "first": 2,
         "second": 1
-      }
+      },
+      "totalPoints": 2192
     },
     {
       "playerName": "Alen Aloysius",
@@ -943,7 +962,8 @@
       "positions": {
         "first": 1,
         "second": 1
-      }
+      },
+      "totalPoints": 2336
     },
     {
       "playerName": "Vinay Sudershan",
@@ -979,7 +999,8 @@
       "positions": {
         "first": 1,
         "second": 1
-      }
+      },
+      "totalPoints": 2152
     },
     {
       "playerName": "Ritesh Motghare",
@@ -1021,7 +1042,8 @@
       "positions": {
         "first": 0,
         "second": 3
-      }
+      },
+      "totalPoints": 2296
     },
     {
       "playerName": "Lakshman Aravind ",
@@ -1063,7 +1085,8 @@
       "positions": {
         "first": 1,
         "second": 2
-      }
+      },
+      "totalPoints": 2280
     },
     {
       "playerName": "Siddharth Krishna",
@@ -1099,7 +1122,8 @@
       "positions": {
         "first": 1,
         "second": 1
-      }
+      },
+      "totalPoints": 2184
     },
     {
       "playerName": "Siddharth Sharma",
@@ -1135,7 +1159,8 @@
       "positions": {
         "first": 0,
         "second": 2
-      }
+      },
+      "totalPoints": 2056
     },
     {
       "playerName": "Maheep Ajay",
@@ -1171,7 +1196,8 @@
       "positions": {
         "first": 0,
         "second": 2
-      }
+      },
+      "totalPoints": 2224
     },
     {
       "playerName": "Nipun Kochar",
@@ -1213,7 +1239,8 @@
       "positions": {
         "first": 0,
         "second": 3
-      }
+      },
+      "totalPoints": 2216
     },
     {
       "playerName": "Abhishek Ghorpade",
@@ -1249,7 +1276,8 @@
       "positions": {
         "first": 1,
         "second": 1
-      }
+      },
+      "totalPoints": 2168
     },
     {
       "playerName": "Ashutosh Thombal",
@@ -1285,7 +1313,8 @@
       "positions": {
         "first": 1,
         "second": 1
-      }
+      },
+      "totalPoints": 2288
     },
     {
       "playerName": "Avanit Kaushal",
@@ -1315,7 +1344,8 @@
       "positions": {
         "first": 1,
         "second": 0
-      }
+      },
+      "totalPoints": 2240
     },
     {
       "playerName": "Ronak Kadikar",
@@ -1345,7 +1375,8 @@
       "positions": {
         "first": 1,
         "second": 0
-      }
+      },
+      "totalPoints": 2136
     },
     {
       "playerName": "Avinash Jayashankar ",
@@ -1375,7 +1406,8 @@
       "positions": {
         "first": 1,
         "second": 0
-      }
+      },
+      "totalPoints": 2272
     },
     {
       "playerName": "Vinod Shankar",
@@ -1411,7 +1443,8 @@
       "positions": {
         "first": 0,
         "second": 2
-      }
+      },
+      "totalPoints": 1968
     },
     {
       "playerName": "Shubham Tripathi",
@@ -1441,7 +1474,8 @@
       "positions": {
         "first": 0,
         "second": 1
-      }
+      },
+      "totalPoints": 2000
     },
     {
       "playerName": "Kiran Kanoj",
@@ -1471,7 +1505,8 @@
       "positions": {
         "first": 0,
         "second": 1
-      }
+      },
+      "totalPoints": 2112
     },
     {
       "playerName": "Rohan Desai",
@@ -1501,7 +1536,8 @@
       "positions": {
         "first": 0,
         "second": 1
-      }
+      },
+      "totalPoints": 2312
     },
     {
       "playerName": "Sushil Coppa",
@@ -1531,7 +1567,8 @@
       "positions": {
         "first": 0,
         "second": 1
-      }
+      },
+      "totalPoints": 2264
     },
     {
       "playerName": "Sanchay Srivastava",
@@ -1561,7 +1598,8 @@
       "positions": {
         "first": 0,
         "second": 1
-      }
+      },
+      "totalPoints": 2024
     },
     {
       "playerName": "Varun Gupta",
@@ -1597,7 +1635,8 @@
       "positions": {
         "first": 0,
         "second": 2
-      }
+      },
+      "totalPoints": 2048
     },
     {
       "playerName": "Abhishek Addy",
@@ -1627,7 +1666,8 @@
       "positions": {
         "first": 0,
         "second": 1
-      }
+      },
+      "totalPoints": 2008
     },
     {
       "playerName": "Devesh Singh",
@@ -1663,7 +1703,8 @@
       "positions": {
         "first": 0,
         "second": 2
-      }
+      },
+      "totalPoints": 2016
     },
     {
       "playerName": "Anish Banerjee",
@@ -1693,7 +1734,8 @@
       "positions": {
         "first": 1,
         "second": 0
-      }
+      },
+      "totalPoints": 2176
     },
     {
       "playerName": "Bhushan Wagh",
@@ -1723,7 +1765,8 @@
       "positions": {
         "first": 1,
         "second": 0
-      }
+      },
+      "totalPoints": 2080
     },
     {
       "playerName": "Varun Elango",
@@ -1753,7 +1796,8 @@
       "positions": {
         "first": 1,
         "second": 0
-      }
+      },
+      "totalPoints": 2000
     },
     {
       "playerName": "Arkadeep Bal",
@@ -1783,7 +1827,8 @@
       "positions": {
         "first": 1,
         "second": 0
-      }
+      },
+      "totalPoints": 1976
     },
     {
       "playerName": "Bharanidharan S",
@@ -1813,7 +1858,8 @@
       "positions": {
         "first": 0,
         "second": 1
-      }
+      },
+      "totalPoints": 1984
     },
     {
       "playerName": "B V Dhananjay",
@@ -1836,7 +1882,8 @@
       "positions": {
         "first": 0,
         "second": 0
-      }
+      },
+      "totalPoints": 2064
     },
     {
       "playerName": "Kashyap Rana",
@@ -1859,7 +1906,8 @@
       "positions": {
         "first": 0,
         "second": 0
-      }
+      },
+      "totalPoints": 2232
     },
     {
       "playerName": "Rahul Sahai",
@@ -1882,7 +1930,8 @@
       "positions": {
         "first": 0,
         "second": 0
-      }
+      },
+      "totalPoints": 2144
     },
     {
       "playerName": "Tejeshwar Singh",
@@ -1905,7 +1954,8 @@
       "positions": {
         "first": 0,
         "second": 0
-      }
+      },
+      "totalPoints": 2200
     },
     {
       "playerName": "Ansh Makhija",
@@ -1928,7 +1978,8 @@
       "positions": {
         "first": 0,
         "second": 0
-      }
+      },
+      "totalPoints": 2040
     },
     {
       "playerName": "Gaurav G B",
@@ -1951,7 +2002,8 @@
       "positions": {
         "first": 0,
         "second": 0
-      }
+      },
+      "totalPoints": 2040
     },
     {
       "playerName": "Parth Pillai",
@@ -1974,7 +2026,8 @@
       "positions": {
         "first": 0,
         "second": 0
-      }
+      },
+      "totalPoints": 2088
     },
     {
       "playerName": "Abhishek Agarwal",
@@ -1997,7 +2050,8 @@
       "positions": {
         "first": 0,
         "second": 0
-      }
+      },
+      "totalPoints": 2256
     }
   ],
   "testMode": true,
