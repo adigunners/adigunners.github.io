@@ -67,7 +67,7 @@ _💡 Tip: Right-click links to open in new tab_
 | [🔧 Technical Documentation](docs/TECHNICAL_DOCUMENTATION.md) | Complete system architecture and implementation details |
 | [⚙️ Setup Guide](docs/SETUP_GUIDE.md)                         | Step-by-step deployment instructions                    |
 | [📖 API Reference](docs/API_REFERENCE.md)                     | All functions, endpoints, and configurations            |
-| [🔍 Troubleshooting](docs/TROUBLESHOOTING.md)                 | Common issues and solutions                             |
+| 🆘 Troubleshooting (Admin Only)                               | Maintained in the private fml-admin-docs repository     |
 | [📝 Changelog](docs/CHANGELOG.md)                             | Version history and updates                             |
 
 ## 🚀 Quick Start
@@ -188,3 +188,5 @@ This project is currently in private development for IIM Mumbai alumni. For tech
 ---
 
 _Built with ❤️ for the FPL mini-league managers community_
+
+Note: Troubleshooting content is maintained exclusively in the private admin repository (fml-admin-docs) and not in this public repo.

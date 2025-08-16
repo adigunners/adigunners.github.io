@@ -46,42 +46,80 @@
       }
       .container {
         width: 100%;
-        max-width: 1200px;
+        max-width: 1000px;
         margin: 20px auto;
         padding: 0 16px;
         background-color: transparent;
       }
+      /* Header and countdown aligned exactly like index.html (Grid keeps title centered) */
       header {
         background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: #fff;
-        text-align: center;
-        padding: 40px 20px;
-        border-radius: 12px;
+        padding: 50px 20px;
+        border-radius: var(--border-radius);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         margin-bottom: 30px;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr; /* symmetrical columns keep center centered */
+        align-items: center;
+        gap: 20px;
+        position: relative;
+      }
+      .header-main {
+        grid-column: 2 / 3; /* center column */
+        min-width: 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-self: center;
       }
       header h1 {
         margin: 0;
-        font-size: 2.5rem;
+        font-size: clamp(1rem, 4vw, 2.5rem);
         font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       header p {
         margin: 5px 0 0;
-        font-size: 1.1rem;
+        font-size: clamp(0.8rem, 3vw, 1.1rem);
         opacity: 0.9;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-      .back-button {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        padding: 10px 20px;
+      /* Floating Back to Home button (doesn't affect layout) */
+      .back-fab {
+        position: fixed;
+        right: 16px;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0));
+        z-index: 10000;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.25);
         text-decoration: none;
-        border-radius: 5px;
-        margin-top: 15px;
-        transition: background 0.2s ease;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: var(--border-radius);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        transition:
+          transform 0.15s ease,
+          background 0.2s ease;
+        font-weight: 600;
       }
-      .back-button:hover {
-        background: rgba(255, 255, 255, 0.3);
+      .back-fab:hover {
+        background: rgba(0, 0, 0, 0.35);
+        transform: translateY(-2px);
+      }
+      .back-fab:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.85);
+        outline-offset: 2px;
       }
       main {
         padding: 0;
@@ -90,7 +128,7 @@
         background-color: var(--card-background);
         padding: 30px;
         margin-bottom: 20px;
-        border-radius: 8px;
+
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
       }
       h2 {
@@ -543,7 +581,6 @@
         }
 
         .winner-table tbody td:nth-child(3) {
-          display: inline-block;
           width: auto;
           float: right;
           font-weight: 700;
@@ -781,17 +818,17 @@
         }
       }
 
-      /* Additional styles that were misplaced */
-      .test-section {
-        display: none;
-        border: 2px dashed #ff6b6b;
-        padding: 10px;
-        margin: 20px;
-        text-align: center;
-        background: #fff5f5;
-        border-radius: 8px;
-        font-weight: 600;
-        color: #ff6b6b;
+      /* Test badge style */
+      .test-badge {
+        display: inline-block;
+        margin-left: 8px;
+        padding: 2px 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        background: #fff3e0;
+        color: #e65100;
+        border: 1px solid #ffe0b2;
+        border-radius: 999px;
       }
 
       .winner-last-updated {
@@ -856,18 +893,356 @@
         font-size: 0.9rem;
         white-space: nowrap;
       }
+      /* Floating phase toggle (Test mode) */
+      .floating-toggle {
+        position: fixed;
+        left: 12px;
+        bottom: 12px;
+        z-index: 9999;
+        background: #1f1f1f;
+        color: #eaeaea;
+        border: 1px solid #444;
+        border-radius: 999px;
+        padding: 8px 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .floating-toggle button {
+        background: transparent;
+        color: inherit;
+        border: none;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      /* ===== COUNTDOWN STYLES (identical to index.html) ===== */
+      .countdown-clock {
+        grid-column: 3 / 4; /* right column */
+        flex: 0 0 auto;
+        max-width: 300px;
+        width: auto;
+        background: rgba(255, 255, 255, 0.15);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border-radius: var(--border-radius);
+        padding: 15px 20px;
+        border: 2px solid rgba(91, 186, 213, 0.4);
+        box-shadow:
+          0 4px 15px rgba(0, 0, 0, 0.1),
+          0 0 20px rgba(91, 186, 213, 0.3);
+        text-align: center;
+        animation: pulseBorder 3s infinite;
+      }
+      @keyframes pulseBorder {
+        0%,
+        100% {
+          border-color: rgba(91, 186, 213, 0.4);
+          box-shadow:
+            0 4px 15px rgba(0, 0, 0, 0.1),
+            0 0 20px rgba(91, 186, 213, 0.3);
+        }
+        50% {
+          border-color: rgba(91, 186, 213, 0.7);
+          box-shadow:
+            0 4px 15px rgba(0, 0, 0, 0.1),
+            0 0 30px rgba(91, 186, 213, 0.5);
+        }
+      }
+      .countdown-label {
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+        opacity: 0.9;
+        animation: flash 2s infinite;
+      }
+      @keyframes flash {
+        0%,
+        50% {
+          opacity: 1;
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        25%,
+        75% {
+          opacity: 0.7;
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+        }
+      }
+      .countdown-time {
+        font-family: 'Courier New', monospace;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        color: var(--secondary-color);
+        text-shadow: 0 0 8px rgba(0, 255, 133, 0.4);
+        line-height: 1.1;
+        white-space: nowrap;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+        padding: 4px 6px;
+        margin-top: 5px;
+      }
+      .countdown-separator {
+        animation: pulse 1s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+      .countdown-unit {
+        display: inline-block;
+        min-width: 18px;
+        text-align: center;
+        line-height: 1;
+      }
+      .countdown-unit-label {
+        font-family: 'Courier New', monospace;
+        font-size: 0.55rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        opacity: 0.9;
+        margin-left: 2px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .is-hidden {
+        display: none !important;
+      }
+      /* Synced badge */
+      .sync-badge {
+        display: inline-block;
+        margin-left: 8px;
+        padding: 2px 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        background: #e8f5e9;
+        color: #1b5e20;
+        border: 1px solid #c8e6c9;
+        border-radius: 999px;
+        opacity: 0;
+        transition: opacity 250ms ease;
+      }
+      .sync-badge.show {
+        opacity: 1;
+      }
+      /* Admin badge */
+      .admin-badge {
+        display: inline-block;
+        margin-left: 8px;
+        padding: 2px 6px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        background: #fff3e0;
+        color: #e65100;
+        border: 1px solid #ffe0b2;
+        border-radius: 999px;
+      }
+
+      /* ===== Header responsive tweaks (copied from index.html) ===== */
+      @media (min-width: 1201px) {
+        header {
+          padding: 40px;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .container {
+          max-width: 1200px;
+        }
+        .header-main {
+          flex: 1 1 auto;
+          text-align: center;
+          padding-right: 20px;
+        }
+        .countdown-clock {
+          flex: 0 0 auto;
+          margin-left: auto;
+        }
+      }
+
+      @media (max-width: 1024px) and (min-width: 769px) {
+        header h1 {
+          font-size: clamp(1.3rem, 3.5vw, 2rem);
+          letter-spacing: -0.3px;
+        }
+        header p {
+          font-size: clamp(0.85rem, 2.5vw, 1rem);
+        }
+        .header-main {
+          flex: 1 1 60%;
+          text-align: center;
+        }
+        .countdown-clock {
+          flex: 0 0 auto;
+          max-width: 250px;
+          margin-left: auto;
+        }
+      }
+
+      @media (max-width: 768px) {
+        header {
+          grid-template-columns: 1fr; /* stack */
+          text-align: center;
+          gap: 16px;
+        }
+        .header-main {
+          width: 100%;
+          justify-self: center;
+        }
+        header h1 {
+          white-space: normal;
+          overflow: visible;
+          text-overflow: unset;
+          line-height: 1.2;
+        }
+        header p {
+          white-space: normal;
+          overflow: visible;
+          text-overflow: unset;
+        }
+        .countdown-clock {
+          width: 100%;
+          max-width: 300px;
+          margin: 0 auto;
+          justify-self: center;
+        }
+        .back-fab {
+          right: 12px;
+          bottom: calc(12px + env(safe-area-inset-bottom, 0));
+          padding: 9px 12px;
+        }
+      }
+
+      @media (min-width: 820px) and (max-width: 950px) {
+        header {
+          padding: 30px 15px;
+        }
+        header h1 {
+          font-size: 1.4rem;
+          letter-spacing: -0.5px;
+        }
+        header p {
+          font-size: 0.9rem;
+        }
+        .countdown-clock {
+          padding: 12px 15px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 0 12px;
+        }
+        header {
+          padding: 20px 10px;
+          margin-bottom: 16px;
+          flex-direction: column;
+          gap: 15px;
+        }
+        .header-main {
+          width: 100%;
+        }
+        header h1 {
+          font-size: clamp(1rem, 5vw, 1.6rem);
+        }
+        header p {
+          font-size: clamp(0.8rem, 3.5vw, 1rem);
+        }
+        .countdown-clock {
+          max-width: 280px;
+          padding: 12px 15px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        header {
+          padding: 15px 10px;
+        }
+        header h1 {
+          font-size: 0.95rem;
+          letter-spacing: -0.5px;
+          white-space: normal;
+          line-height: 1.2;
+          text-overflow: unset;
+          overflow: visible;
+        }
+        header p {
+          font-size: 0.75rem;
+        }
+        .countdown-clock {
+          padding: 8px 5px;
+        }
+        .countdown-label {
+          font-size: 0.7rem;
+          letter-spacing: 0;
+        }
+        .countdown-time {
+          font-size: 0.8rem;
+          letter-spacing: 0;
+        }
+        .countdown-unit {
+          min-width: 12px;
+        }
+        .countdown-unit-label {
+          font-size: 0.5rem;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <header>
-        <h1>🏆 Complete Winner Scorecard</h1>
-        <p>IIM Mumbai Fantasy League - Season 2025-26</p>
-        <a href="index.html" class="back-button">
-          <i class="fas fa-arrow-left"></i> Back to Home
-        </a>
+        <!-- Main header block mirroring index.html -->
+        <div class="header-main">
+          <h1>🏆 Complete Winner Scorecard</h1>
+          <p>IIM Mumbai Fantasy League - Season 2025-26</p>
+        </div>
+        <!-- Countdown Clock (same structure as index.html) -->
+        <div id="countdown-clock" class="countdown-clock is-hidden" aria-live="polite">
+          <div class="countdown-label" id="countdown-label">Time until GW1 kick-off</div>
+          <div class="countdown-time">
+            <span class="countdown-unit">
+              <span id="countdown-days">00</span>
+              <span class="countdown-unit-label">D</span>
+            </span>
+            <span class="countdown-separator">:</span>
+            <span class="countdown-unit">
+              <span id="countdown-hours">00</span>
+              <span class="countdown-unit-label">H</span>
+            </span>
+            <span class="countdown-separator">:</span>
+            <span class="countdown-unit">
+              <span id="countdown-minutes">00</span>
+              <span class="countdown-unit-label">M</span>
+            </span>
+          </div>
+        </div>
       </header>
-      <div class="test-section">🧪 Testing Mode Active</div>
+      <!-- Floating phase toggle (test only) -->
+      <div id="floating-phase-toggle" class="floating-toggle is-hidden" aria-live="polite">
+        <i class="fas fa-random" aria-hidden="true"></i>
+        <button id="phase-toggle-btn-float-winners" onclick="togglePhaseWinners()">
+          Toggle phase
+        </button>
+        <button
+          id="phase-toggle-open-home"
+          onclick="openHomeWithToggledPhase()"
+          title="Opens Home with toggled phase; preserves test/data/clockOffset"
+          aria-label="Open Home with toggled phase; preserves test, data, and clockOffset"
+        >
+          Open Home
+        </button>
+      </div>
+      <!-- Test badge appended in test mode via JS -->
 
       <main>
         <section>
@@ -912,7 +1287,7 @@
             <div class="winner-loading">Loading complete winner data...</div>
           </div>
 
-          <div class="winner-navigation" id="winner-navigation" style="display: none">
+          <div class="winner-navigation is-hidden" id="winner-navigation">
             <button
               id="winner-prev-page"
               class="winner-nav-btn"
@@ -942,9 +1317,332 @@
         <p>Developed by Aditya Garg (@addygunner)</p>
         <p class="footer-last-updated">Last updated: August 2025</p>
       </footer>
+      <!-- Floating Back to Home button -->
+      <a id="back-fab" href="index.html" class="back-fab" aria-label="Back to Home">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        Back to Home
+      </a>
     </div>
 
     <script>
+      // ===== Countdown logic (mirrors index.html, trimmed for winners page) =====
+      const _urlParams_boot = new URLSearchParams(window.location.search);
+      const _clockOffsetRaw = parseInt(_urlParams_boot.get('clockOffset') || '0', 10);
+      const timeOffsetMs = isNaN(_clockOffsetRaw) ? 0 : _clockOffsetRaw;
+      function now() {
+        return new Date(Date.now() + timeOffsetMs);
+      }
+
+      function show(el) {
+        if (el) el.classList.remove('is-hidden');
+      }
+      function hide(el) {
+        if (el) el.classList.add('is-hidden');
+      }
+
+      let countdownInterval = null;
+      let countdownShown = false;
+      let usedCachedOnLoad = false;
+      let _lastSyncIso = null;
+      let _lastGwId = null;
+      function isAdminMode() {
+        const p = new URLSearchParams(window.location.search);
+        return p.get('test') === 'true' || p.get('admin') === 'true';
+      }
+      function setLastSyncInfo(gwId, iso) {
+        _lastGwId = gwId || _lastGwId;
+        _lastSyncIso = iso || _lastSyncIso;
+      }
+      function removeCachedLabel() {
+        const label = document.getElementById('countdown-label');
+        if (!label) return;
+        label.textContent = label.textContent.replace(/\s*\(cached\)$/i, '');
+      }
+      function showSyncedJustNow() {
+        const label = document.getElementById('countdown-label');
+        if (!label) return;
+        const old = label.querySelector('.sync-badge');
+        if (old) old.remove();
+        const b = document.createElement('span');
+        b.className = 'sync-badge';
+        b.textContent = 'Synced just now';
+        label.appendChild(b);
+        void b.offsetWidth;
+        b.classList.add('show');
+        setTimeout(() => {
+          b.classList.remove('show');
+          setTimeout(() => b.remove(), 350);
+        }, 2000);
+      }
+      function attachAdminBadge() {
+        if (!isAdminMode()) return;
+        const label = document.getElementById('countdown-label');
+        if (!label) return;
+        let badge = label.querySelector('.admin-badge');
+        const parts = [];
+        if (typeof _lastGwId === 'number') parts.push(`GW${_lastGwId}`);
+        if (_lastSyncIso) {
+          try {
+            const d = new Date(_lastSyncIso);
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const nice = d.toLocaleString('en-GB', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+              timeZone: tz,
+            });
+            parts.push(`synced ${nice}`);
+          } catch {}
+        }
+        const text = parts.length ? parts.join(' • ') : 'admin';
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'admin-badge';
+          badge.textContent = text;
+          label.appendChild(badge);
+        } else {
+          badge.textContent = text;
+        }
+      }
+
+      function getCachedDeadline() {
+        try {
+          const iso = localStorage.getItem('fpl_next_deadline');
+          if (!iso) return null;
+          const d = new Date(iso);
+          return isNaN(d.getTime()) ? null : d;
+        } catch {
+          return null;
+        }
+      }
+      function setCachedDeadline(iso) {
+        try {
+          localStorage.setItem('fpl_next_deadline', iso);
+        } catch {}
+      }
+      function getCachedGameweek() {
+        try {
+          const raw = localStorage.getItem('fpl_cached_gw');
+          if (!raw) return null;
+          const obj = JSON.parse(raw);
+          if (!obj || typeof obj.id === 'undefined' || !obj.deadline_time) return null;
+          const d = new Date(obj.deadline_time);
+          if (isNaN(d.getTime())) return null;
+          return { id: obj.id, deadline_time: obj.deadline_time };
+        } catch {
+          return null;
+        }
+      }
+      function setCachedGameweek(gw) {
+        try {
+          if (gw && typeof gw.id !== 'undefined' && gw.deadline_time) {
+            localStorage.setItem(
+              'fpl_cached_gw',
+              JSON.stringify({ id: gw.id, deadline_time: gw.deadline_time })
+            );
+          }
+        } catch {}
+      }
+
+      function startCountdown(deadlineTime, gameweek = null) {
+        if (countdownInterval) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+        }
+        const clock = document.getElementById('countdown-clock');
+        if (clock) show(clock);
+        if (gameweek) {
+          updateGameweekCountdown(gameweek);
+        } else {
+          updateCountdownDisplay(deadlineTime);
+        }
+        countdownInterval = setInterval(() => {
+          if (gameweek) {
+            updateGameweekCountdown(gameweek);
+          } else {
+            updateCountdownDisplay(deadlineTime);
+          }
+        }, 1000);
+        countdownShown = true;
+      }
+      function updateCountdownDisplay(deadlineTime) {
+        const currentDate = now();
+        const diff = deadlineTime - currentDate;
+        if (diff <= 0) {
+          const clock = document.getElementById('countdown-clock');
+          if (clock) hide(clock);
+          return;
+        }
+        const label = document.getElementById('countdown-label');
+        if (label) {
+          label.textContent = 'Time until GW1 kick-off';
+          attachAdminBadge();
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const dEl = document.getElementById('countdown-days');
+        const hEl = document.getElementById('countdown-hours');
+        const mEl = document.getElementById('countdown-minutes');
+        if (dEl) dEl.textContent = String(days).padStart(2, '0');
+        if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+        if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
+      }
+      function updateGameweekCountdown(gameweek) {
+        const clock = document.getElementById('countdown-clock');
+        const label = document.getElementById('countdown-label');
+        if (clock && label) {
+          show(clock);
+          label.textContent = `Time until GW${gameweek.id} kick-off`;
+          attachAdminBadge();
+          const deadlineTime = new Date(gameweek.deadline_time);
+          const currentDate = now();
+          const diff = deadlineTime - currentDate;
+          if (diff <= 0) {
+            document.getElementById('countdown-days').textContent = 'LIVE';
+            document.getElementById('countdown-hours').textContent = '';
+            document.getElementById('countdown-minutes').textContent = '';
+            document
+              .querySelectorAll('.countdown-separator')
+              .forEach((s) => s.classList.add('is-hidden'));
+            document
+              .querySelectorAll('.countdown-unit-label')
+              .forEach((l) => l.classList.add('is-hidden'));
+          } else {
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('countdown-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = String(minutes).padStart(
+              2,
+              '0'
+            );
+            document
+              .querySelectorAll('.countdown-separator')
+              .forEach((s) => s.classList.remove('is-hidden'));
+            document
+              .querySelectorAll('.countdown-unit-label')
+              .forEach((l) => l.classList.remove('is-hidden'));
+          }
+        }
+      }
+
+      function loadFPLSeasonData() {
+        const backendUrl = 'data/next_deadline.json?cache=' + Date.now();
+        fetch(backendUrl)
+          .then((r) => (r.ok ? r.json() : Promise.reject(new Error('backend 404'))))
+          .then((data) => {
+            if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
+              const gw = data.nextGameweek;
+              const deadline = new Date(gw.deadline_time);
+              setCachedDeadline(deadline.toISOString());
+              setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
+              setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
+              updateGameweekCountdown(gw);
+              startCountdown(deadline, gw);
+              scheduleRolloverCheck(deadline);
+              attachAdminBadge();
+              return;
+            }
+            throw new Error('backend payload invalid');
+          })
+          .catch(() => {
+            loadFPLSeasonDataViaProxy();
+          });
+      }
+      function scheduleRolloverCheck(deadline) {
+        const ms = deadline - now();
+        if (ms > 0 && ms < 1000 * 60 * 60 * 24 * 7) {
+          setTimeout(() => {
+            fetch('data/next_deadline.json?cache=' + Date.now())
+              .then((r) => (r.ok ? r.json() : Promise.reject()))
+              .then((data) => {
+                if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
+                  const gw = data.nextGameweek;
+                  const dl = new Date(gw.deadline_time);
+                  setCachedDeadline(dl.toISOString());
+                  setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
+                  setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
+                  updateGameweekCountdown(gw);
+                  startCountdown(dl, gw);
+                  attachAdminBadge();
+                } else {
+                  loadFPLSeasonDataViaProxy();
+                }
+              })
+              .catch(loadFPLSeasonDataViaProxy);
+          }, ms + 15000);
+        }
+      }
+      function loadFPLSeasonDataViaProxy() {
+        const corsProxies = [
+          'https://api.allorigins.win/raw?url=' +
+            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
+          'https://corsproxy.io/?' +
+            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
+          'https://api.codetabs.com/v1/proxy?quest=' +
+            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
+        ];
+        let i = 0;
+        function tryNext() {
+          if (i >= corsProxies.length) {
+            const fallbackDate = new Date('2025-08-15T17:30:00Z');
+            setCachedDeadline(fallbackDate.toISOString());
+            const clock = document.getElementById('countdown-clock');
+            if (clock) show(clock);
+            if (usedCachedOnLoad) {
+              removeCachedLabel();
+              showSyncedJustNow();
+              usedCachedOnLoad = false;
+            }
+            updateCountdownDisplay(fallbackDate);
+            startCountdown(fallbackDate);
+            return;
+          }
+          const url = corsProxies[i];
+          fetch(url)
+            .then((resp) => {
+              if (!resp.ok) throw new Error('proxy failed');
+              return resp.json();
+            })
+            .then((data) => {
+              const nextGameweek = data.events.find((e) => e.is_next === true);
+              if (nextGameweek) {
+                const deadlineTime = new Date(nextGameweek.deadline_time);
+                setCachedDeadline(deadlineTime.toISOString());
+                setCachedGameweek({
+                  id: nextGameweek.id,
+                  deadline_time: nextGameweek.deadline_time,
+                });
+                setLastSyncInfo(nextGameweek.id, new Date().toISOString());
+                if (usedCachedOnLoad) {
+                  removeCachedLabel();
+                  showSyncedJustNow();
+                  usedCachedOnLoad = false;
+                }
+                updateGameweekCountdown(nextGameweek);
+                startCountdown(deadlineTime, nextGameweek);
+                scheduleRolloverCheck(deadlineTime);
+                attachAdminBadge();
+              } else {
+                const fallbackDate = new Date('2025-08-15T17:30:00Z');
+                setCachedDeadline(fallbackDate.toISOString());
+                if (usedCachedOnLoad) {
+                  removeCachedLabel();
+                  showSyncedJustNow();
+                  usedCachedOnLoad = false;
+                }
+                updateCountdownDisplay(fallbackDate);
+                startCountdown(fallbackDate);
+              }
+            })
+            .catch(() => {
+              i++;
+              tryNext();
+            });
+        }
+        tryNext();
+      }
       // Global variables for winner pagination
       let allWinners = [];
       let currentWinnerPage = 1;
@@ -958,20 +1656,58 @@
         isDebugMode = isTestMode || urlParams.get('debug') === '1';
         loadWinnerData();
         checkTestMode();
+
+        // Countdown: optionally render from cache early in test mode
+        if (isTestMode) {
+          const cachedDeadline = getCachedDeadline();
+          if (cachedDeadline && cachedDeadline - now() > 0) {
+            const countdownClock = document.getElementById('countdown-clock');
+            if (countdownClock) show(countdownClock);
+            const label = document.getElementById('countdown-label');
+            if (label && !label.textContent.includes('(cached)')) {
+              label.textContent = label.textContent + ' (cached)';
+            }
+            usedCachedOnLoad = true;
+            startCountdown(cachedDeadline);
+          }
+        }
+
+        // Load season data for countdown
+        loadFPLSeasonData();
+
+        // Safety fallback if nothing shows quickly
+        setTimeout(() => {
+          if (!countdownShown) {
+            const fallbackDate = new Date('2025-08-15T17:30:00Z');
+            const countdownClock = document.getElementById('countdown-clock');
+            if (countdownClock) show(countdownClock);
+            startCountdown(fallbackDate);
+          }
+        }, 1500);
       });
+
+      function getDataOverride() {
+        const p = (new URLSearchParams(window.location.search).get('data') || 'auto').toLowerCase();
+        return p === 'test' || p === 'live' ? p : 'auto';
+      }
 
       function loadWinnerData() {
         // Check if we're in test mode and load appropriate file
         const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get('test') === 'true';
-        isDebugMode = isTestMode || urlParams.get('debug') === '1';
+        const isTestParam = urlParams.get('test') === 'true';
+        const dataOverride = getDataOverride();
+        let useTestData = isTestParam;
+        if (dataOverride === 'test') useTestData = true;
+        if (dataOverride === 'live') useTestData = false;
+        isDebugMode = isTestParam || urlParams.get('debug') === '1';
 
-        const winnerUrl = isTestMode
-          ? 'data/test_winner_stats.json?cache=' + new Date().getTime()
-          : 'data/winner_stats.json?cache=' + new Date().getTime();
+        const winnerUrl =
+          (useTestData ? 'data/test_winner_stats.json' : 'data/winner_stats.json') +
+          '?cache=' +
+          new Date().getTime();
 
         if (isDebugMode)
-          console.log(isTestMode ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
+          console.log(useTestData ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
 
         fetch(winnerUrl)
           .then((response) => {
@@ -985,7 +1721,7 @@
             if (isDebugMode) console.log('Fetched winner data:', data);
 
             // Add test mode indicator if needed
-            if (isTestMode && data.testMode) {
+            if (useTestData && data.testMode) {
               const headerP = document.querySelector('header p');
               if (headerP && !headerP.textContent.includes('[TEST MODE]')) {
                 headerP.textContent = headerP.textContent + ' [TEST MODE - Demo Data]';
@@ -1020,7 +1756,7 @@
               timeZone: userTimeZone,
             });
 
-            const updateText = isTestMode
+            const updateText = useTestData
               ? `Last updated: ${formattedDate} (test data)`
               : `Last updated: ${formattedDate} (your local time)`;
 
@@ -1102,10 +1838,10 @@
         // Show/hide navigation based on total pages
         if (navigation) {
           if (totalPages > 1) {
-            navigation.style.display = 'flex';
+            show(navigation);
             updateWinnerNavigation(totalPages);
           } else {
-            navigation.style.display = 'none';
+            hide(navigation);
           }
         }
 
@@ -1253,18 +1989,114 @@
           '₹' + totalPrizeMoney.toLocaleString('en-IN');
       }
 
+      function buildNavQuery(keys = ['test', 'data', 'phase', 'clockOffset']) {
+        try {
+          const src = new URLSearchParams(window.location.search);
+          const params = new URLSearchParams();
+          keys.forEach((k) => {
+            const v = src.get(k);
+            if (v !== null && v !== undefined && v !== '') params.set(k, v);
+          });
+          const qs = params.toString();
+          return qs ? `?${qs}` : '';
+        } catch (e) {
+          return '';
+        }
+      }
+
       function checkTestMode() {
         const params = new URLSearchParams(window.location.search);
         const isTestMode = params.get('test') === 'true';
+        const phase = (params.get('phase') || 'auto').toLowerCase();
 
         if (isTestMode) {
           if (isDebugMode) console.log('🧪 Test mode activated!');
-          const section = document.querySelector('.test-section');
-          if (section) section.style.display = 'block';
+          // Winners page does not exist in pre-season. Redirect to home if explicitly pre.
+          if (phase === 'pre') {
+            const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
+            const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
+            qp.set('phase', 'pre');
+            const finalQs = qp.toString();
+            window.location.replace('index.html' + (finalQs ? '?' + finalQs : ''));
+            return;
+          }
+          const headerP = document.querySelector('header p');
+          if (headerP) {
+            if (phase === 'pre') {
+              headerP.textContent = 'Season 2025-26 - Registration Open [TEST MODE]';
+            } else if (phase === 'season') {
+              headerP.textContent = 'Season 2025-26 - Live Updates [TEST MODE]';
+            } else if (!headerP.textContent.includes('[TEST MODE]')) {
+              headerP.textContent = headerP.textContent + ' [TEST MODE]';
+            }
+            headerP.style.color = '#ff6b6b';
+          }
+          const h1 = document.querySelector('header h1');
+          if (h1 && !h1.querySelector('.test-badge')) {
+            const b = document.createElement('span');
+            b.className = 'test-badge';
+            b.textContent = 'TEST MODE';
+            h1.appendChild(b);
+          }
+          const back = document.getElementById('back-fab');
+          if (back) back.href = 'index.html' + buildNavQuery();
+
+          // Floating toggle visible in test mode
+          const floatToggle = document.getElementById('floating-phase-toggle');
+          if (floatToggle) floatToggle.classList.remove('is-hidden');
+          updatePhaseToggleButtonsWinners();
         } else {
-          // Ensure test section is hidden in live mode
-          const section = document.querySelector('.test-section');
-          if (section) section.style.display = 'none';
+          const back = document.getElementById('back-fab');
+          if (back) back.href = 'index.html' + buildNavQuery();
+          // In live mode, if phase is explicitly set to pre, redirect to Home (pre-season only)
+          const params2 = new URLSearchParams(window.location.search);
+          const phase2 = (params2.get('phase') || 'auto').toLowerCase();
+          if (phase2 === 'pre') {
+            const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
+            const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
+            qp.set('phase', 'pre');
+            const finalQs = qp.toString();
+            window.location.replace('index.html' + (finalQs ? '?' + finalQs : ''));
+            return;
+          }
+          const floatToggle = document.getElementById('floating-phase-toggle');
+          if (floatToggle) floatToggle.classList.add('is-hidden');
+        }
+      }
+
+      function getPhaseParam() {
+        return (new URLSearchParams(window.location.search).get('phase') || 'auto').toLowerCase();
+      }
+      function updatePhaseToggleButtonsWinners() {
+        const btn = document.getElementById('phase-toggle-btn-float-winners');
+        const openHomeBtn = document.getElementById('phase-toggle-open-home');
+        if (!btn) return;
+        // Winners page is in-season only; keep toggle to switch to pre-season (redirects to Home)
+        btn.textContent = '📝 Switch to Pre-season (redirect to Home)';
+        if (openHomeBtn) openHomeBtn.textContent = 'Open Home';
+      }
+      function togglePhaseWinners() {
+        // Force pre-season param; checkTestMode will redirect to Home
+        const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
+        const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
+        qp.set('phase', 'pre');
+        const finalQs = qp.toString();
+        window.location.href = 'winners.html' + (finalQs ? '?' + finalQs : '');
+      }
+
+      function openHomeWithToggledPhase() {
+        try {
+          const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
+          const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
+          qp.set('phase', 'pre');
+          const finalQs = qp.toString();
+          window.location.href = 'index.html' + (finalQs ? '?' + finalQs : '');
+        } catch (e) {
+          const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
+          const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
+          qp.set('phase', 'pre');
+          const finalQs = qp.toString();
+          window.location.href = 'index.html' + (finalQs ? '?' + finalQs : '');
         }
       }
     </script>

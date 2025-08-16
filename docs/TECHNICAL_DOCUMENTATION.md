@@ -63,6 +63,13 @@ GitHub Pages Repository:
 - When rendering League Standings during a pre-season demo, if `data/winner_stats.json` has no winners, the site now falls back to `data/test_winner_stats.json` directly.
 - If live data exists, test ranks overlay matching names; live-only players remain with their own ranks (or safe fallback rank to sort to the bottom).
 
+### Winners Header Parity & Floating Back Button (2025-08-16)
+
+- The Winners page header mirrors the home page for consistent alignment and spacing.
+- Implementation uses CSS Grid with symmetric columns (1fr auto 1fr) so the title remains perfectly centered regardless of the countdown width.
+- The “Back to Home” control is implemented as a floating button (bottom-right) and is not part of the header layout, avoiding overlap and spacing issues on both desktop and mobile.
+- The button preserves URL query parameters (test/data/phase/clockOffset) when navigating back to the home page.
+
 ## Data Flow
 
 ### 1. **Player Registration Flow**
@@ -106,7 +113,7 @@ GITHUB_TOKEN: 'ghp_xxxxx'; // GitHub Personal Access Token (PLACEHOLDER ONLY)
 
 To scan your repository for accidentally committed GitHub tokens or authorization headers, you can use the following script:
 
-````sh
+```sh
 # Scan for GitHub PATs and Authorization headers in your repo
 # Covers classic/fine-grained prefixes and common Authorization forms
 git grep -InE \
@@ -115,6 +122,8 @@ git grep -InE \
 # Optional: use gitleaks for broader secret patterns
 # brew install gitleaks  # or see https://github.com/gitleaks/gitleaks
 gitleaks detect --no-git -v || true
+
+```
 
 If any matches are found, **immediately revoke the exposed token** in your GitHub account settings and remove the sensitive data from your repository history.
 
@@ -136,7 +145,7 @@ const GITHUB_CONFIG = {
   FILE_PATH: 'winner_stats.json',
   BRANCH: 'main',
 };
-````
+```
 
 ## Core Functions & Workflows
 
@@ -429,30 +438,9 @@ initializePrizeTrackingSheet();
 - GitHub repository: Admin push access
 - Email templates: No external dependencies
 
-## Troubleshooting Guide
+## Troubleshooting (Scope)
 
-### Common Issues
-
-1. **FPL API Rate Limiting**: Built-in delays between requests
-2. **GitHub API Failures**: Error handling with fallback logging
-3. **Email Delivery Issues**: Individual error catching per recipient
-4. **Data Sync Issues**: Manual validation functions available
-
-### Debug Functions
-
-```javascript
-// Check current gameweek
-getCurrentGameweek();
-
-// Validate sheet structure
-validateSheetStructure();
-
-// Test GitHub integration
-testGitHubToken();
-
-// Manual winner stats update
-manualUpdateWinnerStats();
-```
+Operational troubleshooting procedures are maintained exclusively in the private admin documentation (fml-admin-docs). This public technical document focuses on architecture and implementation details only.
 
 ## Performance Optimizations
 
@@ -513,8 +501,6 @@ manualUpdateWinnerStats();
 5. **Professional Appearance**: Clean, modern look that emphasizes content over effects
 
 ### Frontend Optimization (v1.0.1)
-
-### Frontend Optimization
 
 - **JavaScript Rendering Engine**: Replaced complex template literals with explicit string concatenation for better browser compatibility
 - **Mobile Responsive Design**: Enhanced progressive font scaling for ultra-narrow screens (320px and below)
@@ -672,8 +658,8 @@ cleanupTestDataDirect();
 ### Contact & Support
 
 - **Admin**: Aditya Garg (aditya.garg.2006@gmail.com)
-- **Repository**: https://github.com/adigunners/adigunners.github.io
-- **Website**: https://adigunners.github.io/
+- **Repository**: [github.com/adigunners/adigunners.github.io](https://github.com/adigunners/adigunners.github.io)
+- **Website**: [adigunners.github.io](https://adigunners.github.io/)
 
 ---
 

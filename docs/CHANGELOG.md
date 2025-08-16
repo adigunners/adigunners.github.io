@@ -4,6 +4,27 @@
 
 ---
 
+## [1.0.6] - 2025-08-16 - Winners Header Parity + Floating Back Button
+
+### 🎨 UI/UX Improvements
+
+- Winners page header now mirrors the home page exactly. Title remains perfectly centered on desktop regardless of side content width.
+- Introduced a floating “Back to Home” button (bottom-right). This keeps layout clean across desktop and mobile and prevents header overlap issues.
+- Improved mobile wrapping for header title/subtitle to avoid clipping on small screens.
+
+### 🔧 Implementation Notes
+
+- Header implemented with CSS Grid (1fr auto 1fr) to lock center alignment; countdown sits in the right column.
+- The Back button is no longer part of the header flow; it’s a fixed-position control with safe-area support and an accessible focus state.
+- Navigation preserves query params (test/data/phase/clockOffset) when returning to Home.
+
+### ✅ QA & Verification
+
+- Desktop: Title centered, countdown on right, no visual shift when content widths change.
+- Mobile: Stacked header, no overlap, floating Back button visible and tap-friendly.
+
+---
+
 ## [1.0.5] - 2025-08-15 - Test Mode Standings Fix + Docs
 
 ### 🐛 Bug Fixes
@@ -20,8 +41,8 @@
 
 ### 📚 Documentation Updates
 
-- Added troubleshooting guide for empty standings in test mode.
 - Documented website test mode and leaderboard data fallback in Technical Documentation.
+- Consolidated troubleshooting into the private admin repository (fml-admin-docs); removed public troubleshooting doc.
 
 ---
 

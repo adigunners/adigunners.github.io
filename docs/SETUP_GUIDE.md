@@ -660,7 +660,7 @@ function reportError(error, context = {}) {
 }
 ```
 
-## 🆘 Troubleshooting Quick Fixes
+## 🆘 Troubleshooting Quick Fixes (Admin Only)
 
 ### Critical Issues (v1.0.1 Updates)
 
@@ -718,7 +718,7 @@ testEmailSending();
 
 ### Support Resources
 
-- [Complete Troubleshooting Guide](TROUBLESHOOTING.md) - Updated with v1.0.1 fixes
+- Troubleshooting is maintained in the private admin repository (fml-admin-docs)
 - [API Reference](API_REFERENCE.md)
 - [Technical Documentation](TECHNICAL_DOCUMENTATION.md) - Enhanced with SaaS roadmap
 

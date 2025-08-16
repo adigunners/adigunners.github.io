@@ -54,7 +54,7 @@
     <!-- Performance Optimizations -->
     <link rel="dns-prefetch" href="//fantasy.premierleague.com" />
     <link rel="preconnect" href="https://fantasy.premierleague.com" crossorigin />
-    <meta name="theme-color" content="#37003c" />
+    <!-- theme-color meta is optional; removed to avoid cross-browser support warning -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -231,6 +231,19 @@
         opacity: 1;
       }
 
+      /* Admin badge (test/admin mode only) */
+      .admin-badge {
+        display: inline-block;
+        margin-left: 8px;
+        padding: 2px 6px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        background: #fff3e0;
+        color: #e65100;
+        border: 1px solid #ffe0b2;
+        border-radius: 999px;
+      }
+
       .countdown-time {
         font-family: 'Courier New', monospace;
         font-size: 0.85rem;
@@ -262,17 +275,21 @@
 
       .countdown-unit {
         display: inline-block;
-        min-width: 14px;
+        min-width: 18px;
         text-align: center;
+        line-height: 1;
       }
 
       .countdown-unit-label {
+        font-family: 'Courier New', monospace;
         font-size: 0.55rem;
-        font-weight: 600;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.1px;
+        letter-spacing: 0.6px;
         opacity: 0.9;
-        margin-left: 0.5px;
+        margin-left: 2px;
+        display: inline-block;
+        vertical-align: middle;
       }
 
       /* =============== MAIN CONTENT =============== */
@@ -986,8 +1003,12 @@
         }
 
         /* Mobile leaderboard card layout: Rank + Name + Prize on one row */
+        .leaderboard-table tbody tr {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
         .leaderboard-table tbody td {
-          display: inline-block;
           border: none;
           padding: 0;
           text-align: left !important;
@@ -996,31 +1017,25 @@
 
         /* Rank styling - compact badge */
         .leaderboard-table tbody td:nth-child(1) {
-          display: inline-block;
-          width: auto;
-          margin-right: 8px;
           font-weight: 700;
           font-size: 0.75rem;
         }
 
         /* Player name - main content */
         .leaderboard-table tbody td:nth-child(2) {
-          display: inline-block;
-          width: auto;
           font-weight: 600;
-          margin-right: 5px;
           font-size: 0.85rem;
+          flex: 1 1 auto;
+          min-width: 0;
         }
 
         /* Prize amount - right aligned */
         .leaderboard-table tbody td:nth-child(3) {
-          display: inline-block;
-          width: auto;
-          float: right;
           font-weight: 700;
           text-align: right !important;
           font-size: 0.8rem;
           color: var(--primary-color);
+          margin-left: auto;
         }
 
         /* Enhanced mobile styles for top 3 leaderboard positions */
@@ -1171,6 +1186,108 @@
       .pre-season:last-of-type {
         margin-bottom: 16px !important;
       }
+
+      /* =============== UTILITIES =============== */
+      .is-hidden {
+        display: none !important;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .muted-small {
+        font-size: 0.7rem;
+        color: #ccc;
+        margin-top: 5px;
+      }
+      .note-small {
+        font-size: 0.9rem;
+        color: #777;
+        margin-top: 10px;
+      }
+      .btn-primary {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-weight: 600;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(93, 33, 99, 0.3);
+      }
+
+      /* =============== QA PANEL (TEST MODE) =============== */
+      .qa-panel {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        z-index: 9999;
+        background: #1f1f1f;
+        color: #eaeaea;
+        border: 1px solid #444;
+        border-radius: 8px;
+        padding: 10px 12px;
+        max-width: 320px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        font-size: 12px;
+      }
+      .qa-panel h4 {
+        margin: 0 0 6px 0;
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .qa-kv {
+        margin: 4px 0;
+        line-height: 1.3;
+      }
+      .qa-actions {
+        display: flex;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .qa-btn {
+        background: #333;
+        color: #eee;
+        border: 1px solid #555;
+        padding: 4px 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .qa-btn:hover {
+        background: #444;
+      }
+      /* Floating phase toggle (Test mode) */
+      .floating-toggle {
+        position: fixed;
+        left: 12px;
+        bottom: 12px;
+        z-index: 9999;
+        background: #1f1f1f;
+        color: #eaeaea;
+        border: 1px solid #444;
+        border-radius: 999px;
+        padding: 8px 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .floating-toggle button {
+        background: transparent;
+        color: inherit;
+        border: none;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 700;
+      }
     </style>
   </head>
   <body>
@@ -1183,8 +1300,8 @@
         </div>
 
         <!-- Digital Countdown Clock -->
-        <div id="countdown-clock" class="countdown-clock" style="display: none">
-          <div class="countdown-label" id="countdown-label">Time Until Kickoff</div>
+        <div id="countdown-clock" class="countdown-clock is-hidden">
+          <div class="countdown-label" id="countdown-label">Time until GW1 kick-off</div>
           <div class="countdown-time">
             <span class="countdown-unit">
               <span id="countdown-days">00</span>
@@ -1246,7 +1363,7 @@
         </section>
 
         <!-- WINNER SCORECARD SECTION (During Season) -->
-        <section class="winner-scorecard season-section during-season" style="display: none">
+        <section class="winner-scorecard season-section during-season is-hidden">
           <h2>🎆 Top Earners So Far</h2>
           <p>Leading players and their prize money achievements this season.</p>
 
@@ -1256,7 +1373,7 @@
 
           <div class="winner-summary" id="winner-summary"></div>
 
-          <div style="text-align: center">
+          <div class="text-center">
             <a href="winners.html" class="view-all-winners" id="winners-link">
               🎯 View Complete Scorecard
             </a>
@@ -1268,7 +1385,7 @@
         </section>
 
         <!-- LEADERBOARD SECTION (During Season) -->
-        <section id="leaderboard" class="season-section during-season" style="display: none">
+        <section id="leaderboard" class="season-section during-season is-hidden">
           <h2>🏆 League Standings</h2>
           <p>Complete league table showing all players ranked by their overall FPL performance.</p>
 
@@ -1276,7 +1393,7 @@
             <div class="leaderboard-loading">Loading league standings...</div>
           </div>
 
-          <div class="leaderboard-navigation" style="display: none">
+          <div class="leaderboard-navigation is-hidden">
             <button
               id="leaderboard-prev-page"
               class="leaderboard-nav-btn"
@@ -1322,7 +1439,7 @@
         </section>
 
         <!-- LATE REGISTRATION SECTION (During Season) -->
-        <section id="late-register" class="season-section during-season" style="display: none">
+        <section id="late-register" class="season-section during-season is-hidden">
           <h2>Still Want to Join?</h2>
           <p>
             Missed the initial registration? Contact us to check if late entries are still
@@ -1338,46 +1455,228 @@
         </section>
 
         <!-- IN-SEASON VIEW TOGGLE (Test Mode Only) - Moved to bottom for better mobile UX -->
-        <section
-          id="season-toggle"
-          class="season-section pre-season test-only"
-          style="text-align: center; display: none"
-        >
-          <button
-            onclick="toggleSeasonMode()"
-            style="
-              background: var(--primary-color);
-              color: white;
-              border: none;
-              padding: 12px 25px;
-              border-radius: var(--border-radius);
-              cursor: pointer;
-              font-weight: 600;
-              transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-            "
-            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(93, 33, 99, 0.3)'"
-            onmouseout="this.style.transform=''; this.style.boxShadow=''"
-          >
+        <section id="season-toggle" class="season-section test-only text-center is-hidden">
+          <button id="phase-toggle-btn" class="btn-primary" onclick="toggleSeasonMode()">
             📊 Preview In-season View
           </button>
-          <p style="font-size: 0.9rem; color: #777; margin-top: 10px">
-            See how the website will look during the active season
+          <p class="note-small">
+            Quickly switch between pre-season and in-season layouts (test only)
           </p>
         </section>
       </main>
 
       <footer>
         <p>developed by Aditya Garg (@addygunners)</p>
-        <p style="font-size: 0.7rem; color: #ccc; margin-top: 5px">Last updated: August 2025</p>
+        <p class="muted-small">Last updated: August 2025</p>
       </footer>
+      <!-- QA PANEL (shown in test mode) -->
+      <div id="qa-panel" class="qa-panel test-only is-hidden" aria-live="polite">
+        <h4>QA Panel</h4>
+        <div class="qa-kv" id="qa-phase">Phase: —</div>
+        <div class="qa-kv" id="qa-gw">Next GW: —</div>
+        <div class="qa-kv" id="qa-deadline">Deadline: —</div>
+        <div class="qa-kv" id="qa-source">Season data source: —</div>
+        <div class="qa-kv" id="qa-data-mode">Data mode (winners/leaderboard): —</div>
+        <div class="qa-kv" id="qa-winners-updated">Winners updated: —</div>
+        <div class="qa-kv" id="qa-leaderboard-updated">Leaderboard updated: —</div>
+        <div class="qa-kv" id="qa-time">Now (offset): —</div>
+        <div class="qa-actions">
+          <button id="qa-clear-cache" class="qa-btn">Clear cache</button>
+          <button id="qa-refetch" class="qa-btn">Re-fetch</button>
+          <button id="qa-copy" class="qa-btn">Copy</button>
+        </div>
+      </div>
+      <!-- Floating phase toggle (test only) -->
+      <div id="floating-phase-toggle" class="floating-toggle test-only is-hidden">
+        <i class="fas fa-random" aria-hidden="true"></i>
+        <button id="phase-toggle-btn-float" onclick="toggleSeasonMode()">Toggle phase</button>
+        <button
+          id="phase-toggle-open-winners"
+          onclick="openWinnersWithToggledPhase()"
+          title="Opens Winners with toggled phase; preserves test/data/clockOffset"
+          aria-label="Open Winners with toggled phase; preserves test, data, and clockOffset"
+        >
+          Open Winners
+        </button>
+      </div>
     </div>
 
     <!-- === JS: DYNAMIC DATA FROM league_stats.json === -->
     <!-- Cache buster: v2.1 -->
     <script>
+      // ===== Time controls (clockOffset) =====
+      const _urlParams_boot = new URLSearchParams(window.location.search);
+      const _clockOffsetRaw = parseInt(_urlParams_boot.get('clockOffset') || '0', 10);
+      const timeOffsetMs = isNaN(_clockOffsetRaw) ? 0 : _clockOffsetRaw;
+      function now() {
+        return new Date(Date.now() + timeOffsetMs);
+      }
+
+      // Data source override for winners/leaderboard: 'auto' | 'test' | 'live'
+      function getDataOverride() {
+        const p = (_urlParams_boot.get('data') || 'auto').toLowerCase();
+        return p === 'test' || p === 'live' ? p : 'auto';
+      }
+
+      // QA/debug state
+      let seasonDataSource = 'unknown'; // backend | proxy | fallback | unknown
+      let lastWinnersDataMode = 'auto'; // test | live | auto
+      let lastLeaderboardDataMode = 'auto';
+      let lastWinnersDataFile = '';
+      let lastLeaderboardDataFile = '';
+      let lastWinnersUpdatedIso = null;
+      let lastLeaderboardUpdatedIso = null;
+
+      function updateQAPanel() {
+        if (!isAdminMode()) return;
+        const panel = document.getElementById('qa-panel');
+        if (!panel) return;
+        const phaseEl = document.getElementById('qa-phase');
+        const gwEl = document.getElementById('qa-gw');
+        const dlEl = document.getElementById('qa-deadline');
+        const srcEl = document.getElementById('qa-source');
+        const dmEl = document.getElementById('qa-data-mode');
+        const wuEl = document.getElementById('qa-winners-updated');
+        const luEl = document.getElementById('qa-leaderboard-updated');
+        const timeEl = document.getElementById('qa-time');
+
+        const duringVisible = !document
+          .querySelector('.during-season')
+          .classList.contains('is-hidden');
+        phaseEl.textContent = 'Phase: ' + (duringVisible ? 'in-season' : 'pre-season');
+
+        const gw = getCachedGameweek();
+        if (gw) {
+          gwEl.textContent = `Next GW: GW${gw.id}`;
+          try {
+            const d = new Date(gw.deadline_time);
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            dlEl.textContent =
+              'Deadline: ' +
+              d.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: tz });
+          } catch {
+            dlEl.textContent = 'Deadline: —';
+          }
+        } else {
+          gwEl.textContent = 'Next GW: —';
+          dlEl.textContent = 'Deadline: —';
+        }
+
+        srcEl.textContent = 'Season data source: ' + seasonDataSource;
+        const winnersBase = lastWinnersDataFile
+          ? ` (${lastWinnersDataFile.replace(/\?.*$/, '')})`
+          : '';
+        const leaderboardBase = lastLeaderboardDataFile
+          ? ` (${lastLeaderboardDataFile.replace(/\?.*$/, '')})`
+          : '';
+        dmEl.textContent = `Data sources — winners: ${lastWinnersDataMode}${winnersBase} • leaderboard: ${lastLeaderboardDataMode}${leaderboardBase}`;
+
+        const n = now();
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const sign =
+          timeOffsetMs === 0
+            ? ''
+            : ` (${timeOffsetMs > 0 ? '+' : ''}${Math.round(timeOffsetMs / 60000)}m)`;
+        timeEl.textContent =
+          'Now (offset): ' +
+          n.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: tz }) +
+          sign;
+
+        // Per-dataset last updated
+        try {
+          if (wuEl) {
+            wuEl.textContent =
+              'Winners updated: ' +
+              (lastWinnersUpdatedIso
+                ? new Date(lastWinnersUpdatedIso).toLocaleString('en-GB', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                    timeZone: tz,
+                  })
+                : '—');
+          }
+          if (luEl) {
+            luEl.textContent =
+              'Leaderboard updated: ' +
+              (lastLeaderboardUpdatedIso
+                ? new Date(lastLeaderboardUpdatedIso).toLocaleString('en-GB', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                    timeZone: tz,
+                  })
+                : '—');
+          }
+        } catch {}
+
+        // Actions
+        const clearBtn = document.getElementById('qa-clear-cache');
+        const refetchBtn = document.getElementById('qa-refetch');
+        const copyBtn = document.getElementById('qa-copy');
+        if (!clearBtn._wired) {
+          clearBtn._wired = true;
+          clearBtn.addEventListener('click', () => {
+            try {
+              localStorage.removeItem('fpl_next_deadline');
+            } catch {}
+            try {
+              localStorage.removeItem('fpl_cached_gw');
+            } catch {}
+            location.reload();
+          });
+        }
+        if (!refetchBtn._wired) {
+          refetchBtn._wired = true;
+          refetchBtn.addEventListener('click', () => {
+            loadFPLSeasonData();
+          });
+        }
+        if (!copyBtn._wired) {
+          copyBtn._wired = true;
+          copyBtn.addEventListener('click', async () => {
+            const payload = {
+              phase: duringVisible ? 'in-season' : 'pre-season',
+              nextGw: gw || null,
+              seasonDataSource,
+              winnersDataMode: lastWinnersDataMode,
+              leaderboardDataMode: lastLeaderboardDataMode,
+              clockOffsetMs: timeOffsetMs,
+              now: now().toISOString(),
+            };
+            try {
+              await navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
+            } catch {}
+          });
+        }
+      }
+
+      // Build a query string preserving selected params for navigation
+      function buildNavQuery(keys = ['test', 'data', 'phase', 'clockOffset']) {
+        try {
+          const params = new URLSearchParams();
+          keys.forEach((k) => {
+            const v = _urlParams_boot.get(k);
+            if (v !== null && v !== undefined && v !== '') params.set(k, v);
+          });
+          const qs = params.toString();
+          return qs ? `?${qs}` : '';
+        } catch {
+          return '';
+        }
+      }
       // ===== Countdown state & caching helpers =====
+      // Visibility helpers using class toggling
+      function show(el) {
+        if (el) el.classList.remove('is-hidden');
+      }
+      function hide(el) {
+        if (el) el.classList.add('is-hidden');
+      }
+      function showGroup(selector) {
+        document.querySelectorAll(selector).forEach((el) => show(el));
+      }
+      function hideGroup(selector) {
+        document.querySelectorAll(selector).forEach((el) => hide(el));
+      }
       let countdownInterval = null; // ensure we do not create multiple timers
       // Guard to track if countdown has been wired/shown
       let countdownShown = false;
@@ -1432,8 +1731,8 @@
 
       // Helper to flip UI into during-season mode immediately
       function showDuringSeasonUI() {
-        document.querySelectorAll('.pre-season').forEach((el) => (el.style.display = 'none'));
-        document.querySelectorAll('.during-season').forEach((el) => (el.style.display = ''));
+        hideGroup('.pre-season');
+        showGroup('.during-season');
         const headerP = document.querySelector('header p');
         if (headerP) headerP.textContent = 'Season 2025-26 - Live Updates';
       }
@@ -1442,6 +1741,7 @@
       // Feature flag so we can roll back easily
       const SYNC_BADGE_ENABLED = true;
       let usedCachedOnLoad = false;
+      let seasonActiveLock = false;
 
       function removeCachedLabel() {
         const label = document.getElementById('countdown-label');
@@ -1470,35 +1770,95 @@
         }, 2000);
       }
 
+      // ======= ADMIN BADGE (visible in ?test=true or ?admin=true) =======
+      let _lastSyncIso = null;
+      let _lastGwId = null;
+
+      function isAdminMode() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('test') === 'true' || urlParams.get('admin') === 'true';
+      }
+
+      function setLastSyncInfo(gwId, iso) {
+        _lastGwId = gwId || _lastGwId;
+        _lastSyncIso = iso || _lastSyncIso;
+      }
+
+      function attachAdminBadge() {
+        if (!isAdminMode()) return;
+        const label = document.getElementById('countdown-label');
+        if (!label) return;
+        // If a badge exists, update; else create
+        let badge = label.querySelector('.admin-badge');
+        const parts = [];
+        if (typeof _lastGwId === 'number') parts.push(`GW${_lastGwId}`);
+        if (_lastSyncIso) {
+          try {
+            const d = new Date(_lastSyncIso);
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const nice = d.toLocaleString('en-GB', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+              timeZone: tz,
+            });
+            parts.push(`synced ${nice}`);
+          } catch (e) {
+            // ignore formatting issues
+          }
+        }
+        const text = parts.length ? parts.join(' • ') : 'admin';
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'admin-badge';
+          badge.textContent = text;
+          label.appendChild(badge);
+        } else {
+          badge.textContent = text;
+        }
+      }
+
       // Check if we're in test mode
       function checkTestMode() {
         const urlParams = new URLSearchParams(window.location.search);
         const testMode = urlParams.get('test') === 'true';
+        const phaseParam = (urlParams.get('phase') || 'auto').toLowerCase(); // pre | season | auto
 
         if (testMode) {
           // Show ALL test-only elements (including toggle button)
-          document.querySelectorAll('.test-only').forEach((el) => {
-            el.style.display = 'block';
-          });
+          showGroup('.test-only');
           console.log('🧪 Test mode: Showing test-only elements including toggle button');
+
+          // Prefer floating toggle; hide inline toggle section to avoid duplication
+          const inlineToggle = document.getElementById('season-toggle');
+          if (inlineToggle) hide(inlineToggle);
+
+          // Ensure header shows test badge
+          const headerPTest = document.querySelector('header p');
+          if (headerPTest && !headerPTest.textContent.includes('[TEST MODE]')) {
+            headerPTest.textContent = headerPTest.textContent + ' [TEST MODE]';
+            headerPTest.style.color = '#ff6b6b';
+          }
 
           // Update winners link to include test parameter
           const winnersLink = document.getElementById('winners-link');
           if (winnersLink) {
-            winnersLink.href = 'winners.html?test=true';
+            winnersLink.href = 'winners.html' + buildNavQuery();
           }
 
+          // Initialize toggle button labels based on current UI
+          updatePhaseToggleButtons();
+
+          // Phase override is now applied centrally inside handleSeasonDisplay()
+
           console.log('🧪 Test mode activated!');
+          updateQAPanel();
         } else {
           // Live mode: FORCE HIDE all test-only elements
-          document.querySelectorAll('.test-only').forEach((el) => {
-            el.style.setProperty('display', 'none', 'important');
-            el.style.visibility = 'hidden';
-          });
+          hideGroup('.test-only');
 
           const winnersLink = document.getElementById('winners-link');
           if (winnersLink) {
-            winnersLink.href = 'winners.html';
+            winnersLink.href = 'winners.html' + buildNavQuery();
           }
 
           console.log('🌐 Live mode: All test-only elements hidden');
@@ -1510,14 +1870,14 @@
         const preSeasonElements = document.querySelectorAll('.pre-season');
         const duringSeasonElements = document.querySelectorAll('.during-season');
         const headerP = document.querySelector('header p');
+        const btn = document.getElementById('phase-toggle-btn');
 
         // Toggle visibility
         preSeasonElements.forEach((el) => {
-          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+          el.classList.contains('is-hidden') ? show(el) : hide(el);
         });
-
         duringSeasonElements.forEach((el) => {
-          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+          el.classList.contains('is-hidden') ? show(el) : hide(el);
         });
 
         // Toggle header text
@@ -1533,13 +1893,50 @@
             // Update winners link to test version when in season mode
             const winnersLink = document.getElementById('winners-link');
             if (winnersLink) {
-              winnersLink.href = 'winners.html?test=true';
+              winnersLink.href = 'winners.html' + buildNavQuery();
             }
+            updatePhaseToggleButtons();
           } else {
             headerP.textContent = 'Season 2025-26 - Registration Open (Testing Mode)';
             // Reset header color to original (unset or inherit)
             headerP.style.color = '';
+            updatePhaseToggleButtons();
           }
+        }
+      }
+
+      // Keep phase toggle buttons in sync with current UI state
+      function updatePhaseToggleButtons() {
+        const duringEl = document.querySelector('.during-season');
+        if (!duringEl) return;
+        const inSeasonVisible = !duringEl.classList.contains('is-hidden');
+        const inlineBtn = document.getElementById('phase-toggle-btn');
+        const floatBtn = document.getElementById('phase-toggle-btn-float');
+        const openWinnersBtn = document.getElementById('phase-toggle-open-winners');
+        const preText = '📝 Preview Pre-season View';
+        const inText = '📊 Preview In-season View';
+        const label = inSeasonVisible ? preText : inText;
+        if (inlineBtn) inlineBtn.textContent = label;
+        if (floatBtn) floatBtn.textContent = label;
+        if (openWinnersBtn) openWinnersBtn.textContent = 'Open Winners (In-season)';
+      }
+
+      // Open winners page in in-season mode, preserving test/data/clockOffset
+      function openWinnersWithToggledPhase() {
+        try {
+          // Force phase=season on Winners
+          const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
+          const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
+          qp.set('phase', 'season');
+          const finalQs = qp.toString();
+          window.location.href = 'winners.html' + (finalQs ? '?' + finalQs : '');
+        } catch (e) {
+          // Fallback: simple nav
+          const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
+          const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
+          qp.set('phase', 'season');
+          const finalQs = qp.toString();
+          window.location.href = 'winners.html' + (finalQs ? '?' + finalQs : '');
         }
       }
 
@@ -1547,16 +1944,22 @@
       function loadWinnerData(
         containerId = 'winner-preview-container',
         summaryId = 'winner-summary',
-        isTestSection = false
+        isTestSection = false,
+        dataOverride = getDataOverride()
       ) {
         const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get('test') === 'true' || isTestSection;
+        const testContext = urlParams.get('test') === 'true' || isTestSection;
+        let useTestData = testContext;
+        if (dataOverride === 'test') useTestData = true;
+        if (dataOverride === 'live') useTestData = false;
 
-        const winnerUrl = isTestMode
-          ? 'data/test_winner_stats.json?cache=' + new Date().getTime()
-          : 'data/winner_stats.json?cache=' + new Date().getTime();
+        const winnersFile = useTestData ? 'data/test_winner_stats.json' : 'data/winner_stats.json';
+        const winnerUrl = winnersFile + '?cache=' + new Date().getTime();
 
-        console.log(isTestMode ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
+        lastWinnersDataMode = useTestData ? 'test' : 'live';
+        lastWinnersDataFile = winnersFile;
+
+        console.log(useTestData ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
         console.log('🔍 Target container ID:', containerId);
         console.log('🔍 Target summary ID:', summaryId);
         console.log('🔍 Fetching URL:', winnerUrl);
@@ -1569,10 +1972,10 @@
 
         return fetchWithRetry(winnerUrl, 3)
           .then((data) => {
-            console.log(`${isTestMode ? '🧪 Loaded TEST' : '📊 Loaded LIVE'} winner data:`, data);
+            console.log(`${useTestData ? '🧪 Loaded TEST' : '📊 Loaded LIVE'} winner data:`, data);
 
             // Add test mode indicator if needed
-            if (isTestMode && data.testMode) {
+            if (useTestData && data.testMode) {
               const headerP = document.querySelector('header p');
               if (headerP && !headerP.textContent.includes('[TEST MODE]')) {
                 headerP.textContent = headerP.textContent + ' [TEST MODE - Demo Data]';
@@ -1581,10 +1984,11 @@
             }
 
             displayWinnerPreview(data.winners, containerId, summaryId);
+            updateQAPanel();
             return data;
           })
           .catch((error) => {
-            console.error(`Winner fetch error (${isTestMode ? 'test' : 'live'}):`, error);
+            console.error(`Winner fetch error (${useTestData ? 'test' : 'live'}):`, error);
             const errorHTML = `
               <div class="winner-error">
                 <h3>Unable to load winner data</h3>
@@ -1643,9 +2047,9 @@
         // Only use cached deadline in test mode to avoid showing "cached" in live mode
         if (isTestMode) {
           const cachedDeadline = getCachedDeadline();
-          if (cachedDeadline && cachedDeadline - new Date() > 0) {
+          if (cachedDeadline && cachedDeadline - now() > 0) {
             const countdownClock = document.getElementById('countdown-clock');
-            if (countdownClock) countdownClock.style.display = 'block';
+            if (countdownClock) show(countdownClock);
             const label = document.getElementById('countdown-label');
             if (label && !label.textContent.includes('(cached)')) {
               label.textContent = label.textContent + ' (cached)';
@@ -1667,12 +2071,13 @@
           if (!countdownShown) {
             const fallbackDate = new Date('2025-08-15T17:30:00Z');
             const countdownClock = document.getElementById('countdown-clock');
-            if (countdownClock) countdownClock.style.display = 'block';
+            if (countdownClock) show(countdownClock);
             console.warn(
               '[Countdown] Safety fallback engaged – showing hardcoded deadline while network initializes.'
             );
             handleSeasonDisplay(fallbackDate);
             startCountdown(fallbackDate);
+            updateQAPanel();
           }
         }, 1500);
 
@@ -1711,6 +2116,64 @@
       });
 
       function loadFPLSeasonData() {
+        // First try backend-synced JSON published by Apps Script
+        const backendUrl = 'data/next_deadline.json?cache=' + Date.now();
+        fetch(backendUrl)
+          .then((r) => (r.ok ? r.json() : Promise.reject(new Error('backend 404'))))
+          .then((data) => {
+            if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
+              const gw = data.nextGameweek;
+              const deadline = new Date(gw.deadline_time);
+              setCachedDeadline(deadline.toISOString());
+              setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
+              setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
+              seasonDataSource = 'backend';
+              handleSeasonDisplay(deadline, gw);
+              startCountdown(deadline, gw);
+              markCountdownShown();
+              // Also schedule a check shortly after deadline to roll over
+              scheduleRolloverCheck(deadline);
+              attachAdminBadge();
+              updateQAPanel();
+              return; // stop here, we got data
+            }
+            throw new Error('backend payload invalid');
+          })
+          .catch(() => {
+            // Fallback to public FPL API via CORS proxies
+            loadFPLSeasonDataViaProxy();
+          });
+      }
+
+      function scheduleRolloverCheck(deadline) {
+        const ms = deadline - now();
+        if (ms > 0 && ms < 1000 * 60 * 60 * 24 * 7) {
+          setTimeout(() => {
+            // Re-fetch backend to advance to next GW after deadline passes
+            fetch('data/next_deadline.json?cache=' + Date.now())
+              .then((r) => (r.ok ? r.json() : Promise.reject()))
+              .then((data) => {
+                if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
+                  const gw = data.nextGameweek;
+                  const dl = new Date(gw.deadline_time);
+                  setCachedDeadline(dl.toISOString());
+                  setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
+                  setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
+                  seasonDataSource = 'backend';
+                  updateGameweekCountdown(gw);
+                  startCountdown(dl, gw);
+                  attachAdminBadge();
+                  updateQAPanel();
+                } else {
+                  loadFPLSeasonDataViaProxy();
+                }
+              })
+              .catch(loadFPLSeasonDataViaProxy);
+          }, ms + 15000); // 15s after deadline
+        }
+      }
+
+      function loadFPLSeasonDataViaProxy() {
         // Multiple CORS proxy options - will try them in order if one fails
         const corsProxies = [
           'https://api.allorigins.win/raw?url=' +
@@ -1729,18 +2192,19 @@
             // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
             const fallbackDate = new Date('2025-08-15T17:30:00Z');
             setCachedDeadline(fallbackDate.toISOString());
+            seasonDataSource = 'fallback';
             console.log('🚨 Using hardcoded GW1 deadline as fallback:', fallbackDate);
-            console.log('📝 Current time:', new Date());
-            console.log('📝 Time difference (ms):', fallbackDate - new Date());
+            console.log('📝 Current time:', now());
+            console.log('📝 Time difference (ms):', fallbackDate - now());
             console.log(
               '📝 Time until deadline (days):',
-              Math.floor((fallbackDate - new Date()) / (1000 * 60 * 60 * 24))
+              Math.floor((fallbackDate - now()) / (1000 * 60 * 60 * 24))
             );
 
             // Force countdown to show
             const countdownClock = document.getElementById('countdown-clock');
             if (countdownClock) {
-              countdownClock.style.display = 'block';
+              show(countdownClock);
               console.log('🕰️ Forced countdown clock to be visible');
             }
 
@@ -1752,6 +2216,7 @@
             handleSeasonDisplay(fallbackDate);
             startCountdown(fallbackDate);
             markCountdownShown();
+            updateQAPanel();
             return;
           }
 
@@ -1782,6 +2247,8 @@
                   id: nextGameweek.id,
                   deadline_time: nextGameweek.deadline_time,
                 });
+                setLastSyncInfo(nextGameweek.id, new Date().toISOString());
+                seasonDataSource = 'proxy';
                 console.log('Deadline time:', deadlineTime);
 
                 // Store gameweek data for later use
@@ -1799,12 +2266,16 @@
 
                 // Start countdown timer
                 startCountdown(deadlineTime, nextGameweek);
+                scheduleRolloverCheck(deadlineTime);
                 markCountdownShown();
+                attachAdminBadge();
+                updateQAPanel();
               } else {
                 console.log('No next gameweek found, using fallback date');
                 // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
                 const fallbackDate = new Date('2025-08-15T17:30:00Z');
                 setCachedDeadline(fallbackDate.toISOString());
+                seasonDataSource = 'fallback';
                 console.log('🚨 Using hardcoded GW1 deadline as fallback:', fallbackDate);
                 if (usedCachedOnLoad) {
                   removeCachedLabel();
@@ -1814,6 +2285,7 @@
                 handleSeasonDisplay(fallbackDate);
                 startCountdown(fallbackDate);
                 markCountdownShown();
+                updateQAPanel();
               }
             })
             .catch((error) => {
@@ -1828,38 +2300,105 @@
       }
 
       function handleSeasonDisplay(seasonStartDate, gameweek = null) {
-        const currentDate = new Date();
+        const currentDate = now();
         const urlParams = new URLSearchParams(window.location.search);
         const isTestMode = urlParams.get('test') === 'true';
+        const phaseOverride = (urlParams.get('phase') || 'auto').toLowerCase(); // 'pre' | 'season' | 'auto'
 
-        console.log('Season start date (from FPL):', seasonStartDate);
+        console.log('Season baseline date:', seasonStartDate);
         console.log('Current date:', currentDate);
-        console.log('Test mode:', isTestMode);
-
-        // Determine if season is active based on current date vs season start
-        // For pre-season: current date < season start date
-        // For during-season: current date >= season start date
-        const isActiveSeason = currentDate >= seasonStartDate;
-
-        console.log('Is active season (current >= start date):', isActiveSeason);
         console.log('Gameweek:', gameweek);
+        console.log('Test mode:', isTestMode, 'phaseOverride:', phaseOverride);
 
-        // In test mode, start with pre-season view (same as live mode)
-        // The toggle button will allow switching to during-season view
-        if (isTestMode) {
-          console.log('🧪 TEST MODE: Starting with pre-season UI (same as live)');
-          // Start with pre-season view, toggle will switch to during-season
-          document.querySelectorAll('.pre-season').forEach((el) => (el.style.display = 'block'));
-          document.querySelectorAll('.during-season').forEach((el) => (el.style.display = 'none'));
-          // Set header message for pre-season
+        // If in TEST mode and a hard phase override is provided, honor it and exit early
+        if (isTestMode && (phaseOverride === 'pre' || phaseOverride === 'season')) {
+          const wantSeason = phaseOverride === 'season';
           const headerP = document.querySelector('header p');
-          if (headerP) {
-            headerP.textContent = 'Season 2025-26 - Registration Open [TEST MODE]';
-            headerP.style.color = '#ff6b6b';
+          if (wantSeason) {
+            showDuringSeasonUI();
+            if (headerP) {
+              headerP.textContent = 'Season 2025-26 - Live Updates [TEST MODE]';
+              headerP.style.color = '#ff6b6b';
+            }
+            // Load test data sources when forcing in-season
+            loadWinnerData('winner-preview-container', 'winner-summary', true);
+            loadTestLeaderboardData();
+            if (gameweek) {
+              updateGameweekCountdown(gameweek);
+            } else {
+              updateCountdownDisplay(seasonStartDate);
+            }
+          } else {
+            // Force pre-season UI
+            showGroup('.pre-season');
+            hideGroup('.during-season');
+            if (headerP) {
+              headerP.textContent = 'Season 2025-26 - Registration Open [TEST MODE]';
+              headerP.style.color = '#ff6b6b';
+            }
+            updateCountdownDisplay(seasonStartDate);
           }
+          attachAdminBadge();
+          updatePhaseToggleButtons();
+          updateQAPanel();
+          return;
+        }
 
-          // Show countdown for season start
-          updateCountdownDisplay(seasonStartDate);
+        // Determine if the season is active:
+        // - If we have a nextGameweek, season is active when id > 1 (we're beyond GW1),
+        //   or if it's GW1 and its deadline has passed.
+        // - If we don't have a gameweek (fallback), compare with provided seasonStartDate (GW1 deadline).
+        let isActiveSeason;
+        if (gameweek && typeof gameweek.id === 'number') {
+          if (gameweek.id > 1) {
+            isActiveSeason = true;
+          } else {
+            // GW1
+            const gwDeadline = new Date(gameweek.deadline_time);
+            isActiveSeason = currentDate >= gwDeadline;
+          }
+        } else {
+          isActiveSeason = currentDate >= seasonStartDate;
+        }
+        console.log('Is active season:', isActiveSeason);
+
+        // Once active, keep it active for this session to avoid flicker
+        if (isActiveSeason) seasonActiveLock = true;
+        if (seasonActiveLock) isActiveSeason = true;
+
+        // TEST MODE: reflect the real season phase by default
+        // - If the real season is active, show in-season UI with TEST data
+        // - Else, keep pre-season view
+        if (isTestMode) {
+          const headerP = document.querySelector('header p');
+          if (isActiveSeason) {
+            console.log('🧪 TEST MODE: Season active → default to during-season UI with TEST data');
+            showDuringSeasonUI();
+            if (headerP) {
+              headerP.textContent = 'Season 2025-26 - Live Updates [TEST MODE]';
+              headerP.style.color = '#ff6b6b';
+            }
+            // Load test data sources
+            loadWinnerData('winner-preview-container', 'winner-summary', true);
+            loadTestLeaderboardData();
+            if (gameweek) {
+              updateGameweekCountdown(gameweek);
+            } else {
+              // If we only have the GW1 baseline, keep the clock running until next fetch
+              updateCountdownDisplay(seasonStartDate);
+            }
+          } else {
+            console.log('🧪 TEST MODE: Pre-season → default to pre-season UI');
+            showGroup('.pre-season');
+            hideGroup('.during-season');
+            if (headerP) {
+              headerP.textContent = 'Season 2025-26 - Registration Open [TEST MODE]';
+              headerP.style.color = '#ff6b6b';
+            }
+            updateCountdownDisplay(seasonStartDate);
+          }
+          attachAdminBadge();
+          updatePhaseToggleButtons();
           return;
         }
 
@@ -1873,21 +2412,30 @@
           if (gameweek) {
             updateGameweekCountdown(gameweek);
           } else {
-            updateCountdownDisplay(seasonStartDate);
+            // No nextGameweek yet (backend/proxy still loading). Keep clock visible with placeholder
+            const clock = document.getElementById('countdown-clock');
+            const label = document.getElementById('countdown-label');
+            if (clock) show(clock);
+            if (label) label.textContent = 'Fetching next deadline…';
+            attachAdminBadge();
+            updatePhaseToggleButtons();
+            updateQAPanel();
           }
         } else {
           // Pre-season - show registration prominently, hide leaderboards
           console.log('📝 LIVE MODE: Showing pre-season UI (registration phase)');
-          document.querySelectorAll('.pre-season').forEach((el) => (el.style.display = 'block'));
-          document.querySelectorAll('.during-season').forEach((el) => (el.style.display = 'none'));
+          showGroup('.pre-season');
+          hideGroup('.during-season');
 
           // Set header message for pre-season
           const headerP = document.querySelector('header p');
           if (headerP) {
             headerP.textContent = 'Season 2025-26 - Registration Open';
           }
-          // Update only the digital countdown clock for season start
+          // Update only the digital countdown clock for season start (GW1)
           updateCountdownDisplay(seasonStartDate);
+          updatePhaseToggleButtons();
+          updateQAPanel();
         }
       }
 
@@ -1901,11 +2449,11 @@
         // Ensure the clock is visible immediately once we know a deadline
         const countdownClock = document.getElementById('countdown-clock');
         if (countdownClock) {
-          countdownClock.style.display = 'block';
+          show(countdownClock);
         }
 
         // Initial paint
-        if (gameweek && new Date() >= deadlineTime) {
+        if (gameweek) {
           updateGameweekCountdown(gameweek);
         } else {
           updateCountdownDisplay(deadlineTime);
@@ -1913,7 +2461,7 @@
 
         // Schedule updates
         countdownInterval = setInterval(() => {
-          if (gameweek && new Date() >= deadlineTime) {
+          if (gameweek) {
             updateGameweekCountdown(gameweek);
           } else {
             updateCountdownDisplay(deadlineTime);
@@ -1923,7 +2471,7 @@
       }
 
       function updateCountdownDisplay(deadlineTime) {
-        const currentDate = new Date();
+        const currentDate = now();
         const timeDifference = deadlineTime - currentDate;
 
         if (timeDifference <= 0) {
@@ -1936,9 +2484,17 @@
           }
 
           if (countdownClock) {
-            countdownClock.style.display = 'none';
+            hide(countdownClock);
           }
           return;
+        }
+
+        // Update label per requirement
+        const labelEl = document.getElementById('countdown-label');
+        if (labelEl) {
+          // Pre-season message
+          labelEl.textContent = 'Time until GW1 kick-off';
+          attachAdminBadge();
         }
 
         // Calculate time components
@@ -1966,12 +2522,13 @@
         const countdownLabel = document.getElementById('countdown-label');
 
         if (countdownClock && countdownLabel) {
-          countdownClock.style.display = 'block';
-          countdownLabel.textContent = `GW${gameweek.id} DEADLINE`;
+          show(countdownClock);
+          countdownLabel.textContent = `Time until GW${gameweek.id} kick-off`;
+          attachAdminBadge();
 
           // Update the countdown display with gameweek deadline
           const deadlineTime = new Date(gameweek.deadline_time);
-          const currentDate = new Date();
+          const currentDate = now();
           const timeDifference = deadlineTime - currentDate;
 
           if (timeDifference <= 0) {
@@ -1983,10 +2540,10 @@
             // Hide separators
             document
               .querySelectorAll('.countdown-separator')
-              .forEach((sep) => (sep.style.display = 'none'));
+              .forEach((sep) => sep.classList.add('is-hidden'));
             document
               .querySelectorAll('.countdown-unit-label')
-              .forEach((label) => (label.style.display = 'none'));
+              .forEach((label) => label.classList.add('is-hidden'));
           } else {
             // Show countdown to deadline
             const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
@@ -2006,40 +2563,50 @@
             // Show separators and labels
             document
               .querySelectorAll('.countdown-separator')
-              .forEach((sep) => (sep.style.display = 'inline'));
+              .forEach((sep) => sep.classList.remove('is-hidden'));
             document
               .querySelectorAll('.countdown-unit-label')
-              .forEach((label) => (label.style.display = 'block'));
+              .forEach((label) => label.classList.remove('is-hidden'));
           }
         }
       }
 
-      // Main winner data loader - now uses the unified function
+      // Main winner data loader - now uses the unified function with data override
       function loadMainWinnerData() {
         const urlParams = new URLSearchParams(window.location.search);
         const isTestMode = urlParams.get('test') === 'true';
+        const dataOverride = getDataOverride();
 
-        loadWinnerData('winner-preview-container', 'winner-summary', false).then((data) => {
-          if (data) {
-            // Show last updated time for winners
-            const lastUpdated = new Date(data.lastUpdated);
-            const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const formattedDate = lastUpdated.toLocaleString('en-GB', {
-              dateStyle: 'medium',
-              timeStyle: 'short',
-              timeZone: userTimeZone,
-            });
+        loadWinnerData('winner-preview-container', 'winner-summary', false, dataOverride).then(
+          (data) => {
+            if (data) {
+              // Show last updated time for winners
+              const lastUpdated = new Date(data.lastUpdated);
+              const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+              const formattedDate = lastUpdated.toLocaleString('en-GB', {
+                dateStyle: 'medium',
+                timeStyle: 'short',
+                timeZone: userTimeZone,
+              });
 
-            const updateText = isTestMode
-              ? `Last updated: ${formattedDate} (test data)`
-              : `Last updated: ${formattedDate} (your local time)`;
+              const usedTest =
+                lastWinnersDataMode === 'test' || (dataOverride === 'auto' && isTestMode);
+              const updateText = usedTest
+                ? `Last updated: ${formattedDate} (test data)`
+                : `Last updated: ${formattedDate} (your local time)`;
 
-            const updateElement = document.getElementById('winner-last-updated');
-            if (updateElement) {
-              updateElement.textContent = updateText;
+              const updateElement = document.getElementById('winner-last-updated');
+              if (updateElement) {
+                updateElement.textContent = updateText;
+              }
+              // Track for QA panel
+              try {
+                lastWinnersUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
+              } catch {}
+              updateQAPanel();
             }
           }
-        });
+        );
       }
 
       // Unified display function for winner previews
@@ -2207,7 +2774,9 @@
 
       // Load test leaderboard data
       function loadTestLeaderboardData() {
+        lastLeaderboardDataMode = 'test';
         const winnerUrl = 'data/test_winner_stats.json?cache=' + new Date().getTime();
+        lastLeaderboardDataFile = 'data/test_winner_stats.json';
         console.log('🧪 Loading TEST leaderboard data for toggle');
 
         return fetchWithRetry(winnerUrl, 3)
@@ -2284,7 +2853,10 @@
                   if (updateElement) {
                     updateElement.textContent = `Last updated: ${formattedDate} (test data)`;
                   }
-
+                  try {
+                    lastLeaderboardUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
+                  } catch {}
+                  updateQAPanel();
                   return data;
                 })
                 .catch((fetchError) => {
@@ -2313,7 +2885,10 @@
                   if (updateElement) {
                     updateElement.textContent = `Last updated: ${formattedDate} (test data)`;
                   }
-
+                  try {
+                    lastLeaderboardUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
+                  } catch {}
+                  updateQAPanel();
                   return data;
                 });
             }
@@ -2341,20 +2916,26 @@
       // Load leaderboard data from the same winner_stats.json
       function loadLeaderboardData() {
         const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get('test') === 'true';
+        const isTestParam = urlParams.get('test') === 'true';
+        const dataOverride = getDataOverride();
+        let useTestData = isTestParam;
+        if (dataOverride === 'test') useTestData = true;
+        if (dataOverride === 'live') useTestData = false;
 
-        const winnerUrl = isTestMode
-          ? 'data/test_winner_stats.json?cache=' + new Date().getTime()
-          : 'data/winner_stats.json?cache=' + new Date().getTime();
+        const lbFile = useTestData ? 'data/test_winner_stats.json' : 'data/winner_stats.json';
+        const winnerUrl = lbFile + '?cache=' + new Date().getTime();
+
+        lastLeaderboardDataMode = useTestData ? 'test' : 'live';
+        lastLeaderboardDataFile = lbFile;
 
         console.log(
-          isTestMode ? '🧪 Loading TEST leaderboard data' : '📊 Loading LIVE leaderboard data'
+          useTestData ? '🧪 Loading TEST leaderboard data' : '📊 Loading LIVE leaderboard data'
         );
 
         return fetchWithRetry(winnerUrl, 3)
           .then((data) => {
             console.log(
-              `${isTestMode ? '🧪 Loaded TEST' : '📊 Loaded LIVE'} leaderboard data:`,
+              `${useTestData ? '🧪 Loaded TEST' : '📊 Loaded LIVE'} leaderboard data:`,
               data
             );
 
@@ -2380,7 +2961,7 @@
                 timeZone: userTimeZone,
               });
 
-              const updateText = isTestMode
+              const updateText = useTestData
                 ? `Last updated: ${formattedDate} (test data)`
                 : `Last updated: ${formattedDate} (your local time)`;
 
@@ -2388,12 +2969,17 @@
               if (updateElement) {
                 updateElement.textContent = updateText;
               }
+              // Track for QA panel
+              try {
+                lastLeaderboardUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
+              } catch {}
+              updateQAPanel();
             }
 
             return data;
           })
           .catch((error) => {
-            console.error(`Leaderboard fetch error (${isTestMode ? 'test' : 'live'}):`, error);
+            console.error(`Leaderboard fetch error (${useTestData ? 'test' : 'live'}):`, error);
             const container = document.getElementById('leaderboard-container');
             if (container) {
               container.innerHTML = `
@@ -2407,6 +2993,7 @@
                 </div>
               `;
             }
+            updateQAPanel();
           });
       }
 
@@ -2475,10 +3062,10 @@
         // Show/hide navigation if needed
         if (navigation) {
           if (totalPages > 1) {
-            navigation.style.display = 'flex';
+            show(navigation);
             updateLeaderboardNavigation(totalPages);
           } else {
-            navigation.style.display = 'none';
+            hide(navigation);
           }
         }
       }
