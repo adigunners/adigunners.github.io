@@ -78,28 +78,29 @@
         padding: 0 16px;
         background-color: transparent;
       }
-      /* Header and countdown aligned exactly like index.html (Grid keeps title centered) */
+      /* Header and countdown aligned exactly like index.html (flex keeps title centered) */
       header {
         background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: #fff;
+        text-align: center;
         padding: 50px 20px;
         border-radius: var(--border-radius);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         margin-bottom: 30px;
-        display: grid;
-        grid-template-columns: 1fr auto 1fr; /* symmetrical columns keep center centered */
+        display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 20px;
+        flex-wrap: wrap;
         position: relative;
       }
       .header-main {
-        grid-column: 2 / 3; /* center column */
+        flex: 1 1 auto;
         min-width: 0;
         text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-self: center;
       }
       header h1 {
         margin: 0;
@@ -947,7 +948,6 @@
       }
       /* ===== COUNTDOWN STYLES (identical to index.html) ===== */
       .countdown-clock {
-        grid-column: 3 / 4; /* right column */
         flex: 0 0 auto;
         max-width: 300px;
         width: auto;
@@ -1117,13 +1117,12 @@
 
       @media (max-width: 768px) {
         header {
-          grid-template-columns: 1fr; /* stack */
+          flex-direction: column; /* stack */
           text-align: center;
           gap: 16px;
         }
         .header-main {
           width: 100%;
-          justify-self: center;
         }
         header h1 {
           white-space: normal;
@@ -1140,7 +1139,6 @@
           width: 100%;
           max-width: 300px;
           margin: 0 auto;
-          justify-self: center;
         }
         .back-fab {
           right: 12px;
