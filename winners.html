@@ -1,4 +1,31 @@
 <!doctype html>
+<!--
+  winners.html
+  -----------------
+  Purpose: Presents the "Complete Winner Scorecard" for the IIM Mumbai Fantasy League.
+
+  High-level structure:
+    - <head>: fonts, icons, and a large self-contained stylesheet used by the site
+    - <body>: header (title + countdown), league stats summary, winners table + pagination
+    - <script>: client-side logic for countdown, loading/formatting winner data, pagination
+
+  Important data files (served from the `data/` folder):
+    - data/winner_stats.json         (live winners data)
+    - data/test_winner_stats.json    (test/demo winners data)
+    - data/next_deadline.json        (next gameweek / deadline metadata used for countdown)
+
+  Supported URL query parameters (used throughout the script):
+    - test=true        -> run in TEST mode (loads demo/test data)
+    - data={auto|test|live} -> force which data file to use
+    - debug=1          -> enable verbose logging to console
+    - phase={pre|season|auto} -> used to redirect between pre-season/Home pages
+    - clockOffset=<ms> -> client-side clock offset in milliseconds
+
+  Notes for contributors:
+    - This file is intentionally self-contained to make the static site portable.
+    - The JS intentionally avoids external networks when local JSON files are available.
+    - Styling and small dynamic behaviors (column width calculation) are applied at runtime.
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -1325,6 +1352,18 @@
     </div>
 
     <script>
+      /*
+   ===== Client-side logic overview =====
+   - Countdown logic: shows time until next gameweek (uses data/next_deadline.json)
+   - Winners loader: fetches winners JSON (live or test) and renders a paginated table
+   - Pagination helpers: next/previous page handling and UI update
+   - Utilities: localStorage caching, debug/test flags, small DOM helpers
+       
+   Important: keep behaviour unchanged when adding comments. New contributors should
+   first read the top-level helpers: `loadWinnerData`, `displayWinnerTable`, and
+   `optimizeTableColumnWidths`.
+  */
+
       // ===== Countdown logic (mirrors index.html, trimmed for winners page) =====
       const _urlParams_boot = new URLSearchParams(window.location.search);
       const _clockOffsetRaw = parseInt(_urlParams_boot.get('clockOffset') || '0', 10);
@@ -1349,6 +1388,7 @@
         const p = new URLSearchParams(window.location.search);
         return p.get('test') === 'true' || p.get('admin') === 'true';
       }
+      // isAdminMode: small helper used by countdown to append an admin badge
       function setLastSyncInfo(gwId, iso) {
         _lastGwId = gwId || _lastGwId;
         _lastSyncIso = iso || _lastSyncIso;
@@ -1403,6 +1443,12 @@
           badge.textContent = text;
         }
       }
+
+      // ------------------------------------------------------------------
+      // Caching helpers - store deadline and the 'next gameweek' in localStorage
+      // These allow the page to show a cached countdown while network requests
+      // are happening (helpful in test mode or on slow connections).
+      // ------------------------------------------------------------------
 
       function getCachedDeadline() {
         try {
@@ -1528,6 +1574,12 @@
       }
 
       function loadFPLSeasonData() {
+        // loadFPLSeasonData
+        // - Purpose: load the next gameweek deadline used by the countdown widget.
+        // - Sources: first attempts local `data/next_deadline.json`, then falls back
+        //   to a small list of CORS proxies to extract the next event from the
+        //   official FPL bootstrap API. On repeated failures a conservative fallback
+        //   deadline is used so the countdown still shows something meaningful.
         const backendUrl = 'data/next_deadline.json?cache=' + Date.now();
         fetch(backendUrl)
           .then((r) => (r.ok ? r.json() : Promise.reject(new Error('backend 404'))))
@@ -1692,6 +1744,13 @@
       }
 
       function loadWinnerData() {
+        // loadWinnerData
+        // - Purpose: fetch winner JSON (either live or test) and populate the
+        //   global `allWinners` array used by `displayWinnerTable()`.
+        // - Behaviour: respects URL params: `test`, `data` (auto/test/live) and `debug`.
+        // - Error handling: shows a user-friendly error message on the page when the
+        //   fetch fails.
+        // - Note: this function mutates `allWinners` and updates the stats and UI.
         // Check if we're in test mode and load appropriate file
         const urlParams = new URLSearchParams(window.location.search);
         const isTestParam = urlParams.get('test') === 'true';
@@ -1818,7 +1877,7 @@
             ? `<span class="highlight-badge">League Rank: ${highlights.overallRank}</span>`
             : '';
 
-          // Assign rank-specific classes for top 3
+          // Assign rank-specific classes for top 3 (adds subtle gold/silver/bronze styles)
           let rankClass = '';
           if (rank === 1) rankClass = 'winner-gold';
           else if (rank === 2) rankClass = 'winner-silver';
@@ -1833,6 +1892,7 @@
         });
 
         tableHTML += '</tbody></table>';
+        // Replace the container content with the generated table
         container.innerHTML = tableHTML;
 
         // Show/hide navigation based on total pages
@@ -1845,7 +1905,8 @@
           }
         }
 
-        // Apply dynamic column widths after table is rendered
+        // Apply dynamic column widths after table is rendered. This calculates the
+        // optimal width for the Player column to avoid truncation for long names.
         setTimeout(() => {
           optimizeTableColumnWidths(currentPageData);
         }, 50);
@@ -1919,6 +1980,7 @@
           const headerWidth = measureEl.offsetWidth;
 
           // Use the larger of content width or header width, plus padding
+          // (32px total padding estimates left+right cell padding + spacing)
           const playerColumnWidth = Math.max(maxPlayerNameWidth, headerWidth) + 32; // 16px padding on each side
 
           if (isDebugMode)
@@ -1937,7 +1999,7 @@
             }
           `;
 
-          // Remove any existing dynamic styles
+          // Remove any existing dynamic styles (keeps document.head tidy when re-calculating)
           const existingStyle = document.getElementById('dynamic-table-styles');
           if (existingStyle) {
             existingStyle.remove();
@@ -2099,6 +2161,20 @@
           window.location.href = 'index.html' + (finalQs ? '?' + finalQs : '');
         }
       }
+      /*
+        Contributor notes / quick runbook:
+
+        - Open `winners.html` locally (served via a static server or GitHub Pages).
+        - Example query params:
+            winners.html?test=true            -> use test/demo data
+            winners.html?data=live&debug=1     -> force live data and enable debug logs
+            winners.html?clockOffset=3600000   -> shift clock by +1 hour (ms)
+
+        - Live testing: `python3 -m http.server` from project root and open
+          http://localhost:8000/winners.html in your browser.
+        - Data files are under `data/` — modify `test_winner_stats.json` to create
+          reproducible scenarios for onboarding new contributors.
+      */
     </script>
   </body>
 </html>

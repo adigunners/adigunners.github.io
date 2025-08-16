@@ -1,4 +1,34 @@
 <!doctype html>
+<!--
+  index.html
+  -----------------
+  Purpose: The main landing page for the IIM Mumbai Fantasy League site.
+
+  High-level structure:
+    - <head>: SEO meta tags, fonts, icons, and a small helper `escapeHTML`
+    - <body>: header with countdown + registration UI, leaderboard preview,
+              winner preview and registration instructions
+    - <script>: client-side logic to load `data/league_stats.json`, next-deadline
+                (for the countdown), winners/leaderboard preview, and QA/test tooling
+
+  Data sources in `data/` used by this page:
+    - data/league_stats.json
+    - data/next_deadline.json
+    - data/winner_stats.json
+    - data/test_winner_stats.json
+
+  URL query params supported:
+    - test=true        -> UI shows test-only elements and loads demo data
+    - data={auto|test|live} -> control which winner dataset to load
+    - debug=1          -> verbose console logging
+    - phase={pre|season|auto} -> force view/redirect behaviour
+    - clockOffset=<ms> -> client-side clock offset to help debugging timezone issues
+
+  Contributor notes:
+    - The JavaScript is written to be runnable in a static environment. For local
+      testing, serve the repo root with a simple static server (e.g. python3 -m http.server).
+    - The QA panel is visible only in test/admin modes and helps inspect cached state.
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -1504,6 +1534,20 @@
     <!-- === JS: DYNAMIC DATA FROM league_stats.json === -->
     <!-- Cache buster: v2.1 -->
     <script>
+      /*
+        Main script overview:
+        - Time helpers: `now()`; accepts `clockOffset` via query params for debugging
+        - QA & debug tools: `updateQAPanel()` to populate the QA panel (test/admin only)
+        - Countdown & caching: helpers to read/write `fpl_next_deadline` and `fpl_cached_gw`
+        - Data loaders:
+            * loadFPLSeasonData() - loads next_deadline.json and sets countdown
+            * loadWinnerData() - loads winners preview (test or live) using fetchWithRetry
+        - UI toggles: functions to flip between pre-season and during-season UIs
+
+        New contributors: start by reading `loadFPLSeasonData`, `handleSeasonDisplay`, and
+        `loadWinnerData` as they orchestrate most visible behaviour on the page.
+      */
+
       // ===== Time controls (clockOffset) =====
       const _urlParams_boot = new URLSearchParams(window.location.search);
       const _clockOffsetRaw = parseInt(_urlParams_boot.get('clockOffset') || '0', 10);
@@ -1528,6 +1572,8 @@
       let lastLeaderboardUpdatedIso = null;
 
       function updateQAPanel() {
+        // updateQAPanel: populates the QA overlay (visible in ?test=true or ?admin=true)
+        // Shows cached gameweek, data sources used, and action buttons for cache/refetch
         if (!isAdminMode()) return;
         const panel = document.getElementById('qa-panel');
         if (!panel) return;
@@ -1651,6 +1697,7 @@
 
       // Build a query string preserving selected params for navigation
       function buildNavQuery(keys = ['test', 'data', 'phase', 'clockOffset']) {
+        // buildNavQuery: copies whitelisted URL params into a new querystring for links
         try {
           const params = new URLSearchParams();
           keys.forEach((k) => {
@@ -1685,6 +1732,7 @@
       }
 
       function getCachedDeadline() {
+        // getCachedDeadline: returns a Date object from localStorage or null
         try {
           const iso = localStorage.getItem('fpl_next_deadline');
           if (!iso) return null;
@@ -1736,6 +1784,10 @@
         const headerP = document.querySelector('header p');
         if (headerP) headerP.textContent = 'Season 2025-26 - Live Updates';
       }
+
+      // ------------------------------------------------------------------
+      // Data loaders & helpers
+      // ------------------------------------------------------------------
 
       // ======= SYNC BADGE FEATURE FLAG AND HELPERS =======
       // Feature flag so we can roll back easily
@@ -2005,6 +2057,8 @@
 
       // Enhanced fetch with automatic retry
       function fetchWithRetry(url, maxRetries = 3, delay = 1000) {
+        // fetchWithRetry: simple wrapper to retry a JSON fetch a limited number of times.
+        // Returns a Promise that resolves to parsed JSON or rejects after retries.
         return fetch(url)
           .then((response) => {
             if (!response.ok) {
@@ -2029,6 +2083,9 @@
       }
 
       document.addEventListener('DOMContentLoaded', function () {
+        // DOMContentLoaded bootstrap: decides test vs live mode, attempts cached deadlines
+        // (only in test mode), sets up countdown safety fallback and loads league_stats.json
+        // The majority of UI wiring happens in loadFPLSeasonData() and handleSeasonDisplay().
         // Check if we're in test mode first
         const urlParams = new URLSearchParams(window.location.search);
         const isTestMode = urlParams.get('test') === 'true';
@@ -2113,6 +2170,23 @@
 
         // Add this at the end
         checkTestMode();
+
+        /*
+          Contributor notes / quick runbook (same patterns as winners.html):
+
+          - Serve this folder with a static server for local testing:
+              python3 -m http.server
+            then open http://localhost:8000/index.html
+
+          - Try query params for debugging:
+              ?test=true          -> show test UI and load demo data
+              ?data=test|live     -> force which winners dataset to use
+              ?debug=1            -> enable verbose logging
+              ?clockOffset=3600000-> shift clock by +1 hour (ms)
+
+          - Edit `data/test_winner_stats.json` and `data/league_stats.json` to create
+            predictable datasets for onboarding new contributors.
+        */
       });
 
       function loadFPLSeasonData() {
