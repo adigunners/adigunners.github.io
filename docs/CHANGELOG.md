@@ -25,6 +25,25 @@
 
 ---
 
+## [1.0.7] - 2025-08-17 - Dynamic "After GWx" subtitles for Winners & Leaderboard
+
+### 🎨 UI Consistency & Accessibility
+
+- Added dynamic "After GWx" subtitle to the Winners and Leaderboard headings so both pages use the same cached gameweek source as the countdown widget.
+- Mobile-first stacked subtitle (stacks under title on small screens, inline on wider screens). Subtitle is accessible and respects prefers-reduced-motion.
+
+### 🔧 Implementation Notes
+
+- `winners.html`: Added `.winners-heading` rules, `#winners-page-after-gw` span, and `updateWinnersPageHeaderGW()` to read `_lastGwId` / `fpl_cached_gw` and update the subtitle.
+- `index.html`: Ensured winners/leaderboard headings use the same heading structure and updater functions.
+
+### ✅ QA
+
+- Verified subtitle shows "After GW{n}" when `fpl_cached_gw` is present in localStorage or when `_lastGwId` is set.
+- Responsive behavior: stacked on mobile, inline on desktop; animation disabled when `prefers-reduced-motion: reduce`.
+
+---
+
 ## [1.0.5] - 2025-08-15 - Test Mode Standings Fix + Docs
 
 ### 🐛 Bug Fixes

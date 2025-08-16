@@ -21,6 +21,10 @@ This system automatically manages a complete fantasy football mini-league for an
 - **🌐 Live Website** - Real-time leaderboards and winner statistics
 - **📊 Admin Dashboard** - Complete league management in Google Sheets
 
+## Website updates
+
+- 2025-08-17: Added dynamic "After GWx" subtitles to Winners & Leaderboard headings for parity with the countdown widget. Mobile-first stacked subtitle and accessibility improvements.
+
 ## 🚀 Live Features
 
 ### For Players

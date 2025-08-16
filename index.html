@@ -142,6 +142,17 @@
         background-color: transparent;
       }
 
+      /* Utility: prevent wrapping for short, important headings (mobile inline preference)
+         Uses truncation if the heading is too long for the viewport to avoid layout shift */
+      .nowrap {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+        max-width: 100%;
+        vertical-align: middle;
+      }
+
       /* =============== HEADER STYLES =============== */
       header {
         background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
@@ -1322,6 +1333,59 @@
   </head>
   <body>
     <div class="container">
+      <style>
+        /* Winners heading: mobile-first stacked subtitle */
+        .winners-heading {
+          display: block;
+          margin: 0 0 0.5rem 0;
+        }
+        .winners-heading .heading-main {
+          display: block;
+          font-size: 1.35rem;
+          font-weight: 700;
+        }
+        .winners-heading .heading-subtitle {
+          display: block;
+          font-size: 0.85rem;
+          color: #666;
+          margin-top: 4px;
+          opacity: 0;
+          transform: translateY(4px);
+          transition:
+            opacity 180ms ease,
+            transform 180ms ease;
+        }
+        .winners-heading .heading-subtitle.show {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Respect users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          .winners-heading .heading-subtitle,
+          .winners-heading .heading-subtitle.show {
+            transition: none;
+            transform: none;
+          }
+        }
+
+        /* Larger screens: put subtitle inline beside the main title */
+        @media (min-width: 700px) {
+          .winners-heading {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+          }
+          .winners-heading .heading-main {
+            display: inline-block;
+            font-size: 1.25rem;
+          }
+          .winners-heading .heading-subtitle {
+            display: inline-block;
+            margin-top: 0;
+          }
+        }
+      </style>
       <header>
         <!-- Main Content -->
         <div class="header-main">
@@ -1394,7 +1458,10 @@
 
         <!-- WINNER SCORECARD SECTION (During Season) -->
         <section class="winner-scorecard season-section during-season is-hidden">
-          <h2>🎆 Top Earners So Far</h2>
+          <h2 class="winners-heading" id="winners-heading">
+            <span class="heading-main">🎆 Top Earners So Far</span>
+            <span class="heading-subtitle" id="winners-after-gw"></span>
+          </h2>
           <p>Leading players and their prize money achievements this season.</p>
 
           <div id="winner-preview-container">
@@ -1416,7 +1483,10 @@
 
         <!-- LEADERBOARD SECTION (During Season) -->
         <section id="leaderboard" class="season-section during-season is-hidden">
-          <h2>🏆 League Standings</h2>
+          <h2 class="winners-heading" id="leaderboard-heading">
+            <span class="heading-main">🏆 League Standings</span>
+            <span class="heading-subtitle" id="leaderboard-after-gw"></span>
+          </h2>
           <p>Complete league table showing all players ranked by their overall FPL performance.</p>
 
           <div id="leaderboard-container">
@@ -1836,6 +1906,46 @@
         _lastSyncIso = iso || _lastSyncIso;
       }
 
+      // Update the winners subtitle to show "After GWx" when we know the last updated GW
+      function updateWinnersHeaderGW() {
+        const el = document.getElementById('winners-after-gw');
+        const heading = document.getElementById('winners-heading');
+        if (!el) return;
+        // Prefer explicit last synced GW id, fall back to cached gameweek
+        const gwFromCache = getCachedGameweek();
+        const gwId =
+          typeof _lastGwId === 'number' ? _lastGwId : gwFromCache ? gwFromCache.id : null;
+        if (gwId || gwId === 0) {
+          el.textContent = `After GW${gwId}`;
+          el.style.display = 'inline';
+          // Reveal with animation
+          el.classList.add('show');
+        } else {
+          el.textContent = '';
+          el.style.display = 'none';
+          el.classList.remove('show');
+        }
+      }
+
+      // Mirror for leaderboard heading
+      function updateLeaderboardHeaderGW() {
+        const el = document.getElementById('leaderboard-after-gw');
+        const heading = document.getElementById('leaderboard-heading');
+        if (!el) return;
+        const gwFromCache = getCachedGameweek();
+        const gwId =
+          typeof _lastGwId === 'number' ? _lastGwId : gwFromCache ? gwFromCache.id : null;
+        if (gwId || gwId === 0) {
+          el.textContent = `After GW${gwId}`;
+          el.style.display = 'inline';
+          el.classList.add('show');
+        } else {
+          el.textContent = '';
+          el.style.display = 'none';
+          el.classList.remove('show');
+        }
+      }
+
       function attachAdminBadge() {
         if (!isAdminMode()) return;
         const label = document.getElementById('countdown-label');
@@ -2123,6 +2233,10 @@
         // Load FPL season data first
         loadFPLSeasonData();
 
+        // Ensure winners + leaderboard headers reflect known GW on initial load
+        updateWinnersHeaderGW();
+        updateLeaderboardHeaderGW();
+
         // Safety: if nothing has shown the countdown within 1500ms, show a conservative fallback
         setTimeout(() => {
           if (!countdownShown) {
@@ -2201,6 +2315,9 @@
               setCachedDeadline(deadline.toISOString());
               setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
               setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
+              // Reflect latest GW in winners + leaderboard headers
+              updateWinnersHeaderGW();
+              updateLeaderboardHeaderGW();
               seasonDataSource = 'backend';
               handleSeasonDisplay(deadline, gw);
               startCountdown(deadline, gw);
@@ -2233,6 +2350,9 @@
                   setCachedDeadline(dl.toISOString());
                   setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
                   setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
+                  // Reflect latest GW in winners + leaderboard headers
+                  updateWinnersHeaderGW();
+                  updateLeaderboardHeaderGW();
                   seasonDataSource = 'backend';
                   updateGameweekCountdown(gw);
                   startCountdown(dl, gw);
@@ -2322,6 +2442,9 @@
                   deadline_time: nextGameweek.deadline_time,
                 });
                 setLastSyncInfo(nextGameweek.id, new Date().toISOString());
+                // Reflect latest GW in winners + leaderboard headers
+                updateWinnersHeaderGW();
+                updateLeaderboardHeaderGW();
                 seasonDataSource = 'proxy';
                 console.log('Deadline time:', deadlineTime);
 
@@ -2598,6 +2721,13 @@
         if (countdownClock && countdownLabel) {
           show(countdownClock);
           countdownLabel.textContent = `Time until GW${gameweek.id} kick-off`;
+          // Update winners header to indicate this GW has been used for the preview
+          try {
+            updateWinnersHeaderGW();
+            updateLeaderboardHeaderGW();
+          } catch (e) {
+            // non-fatal
+          }
           attachAdminBadge();
 
           // Update the countdown display with gameweek deadline

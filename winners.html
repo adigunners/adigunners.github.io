@@ -1222,6 +1222,61 @@
         }
       }
     </style>
+    <style>
+      /* Winners heading: mobile-first stacked subtitle (match index.html) */
+      .winners-heading {
+        display: block;
+        margin: 0 0 0.5rem 0;
+      }
+      .winners-heading .heading-main {
+        display: block;
+        font-size: 1.35rem; /* match index.html */
+        line-height: 1.1;
+        font-weight: 700;
+      }
+      .winners-heading .heading-subtitle {
+        display: block;
+        font-size: 0.85rem; /* match index */
+        line-height: 1;
+        color: #666;
+        margin-top: 4px;
+        opacity: 0;
+        transform: translateY(4px);
+        transition:
+          opacity 180ms ease,
+          transform 180ms ease;
+      }
+      .winners-heading .heading-subtitle.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Respect users who prefer reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .winners-heading .heading-subtitle,
+        .winners-heading .heading-subtitle.show {
+          transition: none;
+          transform: none;
+        }
+      }
+
+      /* Larger screens: put subtitle inline beside the main title */
+      @media (min-width: 700px) {
+        .winners-heading {
+          display: flex;
+          align-items: baseline;
+          gap: 0.5rem;
+        }
+        .winners-heading .heading-main {
+          display: inline-block;
+          font-size: 1.25rem;
+        }
+        .winners-heading .heading-subtitle {
+          display: inline-block;
+          margin-top: 0;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -1305,7 +1360,10 @@
         </section>
 
         <section>
-          <h2>🏅 Complete Winner Rankings</h2>
+          <h2 class="winners-heading" id="winners-page-heading">
+            <span class="heading-main">🏅 Complete Winner Rankings</span>
+            <span class="heading-subtitle" id="winners-page-after-gw"></span>
+          </h2>
           <p>All players ranked by total prize money won this season.</p>
 
           <div id="winner-table-container">
@@ -1568,6 +1626,10 @@
               .querySelectorAll('.countdown-unit-label')
               .forEach((l) => l.classList.remove('is-hidden'));
           }
+          // Keep winners page subtitle in sync
+          try {
+            updateWinnersPageHeaderGW();
+          } catch (e) {}
         }
       }
 
@@ -1724,6 +1786,10 @@
 
         // Load season data for countdown
         loadFPLSeasonData();
+        // Ensure the winners page header shows cached gameweek if available
+        try {
+          updateWinnersPageHeaderGW();
+        } catch (e) {}
 
         // Safety fallback if nothing shows quickly
         setTimeout(() => {
@@ -1824,6 +1890,30 @@
             document.getElementById('winner-table-container').innerHTML =
               '<div class="winner-error">Unable to load winner data. Please try again later.</div>';
           });
+      }
+      // ===== Winners page: populate the "After GWx" subtitle =====
+      function updateWinnersPageHeaderGW() {
+        try {
+          const el = document.getElementById('winners-page-after-gw');
+          if (!el) return;
+          // Prefer the in-memory _lastGwId (set by setLastSyncInfo), fall back to cached localStorage
+          let gwId = typeof _lastGwId === 'number' ? _lastGwId : null;
+          if (!gwId) {
+            const cached = getCachedGameweek();
+            if (cached && typeof cached.id !== 'undefined') gwId = cached.id;
+          }
+          if (gwId) {
+            el.textContent = `After GW${gwId}`;
+            el.classList.add('show');
+            el.style.display = '';
+          } else {
+            el.textContent = '';
+            el.classList.remove('show');
+            el.style.display = 'none';
+          }
+        } catch (e) {
+          // silent - non-critical UI enhancement
+        }
       }
 
       // Display winners table with pagination
