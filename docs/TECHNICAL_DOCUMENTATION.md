@@ -171,7 +171,7 @@ const GITHUB_CONFIG = {
   1. Check for completed gameweeks
   2. Update player scores from FPL API
   3. Calculate weekly winners (handles ties)
-  4. Calculate monthly winners (every 4 gameweeks)
+  4. Calculate monthly winners (derived from FPL `bootstrap-static.phases` when available; legacy 4-GW partitions used as fallback)
   5. Update overall standings with ranking
   6. Generate winner stats JSON
   7. Trigger email system
@@ -326,7 +326,8 @@ const DAILY_CONTENT = {
 - **Weekly Prizes**: ₹500 (1st), ₹300 (2nd)
 - **Monthly Prizes**: ₹1000 (1st), ₹700 (2nd)
 - **Entry Fee**: ₹3,000 per player
-- **Monthly Periods**: Every 4 gameweeks (GW1-4, GW5-8, etc.)
+- **Monthly Periods**: Derived from FPL `bootstrap-static.phases` when available; legacy
+  partitioning is every 4 gameweeks (GW1-4, GW5-8, etc.) used as a fallback.
 
 ## API Integrations
 

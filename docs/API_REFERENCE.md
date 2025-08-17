@@ -351,7 +351,7 @@ const validation = validateFPLTeam('123456', 'My Team Name');
 1. Check for completed gameweeks
 2. Update player scores from FPL API
 3. Calculate weekly winners with tie-handling
-4. Calculate monthly winners (every 4 GWs)
+4. Calculate monthly winners (derived from FPL `bootstrap-static.phases` when available; legacy 4-GW partitions used as fallback)
 5. Update overall standings with ranking
 6. Generate winner stats JSON
 7. Trigger email system
@@ -388,7 +388,9 @@ const currentGW = getCurrentGameweek(); // Returns: 15
 
 #### `calculateMonthlyWinners(period)`
 
-**Purpose**: Calculates monthly winners for 4-gameweek periods
+**Purpose**: Calculates monthly winners using authoritative month boundaries from
+`bootstrap-static.phases` when available. If phases[] is not present, falls back
+to legacy 4-gameweek partitions (GW1-4, GW5-8, ...).
 **Parameters**: `period` (object): `{month: number, start: number, end: number}`
 **Returns**: `void`
 **Monthly Periods**:

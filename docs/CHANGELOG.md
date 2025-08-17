@@ -346,6 +346,19 @@
 
 ---
 
+## [0.9.1] - 2025-08-17 - Phase-based monthly detection
+
+### 🛰 Data Source and Monthly Winners
+
+- **Authoritative months** — Monthly winner calculation now prefers the FPL
+  `bootstrap-static.phases` block to determine month boundaries and phase names.
+  A legacy 4-GW partitioning is retained as a fallback when phases[] are
+  unavailable.
+
+- **Parity** — Test harness and production fetcher now share the same
+  phase-aware logic to ensure consistent monthly winner detection and labels
+  (GM1..GMn mapping where applicable).
+
 ## [0.8.0] - 2025-08-01 - Core System Complete
 
 ### 🏗 System Architecture Finalized
