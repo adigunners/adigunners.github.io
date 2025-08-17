@@ -2,6 +2,21 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.0.9] - 2025-08-18 - Config-first backend + safer operations (no UI change)
+
+### 🔧 Backend & Ops
+
+- Introduced normalized Config and Prize tables in Google Sheets with a central `Config.js` access layer.
+- Added preflight checks and a visible `SYSTEM` banner indicating mode (TEST/LIVE, DRY_RUN status).
+- Safe TEST/LIVE routing via Script Properties; one-click admin menu actions for dry-run, test-writes, and live runs.
+- JSON publishing now respects `TEST_MODE`: publishes to `data/test_winner_stats.json` when testing; live continues at `data/winner_stats.json`.
+- Demo helpers: run a full 38-GW or 4-GW simulated season and publish test JSON for website previews.
+
+### 📣 Notes
+
+- No visual changes to the site. Changes improve reliability and operator safety behind the scenes.
+- Admin docs updated with new workflows; see private `fml-admin-docs` for runbooks.
+
 ---
 
 ## [1.0.6] - 2025-08-16 - Winners Header Parity + Floating Back Button
