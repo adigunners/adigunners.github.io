@@ -82,7 +82,7 @@ A1: Setting | B1: Value
 A2: League Name | B2: IIM Mumbai Fantasy League
 A3: Player Count | B3: =COUNTA(Players!A:A)-1
 A4: Pot Amount | B4: =B3*3000
-A5: Current Gameweek | B5: 1
+A5: Current Gameweek | B50: 1 (fallback). The script will update `B50` with the latest current GW; `B5` is used for League Name.
 A18: Weekly Prize 1st | B18: 500
 A19: Weekly Prize 2nd | B19: 300
 A26: Monthly Prize 1st | B26: 1000
