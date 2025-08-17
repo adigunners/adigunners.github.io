@@ -24,6 +24,7 @@ This system automatically manages a complete fantasy football mini-league for an
 ## Website updates
 
 - 2025-08-17: Added dynamic "After GWx" subtitles to Winners & Leaderboard headings for parity with the countdown widget. Mobile-first stacked subtitle and accessibility improvements.
+- 2025-08-18: Bugfix — hide "After GW0" subtitle when no finished gameweek has been processed (pre-season). Files: `index.html`, `winners.html`.
 
 ## 🚀 Live Features
 

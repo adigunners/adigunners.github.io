@@ -1608,6 +1608,8 @@
       let usedCachedOnLoad = false;
       let _lastSyncIso = null;
       let _lastGwId = null;
+      // last finished / processed GW according to winners data (summary.lastProcessedGW)
+      let _lastProcessedGW = null;
       function isAdminMode() {
         const p = new URLSearchParams(window.location.search);
         return p.get('test') === 'true' || p.get('admin') === 'true';
@@ -2031,6 +2033,11 @@
                 data.summary.completedGameweeks;
             }
 
+            // Record last processed / finished GW from the summary if available
+            if (data.summary && typeof data.summary.lastProcessedGW === 'number') {
+              _lastProcessedGW = data.summary.lastProcessedGW;
+            }
+
             // Update completed gamemonths from the JSON data summary
             if (data.summary && data.summary.completedMonths !== undefined) {
               document.getElementById('completed-gamemonths').textContent =
@@ -2052,6 +2059,10 @@
               : `Last updated: ${formattedDate} (your local time)`;
 
             document.getElementById('winner-last-updated').textContent = updateText;
+            // Refresh page header subtitle (After GWx) now that processed GW may be known
+            try {
+              updateWinnersPageHeaderGW();
+            } catch (e) {}
           })
           .catch((error) => {
             console.error('Winner fetch error:', error);
@@ -2060,17 +2071,20 @@
           });
       }
       // ===== Winners page: populate the "After GWx" subtitle =====
+      function getLastFinishedGW() {
+        if (typeof _lastProcessedGW === 'number') return _lastProcessedGW;
+        if (typeof _lastGwId === 'number') return _lastGwId - 1;
+        const cached = getCachedGameweek();
+        if (cached && typeof cached.id === 'number') return cached.id - 1;
+        return null;
+      }
+
       function updateWinnersPageHeaderGW() {
         try {
           const el = document.getElementById('winners-page-after-gw');
           if (!el) return;
-          // Prefer the in-memory _lastGwId (set by setLastSyncInfo), fall back to cached localStorage
-          let gwId = typeof _lastGwId === 'number' ? _lastGwId : null;
-          if (!gwId) {
-            const cached = getCachedGameweek();
-            if (cached && typeof cached.id !== 'undefined') gwId = cached.id;
-          }
-          if (gwId) {
+          const gwId = getLastFinishedGW();
+          if (typeof gwId === 'number' && gwId > 0) {
             el.textContent = `After GW${gwId}`;
             el.classList.add('show');
             el.style.display = '';

@@ -1628,7 +1628,7 @@
 
         <!-- RULES SECTION -->
         <section id="rules">
-          <h2>League Rules & Prize Structure</h2>
+          <h2>Prize Structure</h2>
           <!-- Pre-season view: keep full text (unchanged) -->
           <div id="rules-pre" class="pre-season">
             <p><strong>Entry Fee:</strong> ₹3,000</p>
@@ -2028,6 +2028,8 @@
       // ======= ADMIN BADGE (visible in ?test=true or ?admin=true) =======
       let _lastSyncIso = null;
       let _lastGwId = null;
+      // last finished / processed GW according to winners data (summary.lastProcessedGW)
+      let _lastProcessedGW = null;
 
       function isAdminMode() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -2039,19 +2041,27 @@
         _lastSyncIso = iso || _lastSyncIso;
       }
 
-      // Update the winners subtitle to show "After GWx" when we know the last updated GW
+      // Return the last finished GW id.
+      // Logic: prefer explicit processed value from winners data (summary.lastProcessedGW).
+      // Fallback: derive from the next-gameweek id (`_lastGwId` or cached `fpl_cached_gw`) by subtracting 1.
+      function getLastFinishedGW() {
+        // use explicit processed GW if available
+        if (typeof _lastProcessedGW === 'number') return _lastProcessedGW;
+        // if we have an explicit last synced GW (next GW id), the last finished is that - 1
+        if (typeof _lastGwId === 'number') return _lastGwId - 1;
+        const gwFromCache = getCachedGameweek();
+        if (gwFromCache && typeof gwFromCache.id === 'number') return gwFromCache.id - 1;
+        return null;
+      }
+
+      // Update the winners subtitle to show "After GWx" when we know the last finished GW
       function updateWinnersHeaderGW() {
         const el = document.getElementById('winners-after-gw');
-        const heading = document.getElementById('winners-heading');
         if (!el) return;
-        // Prefer explicit last synced GW id, fall back to cached gameweek
-        const gwFromCache = getCachedGameweek();
-        const gwId =
-          typeof _lastGwId === 'number' ? _lastGwId : gwFromCache ? gwFromCache.id : null;
-        if (gwId || gwId === 0) {
+        const gwId = getLastFinishedGW();
+        if (typeof gwId === 'number' && gwId > 0) {
           el.textContent = `After GW${gwId}`;
           el.style.display = 'inline';
-          // Reveal with animation
           el.classList.add('show');
         } else {
           el.textContent = '';
@@ -2063,12 +2073,9 @@
       // Mirror for leaderboard heading
       function updateLeaderboardHeaderGW() {
         const el = document.getElementById('leaderboard-after-gw');
-        const heading = document.getElementById('leaderboard-heading');
         if (!el) return;
-        const gwFromCache = getCachedGameweek();
-        const gwId =
-          typeof _lastGwId === 'number' ? _lastGwId : gwFromCache ? gwFromCache.id : null;
-        if (gwId || gwId === 0) {
+        const gwId = getLastFinishedGW();
+        if (typeof gwId === 'number' && gwId > 0) {
           el.textContent = `After GW${gwId}`;
           el.style.display = 'inline';
           el.classList.add('show');
@@ -2279,6 +2286,15 @@
             }
 
             displayWinnerPreview(data.winners, containerId, summaryId);
+            // capture last processed GW from winners summary if available
+            if (data.summary && typeof data.summary.lastProcessedGW === 'number') {
+              _lastProcessedGW = data.summary.lastProcessedGW;
+            }
+            // Refresh any headers that show "After GWx"
+            try {
+              updateWinnersHeaderGW();
+              updateLeaderboardHeaderGW();
+            } catch (e) {}
             updateQAPanel();
             return data;
           })

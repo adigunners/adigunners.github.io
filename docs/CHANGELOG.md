@@ -105,6 +105,22 @@
 
 ---
 
+## [1.0.10] - 2025-08-18 - Hide "After GW0" subtitle when no finished GW
+
+### 🐛 Bug Fix
+
+- Fixed issue where Winners and League Standings subtitles displayed "After GW0" during pre-season (when no finished gameweek has been processed). The UI now hides the subtitle unless a positive (>=1) finished GW is known.
+
+### 🔧 Implementation Notes
+
+- Files updated: `index.html`, `winners.html` — new helper `getLastFinishedGW()` and stricter display condition (only show subtitle when finished GW &gt; 0).
+
+### ✅ QA
+
+- Verified that when `data/winner_stats.json` contains `summary.lastProcessedGW: 0` the subtitle is hidden; subtitle appears correctly once `lastProcessedGW` becomes 1.
+
+---
+
 ## [1.0.4] - 2025-08-10 - Countdown Email System Enhancements
 
 ### 📧 Major Email System Improvements
