@@ -1539,7 +1539,21 @@
           <h2>Join the League!</h2>
           <p>
             Ready to prove your FPL skills? Registration is now open. Click the button below to fill
-            out the form and join the action.
+            /* =============== PRIZE SUMMARY (IN-SEASON) =============== */ .prize-summary {
+            display: grid; grid-template-columns: 1fr; gap: 12px; } .prize-card { display: flex;
+            align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid
+            var(--border-color); border-radius: 10px; background: #fff; } .prize-card .icon { width:
+            36px; height: 36px; border-radius: 8px; display: grid; place-items: center; background:
+            linear-gradient(135deg, var(--primary-color), #59215e); color: #fff; flex: 0 0 36px; }
+            .prize-card .content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+            .prize-card .title { font-weight: 700; color: var(--heading-color); font-size: 0.95rem;
+            } .prize-card .subtitle { font-size: 0.9rem; color: #333; font-weight: 700; }
+            .prize-meta { display: flex; justify-content: space-between; align-items: center;
+            margin-top: 8px; color: #777; font-size: 0.85rem; } .prize-meta a { color:
+            var(--primary-color); text-decoration: none; font-weight: 600; } .prize-note {
+            margin-top: 8px; font-size: 0.85rem; color: #666; } @media (min-width: 700px) {
+            .prize-summary { grid-template-columns: repeat(3, 1fr); } } out the form and join the
+            action.
           </p>
           <a
             href="https://forms.gle/xXRXCMKNtNMcGxsr9"
@@ -1614,22 +1628,36 @@
 
         <!-- RULES SECTION -->
         <section id="rules">
-          <h2>League Rules & Prize Structure</h2>
-          <p><strong>Entry Fee:</strong> ₹3,000</p>
-          <h3>Prizes</h3>
-          <ul>
-            <li>
-              <strong>Weekly Prizes:</strong> The top 2 managers every gameweek win cash prizes.
-            </li>
-            <li>
-              <strong>Monthly Prizes:</strong> The best managers each month are rewarded from the
-              prize pool.
-            </li>
-            <li>
-              <strong>Overall Prizes:</strong> The top 10 managers at the end of the season will win
-              substantial rewards from the grand prize pool.
-            </li>
-          </ul>
+          <h2>Prize Structure</h2>
+          <!-- Pre-season view: keep full text (unchanged) -->
+          <div id="rules-pre" class="pre-season">
+            <p><strong>Entry Fee:</strong> ₹3,000</p>
+            <h3>Prizes</h3>
+            <ul>
+              <li>
+                <strong>Weekly Prizes:</strong> The top 2 managers every gameweek win cash prizes.
+              </li>
+              <li>
+                <strong>Monthly Prizes:</strong> The best 2 managers each month are rewarded from
+                the prize pool.
+              </li>
+              <li>
+                <strong>Overall Prizes:</strong> The top 15 managers at the end of the season will
+                win substantial rewards from the grand prize pool.
+              </li>
+            </ul>
+          </div>
+
+          <!-- During-season concise prize payouts (driven by data/prizes.json) -->
+          <div id="rules-season" class="during-season is-hidden">
+            <div class="prize-summary" id="prize-summary">
+              <!-- populated by JS -->
+            </div>
+            <div class="prize-meta">
+              <span id="prize-last-updated">Loading…</span>
+            </div>
+            <div class="prize-note" id="prize-note"></div>
+          </div>
         </section>
 
         <!-- LATE REGISTRATION SECTION (During Season) -->
@@ -1947,6 +1975,12 @@
         showGroup('.during-season');
         const headerP = document.querySelector('header p');
         if (headerP) headerP.textContent = 'Season 2025-26 - Live Updates';
+        // Load concise prize payouts when season UI is active
+        try {
+          loadPrizeSummary();
+        } catch (e) {
+          console.warn('Prize summary load failed (init):', e);
+        }
       }
 
       // ------------------------------------------------------------------
@@ -2145,6 +2179,11 @@
             console.log('🔄 Toggle: Loading data for season mode...');
             loadWinnerData('winner-preview-container', 'winner-summary', true); // Use test data
             loadTestLeaderboardData();
+            try {
+              loadPrizeSummary();
+            } catch (e) {
+              console.warn('Prize summary load failed (toggle):', e);
+            }
 
             // Update winners link to test version when in season mode
             const winnersLink = document.getElementById('winners-link');
@@ -2249,7 +2288,7 @@
               <div class="winner-error">
                 <h3>Unable to load winner data</h3>
                 <p>There was a problem loading the winner statistics. Please try again.</p>
-                <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})" 
+                <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})"
                         style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
                   <i class="fas fa-redo"></i> Retry
                 </button>
@@ -3201,7 +3240,7 @@
                 <div class="winner-error">
                   <h3>Unable to load test league standings</h3>
                   <p>There was a problem loading the test league standings. Please try again.</p>
-                  <button onclick="loadTestLeaderboardData()" 
+                  <button onclick="loadTestLeaderboardData()"
                           style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
                     <i class="fas fa-redo"></i> Retry
                   </button>
@@ -3284,7 +3323,7 @@
                 <div class="winner-error">
                   <h3>Unable to load league standings</h3>
                   <p>There was a problem loading the league standings. Please try again.</p>
-                  <button onclick="loadLeaderboardData()" 
+                  <button onclick="loadLeaderboardData()"
                           style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
                     <i class="fas fa-redo"></i> Retry
                   </button>
@@ -3406,6 +3445,116 @@
 
       window.addEventListener('load', adjustForZFold);
       window.addEventListener('resize', debouncedAdjustForZFold);
+
+      // =============== PRIZE SUMMARY LOADER (IN-SEASON) ===============
+      async function loadPrizeSummary() {
+        const container = document.getElementById('prize-summary');
+        const noteEl = document.getElementById('prize-note');
+        const luEl = document.getElementById('prize-last-updated');
+        if (!container) return; // not on this page
+
+        try {
+          const url = 'data/prizes.json?cache=' + Date.now();
+          const resp = await fetch(url);
+          if (!resp.ok) throw new Error('HTTP ' + resp.status);
+          const data = await resp.json();
+
+          // Build three compact cards: Weekly, Monthly, Season (Apps Script mapping aware)
+          const annualBlock = data.annual || data.season || data.annualPrizes || data.seasonPrizes;
+          const cards = [];
+          if (data.weekly || data.weeklyPrizes) {
+            const wk = normalizeGroup(data.weekly || data.weeklyPrizes);
+            cards.push(
+              card('fa-calendar-week', 'Weekly Winners', formatCurrency(wk.total), wk.breakdown)
+            );
+          }
+          if (data.monthly || data.monthlyPrizes) {
+            const mo = normalizeGroup(data.monthly || data.monthlyPrizes);
+            cards.push(
+              card('fa-calendar-days', 'Monthly Champions', formatCurrency(mo.total), mo.breakdown)
+            );
+          }
+          if (annualBlock) {
+            const se = normalizeGroup(annualBlock);
+            cards.push(card('fa-trophy', 'Season Awards', formatCurrency(se.total), se.breakdown));
+          }
+          container.innerHTML = cards.join('');
+
+          if (noteEl) noteEl.textContent = data.note || '';
+          if (luEl) {
+            try {
+              const d = new Date(data.lastUpdated || Date.now());
+              const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+              luEl.textContent =
+                'Last updated: ' +
+                d.toLocaleString('en-GB', {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                  timeZone: tz,
+                });
+            } catch {
+              luEl.textContent = '';
+            }
+          }
+        } catch (e) {
+          console.error('Failed to load prizes.json', e);
+          container.innerHTML =
+            '<div class="winner-error">Unable to load prize payouts. Please refresh.</div>';
+          if (luEl) luEl.textContent = '';
+        }
+
+        function card(icon, title, amount, breakdown) {
+          const breakdownText = Array.isArray(breakdown) ? breakdown.join(' • ') : breakdown || '';
+          return `
+            <div class="prize-card" role="article" aria-label="${escapeHTML(title)}">
+              <div class="icon"><i class="fas ${icon}"></i></div>
+              <div class="content">
+                <div class="title">${escapeHTML(title)}</div>
+                <div class="subtitle">${escapeHTML(amount)}</div>
+                ${breakdownText ? `<div class="note-small" style="margin-top:4px;">${escapeHTML(breakdownText)}</div>` : ''}
+              </div>
+            </div>`;
+        }
+
+        function normalizeGroup(group) {
+          // Accept shapes:
+          // - { total, breakdown[] }
+          // - [ {rank, amount}, ... ]
+          // - { items: [ {rank, amount} ] }
+          if (!group) return { total: '', breakdown: [] };
+          if (Array.isArray(group)) return summarizeRanked(group);
+          if (Array.isArray(group.items)) return summarizeRanked(group.items);
+          const total = typeof group.total !== 'undefined' ? group.total : '';
+          const breakdown = Array.isArray(group.breakdown) ? group.breakdown : [];
+          return { total, breakdown };
+        }
+
+        function summarizeRanked(items) {
+          const clean = items
+            .map((it) => ({ rank: Number(it.rank), amount: Number(it.amount) }))
+            .filter((it) => !isNaN(it.rank) && !isNaN(it.amount))
+            .sort((a, b) => a.rank - b.rank);
+          const total = clean.reduce((s, it) => s + it.amount, 0);
+          const breakdown = clean.map((it) => `${ordinal(it.rank)}: ${formatCurrency(it.amount)}`);
+          return { total, breakdown };
+        }
+
+        function ordinal(n) {
+          const j = n % 10,
+            k = n % 100;
+          if (j === 1 && k !== 11) return n + 'st';
+          if (j === 2 && k !== 12) return n + 'nd';
+          if (j === 3 && k !== 13) return n + 'rd';
+          return n + 'th';
+        }
+
+        function formatCurrency(n) {
+          if (typeof n === 'string') return n; // already formatted in config
+          const num = Number(n);
+          if (!isNaN(num)) return '₹' + num.toLocaleString('en-IN');
+          return String(n || '');
+        }
+      }
     </script>
   </body>
 </html>
