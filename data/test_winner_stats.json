@@ -1,218 +1,92 @@
 {
-  "lastUpdated": "2025-08-17T14:52:31.285Z",
+  "lastUpdated": "2025-08-17T21:58:44.397Z",
   "summary": {
-    "totalPrizeDistributed": 102396,
+    "totalPrizeDistributed": 57986,
     "totalPaid": 0,
-    "totalPending": 102396,
-    "gameweekPrizes": 49396,
-    "monthlyPrizes": 53000,
+    "totalPending": 57986,
+    "gameweekPrizes": 37986,
+    "monthlyPrizes": 20000,
     "completedGameweeks": 38,
     "completedMonths": 10,
     "totalWinners": 54,
-    "lastProcessedGW": 4
+    "lastProcessedGW": 38
   },
   "winners": [
     {
-      "playerName": "Harshit Gupta",
-      "totalPrizeWon": 11300,
-      "totalPaid": 0,
-      "totalPending": 11300,
-      "prizeBreakdown": {
-        "gameweek": 3900,
-        "monthly": 7400
-      },
-      "highlights": {
-        "gameWeeks": 7,
-        "gameMonths": 3,
-        "overallRank": 1,
-        "totalPoints": 2795
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 16,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 20,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 21,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 22,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 26,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          },
-          {
-            "week": 29,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 32,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 6,
-            "position": "1st",
-            "prize": 3200,
-            "status": "Pending"
-          },
-          {
-            "month": 7,
-            "position": "2nd",
-            "prize": 2100,
-            "status": "Pending"
-          },
-          {
-            "month": 9,
-            "position": "2nd",
-            "prize": 2100,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 5,
-        "second": 5
-      },
-      "totalPoints": 2795
-    },
-    {
-      "playerName": "Sushil Coppa",
-      "totalPrizeWon": 7316,
-      "totalPaid": 0,
-      "totalPending": 7316,
-      "prizeBreakdown": {
-        "gameweek": 2516,
-        "monthly": 4800
-      },
-      "highlights": {
-        "gameWeeks": 5,
-        "gameMonths": 2,
-        "overallRank": 11,
-        "totalPoints": 2669
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 9,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 20,
-            "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          },
-          {
-            "week": 25,
-            "position": "1st",
-            "prize": 266,
-            "status": "Pending"
-          },
-          {
-            "week": 27,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          },
-          {
-            "week": 33,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 3,
-            "position": "1st",
-            "prize": 1600,
-            "status": "Pending"
-          },
-          {
-            "month": 9,
-            "position": "1st",
-            "prize": 3200,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 6,
-        "second": 1
-      },
-      "totalPoints": 2669
-    },
-    {
       "playerName": "Aditya Garg",
-      "totalPrizeWon": 7300,
+      "totalPrizeWon": 7112,
       "totalPaid": 0,
-      "totalPending": 7300,
+      "totalPending": 7112,
       "prizeBreakdown": {
-        "gameweek": 3600,
-        "monthly": 3700
+        "gameweek": 4412,
+        "monthly": 2700
       },
       "highlights": {
-        "gameWeeks": 5,
-        "gameMonths": 2,
-        "overallRank": 13,
-        "totalPoints": 2664
+        "gameWeeks": 10,
+        "gameMonths": 3,
+        "overallRank": 2,
+        "totalPoints": 2773
       },
       "achievements": {
         "gameweeks": [
+          {
+            "week": 2,
+            "position": "1st",
+            "prize": 325,
+            "status": "Pending"
+          },
           {
             "week": 3,
             "position": "1st",
-            "prize": 800,
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 4,
+            "position": "1st",
+            "prize": 650,
             "status": "Pending"
           },
           {
             "week": 7,
             "position": "1st",
-            "prize": 800,
+            "prize": 162,
+            "status": "Pending"
+          },
+          {
+            "week": 13,
+            "position": "2nd",
+            "prize": 175,
             "status": "Pending"
           },
           {
             "week": 15,
             "position": "1st",
-            "prize": 800,
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 20,
+            "position": "2nd",
+            "prize": 175,
             "status": "Pending"
           },
           {
             "week": 28,
             "position": "1st",
-            "prize": 800,
+            "prize": 650,
             "status": "Pending"
           },
           {
-            "week": 36,
+            "week": 32,
             "position": "1st",
-            "prize": 400,
+            "prize": 325,
+            "status": "Pending"
+          },
+          {
+            "week": 35,
+            "position": "1st",
+            "prize": 650,
             "status": "Pending"
           }
         ],
@@ -220,70 +94,214 @@
           {
             "month": 1,
             "position": "2nd",
-            "prize": 2100,
+            "prize": 700,
             "status": "Pending"
           },
           {
-            "month": 10,
+            "month": 3,
             "position": "1st",
-            "prize": 1600,
+            "prize": 1300,
+            "status": "Pending"
+          },
+          {
+            "month": 9,
+            "position": "2nd",
+            "prize": 700,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 9,
+        "second": 4
+      },
+      "totalPoints": 2773
+    },
+    {
+      "playerName": "Harshit Gupta",
+      "totalPrizeWon": 5374,
+      "totalPaid": 0,
+      "totalPending": 5374,
+      "prizeBreakdown": {
+        "gameweek": 2774,
+        "monthly": 2600
+      },
+      "highlights": {
+        "gameWeeks": 6,
+        "gameMonths": 2,
+        "overallRank": 1,
+        "totalPoints": 2797
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 14,
+            "position": "2nd",
+            "prize": 58,
+            "status": "Pending"
+          },
+          {
+            "week": 24,
+            "position": "2nd",
+            "prize": 116,
+            "status": "Pending"
+          },
+          {
+            "week": 27,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 30,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 31,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 33,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          }
+        ],
+        "months": [
+          {
+            "month": 7,
+            "position": "1st",
+            "prize": 1300,
+            "status": "Pending"
+          },
+          {
+            "month": 8,
+            "position": "1st",
+            "prize": 1300,
             "status": "Pending"
           }
         ]
       },
       "positions": {
         "first": 6,
-        "second": 1
+        "second": 2
       },
-      "totalPoints": 2664
+      "totalPoints": 2797
     },
     {
-      "playerName": "Arkadeep Bal",
-      "totalPrizeWon": 4666,
+      "playerName": "Vikash Kumar",
+      "totalPrizeWon": 3300,
       "totalPaid": 0,
-      "totalPending": 4666,
+      "totalPending": 3300,
       "prizeBreakdown": {
-        "gameweek": 1466,
-        "monthly": 3200
+        "gameweek": 2000,
+        "monthly": 1300
       },
       "highlights": {
-        "gameWeeks": 4,
+        "gameWeeks": 5,
         "gameMonths": 1,
-        "overallRank": 8,
-        "totalPoints": 2682
+        "overallRank": 5,
+        "totalPoints": 2715
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 10,
+            "week": 1,
             "position": "2nd",
-            "prize": 166,
+            "prize": 175,
             "status": "Pending"
           },
           {
-            "week": 27,
-            "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          },
-          {
-            "week": 30,
+            "week": 12,
             "position": "1st",
-            "prize": 800,
+            "prize": 650,
             "status": "Pending"
           },
           {
-            "week": 35,
+            "week": 17,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 25,
             "position": "2nd",
-            "prize": 250,
+            "prize": 350,
+            "status": "Pending"
+          },
+          {
+            "week": 37,
+            "position": "2nd",
+            "prize": 175,
             "status": "Pending"
           }
         ],
         "months": [
           {
-            "month": 8,
+            "month": 5,
             "position": "1st",
-            "prize": 3200,
+            "prize": 1300,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 3,
+        "second": 3
+      },
+      "totalPoints": 2715
+    },
+    {
+      "playerName": "Sidharthshankar Pati",
+      "totalPrizeWon": 2883,
+      "totalPaid": 0,
+      "totalPending": 2883,
+      "prizeBreakdown": {
+        "gameweek": 883,
+        "monthly": 2000
+      },
+      "highlights": {
+        "gameWeeks": 3,
+        "gameMonths": 2,
+        "overallRank": 9,
+        "totalPoints": 2667
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 9,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          },
+          {
+            "week": 14,
+            "position": "2nd",
+            "prize": 58,
+            "status": "Pending"
+          },
+          {
+            "week": 38,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          }
+        ],
+        "months": [
+          {
+            "month": 6,
+            "position": "2nd",
+            "prize": 700,
+            "status": "Pending"
+          },
+          {
+            "month": 10,
+            "position": "1st",
+            "prize": 1300,
             "status": "Pending"
           }
         ]
@@ -292,775 +310,194 @@
         "first": 2,
         "second": 3
       },
-      "totalPoints": 2682
+      "totalPoints": 2667
     },
     {
-      "playerName": "Vinod Shankar",
-      "totalPrizeWon": 4200,
+      "playerName": "Rohan Desai",
+      "totalPrizeWon": 2566,
       "totalPaid": 0,
-      "totalPending": 4200,
+      "totalPending": 2566,
       "prizeBreakdown": {
-        "gameweek": 1000,
-        "monthly": 3200
+        "gameweek": 1266,
+        "monthly": 1300
       },
       "highlights": {
-        "gameWeeks": 2,
+        "gameWeeks": 4,
         "gameMonths": 1,
-        "overallRank": 10,
-        "totalPoints": 2670
+        "overallRank": 3,
+        "totalPoints": 2725
       },
       "achievements": {
         "gameweeks": [
           {
             "week": 2,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 3,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 1,
             "position": "1st",
-            "prize": 3200,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 2
-      },
-      "totalPoints": 2670
-    },
-    {
-      "playerName": "Siddharth Krishna",
-      "totalPrizeWon": 4200,
-      "totalPaid": 0,
-      "totalPending": 4200,
-      "prizeBreakdown": {
-        "gameweek": 1000,
-        "monthly": 3200
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 1,
-        "overallRank": 2,
-        "totalPoints": 2710
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 11,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          },
-          {
-            "week": 17,
-            "position": "1st",
-            "prize": 200,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 4,
-            "position": "1st",
-            "prize": 3200,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 3,
-        "second": 0
-      },
-      "totalPoints": 2710
-    },
-    {
-      "playerName": "Lakshman Aravind ",
-      "totalPrizeWon": 4200,
-      "totalPaid": 0,
-      "totalPending": 4200,
-      "prizeBreakdown": {
-        "gameweek": 1000,
-        "monthly": 3200
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 1,
-        "overallRank": 7,
-        "totalPoints": 2687
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 17,
-            "position": "1st",
-            "prize": 200,
-            "status": "Pending"
-          },
-          {
-            "week": 23,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 5,
-            "position": "1st",
-            "prize": 3200,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 3,
-        "second": 0
-      },
-      "totalPoints": 2687
-    },
-    {
-      "playerName": "Abhishek Agarwal",
-      "totalPrizeWon": 3700,
-      "totalPaid": 0,
-      "totalPending": 3700,
-      "prizeBreakdown": {
-        "gameweek": 1600,
-        "monthly": 2100
-      },
-      "highlights": {
-        "gameWeeks": 3,
-        "gameMonths": 1,
-        "overallRank": 17,
-        "totalPoints": 2648
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 4,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 16,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          },
-          {
-            "week": 36,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 10,
-            "position": "2nd",
-            "prize": 2100,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 3,
-        "second": 1
-      },
-      "totalPoints": 2648
-    },
-    {
-      "playerName": "Shubham Tripathi",
-      "totalPrizeWon": 3600,
-      "totalPaid": 0,
-      "totalPending": 3600,
-      "prizeBreakdown": {
-        "gameweek": 1500,
-        "monthly": 2100
-      },
-      "highlights": {
-        "gameWeeks": 4,
-        "gameMonths": 1,
-        "overallRank": 17,
-        "totalPoints": 2648
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 12,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 14,
-            "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          },
-          {
-            "week": 31,
-            "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          },
-          {
-            "week": 34,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 4,
-            "position": "2nd",
-            "prize": 2100,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 0,
-        "second": 5
-      },
-      "totalPoints": 2648
-    },
-    {
-      "playerName": "Kiran Kanoj",
-      "totalPrizeWon": 3025,
-      "totalPaid": 0,
-      "totalPending": 3025,
-      "prizeBreakdown": {
-        "gameweek": 925,
-        "monthly": 2100
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 1,
-        "overallRank": 5,
-        "totalPoints": 2691
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 1,
-            "position": "2nd",
-            "prize": 125,
-            "status": "Pending"
-          },
-          {
-            "week": 12,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 8,
-            "position": "2nd",
-            "prize": 2100,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 2
-      },
-      "totalPoints": 2691
-    },
-    {
-      "playerName": "Bharanidharan S",
-      "totalPrizeWon": 3000,
-      "totalPaid": 0,
-      "totalPending": 3000,
-      "prizeBreakdown": {
-        "gameweek": 900,
-        "monthly": 2100
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 1,
-        "overallRank": 21,
-        "totalPoints": 2647
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 6,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 38,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 3,
-            "position": "2nd",
-            "prize": 2100,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 2
-      },
-      "totalPoints": 2647
-    },
-    {
-      "playerName": "Soubhik Chakraborty ",
-      "totalPrizeWon": 2700,
-      "totalPaid": 0,
-      "totalPending": 2700,
-      "prizeBreakdown": {
-        "gameweek": 1650,
-        "monthly": 1050
-      },
-      "highlights": {
-        "gameWeeks": 4,
-        "gameMonths": 1,
-        "overallRank": 25,
-        "totalPoints": 2634
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 4,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 7,
-            "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          },
-          {
-            "week": 14,
-            "position": "1st",
-            "prize": 400,
+            "prize": 325,
             "status": "Pending"
           },
           {
             "week": 23,
             "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 2,
-            "position": "2nd",
-            "prize": 1050,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 4
-      },
-      "totalPoints": 2634
-    },
-    {
-      "playerName": "Devesh Singh",
-      "totalPrizeWon": 2532,
-      "totalPaid": 0,
-      "totalPending": 2532,
-      "prizeBreakdown": {
-        "gameweek": 432,
-        "monthly": 2100
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 1,
-        "overallRank": 42,
-        "totalPoints": 2576
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 10,
-            "position": "2nd",
-            "prize": 166,
-            "status": "Pending"
-          },
-          {
-            "week": 25,
-            "position": "1st",
-            "prize": 266,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 5,
-            "position": "2nd",
-            "prize": 2100,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 2
-      },
-      "totalPoints": 2576
-    },
-    {
-      "playerName": "Alen Aloysius",
-      "totalPrizeWon": 2400,
-      "totalPaid": 0,
-      "totalPending": 2400,
-      "prizeBreakdown": {
-        "gameweek": 800,
-        "monthly": 1600
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 1,
-        "overallRank": 21,
-        "totalPoints": 2647
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 35,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 10,
-            "position": "1st",
-            "prize": 1600,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 2,
-        "second": 0
-      },
-      "totalPoints": 2647
-    },
-    {
-      "playerName": "Rohan Desai",
-      "totalPrizeWon": 2400,
-      "totalPaid": 0,
-      "totalPending": 2400,
-      "prizeBreakdown": {
-        "gameweek": 800,
-        "monthly": 1600
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 1,
-        "overallRank": 15,
-        "totalPoints": 2651
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 5,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 6,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 2,
-            "position": "1st",
-            "prize": 1600,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 3,
-        "second": 0
-      },
-      "totalPoints": 2651
-    },
-    {
-      "playerName": "Ritesh Motghare",
-      "totalPrizeWon": 2350,
-      "totalPaid": 0,
-      "totalPending": 2350,
-      "prizeBreakdown": {
-        "gameweek": 750,
-        "monthly": 1600
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 1,
-        "overallRank": 4,
-        "totalPoints": 2694
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 26,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 31,
-            "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 7,
-            "position": "1st",
-            "prize": 1600,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 2
-      },
-      "totalPoints": 2694
-    },
-    {
-      "playerName": "Mayur Kriplani",
-      "totalPrizeWon": 2100,
-      "totalPaid": 0,
-      "totalPending": 2100,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 2100
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 1,
-        "overallRank": 17,
-        "totalPoints": 2648
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": [
-          {
-            "month": 6,
-            "position": "2nd",
-            "prize": 2100,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 0,
-        "second": 1
-      },
-      "totalPoints": 2648
-    },
-    {
-      "playerName": "Varun Gupta",
-      "totalPrizeWon": 2066,
-      "totalPaid": 0,
-      "totalPending": 2066,
-      "prizeBreakdown": {
-        "gameweek": 2066,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 4,
-        "gameMonths": 0,
-        "overallRank": 47,
-        "totalPoints": 2563
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 5,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 8,
-            "position": "1st",
-            "prize": 800,
+            "prize": 175,
             "status": "Pending"
           },
           {
             "week": 24,
             "position": "2nd",
-            "prize": 500,
+            "prize": 116,
             "status": "Pending"
           },
           {
             "week": 25,
             "position": "1st",
-            "prize": 266,
+            "prize": 650,
             "status": "Pending"
           }
         ],
-        "months": []
+        "months": [
+          {
+            "month": 6,
+            "position": "1st",
+            "prize": 1300,
+            "status": "Pending"
+          }
+        ]
       },
       "positions": {
-        "first": 2,
+        "first": 3,
         "second": 2
       },
-      "totalPoints": 2563
+      "totalPoints": 2725
     },
     {
-      "playerName": "Avinash Jayashankar ",
-      "totalPrizeWon": 2050,
+      "playerName": "Nipun Kochar",
+      "totalPrizeWon": 2553,
       "totalPaid": 0,
-      "totalPending": 2050,
+      "totalPending": 2553,
       "prizeBreakdown": {
-        "gameweek": 2050,
-        "monthly": 0
+        "gameweek": 1853,
+        "monthly": 700
       },
       "highlights": {
-        "gameWeeks": 4,
-        "gameMonths": 0,
-        "overallRank": 27,
+        "gameWeeks": 5,
+        "gameMonths": 1,
+        "overallRank": 17,
         "totalPoints": 2630
       },
       "achievements": {
         "gameweeks": [
           {
             "week": 7,
+            "position": "1st",
+            "prize": 162,
+            "status": "Pending"
+          },
+          {
+            "week": 14,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 16,
+            "position": "1st",
+            "prize": 216,
+            "status": "Pending"
+          },
+          {
+            "week": 36,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 37,
             "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          },
-          {
-            "week": 17,
-            "position": "1st",
-            "prize": 200,
-            "status": "Pending"
-          },
-          {
-            "week": 19,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          },
-          {
-            "week": 31,
-            "position": "1st",
-            "prize": 800,
+            "prize": 175,
             "status": "Pending"
           }
         ],
-        "months": []
+        "months": [
+          {
+            "month": 10,
+            "position": "2nd",
+            "prize": 700,
+            "status": "Pending"
+          }
+        ]
       },
       "positions": {
-        "first": 3,
-        "second": 1
+        "first": 4,
+        "second": 2
       },
       "totalPoints": 2630
     },
     {
-      "playerName": "B V Dhananjay",
-      "totalPrizeWon": 1950,
+      "playerName": "Varun Gupta",
+      "totalPrizeWon": 2166,
       "totalPaid": 0,
-      "totalPending": 1950,
+      "totalPending": 2166,
       "prizeBreakdown": {
-        "gameweek": 1950,
-        "monthly": 0
+        "gameweek": 866,
+        "monthly": 1300
       },
       "highlights": {
-        "gameWeeks": 4,
-        "gameMonths": 0,
-        "overallRank": 23,
-        "totalPoints": 2645
+        "gameWeeks": 2,
+        "gameMonths": 1,
+        "overallRank": 16,
+        "totalPoints": 2632
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 8,
-            "position": "2nd",
-            "prize": 500,
+            "week": 1,
+            "position": "1st",
+            "prize": 650,
             "status": "Pending"
           },
           {
             "week": 13,
             "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          },
-          {
-            "week": 22,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 38,
-            "position": "2nd",
-            "prize": 250,
+            "prize": 216,
             "status": "Pending"
           }
         ],
-        "months": []
+        "months": [
+          {
+            "month": 1,
+            "position": "1st",
+            "prize": 1300,
+            "status": "Pending"
+          }
+        ]
       },
       "positions": {
-        "first": 2,
-        "second": 2
+        "first": 3,
+        "second": 0
       },
-      "totalPoints": 2645
+      "totalPoints": 2632
     },
     {
-      "playerName": "Avanit Kaushal",
-      "totalPrizeWon": 1850,
+      "playerName": "Ashutosh Thombal",
+      "totalPrizeWon": 1950,
       "totalPaid": 0,
-      "totalPending": 1850,
+      "totalPending": 1950,
       "prizeBreakdown": {
-        "gameweek": 250,
-        "monthly": 1600
+        "gameweek": 650,
+        "monthly": 1300
       },
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 1,
-        "overallRank": 16,
-        "totalPoints": 2650
+        "overallRank": 53,
+        "totalPoints": 2519
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 9,
-            "position": "2nd",
-            "prize": 250,
+            "week": 6,
+            "position": "1st",
+            "prize": 650,
             "status": "Pending"
           }
         ],
@@ -1068,138 +505,236 @@
           {
             "month": 2,
             "position": "1st",
-            "prize": 1600,
+            "prize": 1300,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 2,
+        "second": 0
+      },
+      "totalPoints": 2519
+    },
+    {
+      "playerName": "Sourabh Mandal",
+      "totalPrizeWon": 1812,
+      "totalPaid": 0,
+      "totalPending": 1812,
+      "prizeBreakdown": {
+        "gameweek": 1162,
+        "monthly": 650
+      },
+      "highlights": {
+        "gameWeeks": 3,
+        "gameMonths": 1,
+        "overallRank": 30,
+        "totalPoints": 2593
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 7,
+            "position": "1st",
+            "prize": 162,
+            "status": "Pending"
+          },
+          {
+            "week": 17,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          },
+          {
+            "week": 34,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          }
+        ],
+        "months": [
+          {
+            "month": 9,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 3,
+        "second": 1
+      },
+      "totalPoints": 2593
+    },
+    {
+      "playerName": "Praveen Pujer",
+      "totalPrizeWon": 1807,
+      "totalPaid": 0,
+      "totalPending": 1807,
+      "prizeBreakdown": {
+        "gameweek": 507,
+        "monthly": 1300
+      },
+      "highlights": {
+        "gameWeeks": 3,
+        "gameMonths": 1,
+        "overallRank": 25,
+        "totalPoints": 2613
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 5,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          },
+          {
+            "week": 8,
+            "position": "2nd",
+            "prize": 116,
+            "status": "Pending"
+          },
+          {
+            "week": 13,
+            "position": "1st",
+            "prize": 216,
+            "status": "Pending"
+          }
+        ],
+        "months": [
+          {
+            "month": 4,
+            "position": "1st",
+            "prize": 1300,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 2,
+        "second": 2
+      },
+      "totalPoints": 2613
+    },
+    {
+      "playerName": "Anish Banerjee",
+      "totalPrizeWon": 1725,
+      "totalPaid": 0,
+      "totalPending": 1725,
+      "prizeBreakdown": {
+        "gameweek": 325,
+        "monthly": 1400
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 2,
+        "overallRank": 8,
+        "totalPoints": 2674
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 19,
+            "position": "1st",
+            "prize": 325,
+            "status": "Pending"
+          }
+        ],
+        "months": [
+          {
+            "month": 5,
+            "position": "2nd",
+            "prize": 700,
+            "status": "Pending"
+          },
+          {
+            "month": 8,
+            "position": "2nd",
+            "prize": 700,
             "status": "Pending"
           }
         ]
       },
       "positions": {
         "first": 1,
-        "second": 1
+        "second": 2
       },
-      "totalPoints": 2650
+      "totalPoints": 2674
     },
     {
-      "playerName": "Ankur Prasad",
-      "totalPrizeWon": 1700,
+      "playerName": "Siddharth Krishna",
+      "totalPrizeWon": 1375,
       "totalPaid": 0,
-      "totalPending": 1700,
+      "totalPending": 1375,
       "prizeBreakdown": {
-        "gameweek": 1700,
-        "monthly": 0
+        "gameweek": 675,
+        "monthly": 700
       },
       "highlights": {
-        "gameWeeks": 3,
-        "gameMonths": 0,
-        "overallRank": 11,
-        "totalPoints": 2669
+        "gameWeeks": 2,
+        "gameMonths": 1,
+        "overallRank": 3,
+        "totalPoints": 2725
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 2,
-            "position": "1st",
-            "prize": 800,
+            "week": 10,
+            "position": "2nd",
+            "prize": 350,
             "status": "Pending"
           },
           {
             "week": 20,
             "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 28,
-            "position": "2nd",
-            "prize": 500,
+            "prize": 325,
             "status": "Pending"
           }
         ],
-        "months": []
-      },
-      "positions": {
-        "first": 2,
-        "second": 1
-      },
-      "totalPoints": 2669
-    },
-    {
-      "playerName": "Nipun Kochar",
-      "totalPrizeWon": 1650,
-      "totalPaid": 0,
-      "totalPending": 1650,
-      "prizeBreakdown": {
-        "gameweek": 1650,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 4,
-        "gameMonths": 0,
-        "overallRank": 38,
-        "totalPoints": 2594
-      },
-      "achievements": {
-        "gameweeks": [
+        "months": [
           {
-            "week": 4,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 27,
+            "month": 7,
             "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          },
-          {
-            "week": 32,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 33,
-            "position": "2nd",
-            "prize": 500,
+            "prize": 700,
             "status": "Pending"
           }
-        ],
-        "months": []
+        ]
       },
       "positions": {
         "first": 1,
-        "second": 3
+        "second": 2
       },
-      "totalPoints": 2594
+      "totalPoints": 2725
     },
     {
       "playerName": "Vikranth Reddy",
-      "totalPrizeWon": 1600,
+      "totalPrizeWon": 1300,
       "totalPaid": 0,
-      "totalPending": 1600,
+      "totalPending": 1300,
       "prizeBreakdown": {
-        "gameweek": 1600,
+        "gameweek": 1300,
         "monthly": 0
       },
       "highlights": {
         "gameWeeks": 2,
         "gameMonths": 0,
         "overallRank": 6,
-        "totalPoints": 2688
+        "totalPoints": 2702
       },
       "achievements": {
         "gameweeks": [
           {
             "week": 18,
             "position": "1st",
-            "prize": 800,
+            "prize": 650,
             "status": "Pending"
           },
           {
             "week": 29,
             "position": "1st",
-            "prize": 800,
+            "prize": 650,
             "status": "Pending"
           }
         ],
@@ -1209,144 +744,130 @@
         "first": 2,
         "second": 0
       },
-      "totalPoints": 2688
+      "totalPoints": 2702
     },
     {
-      "playerName": "Anish Banerjee",
-      "totalPrizeWon": 1600,
+      "playerName": "Ankur Prasad",
+      "totalPrizeWon": 1300,
       "totalPaid": 0,
-      "totalPending": 1600,
+      "totalPending": 1300,
       "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 1600
+        "gameweek": 1300,
+        "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 1,
-        "overallRank": 29,
-        "totalPoints": 2618
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": [
-          {
-            "month": 3,
-            "position": "1st",
-            "prize": 1600,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 2618
-    },
-    {
-      "playerName": "Raghav Verma",
-      "totalPrizeWon": 1600,
-      "totalPaid": 0,
-      "totalPending": 1600,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 1600
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 1,
-        "overallRank": 31,
-        "totalPoints": 2615
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": [
-          {
-            "month": 7,
-            "position": "1st",
-            "prize": 1600,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 2615
-    },
-    {
-      "playerName": "Tulasi Ram Garapati",
-      "totalPrizeWon": 1550,
-      "totalPaid": 0,
-      "totalPending": 1550,
-      "prizeBreakdown": {
-        "gameweek": 500,
-        "monthly": 1050
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 1,
-        "overallRank": 14,
-        "totalPoints": 2657
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 17,
+        "totalPoints": 2630
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 19,
+            "week": 5,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 9,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 2,
+        "second": 0
+      },
+      "totalPoints": 2630
+    },
+    {
+      "playerName": "Vinod Shankar",
+      "totalPrizeWon": 1282,
+      "totalPaid": 0,
+      "totalPending": 1282,
+      "prizeBreakdown": {
+        "gameweek": 582,
+        "monthly": 700
+      },
+      "highlights": {
+        "gameWeeks": 3,
+        "gameMonths": 1,
+        "overallRank": 13,
+        "totalPoints": 2658
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 6,
             "position": "2nd",
-            "prize": 500,
+            "prize": 116,
+            "status": "Pending"
+          },
+          {
+            "week": 8,
+            "position": "2nd",
+            "prize": 116,
+            "status": "Pending"
+          },
+          {
+            "week": 34,
+            "position": "2nd",
+            "prize": 350,
             "status": "Pending"
           }
         ],
         "months": [
           {
-            "month": 2,
+            "month": 3,
             "position": "2nd",
-            "prize": 1050,
+            "prize": 700,
             "status": "Pending"
           }
         ]
       },
       "positions": {
         "first": 0,
-        "second": 2
+        "second": 4
       },
-      "totalPoints": 2657
+      "totalPoints": 2658
     },
     {
-      "playerName": "Abhishek Addy",
-      "totalPrizeWon": 1366,
+      "playerName": "Ansh Makhija",
+      "totalPrizeWon": 1216,
       "totalPaid": 0,
-      "totalPending": 1366,
+      "totalPending": 1216,
       "prizeBreakdown": {
-        "gameweek": 1366,
+        "gameweek": 1216,
         "monthly": 0
       },
       "highlights": {
         "gameWeeks": 3,
         "gameMonths": 0,
-        "overallRank": 34,
-        "totalPoints": 2601
+        "overallRank": 15,
+        "totalPoints": 2634
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 1,
+            "week": 13,
             "position": "1st",
-            "prize": 800,
+            "prize": 216,
             "status": "Pending"
           },
           {
-            "week": 6,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 10,
+            "week": 32,
             "position": "2nd",
-            "prize": 166,
+            "prize": 350,
+            "status": "Pending"
+          },
+          {
+            "week": 37,
+            "position": "1st",
+            "prize": 650,
             "status": "Pending"
           }
         ],
@@ -1356,123 +877,41 @@
         "first": 2,
         "second": 1
       },
-      "totalPoints": 2601
-    },
-    {
-      "playerName": "Ronak Kadikar",
-      "totalPrizeWon": 1300,
-      "totalPaid": 0,
-      "totalPending": 1300,
-      "prizeBreakdown": {
-        "gameweek": 1300,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 0,
-        "overallRank": 37,
-        "totalPoints": 2596
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 15,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 34,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 1
-      },
-      "totalPoints": 2596
-    },
-    {
-      "playerName": "Harshvardhan Maru",
-      "totalPrizeWon": 1300,
-      "totalPaid": 0,
-      "totalPending": 1300,
-      "prizeBreakdown": {
-        "gameweek": 1300,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 0,
-        "overallRank": 25,
-        "totalPoints": 2634
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 13,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 24,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 1
-      },
       "totalPoints": 2634
     },
     {
-      "playerName": "Pallab Pegu",
-      "totalPrizeWon": 1275,
+      "playerName": "Vinay Sudershan",
+      "totalPrizeWon": 1175,
       "totalPaid": 0,
-      "totalPending": 1275,
+      "totalPending": 1175,
       "prizeBreakdown": {
-        "gameweek": 1275,
+        "gameweek": 1175,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 4,
+        "gameWeeks": 3,
         "gameMonths": 0,
-        "overallRank": 17,
-        "totalPoints": 2648
+        "overallRank": 37,
+        "totalPoints": 2578
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 1,
-            "position": "2nd",
-            "prize": 125,
-            "status": "Pending"
-          },
-          {
-            "week": 18,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          },
-          {
-            "week": 37,
-            "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          },
-          {
-            "week": 38,
+            "week": 8,
             "position": "1st",
-            "prize": 400,
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 11,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          },
+          {
+            "week": 23,
+            "position": "2nd",
+            "prize": 175,
             "status": "Pending"
           }
         ],
@@ -1480,12 +919,56 @@
       },
       "positions": {
         "first": 1,
-        "second": 3
+        "second": 2
       },
-      "totalPoints": 2648
+      "totalPoints": 2578
     },
     {
-      "playerName": "Sidharthshankar Pati",
+      "playerName": "Shubham Tripathi",
+      "totalPrizeWon": 1175,
+      "totalPaid": 0,
+      "totalPending": 1175,
+      "prizeBreakdown": {
+        "gameweek": 1175,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 3,
+        "gameMonths": 0,
+        "overallRank": 26,
+        "totalPoints": 2602
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 9,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          },
+          {
+            "week": 21,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 26,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 2
+      },
+      "totalPoints": 2602
+    },
+    {
+      "playerName": "Bharanidharan S",
       "totalPrizeWon": 1000,
       "totalPaid": 0,
       "totalPending": 1000,
@@ -1496,59 +979,21 @@
       "highlights": {
         "gameWeeks": 2,
         "gameMonths": 0,
-        "overallRank": 32,
-        "totalPoints": 2612
+        "overallRank": 22,
+        "totalPoints": 2621
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 11,
+            "week": 16,
             "position": "2nd",
-            "prize": 500,
+            "prize": 350,
             "status": "Pending"
           },
           {
-            "week": 30,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 2
-      },
-      "totalPoints": 2612
-    },
-    {
-      "playerName": "Sivakumar N",
-      "totalPrizeWon": 900,
-      "totalPaid": 0,
-      "totalPending": 900,
-      "prizeBreakdown": {
-        "gameweek": 900,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 0,
-        "overallRank": 36,
-        "totalPoints": 2599
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 9,
+            "week": 24,
             "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 25,
-            "position": "2nd",
-            "prize": 500,
+            "prize": 650,
             "status": "Pending"
           }
         ],
@@ -1558,131 +1003,250 @@
         "first": 1,
         "second": 1
       },
-      "totalPoints": 2599
+      "totalPoints": 2621
     },
     {
-      "playerName": "Tejeshwar Singh",
-      "totalPrizeWon": 800,
+      "playerName": "Maheep Ajay",
+      "totalPrizeWon": 1000,
       "totalPaid": 0,
-      "totalPending": 800,
+      "totalPending": 1000,
       "prizeBreakdown": {
-        "gameweek": 800,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 46,
-        "totalPoints": 2568
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 37,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 2568
-    },
-    {
-      "playerName": "Sourabh Mandal",
-      "totalPrizeWon": 800,
-      "totalPaid": 0,
-      "totalPending": 800,
-      "prizeBreakdown": {
-        "gameweek": 800,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 2,
-        "totalPoints": 2710
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 21,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 2710
-    },
-    {
-      "playerName": "Praveen Pujer",
-      "totalPrizeWon": 800,
-      "totalPaid": 0,
-      "totalPending": 800,
-      "prizeBreakdown": {
-        "gameweek": 800,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 53,
-        "totalPoints": 2509
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 10,
-            "position": "1st",
-            "prize": 800,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 2509
-    },
-    {
-      "playerName": "Siddharth Sharma",
-      "totalPrizeWon": 750,
-      "totalPaid": 0,
-      "totalPending": 750,
-      "prizeBreakdown": {
-        "gameweek": 750,
+        "gameweek": 1000,
         "monthly": 0
       },
       "highlights": {
         "gameWeeks": 2,
         "gameMonths": 0,
-        "overallRank": 9,
-        "totalPoints": 2674
+        "overallRank": 49,
+        "totalPoints": 2542
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 35,
+            "week": 22,
             "position": "2nd",
-            "prize": 250,
+            "prize": 350,
             "status": "Pending"
           },
           {
-            "week": 36,
+            "week": 23,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 1
+      },
+      "totalPoints": 2542
+    },
+    {
+      "playerName": "Rahul Sahai",
+      "totalPrizeWon": 916,
+      "totalPaid": 0,
+      "totalPending": 916,
+      "prizeBreakdown": {
+        "gameweek": 916,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 3,
+        "gameMonths": 0,
+        "overallRank": 20,
+        "totalPoints": 2626
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 15,
             "position": "2nd",
-            "prize": 500,
+            "prize": 350,
+            "status": "Pending"
+          },
+          {
+            "week": 16,
+            "position": "1st",
+            "prize": 216,
+            "status": "Pending"
+          },
+          {
+            "week": 27,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 2
+      },
+      "totalPoints": 2626
+    },
+    {
+      "playerName": "Parth Pillai",
+      "totalPrizeWon": 883,
+      "totalPaid": 0,
+      "totalPending": 883,
+      "prizeBreakdown": {
+        "gameweek": 883,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 3,
+        "gameMonths": 0,
+        "overallRank": 39,
+        "totalPoints": 2569
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 11,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          },
+          {
+            "week": 14,
+            "position": "2nd",
+            "prize": 58,
+            "status": "Pending"
+          },
+          {
+            "week": 29,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 2
+      },
+      "totalPoints": 2569
+    },
+    {
+      "playerName": "Bhushan Wagh",
+      "totalPrizeWon": 875,
+      "totalPaid": 0,
+      "totalPending": 875,
+      "prizeBreakdown": {
+        "gameweek": 175,
+        "monthly": 700
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 1,
+        "overallRank": 12,
+        "totalPoints": 2661
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 13,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          }
+        ],
+        "months": [
+          {
+            "month": 4,
+            "position": "2nd",
+            "prize": 700,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 0,
+        "second": 2
+      },
+      "totalPoints": 2661
+    },
+    {
+      "playerName": "Varun Elango",
+      "totalPrizeWon": 850,
+      "totalPaid": 0,
+      "totalPending": 850,
+      "prizeBreakdown": {
+        "gameweek": 850,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 3,
+        "gameMonths": 0,
+        "overallRank": 50,
+        "totalPoints": 2540
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 19,
+            "position": "1st",
+            "prize": 325,
+            "status": "Pending"
+          },
+          {
+            "week": 21,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          },
+          {
+            "week": 33,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 2
+      },
+      "totalPoints": 2540
+    },
+    {
+      "playerName": "Alen Aloysius",
+      "totalPrizeWon": 816,
+      "totalPaid": 0,
+      "totalPending": 816,
+      "prizeBreakdown": {
+        "gameweek": 816,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 3,
+        "gameMonths": 0,
+        "overallRank": 23,
+        "totalPoints": 2620
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 7,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          },
+          {
+            "week": 24,
+            "position": "2nd",
+            "prize": 116,
+            "status": "Pending"
+          },
+          {
+            "week": 35,
+            "position": "2nd",
+            "prize": 350,
             "status": "Pending"
           }
         ],
@@ -1690,12 +1254,134 @@
       },
       "positions": {
         "first": 0,
-        "second": 2
+        "second": 3
       },
-      "totalPoints": 2674
+      "totalPoints": 2620
     },
     {
-      "playerName": "Ansh Makhija",
+      "playerName": "Sanchay Srivastava",
+      "totalPrizeWon": 700,
+      "totalPaid": 0,
+      "totalPending": 700,
+      "prizeBreakdown": {
+        "gameweek": 350,
+        "monthly": 350
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 1,
+        "overallRank": 10,
+        "totalPoints": 2663
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          },
+          {
+            "week": 5,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          }
+        ],
+        "months": [
+          {
+            "month": 2,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 0,
+        "second": 3
+      },
+      "totalPoints": 2663
+    },
+    {
+      "playerName": "Harshvardhan Maru",
+      "totalPrizeWon": 700,
+      "totalPaid": 0,
+      "totalPending": 700,
+      "prizeBreakdown": {
+        "gameweek": 350,
+        "monthly": 350
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 1,
+        "overallRank": 21,
+        "totalPoints": 2623
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 12,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": [
+          {
+            "month": 2,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 0,
+        "second": 2
+      },
+      "totalPoints": 2623
+    },
+    {
+      "playerName": "Sivakumar N",
+      "totalPrizeWon": 675,
+      "totalPaid": 0,
+      "totalPending": 675,
+      "prizeBreakdown": {
+        "gameweek": 675,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 45,
+        "totalPoints": 2555
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          },
+          {
+            "week": 26,
+            "position": "1st",
+            "prize": 325,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 1
+      },
+      "totalPoints": 2555
+    },
+    {
+      "playerName": "Avanit Kaushal",
       "totalPrizeWon": 650,
       "totalPaid": 0,
       "totalPending": 650,
@@ -1704,157 +1390,17 @@
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 2,
-        "gameMonths": 0,
-        "overallRank": 51,
-        "totalPoints": 2525
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 5,
-            "position": "1st",
-            "prize": 400,
-            "status": "Pending"
-          },
-          {
-            "week": 38,
-            "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 1
-      },
-      "totalPoints": 2525
-    },
-    {
-      "playerName": "Kashyap Rana",
-      "totalPrizeWon": 500,
-      "totalPaid": 0,
-      "totalPending": 500,
-      "prizeBreakdown": {
-        "gameweek": 500,
-        "monthly": 0
-      },
-      "highlights": {
         "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 34,
-        "totalPoints": 2601
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 22,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 1
-      },
-      "totalPoints": 2601
-    },
-    {
-      "playerName": "Abhishek Ghorpade",
-      "totalPrizeWon": 500,
-      "totalPaid": 0,
-      "totalPending": 500,
-      "prizeBreakdown": {
-        "gameweek": 500,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 45,
-        "totalPoints": 2570
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 17,
-            "position": "2nd",
-            "prize": 500,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 1
-      },
-      "totalPoints": 2570
-    },
-    {
-      "playerName": "Gaurav G B",
-      "totalPrizeWon": 500,
-      "totalPaid": 0,
-      "totalPending": 500,
-      "prizeBreakdown": {
-        "gameweek": 500,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 2,
         "gameMonths": 0,
         "overallRank": 29,
-        "totalPoints": 2618
+        "totalPoints": 2595
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 20,
-            "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          },
-          {
-            "week": 37,
-            "position": "2nd",
-            "prize": 250,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 2
-      },
-      "totalPoints": 2618
-    },
-    {
-      "playerName": "Maheep Ajay",
-      "totalPrizeWon": 400,
-      "totalPaid": 0,
-      "totalPending": 400,
-      "prizeBreakdown": {
-        "gameweek": 400,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 43,
-        "totalPoints": 2573
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 14,
+            "week": 10,
             "position": "1st",
-            "prize": 400,
+            "prize": 650,
             "status": "Pending"
           }
         ],
@@ -1864,35 +1410,137 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 2573
+      "totalPoints": 2595
     },
     {
-      "playerName": "Ashutosh Thombal",
-      "totalPrizeWon": 375,
+      "playerName": "Shivam Sachan",
+      "totalPrizeWon": 650,
       "totalPaid": 0,
-      "totalPending": 375,
+      "totalPending": 650,
       "prizeBreakdown": {
-        "gameweek": 375,
+        "gameweek": 0,
+        "monthly": 650
+      },
+      "highlights": {
+        "gameWeeks": 0,
+        "gameMonths": 1,
+        "overallRank": 32,
+        "totalPoints": 2588
+      },
+      "achievements": {
+        "gameweeks": [],
+        "months": [
+          {
+            "month": 9,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 1,
+        "second": 0
+      },
+      "totalPoints": 2588
+    },
+    {
+      "playerName": "Siddharth Sharma",
+      "totalPrizeWon": 650,
+      "totalPaid": 0,
+      "totalPending": 650,
+      "prizeBreakdown": {
+        "gameweek": 650,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 23,
+        "totalPoints": 2620
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 22,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 0
+      },
+      "totalPoints": 2620
+    },
+    {
+      "playerName": "Gaurav G B",
+      "totalPrizeWon": 566,
+      "totalPaid": 0,
+      "totalPending": 566,
+      "prizeBreakdown": {
+        "gameweek": 566,
         "monthly": 0
       },
       "highlights": {
         "gameWeeks": 2,
         "gameMonths": 0,
-        "overallRank": 38,
-        "totalPoints": 2594
+        "overallRank": 34,
+        "totalPoints": 2584
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 1,
-            "position": "2nd",
-            "prize": 125,
+            "week": 16,
+            "position": "1st",
+            "prize": 216,
             "status": "Pending"
           },
           {
-            "week": 14,
+            "week": 31,
             "position": "2nd",
-            "prize": 250,
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 1
+      },
+      "totalPoints": 2584
+    },
+    {
+      "playerName": "Tulasi Ram Garapati",
+      "totalPrizeWon": 525,
+      "totalPaid": 0,
+      "totalPending": 525,
+      "prizeBreakdown": {
+        "gameweek": 525,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 47,
+        "totalPoints": 2553
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 4,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          },
+          {
+            "week": 38,
+            "position": "2nd",
+            "prize": 350,
             "status": "Pending"
           }
         ],
@@ -1902,10 +1550,258 @@
         "first": 0,
         "second": 2
       },
-      "totalPoints": 2594
+      "totalPoints": 2553
     },
     {
-      "playerName": "Varun Elango",
+      "playerName": "Arkadeep Bal",
+      "totalPrizeWon": 500,
+      "totalPaid": 0,
+      "totalPending": 500,
+      "prizeBreakdown": {
+        "gameweek": 500,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 14,
+        "totalPoints": 2637
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          },
+          {
+            "week": 26,
+            "position": "1st",
+            "prize": 325,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 1
+      },
+      "totalPoints": 2637
+    },
+    {
+      "playerName": "Somnath Pawar ",
+      "totalPrizeWon": 466,
+      "totalPaid": 0,
+      "totalPending": 466,
+      "prizeBreakdown": {
+        "gameweek": 466,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 10,
+        "totalPoints": 2663
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 6,
+            "position": "2nd",
+            "prize": 116,
+            "status": "Pending"
+          },
+          {
+            "week": 36,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 2
+      },
+      "totalPoints": 2663
+    },
+    {
+      "playerName": "Ronak Kadikar",
+      "totalPrizeWon": 408,
+      "totalPaid": 0,
+      "totalPending": 408,
+      "prizeBreakdown": {
+        "gameweek": 408,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 40,
+        "totalPoints": 2568
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 14,
+            "position": "2nd",
+            "prize": 58,
+            "status": "Pending"
+          },
+          {
+            "week": 18,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 2
+      },
+      "totalPoints": 2568
+    },
+    {
+      "playerName": "Soubhik Chakraborty ",
+      "totalPrizeWon": 383,
+      "totalPaid": 0,
+      "totalPending": 383,
+      "prizeBreakdown": {
+        "gameweek": 383,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 34,
+        "totalPoints": 2584
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 14,
+            "position": "2nd",
+            "prize": 58,
+            "status": "Pending"
+          },
+          {
+            "week": 20,
+            "position": "1st",
+            "prize": 325,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 1
+      },
+      "totalPoints": 2584
+    },
+    {
+      "playerName": "B V Dhananjay",
+      "totalPrizeWon": 350,
+      "totalPaid": 0,
+      "totalPending": 350,
+      "prizeBreakdown": {
+        "gameweek": 350,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 42,
+        "totalPoints": 2565
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 30,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 2565
+    },
+    {
+      "playerName": "Ritesh Motghare",
+      "totalPrizeWon": 350,
+      "totalPaid": 0,
+      "totalPending": 350,
+      "prizeBreakdown": {
+        "gameweek": 350,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 26,
+        "totalPoints": 2602
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 28,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 2602
+    },
+    {
+      "playerName": "Abhishek Agarwal",
+      "totalPrizeWon": 350,
+      "totalPaid": 0,
+      "totalPending": 350,
+      "prizeBreakdown": {
+        "gameweek": 350,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 51,
+        "totalPoints": 2531
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 19,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 2531
+    },
+    {
+      "playerName": "Raghav Verma",
       "totalPrizeWon": 325,
       "totalPaid": 0,
       "totalPending": 325,
@@ -1914,23 +1810,55 @@
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 2,
+        "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 52,
-        "totalPoints": 2521
+        "overallRank": 19,
+        "totalPoints": 2627
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 1,
-            "position": "2nd",
-            "prize": 125,
+            "week": 32,
+            "position": "1st",
+            "prize": 325,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 0
+      },
+      "totalPoints": 2627
+    },
+    {
+      "playerName": "Mayur Kriplani",
+      "totalPrizeWon": 278,
+      "totalPaid": 0,
+      "totalPending": 278,
+      "prizeBreakdown": {
+        "gameweek": 278,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 41,
+        "totalPoints": 2567
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 7,
+            "position": "1st",
+            "prize": 162,
             "status": "Pending"
           },
           {
-            "week": 17,
-            "position": "1st",
-            "prize": 200,
+            "week": 8,
+            "position": "2nd",
+            "prize": 116,
             "status": "Pending"
           }
         ],
@@ -1940,29 +1868,29 @@
         "first": 1,
         "second": 1
       },
-      "totalPoints": 2521
+      "totalPoints": 2567
     },
     {
-      "playerName": "Sanchay Srivastava",
-      "totalPrizeWon": 250,
+      "playerName": "Soman Panda",
+      "totalPrizeWon": 175,
       "totalPaid": 0,
-      "totalPending": 250,
+      "totalPending": 175,
       "prizeBreakdown": {
-        "gameweek": 250,
+        "gameweek": 175,
         "monthly": 0
       },
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 43,
-        "totalPoints": 2573
+        "overallRank": 48,
+        "totalPoints": 2543
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 9,
+            "week": 20,
             "position": "2nd",
-            "prize": 250,
+            "prize": 175,
             "status": "Pending"
           }
         ],
@@ -1972,85 +1900,202 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 2573
+      "totalPoints": 2543
     },
     {
-      "playerName": "Soman Panda",
-      "totalPrizeWon": 0,
+      "playerName": "Sushil Coppa",
+      "totalPrizeWon": 175,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 175,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 175,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 41,
-        "totalPoints": 2585
+        "overallRank": 43,
+        "totalPoints": 2558
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 1,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
         "first": 0,
-        "second": 0
+        "second": 1
       },
-      "totalPoints": 2585
+      "totalPoints": 2558
     },
     {
-      "playerName": "Somnath Pawar ",
-      "totalPrizeWon": 0,
+      "playerName": "Abhishek Ghorpade",
+      "totalPrizeWon": 175,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 175,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 175,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 28,
-        "totalPoints": 2620
+        "overallRank": 52,
+        "totalPoints": 2526
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 21,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
         "first": 0,
-        "second": 0
+        "second": 1
       },
-      "totalPoints": 2620
+      "totalPoints": 2526
     },
     {
-      "playerName": "Bhushan Wagh",
-      "totalPrizeWon": 0,
+      "playerName": "Tejeshwar Singh",
+      "totalPrizeWon": 175,
       "totalPaid": 0,
-      "totalPending": 0,
+      "totalPending": 175,
       "prizeBreakdown": {
-        "gameweek": 0,
+        "gameweek": 175,
         "monthly": 0
       },
       "highlights": {
-        "gameWeeks": 0,
+        "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 38,
-        "totalPoints": 2594
+        "totalPoints": 2577
       },
       "achievements": {
-        "gameweeks": [],
+        "gameweeks": [
+          {
+            "week": 29,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          }
+        ],
         "months": []
       },
       "positions": {
         "first": 0,
-        "second": 0
+        "second": 1
       },
-      "totalPoints": 2594
+      "totalPoints": 2577
     },
     {
-      "playerName": "Rahul Sahai",
+      "playerName": "Devesh Singh",
+      "totalPrizeWon": 175,
+      "totalPaid": 0,
+      "totalPending": 175,
+      "prizeBreakdown": {
+        "gameweek": 175,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 45,
+        "totalPoints": 2555
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 4,
+            "position": "2nd",
+            "prize": 175,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 2555
+    },
+    {
+      "playerName": "Lakshman Aravind ",
+      "totalPrizeWon": 116,
+      "totalPaid": 0,
+      "totalPending": 116,
+      "prizeBreakdown": {
+        "gameweek": 116,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 31,
+        "totalPoints": 2589
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 6,
+            "position": "2nd",
+            "prize": 116,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 2589
+    },
+    {
+      "playerName": "Kiran Kanoj",
+      "totalPrizeWon": 58,
+      "totalPaid": 0,
+      "totalPending": 58,
+      "prizeBreakdown": {
+        "gameweek": 58,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 28,
+        "totalPoints": 2597
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 14,
+            "position": "2nd",
+            "prize": 58,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 2597
+    },
+    {
+      "playerName": "Pallab Pegu",
       "totalPrizeWon": 0,
       "totalPaid": 0,
       "totalPending": 0,
@@ -2062,7 +2107,7 @@
         "gameWeeks": 0,
         "gameMonths": 0,
         "overallRank": 54,
-        "totalPoints": 2472
+        "totalPoints": 2515
       },
       "achievements": {
         "gameweeks": [],
@@ -2072,10 +2117,10 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 2472
+      "totalPoints": 2515
     },
     {
-      "playerName": "Shivam Sachan",
+      "playerName": "Kashyap Rana",
       "totalPrizeWon": 0,
       "totalPaid": 0,
       "totalPending": 0,
@@ -2086,8 +2131,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 50,
-        "totalPoints": 2545
+        "overallRank": 36,
+        "totalPoints": 2579
       },
       "achievements": {
         "gameweeks": [],
@@ -2097,10 +2142,10 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 2545
+      "totalPoints": 2579
     },
     {
-      "playerName": "Vikash Kumar",
+      "playerName": "Avinash Jayashankar ",
       "totalPrizeWon": 0,
       "totalPaid": 0,
       "totalPending": 0,
@@ -2111,8 +2156,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 48,
-        "totalPoints": 2559
+        "overallRank": 32,
+        "totalPoints": 2588
       },
       "achievements": {
         "gameweeks": [],
@@ -2122,10 +2167,10 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 2559
+      "totalPoints": 2588
     },
     {
-      "playerName": "Vinay Sudershan",
+      "playerName": "Abhishek Addy",
       "totalPrizeWon": 0,
       "totalPaid": 0,
       "totalPending": 0,
@@ -2136,8 +2181,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 33,
-        "totalPoints": 2604
+        "overallRank": 6,
+        "totalPoints": 2702
       },
       "achievements": {
         "gameweeks": [],
@@ -2147,32 +2192,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 2604
-    },
-    {
-      "playerName": "Parth Pillai",
-      "totalPrizeWon": 0,
-      "totalPaid": 0,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 0,
-        "overallRank": 24,
-        "totalPoints": 2642
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 0
-      },
-      "totalPoints": 2642
+      "totalPoints": 2702
     },
     {
       "playerName": "Ashish Kumar",
@@ -2186,8 +2206,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 49,
-        "totalPoints": 2556
+        "overallRank": 44,
+        "totalPoints": 2557
       },
       "achievements": {
         "gameweeks": [],
@@ -2197,9 +2217,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 2556
+      "totalPoints": 2557
     }
-  ],
-  "testMode": true,
-  "message": "This is test data for demonstration purposes only"
+  ]
 }
