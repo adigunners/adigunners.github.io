@@ -1,16 +1,92 @@
 {
-  "lastUpdated": "2025-08-18T10:00:00Z",
-  "note": "Payouts are credited within 72 hours after results are final.",
-  "weekly": {
-    "total": 6000,
-    "breakdown": ["Top 1: ₹4,000", "Top 2: ₹2,000"]
+  "lastUpdated": "2025-08-17T23:01:32.341Z",
+  "source": "apps-script",
+  "season": "2025-26",
+  "week": {
+    "gw": 1,
+    "month": 1
   },
-  "monthly": {
-    "total": 12000,
-    "breakdown": ["Champion: ₹8,000", "Runner-up: ₹4,000"]
-  },
-  "season": {
-    "total": 200000,
-    "breakdown": ["Top 1: ₹80,000", "Top 2: ₹40,000", "Top 3: ₹25,000", "Top 4-10: ₹5,000 each"]
-  }
+  "weeklyPrizes": [
+    {
+      "rank": 1,
+      "amount": 650
+    },
+    {
+      "rank": 2,
+      "amount": 350
+    }
+  ],
+  "monthlyPrizes": [
+    {
+      "rank": 1,
+      "amount": 1300
+    },
+    {
+      "rank": 2,
+      "amount": 700
+    }
+  ],
+  "annualPrizes": [
+    {
+      "rank": 1,
+      "amount": 16000
+    },
+    {
+      "rank": 2,
+      "amount": 12500
+    },
+    {
+      "rank": 3,
+      "amount": 11000
+    },
+    {
+      "rank": 4,
+      "amount": 9000
+    },
+    {
+      "rank": 5,
+      "amount": 8000
+    },
+    {
+      "rank": 6,
+      "amount": 7000
+    },
+    {
+      "rank": 7,
+      "amount": 6500
+    },
+    {
+      "rank": 8,
+      "amount": 6000
+    },
+    {
+      "rank": 9,
+      "amount": 5500
+    },
+    {
+      "rank": 10,
+      "amount": 5000
+    },
+    {
+      "rank": 11,
+      "amount": 4500
+    },
+    {
+      "rank": 12,
+      "amount": 4000
+    },
+    {
+      "rank": 13,
+      "amount": 3500
+    },
+    {
+      "rank": 14,
+      "amount": 3000
+    },
+    {
+      "rank": 15,
+      "amount": 2500
+    }
+  ],
+  "note": ""
 }
