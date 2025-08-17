@@ -1,0 +1,16 @@
+{
+  "lastUpdated": "2025-08-18T10:00:00Z",
+  "note": "Payouts are credited within 72 hours after results are final.",
+  "weekly": {
+    "total": 6000,
+    "breakdown": ["1st: ₹4,000", "2nd: ₹2,000"]
+  },
+  "monthly": {
+    "total": 12000,
+    "breakdown": ["1st: ₹8,000", "2nd: ₹4,000"]
+  },
+  "season": {
+    "total": 200000,
+    "breakdown": ["1st: ₹80,000", "2nd: ₹40,000", "3rd: ₹25,000", "4th-10th: ₹5,000 each"]
+  }
+}
