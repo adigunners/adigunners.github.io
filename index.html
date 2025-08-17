@@ -1628,7 +1628,7 @@
 
         <!-- RULES SECTION -->
         <section id="rules">
-          <h2>Prize Structure</h2>
+          <h2>League Rules & Prize Structure</h2>
           <!-- Pre-season view: keep full text (unchanged) -->
           <div id="rules-pre" class="pre-season">
             <p><strong>Entry Fee:</strong> ₹3,000</p>
@@ -1638,11 +1638,11 @@
                 <strong>Weekly Prizes:</strong> The top 2 managers every gameweek win cash prizes.
               </li>
               <li>
-                <strong>Monthly Prizes:</strong> The best 2 managers each month are rewarded from
-                the prize pool.
+                <strong>Monthly Prizes:</strong> The best managers each month are rewarded from the
+                prize pool.
               </li>
               <li>
-                <strong>Overall Prizes:</strong> The top 15 managers at the end of the season will
+                <strong>Overall Prizes:</strong> The top 10 managers at the end of the season will
                 win substantial rewards from the grand prize pool.
               </li>
             </ul>
@@ -1655,6 +1655,11 @@
             </div>
             <div class="prize-meta">
               <span id="prize-last-updated">Loading…</span>
+              <a
+                href="#rules"
+                onclick="document.getElementById('rules-pre').scrollIntoView({behavior:'smooth'}); return false;"
+                >Full rules</a
+              >
             </div>
             <div class="prize-note" id="prize-note"></div>
           </div>
@@ -2179,11 +2184,6 @@
             console.log('🔄 Toggle: Loading data for season mode...');
             loadWinnerData('winner-preview-container', 'winner-summary', true); // Use test data
             loadTestLeaderboardData();
-            try {
-              loadPrizeSummary();
-            } catch (e) {
-              console.warn('Prize summary load failed (toggle):', e);
-            }
 
             // Update winners link to test version when in season mode
             const winnersLink = document.getElementById('winners-link');
@@ -2288,7 +2288,7 @@
               <div class="winner-error">
                 <h3>Unable to load winner data</h3>
                 <p>There was a problem loading the winner statistics. Please try again.</p>
-                <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})"
+                <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})" 
                         style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
                   <i class="fas fa-redo"></i> Retry
                 </button>
@@ -3240,7 +3240,7 @@
                 <div class="winner-error">
                   <h3>Unable to load test league standings</h3>
                   <p>There was a problem loading the test league standings. Please try again.</p>
-                  <button onclick="loadTestLeaderboardData()"
+                  <button onclick="loadTestLeaderboardData()" 
                           style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
                     <i class="fas fa-redo"></i> Retry
                   </button>
@@ -3323,7 +3323,7 @@
                 <div class="winner-error">
                   <h3>Unable to load league standings</h3>
                   <p>There was a problem loading the league standings. Please try again.</p>
-                  <button onclick="loadLeaderboardData()"
+                  <button onclick="loadLeaderboardData()" 
                           style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
                     <i class="fas fa-redo"></i> Retry
                   </button>
@@ -3459,24 +3459,37 @@
           if (!resp.ok) throw new Error('HTTP ' + resp.status);
           const data = await resp.json();
 
-          // Build three compact cards: Weekly, Monthly, Season (Apps Script mapping aware)
-          const annualBlock = data.annual || data.season || data.annualPrizes || data.seasonPrizes;
+          // Build three compact cards: Weekly, Monthly, Season
           const cards = [];
-          if (data.weekly || data.weeklyPrizes) {
-            const wk = normalizeGroup(data.weekly || data.weeklyPrizes);
+          if (data.weekly) {
             cards.push(
-              card('fa-calendar-week', 'Weekly Winners', formatCurrency(wk.total), wk.breakdown)
+              card(
+                'fa-calendar-week',
+                'Weekly Winners',
+                formatCurrency(data.weekly.total),
+                data.weekly.breakdown
+              )
             );
           }
-          if (data.monthly || data.monthlyPrizes) {
-            const mo = normalizeGroup(data.monthly || data.monthlyPrizes);
+          if (data.monthly) {
             cards.push(
-              card('fa-calendar-days', 'Monthly Champions', formatCurrency(mo.total), mo.breakdown)
+              card(
+                'fa-calendar-days',
+                'Monthly Champions',
+                formatCurrency(data.monthly.total),
+                data.monthly.breakdown
+              )
             );
           }
-          if (annualBlock) {
-            const se = normalizeGroup(annualBlock);
-            cards.push(card('fa-trophy', 'Season Awards', formatCurrency(se.total), se.breakdown));
+          if (data.season) {
+            cards.push(
+              card(
+                'fa-trophy',
+                'Season Awards',
+                formatCurrency(data.season.total),
+                data.season.breakdown
+              )
+            );
           }
           container.innerHTML = cards.join('');
 
@@ -3514,38 +3527,6 @@
                 ${breakdownText ? `<div class="note-small" style="margin-top:4px;">${escapeHTML(breakdownText)}</div>` : ''}
               </div>
             </div>`;
-        }
-
-        function normalizeGroup(group) {
-          // Accept shapes:
-          // - { total, breakdown[] }
-          // - [ {rank, amount}, ... ]
-          // - { items: [ {rank, amount} ] }
-          if (!group) return { total: '', breakdown: [] };
-          if (Array.isArray(group)) return summarizeRanked(group);
-          if (Array.isArray(group.items)) return summarizeRanked(group.items);
-          const total = typeof group.total !== 'undefined' ? group.total : '';
-          const breakdown = Array.isArray(group.breakdown) ? group.breakdown : [];
-          return { total, breakdown };
-        }
-
-        function summarizeRanked(items) {
-          const clean = items
-            .map((it) => ({ rank: Number(it.rank), amount: Number(it.amount) }))
-            .filter((it) => !isNaN(it.rank) && !isNaN(it.amount))
-            .sort((a, b) => a.rank - b.rank);
-          const total = clean.reduce((s, it) => s + it.amount, 0);
-          const breakdown = clean.map((it) => `${ordinal(it.rank)}: ${formatCurrency(it.amount)}`);
-          return { total, breakdown };
-        }
-
-        function ordinal(n) {
-          const j = n % 10,
-            k = n % 100;
-          if (j === 1 && k !== 11) return n + 'st';
-          if (j === 2 && k !== 12) return n + 'nd';
-          if (j === 3 && k !== 13) return n + 'rd';
-          return n + 'th';
         }
 
         function formatCurrency(n) {
