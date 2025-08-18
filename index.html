@@ -98,6 +98,134 @@
     />
 
     <style>
+      /* =============== PRIZE SUMMARY (IN-SEASON) =============== */
+      .prize-summary {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 12px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        background: #fff;
+      }
+      .prize-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        background: #fff;
+      }
+      .prize-card .icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--primary-color), #59215e);
+        color: #fff;
+        flex: 0 0 36px;
+      }
+      .prize-card .content {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+      }
+      .prize-card .title {
+        font-weight: 700;
+        color: var(--heading-color);
+        font-size: 0.95rem;
+      }
+      .prize-card .subtitle {
+        font-size: 0.9rem;
+        color: #333;
+        font-weight: 700;
+      }
+      .prize-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+        color: #777;
+        font-size: 0.85rem;
+      }
+      .prize-meta a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .prize-note {
+        margin-top: 8px;
+        font-size: 0.85rem;
+        color: #666;
+      }
+      @media (min-width: 700px) {
+        .prize-summary {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      /* ============== PRIZE STRUCTURE LAYOUT & TOOLTIP ============== */
+      .prize-card {
+        position: relative;
+      }
+      .prize-card .title-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .prize-card .title-row .total {
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+      /* Accessible tooltip */
+      .tooltip {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: help;
+      }
+      .tooltip .tooltip-content {
+        position: absolute;
+        left: 0;
+        top: calc(100% + 8px);
+        z-index: 50;
+        background: #111;
+        color: #fff;
+        border-radius: 8px;
+        padding: 10px 12px;
+        min-width: 220px;
+        max-width: 320px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        font-size: 0.85rem;
+        line-height: 1.4;
+        display: none;
+      }
+      .tooltip:focus .tooltip-content,
+      .tooltip:hover .tooltip-content {
+        display: block;
+      }
+      .tooltip .tooltip-arrow {
+        position: absolute;
+        top: -6px;
+        left: 12px;
+        width: 10px;
+        height: 10px;
+        background: #111;
+        transform: rotate(45deg);
+      }
+      @media (max-width: 600px) {
+        .tooltip .tooltip-content {
+          left: 0;
+          right: auto;
+          max-width: 90vw;
+        }
+      }
       /* =============== CSS VARIABLES =============== */
       :root {
         --primary-color: #37003c; /* Official FPL Purple */
@@ -1539,21 +1667,7 @@
           <h2>Join the League!</h2>
           <p>
             Ready to prove your FPL skills? Registration is now open. Click the button below to fill
-            /* =============== PRIZE SUMMARY (IN-SEASON) =============== */ .prize-summary {
-            display: grid; grid-template-columns: 1fr; gap: 12px; } .prize-card { display: flex;
-            align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid
-            var(--border-color); border-radius: 10px; background: #fff; } .prize-card .icon { width:
-            36px; height: 36px; border-radius: 8px; display: grid; place-items: center; background:
-            linear-gradient(135deg, var(--primary-color), #59215e); color: #fff; flex: 0 0 36px; }
-            .prize-card .content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-            .prize-card .title { font-weight: 700; color: var(--heading-color); font-size: 0.95rem;
-            } .prize-card .subtitle { font-size: 0.9rem; color: #333; font-weight: 700; }
-            .prize-meta { display: flex; justify-content: space-between; align-items: center;
-            margin-top: 8px; color: #777; font-size: 0.85rem; } .prize-meta a { color:
-            var(--primary-color); text-decoration: none; font-weight: 600; } .prize-note {
-            margin-top: 8px; font-size: 0.85rem; color: #666; } @media (min-width: 700px) {
-            .prize-summary { grid-template-columns: repeat(3, 1fr); } } out the form and join the
-            action.
+            out the form and join the action.
           </p>
           <a
             href="https://forms.gle/xXRXCMKNtNMcGxsr9"
@@ -1638,11 +1752,11 @@
                 <strong>Weekly Prizes:</strong> The top 2 managers every gameweek win cash prizes.
               </li>
               <li>
-                <strong>Monthly Prizes:</strong> The best managers each month are rewarded from the
-                prize pool.
+                <strong>Monthly Prizes:</strong> The 2 best managers each month are rewarded from
+                the prize pool.
               </li>
               <li>
-                <strong>Overall Prizes:</strong> The top 10 managers at the end of the season will
+                <strong>Overall Prizes:</strong> The top 15 managers at the end of the season will
                 win substantial rewards from the grand prize pool.
               </li>
             </ul>
@@ -2333,6 +2447,141 @@
               });
             }
             throw error;
+          });
+      }
+
+      // ===== Prize structure (during season) =====
+      function formatINR(n) {
+        try {
+          return new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+            maximumFractionDigits: 0,
+          }).format(n);
+        } catch {
+          return `₹${n}`;
+        }
+      }
+
+      function sumAmounts(list) {
+        return (list || []).reduce((s, x) => s + (Number(x.amount) || 0), 0);
+      }
+
+      function buildWeeklyCard(weekly) {
+        const total = sumAmounts(weekly);
+        const lines = weekly
+          .map(
+            (p) =>
+              `${p.rank === 1 ? '1st' : p.rank === 2 ? '2nd' : p.rank + 'th'} ${formatINR(p.amount)}`
+          )
+          .join(', ');
+        return `
+          <div class="prize-card" role="group" aria-label="Weekly prizes">
+            <div class="icon" aria-hidden="true"><i class="fas fa-calendar-week"></i></div>
+            <div class="content">
+              <div class="title-row">
+                <div class="title">Weekly</div>
+                <div class="total">${formatINR(total)}</div>
+              </div>
+              <div class="subtitle">${lines}</div>
+            </div>
+          </div>`;
+      }
+
+      function buildMonthlyCard(monthly) {
+        const total = sumAmounts(monthly);
+        const lines = monthly
+          .map(
+            (p) =>
+              `${p.rank === 1 ? '1st' : p.rank === 2 ? '2nd' : p.rank + 'th'} ${formatINR(p.amount)}`
+          )
+          .join(', ');
+        return `
+          <div class="prize-card" role="group" aria-label="Monthly prizes">
+            <div class="icon" aria-hidden="true"><i class="fas fa-calendar-alt"></i></div>
+            <div class="content">
+              <div class="title-row">
+                <div class="title">Monthly</div>
+                <div class="total">${formatINR(total)}</div>
+              </div>
+              <div class="subtitle">${lines}</div>
+            </div>
+          </div>`;
+      }
+
+      function ordinal(n) {
+        return n === 1 ? '1st' : n === 2 ? '2nd' : n === 3 ? '3rd' : n + 'th';
+      }
+
+      function buildAnnualCard(annual) {
+        const firstThree = (annual || [])
+          .slice(0, 3)
+          .map((p) => `${ordinal(p.rank)} ${formatINR(p.amount)}`)
+          .join(', ');
+        const rest = (annual || [])
+          .map((p) => `${ordinal(p.rank)} — ${formatINR(p.amount)}`)
+          .join('<br>');
+        return `
+          <div class="prize-card" role="group" aria-label="Overall prizes">
+            <div class="icon" aria-hidden="true"><i class="fas fa-trophy"></i></div>
+            <div class="content">
+              <div class="title-row">
+                <div class="title">Overall</div>
+              </div>
+              <div class="subtitle">
+                ${firstThree} &amp; ${Math.max(0, (annual || []).length - 3)} more winners
+                <span class="tooltip" tabindex="0" aria-describedby="overall-tooltip">
+                  <i class="fas fa-info-circle" aria-hidden="true"></i>
+                  <span id="overall-tooltip" class="tooltip-content" role="tooltip">
+                    <span class="tooltip-arrow" aria-hidden="true"></span>
+                    ${rest}
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>`;
+      }
+
+      function renderPrizeStructure(data) {
+        const container = document.getElementById('prize-summary');
+        const meta = document.getElementById('prize-last-updated');
+        const note = document.getElementById('prize-note');
+        if (!container) return;
+        const weekly = buildWeeklyCard(data.weeklyPrizes || []);
+        const monthly = buildMonthlyCard(data.monthlyPrizes || []);
+        const annual = buildAnnualCard(data.annualPrizes || []);
+        container.innerHTML = `${weekly}${monthly}${annual}`;
+        // Entry fee line above cards (keeps layout consistent with request)
+        const rulesSection = document.getElementById('rules-season');
+        if (rulesSection && !rulesSection.querySelector('.entry-fee')) {
+          const p = document.createElement('p');
+          p.className = 'entry-fee';
+          p.innerHTML = `<strong>Entry Fee:</strong> ${formatINR(3000)}`; // Provided requirement
+          rulesSection.insertBefore(p, container.parentNode ? container : rulesSection.firstChild);
+        }
+        if (meta) {
+          try {
+            const d = new Date(data.lastUpdated);
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            meta.textContent =
+              'Updated ' +
+              d.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: tz });
+          } catch {
+            meta.textContent = 'Updated recently';
+          }
+        }
+        if (note && data.note) note.textContent = data.note;
+      }
+
+      function loadPrizeSummary() {
+        const url = 'data/prizes.json?cache=' + Date.now();
+        return fetchWithRetry(url, 2)
+          .then((data) => {
+            renderPrizeStructure(data);
+            return data;
+          })
+          .catch((err) => {
+            console.warn('Prize load failed:', err);
           });
       }
 
