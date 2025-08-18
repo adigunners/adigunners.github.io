@@ -69,9 +69,9 @@
               theme can be updated safely in one place.
          =================================================================== */
       :root {
-        --primary-color: #37003c;   /* Official FPL Purple */
+        --primary-color: #37003c; /* Official FPL Purple */
         --secondary-color: #00ff87; /* FPL Green */
-        --accent-color: #5bbad5;    /* FPL Teal/Cyan */
+        --accent-color: #5bbad5; /* FPL Teal/Cyan */
         --background-color: #f8f9fa;
         --card-background: #fff;
         --text-color: #212529;
@@ -84,7 +84,9 @@
       /* ===================================================================
          GLOBAL RESETS / LAYOUT
          =================================================================== */
-      * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+      }
       body {
         font-family:
           'Poppins',
@@ -106,7 +108,9 @@
         margin: 20px auto;
         padding: 0 16px;
       }
-      .is-hidden { display: none !important; }
+      .is-hidden {
+        display: none !important;
+      }
 
       /* ===================================================================
          HEADER
@@ -173,8 +177,13 @@
         animation: pulseBorder 3s infinite;
       }
       @keyframes pulseBorder {
-        0%, 100% { border-color: rgba(91, 186, 213, 0.4); }
-        50%      { border-color: rgba(91, 186, 213, 0.7); }
+        0%,
+        100% {
+          border-color: rgba(91, 186, 213, 0.4);
+        }
+        50% {
+          border-color: rgba(91, 186, 213, 0.7);
+        }
       }
       .countdown-label {
         font-size: 1rem;
@@ -186,8 +195,16 @@
         animation: flash 2s infinite;
       }
       @keyframes flash {
-        0%, 50% { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,.8); }
-        25%,75% { opacity: .7; text-shadow: 0 0 5px rgba(255,255,255,.4); }
+        0%,
+        50% {
+          opacity: 1;
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        25%,
+        75% {
+          opacity: 0.7;
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+        }
       }
       .countdown-time {
         font-family: 'Courier New', monospace;
@@ -203,9 +220,23 @@
         padding: 4px 6px;
         margin-top: 5px;
       }
-      .countdown-separator { animation: pulse 1s infinite; }
-      @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.5;} }
-      .countdown-unit { display: inline-block; min-width: 18px; text-align: center; }
+      .countdown-separator {
+        animation: pulse 1s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+      .countdown-unit {
+        display: inline-block;
+        min-width: 18px;
+        text-align: center;
+      }
       .countdown-unit-label {
         font-family: 'Courier New', monospace;
         font-size: 0.55rem;
@@ -219,21 +250,39 @@
       }
       /* "Synced just now" and admin badges */
       .sync-badge {
-        display: inline-block; margin-left: 8px; padding: 2px 6px;
-        font-size: 0.7rem; font-weight: 700; background: #e8f5e9; color: #1b5e20;
-        border: 1px solid #c8e6c9; border-radius: 999px; opacity: 0; transition: opacity 250ms ease;
+        display: inline-block;
+        margin-left: 8px;
+        padding: 2px 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        background: #e8f5e9;
+        color: #1b5e20;
+        border: 1px solid #c8e6c9;
+        border-radius: 999px;
+        opacity: 0;
+        transition: opacity 250ms ease;
       }
-      .sync-badge.show { opacity: 1; }
+      .sync-badge.show {
+        opacity: 1;
+      }
       .admin-badge {
-        display: inline-block; margin-left: 8px; padding: 2px 6px;
-        font-size: 0.7rem; font-weight: 600; background: #fff3e0; color: #e65100;
-        border: 1px solid #ffe0b2; border-radius: 999px;
+        display: inline-block;
+        margin-left: 8px;
+        padding: 2px 6px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        background: #fff3e0;
+        color: #e65100;
+        border: 1px solid #ffe0b2;
+        border-radius: 999px;
       }
 
       /* ===================================================================
          PAGE SECTIONS / TYPOGRAPHY
          =================================================================== */
-      main { padding: 0; }
+      main {
+        padding: 0;
+      }
       section {
         background-color: var(--card-background);
         padding: 30px;
@@ -264,7 +313,9 @@
         border-radius: 12px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         text-align: center;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
         border: 2px solid transparent;
       }
       .summary-card.primary-metric {
@@ -281,12 +332,40 @@
         box-shadow: 0 10px 30px rgba(55, 0, 60, 0.18);
         border-color: var(--primary-color);
       }
-      .summary-icon { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 12px; opacity: 0.8; }
-      .summary-card.primary-metric .summary-icon { font-size: 2.2rem; opacity: 1; }
-      .summary-number { font-size: 2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 8px; }
-      .summary-card.primary-metric .summary-number { font-size: 2.8rem; font-weight: 700; margin-bottom: 12px; }
-      .summary-label { color: #666; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-      .summary-card.primary-metric .summary-label { font-size: 0.95rem; font-weight: 700; color: var(--heading-color); letter-spacing: 0.6px; }
+      .summary-icon {
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        margin-bottom: 12px;
+        opacity: 0.8;
+      }
+      .summary-card.primary-metric .summary-icon {
+        font-size: 2.2rem;
+        opacity: 1;
+      }
+      .summary-number {
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 8px;
+      }
+      .summary-card.primary-metric .summary-number {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .summary-label {
+        color: #666;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .summary-card.primary-metric .summary-label {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--heading-color);
+        letter-spacing: 0.6px;
+      }
 
       /* ===================================================================
          DESKTOP/TABLET TABLE
@@ -315,76 +394,229 @@
         top: 0;
         z-index: 10;
       }
-      .winner-table th:nth-child(1) { width: 8%; text-align: center; min-width: 60px; }
-      .winner-table th:nth-child(2) { width: 25%; text-align: left; min-width: 150px; }
-      .winner-table th:nth-child(3) { width: 15%; text-align: right; min-width: 100px; }
-      .winner-table th:nth-child(4) { width: 52%; text-align: right; min-width: 200px; }
-      .winner-table td { padding: 14px 16px; border-bottom: 1px solid #f0f2f5; font-size: 0.9rem; transition: background-color 0.2s ease; }
-      .winner-table tbody tr:nth-child(even) { background-color: #f8f9fa; }
-      .winner-table tbody tr:nth-child(odd)  { background-color: white; }
-      .winner-table tbody tr:hover { background-color: #e3f2fd !important; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
-      .winner-table td:nth-child(1) { text-align: center; font-weight: 600; }
-      .winner-table td:nth-child(2) { text-align: left; }
-      .winner-table td:nth-child(3) { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
-      .winner-table td:nth-child(4) { text-align: right; }
-      .winner-table tr:last-child td { border-bottom: none; }
+      .winner-table th:nth-child(1) {
+        width: 8%;
+        text-align: center;
+        min-width: 60px;
+      }
+      .winner-table th:nth-child(2) {
+        width: 25%;
+        text-align: left;
+        min-width: 150px;
+      }
+      .winner-table th:nth-child(3) {
+        width: 15%;
+        text-align: right;
+        min-width: 100px;
+      }
+      .winner-table th:nth-child(4) {
+        width: 52%;
+        text-align: right;
+        min-width: 200px;
+      }
+      .winner-table td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #f0f2f5;
+        font-size: 0.9rem;
+        transition: background-color 0.2s ease;
+      }
+      .winner-table tbody tr:nth-child(even) {
+        background-color: #f8f9fa;
+      }
+      .winner-table tbody tr:nth-child(odd) {
+        background-color: white;
+      }
+      .winner-table tbody tr:hover {
+        background-color: #e3f2fd !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .winner-table td:nth-child(1) {
+        text-align: center;
+        font-weight: 600;
+      }
+      .winner-table td:nth-child(2) {
+        text-align: left;
+      }
+      .winner-table td:nth-child(3) {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+      }
+      .winner-table td:nth-child(4) {
+        text-align: right;
+      }
+      .winner-table tr:last-child td {
+        border-bottom: none;
+      }
 
       /* Desktop: subtle gold/silver/bronze highlight for top 3 rows */
-      .winner-table tbody tr.winner-gold   { background: linear-gradient(145deg, #fffbf0, #fff8e1); border-left: 4px solid #f9a825; box-shadow: 0 2px 10px rgba(249,168,37,.15); }
-      .winner-table tbody tr.winner-silver { background: linear-gradient(145deg, #f8f9fa, #f1f3f4); border-left: 4px solid #9e9e9e; box-shadow: 0 2px 10px rgba(158,158,158,.15); }
-      .winner-table tbody tr.winner-bronze { background: linear-gradient(145deg, #fef7e0, #fff3cd); border-left: 4px solid #d4b106; box-shadow: 0 2px 10px rgba(212,177,6,.15); }
+      .winner-table tbody tr.winner-gold {
+        background: linear-gradient(145deg, #fffbf0, #fff8e1);
+        border-left: 4px solid #f9a825;
+        box-shadow: 0 2px 10px rgba(249, 168, 37, 0.15);
+      }
+      .winner-table tbody tr.winner-silver {
+        background: linear-gradient(145deg, #f8f9fa, #f1f3f4);
+        border-left: 4px solid #9e9e9e;
+        box-shadow: 0 2px 10px rgba(158, 158, 158, 0.15);
+      }
+      .winner-table tbody tr.winner-bronze {
+        background: linear-gradient(145deg, #fef7e0, #fff3cd);
+        border-left: 4px solid #d4b106;
+        box-shadow: 0 2px 10px rgba(212, 177, 6, 0.15);
+      }
 
-      .player-name { font-weight: 600; color: var(--heading-color); }
-      .prize-amount { font-weight: 700; color: var(--primary-color); font-size: 1.1rem; }
+      .player-name {
+        font-weight: 600;
+        color: var(--heading-color);
+      }
+      .prize-amount {
+        font-weight: 700;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+      }
 
       /* Shared badge styles (also used on mobile) */
-      .highlights { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-      .highlight-badge {
-        padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;
-        white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; transition: transform 0.2s ease;
+      .highlights {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
       }
-      .highlight-badge:hover { transform: translateY(-1px); }
-      .highlight-badge.gw { background: var(--secondary-color); color: var(--primary-color); }
-      .highlight-badge.gm { background: #ff6b6b; color: white; }
+      .highlight-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: transform 0.2s ease;
+      }
+      .highlight-badge:hover {
+        transform: translateY(-1px);
+      }
+      .highlight-badge.gw {
+        background: var(--secondary-color);
+        color: var(--primary-color);
+      }
+      .highlight-badge.gm {
+        background: #ff6b6b;
+        color: white;
+      }
 
       /* Small heading helper */
-      .winners-heading { display: block; margin: 0 0 0.5rem 0; }
-      .winners-heading .heading-main { display: block; font-size: 1.35rem; font-weight: 700; }
-      .winners-heading .heading-subtitle {
-        display: block; font-size: 0.85rem; color: #666; margin-top: 4px;
-        opacity: 0; transform: translateY(4px); transition: opacity 180ms ease, transform 180ms ease;
+      .winners-heading {
+        display: block;
+        margin: 0 0 0.5rem 0;
       }
-      .winners-heading .heading-subtitle.show { opacity: 1; transform: translateY(0); }
+      .winners-heading .heading-main {
+        display: block;
+        font-size: 1.35rem;
+        font-weight: 700;
+      }
+      .winners-heading .heading-subtitle {
+        display: block;
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 4px;
+        opacity: 0;
+        transform: translateY(4px);
+        transition:
+          opacity 180ms ease,
+          transform 180ms ease;
+      }
+      .winners-heading .heading-subtitle.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
       /* Pagination controls */
       .winner-navigation {
-        display: flex; justify-content: center; align-items: center; gap: 15px; margin: 20px 0; flex-wrap: wrap;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin: 20px 0;
+        flex-wrap: wrap;
       }
       .winner-nav-btn {
-        background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px;
-        cursor: pointer; font-weight: 600; transition: all 0.2s ease; display: flex; align-items: center; gap: 5px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
       }
-      .winner-nav-btn:hover:not(:disabled) { background: var(--heading-color); transform: translateY(-1px); box-shadow: 0 3px 8px rgba(93, 33, 99, 0.3); }
-      .winner-nav-btn:disabled { background: #ccc; cursor: not-allowed; }
-      .page-info { font-weight: 600; color: var(--primary-color); font-size: 0.9rem; white-space: nowrap; }
+      .winner-nav-btn:hover:not(:disabled) {
+        background: var(--heading-color);
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(93, 33, 99, 0.3);
+      }
+      .winner-nav-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+      .page-info {
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
 
-      footer { text-align: center; font-size: 0.8rem; color: #888; padding: 20px; }
-      .footer-last-updated { font-size: 0.7rem; color: #ccc; margin-top: 5px; }
+      footer {
+        text-align: center;
+        font-size: 0.8rem;
+        color: #888;
+        padding: 20px;
+      }
+      .footer-last-updated {
+        font-size: 0.7rem;
+        color: #ccc;
+        margin-top: 5px;
+      }
 
       /* ===================================================================
          WIDESCREEN TWEAKS (≥1201px) / TABLET TWEAKS (768–1024px)
          =================================================================== */
       @media (min-width: 1201px) {
-        header { padding: 40px; justify-content: space-between; align-items: center; }
-        .container { max-width: 1200px; }
-        .header-main { padding-right: 20px; }
-        .countdown-clock { margin-left: auto; }
+        header {
+          padding: 40px;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .container {
+          max-width: 1200px;
+        }
+        .header-main {
+          padding-right: 20px;
+        }
+        .countdown-clock {
+          margin-left: auto;
+        }
       }
       @media (max-width: 1024px) and (min-width: 769px) {
-        header h1 { font-size: clamp(1.3rem, 3.5vw, 2rem); letter-spacing: -0.3px; }
-        header p { font-size: clamp(0.85rem, 2.5vw, 1rem); }
-        .header-main { flex: 1 1 60%; }
-        .countdown-clock { max-width: 250px; margin-left: auto; }
+        header h1 {
+          font-size: clamp(1.3rem, 3.5vw, 2rem);
+          letter-spacing: -0.3px;
+        }
+        header p {
+          font-size: clamp(0.85rem, 2.5vw, 1rem);
+        }
+        .header-main {
+          flex: 1 1 60%;
+        }
+        .countdown-clock {
+          max-width: 250px;
+          margin-left: auto;
+        }
       }
 
       /* ===================================================================
@@ -392,23 +624,63 @@
          WHY: Cards are more readable and tappable than tables on small screens.
          =================================================================== */
       @media (max-width: 700px) {
-        .container { padding: 0 12px; }
-        header {
-          padding: 20px 10px; margin-bottom: 16px; flex-direction: column; gap: 15px; text-align: center;
+        .container {
+          padding: 0 12px;
         }
-        .header-main { width: 100%; }
-        header h1 { font-size: clamp(1rem, 5vw, 1.6rem); white-space: normal; overflow: visible; text-overflow: unset; }
-        header p  { font-size: clamp(0.8rem, 3.5vw, 1rem); white-space: normal; overflow: visible; text-overflow: unset; }
-        .countdown-clock { width: 100%; max-width: 300px; margin: 0 auto; padding: 12px 15px; }
+        header {
+          padding: 20px 10px;
+          margin-bottom: 16px;
+          flex-direction: column;
+          gap: 15px;
+          text-align: center;
+        }
+        .header-main {
+          width: 100%;
+        }
+        header h1 {
+          font-size: clamp(1rem, 5vw, 1.6rem);
+          white-space: normal;
+          overflow: visible;
+          text-overflow: unset;
+        }
+        header p {
+          font-size: clamp(0.8rem, 3.5vw, 1rem);
+          white-space: normal;
+          overflow: visible;
+          text-overflow: unset;
+        }
+        .countdown-clock {
+          width: 100%;
+          max-width: 300px;
+          margin: 0 auto;
+          padding: 12px 15px;
+        }
 
-        main > * { margin-bottom: 16px; }
-        section { padding: 20px; }
+        main > * {
+          margin-bottom: 16px;
+        }
+        section {
+          padding: 20px;
+        }
 
-        h2 { font-size: clamp(1.2rem, 4vw, 1.5rem); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        section p { font-size: clamp(0.8rem, 3.5vw, 0.9rem); line-height: 1.4; white-space: normal; overflow: visible; text-overflow: unset; }
+        h2 {
+          font-size: clamp(1.2rem, 4vw, 1.5rem);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        section p {
+          font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+          line-height: 1.4;
+          white-space: normal;
+          overflow: visible;
+          text-overflow: unset;
+        }
 
         /* Hide the desktop table; mobile cards are injected by JS */
-        .winner-table { display: none !important; }
+        .winner-table {
+          display: none !important;
+        }
 
         /* Card grid */
         .winner-preview {
@@ -423,7 +695,7 @@
           border-radius: 6px;
           background: #fff;
           border-left: 4px solid var(--secondary-color);
-          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
           display: flex;
           flex-direction: column;
           gap: 4px;
@@ -432,53 +704,109 @@
         /* Top 3 distinct styles (gold/silver/bronze) */
         .winner-card.rank-1 {
           background: linear-gradient(145deg, #fff9e6, #ffecb3) !important;
-          border: 2px solid #f57c00 !important; border-left: 5px solid #f57c00 !important;
+          border: 2px solid #f57c00 !important;
+          border-left: 5px solid #f57c00 !important;
           box-shadow: 0 3px 12px rgba(245, 124, 0, 0.25) !important;
         }
         .winner-card.rank-2 {
           background: linear-gradient(145deg, #f5f5f5, #e0e0e0) !important;
-          border: 2px solid #757575 !important; border-left: 5px solid #757575 !important;
+          border: 2px solid #757575 !important;
+          border-left: 5px solid #757575 !important;
           box-shadow: 0 3px 12px rgba(117, 117, 117, 0.25) !important;
         }
         .winner-card.rank-3 {
           background: linear-gradient(145deg, #fff3e0, #ffe0b2) !important;
-          border: 2px solid #ff8f00 !important; border-left: 5px solid #ff8f00 !important;
+          border: 2px solid #ff8f00 !important;
+          border-left: 5px solid #ff8f00 !important;
           box-shadow: 0 3px 12px rgba(255, 143, 0, 0.25) !important;
         }
 
         /* Four-line card structure: rank → name → prize → highlights */
         .winner-rank {
-          font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; color: var(--primary-color); line-height: 1;
+          font-size: 0.9rem;
+          font-weight: 700;
+          margin-bottom: 2px;
+          color: var(--primary-color);
+          line-height: 1;
         }
         .winner-name {
-          font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; line-height: 1.2; color: var(--heading-color);
+          font-size: 0.95rem;
+          font-weight: 600;
+          margin-bottom: 4px;
+          line-height: 1.2;
+          color: var(--heading-color);
         }
         .winner-prize {
-          font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: var(--primary-color); line-height: 1;
+          font-size: 1.1rem;
+          font-weight: 700;
+          margin-bottom: 6px;
+          color: var(--primary-color);
+          line-height: 1;
         }
 
         .winner-highlights {
-          display: flex; gap: 4px; flex-wrap: wrap; margin-top: 2px; justify-content: flex-start;
+          display: flex;
+          gap: 4px;
+          flex-wrap: wrap;
+          margin-top: 2px;
+          justify-content: flex-start;
         }
         .highlight-badge {
-          padding: 2px 6px; border-radius: 8px; font-size: 0.65rem; font-weight: 600; line-height: 1.1; white-space: nowrap;
+          padding: 2px 6px;
+          border-radius: 8px;
+          font-size: 0.65rem;
+          font-weight: 600;
+          line-height: 1.1;
+          white-space: nowrap;
         }
-        .highlight-badge.gw { background: var(--secondary-color); color: var(--primary-color); }
-        .highlight-badge.gm { background: #ff6b6b; color: #fff; }
+        .highlight-badge.gw {
+          background: var(--secondary-color);
+          color: var(--primary-color);
+        }
+        .highlight-badge.gm {
+          background: #ff6b6b;
+          color: #fff;
+        }
 
         /* Stats summary stacks on mobile */
-        .stats-summary { grid-template-columns: 1fr; gap: 12px; }
-        .summary-card { padding: 18px 12px; }
-        .summary-card.primary-metric { padding: 22px 15px; }
-        .summary-icon { font-size: 1.4rem; margin-bottom: 8px; }
-        .summary-card.primary-metric .summary-icon { font-size: 1.8rem; margin-bottom: 10px; }
-        .summary-number { font-size: 1.6rem; }
-        .summary-card.primary-metric .summary-number { font-size: 2.2rem; }
-        .summary-label { font-size: 0.75rem; font-weight: 600; }
-        .summary-card.primary-metric .summary-label { font-size: 0.8rem; font-weight: 700; }
+        .stats-summary {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .summary-card {
+          padding: 18px 12px;
+        }
+        .summary-card.primary-metric {
+          padding: 22px 15px;
+        }
+        .summary-icon {
+          font-size: 1.4rem;
+          margin-bottom: 8px;
+        }
+        .summary-card.primary-metric .summary-icon {
+          font-size: 1.8rem;
+          margin-bottom: 10px;
+        }
+        .summary-number {
+          font-size: 1.6rem;
+        }
+        .summary-card.primary-metric .summary-number {
+          font-size: 2.2rem;
+        }
+        .summary-label {
+          font-size: 0.75rem;
+          font-weight: 600;
+        }
+        .summary-card.primary-metric .summary-label {
+          font-size: 0.8rem;
+          font-weight: 700;
+        }
 
         /* Reveal the subtitle on mobile too */
-        .winners-heading .heading-subtitle { opacity: 1; transform: none; }
+        .winners-heading .heading-subtitle {
+          opacity: 1;
+          transform: none;
+        }
       }
 
       /* ===================================================================
@@ -486,37 +814,102 @@
          WHY: Improve readability and prevent overflow on very small phones.
          =================================================================== */
       @media (max-width: 360px) {
-        .container { padding: 0 8px; }
-        header { padding: 15px 10px; }
-        header h1 { font-size: 0.95rem; letter-spacing: -0.5px; line-height: 1.2; }
-        header p { font-size: 0.75rem; }
-        .countdown-clock { padding: 8px 5px; }
-        .countdown-label { font-size: 0.7rem; letter-spacing: 0; }
-        .countdown-time { font-size: 0.8rem; letter-spacing: 0; }
-        .countdown-unit { min-width: 12px; }
-        .countdown-unit-label { font-size: 0.5rem; }
+        .container {
+          padding: 0 8px;
+        }
+        header {
+          padding: 15px 10px;
+        }
+        header h1 {
+          font-size: 0.95rem;
+          letter-spacing: -0.5px;
+          line-height: 1.2;
+        }
+        header p {
+          font-size: 0.75rem;
+        }
+        .countdown-clock {
+          padding: 8px 5px;
+        }
+        .countdown-label {
+          font-size: 0.7rem;
+          letter-spacing: 0;
+        }
+        .countdown-time {
+          font-size: 0.8rem;
+          letter-spacing: 0;
+        }
+        .countdown-unit {
+          min-width: 12px;
+        }
+        .countdown-unit-label {
+          font-size: 0.5rem;
+        }
       }
 
       /* Floating "test phase" toggle (dev only) */
       .floating-toggle {
-        position: fixed; left: 12px; bottom: 12px; z-index: 9999; background: #1f1f1f; color: #eaeaea;
-        border: 1px solid #444; border-radius: 999px; padding: 8px 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-        font-size: 12px; display: flex; align-items: center; gap: 6px;
+        position: fixed;
+        left: 12px;
+        bottom: 12px;
+        z-index: 9999;
+        background: #1f1f1f;
+        color: #eaeaea;
+        border: 1px solid #444;
+        border-radius: 999px;
+        padding: 8px 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
       }
-      .floating-toggle button { background: transparent; color: inherit; border: none; cursor: pointer; font-size: 12px; font-weight: 700; }
+      .floating-toggle button {
+        background: transparent;
+        color: inherit;
+        border: none;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 700;
+      }
 
       /* Back to Home floating action button */
       .back-fab {
-        position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0)); z-index: 10000;
-        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; color: #fff;
-        background: rgba(0, 0, 0, 0.25); text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.35);
-        border-radius: var(--border-radius); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); transition: transform 0.15s ease, background 0.2s ease; font-weight: 600;
+        position: fixed;
+        right: 16px;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0));
+        z-index: 10000;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.25);
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: var(--border-radius);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        transition:
+          transform 0.15s ease,
+          background 0.2s ease;
+        font-weight: 600;
       }
-      .back-fab:hover { background: rgba(0, 0, 0, 0.35); transform: translateY(-2px); }
-      .back-fab:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.85); outline-offset: 2px; }
+      .back-fab:hover {
+        background: rgba(0, 0, 0, 0.35);
+        transform: translateY(-2px);
+      }
+      .back-fab:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.85);
+        outline-offset: 2px;
+      }
       @media (max-width: 768px) {
-        .back-fab { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0)); padding: 9px 12px; }
+        .back-fab {
+          right: 12px;
+          bottom: calc(12px + env(safe-area-inset-bottom, 0));
+          padding: 9px 12px;
+        }
       }
     </style>
 
@@ -531,18 +924,18 @@
       =====================================================================
     -->
     <style id="mobile-winner-highlights-right-align">
-      @media (max-width: 700px){
-        .winner-highlights{
-          display:flex;
-          gap:4px;
-          flex-wrap:wrap;
-          margin-top:2px;
+      @media (max-width: 700px) {
+        .winner-highlights {
+          display: flex;
+          gap: 4px;
+          flex-wrap: wrap;
+          margin-top: 2px;
 
           /* Right align the entire line (4th line) */
-          justify-content:flex-end;  /* packs badges to the right */
-          text-align:right;
-          margin-left:auto;          /* pushes the group to the right edge */
-          width:100%;                /* ensures wrapped rows align right */
+          justify-content: flex-end; /* packs badges to the right */
+          text-align: right;
+          margin-left: auto; /* pushes the group to the right edge */
+          width: 100%; /* ensures wrapped rows align right */
         }
       }
     </style>
@@ -642,17 +1035,37 @@
 
           <!-- Pagination (visible only when number of items exceed page size) -->
           <div class="winner-navigation is-hidden" id="winner-navigation">
-            <button id="winner-prev-page" class="winner-nav-btn" onclick="previousWinnerPage()" disabled>
+            <button
+              id="winner-prev-page"
+              class="winner-nav-btn"
+              onclick="previousWinnerPage()"
+              disabled
+            >
               <i class="fas fa-chevron-left"></i> Previous
             </button>
             <span id="winner-page-info" class="page-info">Page 1 of 1</span>
-            <button id="winner-next-page" class="winner-nav-btn" onclick="nextWinnerPage()" disabled>
+            <button
+              id="winner-next-page"
+              class="winner-nav-btn"
+              onclick="nextWinnerPage()"
+              disabled
+            >
               Next <i class="fas fa-chevron-right"></i>
             </button>
           </div>
 
           <!-- Last updated timestamp (from data.lastUpdated) -->
-          <div id="winner-last-updated" class="winner-last-updated" style="text-align:center;font-size:0.93rem;color:#777;font-style:italic;margin-top:20px;">
+          <div
+            id="winner-last-updated"
+            class="winner-last-updated"
+            style="
+              text-align: center;
+              font-size: 0.93rem;
+              color: #777;
+              font-style: italic;
+              margin-top: 20px;
+            "
+          >
             Fetching latest winner data...
           </div>
         </section>
@@ -691,16 +1104,28 @@
 
       // Convenient wrapper that respects offset. Do not directly use new Date()
       // for countdown calculations—this helps QA test scenarios.
-      function now(){ return new Date(Date.now() + timeOffsetMs); }
+      function now() {
+        return new Date(Date.now() + timeOffsetMs);
+      }
 
       // Small helpers to show/hide elements without repeating class logic.
-      function show(el){ if(el) el.classList.remove('is-hidden'); }
-      function hide(el){ if(el) el.classList.add('is-hidden'); }
+      function show(el) {
+        if (el) el.classList.remove('is-hidden');
+      }
+      function hide(el) {
+        if (el) el.classList.add('is-hidden');
+      }
 
       // Sanitize strings before injecting into HTML.
-      function escapeHTML(str){ if(!str && str!==0) return ''; return String(str)
-        .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
-        .replaceAll('"','&quot;').replaceAll("'",'&#039;'); }
+      function escapeHTML(str) {
+        if (!str && str !== 0) return '';
+        return String(str)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
 
       /* -------------------------------------------------------------------
          COUNTDOWN STATE
@@ -708,98 +1133,201 @@
          - _lastProcessedGW reflects latest completed GW (from winners payload)
          - _lastGwId reflects next GW ID (from FPL endpoint)
          ------------------------------------------------------------------- */
-      let countdownInterval=null, countdownShown=false, usedCachedOnLoad=false;
-      let _lastSyncIso=null, _lastGwId=null, _lastProcessedGW=null;
+      let countdownInterval = null,
+        countdownShown = false,
+        usedCachedOnLoad = false;
+      let _lastSyncIso = null,
+        _lastGwId = null,
+        _lastProcessedGW = null;
 
       // Query param checkers
-      function isAdminMode(){ const p=new URLSearchParams(window.location.search); return p.get('test')==='true'||p.get('admin')==='true'; }
+      function isAdminMode() {
+        const p = new URLSearchParams(window.location.search);
+        return p.get('test') === 'true' || p.get('admin') === 'true';
+      }
 
       // Records sync metadata for admin badge
-      function setLastSyncInfo(gwId,iso){ _lastGwId=gwId||_lastGwId; _lastSyncIso=iso||_lastSyncIso; }
+      function setLastSyncInfo(gwId, iso) {
+        _lastGwId = gwId || _lastGwId;
+        _lastSyncIso = iso || _lastSyncIso;
+      }
 
       // Helper to strip "(cached)" from countdown label when live sync returns
-      function removeCachedLabel(){ const label=document.getElementById('countdown-label'); if(!label) return; label.textContent=label.textContent.replace(/\s*\(cached\)$/i,''); }
+      function removeCachedLabel() {
+        const label = document.getElementById('countdown-label');
+        if (!label) return;
+        label.textContent = label.textContent.replace(/\s*\(cached\)$/i, '');
+      }
 
       // Briefly shows "Synced just now" next to countdown label (nice UX cue)
-      function showSyncedJustNow(){
-        const label=document.getElementById('countdown-label'); if(!label) return;
-        const old=label.querySelector('.sync-badge'); if(old) old.remove();
-        const b=document.createElement('span'); b.className='sync-badge'; b.textContent='Synced just now';
-        label.appendChild(b); void b.offsetWidth; b.classList.add('show');
-        setTimeout(()=>{b.classList.remove('show'); setTimeout(()=>b.remove(),350);},2000);
+      function showSyncedJustNow() {
+        const label = document.getElementById('countdown-label');
+        if (!label) return;
+        const old = label.querySelector('.sync-badge');
+        if (old) old.remove();
+        const b = document.createElement('span');
+        b.className = 'sync-badge';
+        b.textContent = 'Synced just now';
+        label.appendChild(b);
+        void b.offsetWidth;
+        b.classList.add('show');
+        setTimeout(() => {
+          b.classList.remove('show');
+          setTimeout(() => b.remove(), 350);
+        }, 2000);
       }
 
       // Builds the small orange "admin" badge (GW + last synced time)
-      function attachAdminBadge(){
-        if(!isAdminMode()) return;
-        const label=document.getElementById('countdown-label'); if(!label) return;
-        let badge=label.querySelector('.admin-badge'); const parts=[];
-        if(typeof _lastGwId==='number') parts.push(`GW${_lastGwId}`);
-        if(_lastSyncIso){ try{
-          const d=new Date(_lastSyncIso); const tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
-          parts.push(`synced ${d.toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short',timeZone:tz})}`);
-        }catch{}}
-        const text=parts.length?parts.join(' • '):'admin';
-        if(!badge){ badge=document.createElement('span'); badge.className='admin-badge'; badge.textContent=text; label.appendChild(badge); }
-        else { badge.textContent=text; }
+      function attachAdminBadge() {
+        if (!isAdminMode()) return;
+        const label = document.getElementById('countdown-label');
+        if (!label) return;
+        let badge = label.querySelector('.admin-badge');
+        const parts = [];
+        if (typeof _lastGwId === 'number') parts.push(`GW${_lastGwId}`);
+        if (_lastSyncIso) {
+          try {
+            const d = new Date(_lastSyncIso);
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            parts.push(
+              `synced ${d.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: tz })}`
+            );
+          } catch {}
+        }
+        const text = parts.length ? parts.join(' • ') : 'admin';
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'admin-badge';
+          badge.textContent = text;
+          label.appendChild(badge);
+        } else {
+          badge.textContent = text;
+        }
       }
 
       /* -------------------------------------------------------------------
          LOCAL STORAGE HELPERS (countdown cache)
          WHY: Countdown remains visible even if network is slow or blocked.
          ------------------------------------------------------------------- */
-      function getCachedDeadline(){ try{ const iso=localStorage.getItem('fpl_next_deadline'); if(!iso) return null; const d=new Date(iso); return isNaN(d.getTime())?null:d; }catch{return null;} }
-      function setCachedDeadline(iso){ try{ localStorage.setItem('fpl_next_deadline',iso);}catch{} }
+      function getCachedDeadline() {
+        try {
+          const iso = localStorage.getItem('fpl_next_deadline');
+          if (!iso) return null;
+          const d = new Date(iso);
+          return isNaN(d.getTime()) ? null : d;
+        } catch {
+          return null;
+        }
+      }
+      function setCachedDeadline(iso) {
+        try {
+          localStorage.setItem('fpl_next_deadline', iso);
+        } catch {}
+      }
 
       // Cache a minimal GW object to compute "After GWX" subtitle reliably.
-      function getCachedGameweek(){ try{
-        const raw=localStorage.getItem('fpl_cached_gw'); if(!raw) return null;
-        const obj=JSON.parse(raw); if(!obj||typeof obj.id==='undefined'||!obj.deadline_time) return null;
-        const d=new Date(obj.deadline_time); if(isNaN(d.getTime())) return null; return {id:obj.id, deadline_time:obj.deadline_time};
-      }catch{return null;} }
-      function setCachedGameweek(gw){ try{ if(gw&&typeof gw.id!=='undefined'&&gw.deadline_time){ localStorage.setItem('fpl_cached_gw', JSON.stringify({id:gw.id, deadline_time:gw.deadline_time})); } }catch{} }
+      function getCachedGameweek() {
+        try {
+          const raw = localStorage.getItem('fpl_cached_gw');
+          if (!raw) return null;
+          const obj = JSON.parse(raw);
+          if (!obj || typeof obj.id === 'undefined' || !obj.deadline_time) return null;
+          const d = new Date(obj.deadline_time);
+          if (isNaN(d.getTime())) return null;
+          return { id: obj.id, deadline_time: obj.deadline_time };
+        } catch {
+          return null;
+        }
+      }
+      function setCachedGameweek(gw) {
+        try {
+          if (gw && typeof gw.id !== 'undefined' && gw.deadline_time) {
+            localStorage.setItem(
+              'fpl_cached_gw',
+              JSON.stringify({ id: gw.id, deadline_time: gw.deadline_time })
+            );
+          }
+        } catch {}
+      }
 
       /* -------------------------------------------------------------------
          COUNTDOWN RENDERING
          ------------------------------------------------------------------- */
-      function startCountdown(deadlineTime, gameweek=null){
-        if(countdownInterval){ clearInterval(countdownInterval); countdownInterval=null; }
-        const clock=document.getElementById('countdown-clock'); if(clock) show(clock);
-        if(gameweek) updateGameweekCountdown(gameweek); else updateCountdownDisplay(deadlineTime);
-        countdownInterval=setInterval(()=>{ if(gameweek) updateGameweekCountdown(gameweek); else updateCountdownDisplay(deadlineTime); },1000);
-        countdownShown=true;
+      function startCountdown(deadlineTime, gameweek = null) {
+        if (countdownInterval) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+        }
+        const clock = document.getElementById('countdown-clock');
+        if (clock) show(clock);
+        if (gameweek) updateGameweekCountdown(gameweek);
+        else updateCountdownDisplay(deadlineTime);
+        countdownInterval = setInterval(() => {
+          if (gameweek) updateGameweekCountdown(gameweek);
+          else updateCountdownDisplay(deadlineTime);
+        }, 1000);
+        countdownShown = true;
       }
 
       // Simple countdown (when GW object not available)
-      function updateCountdownDisplay(deadlineTime){
-        const diff=deadlineTime - now(); if(diff<=0){ const clock=document.getElementById('countdown-clock'); if(clock) hide(clock); return; }
-        const label=document.getElementById('countdown-label'); if(label){ label.textContent='Time until GW1 kick-off'; attachAdminBadge(); }
-        const d=Math.floor(diff/(1000*60*60*24)); const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60)); const m=Math.floor((diff%(1000*60*60))/(1000*60));
-        document.getElementById('countdown-days').textContent=String(d).padStart(2,'0');
-        document.getElementById('countdown-hours').textContent=String(h).padStart(2,'0');
-        document.getElementById('countdown-minutes').textContent=String(m).padStart(2,'0');
+      function updateCountdownDisplay(deadlineTime) {
+        const diff = deadlineTime - now();
+        if (diff <= 0) {
+          const clock = document.getElementById('countdown-clock');
+          if (clock) hide(clock);
+          return;
+        }
+        const label = document.getElementById('countdown-label');
+        if (label) {
+          label.textContent = 'Time until GW1 kick-off';
+          attachAdminBadge();
+        }
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('countdown-days').textContent = String(d).padStart(2, '0');
+        document.getElementById('countdown-hours').textContent = String(h).padStart(2, '0');
+        document.getElementById('countdown-minutes').textContent = String(m).padStart(2, '0');
       }
 
       // Full countdown with "GWx" label and live/units toggling
-      function updateGameweekCountdown(gameweek){
-        const clock=document.getElementById('countdown-clock'); const label=document.getElementById('countdown-label');
-        if(clock&&label){ show(clock); label.textContent=`Time until GW${gameweek.id} kick-off`; attachAdminBadge();
-          const dl=new Date(gameweek.deadline_time); const diff=dl - now();
-          if(diff<=0){
+      function updateGameweekCountdown(gameweek) {
+        const clock = document.getElementById('countdown-clock');
+        const label = document.getElementById('countdown-label');
+        if (clock && label) {
+          show(clock);
+          label.textContent = `Time until GW${gameweek.id} kick-off`;
+          attachAdminBadge();
+          const dl = new Date(gameweek.deadline_time);
+          const diff = dl - now();
+          if (diff <= 0) {
             // When GW is live, switch to compact "LIVE"
-            document.getElementById('countdown-days').textContent='LIVE';
-            document.getElementById('countdown-hours').textContent=''; document.getElementById('countdown-minutes').textContent='';
-            document.querySelectorAll('.countdown-separator').forEach(s=>s.classList.add('is-hidden'));
-            document.querySelectorAll('.countdown-unit-label').forEach(l=>l.classList.add('is-hidden'));
+            document.getElementById('countdown-days').textContent = 'LIVE';
+            document.getElementById('countdown-hours').textContent = '';
+            document.getElementById('countdown-minutes').textContent = '';
+            document
+              .querySelectorAll('.countdown-separator')
+              .forEach((s) => s.classList.add('is-hidden'));
+            document
+              .querySelectorAll('.countdown-unit-label')
+              .forEach((l) => l.classList.add('is-hidden'));
           } else {
-            const d=Math.floor(diff/(1000*60*60*24)); const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60)); const m=Math.floor((diff%(1000*60*60))/(1000*60));
-            document.getElementById('countdown-days').textContent=String(d).padStart(2,'0');
-            document.getElementById('countdown-hours').textContent=String(h).padStart(2,'0');
-            document.getElementById('countdown-minutes').textContent=String(m).padStart(2,'0');
-            document.querySelectorAll('.countdown-separator').forEach(s=>s.classList.remove('is-hidden'));
-            document.querySelectorAll('.countdown-unit-label').forEach(l=>l.classList.remove('is-hidden'));
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('countdown-days').textContent = String(d).padStart(2, '0');
+            document.getElementById('countdown-hours').textContent = String(h).padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = String(m).padStart(2, '0');
+            document
+              .querySelectorAll('.countdown-separator')
+              .forEach((s) => s.classList.remove('is-hidden'));
+            document
+              .querySelectorAll('.countdown-unit-label')
+              .forEach((l) => l.classList.remove('is-hidden'));
           }
-          try { updateWinnersPageHeaderGW(); } catch(e){}
+          try {
+            updateWinnersPageHeaderGW();
+          } catch (e) {}
         }
       }
 
@@ -810,138 +1338,206 @@
          2) If fail, try CORS proxies pointing to FPL API.
          3) If fail, fallback to a known ISO date as a safe default.
          ------------------------------------------------------------------- */
-      function loadFPLSeasonData(){
-        const backendUrl='data/next_deadline.json?cache='+Date.now();
+      function loadFPLSeasonData() {
+        const backendUrl = 'data/next_deadline.json?cache=' + Date.now();
         fetch(backendUrl)
-          .then(r=>r.ok?r.json():Promise.reject(new Error('backend 404')))
-          .then(data=>{
-            if(data&&data.nextGameweek&&data.nextGameweek.deadline_time){
-              const gw=data.nextGameweek; const dl=new Date(gw.deadline_time);
-              setCachedDeadline(dl.toISOString()); setCachedGameweek({id:gw.id, deadline_time:gw.deadline_time});
-              setLastSyncInfo(gw.id, data.lastUpdated||new Date().toISOString());
-              updateGameweekCountdown(gw); startCountdown(dl, gw); scheduleRolloverCheck(dl);
-              attachAdminBadge(); return;
+          .then((r) => (r.ok ? r.json() : Promise.reject(new Error('backend 404'))))
+          .then((data) => {
+            if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
+              const gw = data.nextGameweek;
+              const dl = new Date(gw.deadline_time);
+              setCachedDeadline(dl.toISOString());
+              setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
+              setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
+              updateGameweekCountdown(gw);
+              startCountdown(dl, gw);
+              scheduleRolloverCheck(dl);
+              attachAdminBadge();
+              return;
             }
             throw new Error('invalid payload');
           })
-          .catch(()=> loadFPLSeasonDataViaProxy());
+          .catch(() => loadFPLSeasonDataViaProxy());
       }
 
       // When close to a deadline, re-check shortly after to rollover to next GW
-      function scheduleRolloverCheck(deadline){
-        const ms=deadline - now(); if(ms>0 && ms<1000*60*60*24*7){
-          setTimeout(()=>{
-            fetch('data/next_deadline.json?cache='+Date.now())
-              .then(r=>r.ok?r.json():Promise.reject())
-              .then(data=>{
-                if(data&&data.nextGameweek&&data.nextGameweek.deadline_time){
-                  const gw=data.nextGameweek; const dl=new Date(gw.deadline_time);
-                  setCachedDeadline(dl.toISOString()); setCachedGameweek({id:gw.id, deadline_time:gw.deadline_time});
-                  setLastSyncInfo(gw.id, data.lastUpdated||new Date().toISOString());
-                  updateGameweekCountdown(gw); startCountdown(dl, gw); attachAdminBadge();
-                } else { loadFPLSeasonDataViaProxy(); }
+      function scheduleRolloverCheck(deadline) {
+        const ms = deadline - now();
+        if (ms > 0 && ms < 1000 * 60 * 60 * 24 * 7) {
+          setTimeout(() => {
+            fetch('data/next_deadline.json?cache=' + Date.now())
+              .then((r) => (r.ok ? r.json() : Promise.reject()))
+              .then((data) => {
+                if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
+                  const gw = data.nextGameweek;
+                  const dl = new Date(gw.deadline_time);
+                  setCachedDeadline(dl.toISOString());
+                  setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
+                  setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
+                  updateGameweekCountdown(gw);
+                  startCountdown(dl, gw);
+                  attachAdminBadge();
+                } else {
+                  loadFPLSeasonDataViaProxy();
+                }
               })
               .catch(loadFPLSeasonDataViaProxy);
-          }, ms+15000);
+          }, ms + 15000);
         }
       }
 
       // Multi-proxy attempt to reach public FPL API
-      function loadFPLSeasonDataViaProxy(){
-        const proxies=[
-          'https://api.allorigins.win/raw?url='+encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
-          'https://corsproxy.io/?'+encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
-          'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/')
+      function loadFPLSeasonDataViaProxy() {
+        const proxies = [
+          'https://api.allorigins.win/raw?url=' +
+            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
+          'https://corsproxy.io/?' +
+            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
+          'https://api.codetabs.com/v1/proxy?quest=' +
+            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
         ];
-        let i=0;
-        (function tryNext(){
-          if(i>=proxies.length){
+        let i = 0;
+        (function tryNext() {
+          if (i >= proxies.length) {
             // FINAL FALLBACK: fixed ISO (keeps UI functional offline)
-            const fallback=new Date('2025-08-15T17:30:00Z'); setCachedDeadline(fallback.toISOString());
-            const clock=document.getElementById('countdown-clock'); if(clock) show(clock);
-            if(usedCachedOnLoad){ removeCachedLabel(); showSyncedJustNow(); usedCachedOnLoad=false; }
-            updateCountdownDisplay(fallback); startCountdown(fallback); return;
+            const fallback = new Date('2025-08-15T17:30:00Z');
+            setCachedDeadline(fallback.toISOString());
+            const clock = document.getElementById('countdown-clock');
+            if (clock) show(clock);
+            if (usedCachedOnLoad) {
+              removeCachedLabel();
+              showSyncedJustNow();
+              usedCachedOnLoad = false;
+            }
+            updateCountdownDisplay(fallback);
+            startCountdown(fallback);
+            return;
           }
           fetch(proxies[i])
-            .then(r=>{ if(!r.ok) throw new Error('proxy fail'); return r.json();})
-            .then(data=>{
-              const next=data.events.find(e=>e.is_next===true);
-              if(next){
-                const dl=new Date(next.deadline_time);
-                setCachedDeadline(dl.toISOString()); setCachedGameweek({id:next.id, deadline_time:next.deadline_time});
+            .then((r) => {
+              if (!r.ok) throw new Error('proxy fail');
+              return r.json();
+            })
+            .then((data) => {
+              const next = data.events.find((e) => e.is_next === true);
+              if (next) {
+                const dl = new Date(next.deadline_time);
+                setCachedDeadline(dl.toISOString());
+                setCachedGameweek({ id: next.id, deadline_time: next.deadline_time });
                 setLastSyncInfo(next.id, new Date().toISOString());
-                if(usedCachedOnLoad){ removeCachedLabel(); showSyncedJustNow(); usedCachedOnLoad=false; }
-                updateGameweekCountdown(next); startCountdown(dl, next); scheduleRolloverCheck(dl); attachAdminBadge();
+                if (usedCachedOnLoad) {
+                  removeCachedLabel();
+                  showSyncedJustNow();
+                  usedCachedOnLoad = false;
+                }
+                updateGameweekCountdown(next);
+                startCountdown(dl, next);
+                scheduleRolloverCheck(dl);
+                attachAdminBadge();
               } else {
-                const fallback=new Date('2025-08-15T17:30:00Z'); setCachedDeadline(fallback.toISOString());
-                if(usedCachedOnLoad){ removeCachedLabel(); showSyncedJustNow(); usedCachedOnLoad=false; }
-                updateCountdownDisplay(fallback); startCountdown(fallback);
+                const fallback = new Date('2025-08-15T17:30:00Z');
+                setCachedDeadline(fallback.toISOString());
+                if (usedCachedOnLoad) {
+                  removeCachedLabel();
+                  showSyncedJustNow();
+                  usedCachedOnLoad = false;
+                }
+                updateCountdownDisplay(fallback);
+                startCountdown(fallback);
               }
             })
-            .catch(()=>{ i++; tryNext(); });
+            .catch(() => {
+              i++;
+              tryNext();
+            });
         })();
       }
 
       /* -------------------------------------------------------------------
          WINNERS DATA LOADER + RENDERERS
          ------------------------------------------------------------------- */
-      let allWinners=[], currentWinnerPage=1; const winnerItemsPerPage=10;
-      let isDebugMode=false;
+      let allWinners = [],
+        currentWinnerPage = 1;
+      const winnerItemsPerPage = 10;
+      let isDebugMode = false;
 
       // ENTRYPOINT: wires up everything on DOM ready
-      document.addEventListener('DOMContentLoaded', function(){
-        const urlParams=new URLSearchParams(window.location.search);
-        const isTestMode=urlParams.get('test')==='true';
-        isDebugMode=isTestMode || urlParams.get('debug')==='1';
+      document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTestMode = urlParams.get('test') === 'true';
+        isDebugMode = isTestMode || urlParams.get('debug') === '1';
 
-        loadWinnerData();         // Fetch and render winners
-        checkTestMode();          // Applies TEST mode banners + floating toggle
+        loadWinnerData(); // Fetch and render winners
+        checkTestMode(); // Applies TEST mode banners + floating toggle
 
         // If in test mode and cached countdown exists, show it immediately
-        if(isTestMode){
-          const cached=getCachedDeadline();
-          if(cached && cached-now()>0){
-            const clock=document.getElementById('countdown-clock'); if(clock) show(clock);
-            const label=document.getElementById('countdown-label');
-            if(label && !label.textContent.includes('(cached)')) label.textContent += ' (cached)';
-            usedCachedOnLoad=true; startCountdown(cached);
+        if (isTestMode) {
+          const cached = getCachedDeadline();
+          if (cached && cached - now() > 0) {
+            const clock = document.getElementById('countdown-clock');
+            if (clock) show(clock);
+            const label = document.getElementById('countdown-label');
+            if (label && !label.textContent.includes('(cached)')) label.textContent += ' (cached)';
+            usedCachedOnLoad = true;
+            startCountdown(cached);
           }
         }
 
-        loadFPLSeasonData();      // Fetch live GW metadata for countdown
+        loadFPLSeasonData(); // Fetch live GW metadata for countdown
 
-        try{ updateWinnersPageHeaderGW(); }catch(e){}
+        try {
+          updateWinnersPageHeaderGW();
+        } catch (e) {}
         // Safety: if countdown didn't initialize, boot with fallback after 1.5s
-        setTimeout(()=>{ if(!countdownShown){ const fallback=new Date('2025-08-15T17:30:00Z'); const clock=document.getElementById('countdown-clock'); if(clock) show(clock); startCountdown(fallback);} },1500);
+        setTimeout(() => {
+          if (!countdownShown) {
+            const fallback = new Date('2025-08-15T17:30:00Z');
+            const clock = document.getElementById('countdown-clock');
+            if (clock) show(clock);
+            startCountdown(fallback);
+          }
+        }, 1500);
       });
 
       // Reads "data" query param to force test/live or keep auto behavior
-      function getDataOverride(){
-        const p=(new URLSearchParams(window.location.search).get('data')||'auto').toLowerCase();
-        return p==='test'||p==='live'?p:'auto';
+      function getDataOverride() {
+        const p = (new URLSearchParams(window.location.search).get('data') || 'auto').toLowerCase();
+        return p === 'test' || p === 'live' ? p : 'auto';
       }
 
       // Loads winner data from the right file and triggers render
-      function loadWinnerData(){
-        const urlParams=new URLSearchParams(window.location.search);
-        const isTest=urlParams.get('test')==='true';
-        const dataOverride=getDataOverride();
-        let useTestData=isTest; if(dataOverride==='test') useTestData=true; if(dataOverride==='live') useTestData=false;
-        isDebugMode=isTest || urlParams.get('debug')==='1';
+      function loadWinnerData() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTest = urlParams.get('test') === 'true';
+        const dataOverride = getDataOverride();
+        let useTestData = isTest;
+        if (dataOverride === 'test') useTestData = true;
+        if (dataOverride === 'live') useTestData = false;
+        isDebugMode = isTest || urlParams.get('debug') === '1';
 
-        const winnerUrl=(useTestData?'data/test_winner_stats.json':'data/winner_stats.json')+'?cache='+Date.now();
+        const winnerUrl =
+          (useTestData ? 'data/test_winner_stats.json' : 'data/winner_stats.json') +
+          '?cache=' +
+          Date.now();
 
         fetch(winnerUrl)
-          .then(r=>{ if(isDebugMode) console.log('Winner fetch response:', r); if(!r.ok) throw new Error('Winner data fetch failed'); return r.json(); })
-          .then(data=>{
+          .then((r) => {
+            if (isDebugMode) console.log('Winner fetch response:', r);
+            if (!r.ok) throw new Error('Winner data fetch failed');
+            return r.json();
+          })
+          .then((data) => {
             // Visual indicator in header when browsing test dataset
-            if(useTestData && data.testMode){
-              const p=document.querySelector('header p');
-              if(p && !p.textContent.includes('[TEST MODE]')){ p.textContent = p.textcontent + ' [TEST MODE - Demo Data]'; p.style.color='#ff6b6b'; }
+            if (useTestData && data.testMode) {
+              const p = document.querySelector('header p');
+              if (p && !p.textContent.includes('[TEST MODE]')) {
+                p.textContent = p.textcontent + ' [TEST MODE - Demo Data]';
+                p.style.color = '#ff6b6b';
+              }
             }
 
             // Sort winners by totalPrizeWon (desc)
-            allWinners = data.winners.sort((a,b)=> b.totalPrizeWon - a.totalPrizeWon);
+            allWinners = data.winners.sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
 
             // Render desktop/tablet table or mobile cards
             displayWinnerTable();
@@ -950,27 +1546,36 @@
             updateStatsSummary(data.winners);
 
             // Additional summary from payload (if provided)
-            if(data.summary && data.summary.completedGameweeks!==undefined){
-              document.getElementById('completed-gameweeks').textContent = data.summary.completedGameweeks;
+            if (data.summary && data.summary.completedGameweeks !== undefined) {
+              document.getElementById('completed-gameweeks').textContent =
+                data.summary.completedGameweeks;
             }
-            if(data.summary && typeof data.summary.lastProcessedGW==='number'){
-              _lastProcessedGW = data.summary.lastProcessedGW;   // used for "After GWX"
+            if (data.summary && typeof data.summary.lastProcessedGW === 'number') {
+              _lastProcessedGW = data.summary.lastProcessedGW; // used for "After GWX"
             }
-            if(data.summary && data.summary.completedMonths!==undefined){
-              document.getElementById('completed-gamemonths').textContent = data.summary.completedMonths;
+            if (data.summary && data.summary.completedMonths !== undefined) {
+              document.getElementById('completed-gamemonths').textContent =
+                data.summary.completedMonths;
             }
 
             // Last updated timestamp display
             const lastUpdated = new Date(data.lastUpdated);
             const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const locale = navigator.language || 'en-GB';
-            const formatted = lastUpdated.toLocaleString(locale, { dateStyle:'medium', timeStyle:'short', timeZone: tz });
-            document.getElementById('winner-last-updated').textContent =
-              useTestData ? `Last updated: ${formatted} (test data)` : `Last updated: ${formatted} (your local time)`;
+            const formatted = lastUpdated.toLocaleString(locale, {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+              timeZone: tz,
+            });
+            document.getElementById('winner-last-updated').textContent = useTestData
+              ? `Last updated: ${formatted} (test data)`
+              : `Last updated: ${formatted} (your local time)`;
 
-            try { updateWinnersPageHeaderGW(); } catch(e){}
+            try {
+              updateWinnersPageHeaderGW();
+            } catch (e) {}
           })
-          .catch(err=>{
+          .catch((err) => {
             console.error('Winner fetch error:', err);
             document.getElementById('winner-table-container').innerHTML =
               '<div class="winner-error" style="text-align:center;padding:40px;color:#d32f2f;background:#ffebee;border-radius:8px;margin-top:20px;">Unable to load winner data. Please try again later.</div>';
@@ -979,19 +1584,28 @@
 
       // Computes the "After GWx" message: prefer winners.summary.lastProcessedGW,
       // else derive from next GW id minus one, else use cached GW id minus one.
-      function getLastFinishedGW(){
-        if(typeof _lastProcessedGW==='number') return _lastProcessedGW;
-        if(typeof _lastGwId==='number') return _lastGwId - 1;
-        const cached=getCachedGameweek(); if(cached&&typeof cached.id==='number') return cached.id - 1;
+      function getLastFinishedGW() {
+        if (typeof _lastProcessedGW === 'number') return _lastProcessedGW;
+        if (typeof _lastGwId === 'number') return _lastGwId - 1;
+        const cached = getCachedGameweek();
+        if (cached && typeof cached.id === 'number') return cached.id - 1;
         return null;
       }
 
       // Writes the subtitle after loading either winners or countdown data
-      function updateWinnersPageHeaderGW(){
-        const el=document.getElementById('winners-page-after-gw'); if(!el) return;
-        const gwId=getLastFinishedGW();
-        if(typeof gwId==='number' && gwId>0){ el.textContent=`After GW${gwId}`; el.classList.add('show'); el.style.display=''; }
-        else { el.textContent=''; el.classList.remove('show'); el.style.display='none'; }
+      function updateWinnersPageHeaderGW() {
+        const el = document.getElementById('winners-page-after-gw');
+        if (!el) return;
+        const gwId = getLastFinishedGW();
+        if (typeof gwId === 'number' && gwId > 0) {
+          el.textContent = `After GW${gwId}`;
+          el.classList.add('show');
+          el.style.display = '';
+        } else {
+          el.textContent = '';
+          el.classList.remove('show');
+          el.style.display = 'none';
+        }
       }
 
       /* -------------------------------------------------------------------
@@ -999,21 +1613,22 @@
          - Table for ≥701px
          - Card list for ≤700px
          ------------------------------------------------------------------- */
-      function displayWinnerTable(){
-        const container=document.getElementById('winner-table-container');
-        const navigation=document.getElementById('winner-navigation');
-        if(!container) return;
+      function displayWinnerTable() {
+        const container = document.getElementById('winner-table-container');
+        const navigation = document.getElementById('winner-navigation');
+        if (!container) return;
 
-        if(!allWinners || allWinners.length===0){
-          container.innerHTML = '<div class="winner-loading" style="text-align:center;padding:40px;color:#777;font-style:italic;">No winner data available yet.</div>';
-          if(navigation) navigation.classList.add('is-hidden');
+        if (!allWinners || allWinners.length === 0) {
+          container.innerHTML =
+            '<div class="winner-loading" style="text-align:center;padding:40px;color:#777;font-style:italic;">No winner data available yet.</div>';
+          if (navigation) navigation.classList.add('is-hidden');
           return;
         }
 
         const isWide = window.matchMedia('(min-width: 701px)').matches;
         // NOTE: Keep this value consistent with CSS breakpoint (≤700px cards)
 
-        if(isWide){
+        if (isWide) {
           // --------------------------- Desktop/Tablet (TABLE) ---------------------------
           const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
           const startIndex = (currentWinnerPage - 1) * winnerItemsPerPage;
@@ -1021,20 +1636,31 @@
           const pageData = allWinners.slice(startIndex, endIndex);
 
           let html = '<table class="winner-table" id="dynamic-winner-table">';
-          html += '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead><tbody>';
+          html +=
+            '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead><tbody>';
 
-          pageData.forEach((winner, idx)=>{
+          pageData.forEach((winner, idx) => {
             const globalIndex = startIndex + idx;
             const rank = globalIndex + 1;
             const h = winner.highlights || {};
-            const gw = h.gameWeeks > 0 ? `<span class="highlight-badge gw">${escapeHTML(h.gameWeeks+'GW')}</span>` : '';
-            const gm = h.gameMonths > 0 ? `<span class="highlight-badge gm">${escapeHTML(h.gameMonths+'GM')}</span>` : '';
-            const lr = h.overallRank ? `<span class="highlight-badge">League Rank: ${escapeHTML(h.overallRank)}</span>` : '';
+            const gw =
+              h.gameWeeks > 0
+                ? `<span class="highlight-badge gw">${escapeHTML(h.gameWeeks + 'GW')}</span>`
+                : '';
+            const gm =
+              h.gameMonths > 0
+                ? `<span class="highlight-badge gm">${escapeHTML(h.gameMonths + 'GM')}</span>`
+                : '';
+            const lr = h.overallRank
+              ? `<span class="highlight-badge">League Rank: ${escapeHTML(h.overallRank)}</span>`
+              : '';
 
             let rankClass = '';
-            if(rank===1) rankClass='winner-gold'; else if(rank===2) rankClass='winner-silver'; else if(rank===3) rankClass='winner-bronze';
+            if (rank === 1) rankClass = 'winner-gold';
+            else if (rank === 2) rankClass = 'winner-silver';
+            else if (rank === 3) rankClass = 'winner-bronze';
 
-            html += `<tr${rankClass?` class="${rankClass}"`:''}>`;
+            html += `<tr${rankClass ? ` class="${rankClass}"` : ''}>`;
             html += `<td class="winner-rank">${rank}</td>`;
             html += `<td class="player-name">${escapeHTML(winner.playerName)}</td>`;
             html += `<td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</td>`;
@@ -1046,8 +1672,11 @@
           container.innerHTML = html;
 
           if (totalPages > 1) {
-            show(navigation); updateWinnerNavigation(totalPages);
-          } else { hide(navigation); }
+            show(navigation);
+            updateWinnerNavigation(totalPages);
+          } else {
+            hide(navigation);
+          }
         } else {
           // ------------------------------- Mobile (CARDS) -------------------------------
           const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
@@ -1057,115 +1686,144 @@
 
           const cards = `
             <div class="winner-preview">
-              ${pageData.map((w, i) => {
-                const rank = startIndex + i + 1;
-                const h = w.highlights || { gameWeeks: 0, gameMonths: 0 };
-                return `
-                  <div class="winner-card${rank<=3 ? ` rank-${rank}` : ''}" role="article" aria-label="Winner ${rank}: ${escapeHTML(w.playerName)}">
+              ${pageData
+                .map((w, i) => {
+                  const rank = startIndex + i + 1;
+                  const h = w.highlights || { gameWeeks: 0, gameMonths: 0 };
+                  return `
+                  <div class="winner-card${rank <= 3 ? ` rank-${rank}` : ''}" role="article" aria-label="Winner ${rank}: ${escapeHTML(w.playerName)}">
                     <div class="winner-rank">#${rank}</div>
                     <div class="winner-name" title="${escapeHTML(w.playerName)}">${escapeHTML(w.playerName)}</div>
                     <div class="winner-prize" title="Total prize won: ₹${w.totalPrizeWon.toLocaleString('en-IN')}">
                       ₹${w.totalPrizeWon.toLocaleString('en-IN')}
                     </div>
                     <div class="winner-highlights" aria-label="Achievements">
-                      ${h.gameWeeks>0 ? `<span class="highlight-badge gw" title="${escapeHTML(h.gameWeeks+' gameweek wins')}">${escapeHTML(h.gameWeeks+'GW')}</span>` : ''}
-                      ${h.gameMonths>0 ? `<span class="highlight-badge gm" title="${escapeHTML(h.gameMonths+' monthly wins')}">${escapeHTML(h.gameMonths+'GM')}</span>` : ''}
+                      ${h.gameWeeks > 0 ? `<span class="highlight-badge gw" title="${escapeHTML(h.gameWeeks + ' gameweek wins')}">${escapeHTML(h.gameWeeks + 'GW')}</span>` : ''}
+                      ${h.gameMonths > 0 ? `<span class="highlight-badge gm" title="${escapeHTML(h.gameMonths + ' monthly wins')}">${escapeHTML(h.gameMonths + 'GM')}</span>` : ''}
                       ${h.overallRank ? `<span class="highlight-badge" title="Current league position">League Rank ${escapeHTML(h.overallRank)}</span>` : ''}
                     </div>
                   </div>
                 `;
-              }).join('')}
+                })
+                .join('')}
             </div>
           `;
           container.innerHTML = cards;
 
           if (totalPages > 1) {
-            show(navigation); updateWinnerNavigation(totalPages);
-          } else { hide(navigation); }
+            show(navigation);
+            updateWinnerNavigation(totalPages);
+          } else {
+            hide(navigation);
+          }
         }
       }
 
       // Updates pagination state (buttons + label)
-      function updateWinnerNavigation(totalPages){
-        const prev=document.getElementById('winner-prev-page');
-        const next=document.getElementById('winner-next-page');
-        const info=document.getElementById('winner-page-info');
-        if(prev) prev.disabled = currentWinnerPage===1;
-        if(next) next.disabled = currentWinnerPage===totalPages;
-        if(info) info.textContent = `Page ${currentWinnerPage} of ${totalPages}`;
+      function updateWinnerNavigation(totalPages) {
+        const prev = document.getElementById('winner-prev-page');
+        const next = document.getElementById('winner-next-page');
+        const info = document.getElementById('winner-page-info');
+        if (prev) prev.disabled = currentWinnerPage === 1;
+        if (next) next.disabled = currentWinnerPage === totalPages;
+        if (info) info.textContent = `Page ${currentWinnerPage} of ${totalPages}`;
       }
-      function previousWinnerPage(){ if(currentWinnerPage>1){ currentWinnerPage--; displayWinnerTable(); } }
-      function nextWinnerPage(){ const totalPages=Math.ceil(allWinners.length/winnerItemsPerPage); if(currentWinnerPage<totalPages){ currentWinnerPage++; displayWinnerTable(); } }
+      function previousWinnerPage() {
+        if (currentWinnerPage > 1) {
+          currentWinnerPage--;
+          displayWinnerTable();
+        }
+      }
+      function nextWinnerPage() {
+        const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
+        if (currentWinnerPage < totalPages) {
+          currentWinnerPage++;
+          displayWinnerTable();
+        }
+      }
 
       // Summarizes total winners and total prize amount for the top stat cards
-      function updateStatsSummary(winners){
-        if(!winners || winners.length===0) return;
+      function updateStatsSummary(winners) {
+        if (!winners || winners.length === 0) return;
         const totalWinners = winners.length;
-        const totalPrize = winners.reduce((s,w)=> s + w.totalPrizeWon, 0);
+        const totalPrize = winners.reduce((s, w) => s + w.totalPrizeWon, 0);
         document.getElementById('total-winners').textContent = totalWinners;
-        document.getElementById('total-prize-money').textContent = '₹' + totalPrize.toLocaleString('en-IN');
+        document.getElementById('total-prize-money').textContent =
+          '₹' + totalPrize.toLocaleString('en-IN');
       }
 
       /* -------------------------------------------------------------------
          NAV/PHASE TESTING HELPERS
          ------------------------------------------------------------------- */
-      function buildNavQuery(keys=['test','data','phase','clockOffset']){
-        try{
-          const src=new URLSearchParams(window.location.search);
-          const params=new URLSearchParams();
-          keys.forEach(k=>{ const v=src.get(k); if(v!==null && v!==undefined && v!=='') params.set(k,v); });
-          const qs=params.toString(); return qs?`?${qs}`:'';
-        }catch(e){ return ''; }
+      function buildNavQuery(keys = ['test', 'data', 'phase', 'clockOffset']) {
+        try {
+          const src = new URLSearchParams(window.location.search);
+          const params = new URLSearchParams();
+          keys.forEach((k) => {
+            const v = src.get(k);
+            if (v !== null && v !== undefined && v !== '') params.set(k, v);
+          });
+          const qs = params.toString();
+          return qs ? `?${qs}` : '';
+        } catch (e) {
+          return '';
+        }
       }
 
       // Applies test mode visual hints and handles redirect if phase=pre
-      function checkTestMode(){
-        const params=new URLSearchParams(window.location.search);
-        const isTest=params.get('test')==='true';
-        const phase=(params.get('phase')||'auto').toLowerCase();
+      function checkTestMode() {
+        const params = new URLSearchParams(window.location.search);
+        const isTest = params.get('test') === 'true';
+        const phase = (params.get('phase') || 'auto').toLowerCase();
 
-        const back=document.getElementById('back-fab');
-        if(back) back.href = 'index.html' + buildNavQuery();
+        const back = document.getElementById('back-fab');
+        if (back) back.href = 'index.html' + buildNavQuery();
 
-        if(isTest){
-          const p=document.querySelector('header p');
-          if(p){
-            if(phase==='pre')      p.textContent='Season 2025-26 - Registration Open [TEST MODE]';
-            else if(phase==='season') p.textContent='Season 2025-26 - Live Updates [TEST MODE]';
-            else if(!p.textContent.includes('[TEST MODE]')) p.textContent = p.textContent + ' [TEST MODE]';
-            p.style.color='#ff6b6b';
+        if (isTest) {
+          const p = document.querySelector('header p');
+          if (p) {
+            if (phase === 'pre') p.textContent = 'Season 2025-26 - Registration Open [TEST MODE]';
+            else if (phase === 'season')
+              p.textContent = 'Season 2025-26 - Live Updates [TEST MODE]';
+            else if (!p.textContent.includes('[TEST MODE]'))
+              p.textContent = p.textContent + ' [TEST MODE]';
+            p.style.color = '#ff6b6b';
           }
-          const float=document.getElementById('floating-phase-toggle');
-          if(float) float.classList.remove('is-hidden');
-          const btn=document.getElementById('phase-toggle-btn-float');
-          const openHomeBtn=document.getElementById('phase-toggle-open-home');
-          if(btn) btn.textContent='📝 Switch to Pre-season (redirect to Home)';
-          if(openHomeBtn) openHomeBtn.textContent='Open Home';
+          const float = document.getElementById('floating-phase-toggle');
+          if (float) float.classList.remove('is-hidden');
+          const btn = document.getElementById('phase-toggle-btn-float');
+          const openHomeBtn = document.getElementById('phase-toggle-open-home');
+          if (btn) btn.textContent = '📝 Switch to Pre-season (redirect to Home)';
+          if (openHomeBtn) openHomeBtn.textContent = 'Open Home';
         } else {
-          const float=document.getElementById('floating-phase-toggle');
-          if(float) float.classList.add('is-hidden');
-          if(phase==='pre'){
+          const float = document.getElementById('floating-phase-toggle');
+          if (float) float.classList.add('is-hidden');
+          if (phase === 'pre') {
             // Redirect to Home if phase=pre (keeps query params)
-            const qs=buildNavQuery(['test','data','phase','clockOffset']);
-            const qp=new URLSearchParams(qs.replace(/^\?/,'')||''); qp.set('phase','pre');
-            const final=qp.toString();
-            window.location.replace('index.html'+(final?('?'+final):'')); return;
+            const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
+            const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
+            qp.set('phase', 'pre');
+            const final = qp.toString();
+            window.location.replace('index.html' + (final ? '?' + final : ''));
+            return;
           }
         }
       }
 
       // Dev control: re-open this page with phase=pre (for testing)
-      function togglePhaseWinners(){
-        const qs=buildNavQuery(['test','data','phase','clockOffset']);
-        const qp=new URLSearchParams(qs.replace(/^\?/,'')||''); qp.set('phase','pre');
-        window.location.href = 'winners.html' + (qp.toString()?('?'+qp.toString()):'');
+      function togglePhaseWinners() {
+        const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
+        const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
+        qp.set('phase', 'pre');
+        window.location.href = 'winners.html' + (qp.toString() ? '?' + qp.toString() : '');
       }
 
       // Dev control: open Home with the same toggled params
-      function openHomeWithToggledPhase(){
-        const qs=buildNavQuery(['test','data','phase','clockOffset']);
-        const qp=new URLSearchParams(qs.replace(/^\?/,'')||''); qp.set('phase','pre');
-        window.location.href = 'index.html' + (qp.toString()?('?'+qp.toString()):'');
+      function openHomeWithToggledPhase() {
+        const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
+        const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
+        qp.set('phase', 'pre');
+        window.location.href = 'index.html' + (qp.toString() ? '?' + qp.toString() : '');
       }
 
       /* -------------------------------------------------------------------
