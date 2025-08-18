@@ -1,37 +1,55 @@
 <!doctype html>
 <!--
+  =====================================================================
   winners.html
-  -----------------
-  Purpose: Presents the "Complete Winner Scorecard" for the IIM Mumbai Fantasy League.
+  =====================================================================
+  PURPOSE
+  - Displays the complete Winners Scorecard for the "IIM Mumbai Fantasy League".
+  - Desktop/Tablet shows a table. Mobile (≤700px) renders compact "cards".
 
-  High-level structure:
-    - <head>: fonts, icons, and a large self-contained stylesheet used by the site
-    - <body>: header (title + countdown), league stats summary, winners table + pagination
-    - <script>: client-side logic for countdown, loading/formatting winner data, pagination
+  DATA INPUTS
+  - /data/winner_stats.json        → default (live)
+  - /data/test_winner_stats.json   → when test mode is active
+  - /data/next_deadline.json       → contains { nextGameweek {id, deadline_time}, lastUpdated }
 
-  Important data files (served from the `data/` folder):
-    - data/winner_stats.json         (live winners data)
-    - data/test_winner_stats.json    (test/demo winners data)
-    - data/next_deadline.json        (next gameweek / deadline metadata used for countdown)
+  URL QUERY PARAMS (for Dev/Test)
+  - ?test=true          → Enables test UI text + allows using cached countdown
+  - ?data=auto|test|live→ Force which winner data to load (auto respects ?test)
+  - ?phase=pre|season|auto → Controls Home redirection behavior (pre redirects to home)
+  - ?clockOffset=<ms>   → Adds ms to local clock (helpful to mock countdown)
+  - ?debug=1            → Logs extra debug in console
 
-  Supported URL query parameters (used throughout the script):
-    - test=true        -> run in TEST mode (loads demo/test data)
-    - data={auto|test|live} -> force which data file to use
-    - debug=1          -> enable verbose logging to console
-    - phase={pre|season|auto} -> used to redirect between pre-season/Home pages
-    - clockOffset=<ms> -> client-side clock offset in milliseconds
+  ACCESSIBILITY
+  - Cards are rendered as articles with ARIA labels.
+  - Countdown has aria-live updates.
 
-  Notes for contributors:
-    - This file is intentionally self-contained to make the static site portable.
-    - The JS intentionally avoids external networks when local JSON files are available.
-    - Styling and small dynamic behaviors (column width calculation) are applied at runtime.
+  RESPONSIVENESS
+  - Desktop/tablet: sticky header table
+  - Mobile (≤700px): 4-line card layout (rank, name, prize, highlights)
+    > 4th line (highlights) is right-aligned on mobile by a small override.
+
+  OWNER/CONTACT
+  - @addygunner (Aditya Garg)
+
+  COLLABORATOR GUIDE
+  - Keep all CSS variables in :root.
+  - Don’t change breakpoints lightly (≤700px is our card/table switch).
+  - JS relies on specific element IDs—if you rename markup, update JS selectors too.
+  - If you need a new feature flag, add it as a URL param and document in this header.
+
+  =====================================================================
 -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- 
+      Ensures proper scaling on mobile (required for the mobile card layout).
+      Do not remove. 
+    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Complete Winner Scorecard - IIM Mumbai Fantasy League</title>
 
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -44,42 +62,29 @@
     />
 
     <style>
+      /* ===================================================================
+         THEME TOKENS
+         -------------------------------------------------------------------
+         WHY: Centralize colors, radius, and frequently reused tokens so the
+              theme can be updated safely in one place.
+         =================================================================== */
       :root {
-        --primary-color: #37003c; /* Official FPL Purple */
-        --secondary-color: #00ff87; /* FPL Green (slightly adjusted from #00ff85) */
-        --accent-color: #5bbad5; /* Official FPL Teal/Cyan */
-        --background-color: #f8f9fa; /* Softer gray, closer to FPL */
-        --card-background: #fff; /* Pure white like FPL */
-        --text-color: #212529; /* Slightly darker for better contrast */
-        --heading-color: #37003c; /* Use primary color for headings */
-        --border-radius: 8px; /* More conservative radius like FPL */
-        --light-gray: #f1f3f4; /* For subtle backgrounds */
-        --border-color: #e9ecef; /* For subtle borders */
+        --primary-color: #37003c;   /* Official FPL Purple */
+        --secondary-color: #00ff87; /* FPL Green */
+        --accent-color: #5bbad5;    /* FPL Teal/Cyan */
+        --background-color: #f8f9fa;
+        --card-background: #fff;
+        --text-color: #212529;
+        --heading-color: #37003c;
+        --border-radius: 8px;
+        --light-gray: #f1f3f4;
+        --border-color: #e9ecef;
       }
-      /* =============== DESIGN SYSTEM: GLOBAL UTILS =============== */
-      .rounded {
-        border-radius: var(--border-radius) !important;
-      }
-      .table-align-rank th:nth-child(1),
-      .table-align-rank td:nth-child(1) {
-        text-align: center;
-      }
-      .table-align-player th:nth-child(2),
-      .table-align-player td:nth-child(2) {
-        text-align: left;
-      }
-      .table-align-prize th:nth-child(3),
-      .table-align-prize td:nth-child(3) {
-        text-align: right;
-      }
-      .table-align-points th:nth-child(4),
-      .table-align-points td:nth-child(4) {
-        text-align: right;
-      }
-      .table-align-highlights th:nth-child(4),
-      .table-align-highlights td:nth-child(4) {
-        text-align: right;
-      }
+
+      /* ===================================================================
+         GLOBAL RESETS / LAYOUT
+         =================================================================== */
+      * { box-sizing: border-box; }
       body {
         font-family:
           'Poppins',
@@ -100,9 +105,13 @@
         max-width: 1000px;
         margin: 20px auto;
         padding: 0 16px;
-        background-color: transparent;
       }
-      /* Header and countdown aligned exactly like index.html (flex keeps title centered) */
+      .is-hidden { display: none !important; }
+
+      /* ===================================================================
+         HEADER
+         WHY: Keeps countdown and title compact; responsive flex layout.
+         =================================================================== */
       header {
         background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: #fff;
@@ -142,970 +151,11 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      /* Floating Back to Home button (doesn't affect layout) */
-      .back-fab {
-        position: fixed;
-        right: 16px;
-        bottom: calc(16px + env(safe-area-inset-bottom, 0));
-        z-index: 10000;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 14px;
-        color: #fff;
-        background: rgba(0, 0, 0, 0.25);
-        text-decoration: none;
-        border: 1px solid rgba(255, 255, 255, 0.35);
-        border-radius: var(--border-radius);
-        -webkit-backdrop-filter: blur(8px);
-        backdrop-filter: blur(8px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-        transition:
-          transform 0.15s ease,
-          background 0.2s ease;
-        font-weight: 600;
-      }
-      .back-fab:hover {
-        background: rgba(0, 0, 0, 0.35);
-        transform: translateY(-2px);
-      }
-      .back-fab:focus-visible {
-        outline: 2px solid rgba(255, 255, 255, 0.85);
-        outline-offset: 2px;
-      }
-      main {
-        padding: 0;
-      }
-      section {
-        background-color: var(--card-background);
-        padding: 30px;
-        margin-bottom: 20px;
 
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      }
-      h2 {
-        color: var(--heading-color);
-        border-bottom: 2px solid #f0f2f5;
-        padding-bottom: 10px;
-        margin-top: 0;
-        font-size: 1.8rem;
-      }
-      .winner-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        font-variant-numeric: tabular-nums; /* Ensures consistent digit alignment */
-      }
-
-      .winner-table th {
-        background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
-        color: white;
-        padding: 14px 16px;
-        text-align: left;
-        font-weight: 700;
-        font-size: 0.95rem;
-        letter-spacing: 0.3px;
-        text-transform: uppercase;
-        position: sticky;
-        top: 0;
-        z-index: 10;
-      }
-
-      /* UX-Optimized column widths for desktop/wide screens */
-      .winner-table th:nth-child(1) {
-        width: 8%; /* Rank column - minimal space for numbers */
-        text-align: center;
-        min-width: 60px;
-      }
-
-      .winner-table th:nth-child(2) {
-        width: 25%; /* Player column - accommodates longest names */
-        text-align: left;
-        min-width: 150px;
-      }
-
-      .winner-table th:nth-child(3) {
-        width: 15%; /* Prize column - handles currency format */
-        text-align: right;
-        min-width: 100px;
-      }
-
-      .winner-table th:nth-child(4) {
-        width: 52%; /* Highlights column - maximum space for complex content */
-        text-align: right;
-        min-width: 200px;
-      }
-
-      .winner-table td {
-        padding: 14px 16px;
-        border-bottom: 1px solid #f0f2f5;
-        font-size: 0.9rem;
-        transition: background-color 0.2s ease;
-      }
-
-      /* Zebra striping for better row scanning */
-      .winner-table tbody tr:nth-child(even) {
-        background-color: #f8f9fa;
-      }
-
-      .winner-table tbody tr:nth-child(odd) {
-        background-color: white;
-      }
-
-      /* Enhanced hover state */
-      .winner-table tbody tr:hover {
-        background-color: #e3f2fd !important;
-        transform: translateY(-1px);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Specific alignment for table data cells */
-      .winner-table td:nth-child(1) {
-        text-align: center; /* Rank column */
-        font-weight: 600;
-      }
-
-      .winner-table td:nth-child(2) {
-        text-align: left; /* Player column */
-      }
-
-      .winner-table td:nth-child(3) {
-        text-align: right; /* Total Prize Won column */
-        font-variant-numeric: tabular-nums;
-        font-weight: 700;
-      }
-
-      .winner-table td:nth-child(4) {
-        text-align: right; /* Highlights column */
-      }
-
-      .winner-table tr:last-child td {
-        border-bottom: none;
-      }
-      .player-name {
-        font-weight: 600;
-        color: var(--heading-color);
-      }
-      .prize-amount {
-        font-weight: 700;
-        color: var(--primary-color);
-        font-size: 1.1rem;
-      }
-      .highlights {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        justify-content: flex-end; /* Right-align the badges */
-      }
-      .highlight-badge {
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        white-space: nowrap;
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        transition: transform 0.2s ease;
-      }
-
-      .highlight-badge:hover {
-        transform: translateY(-1px);
-      }
-
-      .highlight-badge.gw {
-        background: var(--secondary-color);
-        color: var(--primary-color);
-      }
-
-      .highlight-badge.gw::before {
-        content: '🏆';
-        font-size: 0.8em;
-      }
-
-      .highlight-badge.gm {
-        background: #ff6b6b;
-        color: white;
-      }
-
-      .highlight-badge.gm::before {
-        content: '📅';
-        font-size: 0.8em;
-      }
-
-      .highlight-badge:not(.gw):not(.gm)::before {
-        content: '📊';
-        font-size: 0.8em;
-      }
-
-      /* Subtle gold, silver, bronze backgrounds for top 3 */
-      .winner-table tbody tr.winner-gold {
-        background: linear-gradient(145deg, #fffbf0, #fff8e1);
-        border-left: 4px solid #f9a825;
-        box-shadow: 0 2px 10px rgba(249, 168, 37, 0.15);
-      }
-
-      .winner-table tbody tr.winner-gold:hover {
-        box-shadow: 0 4px 15px rgba(249, 168, 37, 0.25);
-      }
-
-      .winner-table tbody tr.winner-silver {
-        background: linear-gradient(145deg, #f8f9fa, #f1f3f4);
-        border-left: 4px solid #9e9e9e;
-        box-shadow: 0 2px 10px rgba(158, 158, 158, 0.15);
-      }
-
-      .winner-table tbody tr.winner-silver:hover {
-        box-shadow: 0 4px 15px rgba(158, 158, 158, 0.25);
-      }
-
-      .winner-table tbody tr.winner-bronze {
-        background: linear-gradient(145deg, #fef7e0, #fff3cd);
-        border-left: 4px solid #d4b106;
-        box-shadow: 0 2px 10px rgba(212, 177, 6, 0.15);
-      }
-
-      .winner-table tbody tr.winner-bronze:hover {
-        box-shadow: 0 4px 15px rgba(212, 177, 6, 0.25);
-      }
-      .winner-loading {
-        text-align: center;
-        padding: 40px;
-        color: #777;
-        font-style: italic;
-      }
-      .winner-loading:after {
-        content: '';
-        display: block;
-        margin: 10px auto;
-        width: 40px;
-        height: 40px;
-        border: 4px solid var(--primary-color);
-        border-top-color: transparent;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      .winner-error {
-        text-align: center;
-        padding: 40px;
-        color: #d32f2f;
-        background: #ffebee;
-        border-radius: 8px;
-        margin-top: 20px;
-      }
-      .stats-summary {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        margin-bottom: 30px;
-      }
-
-      .summary-card {
-        background: white;
-        padding: 25px 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        text-align: center;
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease;
-        border: 2px solid transparent;
-        position: relative;
-      }
-
-      /* Primary metric - Total Prize Money gets enhanced treatment */
-      .summary-card.primary-metric {
-        grid-column: span 1;
-        padding: 30px 25px;
-        box-shadow: 0 6px 20px rgba(55, 0, 60, 0.12);
-        background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 249, 250, 0.8));
-      }
-
-      .summary-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-        border-color: var(--secondary-color);
-      }
-
-      .summary-card.primary-metric:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 30px rgba(55, 0, 60, 0.18);
-        border-color: var(--primary-color);
-      }
-
-      /* Icon styling */
-      .summary-icon {
-        font-size: 1.8rem;
-        color: var(--primary-color);
-        margin-bottom: 12px;
-        opacity: 0.8;
-      }
-
-      .summary-card.primary-metric .summary-icon {
-        font-size: 2.2rem;
-        opacity: 1;
-      }
-
-      /* Typography hierarchy */
-      .summary-number {
-        font-size: 2rem;
-        font-weight: 600;
-        color: var(--primary-color);
-        margin-bottom: 8px;
-        line-height: 1.1;
-      }
-
-      /* Primary metric gets larger font */
-      .summary-card.primary-metric .summary-number {
-        font-size: 2.8rem;
-        font-weight: 700;
-        margin-bottom: 12px;
-      }
-
-      .summary-label {
-        color: #666;
-        font-size: 0.85rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        line-height: 1.3;
-      }
-
-      .summary-card.primary-metric .summary-label {
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: var(--heading-color);
-        letter-spacing: 0.6px;
-      }
-      footer {
-        text-align: center;
-        font-size: 0.8rem;
-        color: #888;
-        padding: 20px;
-      }
-
-      /* Tablet breakpoint adjustments for table column widths */
-      @media (max-width: 768px) and (min-width: 601px) {
-        .winner-table th:nth-child(1) {
-          width: 10%; /* Rank column */
-        }
-
-        .winner-table th:nth-child(2) {
-          width: 30%; /* Player column */
-        }
-
-        .winner-table th:nth-child(3) {
-          width: 20%; /* Prize column */
-        }
-
-        .winner-table th:nth-child(4) {
-          width: 40%; /* Highlights column */
-        }
-      }
-
-      /* Tablet optimization: 2x2 grid layout */
-      @media (max-width: 900px) and (min-width: 601px) {
-        .container {
-          max-width: 98vw;
-        }
-        .stats-summary {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 18px;
-        }
-
-        /* Ensure primary metric maintains prominence in 2x2 grid */
-        .summary-card.primary-metric {
-          grid-column: span 1; /* Don't span multiple columns on tablet */
-        }
-      }
-
-      @media (max-width: 800px) {
-        .container {
-          max-width: 98vw;
-        }
-        .stats-summary {
-          gap: 15px;
-        }
-      }
-      @media (max-width: 600px) {
-        .container {
-          padding: 0 12px;
-        }
-
-        header {
-          padding: 20px 10px;
-          margin-bottom: 16px;
-        }
-
-        header h1 {
-          font-size: clamp(1rem, 5vw, 1.8rem);
-        }
-
-        header p {
-          font-size: clamp(0.8rem, 3.5vw, 1rem);
-        }
-
-        main > * {
-          margin-bottom: 16px;
-        }
-
-        section {
-          padding: 20px;
-        }
-
-        h2 {
-          font-size: clamp(1.2rem, 4vw, 1.5rem);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        /* Make description text wrap properly on mobile */
-        section p {
-          font-size: clamp(0.8rem, 3.5vw, 0.9rem);
-          white-space: normal;
-          overflow: visible;
-          text-overflow: unset;
-          line-height: 1.4;
-        }
-        /* Mobile table: Transform to compact card layout */
-        .winner-table {
-          font-size: 0.8rem;
-          border-collapse: separate;
-          border-spacing: 0;
-        }
-
-        /* Hide traditional table headers on mobile */
-        .winner-table thead {
-          position: absolute;
-          left: -9999px;
-          top: -9999px;
-        }
-
-        /* Make each row a compact card */
-        .winner-table tbody tr {
-          display: block;
-          background: white;
-          margin-bottom: 12px;
-          border-radius: 8px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-          border: 1px solid #f0f2f5;
-          padding: 10px 12px;
-          position: relative;
-        }
-
-        .winner-table tbody tr:hover {
-          transform: none;
-          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
-        }
-
-        /* Position all cells on the same row */
-        .winner-table tbody td {
-          display: inline-block;
-          border: none;
-          padding: 0;
-          text-align: left !important;
-          vertical-align: middle;
-        }
-
-        /* First row: Rank + Player Name + Prize */
-        .winner-table tbody td:nth-child(1) {
-          display: inline-block;
-          width: auto;
-          margin-right: 8px;
-          font-weight: 700;
-        }
-
-        .winner-table tbody td:nth-child(2) {
-          display: inline-block;
-          width: auto;
-          font-weight: 600;
-          margin-right: 5px;
-        }
-
-        .winner-table tbody td:nth-child(3) {
-          width: auto;
-          float: right;
-          font-weight: 700;
-          text-align: right !important;
-        }
-
-        /* Second row: Highlights only */
-        .winner-table tbody td:nth-child(4) {
-          display: block;
-          width: 100%;
-          margin-top: 6px;
-          clear: both;
-        }
-
-        /* Add a dot after the rank number for mobile cards */
-        .winner-table tbody td:nth-child(1)::after {
-          content: '.';
-        }
-
-        /* Highlights styling for mobile cards - right aligned */
-        .highlights {
-          gap: 4px;
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: flex-end;
-          align-items: center;
-          display: flex;
-          margin-top: 2px;
-        }
-
-        .highlight-badge {
-          font-size: 0.7rem;
-          padding: 2px 6px;
-          margin: 0;
-        }
-
-        /* Solid backgrounds for mobile top 3 positions - matches desktop */
-        .winner-table tbody tr:nth-child(1) {
-          background: linear-gradient(145deg, #fffbf0, #fff8e1) !important;
-          border-left: 4px solid #f9a825 !important;
-          font-size: 0.9rem;
-          color: var(--primary-color);
-        }
-        .winner-table tbody tr:nth-child(1):hover {
-          box-shadow: 0 4px 15px rgba(249, 168, 37, 0.3) !important;
-          transform: none !important;
-        }
-
-        .winner-table tbody tr:nth-child(2) {
-          background: linear-gradient(145deg, #f8f9fa, #f1f3f4) !important;
-          border-left: 4px solid #9e9e9e !important;
-          font-size: 0.9rem;
-          color: #333;
-          padding-left: 8px;
-          margin-left: auto;
-          box-shadow: 0 4px 15px rgba(158, 158, 158, 0.3) !important;
-          transform: none !important;
-        }
-
-        .winner-table tbody tr:nth-child(3) {
-          background: linear-gradient(145deg, #fef7e0, #fff3cd) !important;
-          border-left: 4px solid #d4b106 !important;
-          box-shadow: 0 3px 12px rgba(212, 177, 6, 0.2) !important;
-        }
-
-        .winner-table tbody tr:nth-child(3):hover {
-          box-shadow: 0 4px 15px rgba(212, 177, 6, 0.3) !important;
-          transform: none !important;
-        }
-        /* Mobile optimization: Stack vertically with Total Prize Money first */
-        .stats-summary {
-          grid-template-columns: 1fr;
-          gap: 12px;
-        }
-
-        /* Reorder items for mobile - Total Prize Money first */
-        .summary-card:nth-child(4) {
-          /* Total Prize Money */
-          order: 1;
-        }
-        .summary-card:nth-child(3) {
-          /* Total Winners */
-          order: 2;
-        }
-        .summary-card:nth-child(1) {
-          /* Completed Gameweeks */
-          order: 3;
-        }
-        .summary-card:nth-child(2) {
-          /* Completed Gamemonths */
-          order: 4;
-        }
-
-        .summary-card {
-          padding: 18px 12px;
-        }
-
-        .summary-card.primary-metric {
-          padding: 22px 15px;
-        }
-
-        .summary-icon {
-          font-size: 1.4rem;
-          margin-bottom: 8px;
-        }
-
-        .summary-card.primary-metric .summary-icon {
-          font-size: 1.8rem;
-          margin-bottom: 10px;
-        }
-
-        .summary-number {
-          font-size: 1.6rem;
-        }
-
-        .summary-card.primary-metric .summary-number {
-          font-size: 2.2rem;
-        }
-
-        .summary-label {
-          font-size: 0.75rem;
-          font-weight: 600;
-        }
-
-        .summary-card.primary-metric .summary-label {
-          font-size: 0.8rem;
-          font-weight: 700;
-        }
-
-        /* Override dynamic styles on mobile for better fit */
-        #dynamic-table-styles {
-          display: none !important;
-        }
-
-        /* Show compact visual headers on mobile for winner lists */
-        .winner-table thead {
-          position: relative;
-          display: flex;
-          gap: 8px;
-          align-items: center;
-          margin-bottom: 8px;
-        }
-        .winner-table thead th {
-          font-size: 0.75rem;
-          font-weight: 700;
-          color: #6b6b6b;
-          padding: 6px 8px;
-          border-radius: 6px;
-        }
-        .winner-table thead th:nth-child(1) {
-          flex: 0 0 44px;
-          text-align: center;
-        }
-        .winner-table thead th:nth-child(2) {
-          flex: 1 1 auto;
-          text-align: left;
-        }
-        .winner-table thead th:nth-child(3) {
-          flex: 0 0 90px;
-          text-align: right;
-        }
-        .winner-table thead th:nth-child(4) {
-          flex: 0 0 64px;
-          text-align: right;
-        }
-
-        /* Ensure the corresponding data cells use fixed widths so pills align */
-        /* rank cell flex-basis is defined below with display/padding; keep that definition */
-        .winner-table tbody td:nth-child(3) {
-          width: 90px;
-          text-align: right !important;
-        }
-        .winner-table tbody td:nth-child(4) {
-          width: 64px;
-          text-align: right !important;
-        }
-
-        /* Top-1 accent similar to leaderboard */
-        .winner-table tbody tr:nth-child(1) {
-          background: linear-gradient(145deg, #fff8e6, #fff3d6) !important;
-          border-left: 4px solid #f4b400;
-          box-shadow: 0 2px 8px rgba(244, 180, 0, 0.12) !important;
-        }
-        .winner-table tbody tr:nth-child(1):hover {
-          box-shadow: 0 3px 12px rgba(244, 180, 0, 0.18) !important;
-        }
-        /* Center the rank cell on mobile cards */
-        .winner-table tbody td:nth-child(1) {
-          flex: 0 0 44px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 6px 8px;
-        }
-      }
-
-      /* Ultra-narrow screens (Galaxy Z Fold, very small devices) */
-      @media (max-width: 360px) {
-        .container {
-          padding: 0 8px;
-        }
-
-        header {
-          padding: 15px 10px;
-        }
-
-        header h1 {
-          font-size: clamp(0.9rem, 4.5vw, 1.4rem);
-          letter-spacing: -0.5px;
-          line-height: 1.2;
-        }
-
-        header p {
-          font-size: clamp(0.7rem, 3vw, 0.9rem);
-        }
-
-        section {
-          padding: 15px;
-        }
-
-        h2 {
-          font-size: 1.3rem;
-        }
-
-        /* Ultra-narrow: Make cards even more compact */
-        .winner-table tbody tr {
-          padding: 8px 10px;
-          margin-bottom: 8px;
-          font-size: 0.75rem;
-        }
-
-        .winner-table tbody td:nth-child(1) {
-          font-size: 0.7rem;
-          margin-right: 6px;
-          /* Center rank badge area for ultra-narrow screens */
-          display: inline-block;
-          width: 44px;
-          vertical-align: middle;
-          text-align: center !important;
-        }
-
-        .winner-table tbody td:nth-child(2) {
-          font-size: 0.75rem;
-          margin-right: 4px;
-        }
-
-        .winner-table tbody td:nth-child(3) {
-          font-size: 0.7rem;
-        }
-
-        .winner-table tbody td:nth-child(4) {
-          margin-top: 4px;
-        }
-
-        .highlights {
-          gap: 3px;
-          margin-top: 1px;
-        }
-
-        .highlight-badge {
-          font-size: 0.6rem;
-          padding: 1px 4px;
-        }
-
-        .summary-card {
-          padding: 15px 8px;
-        }
-
-        .summary-card.primary-metric {
-          padding: 18px 10px;
-        }
-
-        .summary-icon {
-          font-size: 1.2rem;
-          margin-bottom: 6px;
-        }
-
-        .summary-card.primary-metric .summary-icon {
-          font-size: 1.5rem;
-          margin-bottom: 8px;
-        }
-
-        .summary-number {
-          font-size: 1.4rem;
-        }
-
-        .summary-card.primary-metric .summary-number {
-          font-size: 1.9rem;
-        }
-
-        /* =============== WINNER PREVIEW (reuse index styles for parity) =============== */
-        .winner-preview {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 20px;
-          margin-top: 20px;
-        }
-
-        .winner-card {
-          background: white;
-          border-radius: 8px;
-          padding: 20px;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-          border-left: 4px solid var(--secondary-color);
-          transition:
-            transform 0.2s ease,
-            box-shadow 0.2s ease;
-          position: relative;
-        }
-
-        .winner-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .winner-card.rank-1 {
-          background: linear-gradient(145deg, #fffbf0, #fff8e1);
-          border-left-color: #f9a825;
-          box-shadow: 0 2px 10px rgba(249, 168, 37, 0.15);
-        }
-
-        .winner-card.rank-2 {
-          background: linear-gradient(145deg, #f8f9fa, #f1f3f4);
-          border-left-color: #9e9e9e;
-          box-shadow: 0 2px 10px rgba(158, 158, 158, 0.15);
-        }
-
-        .winner-card.rank-3 {
-          background: linear-gradient(145deg, #fef7e0, #fff3cd);
-          border-left-color: #d4b106;
-          box-shadow: 0 2px 10px rgba(212, 177, 6, 0.15);
-        }
-
-        .winner-rank {
-          font-weight: 700;
-          color: var(--primary-color);
-          margin-bottom: 8px;
-        }
-
-        .winner-name {
-          font-weight: 700;
-          color: var(--heading-color);
-          margin-bottom: 6px;
-        }
-
-        .winner-prize {
-          font-weight: 700;
-          color: var(--primary-color);
-          margin-bottom: 8px;
-        }
-
-        .winner-highlights {
-          display: flex;
-          gap: 8px;
-          align-items: center;
-          margin-top: 8px;
-          flex-wrap: wrap;
-        }
-
-        .summary-label {
-          font-size: 0.7rem;
-        }
-
-        .summary-card.primary-metric .summary-label {
-          font-size: 0.75rem;
-        }
-
-        .stats-summary {
-          gap: 8px;
-        }
-      }
-
-      /* Test badge style */
-      .test-badge {
-        display: inline-block;
-        margin-left: 8px;
-        padding: 2px 6px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        background: #fff3e0;
-        color: #e65100;
-        border: 1px solid #ffe0b2;
-        border-radius: 999px;
-      }
-
-      .winner-last-updated {
-        text-align: center;
-        font-size: 0.93rem;
-        color: #777;
-        font-style: italic;
-        margin-top: 20px;
-      }
-
-      .footer-last-updated {
-        font-size: 0.7rem;
-        color: #ccc;
-        margin-top: 5px;
-      }
-
-      .winner-rank {
-        font-weight: 600;
-        color: var(--primary-color);
-      }
-
-      /* Winner navigation pagination styles */
-      .winner-navigation {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-        margin: 20px 0;
-        flex-wrap: wrap;
-      }
-
-      .winner-nav-btn {
-        background: var(--primary-color);
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-      }
-
-      .winner-nav-btn:hover:not(:disabled) {
-        background: var(--heading-color);
-        transform: translateY(-1px);
-        box-shadow: 0 3px 8px rgba(93, 33, 99, 0.3);
-      }
-
-      .winner-nav-btn:disabled {
-        background: #ccc;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-      }
-
-      .page-info {
-        font-weight: 600;
-        color: var(--primary-color);
-        font-size: 0.9rem;
-        white-space: nowrap;
-      }
-      /* Floating phase toggle (Test mode) */
-      .floating-toggle {
-        position: fixed;
-        left: 12px;
-        bottom: 12px;
-        z-index: 9999;
-        background: #1f1f1f;
-        color: #eaeaea;
-        border: 1px solid #444;
-        border-radius: 999px;
-        padding: 8px 12px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .floating-toggle button {
-        background: transparent;
-        color: inherit;
-        border: none;
-        cursor: pointer;
-        font-size: 12px;
-        font-weight: 700;
-      }
-      /* ===== COUNTDOWN STYLES (identical to index.html) ===== */
+      /* ===================================================================
+         COUNTDOWN (visual polish)
+         NOTE: Visibility is controlled in JS (show/hide based on data).
+         =================================================================== */
       .countdown-clock {
         flex: 0 0 auto;
         max-width: 300px;
@@ -1123,19 +173,8 @@
         animation: pulseBorder 3s infinite;
       }
       @keyframes pulseBorder {
-        0%,
-        100% {
-          border-color: rgba(91, 186, 213, 0.4);
-          box-shadow:
-            0 4px 15px rgba(0, 0, 0, 0.1),
-            0 0 20px rgba(91, 186, 213, 0.3);
-        }
-        50% {
-          border-color: rgba(91, 186, 213, 0.7);
-          box-shadow:
-            0 4px 15px rgba(0, 0, 0, 0.1),
-            0 0 30px rgba(91, 186, 213, 0.5);
-        }
+        0%, 100% { border-color: rgba(91, 186, 213, 0.4); }
+        50%      { border-color: rgba(91, 186, 213, 0.7); }
       }
       .countdown-label {
         font-size: 1rem;
@@ -1147,16 +186,8 @@
         animation: flash 2s infinite;
       }
       @keyframes flash {
-        0%,
-        50% {
-          opacity: 1;
-          text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
-        25%,
-        75% {
-          opacity: 0.7;
-          text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
-        }
+        0%, 50% { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,.8); }
+        25%,75% { opacity: .7; text-shadow: 0 0 5px rgba(255,255,255,.4); }
       }
       .countdown-time {
         font-family: 'Courier New', monospace;
@@ -1172,24 +203,9 @@
         padding: 4px 6px;
         margin-top: 5px;
       }
-      .countdown-separator {
-        animation: pulse 1s infinite;
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.5;
-        }
-      }
-      .countdown-unit {
-        display: inline-block;
-        min-width: 18px;
-        text-align: center;
-        line-height: 1;
-      }
+      .countdown-separator { animation: pulse 1s infinite; }
+      @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.5;} }
+      .countdown-unit { display: inline-block; min-width: 18px; text-align: center; }
       .countdown-unit-label {
         font-family: 'Courier New', monospace;
         font-size: 0.55rem;
@@ -1201,251 +217,349 @@
         display: inline-block;
         vertical-align: middle;
       }
-      .is-hidden {
-        display: none !important;
-      }
-      /* Synced badge */
+      /* "Synced just now" and admin badges */
       .sync-badge {
-        display: inline-block;
-        margin-left: 8px;
-        padding: 2px 6px;
-        font-size: 0.7rem;
-        font-weight: 700;
-        background: #e8f5e9;
-        color: #1b5e20;
-        border: 1px solid #c8e6c9;
-        border-radius: 999px;
-        opacity: 0;
-        transition: opacity 250ms ease;
+        display: inline-block; margin-left: 8px; padding: 2px 6px;
+        font-size: 0.7rem; font-weight: 700; background: #e8f5e9; color: #1b5e20;
+        border: 1px solid #c8e6c9; border-radius: 999px; opacity: 0; transition: opacity 250ms ease;
       }
-      .sync-badge.show {
-        opacity: 1;
-      }
-      /* Admin badge */
+      .sync-badge.show { opacity: 1; }
       .admin-badge {
-        display: inline-block;
-        margin-left: 8px;
-        padding: 2px 6px;
-        font-size: 0.7rem;
-        font-weight: 600;
-        background: #fff3e0;
-        color: #e65100;
-        border: 1px solid #ffe0b2;
-        border-radius: 999px;
+        display: inline-block; margin-left: 8px; padding: 2px 6px;
+        font-size: 0.7rem; font-weight: 600; background: #fff3e0; color: #e65100;
+        border: 1px solid #ffe0b2; border-radius: 999px;
       }
 
-      /* ===== Header responsive tweaks (copied from index.html) ===== */
+      /* ===================================================================
+         PAGE SECTIONS / TYPOGRAPHY
+         =================================================================== */
+      main { padding: 0; }
+      section {
+        background-color: var(--card-background);
+        padding: 30px;
+        margin-bottom: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      }
+      h2 {
+        color: var(--heading-color);
+        border-bottom: 2px solid #f0f2f5;
+        padding-bottom: 10px;
+        margin-top: 0;
+        font-size: 1.8rem;
+      }
+
+      /* ===================================================================
+         STATS SUMMARY (4-cards grid on desktop)
+         =================================================================== */
+      .stats-summary {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .summary-card {
+        background: white;
+        padding: 25px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 2px solid transparent;
+      }
+      .summary-card.primary-metric {
+        box-shadow: 0 6px 20px rgba(55, 0, 60, 0.12);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 249, 250, 0.8));
+      }
+      .summary-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        border-color: var(--secondary-color);
+      }
+      .summary-card.primary-metric:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(55, 0, 60, 0.18);
+        border-color: var(--primary-color);
+      }
+      .summary-icon { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 12px; opacity: 0.8; }
+      .summary-card.primary-metric .summary-icon { font-size: 2.2rem; opacity: 1; }
+      .summary-number { font-size: 2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 8px; }
+      .summary-card.primary-metric .summary-number { font-size: 2.8rem; font-weight: 700; margin-bottom: 12px; }
+      .summary-label { color: #666; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+      .summary-card.primary-metric .summary-label { font-size: 0.95rem; font-weight: 700; color: var(--heading-color); letter-spacing: 0.6px; }
+
+      /* ===================================================================
+         DESKTOP/TABLET TABLE
+         WHY: Tabular numeric data works best on larger screens.
+         =================================================================== */
+      .winner-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        font-variant-numeric: tabular-nums;
+      }
+      .winner-table th {
+        background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+        color: white;
+        padding: 14px 16px;
+        text-align: left;
+        font-weight: 700;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+        position: sticky; /* WHY: Keeps header visible when the table scrolls */
+        top: 0;
+        z-index: 10;
+      }
+      .winner-table th:nth-child(1) { width: 8%; text-align: center; min-width: 60px; }
+      .winner-table th:nth-child(2) { width: 25%; text-align: left; min-width: 150px; }
+      .winner-table th:nth-child(3) { width: 15%; text-align: right; min-width: 100px; }
+      .winner-table th:nth-child(4) { width: 52%; text-align: right; min-width: 200px; }
+      .winner-table td { padding: 14px 16px; border-bottom: 1px solid #f0f2f5; font-size: 0.9rem; transition: background-color 0.2s ease; }
+      .winner-table tbody tr:nth-child(even) { background-color: #f8f9fa; }
+      .winner-table tbody tr:nth-child(odd)  { background-color: white; }
+      .winner-table tbody tr:hover { background-color: #e3f2fd !important; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+      .winner-table td:nth-child(1) { text-align: center; font-weight: 600; }
+      .winner-table td:nth-child(2) { text-align: left; }
+      .winner-table td:nth-child(3) { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
+      .winner-table td:nth-child(4) { text-align: right; }
+      .winner-table tr:last-child td { border-bottom: none; }
+
+      /* Desktop: subtle gold/silver/bronze highlight for top 3 rows */
+      .winner-table tbody tr.winner-gold   { background: linear-gradient(145deg, #fffbf0, #fff8e1); border-left: 4px solid #f9a825; box-shadow: 0 2px 10px rgba(249,168,37,.15); }
+      .winner-table tbody tr.winner-silver { background: linear-gradient(145deg, #f8f9fa, #f1f3f4); border-left: 4px solid #9e9e9e; box-shadow: 0 2px 10px rgba(158,158,158,.15); }
+      .winner-table tbody tr.winner-bronze { background: linear-gradient(145deg, #fef7e0, #fff3cd); border-left: 4px solid #d4b106; box-shadow: 0 2px 10px rgba(212,177,6,.15); }
+
+      .player-name { font-weight: 600; color: var(--heading-color); }
+      .prize-amount { font-weight: 700; color: var(--primary-color); font-size: 1.1rem; }
+
+      /* Shared badge styles (also used on mobile) */
+      .highlights { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+      .highlight-badge {
+        padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;
+        white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; transition: transform 0.2s ease;
+      }
+      .highlight-badge:hover { transform: translateY(-1px); }
+      .highlight-badge.gw { background: var(--secondary-color); color: var(--primary-color); }
+      .highlight-badge.gm { background: #ff6b6b; color: white; }
+
+      /* Small heading helper */
+      .winners-heading { display: block; margin: 0 0 0.5rem 0; }
+      .winners-heading .heading-main { display: block; font-size: 1.35rem; font-weight: 700; }
+      .winners-heading .heading-subtitle {
+        display: block; font-size: 0.85rem; color: #666; margin-top: 4px;
+        opacity: 0; transform: translateY(4px); transition: opacity 180ms ease, transform 180ms ease;
+      }
+      .winners-heading .heading-subtitle.show { opacity: 1; transform: translateY(0); }
+
+      /* Pagination controls */
+      .winner-navigation {
+        display: flex; justify-content: center; align-items: center; gap: 15px; margin: 20px 0; flex-wrap: wrap;
+      }
+      .winner-nav-btn {
+        background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px;
+        cursor: pointer; font-weight: 600; transition: all 0.2s ease; display: flex; align-items: center; gap: 5px;
+      }
+      .winner-nav-btn:hover:not(:disabled) { background: var(--heading-color); transform: translateY(-1px); box-shadow: 0 3px 8px rgba(93, 33, 99, 0.3); }
+      .winner-nav-btn:disabled { background: #ccc; cursor: not-allowed; }
+      .page-info { font-weight: 600; color: var(--primary-color); font-size: 0.9rem; white-space: nowrap; }
+
+      footer { text-align: center; font-size: 0.8rem; color: #888; padding: 20px; }
+      .footer-last-updated { font-size: 0.7rem; color: #ccc; margin-top: 5px; }
+
+      /* ===================================================================
+         WIDESCREEN TWEAKS (≥1201px) / TABLET TWEAKS (768–1024px)
+         =================================================================== */
       @media (min-width: 1201px) {
-        header {
-          padding: 40px;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .container {
-          max-width: 1200px;
-        }
-        .header-main {
-          flex: 1 1 auto;
-          text-align: center;
-          padding-right: 20px;
-        }
-        .countdown-clock {
-          flex: 0 0 auto;
-          margin-left: auto;
-        }
+        header { padding: 40px; justify-content: space-between; align-items: center; }
+        .container { max-width: 1200px; }
+        .header-main { padding-right: 20px; }
+        .countdown-clock { margin-left: auto; }
       }
-
       @media (max-width: 1024px) and (min-width: 769px) {
-        header h1 {
-          font-size: clamp(1.3rem, 3.5vw, 2rem);
-          letter-spacing: -0.3px;
-        }
-        header p {
-          font-size: clamp(0.85rem, 2.5vw, 1rem);
-        }
-        .header-main {
-          flex: 1 1 60%;
-          text-align: center;
-        }
-        .countdown-clock {
-          flex: 0 0 auto;
-          max-width: 250px;
-          margin-left: auto;
-        }
+        header h1 { font-size: clamp(1.3rem, 3.5vw, 2rem); letter-spacing: -0.3px; }
+        header p { font-size: clamp(0.85rem, 2.5vw, 1rem); }
+        .header-main { flex: 1 1 60%; }
+        .countdown-clock { max-width: 250px; margin-left: auto; }
       }
 
-      @media (max-width: 768px) {
+      /* ===================================================================
+         MOBILE-ONLY WINNER CARDS (≤700px)
+         WHY: Cards are more readable and tappable than tables on small screens.
+         =================================================================== */
+      @media (max-width: 700px) {
+        .container { padding: 0 12px; }
         header {
-          flex-direction: column; /* stack */
-          text-align: center;
-          gap: 16px;
+          padding: 20px 10px; margin-bottom: 16px; flex-direction: column; gap: 15px; text-align: center;
         }
-        .header-main {
-          width: 100%;
-        }
-        header h1 {
-          white-space: normal;
-          overflow: visible;
-          text-overflow: unset;
-          line-height: 1.2;
-        }
-        header p {
-          white-space: normal;
-          overflow: visible;
-          text-overflow: unset;
-        }
-        .countdown-clock {
-          width: 100%;
-          max-width: 300px;
-          margin: 0 auto;
-        }
-        .back-fab {
-          right: 12px;
-          bottom: calc(12px + env(safe-area-inset-bottom, 0));
-          padding: 9px 12px;
-        }
-      }
+        .header-main { width: 100%; }
+        header h1 { font-size: clamp(1rem, 5vw, 1.6rem); white-space: normal; overflow: visible; text-overflow: unset; }
+        header p  { font-size: clamp(0.8rem, 3.5vw, 1rem); white-space: normal; overflow: visible; text-overflow: unset; }
+        .countdown-clock { width: 100%; max-width: 300px; margin: 0 auto; padding: 12px 15px; }
 
-      @media (min-width: 820px) and (max-width: 950px) {
-        header {
-          padding: 30px 15px;
-        }
-        header h1 {
-          font-size: 1.4rem;
-          letter-spacing: -0.5px;
-        }
-        header p {
-          font-size: 0.9rem;
-        }
-        .countdown-clock {
-          padding: 12px 15px;
-        }
-      }
+        main > * { margin-bottom: 16px; }
+        section { padding: 20px; }
 
-      @media (max-width: 600px) {
-        .container {
-          padding: 0 12px;
+        h2 { font-size: clamp(1.2rem, 4vw, 1.5rem); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        section p { font-size: clamp(0.8rem, 3.5vw, 0.9rem); line-height: 1.4; white-space: normal; overflow: visible; text-overflow: unset; }
+
+        /* Hide the desktop table; mobile cards are injected by JS */
+        .winner-table { display: none !important; }
+
+        /* Card grid */
+        .winner-preview {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 8px;
+          margin-top: 12px;
         }
-        header {
-          padding: 20px 10px;
-          margin-bottom: 16px;
+
+        .winner-card {
+          padding: 12px 14px;
+          border-radius: 6px;
+          background: #fff;
+          border-left: 4px solid var(--secondary-color);
+          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+          display: flex;
           flex-direction: column;
-          gap: 15px;
+          gap: 4px;
+          position: relative;
         }
-        .header-main {
-          width: 100%;
+        /* Top 3 distinct styles (gold/silver/bronze) */
+        .winner-card.rank-1 {
+          background: linear-gradient(145deg, #fff9e6, #ffecb3) !important;
+          border: 2px solid #f57c00 !important; border-left: 5px solid #f57c00 !important;
+          box-shadow: 0 3px 12px rgba(245, 124, 0, 0.25) !important;
         }
-        header h1 {
-          font-size: clamp(1rem, 5vw, 1.6rem);
+        .winner-card.rank-2 {
+          background: linear-gradient(145deg, #f5f5f5, #e0e0e0) !important;
+          border: 2px solid #757575 !important; border-left: 5px solid #757575 !important;
+          box-shadow: 0 3px 12px rgba(117, 117, 117, 0.25) !important;
         }
-        header p {
-          font-size: clamp(0.8rem, 3.5vw, 1rem);
+        .winner-card.rank-3 {
+          background: linear-gradient(145deg, #fff3e0, #ffe0b2) !important;
+          border: 2px solid #ff8f00 !important; border-left: 5px solid #ff8f00 !important;
+          box-shadow: 0 3px 12px rgba(255, 143, 0, 0.25) !important;
         }
-        .countdown-clock {
-          max-width: 280px;
-          padding: 12px 15px;
+
+        /* Four-line card structure: rank → name → prize → highlights */
+        .winner-rank {
+          font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; color: var(--primary-color); line-height: 1;
         }
+        .winner-name {
+          font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; line-height: 1.2; color: var(--heading-color);
+        }
+        .winner-prize {
+          font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; color: var(--primary-color); line-height: 1;
+        }
+
+        .winner-highlights {
+          display: flex; gap: 4px; flex-wrap: wrap; margin-top: 2px; justify-content: flex-start;
+        }
+        .highlight-badge {
+          padding: 2px 6px; border-radius: 8px; font-size: 0.65rem; font-weight: 600; line-height: 1.1; white-space: nowrap;
+        }
+        .highlight-badge.gw { background: var(--secondary-color); color: var(--primary-color); }
+        .highlight-badge.gm { background: #ff6b6b; color: #fff; }
+
+        /* Stats summary stacks on mobile */
+        .stats-summary { grid-template-columns: 1fr; gap: 12px; }
+        .summary-card { padding: 18px 12px; }
+        .summary-card.primary-metric { padding: 22px 15px; }
+        .summary-icon { font-size: 1.4rem; margin-bottom: 8px; }
+        .summary-card.primary-metric .summary-icon { font-size: 1.8rem; margin-bottom: 10px; }
+        .summary-number { font-size: 1.6rem; }
+        .summary-card.primary-metric .summary-number { font-size: 2.2rem; }
+        .summary-label { font-size: 0.75rem; font-weight: 600; }
+        .summary-card.primary-metric .summary-label { font-size: 0.8rem; font-weight: 700; }
+
+        /* Reveal the subtitle on mobile too */
+        .winners-heading .heading-subtitle { opacity: 1; transform: none; }
       }
 
+      /* ===================================================================
+         ULTRA-NARROW DEVICES (≤360px)
+         WHY: Improve readability and prevent overflow on very small phones.
+         =================================================================== */
       @media (max-width: 360px) {
-        header {
-          padding: 15px 10px;
-        }
-        header h1 {
-          font-size: 0.95rem;
-          letter-spacing: -0.5px;
-          white-space: normal;
-          line-height: 1.2;
-          text-overflow: unset;
-          overflow: visible;
-        }
-        header p {
-          font-size: 0.75rem;
-        }
-        .countdown-clock {
-          padding: 8px 5px;
-        }
-        .countdown-label {
-          font-size: 0.7rem;
-          letter-spacing: 0;
-        }
-        .countdown-time {
-          font-size: 0.8rem;
-          letter-spacing: 0;
-        }
-        .countdown-unit {
-          min-width: 12px;
-        }
-        .countdown-unit-label {
-          font-size: 0.5rem;
-        }
+        .container { padding: 0 8px; }
+        header { padding: 15px 10px; }
+        header h1 { font-size: 0.95rem; letter-spacing: -0.5px; line-height: 1.2; }
+        header p { font-size: 0.75rem; }
+        .countdown-clock { padding: 8px 5px; }
+        .countdown-label { font-size: 0.7rem; letter-spacing: 0; }
+        .countdown-time { font-size: 0.8rem; letter-spacing: 0; }
+        .countdown-unit { min-width: 12px; }
+        .countdown-unit-label { font-size: 0.5rem; }
+      }
+
+      /* Floating "test phase" toggle (dev only) */
+      .floating-toggle {
+        position: fixed; left: 12px; bottom: 12px; z-index: 9999; background: #1f1f1f; color: #eaeaea;
+        border: 1px solid #444; border-radius: 999px; padding: 8px 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        font-size: 12px; display: flex; align-items: center; gap: 6px;
+      }
+      .floating-toggle button { background: transparent; color: inherit; border: none; cursor: pointer; font-size: 12px; font-weight: 700; }
+
+      /* Back to Home floating action button */
+      .back-fab {
+        position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0)); z-index: 10000;
+        display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; color: #fff;
+        background: rgba(0, 0, 0, 0.25); text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: var(--border-radius); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); transition: transform 0.15s ease, background 0.2s ease; font-weight: 600;
+      }
+      .back-fab:hover { background: rgba(0, 0, 0, 0.35); transform: translateY(-2px); }
+      .back-fab:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.85); outline-offset: 2px; }
+      @media (max-width: 768px) {
+        .back-fab { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0)); padding: 9px 12px; }
       }
     </style>
-    <style>
-      /* Winners heading: mobile-first stacked subtitle (match index.html) */
-      .winners-heading {
-        display: block;
-        margin: 0 0 0.5rem 0;
-      }
-      .winners-heading .heading-main {
-        display: block;
-        font-size: 1.35rem; /* match index.html */
-        line-height: 1.1;
-        font-weight: 700;
-      }
-      .winners-heading .heading-subtitle {
-        display: block;
-        font-size: 0.85rem; /* match index */
-        line-height: 1;
-        color: #666;
-        margin-top: 4px;
-        opacity: 0;
-        transform: translateY(4px);
-        transition:
-          opacity 180ms ease,
-          transform 180ms ease;
-      }
-      .winners-heading .heading-subtitle.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
 
-      /* Respect users who prefer reduced motion */
-      @media (prefers-reduced-motion: reduce) {
-        .winners-heading .heading-subtitle,
-        .winners-heading .heading-subtitle.show {
-          transition: none;
-          transform: none;
-        }
-      }
+    <!--
+      =====================================================================
+      MOBILE HIGHLIGHTS RIGHT-ALIGN OVERRIDE
+      WHY:
+      - Aligns the 4th line (badges: GW / GM / League Rank) to the RIGHT
+        within the mobile card, per latest design.
+      - Placed as a separate <style> so it’s easy to spot/remove if design
+        changes. It only affects ≤700px viewports.
+      =====================================================================
+    -->
+    <style id="mobile-winner-highlights-right-align">
+      @media (max-width: 700px){
+        .winner-highlights{
+          display:flex;
+          gap:4px;
+          flex-wrap:wrap;
+          margin-top:2px;
 
-      /* Larger screens: put subtitle inline beside the main title */
-      @media (min-width: 700px) {
-        .winners-heading {
-          display: flex;
-          align-items: baseline;
-          gap: 0.5rem;
-        }
-        .winners-heading .heading-main {
-          display: inline-block;
-          font-size: 1.25rem;
-        }
-        .winners-heading .heading-subtitle {
-          display: inline-block;
-          margin-top: 0;
+          /* Right align the entire line (4th line) */
+          justify-content:flex-end;  /* packs badges to the right */
+          text-align:right;
+          margin-left:auto;          /* pushes the group to the right edge */
+          width:100%;                /* ensures wrapped rows align right */
         }
       }
     </style>
   </head>
+
   <body>
     <div class="container">
+      <!-- ===============================================================
+           HEADER BLOCK
+           =============================================================== -->
       <header>
-        <!-- Main header block mirroring index.html -->
         <div class="header-main">
           <h1>🏆 Complete Winner Scorecard</h1>
           <p>IIM Mumbai Fantasy League - Season 2025-26</p>
         </div>
-        <!-- Countdown Clock (same structure as index.html) -->
+
+        <!-- Countdown is shown/hidden by JS based on data availability -->
         <div id="countdown-clock" class="countdown-clock is-hidden" aria-live="polite">
           <div class="countdown-label" id="countdown-label">Time until GW1 kick-off</div>
           <div class="countdown-time">
@@ -1466,7 +580,8 @@
           </div>
         </div>
       </header>
-      <!-- Floating phase toggle (test only) -->
+
+      <!-- Dev-only floating toggle to simulate phases -->
       <div id="floating-phase-toggle" class="floating-toggle is-hidden" aria-live="polite">
         <i class="fas fa-random" aria-hidden="true"></i>
         <button id="phase-toggle-btn-float" onclick="togglePhaseWinners()">Toggle phase</button>
@@ -1479,43 +594,40 @@
           Open Home
         </button>
       </div>
-      <!-- Test badge appended in test mode via JS -->
 
       <main>
+        <!-- =============================================================
+             SECTION: League statistics summary (auto-filled via JS)
+             ============================================================= -->
         <section>
           <h2>📊 League Statistics</h2>
           <div class="stats-summary" id="stats-summary">
             <div class="summary-card">
-              <div class="summary-icon">
-                <i class="fas fa-calendar-check"></i>
-              </div>
+              <div class="summary-icon"><i class="fas fa-calendar-check"></i></div>
               <div class="summary-number" id="completed-gameweeks">--</div>
               <div class="summary-label">Completed Gameweeks</div>
             </div>
             <div class="summary-card">
-              <div class="summary-icon">
-                <i class="fas fa-calendar-alt"></i>
-              </div>
+              <div class="summary-icon"><i class="fas fa-calendar-alt"></i></div>
               <div class="summary-number" id="completed-gamemonths">--</div>
               <div class="summary-label">Completed Gamemonths</div>
             </div>
             <div class="summary-card">
-              <div class="summary-icon">
-                <i class="fas fa-users"></i>
-              </div>
+              <div class="summary-icon"><i class="fas fa-users"></i></div>
               <div class="summary-number" id="total-winners">--</div>
               <div class="summary-label">Total Winners</div>
             </div>
             <div class="summary-card primary-metric">
-              <div class="summary-icon">
-                <i class="fas fa-coins"></i>
-              </div>
+              <div class="summary-icon"><i class="fas fa-coins"></i></div>
               <div class="summary-number" id="total-prize-money">--</div>
               <div class="summary-label">Total Prize Money</div>
             </div>
           </div>
         </section>
 
+        <!-- =============================================================
+             SECTION: Winners list (table for desktop, cards for mobile)
+             ============================================================= -->
         <section>
           <h2 class="winners-heading" id="winners-page-heading">
             <span class="heading-main">🏅 Complete Winner Rankings</span>
@@ -1523,31 +635,24 @@
           </h2>
           <p>All players ranked by total prize money won this season.</p>
 
+          <!-- Desktop/tablet container. On mobile this is replaced with cards -->
           <div id="winner-table-container">
             <div class="winner-loading">Loading complete winner data...</div>
           </div>
 
+          <!-- Pagination (visible only when number of items exceed page size) -->
           <div class="winner-navigation is-hidden" id="winner-navigation">
-            <button
-              id="winner-prev-page"
-              class="winner-nav-btn"
-              onclick="previousWinnerPage()"
-              disabled
-            >
+            <button id="winner-prev-page" class="winner-nav-btn" onclick="previousWinnerPage()" disabled>
               <i class="fas fa-chevron-left"></i> Previous
             </button>
             <span id="winner-page-info" class="page-info">Page 1 of 1</span>
-            <button
-              id="winner-next-page"
-              class="winner-nav-btn"
-              onclick="nextWinnerPage()"
-              disabled
-            >
+            <button id="winner-next-page" class="winner-nav-btn" onclick="nextWinnerPage()" disabled>
               Next <i class="fas fa-chevron-right"></i>
             </button>
           </div>
 
-          <div id="winner-last-updated" class="winner-last-updated">
+          <!-- Last updated timestamp (from data.lastUpdated) -->
+          <div id="winner-last-updated" class="winner-last-updated" style="text-align:center;font-size:0.93rem;color:#777;font-style:italic;margin-top:20px;">
             Fetching latest winner data...
           </div>
         </section>
@@ -1557,963 +662,521 @@
         <p>Developed by Aditya Garg (@addygunner)</p>
         <p class="footer-last-updated">Last updated: August 2025</p>
       </footer>
-      <!-- Floating Back to Home button -->
+
+      <!-- Back to Home floating action button -->
       <a id="back-fab" href="index.html" class="back-fab" aria-label="Back to Home">
         <i class="fas fa-arrow-left" aria-hidden="true"></i>
         Back to Home
       </a>
     </div>
 
+    <!-- ===================================================================
+         SCRIPT
+         -------------------------------------------------------------------
+         RESPONSIBILITIES
+         - Fetch next GW deadline → render countdown
+         - Load winners data (test/live) → render table/cards
+         - Handle pagination and phase/test toggles
+         - Maintain light localStorage cache for countdown
+         =================================================================== -->
     <script>
-      /*
-   ===== Client-side logic overview =====
-   - Countdown logic: shows time until next gameweek (uses data/next_deadline.json)
-   - Winners loader: fetches winners JSON (live or test) and renders a paginated table
-   - Pagination helpers: next/previous page handling and UI update
-   - Utilities: localStorage caching, debug/test flags, small DOM helpers
-       
-   Important: keep behaviour unchanged when adding comments. New contributors should
-   first read the top-level helpers: `loadWinnerData`, `displayWinnerTable`, and
-   `optimizeTableColumnWidths`.
-  */
+      /* -------------------------------------------------------------------
+         UTILITIES / GLOBAL STATE
+         ------------------------------------------------------------------- */
 
-      // ===== Countdown logic (mirrors index.html, trimmed for winners page) =====
+      // Pull clock offset from URL to simulate future/past times locally.
       const _urlParams_boot = new URLSearchParams(window.location.search);
       const _clockOffsetRaw = parseInt(_urlParams_boot.get('clockOffset') || '0', 10);
       const timeOffsetMs = isNaN(_clockOffsetRaw) ? 0 : _clockOffsetRaw;
-      function now() {
-        return new Date(Date.now() + timeOffsetMs);
+
+      // Convenient wrapper that respects offset. Do not directly use new Date()
+      // for countdown calculations—this helps QA test scenarios.
+      function now(){ return new Date(Date.now() + timeOffsetMs); }
+
+      // Small helpers to show/hide elements without repeating class logic.
+      function show(el){ if(el) el.classList.remove('is-hidden'); }
+      function hide(el){ if(el) el.classList.add('is-hidden'); }
+
+      // Sanitize strings before injecting into HTML.
+      function escapeHTML(str){ if(!str && str!==0) return ''; return String(str)
+        .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+        .replaceAll('"','&quot;').replaceAll("'",'&#039;'); }
+
+      /* -------------------------------------------------------------------
+         COUNTDOWN STATE
+         NOTE:
+         - _lastProcessedGW reflects latest completed GW (from winners payload)
+         - _lastGwId reflects next GW ID (from FPL endpoint)
+         ------------------------------------------------------------------- */
+      let countdownInterval=null, countdownShown=false, usedCachedOnLoad=false;
+      let _lastSyncIso=null, _lastGwId=null, _lastProcessedGW=null;
+
+      // Query param checkers
+      function isAdminMode(){ const p=new URLSearchParams(window.location.search); return p.get('test')==='true'||p.get('admin')==='true'; }
+
+      // Records sync metadata for admin badge
+      function setLastSyncInfo(gwId,iso){ _lastGwId=gwId||_lastGwId; _lastSyncIso=iso||_lastSyncIso; }
+
+      // Helper to strip "(cached)" from countdown label when live sync returns
+      function removeCachedLabel(){ const label=document.getElementById('countdown-label'); if(!label) return; label.textContent=label.textContent.replace(/\s*\(cached\)$/i,''); }
+
+      // Briefly shows "Synced just now" next to countdown label (nice UX cue)
+      function showSyncedJustNow(){
+        const label=document.getElementById('countdown-label'); if(!label) return;
+        const old=label.querySelector('.sync-badge'); if(old) old.remove();
+        const b=document.createElement('span'); b.className='sync-badge'; b.textContent='Synced just now';
+        label.appendChild(b); void b.offsetWidth; b.classList.add('show');
+        setTimeout(()=>{b.classList.remove('show'); setTimeout(()=>b.remove(),350);},2000);
       }
 
-      function show(el) {
-        if (el) el.classList.remove('is-hidden');
-      }
-      function hide(el) {
-        if (el) el.classList.add('is-hidden');
-      }
-
-      // Small helper to escape HTML when rendering dynamic content
-      function escapeHTML(str) {
-        if (!str && str !== 0) return '';
-        return String(str)
-          .replaceAll('&', '&amp;')
-          .replaceAll('<', '&lt;')
-          .replaceAll('>', '&gt;')
-          .replaceAll('"', '&quot;')
-          .replaceAll("'", '&#039;');
+      // Builds the small orange "admin" badge (GW + last synced time)
+      function attachAdminBadge(){
+        if(!isAdminMode()) return;
+        const label=document.getElementById('countdown-label'); if(!label) return;
+        let badge=label.querySelector('.admin-badge'); const parts=[];
+        if(typeof _lastGwId==='number') parts.push(`GW${_lastGwId}`);
+        if(_lastSyncIso){ try{
+          const d=new Date(_lastSyncIso); const tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
+          parts.push(`synced ${d.toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short',timeZone:tz})}`);
+        }catch{}}
+        const text=parts.length?parts.join(' • '):'admin';
+        if(!badge){ badge=document.createElement('span'); badge.className='admin-badge'; badge.textContent=text; label.appendChild(badge); }
+        else { badge.textContent=text; }
       }
 
-      let countdownInterval = null;
-      let countdownShown = false;
-      let usedCachedOnLoad = false;
-      let _lastSyncIso = null;
-      let _lastGwId = null;
-      // last finished / processed GW according to winners data (summary.lastProcessedGW)
-      let _lastProcessedGW = null;
-      function isAdminMode() {
-        const p = new URLSearchParams(window.location.search);
-        return p.get('test') === 'true' || p.get('admin') === 'true';
-      }
-      // isAdminMode: small helper used by countdown to append an admin badge
-      function setLastSyncInfo(gwId, iso) {
-        _lastGwId = gwId || _lastGwId;
-        _lastSyncIso = iso || _lastSyncIso;
-      }
-      function removeCachedLabel() {
-        const label = document.getElementById('countdown-label');
-        if (!label) return;
-        label.textContent = label.textContent.replace(/\s*\(cached\)$/i, '');
-      }
-      function showSyncedJustNow() {
-        const label = document.getElementById('countdown-label');
-        if (!label) return;
-        const old = label.querySelector('.sync-badge');
-        if (old) old.remove();
-        const b = document.createElement('span');
-        b.className = 'sync-badge';
-        b.textContent = 'Synced just now';
-        label.appendChild(b);
-        void b.offsetWidth;
-        b.classList.add('show');
-        setTimeout(() => {
-          b.classList.remove('show');
-          setTimeout(() => b.remove(), 350);
-        }, 2000);
-      }
-      function attachAdminBadge() {
-        if (!isAdminMode()) return;
-        const label = document.getElementById('countdown-label');
-        if (!label) return;
-        let badge = label.querySelector('.admin-badge');
-        const parts = [];
-        if (typeof _lastGwId === 'number') parts.push(`GW${_lastGwId}`);
-        if (_lastSyncIso) {
-          try {
-            const d = new Date(_lastSyncIso);
-            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const nice = d.toLocaleString('en-GB', {
-              dateStyle: 'medium',
-              timeStyle: 'short',
-              timeZone: tz,
-            });
-            parts.push(`synced ${nice}`);
-          } catch {}
-        }
-        const text = parts.length ? parts.join(' • ') : 'admin';
-        if (!badge) {
-          badge = document.createElement('span');
-          badge.className = 'admin-badge';
-          badge.textContent = text;
-          label.appendChild(badge);
-        } else {
-          badge.textContent = text;
-        }
+      /* -------------------------------------------------------------------
+         LOCAL STORAGE HELPERS (countdown cache)
+         WHY: Countdown remains visible even if network is slow or blocked.
+         ------------------------------------------------------------------- */
+      function getCachedDeadline(){ try{ const iso=localStorage.getItem('fpl_next_deadline'); if(!iso) return null; const d=new Date(iso); return isNaN(d.getTime())?null:d; }catch{return null;} }
+      function setCachedDeadline(iso){ try{ localStorage.setItem('fpl_next_deadline',iso);}catch{} }
+
+      // Cache a minimal GW object to compute "After GWX" subtitle reliably.
+      function getCachedGameweek(){ try{
+        const raw=localStorage.getItem('fpl_cached_gw'); if(!raw) return null;
+        const obj=JSON.parse(raw); if(!obj||typeof obj.id==='undefined'||!obj.deadline_time) return null;
+        const d=new Date(obj.deadline_time); if(isNaN(d.getTime())) return null; return {id:obj.id, deadline_time:obj.deadline_time};
+      }catch{return null;} }
+      function setCachedGameweek(gw){ try{ if(gw&&typeof gw.id!=='undefined'&&gw.deadline_time){ localStorage.setItem('fpl_cached_gw', JSON.stringify({id:gw.id, deadline_time:gw.deadline_time})); } }catch{} }
+
+      /* -------------------------------------------------------------------
+         COUNTDOWN RENDERING
+         ------------------------------------------------------------------- */
+      function startCountdown(deadlineTime, gameweek=null){
+        if(countdownInterval){ clearInterval(countdownInterval); countdownInterval=null; }
+        const clock=document.getElementById('countdown-clock'); if(clock) show(clock);
+        if(gameweek) updateGameweekCountdown(gameweek); else updateCountdownDisplay(deadlineTime);
+        countdownInterval=setInterval(()=>{ if(gameweek) updateGameweekCountdown(gameweek); else updateCountdownDisplay(deadlineTime); },1000);
+        countdownShown=true;
       }
 
-      // ------------------------------------------------------------------
-      // Caching helpers - store deadline and the 'next gameweek' in localStorage
-      // These allow the page to show a cached countdown while network requests
-      // are happening (helpful in test mode or on slow connections).
-      // ------------------------------------------------------------------
-
-      function getCachedDeadline() {
-        try {
-          const iso = localStorage.getItem('fpl_next_deadline');
-          if (!iso) return null;
-          const d = new Date(iso);
-          return isNaN(d.getTime()) ? null : d;
-        } catch {
-          return null;
-        }
-      }
-      function setCachedDeadline(iso) {
-        try {
-          localStorage.setItem('fpl_next_deadline', iso);
-        } catch {}
-      }
-      function getCachedGameweek() {
-        try {
-          const raw = localStorage.getItem('fpl_cached_gw');
-          if (!raw) return null;
-          const obj = JSON.parse(raw);
-          if (!obj || typeof obj.id === 'undefined' || !obj.deadline_time) return null;
-          const d = new Date(obj.deadline_time);
-          if (isNaN(d.getTime())) return null;
-          return { id: obj.id, deadline_time: obj.deadline_time };
-        } catch {
-          return null;
-        }
-      }
-      function setCachedGameweek(gw) {
-        try {
-          if (gw && typeof gw.id !== 'undefined' && gw.deadline_time) {
-            localStorage.setItem(
-              'fpl_cached_gw',
-              JSON.stringify({ id: gw.id, deadline_time: gw.deadline_time })
-            );
-          }
-        } catch {}
+      // Simple countdown (when GW object not available)
+      function updateCountdownDisplay(deadlineTime){
+        const diff=deadlineTime - now(); if(diff<=0){ const clock=document.getElementById('countdown-clock'); if(clock) hide(clock); return; }
+        const label=document.getElementById('countdown-label'); if(label){ label.textContent='Time until GW1 kick-off'; attachAdminBadge(); }
+        const d=Math.floor(diff/(1000*60*60*24)); const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60)); const m=Math.floor((diff%(1000*60*60))/(1000*60));
+        document.getElementById('countdown-days').textContent=String(d).padStart(2,'0');
+        document.getElementById('countdown-hours').textContent=String(h).padStart(2,'0');
+        document.getElementById('countdown-minutes').textContent=String(m).padStart(2,'0');
       }
 
-      function startCountdown(deadlineTime, gameweek = null) {
-        if (countdownInterval) {
-          clearInterval(countdownInterval);
-          countdownInterval = null;
-        }
-        const clock = document.getElementById('countdown-clock');
-        if (clock) show(clock);
-        if (gameweek) {
-          updateGameweekCountdown(gameweek);
-        } else {
-          updateCountdownDisplay(deadlineTime);
-        }
-        countdownInterval = setInterval(() => {
-          if (gameweek) {
-            updateGameweekCountdown(gameweek);
+      // Full countdown with "GWx" label and live/units toggling
+      function updateGameweekCountdown(gameweek){
+        const clock=document.getElementById('countdown-clock'); const label=document.getElementById('countdown-label');
+        if(clock&&label){ show(clock); label.textContent=`Time until GW${gameweek.id} kick-off`; attachAdminBadge();
+          const dl=new Date(gameweek.deadline_time); const diff=dl - now();
+          if(diff<=0){
+            // When GW is live, switch to compact "LIVE"
+            document.getElementById('countdown-days').textContent='LIVE';
+            document.getElementById('countdown-hours').textContent=''; document.getElementById('countdown-minutes').textContent='';
+            document.querySelectorAll('.countdown-separator').forEach(s=>s.classList.add('is-hidden'));
+            document.querySelectorAll('.countdown-unit-label').forEach(l=>l.classList.add('is-hidden'));
           } else {
-            updateCountdownDisplay(deadlineTime);
+            const d=Math.floor(diff/(1000*60*60*24)); const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60)); const m=Math.floor((diff%(1000*60*60))/(1000*60));
+            document.getElementById('countdown-days').textContent=String(d).padStart(2,'0');
+            document.getElementById('countdown-hours').textContent=String(h).padStart(2,'0');
+            document.getElementById('countdown-minutes').textContent=String(m).padStart(2,'0');
+            document.querySelectorAll('.countdown-separator').forEach(s=>s.classList.remove('is-hidden'));
+            document.querySelectorAll('.countdown-unit-label').forEach(l=>l.classList.remove('is-hidden'));
           }
-        }, 1000);
-        countdownShown = true;
-      }
-      function updateCountdownDisplay(deadlineTime) {
-        const currentDate = now();
-        const diff = deadlineTime - currentDate;
-        if (diff <= 0) {
-          const clock = document.getElementById('countdown-clock');
-          if (clock) hide(clock);
-          return;
-        }
-        const label = document.getElementById('countdown-label');
-        if (label) {
-          label.textContent = 'Time until GW1 kick-off';
-          attachAdminBadge();
-        }
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const dEl = document.getElementById('countdown-days');
-        const hEl = document.getElementById('countdown-hours');
-        const mEl = document.getElementById('countdown-minutes');
-        if (dEl) dEl.textContent = String(days).padStart(2, '0');
-        if (hEl) hEl.textContent = String(hours).padStart(2, '0');
-        if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
-      }
-      function updateGameweekCountdown(gameweek) {
-        const clock = document.getElementById('countdown-clock');
-        const label = document.getElementById('countdown-label');
-        if (clock && label) {
-          show(clock);
-          label.textContent = `Time until GW${gameweek.id} kick-off`;
-          attachAdminBadge();
-          const deadlineTime = new Date(gameweek.deadline_time);
-          const currentDate = now();
-          const diff = deadlineTime - currentDate;
-          if (diff <= 0) {
-            document.getElementById('countdown-days').textContent = 'LIVE';
-            document.getElementById('countdown-hours').textContent = '';
-            document.getElementById('countdown-minutes').textContent = '';
-            document
-              .querySelectorAll('.countdown-separator')
-              .forEach((s) => s.classList.add('is-hidden'));
-            document
-              .querySelectorAll('.countdown-unit-label')
-              .forEach((l) => l.classList.add('is-hidden'));
-          } else {
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById('countdown-days').textContent = String(days).padStart(2, '0');
-            document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('countdown-minutes').textContent = String(minutes).padStart(
-              2,
-              '0'
-            );
-            document
-              .querySelectorAll('.countdown-separator')
-              .forEach((s) => s.classList.remove('is-hidden'));
-            document
-              .querySelectorAll('.countdown-unit-label')
-              .forEach((l) => l.classList.remove('is-hidden'));
-          }
-          // Keep winners page subtitle in sync
-          try {
-            updateWinnersPageHeaderGW();
-          } catch (e) {}
+          try { updateWinnersPageHeaderGW(); } catch(e){}
         }
       }
 
-      function loadFPLSeasonData() {
-        // loadFPLSeasonData
-        // - Purpose: load the next gameweek deadline used by the countdown widget.
-        // - Sources: first attempts local `data/next_deadline.json`, then falls back
-        //   to a small list of CORS proxies to extract the next event from the
-        //   official FPL bootstrap API. On repeated failures a conservative fallback
-        //   deadline is used so the countdown still shows something meaningful.
-        const backendUrl = 'data/next_deadline.json?cache=' + Date.now();
+      /* -------------------------------------------------------------------
+         FPL SEASON METADATA (next deadline) LOADER
+         DESIGN:
+         1) Try project backend (/data/next_deadline.json).
+         2) If fail, try CORS proxies pointing to FPL API.
+         3) If fail, fallback to a known ISO date as a safe default.
+         ------------------------------------------------------------------- */
+      function loadFPLSeasonData(){
+        const backendUrl='data/next_deadline.json?cache='+Date.now();
         fetch(backendUrl)
-          .then((r) => (r.ok ? r.json() : Promise.reject(new Error('backend 404'))))
-          .then((data) => {
-            if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
-              const gw = data.nextGameweek;
-              const deadline = new Date(gw.deadline_time);
-              setCachedDeadline(deadline.toISOString());
-              setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
-              setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
-              updateGameweekCountdown(gw);
-              startCountdown(deadline, gw);
-              scheduleRolloverCheck(deadline);
-              attachAdminBadge();
-              return;
+          .then(r=>r.ok?r.json():Promise.reject(new Error('backend 404')))
+          .then(data=>{
+            if(data&&data.nextGameweek&&data.nextGameweek.deadline_time){
+              const gw=data.nextGameweek; const dl=new Date(gw.deadline_time);
+              setCachedDeadline(dl.toISOString()); setCachedGameweek({id:gw.id, deadline_time:gw.deadline_time});
+              setLastSyncInfo(gw.id, data.lastUpdated||new Date().toISOString());
+              updateGameweekCountdown(gw); startCountdown(dl, gw); scheduleRolloverCheck(dl);
+              attachAdminBadge(); return;
             }
-            throw new Error('backend payload invalid');
+            throw new Error('invalid payload');
           })
-          .catch(() => {
-            loadFPLSeasonDataViaProxy();
-          });
+          .catch(()=> loadFPLSeasonDataViaProxy());
       }
-      function scheduleRolloverCheck(deadline) {
-        const ms = deadline - now();
-        if (ms > 0 && ms < 1000 * 60 * 60 * 24 * 7) {
-          setTimeout(() => {
-            fetch('data/next_deadline.json?cache=' + Date.now())
-              .then((r) => (r.ok ? r.json() : Promise.reject()))
-              .then((data) => {
-                if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
-                  const gw = data.nextGameweek;
-                  const dl = new Date(gw.deadline_time);
-                  setCachedDeadline(dl.toISOString());
-                  setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
-                  setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
-                  updateGameweekCountdown(gw);
-                  startCountdown(dl, gw);
-                  attachAdminBadge();
-                } else {
-                  loadFPLSeasonDataViaProxy();
-                }
+
+      // When close to a deadline, re-check shortly after to rollover to next GW
+      function scheduleRolloverCheck(deadline){
+        const ms=deadline - now(); if(ms>0 && ms<1000*60*60*24*7){
+          setTimeout(()=>{
+            fetch('data/next_deadline.json?cache='+Date.now())
+              .then(r=>r.ok?r.json():Promise.reject())
+              .then(data=>{
+                if(data&&data.nextGameweek&&data.nextGameweek.deadline_time){
+                  const gw=data.nextGameweek; const dl=new Date(gw.deadline_time);
+                  setCachedDeadline(dl.toISOString()); setCachedGameweek({id:gw.id, deadline_time:gw.deadline_time});
+                  setLastSyncInfo(gw.id, data.lastUpdated||new Date().toISOString());
+                  updateGameweekCountdown(gw); startCountdown(dl, gw); attachAdminBadge();
+                } else { loadFPLSeasonDataViaProxy(); }
               })
               .catch(loadFPLSeasonDataViaProxy);
-          }, ms + 15000);
+          }, ms+15000);
         }
       }
-      function loadFPLSeasonDataViaProxy() {
-        const corsProxies = [
-          'https://api.allorigins.win/raw?url=' +
-            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
-          'https://corsproxy.io/?' +
-            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
-          'https://api.codetabs.com/v1/proxy?quest=' +
-            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
+
+      // Multi-proxy attempt to reach public FPL API
+      function loadFPLSeasonDataViaProxy(){
+        const proxies=[
+          'https://api.allorigins.win/raw?url='+encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
+          'https://corsproxy.io/?'+encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
+          'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/')
         ];
-        let i = 0;
-        function tryNext() {
-          if (i >= corsProxies.length) {
-            const fallbackDate = new Date('2025-08-15T17:30:00Z');
-            setCachedDeadline(fallbackDate.toISOString());
-            const clock = document.getElementById('countdown-clock');
-            if (clock) show(clock);
-            if (usedCachedOnLoad) {
-              removeCachedLabel();
-              showSyncedJustNow();
-              usedCachedOnLoad = false;
-            }
-            updateCountdownDisplay(fallbackDate);
-            startCountdown(fallbackDate);
-            return;
+        let i=0;
+        (function tryNext(){
+          if(i>=proxies.length){
+            // FINAL FALLBACK: fixed ISO (keeps UI functional offline)
+            const fallback=new Date('2025-08-15T17:30:00Z'); setCachedDeadline(fallback.toISOString());
+            const clock=document.getElementById('countdown-clock'); if(clock) show(clock);
+            if(usedCachedOnLoad){ removeCachedLabel(); showSyncedJustNow(); usedCachedOnLoad=false; }
+            updateCountdownDisplay(fallback); startCountdown(fallback); return;
           }
-          const url = corsProxies[i];
-          fetch(url)
-            .then((resp) => {
-              if (!resp.ok) throw new Error('proxy failed');
-              return resp.json();
-            })
-            .then((data) => {
-              const nextGameweek = data.events.find((e) => e.is_next === true);
-              if (nextGameweek) {
-                const deadlineTime = new Date(nextGameweek.deadline_time);
-                setCachedDeadline(deadlineTime.toISOString());
-                setCachedGameweek({
-                  id: nextGameweek.id,
-                  deadline_time: nextGameweek.deadline_time,
-                });
-                setLastSyncInfo(nextGameweek.id, new Date().toISOString());
-                if (usedCachedOnLoad) {
-                  removeCachedLabel();
-                  showSyncedJustNow();
-                  usedCachedOnLoad = false;
-                }
-                updateGameweekCountdown(nextGameweek);
-                startCountdown(deadlineTime, nextGameweek);
-                scheduleRolloverCheck(deadlineTime);
-                attachAdminBadge();
+          fetch(proxies[i])
+            .then(r=>{ if(!r.ok) throw new Error('proxy fail'); return r.json();})
+            .then(data=>{
+              const next=data.events.find(e=>e.is_next===true);
+              if(next){
+                const dl=new Date(next.deadline_time);
+                setCachedDeadline(dl.toISOString()); setCachedGameweek({id:next.id, deadline_time:next.deadline_time});
+                setLastSyncInfo(next.id, new Date().toISOString());
+                if(usedCachedOnLoad){ removeCachedLabel(); showSyncedJustNow(); usedCachedOnLoad=false; }
+                updateGameweekCountdown(next); startCountdown(dl, next); scheduleRolloverCheck(dl); attachAdminBadge();
               } else {
-                const fallbackDate = new Date('2025-08-15T17:30:00Z');
-                setCachedDeadline(fallbackDate.toISOString());
-                if (usedCachedOnLoad) {
-                  removeCachedLabel();
-                  showSyncedJustNow();
-                  usedCachedOnLoad = false;
-                }
-                updateCountdownDisplay(fallbackDate);
-                startCountdown(fallbackDate);
+                const fallback=new Date('2025-08-15T17:30:00Z'); setCachedDeadline(fallback.toISOString());
+                if(usedCachedOnLoad){ removeCachedLabel(); showSyncedJustNow(); usedCachedOnLoad=false; }
+                updateCountdownDisplay(fallback); startCountdown(fallback);
               }
             })
-            .catch(() => {
-              i++;
-              tryNext();
-            });
-        }
-        tryNext();
+            .catch(()=>{ i++; tryNext(); });
+        })();
       }
-      // Global variables for winner pagination
-      let allWinners = [];
-      let currentWinnerPage = 1;
-      const winnerItemsPerPage = 10;
 
-      // Determine debug mode from URL (?debug=1 or test mode)
-      let isDebugMode = false;
-      document.addEventListener('DOMContentLoaded', function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get('test') === 'true';
-        isDebugMode = isTestMode || urlParams.get('debug') === '1';
-        loadWinnerData();
-        checkTestMode();
+      /* -------------------------------------------------------------------
+         WINNERS DATA LOADER + RENDERERS
+         ------------------------------------------------------------------- */
+      let allWinners=[], currentWinnerPage=1; const winnerItemsPerPage=10;
+      let isDebugMode=false;
 
-        // Countdown: optionally render from cache early in test mode
-        if (isTestMode) {
-          const cachedDeadline = getCachedDeadline();
-          if (cachedDeadline && cachedDeadline - now() > 0) {
-            const countdownClock = document.getElementById('countdown-clock');
-            if (countdownClock) show(countdownClock);
-            const label = document.getElementById('countdown-label');
-            if (label && !label.textContent.includes('(cached)')) {
-              label.textContent = label.textContent + ' (cached)';
-            }
-            usedCachedOnLoad = true;
-            startCountdown(cachedDeadline);
+      // ENTRYPOINT: wires up everything on DOM ready
+      document.addEventListener('DOMContentLoaded', function(){
+        const urlParams=new URLSearchParams(window.location.search);
+        const isTestMode=urlParams.get('test')==='true';
+        isDebugMode=isTestMode || urlParams.get('debug')==='1';
+
+        loadWinnerData();         // Fetch and render winners
+        checkTestMode();          // Applies TEST mode banners + floating toggle
+
+        // If in test mode and cached countdown exists, show it immediately
+        if(isTestMode){
+          const cached=getCachedDeadline();
+          if(cached && cached-now()>0){
+            const clock=document.getElementById('countdown-clock'); if(clock) show(clock);
+            const label=document.getElementById('countdown-label');
+            if(label && !label.textContent.includes('(cached)')) label.textContent += ' (cached)';
+            usedCachedOnLoad=true; startCountdown(cached);
           }
         }
 
-        // Load season data for countdown
-        loadFPLSeasonData();
-        // Ensure the winners page header shows cached gameweek if available
-        try {
-          updateWinnersPageHeaderGW();
-        } catch (e) {}
+        loadFPLSeasonData();      // Fetch live GW metadata for countdown
 
-        // Safety fallback if nothing shows quickly
-        setTimeout(() => {
-          if (!countdownShown) {
-            const fallbackDate = new Date('2025-08-15T17:30:00Z');
-            const countdownClock = document.getElementById('countdown-clock');
-            if (countdownClock) show(countdownClock);
-            startCountdown(fallbackDate);
-          }
-        }, 1500);
+        try{ updateWinnersPageHeaderGW(); }catch(e){}
+        // Safety: if countdown didn't initialize, boot with fallback after 1.5s
+        setTimeout(()=>{ if(!countdownShown){ const fallback=new Date('2025-08-15T17:30:00Z'); const clock=document.getElementById('countdown-clock'); if(clock) show(clock); startCountdown(fallback);} },1500);
       });
 
-      function getDataOverride() {
-        const p = (new URLSearchParams(window.location.search).get('data') || 'auto').toLowerCase();
-        return p === 'test' || p === 'live' ? p : 'auto';
+      // Reads "data" query param to force test/live or keep auto behavior
+      function getDataOverride(){
+        const p=(new URLSearchParams(window.location.search).get('data')||'auto').toLowerCase();
+        return p==='test'||p==='live'?p:'auto';
       }
 
-      function loadWinnerData() {
-        // loadWinnerData
-        // - Purpose: fetch winner JSON (either live or test) and populate the
-        //   global `allWinners` array used by `displayWinnerTable()`.
-        // - Behaviour: respects URL params: `test`, `data` (auto/test/live) and `debug`.
-        // - Error handling: shows a user-friendly error message on the page when the
-        //   fetch fails.
-        // - Note: this function mutates `allWinners` and updates the stats and UI.
-        // Check if we're in test mode and load appropriate file
-        const urlParams = new URLSearchParams(window.location.search);
-        const isTestParam = urlParams.get('test') === 'true';
-        const dataOverride = getDataOverride();
-        let useTestData = isTestParam;
-        if (dataOverride === 'test') useTestData = true;
-        if (dataOverride === 'live') useTestData = false;
-        isDebugMode = isTestParam || urlParams.get('debug') === '1';
+      // Loads winner data from the right file and triggers render
+      function loadWinnerData(){
+        const urlParams=new URLSearchParams(window.location.search);
+        const isTest=urlParams.get('test')==='true';
+        const dataOverride=getDataOverride();
+        let useTestData=isTest; if(dataOverride==='test') useTestData=true; if(dataOverride==='live') useTestData=false;
+        isDebugMode=isTest || urlParams.get('debug')==='1';
 
-        const winnerUrl =
-          (useTestData ? 'data/test_winner_stats.json' : 'data/winner_stats.json') +
-          '?cache=' +
-          new Date().getTime();
-
-        if (isDebugMode)
-          console.log(useTestData ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
+        const winnerUrl=(useTestData?'data/test_winner_stats.json':'data/winner_stats.json')+'?cache='+Date.now();
 
         fetch(winnerUrl)
-          .then((response) => {
-            if (isDebugMode) console.log('Winner fetch response:', response);
-            if (!response.ok) {
-              throw new Error('Winner data fetch failed');
-            }
-            return response.json();
-          })
-          .then((data) => {
-            if (isDebugMode) console.log('Fetched winner data:', data);
-
-            // Add test mode indicator if needed
-            if (useTestData && data.testMode) {
-              const headerP = document.querySelector('header p');
-              if (headerP && !headerP.textContent.includes('[TEST MODE]')) {
-                headerP.textContent = headerP.textContent + ' [TEST MODE - Demo Data]';
-                headerP.style.color = '#ff6b6b';
-              }
+          .then(r=>{ if(isDebugMode) console.log('Winner fetch response:', r); if(!r.ok) throw new Error('Winner data fetch failed'); return r.json(); })
+          .then(data=>{
+            // Visual indicator in header when browsing test dataset
+            if(useTestData && data.testMode){
+              const p=document.querySelector('header p');
+              if(p && !p.textContent.includes('[TEST MODE]')){ p.textContent = p.textcontent + ' [TEST MODE - Demo Data]'; p.style.color='#ff6b6b'; }
             }
 
-            // Store sorted winners globally for pagination
-            allWinners = data.winners.sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
+            // Sort winners by totalPrizeWon (desc)
+            allWinners = data.winners.sort((a,b)=> b.totalPrizeWon - a.totalPrizeWon);
+
+            // Render desktop/tablet table or mobile cards
             displayWinnerTable();
+
+            // Stats summary cards
             updateStatsSummary(data.winners);
 
-            // Update statistics from the JSON data summary
-            if (data.summary && data.summary.completedGameweeks !== undefined) {
-              document.getElementById('completed-gameweeks').textContent =
-                data.summary.completedGameweeks;
+            // Additional summary from payload (if provided)
+            if(data.summary && data.summary.completedGameweeks!==undefined){
+              document.getElementById('completed-gameweeks').textContent = data.summary.completedGameweeks;
+            }
+            if(data.summary && typeof data.summary.lastProcessedGW==='number'){
+              _lastProcessedGW = data.summary.lastProcessedGW;   // used for "After GWX"
+            }
+            if(data.summary && data.summary.completedMonths!==undefined){
+              document.getElementById('completed-gamemonths').textContent = data.summary.completedMonths;
             }
 
-            // Record last processed / finished GW from the summary if available
-            if (data.summary && typeof data.summary.lastProcessedGW === 'number') {
-              _lastProcessedGW = data.summary.lastProcessedGW;
-            }
-
-            // Update completed gamemonths from the JSON data summary
-            if (data.summary && data.summary.completedMonths !== undefined) {
-              document.getElementById('completed-gamemonths').textContent =
-                data.summary.completedMonths;
-            }
-
-            // Show last updated time for winners
+            // Last updated timestamp display
             const lastUpdated = new Date(data.lastUpdated);
-            const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const userLocale = navigator.language || 'en-GB';
-            const formattedDate = lastUpdated.toLocaleString(userLocale, {
-              dateStyle: 'medium',
-              timeStyle: 'short',
-              timeZone: userTimeZone,
-            });
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const locale = navigator.language || 'en-GB';
+            const formatted = lastUpdated.toLocaleString(locale, { dateStyle:'medium', timeStyle:'short', timeZone: tz });
+            document.getElementById('winner-last-updated').textContent =
+              useTestData ? `Last updated: ${formatted} (test data)` : `Last updated: ${formatted} (your local time)`;
 
-            const updateText = useTestData
-              ? `Last updated: ${formattedDate} (test data)`
-              : `Last updated: ${formattedDate} (your local time)`;
-
-            document.getElementById('winner-last-updated').textContent = updateText;
-            // Refresh page header subtitle (After GWx) now that processed GW may be known
-            try {
-              updateWinnersPageHeaderGW();
-            } catch (e) {}
+            try { updateWinnersPageHeaderGW(); } catch(e){}
           })
-          .catch((error) => {
-            console.error('Winner fetch error:', error);
+          .catch(err=>{
+            console.error('Winner fetch error:', err);
             document.getElementById('winner-table-container').innerHTML =
-              '<div class="winner-error">Unable to load winner data. Please try again later.</div>';
+              '<div class="winner-error" style="text-align:center;padding:40px;color:#d32f2f;background:#ffebee;border-radius:8px;margin-top:20px;">Unable to load winner data. Please try again later.</div>';
           });
       }
-      // ===== Winners page: populate the "After GWx" subtitle =====
-      function getLastFinishedGW() {
-        if (typeof _lastProcessedGW === 'number') return _lastProcessedGW;
-        if (typeof _lastGwId === 'number') return _lastGwId - 1;
-        const cached = getCachedGameweek();
-        if (cached && typeof cached.id === 'number') return cached.id - 1;
+
+      // Computes the "After GWx" message: prefer winners.summary.lastProcessedGW,
+      // else derive from next GW id minus one, else use cached GW id minus one.
+      function getLastFinishedGW(){
+        if(typeof _lastProcessedGW==='number') return _lastProcessedGW;
+        if(typeof _lastGwId==='number') return _lastGwId - 1;
+        const cached=getCachedGameweek(); if(cached&&typeof cached.id==='number') return cached.id - 1;
         return null;
       }
 
-      function updateWinnersPageHeaderGW() {
-        try {
-          const el = document.getElementById('winners-page-after-gw');
-          if (!el) return;
-          const gwId = getLastFinishedGW();
-          if (typeof gwId === 'number' && gwId > 0) {
-            el.textContent = `After GW${gwId}`;
-            el.classList.add('show');
-            el.style.display = '';
-          } else {
-            el.textContent = '';
-            el.classList.remove('show');
-            el.style.display = 'none';
-          }
-        } catch (e) {
-          // silent - non-critical UI enhancement
-        }
+      // Writes the subtitle after loading either winners or countdown data
+      function updateWinnersPageHeaderGW(){
+        const el=document.getElementById('winners-page-after-gw'); if(!el) return;
+        const gwId=getLastFinishedGW();
+        if(typeof gwId==='number' && gwId>0){ el.textContent=`After GW${gwId}`; el.classList.add('show'); el.style.display=''; }
+        else { el.textContent=''; el.classList.remove('show'); el.style.display='none'; }
       }
 
-      // Display winners table with pagination
-      function displayWinnerTable() {
-        const container = document.getElementById('winner-table-container');
-        const navigation = document.getElementById('winner-navigation');
+      /* -------------------------------------------------------------------
+         RENDERERS
+         - Table for ≥701px
+         - Card list for ≤700px
+         ------------------------------------------------------------------- */
+      function displayWinnerTable(){
+        const container=document.getElementById('winner-table-container');
+        const navigation=document.getElementById('winner-navigation');
+        if(!container) return;
 
-        if (!container) {
-          console.error('Winner table container not found');
+        if(!allWinners || allWinners.length===0){
+          container.innerHTML = '<div class="winner-loading" style="text-align:center;padding:40px;color:#777;font-style:italic;">No winner data available yet.</div>';
+          if(navigation) navigation.classList.add('is-hidden');
           return;
         }
 
-        if (!allWinners || allWinners.length === 0) {
-          container.innerHTML = '<div class="winner-loading">No winner data available yet.</div>';
-          if (navigation) navigation.style.display = 'none';
-          return;
-        }
+        const isWide = window.matchMedia('(min-width: 701px)').matches;
+        // NOTE: Keep this value consistent with CSS breakpoint (≤700px cards)
 
-        if (isDebugMode)
-          console.log(
-            `📊 Displaying winners: ${allWinners.length} total, page ${currentWinnerPage}`
-          );
+        if(isWide){
+          // --------------------------- Desktop/Tablet (TABLE) ---------------------------
+          const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
+          const startIndex = (currentWinnerPage - 1) * winnerItemsPerPage;
+          const endIndex = startIndex + winnerItemsPerPage;
+          const pageData = allWinners.slice(startIndex, endIndex);
 
-        // Calculate pagination
-        const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
-        const startIndex = (currentWinnerPage - 1) * winnerItemsPerPage;
-        const endIndex = startIndex + winnerItemsPerPage;
-        const currentPageData = allWinners.slice(startIndex, endIndex);
+          let html = '<table class="winner-table" id="dynamic-winner-table">';
+          html += '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead><tbody>';
 
-        // Decide layout based on viewport: table for wide screens, cards for small
-        const isWide = window.matchMedia('(min-width: 700px)').matches;
-
-        if (isWide) {
-          // Generate table HTML with paginated data (desktop/tablet layout)
-          let tableHTML =
-            '<table class="winner-table table-align-rank table-align-player table-align-prize table-align-points table-align-highlights" id="dynamic-winner-table">';
-          tableHTML +=
-            '<thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead>';
-          tableHTML += '<tbody>';
-
-          currentPageData.forEach((winner, pageIndex) => {
-            const globalIndex = startIndex + pageIndex;
+          pageData.forEach((winner, idx)=>{
+            const globalIndex = startIndex + idx;
             const rank = globalIndex + 1;
-            const highlights = winner.highlights || {};
-            const gameWeeksBadge =
-              highlights.gameWeeks > 0
-                ? `<span class="highlight-badge gw">${escapeHTML(highlights.gameWeeks + 'GW')}</span>`
-                : '';
-            const gameMonthsBadge =
-              highlights.gameMonths > 0
-                ? `<span class="highlight-badge gm">${escapeHTML(highlights.gameMonths + 'GM')}</span>`
-                : '';
-            const overallRankBadge = highlights.overallRank
-              ? `<span class="highlight-badge">League Rank: ${escapeHTML(highlights.overallRank)}</span>`
-              : '';
+            const h = winner.highlights || {};
+            const gw = h.gameWeeks > 0 ? `<span class="highlight-badge gw">${escapeHTML(h.gameWeeks+'GW')}</span>` : '';
+            const gm = h.gameMonths > 0 ? `<span class="highlight-badge gm">${escapeHTML(h.gameMonths+'GM')}</span>` : '';
+            const lr = h.overallRank ? `<span class="highlight-badge">League Rank: ${escapeHTML(h.overallRank)}</span>` : '';
 
-            // Assign rank-specific classes for top 3 (adds subtle gold/silver/bronze styles)
             let rankClass = '';
-            if (rank === 1) rankClass = 'winner-gold';
-            else if (rank === 2) rankClass = 'winner-silver';
-            else if (rank === 3) rankClass = 'winner-bronze';
+            if(rank===1) rankClass='winner-gold'; else if(rank===2) rankClass='winner-silver'; else if(rank===3) rankClass='winner-bronze';
 
-            tableHTML += `<tr${rankClass ? ' class="' + rankClass + '"' : ''}>`;
-            tableHTML += `<td class="winner-rank">${rank}</td>`;
-            tableHTML += `<td class="player-name">${escapeHTML(winner.playerName)}</td>`;
-            tableHTML += `<td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</td>`;
-            tableHTML += `<td><div class="highlights">${gameWeeksBadge}${gameMonthsBadge}${overallRankBadge}</div></td>`;
-            tableHTML += `</tr>`;
+            html += `<tr${rankClass?` class="${rankClass}"`:''}>`;
+            html += `<td class="winner-rank">${rank}</td>`;
+            html += `<td class="player-name">${escapeHTML(winner.playerName)}</td>`;
+            html += `<td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</td>`;
+            html += `<td><div class="highlights">${gw}${gm}${lr}</div></td>`;
+            html += `</tr>`;
           });
 
-          tableHTML += '</tbody></table>';
-          container.innerHTML = tableHTML;
+          html += '</tbody></table>';
+          container.innerHTML = html;
 
-          // Show/hide navigation based on total pages
-          if (navigation) {
-            if (totalPages > 1) {
-              show(navigation);
-              updateWinnerNavigation(totalPages);
-            } else {
-              hide(navigation);
-            }
-          }
-
-          // Apply dynamic column widths after table is rendered.
-          setTimeout(() => {
-            optimizeTableColumnWidths(currentPageData);
-          }, 50);
+          if (totalPages > 1) {
+            show(navigation); updateWinnerNavigation(totalPages);
+          } else { hide(navigation); }
         } else {
-          // Mobile / small screens: render card-based layout (same as index preview)
-          const sortedPage = currentPageData
-            .filter((w) => w.totalPrizeWon > 0)
-            .sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
+          // ------------------------------- Mobile (CARDS) -------------------------------
+          const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
+          const startIndex = (currentWinnerPage - 1) * winnerItemsPerPage;
+          const endIndex = startIndex + winnerItemsPerPage;
+          const pageData = allWinners.slice(startIndex, endIndex);
 
-          const cardsHTML = `
+          const cards = `
             <div class="winner-preview">
-              ${sortedPage
-                .map((winner, idx) => {
-                  const globalIndex = startIndex + idx;
-                  const rank = globalIndex + 1;
-                  const highlights = winner.highlights || { gameWeeks: 0, gameMonths: 0 };
-                  return `
-                  <div class="winner-card${rank <= 3 ? ' rank-' + rank : ''}" role="article" aria-label="Winner ${rank}: ${escapeHTML(
-                    winner.playerName
-                  )}">
+              ${pageData.map((w, i) => {
+                const rank = startIndex + i + 1;
+                const h = w.highlights || { gameWeeks: 0, gameMonths: 0 };
+                return `
+                  <div class="winner-card${rank<=3 ? ` rank-${rank}` : ''}" role="article" aria-label="Winner ${rank}: ${escapeHTML(w.playerName)}">
                     <div class="winner-rank">#${rank}</div>
-                    <div class="winner-name" title="${escapeHTML(winner.playerName)}">${escapeHTML(
-                      winner.playerName
-                    )}</div>
-                    <div class="winner-prize" title="Total prize won: ₹${winner.totalPrizeWon.toLocaleString('en-IN')}">
-                      ₹${winner.totalPrizeWon.toLocaleString('en-IN')}
+                    <div class="winner-name" title="${escapeHTML(w.playerName)}">${escapeHTML(w.playerName)}</div>
+                    <div class="winner-prize" title="Total prize won: ₹${w.totalPrizeWon.toLocaleString('en-IN')}">
+                      ₹${w.totalPrizeWon.toLocaleString('en-IN')}
                     </div>
                     <div class="winner-highlights" aria-label="Achievements">
-                      ${
-                        highlights.gameWeeks > 0
-                          ? `<span class="highlight-badge gw" title="${escapeHTML(
-                              highlights.gameWeeks + ' gameweek wins'
-                            )}">${escapeHTML(highlights.gameWeeks + 'GW')}</span>`
-                          : ''
-                      }
-                      ${
-                        highlights.gameMonths > 0
-                          ? `<span class="highlight-badge gm" title="${escapeHTML(
-                              highlights.gameMonths + ' monthly wins'
-                            )}">${escapeHTML(highlights.gameMonths + 'GM')}</span>`
-                          : ''
-                      }
-                      ${
-                        highlights.overallRank
-                          ? `<span class="highlight-badge" title="Current league position">League Rank ${escapeHTML(
-                              highlights.overallRank
-                            )}</span>`
-                          : ''
-                      }
+                      ${h.gameWeeks>0 ? `<span class="highlight-badge gw" title="${escapeHTML(h.gameWeeks+' gameweek wins')}">${escapeHTML(h.gameWeeks+'GW')}</span>` : ''}
+                      ${h.gameMonths>0 ? `<span class="highlight-badge gm" title="${escapeHTML(h.gameMonths+' monthly wins')}">${escapeHTML(h.gameMonths+'GM')}</span>` : ''}
+                      ${h.overallRank ? `<span class="highlight-badge" title="Current league position">League Rank ${escapeHTML(h.overallRank)}</span>` : ''}
                     </div>
                   </div>
                 `;
-                })
-                .join('')}
+              }).join('')}
             </div>
           `;
+          container.innerHTML = cards;
 
-          container.innerHTML = cardsHTML;
-
-          // Show/hide navigation based on total pages
-          if (navigation) {
-            if (totalPages > 1) {
-              show(navigation);
-              updateWinnerNavigation(totalPages);
-            } else {
-              hide(navigation);
-            }
-          }
+          if (totalPages > 1) {
+            show(navigation); updateWinnerNavigation(totalPages);
+          } else { hide(navigation); }
         }
       }
 
-      // Update navigation buttons and page info
-      function updateWinnerNavigation(totalPages) {
-        const prevBtn = document.getElementById('winner-prev-page');
-        const nextBtn = document.getElementById('winner-next-page');
-        const pageInfo = document.getElementById('winner-page-info');
-
-        if (prevBtn) prevBtn.disabled = currentWinnerPage === 1;
-        if (nextBtn) nextBtn.disabled = currentWinnerPage === totalPages;
-        if (pageInfo) pageInfo.textContent = `Page ${currentWinnerPage} of ${totalPages}`;
+      // Updates pagination state (buttons + label)
+      function updateWinnerNavigation(totalPages){
+        const prev=document.getElementById('winner-prev-page');
+        const next=document.getElementById('winner-next-page');
+        const info=document.getElementById('winner-page-info');
+        if(prev) prev.disabled = currentWinnerPage===1;
+        if(next) next.disabled = currentWinnerPage===totalPages;
+        if(info) info.textContent = `Page ${currentWinnerPage} of ${totalPages}`;
       }
+      function previousWinnerPage(){ if(currentWinnerPage>1){ currentWinnerPage--; displayWinnerTable(); } }
+      function nextWinnerPage(){ const totalPages=Math.ceil(allWinners.length/winnerItemsPerPage); if(currentWinnerPage<totalPages){ currentWinnerPage++; displayWinnerTable(); } }
 
-      // Pagination functions
-      function previousWinnerPage() {
-        if (currentWinnerPage > 1) {
-          currentWinnerPage--;
-          displayWinnerTable();
-          if (isDebugMode) console.log(`📄 Navigated to page ${currentWinnerPage}`);
-        }
-      }
-
-      function nextWinnerPage() {
-        const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
-        if (currentWinnerPage < totalPages) {
-          currentWinnerPage++;
-          displayWinnerTable();
-          if (isDebugMode) console.log(`📄 Navigated to page ${currentWinnerPage}`);
-        }
-      }
-
-      function optimizeTableColumnWidths(winners) {
-        const table = document.getElementById('dynamic-winner-table');
-        if (!table || !winners || winners.length === 0) return;
-
-        if (isDebugMode) console.log('🔧 Optimizing table column widths...');
-
-        // Create a temporary invisible element to measure text widths
-        const measureEl = document.createElement('span');
-        measureEl.style.visibility = 'hidden';
-        measureEl.style.position = 'absolute';
-        measureEl.style.whiteSpace = 'nowrap';
-        measureEl.style.fontFamily =
-          'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-        measureEl.style.fontSize = '0.9rem';
-        measureEl.style.fontWeight = '600';
-        document.body.appendChild(measureEl);
-
-        try {
-          // Find the longest player name
-          let maxPlayerNameWidth = 0;
-          let longestName = 'Player'; // Default to header text
-
-          winners.forEach((winner) => {
-            measureEl.textContent = winner.playerName;
-            const width = measureEl.offsetWidth;
-            if (width > maxPlayerNameWidth) {
-              maxPlayerNameWidth = width;
-              longestName = winner.playerName;
-            }
-          });
-
-          // Also check header width
-          measureEl.style.fontWeight = '700';
-          measureEl.style.fontSize = '0.95rem';
-          measureEl.style.letterSpacing = '0.3px';
-          measureEl.textContent = 'PLAYER';
-          const headerWidth = measureEl.offsetWidth;
-
-          // Use the larger of content width or header width, plus padding
-          // (32px total padding estimates left+right cell padding + spacing)
-          const playerColumnWidth = Math.max(maxPlayerNameWidth, headerWidth) + 32; // 16px padding on each side
-
-          if (isDebugMode)
-            console.log(`📏 Longest player name: "${longestName}" (${maxPlayerNameWidth}px)`);
-          if (isDebugMode) console.log(`📏 Header width: ${headerWidth}px`);
-          if (isDebugMode) console.log(`📏 Final player column width: ${playerColumnWidth}px`);
-
-          // Apply the calculated width to player column
-          // Use CSS custom properties for dynamic widths
-          const styleElement = document.createElement('style');
-          styleElement.innerHTML = `
-            .winner-table th:nth-child(2),
-            .winner-table td:nth-child(2) {
-              width: ${playerColumnWidth}px;
-              max-width: ${playerColumnWidth}px;
-            }
-          `;
-
-          // Remove any existing dynamic styles (keeps document.head tidy when re-calculating)
-          const existingStyle = document.getElementById('dynamic-table-styles');
-          if (existingStyle) {
-            existingStyle.remove();
-          }
-
-          styleElement.id = 'dynamic-table-styles';
-          document.head.appendChild(styleElement);
-
-          if (isDebugMode) console.log('✅ Dynamic column widths applied successfully');
-        } catch (error) {
-          console.error('❌ Error optimizing column widths:', error);
-        } finally {
-          // Clean up measurement element
-          document.body.removeChild(measureEl);
-        }
-      }
-
-      function loadFPLData() {
-        const fplApiUrl = 'https://fantasy.premierleague.com/api/bootstrap-static/';
-
-        fetch(fplApiUrl)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('FPL API fetch failed');
-            }
-            return response.json();
-          })
-          .then((data) => {
-            // Count completed gameweeks (finished: true)
-            const completedGameweeks = data.events.filter(
-              (event) => event.finished === true
-            ).length;
-            document.getElementById('completed-gameweeks').textContent = completedGameweeks;
-          })
-          .catch((error) => {
-            console.error('FPL API fetch error:', error);
-            document.getElementById('completed-gameweeks').textContent = '--';
-          });
-      }
-
-      function updateStatsSummary(winners) {
-        if (!winners || winners.length === 0) return;
-
+      // Summarizes total winners and total prize amount for the top stat cards
+      function updateStatsSummary(winners){
+        if(!winners || winners.length===0) return;
         const totalWinners = winners.length;
-        const totalPrizeMoney = winners.reduce((sum, winner) => sum + winner.totalPrizeWon, 0);
-
+        const totalPrize = winners.reduce((s,w)=> s + w.totalPrizeWon, 0);
         document.getElementById('total-winners').textContent = totalWinners;
-        document.getElementById('total-prize-money').textContent =
-          '₹' + totalPrizeMoney.toLocaleString('en-IN');
+        document.getElementById('total-prize-money').textContent = '₹' + totalPrize.toLocaleString('en-IN');
       }
 
-      function buildNavQuery(keys = ['test', 'data', 'phase', 'clockOffset']) {
-        try {
-          const src = new URLSearchParams(window.location.search);
-          const params = new URLSearchParams();
-          keys.forEach((k) => {
-            const v = src.get(k);
-            if (v !== null && v !== undefined && v !== '') params.set(k, v);
-          });
-          const qs = params.toString();
-          return qs ? `?${qs}` : '';
-        } catch (e) {
-          return '';
-        }
+      /* -------------------------------------------------------------------
+         NAV/PHASE TESTING HELPERS
+         ------------------------------------------------------------------- */
+      function buildNavQuery(keys=['test','data','phase','clockOffset']){
+        try{
+          const src=new URLSearchParams(window.location.search);
+          const params=new URLSearchParams();
+          keys.forEach(k=>{ const v=src.get(k); if(v!==null && v!==undefined && v!=='') params.set(k,v); });
+          const qs=params.toString(); return qs?`?${qs}`:'';
+        }catch(e){ return ''; }
       }
 
-      function checkTestMode() {
-        const params = new URLSearchParams(window.location.search);
-        const isTestMode = params.get('test') === 'true';
-        const phase = (params.get('phase') || 'auto').toLowerCase();
+      // Applies test mode visual hints and handles redirect if phase=pre
+      function checkTestMode(){
+        const params=new URLSearchParams(window.location.search);
+        const isTest=params.get('test')==='true';
+        const phase=(params.get('phase')||'auto').toLowerCase();
 
-        if (isTestMode) {
-          if (isDebugMode) console.log('🧪 Test mode activated!');
-          // Winners page does not exist in pre-season. Redirect to home if explicitly pre.
-          if (phase === 'pre') {
-            const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
-            const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
-            qp.set('phase', 'pre');
-            const finalQs = qp.toString();
-            window.location.replace('index.html' + (finalQs ? '?' + finalQs : ''));
-            return;
-          }
-          const headerP = document.querySelector('header p');
-          if (headerP) {
-            if (phase === 'pre') {
-              headerP.textContent = 'Season 2025-26 - Registration Open [TEST MODE]';
-            } else if (phase === 'season') {
-              headerP.textContent = 'Season 2025-26 - Live Updates [TEST MODE]';
-            } else if (!headerP.textContent.includes('[TEST MODE]')) {
-              headerP.textContent = headerP.textContent + ' [TEST MODE]';
-            }
-            headerP.style.color = '#ff6b6b';
-          }
-          const h1 = document.querySelector('header h1');
-          if (h1 && !h1.querySelector('.test-badge')) {
-            const b = document.createElement('span');
-            b.className = 'test-badge';
-            b.textContent = 'TEST MODE';
-            h1.appendChild(b);
-          }
-          const back = document.getElementById('back-fab');
-          if (back) back.href = 'index.html' + buildNavQuery();
+        const back=document.getElementById('back-fab');
+        if(back) back.href = 'index.html' + buildNavQuery();
 
-          // Floating toggle visible in test mode
-          const floatToggle = document.getElementById('floating-phase-toggle');
-          if (floatToggle) floatToggle.classList.remove('is-hidden');
-          updatePhaseToggleButtonsWinners();
+        if(isTest){
+          const p=document.querySelector('header p');
+          if(p){
+            if(phase==='pre')      p.textContent='Season 2025-26 - Registration Open [TEST MODE]';
+            else if(phase==='season') p.textContent='Season 2025-26 - Live Updates [TEST MODE]';
+            else if(!p.textContent.includes('[TEST MODE]')) p.textContent = p.textContent + ' [TEST MODE]';
+            p.style.color='#ff6b6b';
+          }
+          const float=document.getElementById('floating-phase-toggle');
+          if(float) float.classList.remove('is-hidden');
+          const btn=document.getElementById('phase-toggle-btn-float');
+          const openHomeBtn=document.getElementById('phase-toggle-open-home');
+          if(btn) btn.textContent='📝 Switch to Pre-season (redirect to Home)';
+          if(openHomeBtn) openHomeBtn.textContent='Open Home';
         } else {
-          const back = document.getElementById('back-fab');
-          if (back) back.href = 'index.html' + buildNavQuery();
-          // In live mode, if phase is explicitly set to pre, redirect to Home (pre-season only)
-          const params2 = new URLSearchParams(window.location.search);
-          const phase2 = (params2.get('phase') || 'auto').toLowerCase();
-          if (phase2 === 'pre') {
-            const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
-            const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
-            qp.set('phase', 'pre');
-            const finalQs = qp.toString();
-            window.location.replace('index.html' + (finalQs ? '?' + finalQs : ''));
-            return;
+          const float=document.getElementById('floating-phase-toggle');
+          if(float) float.classList.add('is-hidden');
+          if(phase==='pre'){
+            // Redirect to Home if phase=pre (keeps query params)
+            const qs=buildNavQuery(['test','data','phase','clockOffset']);
+            const qp=new URLSearchParams(qs.replace(/^\?/,'')||''); qp.set('phase','pre');
+            const final=qp.toString();
+            window.location.replace('index.html'+(final?('?'+final):'')); return;
           }
-          const floatToggle = document.getElementById('floating-phase-toggle');
-          if (floatToggle) floatToggle.classList.add('is-hidden');
         }
       }
 
-      function getPhaseParam() {
-        return (new URLSearchParams(window.location.search).get('phase') || 'auto').toLowerCase();
-      }
-      function updatePhaseToggleButtonsWinners() {
-        const btn = document.getElementById('phase-toggle-btn-float');
-        const openHomeBtn = document.getElementById('phase-toggle-open-home');
-        if (!btn) return;
-        // Winners page is in-season only; keep toggle to switch to pre-season (redirects to Home)
-        btn.textContent = '📝 Switch to Pre-season (redirect to Home)';
-        if (openHomeBtn) openHomeBtn.textContent = 'Open Home';
-      }
-      function togglePhaseWinners() {
-        // Force pre-season param; checkTestMode will redirect to Home
-        const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
-        const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
-        qp.set('phase', 'pre');
-        const finalQs = qp.toString();
-        window.location.href = 'winners.html' + (finalQs ? '?' + finalQs : '');
+      // Dev control: re-open this page with phase=pre (for testing)
+      function togglePhaseWinners(){
+        const qs=buildNavQuery(['test','data','phase','clockOffset']);
+        const qp=new URLSearchParams(qs.replace(/^\?/,'')||''); qp.set('phase','pre');
+        window.location.href = 'winners.html' + (qp.toString()?('?'+qp.toString()):'');
       }
 
-      function openHomeWithToggledPhase() {
-        try {
-          const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
-          const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
-          qp.set('phase', 'pre');
-          const finalQs = qp.toString();
-          window.location.href = 'index.html' + (finalQs ? '?' + finalQs : '');
-        } catch (e) {
-          const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
-          const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
-          qp.set('phase', 'pre');
-          const finalQs = qp.toString();
-          window.location.href = 'index.html' + (finalQs ? '?' + finalQs : '');
-        }
+      // Dev control: open Home with the same toggled params
+      function openHomeWithToggledPhase(){
+        const qs=buildNavQuery(['test','data','phase','clockOffset']);
+        const qp=new URLSearchParams(qs.replace(/^\?/,'')||''); qp.set('phase','pre');
+        window.location.href = 'index.html' + (qp.toString()?('?'+qp.toString()):'');
       }
-      /*
-        Contributor notes / quick runbook:
 
-        - Open `winners.html` locally (served via a static server or GitHub Pages).
-        - Example query params:
-            winners.html?test=true            -> use test/demo data
-            winners.html?data=live&debug=1     -> force live data and enable debug logs
-            winners.html?clockOffset=3600000   -> shift clock by +1 hour (ms)
-
-        - Live testing: `python3 -m http.server` from project root and open
-          http://localhost:8000/winners.html in your browser.
-        - Data files are under `data/` — modify `test_winner_stats.json` to create
-          reproducible scenarios for onboarding new contributors.
-      */
+      /* -------------------------------------------------------------------
+         TODOs / FUTURE IMPROVEMENTS
+         - Add skeleton loading for cards/table while fetching.
+         - Move constants (breakpoints, itemsPerPage) to a config block.
+         - Add i18n for number formats and labels.
+         - Provide a "Download CSV" of winners.
+         - Persist pagination state in query param (?page=2).
+         - Add unit tests for date math and rendering thresholds.
+         ------------------------------------------------------------------- */
     </script>
   </body>
 </html>
