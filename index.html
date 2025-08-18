@@ -102,63 +102,76 @@
       .prize-summary {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 12px;
-        padding: 12px 14px;
-        border: 1px solid var(--border-color);
-        border-radius: 10px;
-        background: #fff;
+        gap: 16px;
+        padding: 0; /* grid itself should be transparent like other sections */
+        background: transparent;
       }
       .prize-card {
+        position: relative;
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 12px 14px;
+        gap: 14px;
+        padding: 16px 18px;
         border: 1px solid var(--border-color);
-        border-radius: 10px;
-        background: #fff;
+        border-radius: var(--border-radius);
+        background: var(--card-background);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* matches cards across site */
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease,
+          background-color 0.18s ease;
+      }
+      .prize-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
       }
       .prize-card .icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
+        width: 40px;
+        height: 40px;
+        flex: 0 0 40px;
+        border-radius: 10px;
         display: grid;
         place-items: center;
         background: linear-gradient(135deg, var(--primary-color), #59215e);
         color: #fff;
-        flex: 0 0 36px;
+        font-size: 1.05rem;
       }
       .prize-card .content {
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 4px;
         min-width: 0;
       }
       .prize-card .title {
         font-weight: 700;
         color: var(--heading-color);
-        font-size: 0.95rem;
+        font-size: 1rem; /* aligns with .stat-title */
       }
       .prize-card .subtitle {
         font-size: 0.9rem;
         color: #333;
-        font-weight: 700;
+        font-weight: 600; /* consistent with winner/leaderboard emphasis */
       }
       .prize-meta {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 8px;
+        margin-top: 12px;
         color: #777;
         font-size: 0.85rem;
       }
       .prize-meta a {
         color: var(--primary-color);
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 700;
       }
+      .prize-meta a:hover {
+        text-decoration: underline;
+      }
+
       .prize-note {
         margin-top: 8px;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         color: #666;
       }
       @media (min-width: 700px) {
@@ -168,20 +181,25 @@
       }
 
       /* ============== PRIZE STRUCTURE LAYOUT & TOOLTIP ============== */
-      .prize-card {
-        position: relative;
-      }
       .prize-card .title-row {
         display: flex;
         align-items: baseline;
         justify-content: space-between;
-        gap: 8px;
-        flex-wrap: wrap;
+        gap: 10px;
+        flex-wrap: nowrap;
+        min-width: 0;
       }
       .prize-card .title-row .total {
-        font-weight: 700;
+        font-weight: 800;
         color: var(--primary-color);
+        font-variant-numeric: tabular-nums;
+        background: #f3e8f5; /* faint purple pill for consistency */
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        white-space: nowrap;
       }
+
       /* Accessible tooltip */
       .tooltip {
         position: relative;
@@ -1768,7 +1786,7 @@
               <!-- populated by JS -->
             </div>
             <div class="prize-meta">
-              <span id="prize-last-updated">Loading…</span>
+              <span id="prize-last-updated" class="stats-last-updated">Loading…</span>
               <a
                 href="#rules"
                 onclick="document.getElementById('rules-pre').scrollIntoView({behavior:'smooth'}); return false;"
@@ -2306,6 +2324,10 @@
             loadWinnerData('winner-preview-container', 'winner-summary', true); // Use test data
             loadTestLeaderboardData();
 
+            // Load prize summary for in-season view
+            console.log('🔄 Toggle: Loading prize summary...');
+            loadPrizeSummary();
+
             // Update winners link to test version when in season mode
             const winnersLink = document.getElementById('winners-link');
             if (winnersLink) {
@@ -2469,43 +2491,33 @@
 
       function buildWeeklyCard(weekly) {
         const total = sumAmounts(weekly);
-        const lines = weekly
-          .map(
-            (p) =>
-              `${p.rank === 1 ? '1st' : p.rank === 2 ? '2nd' : p.rank + 'th'} ${formatINR(p.amount)}`
-          )
-          .join(', ');
+        const breakdown = weekly
+          .map((p) => `${ordinal(p.rank)} ${formatINR(p.amount)}`)
+          .join(' | ');
         return `
           <div class="prize-card" role="group" aria-label="Weekly prizes">
-            <div class="icon" aria-hidden="true"><i class="fas fa-calendar-week"></i></div>
-            <div class="content">
-              <div class="title-row">
-                <div class="title">Weekly</div>
-                <div class="total">${formatINR(total)}</div>
-              </div>
-              <div class="subtitle">${lines}</div>
+            <div class="header">
+              <div class="icon" aria-hidden="true"><i class="fas fa-calendar-week"></i></div>
+              <div class="title">Weekly</div>
             </div>
+            <div class="amount">${formatINR(total)}</div>
+            <div class="breakdown">${breakdown}</div>
           </div>`;
       }
 
       function buildMonthlyCard(monthly) {
         const total = sumAmounts(monthly);
-        const lines = monthly
-          .map(
-            (p) =>
-              `${p.rank === 1 ? '1st' : p.rank === 2 ? '2nd' : p.rank + 'th'} ${formatINR(p.amount)}`
-          )
-          .join(', ');
+        const breakdown = monthly
+          .map((p) => `${ordinal(p.rank)} ${formatINR(p.amount)}`)
+          .join(' | ');
         return `
           <div class="prize-card" role="group" aria-label="Monthly prizes">
-            <div class="icon" aria-hidden="true"><i class="fas fa-calendar-alt"></i></div>
-            <div class="content">
-              <div class="title-row">
-                <div class="title">Monthly</div>
-                <div class="total">${formatINR(total)}</div>
-              </div>
-              <div class="subtitle">${lines}</div>
+            <div class="header">
+              <div class="icon" aria-hidden="true"><i class="fas fa-calendar-alt"></i></div>
+              <div class="title">Monthly</div>
             </div>
+            <div class="amount">${formatINR(total)}</div>
+            <div class="breakdown">${breakdown}</div>
           </div>`;
       }
 
@@ -2514,31 +2526,43 @@
       }
 
       function buildAnnualCard(annual) {
-        const firstThree = (annual || [])
+        const totalOverallPrize = sumAmounts(annual);
+        const topThree = (annual || [])
           .slice(0, 3)
           .map((p) => `${ordinal(p.rank)} ${formatINR(p.amount)}`)
-          .join(', ');
-        const rest = (annual || [])
-          .map((p) => `${ordinal(p.rank)} — ${formatINR(p.amount)}`)
-          .join('<br>');
+          .join(' | ');
+
+        // Build tooltip content with better formatting
+        const allPrizes = (annual || [])
+          .map(
+            (p) => `
+            <div class="prize-item">
+              <span class="prize-rank">${ordinal(p.rank)}</span>
+              <span class="prize-amount">${formatINR(p.amount)}</span>
+            </div>`
+          )
+          .join('');
+
         return `
           <div class="prize-card" role="group" aria-label="Overall prizes">
-            <div class="icon" aria-hidden="true"><i class="fas fa-trophy"></i></div>
-            <div class="content">
-              <div class="title-row">
-                <div class="title">Overall</div>
-              </div>
-              <div class="subtitle">
-                ${firstThree} &amp; ${Math.max(0, (annual || []).length - 3)} more winners
+            <div class="header">
+              <div class="icon" aria-hidden="true"><i class="fas fa-trophy"></i></div>
+              <div class="title">
+                Overall
                 <span class="tooltip" tabindex="0" aria-describedby="overall-tooltip">
-                  <i class="fas fa-info-circle" aria-hidden="true"></i>
+                  <i class="fas fa-info-circle info-icon" aria-hidden="true"></i>
                   <span id="overall-tooltip" class="tooltip-content" role="tooltip">
                     <span class="tooltip-arrow" aria-hidden="true"></span>
-                    ${rest}
+                    <strong>All Season-End Prizes</strong>
+                    <div class="prize-list">
+                      ${allPrizes}
+                    </div>
                   </span>
                 </span>
               </div>
             </div>
+            <div class="amount">${formatINR(totalOverallPrize)}</div>
+            <div class="breakdown">${topThree}</div>
           </div>`;
       }
 
@@ -2575,13 +2599,21 @@
 
       function loadPrizeSummary() {
         const url = 'data/prizes.json?cache=' + Date.now();
+        console.log('Loading prize summary from:', url);
         return fetchWithRetry(url, 2)
           .then((data) => {
+            console.log('Prize data loaded:', data);
             renderPrizeStructure(data);
             return data;
           })
           .catch((err) => {
-            console.warn('Prize load failed:', err);
+            console.error('Prize load failed:', err);
+            // Show error message in the container
+            const container = document.getElementById('prize-summary');
+            if (container) {
+              container.innerHTML =
+                '<div class="winner-error">Unable to load prize structure. Please refresh the page.</div>';
+            }
           });
       }
 
@@ -3711,96 +3743,7 @@
       window.addEventListener('load', adjustForZFold);
       window.addEventListener('resize', debouncedAdjustForZFold);
 
-      // =============== PRIZE SUMMARY LOADER (IN-SEASON) ===============
-      async function loadPrizeSummary() {
-        const container = document.getElementById('prize-summary');
-        const noteEl = document.getElementById('prize-note');
-        const luEl = document.getElementById('prize-last-updated');
-        if (!container) return; // not on this page
-
-        try {
-          const url = 'data/prizes.json?cache=' + Date.now();
-          const resp = await fetch(url);
-          if (!resp.ok) throw new Error('HTTP ' + resp.status);
-          const data = await resp.json();
-
-          // Build three compact cards: Weekly, Monthly, Season
-          const cards = [];
-          if (data.weekly) {
-            cards.push(
-              card(
-                'fa-calendar-week',
-                'Weekly Winners',
-                formatCurrency(data.weekly.total),
-                data.weekly.breakdown
-              )
-            );
-          }
-          if (data.monthly) {
-            cards.push(
-              card(
-                'fa-calendar-days',
-                'Monthly Champions',
-                formatCurrency(data.monthly.total),
-                data.monthly.breakdown
-              )
-            );
-          }
-          if (data.season) {
-            cards.push(
-              card(
-                'fa-trophy',
-                'Season Awards',
-                formatCurrency(data.season.total),
-                data.season.breakdown
-              )
-            );
-          }
-          container.innerHTML = cards.join('');
-
-          if (noteEl) noteEl.textContent = data.note || '';
-          if (luEl) {
-            try {
-              const d = new Date(data.lastUpdated || Date.now());
-              const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-              luEl.textContent =
-                'Last updated: ' +
-                d.toLocaleString('en-GB', {
-                  dateStyle: 'medium',
-                  timeStyle: 'short',
-                  timeZone: tz,
-                });
-            } catch {
-              luEl.textContent = '';
-            }
-          }
-        } catch (e) {
-          console.error('Failed to load prizes.json', e);
-          container.innerHTML =
-            '<div class="winner-error">Unable to load prize payouts. Please refresh.</div>';
-          if (luEl) luEl.textContent = '';
-        }
-
-        function card(icon, title, amount, breakdown) {
-          const breakdownText = Array.isArray(breakdown) ? breakdown.join(' • ') : breakdown || '';
-          return `
-            <div class="prize-card" role="article" aria-label="${escapeHTML(title)}">
-              <div class="icon"><i class="fas ${icon}"></i></div>
-              <div class="content">
-                <div class="title">${escapeHTML(title)}</div>
-                <div class="subtitle">${escapeHTML(amount)}</div>
-                ${breakdownText ? `<div class="note-small" style="margin-top:4px;">${escapeHTML(breakdownText)}</div>` : ''}
-              </div>
-            </div>`;
-        }
-
-        function formatCurrency(n) {
-          if (typeof n === 'string') return n; // already formatted in config
-          const num = Number(n);
-          if (!isNaN(num)) return '₹' + num.toLocaleString('en-IN');
-          return String(n || '');
-        }
-      }
+      // Remove duplicate loadPrizeSummary - the correct one is already defined above
     </script>
   </body>
 </html>

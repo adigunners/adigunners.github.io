@@ -1,55 +1,80 @@
 <!doctype html>
 <!--
-  =====================================================================
-  winners.html
-  =====================================================================
-  PURPOSE
-  - Displays the complete Winners Scorecard for the "IIM Mumbai Fantasy League".
-  - Desktop/Tablet shows a table. Mobile (≤700px) renders compact "cards".
+ =====================================================================
+ FILE: winners.html
+ PROJECT: IIM Mumbai Fantasy League - Public Website
+ PAGE: Complete Winner Scorecard (desktop table + tablet/mobile cards)
+ AUTHOR: Aditya Garg (@addygunners)
 
-  DATA INPUTS
-  - /data/winner_stats.json        → default (live)
-  - /data/test_winner_stats.json   → when test mode is active
-  - /data/next_deadline.json       → contains { nextGameweek {id, deadline_time}, lastUpdated }
 
-  URL QUERY PARAMS (for Dev/Test)
-  - ?test=true          → Enables test UI text + allows using cached countdown
-  - ?data=auto|test|live→ Force which winner data to load (auto respects ?test)
-  - ?phase=pre|season|auto → Controls Home redirection behavior (pre redirects to home)
-  - ?clockOffset=<ms>   → Adds ms to local clock (helpful to mock countdown)
-  - ?debug=1            → Logs extra debug in console
+ PURPOSE
+ -------
+ Renders the season's "Complete Winner Rankings" view:
+ - Desktop (>= 1025px): Tabular layout (sticky header, numeric alignment)
+ - Tablet (701–1024px): 2-column cards for readability on iPad
+ - Mobile (<= 700px): 1-column cards for small screens
 
-  ACCESSIBILITY
-  - Cards are rendered as articles with ARIA labels.
-  - Countdown has aria-live updates.
 
-  RESPONSIVENESS
-  - Desktop/tablet: sticky header table
-  - Mobile (≤700px): 4-line card layout (rank, name, prize, highlights)
-    > 4th line (highlights) is right-aligned on mobile by a small override.
+ QUICK CONTRIBUTOR NOTES
+ -----------------------
+ • DATA CONTRACT (winner_stats.json / test_winner_stats.json)
+   {
+     "winners": [
+       {
+         "playerName": "John Doe",
+         "totalPrizeWon": 1234,            // integer (INR)
+         "highlights": { "gameWeeks": 2, "gameMonths": 1, "overallRank": 7 }
+       }
+     ],
+     "lastUpdated": "2025-08-18T06:45:00Z",
+     "summary": { "completedGameweeks": 3, "completedMonths": 1, "lastProcessedGW": 3 }
+   }
 
-  OWNER/CONTACT
-  - @addygunner (Aditya Garg)
 
-  COLLABORATOR GUIDE
-  - Keep all CSS variables in :root.
-  - Don’t change breakpoints lightly (≤700px is our card/table switch).
-  - JS relies on specific element IDs—if you rename markup, update JS selectors too.
-  - If you need a new feature flag, add it as a URL param and document in this header.
+ • URL FLAGS (persisted between pages):
+   - ?test=true          -> Test mode banner + demo data (unless data=live)
+   - ?data=test|live     -> Force data source; "auto" honors ?test
+   - ?phase=auto|pre|season -> Used by Home; propagated here for FAB routing
+   - ?clockOffset=ms     -> Simulate time offset for countdown testing
+   - ?debug=1            -> Minimal console logs for troubleshooting
 
-  =====================================================================
+
+ • RESPONSIVE BREAKPOINTS (keep in sync with CSS + JS):
+     <= 700px        -> Mobile: cards (1 col)
+     701–1024px      -> Tablet: cards (2 col)
+     >= 1025px       -> Desktop: table
+
+
+ • SAFE EDIT ZONES
+   - THEME TOKENS: :root { ... } (colors, radius, shadows)
+   - COPY: headers/paragraphs; avoid changing IDs used by JS
+   - LAYOUT: media blocks; ensure breakpoints remain consistent with JS
+   - JS: use escapeHTML(...) for any user-/data-provided strings
+
+
+ • TESTING
+   - Open winners.html?test=true&data=test to simulate demo data
+   - Use ?clockOffset= to simulate future/past countdowns
+   - Rotate an iPad in dev tools: layout re-renders automatically
+
+
+ • SECURITY
+   - Never inject untrusted HTML directly. Use escapeHTML(...) for text.
+   - Avoid inline event handlers except for small dev toggles.
+   - Consider CSP + self-hosted fonts/icons for production hardening.
+
+
+ =====================================================================
 -->
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- 
-      Ensures proper scaling on mobile (required for the mobile card layout).
-      Do not remove. 
-    -->
+    <!-- Enable correct scaling on mobile & tablet -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Complete Winner Scorecard - IIM Mumbai Fantasy League</title>
 
-    <!-- Fonts & Icons -->
+    <!-- NOTE: For a strict CSP, consider self-hosting Poppins + Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -62,12 +87,10 @@
     />
 
     <style>
-      /* ===================================================================
-         THEME TOKENS
-         -------------------------------------------------------------------
-         WHY: Centralize colors, radius, and frequently reused tokens so the
-              theme can be updated safely in one place.
-         =================================================================== */
+      /* ===============================================================
+        THEME TOKENS — single source of truth for colors/radius/shadows
+        Change values here to rebrand without touching component CSS.
+        =============================================================== */
       :root {
         --primary-color: #37003c; /* Official FPL Purple */
         --secondary-color: #00ff87; /* FPL Green */
@@ -81,9 +104,7 @@
         --border-color: #e9ecef;
       }
 
-      /* ===================================================================
-         GLOBAL RESETS / LAYOUT
-         =================================================================== */
+      /* ===== GLOBAL RESET/LAYOUT ===== */
       * {
         box-sizing: border-box;
       }
@@ -104,18 +125,16 @@
       }
       .container {
         width: 100%;
-        max-width: 1000px;
+        max-width: 1000px; /* Desktop reading width. Increase if you want a wider table. */
         margin: 20px auto;
         padding: 0 16px;
       }
       .is-hidden {
         display: none !important;
-      }
+      } /* Utility: force-hide an element */
 
-      /* ===================================================================
-         HEADER
-         WHY: Keeps countdown and title compact; responsive flex layout.
-         =================================================================== */
+      /* ===== HEADER / HERO =====
+        WHY flex-wrap? On mid-widths, it lets the clock wrap below the title gracefully. */
       header {
         background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: #fff;
@@ -145,7 +164,7 @@
         font-weight: 700;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
+        text-overflow: ellipsis; /* Protects long text */
       }
       header p {
         margin: 5px 0 0;
@@ -156,10 +175,8 @@
         text-overflow: ellipsis;
       }
 
-      /* ===================================================================
-         COUNTDOWN (visual polish)
-         NOTE: Visibility is controlled in JS (show/hide based on data).
-         =================================================================== */
+      /* ===== COUNTDOWN =====
+        Reusable component. Keep styling consistent across pages. */
       .countdown-clock {
         flex: 0 0 auto;
         max-width: 300px;
@@ -192,7 +209,7 @@
         letter-spacing: 1.5px;
         margin-bottom: 8px;
         opacity: 0.9;
-        animation: flash 2s infinite;
+        animation: flash 2s infinite; /* subtle attention */
       }
       @keyframes flash {
         0%,
@@ -207,7 +224,7 @@
         }
       }
       .countdown-time {
-        font-family: 'Courier New', monospace;
+        font-family: 'Courier New', monospace; /* fixed width digits for better legibility */
         font-size: 0.85rem;
         font-weight: 700;
         letter-spacing: 0.3px;
@@ -248,7 +265,7 @@
         display: inline-block;
         vertical-align: middle;
       }
-      /* "Synced just now" and admin badges */
+      /* ephemeral "Synced just now" & admin info */
       .sync-badge {
         display: inline-block;
         margin-left: 8px;
@@ -277,9 +294,7 @@
         border-radius: 999px;
       }
 
-      /* ===================================================================
-         PAGE SECTIONS / TYPOGRAPHY
-         =================================================================== */
+      /* ===== PAGE SECTIONS ===== */
       main {
         padding: 0;
       }
@@ -298,9 +313,7 @@
         font-size: 1.8rem;
       }
 
-      /* ===================================================================
-         STATS SUMMARY (4-cards grid on desktop)
-         =================================================================== */
+      /* ===== STATS SUMMARY CARDS ===== */
       .stats-summary {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -367,10 +380,8 @@
         letter-spacing: 0.6px;
       }
 
-      /* ===================================================================
-         DESKTOP/TABLET TABLE
-         WHY: Tabular numeric data works best on larger screens.
-         =================================================================== */
+      /* ===== DESKTOP TABLE (>= 1025px ONLY) =====
+        WHY: Tables are excellent on wide screens for comparing columns. */
       .winner-table {
         width: 100%;
         border-collapse: collapse;
@@ -390,10 +401,11 @@
         font-size: 0.95rem;
         letter-spacing: 0.3px;
         text-transform: uppercase;
-        position: sticky; /* WHY: Keeps header visible when the table scrolls */
+        position: sticky; /* keep header visible while scrolling long tables */
         top: 0;
         z-index: 10;
       }
+      /* Column widths tuned for legibility */
       .winner-table th:nth-child(1) {
         width: 8%;
         text-align: center;
@@ -450,7 +462,7 @@
         border-bottom: none;
       }
 
-      /* Desktop: subtle gold/silver/bronze highlight for top 3 rows */
+      /* Row accents for top 3 winners */
       .winner-table tbody tr.winner-gold {
         background: linear-gradient(145deg, #fffbf0, #fff8e1);
         border-left: 4px solid #f9a825;
@@ -476,8 +488,6 @@
         color: var(--primary-color);
         font-size: 1.1rem;
       }
-
-      /* Shared badge styles (also used on mobile) */
       .highlights {
         display: flex;
         gap: 8px;
@@ -507,7 +517,7 @@
         color: white;
       }
 
-      /* Small heading helper */
+      /* Section title with optional subtitle "After GWx" */
       .winners-heading {
         display: block;
         margin: 0 0 0.5rem 0;
@@ -533,7 +543,7 @@
         transform: translateY(0);
       }
 
-      /* Pagination controls */
+      /* Pagination cluster */
       .winner-navigation {
         display: flex;
         justify-content: center;
@@ -583,9 +593,7 @@
         margin-top: 5px;
       }
 
-      /* ===================================================================
-         WIDESCREEN TWEAKS (≥1201px) / TABLET TWEAKS (768–1024px)
-         =================================================================== */
+      /* ===== WIDE LAYOUT TWEAKS ===== */
       @media (min-width: 1201px) {
         header {
           padding: 40px;
@@ -594,7 +602,7 @@
         }
         .container {
           max-width: 1200px;
-        }
+        } /* Wider table on large monitors */
         .header-main {
           padding-right: 20px;
         }
@@ -602,6 +610,7 @@
           margin-left: auto;
         }
       }
+      /* Generic text-size adjustments for medium laptops/tablets */
       @media (max-width: 1024px) and (min-width: 769px) {
         header h1 {
           font-size: clamp(1.3rem, 3.5vw, 2rem);
@@ -619,10 +628,10 @@
         }
       }
 
-      /* ===================================================================
-         MOBILE-ONLY WINNER CARDS (≤700px)
-         WHY: Cards are more readable and tappable than tables on small screens.
-         =================================================================== */
+      /* =========================================================
+        MOBILE CARDS (<= 700px)
+        WHY: maximize legibility on small screens with single column.
+        ========================================================= */
       @media (max-width: 700px) {
         .container {
           padding: 0 12px;
@@ -677,12 +686,12 @@
           text-overflow: unset;
         }
 
-        /* Hide the desktop table; mobile cards are injected by JS */
+        /* Hide the desktop table; cards will be injected via JS */
         .winner-table {
           display: none !important;
         }
 
-        /* Card grid */
+        /* One-column card grid */
         .winner-preview {
           display: grid;
           grid-template-columns: 1fr;
@@ -701,7 +710,7 @@
           gap: 4px;
           position: relative;
         }
-        /* Top 3 distinct styles (gold/silver/bronze) */
+        /* Visual accents for top 3 ranks */
         .winner-card.rank-1 {
           background: linear-gradient(145deg, #fff9e6, #ffecb3) !important;
           border: 2px solid #f57c00 !important;
@@ -721,7 +730,7 @@
           box-shadow: 0 3px 12px rgba(255, 143, 0, 0.25) !important;
         }
 
-        /* Four-line card structure: rank → name → prize → highlights */
+        /* Card content — 4 lines */
         .winner-rank {
           font-size: 0.9rem;
           font-weight: 700;
@@ -744,6 +753,7 @@
           line-height: 1;
         }
 
+        /* 4th line — badges & league rank */
         .winner-highlights {
           display: flex;
           gap: 4px;
@@ -802,17 +812,99 @@
           font-weight: 700;
         }
 
-        /* Reveal the subtitle on mobile too */
+        /* Subtitle reveal on mobile */
         .winners-heading .heading-subtitle {
           opacity: 1;
           transform: none;
         }
       }
 
-      /* ===================================================================
-         ULTRA-NARROW DEVICES (≤360px)
-         WHY: Improve readability and prevent overflow on very small phones.
-         =================================================================== */
+      /* =========================================================
+        TABLET CARDS (701–1024px)
+        WHY: Tables feel cramped on iPad; cards scan better.
+        ========================================================= */
+      @media (min-width: 701px) and (max-width: 1024px) {
+        /* Hide the desktop table; JS will render cards */
+        .winner-table {
+          display: none !important;
+        }
+
+        .container {
+          padding: 0 16px;
+        }
+
+        /* Two-column grid for iPad; increases scannability */
+        .winner-preview {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px 14px; /* row x column gap */
+          margin-top: 14px;
+        }
+
+        .winner-card {
+          padding: 14px 16px;
+          border-radius: 8px;
+          background: #fff;
+          border-left: 4px solid var(--secondary-color);
+          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        /* Slightly larger fonts than phone; still compact */
+        .winner-rank {
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--primary-color);
+          line-height: 1.1;
+        }
+        .winner-name {
+          font-size: 1.05rem;
+          font-weight: 600;
+          color: var(--heading-color);
+        }
+        .winner-prize {
+          font-size: 1.15rem;
+          font-weight: 700;
+          color: var(--primary-color);
+        }
+
+        .winner-highlights {
+          display: flex;
+          gap: 6px;
+          flex-wrap: wrap;
+          margin-top: 2px;
+        }
+        .highlight-badge {
+          padding: 3px 8px;
+          border-radius: 9px;
+          font-size: 0.7rem;
+          font-weight: 700;
+        }
+
+        /* Accents for top 3 still apply */
+        .winner-card.rank-1 {
+          background: linear-gradient(145deg, #fff9e6, #ffecb3) !important;
+          border: 2px solid #f57c00 !important;
+          border-left: 5px solid #f57c00 !important;
+          box-shadow: 0 4px 14px rgba(245, 124, 0, 0.18) !important;
+        }
+        .winner-card.rank-2 {
+          background: linear-gradient(145deg, #f5f5f5, #e0e0e0) !important;
+          border: 2px solid #757575 !important;
+          border-left: 5px solid #757575 !important;
+          box-shadow: 0 4px 14px rgba(117, 117, 117, 0.18) !important;
+        }
+        .winner-card.rank-3 {
+          background: linear-gradient(145deg, #fff3e0, #ffe0b2) !important;
+          border: 2px solid #ff8f00 !important;
+          border-left: 5px solid #ff8f00 !important;
+          box-shadow: 0 4px 14px rgba(255, 143, 0, 0.18) !important;
+        }
+      }
+
+      /* Ultra-narrow phone tweaks */
       @media (max-width: 360px) {
         .container {
           padding: 0 8px;
@@ -847,7 +939,7 @@
         }
       }
 
-      /* Floating "test phase" toggle (dev only) */
+      /* Floating test toggle (developer tool; hidden on prod) */
       .floating-toggle {
         position: fixed;
         left: 12px;
@@ -873,56 +965,61 @@
         font-weight: 700;
       }
 
-      /* Back to Home floating action button */
+      /* ================================
+        OPTION A: RESTYLED FLOATING FAB
+        =================================
+        NOTE: We keep this as a <a> for native navigation + SEO.
+     */
       .back-fab {
         position: fixed;
-        right: 16px;
-        bottom: calc(16px + env(safe-area-inset-bottom, 0));
+        right: 14px;
+        bottom: calc(14px + env(safe-area-inset-bottom, 0));
         z-index: 10000;
+
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 10px 14px;
+        gap: 10px;
+        padding: 12px 16px;
+        border-radius: 999px; /* pill shape */
+
         color: #fff;
-        background: rgba(0, 0, 0, 0.25);
+        background: linear-gradient(135deg, #4a154b, #1a1a1a);
+        border: 0;
         text-decoration: none;
-        border: 1px solid rgba(255, 255, 255, 0.35);
-        border-radius: var(--border-radius);
-        -webkit-backdrop-filter: blur(8px);
-        backdrop-filter: blur(8px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
         transition:
           transform 0.15s ease,
-          background 0.2s ease;
-        font-weight: 600;
+          filter 0.15s ease,
+          opacity 0.2s ease;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+      .back-fab i {
+        font-size: 1rem;
       }
       .back-fab:hover {
-        background: rgba(0, 0, 0, 0.35);
         transform: translateY(-2px);
+        filter: brightness(1.06);
+      }
+      .back-fab:active {
+        transform: translateY(0);
+        filter: brightness(0.96);
       }
       .back-fab:focus-visible {
-        outline: 2px solid rgba(255, 255, 255, 0.85);
+        outline: 2px solid #fff;
         outline-offset: 2px;
       }
       @media (max-width: 768px) {
         .back-fab {
           right: 12px;
           bottom: calc(12px + env(safe-area-inset-bottom, 0));
-          padding: 9px 12px;
+          padding: 11px 14px;
         }
       }
     </style>
 
-    <!--
-      =====================================================================
-      MOBILE HIGHLIGHTS RIGHT-ALIGN OVERRIDE
-      WHY:
-      - Aligns the 4th line (badges: GW / GM / League Rank) to the RIGHT
-        within the mobile card, per latest design.
-      - Placed as a separate <style> so it’s easy to spot/remove if design
-        changes. It only affects ≤700px viewports.
-      =====================================================================
-    -->
+    <!-- Optional helper to right-align the 4th line on mobile cards -->
     <style id="mobile-winner-highlights-right-align">
       @media (max-width: 700px) {
         .winner-highlights {
@@ -931,11 +1028,11 @@
           flex-wrap: wrap;
           margin-top: 2px;
 
-          /* Right align the entire line (4th line) */
-          justify-content: flex-end; /* packs badges to the right */
+          /* Packs badges to the right on small screens */
+          justify-content: flex-end;
           text-align: right;
-          margin-left: auto; /* pushes the group to the right edge */
-          width: 100%; /* ensures wrapped rows align right */
+          margin-left: auto;
+          width: 100%;
         }
       }
     </style>
@@ -943,19 +1040,17 @@
 
   <body>
     <div class="container">
-      <!-- ===============================================================
-           HEADER BLOCK
-           =============================================================== -->
+      <!-- HERO: Title + Countdown -->
       <header>
         <div class="header-main">
           <h1>🏆 Complete Winner Scorecard</h1>
           <p>IIM Mumbai Fantasy League - Season 2025-26</p>
         </div>
 
-        <!-- Countdown is shown/hidden by JS based on data availability -->
+        <!-- Countdown (hidden until data is available) -->
         <div id="countdown-clock" class="countdown-clock is-hidden" aria-live="polite">
           <div class="countdown-label" id="countdown-label">Time until GW1 kick-off</div>
-          <div class="countdown-time">
+          <div class="countdown-time" aria-label="Time remaining">
             <span class="countdown-unit">
               <span id="countdown-days">00</span>
               <span class="countdown-unit-label">D</span>
@@ -974,7 +1069,7 @@
         </div>
       </header>
 
-      <!-- Dev-only floating toggle to simulate phases -->
+      <!-- Developer-only: Quick phase switch for testing flows -->
       <div id="floating-phase-toggle" class="floating-toggle is-hidden" aria-live="polite">
         <i class="fas fa-random" aria-hidden="true"></i>
         <button id="phase-toggle-btn-float" onclick="togglePhaseWinners()">Toggle phase</button>
@@ -989,28 +1084,27 @@
       </div>
 
       <main>
-        <!-- =============================================================
-             SECTION: League statistics summary (auto-filled via JS)
-             ============================================================= -->
-        <section>
-          <h2>📊 League Statistics</h2>
+        <!-- ====== SUMMARY KPI STRIP ====== -->
+        <section aria-labelledby="stats-heading">
+          <h2 id="stats-heading">📊 League Statistics</h2>
           <div class="stats-summary" id="stats-summary">
-            <div class="summary-card">
+            <!-- JS inserts values into these four cards -->
+            <div class="summary-card" aria-live="polite">
               <div class="summary-icon"><i class="fas fa-calendar-check"></i></div>
               <div class="summary-number" id="completed-gameweeks">--</div>
               <div class="summary-label">Completed Gameweeks</div>
             </div>
-            <div class="summary-card">
+            <div class="summary-card" aria-live="polite">
               <div class="summary-icon"><i class="fas fa-calendar-alt"></i></div>
               <div class="summary-number" id="completed-gamemonths">--</div>
               <div class="summary-label">Completed Gamemonths</div>
             </div>
-            <div class="summary-card">
+            <div class="summary-card" aria-live="polite">
               <div class="summary-icon"><i class="fas fa-users"></i></div>
               <div class="summary-number" id="total-winners">--</div>
               <div class="summary-label">Total Winners</div>
             </div>
-            <div class="summary-card primary-metric">
+            <div class="summary-card primary-metric" aria-live="polite">
               <div class="summary-icon"><i class="fas fa-coins"></i></div>
               <div class="summary-number" id="total-prize-money">--</div>
               <div class="summary-label">Total Prize Money</div>
@@ -1018,43 +1112,49 @@
           </div>
         </section>
 
-        <!-- =============================================================
-             SECTION: Winners list (table for desktop, cards for mobile)
-             ============================================================= -->
-        <section>
+        <!-- ====== WINNERS LIST ======
+            Desktop: table
+            Tablet/Mobile: cards -->
+        <section aria-labelledby="winners-heading">
           <h2 class="winners-heading" id="winners-page-heading">
-            <span class="heading-main">🏅 Complete Winner Rankings</span>
+            <span class="heading-main" id="winners-heading">🏅 Complete Winner Rankings</span>
+            <!-- Dynamically shows 'After GWx' -->
             <span class="heading-subtitle" id="winners-page-after-gw"></span>
           </h2>
           <p>All players ranked by total prize money won this season.</p>
 
-          <!-- Desktop/tablet container. On mobile this is replaced with cards -->
+          <!-- Container that receives either: TABLE (desktop) or CARDS (<=1024px) -->
           <div id="winner-table-container">
             <div class="winner-loading">Loading complete winner data...</div>
           </div>
 
-          <!-- Pagination (visible only when number of items exceed page size) -->
-          <div class="winner-navigation is-hidden" id="winner-navigation">
+          <!-- Pagination controls (hidden when ≤ 1 page) -->
+          <div
+            class="winner-navigation is-hidden"
+            id="winner-navigation"
+            role="navigation"
+            aria-label="Winners navigation"
+          >
             <button
               id="winner-prev-page"
               class="winner-nav-btn"
               onclick="previousWinnerPage()"
               disabled
             >
-              <i class="fas fa-chevron-left"></i> Previous
+              <i class="fas fa-chevron-left" aria-hidden="true"></i> Previous
             </button>
-            <span id="winner-page-info" class="page-info">Page 1 of 1</span>
+            <span id="winner-page-info" class="page-info" aria-live="polite">Page 1 of 1</span>
             <button
               id="winner-next-page"
               class="winner-nav-btn"
               onclick="nextWinnerPage()"
               disabled
             >
-              Next <i class="fas fa-chevron-right"></i>
+              Next <i class="fas fa-chevron-right" aria-hidden="true"></i>
             </button>
           </div>
 
-          <!-- Last updated timestamp (from data.lastUpdated) -->
+          <!-- Last updated timestamp -->
           <div
             id="winner-last-updated"
             class="winner-last-updated"
@@ -1076,47 +1176,76 @@
         <p class="footer-last-updated">Last updated: August 2025</p>
       </footer>
 
-      <!-- Back to Home floating action button -->
-      <a id="back-fab" href="index.html" class="back-fab" aria-label="Back to Home">
+      <!-- Floating FAB linking back to Home (preserves URL params/state) -->
+      <a
+        id="back-fab"
+        href="index.html"
+        class="back-fab"
+        aria-label="Go to Home"
+        title="Go to Home"
+      >
         <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        Back to Home
+        Home
       </a>
     </div>
 
-    <!-- ===================================================================
-         SCRIPT
-         -------------------------------------------------------------------
-         RESPONSIBILITIES
-         - Fetch next GW deadline → render countdown
-         - Load winners data (test/live) → render table/cards
-         - Handle pagination and phase/test toggles
-         - Maintain light localStorage cache for countdown
-         =================================================================== -->
+    <!-- ============================================================
+        SCRIPT
+        Contains data loaders, countdown, pagination, and rendering.
+        All external-facing state is driven by URL params (see header).
+        ============================================================ -->
     <script>
-      /* -------------------------------------------------------------------
-         UTILITIES / GLOBAL STATE
-         ------------------------------------------------------------------- */
+      'use strict';
 
-      // Pull clock offset from URL to simulate future/past times locally.
+      /* --------------------------------------------------------------------
+       * CONSTANTS / GLOBALS
+       * ------------------------------------------------------------------ */
+      /** Breakpoint (px) at which we switch to a DESKTOP table layout. */
+      const DESKTOP_MIN_PX = 1025;
+
+      /** Number of winners shown per page (cards or table). */
+      const winnerItemsPerPage = 10;
+
+      /** Clock offset (ms) from URL for testing countdown behavior. */
       const _urlParams_boot = new URLSearchParams(window.location.search);
       const _clockOffsetRaw = parseInt(_urlParams_boot.get('clockOffset') || '0', 10);
       const timeOffsetMs = isNaN(_clockOffsetRaw) ? 0 : _clockOffsetRaw;
 
-      // Convenient wrapper that respects offset. Do not directly use new Date()
-      // for countdown calculations—this helps QA test scenarios.
+      /* Mutable runtime state (kept minimal and encapsulated) */
+      let countdownInterval = null;
+      let countdownShown = false;
+      let usedCachedOnLoad = false;
+      let _lastSyncIso = null;
+      let _lastGwId = null;
+      let _lastProcessedGW = null;
+      let allWinners = [];
+      let currentWinnerPage = 1;
+      let isDebugMode = false;
+
+      /* --------------------------------------------------------------------
+       * SMALL UTILS — DOM + TIME + SANITIZATION
+       * ------------------------------------------------------------------ */
+
+      /** @returns {Date} now + test offset (ms) */
       function now() {
         return new Date(Date.now() + timeOffsetMs);
       }
 
-      // Small helpers to show/hide elements without repeating class logic.
+      /** Remove "is-hidden" class. */
       function show(el) {
         if (el) el.classList.remove('is-hidden');
       }
+
+      /** Add "is-hidden" class. */
       function hide(el) {
         if (el) el.classList.add('is-hidden');
       }
 
-      // Sanitize strings before injecting into HTML.
+      /**
+       * Escape HTML entities to prevent XSS if inserting untrusted text.
+       * @param {any} str - string or value to convert to string
+       * @returns {string} safe, escaped HTML text
+       */
       function escapeHTML(str) {
         if (!str && str !== 0) return '';
         return String(str)
@@ -1127,57 +1256,13 @@
           .replaceAll("'", '&#039;');
       }
 
-      /* -------------------------------------------------------------------
-         COUNTDOWN STATE
-         NOTE:
-         - _lastProcessedGW reflects latest completed GW (from winners payload)
-         - _lastGwId reflects next GW ID (from FPL endpoint)
-         ------------------------------------------------------------------- */
-      let countdownInterval = null,
-        countdownShown = false,
-        usedCachedOnLoad = false;
-      let _lastSyncIso = null,
-        _lastGwId = null,
-        _lastProcessedGW = null;
-
-      // Query param checkers
+      /** Is test/admin mode (enables dev affordances). */
       function isAdminMode() {
         const p = new URLSearchParams(window.location.search);
         return p.get('test') === 'true' || p.get('admin') === 'true';
       }
 
-      // Records sync metadata for admin badge
-      function setLastSyncInfo(gwId, iso) {
-        _lastGwId = gwId || _lastGwId;
-        _lastSyncIso = iso || _lastSyncIso;
-      }
-
-      // Helper to strip "(cached)" from countdown label when live sync returns
-      function removeCachedLabel() {
-        const label = document.getElementById('countdown-label');
-        if (!label) return;
-        label.textContent = label.textContent.replace(/\s*\(cached\)$/i, '');
-      }
-
-      // Briefly shows "Synced just now" next to countdown label (nice UX cue)
-      function showSyncedJustNow() {
-        const label = document.getElementById('countdown-label');
-        if (!label) return;
-        const old = label.querySelector('.sync-badge');
-        if (old) old.remove();
-        const b = document.createElement('span');
-        b.className = 'sync-badge';
-        b.textContent = 'Synced just now';
-        label.appendChild(b);
-        void b.offsetWidth;
-        b.classList.add('show');
-        setTimeout(() => {
-          b.classList.remove('show');
-          setTimeout(() => b.remove(), 350);
-        }, 2000);
-      }
-
-      // Builds the small orange "admin" badge (GW + last synced time)
+      /** Attach last sync info to countdown label (only in admin mode). */
       function attachAdminBadge() {
         if (!isAdminMode()) return;
         const label = document.getElementById('countdown-label');
@@ -1205,10 +1290,38 @@
         }
       }
 
-      /* -------------------------------------------------------------------
-         LOCAL STORAGE HELPERS (countdown cache)
-         WHY: Countdown remains visible even if network is slow or blocked.
-         ------------------------------------------------------------------- */
+      /** Remove "(cached)" note from countdown label if present. */
+      function removeCachedLabel() {
+        const label = document.getElementById('countdown-label');
+        if (!label) return;
+        label.textContent = label.textContent.replace(/\s*\(cached\)$/i, '');
+      }
+
+      /** Show ephemeral "Synced just now" badge on countdown label. */
+      function showSyncedJustNow() {
+        const label = document.getElementById('countdown-label');
+        if (!label) return;
+        const old = label.querySelector('.sync-badge');
+        if (old) old.remove();
+        const b = document.createElement('span');
+        b.className = 'sync-badge';
+        b.textContent = 'Synced just now';
+        label.appendChild(b);
+        void b.offsetWidth;
+        b.classList.add('show');
+        setTimeout(() => {
+          b.classList.remove('show');
+          setTimeout(() => b.remove(), 350);
+        }, 2000);
+      }
+
+      /** Track "last sync" info for admin badge. */
+      function setLastSyncInfo(gwId, iso) {
+        _lastGwId = gwId || _lastGwId;
+        _lastSyncIso = iso || _lastSyncIso;
+      }
+
+      /* ------------------------- Local Storage Helpers ---------------------- */
       function getCachedDeadline() {
         try {
           const iso = localStorage.getItem('fpl_next_deadline');
@@ -1225,7 +1338,6 @@
         } catch {}
       }
 
-      // Cache a minimal GW object to compute "After GWX" subtitle reliably.
       function getCachedGameweek() {
         try {
           const raw = localStorage.getItem('fpl_cached_gw');
@@ -1250,9 +1362,13 @@
         } catch {}
       }
 
-      /* -------------------------------------------------------------------
-         COUNTDOWN RENDERING
-         ------------------------------------------------------------------- */
+      /* ----------------------------- Countdown ------------------------------ */
+
+      /**
+       * Start countdown loop. If a "gameweek" object is provided, it prints GW id.
+       * @param {Date} deadlineTime
+       * @param {{id:number, deadline_time:string}|null} gameweek
+       */
       function startCountdown(deadlineTime, gameweek = null) {
         if (countdownInterval) {
           clearInterval(countdownInterval);
@@ -1269,7 +1385,7 @@
         countdownShown = true;
       }
 
-      // Simple countdown (when GW object not available)
+      /** Update countdown (no GW info). Hides clock after deadline. */
       function updateCountdownDisplay(deadlineTime) {
         const diff = deadlineTime - now();
         if (diff <= 0) {
@@ -1290,7 +1406,7 @@
         document.getElementById('countdown-minutes').textContent = String(m).padStart(2, '0');
       }
 
-      // Full countdown with "GWx" label and live/units toggling
+      /** Update countdown with GW label and "LIVE" flipover logic. */
       function updateGameweekCountdown(gameweek) {
         const clock = document.getElementById('countdown-clock');
         const label = document.getElementById('countdown-label');
@@ -1301,7 +1417,6 @@
           const dl = new Date(gameweek.deadline_time);
           const diff = dl - now();
           if (diff <= 0) {
-            // When GW is live, switch to compact "LIVE"
             document.getElementById('countdown-days').textContent = 'LIVE';
             document.getElementById('countdown-hours').textContent = '';
             document.getElementById('countdown-minutes').textContent = '';
@@ -1331,13 +1446,9 @@
         }
       }
 
-      /* -------------------------------------------------------------------
-         FPL SEASON METADATA (next deadline) LOADER
-         DESIGN:
-         1) Try project backend (/data/next_deadline.json).
-         2) If fail, try CORS proxies pointing to FPL API.
-         3) If fail, fallback to a known ISO date as a safe default.
-         ------------------------------------------------------------------- */
+      /* -------------------------- Load GW Deadline -------------------------- */
+
+      /** Attempt to load deadline from our backend file first. */
       function loadFPLSeasonData() {
         const backendUrl = 'data/next_deadline.json?cache=' + Date.now();
         fetch(backendUrl)
@@ -1360,7 +1471,7 @@
           .catch(() => loadFPLSeasonDataViaProxy());
       }
 
-      // When close to a deadline, re-check shortly after to rollover to next GW
+      /** Schedule a re-fetch shortly after a deadline flips. */
       function scheduleRolloverCheck(deadline) {
         const ms = deadline - now();
         if (ms > 0 && ms < 1000 * 60 * 60 * 24 * 7) {
@@ -1386,7 +1497,7 @@
         }
       }
 
-      // Multi-proxy attempt to reach public FPL API
+      /** Fallback to public proxies if backend file is missing. */
       function loadFPLSeasonDataViaProxy() {
         const proxies = [
           'https://api.allorigins.win/raw?url=' +
@@ -1399,7 +1510,7 @@
         let i = 0;
         (function tryNext() {
           if (i >= proxies.length) {
-            // FINAL FALLBACK: fixed ISO (keeps UI functional offline)
+            // Final fallback: fixed date to avoid blank UI
             const fallback = new Date('2025-08-15T17:30:00Z');
             setCachedDeadline(fallback.toISOString());
             const clock = document.getElementById('countdown-clock');
@@ -1453,59 +1564,15 @@
         })();
       }
 
-      /* -------------------------------------------------------------------
-         WINNERS DATA LOADER + RENDERERS
-         ------------------------------------------------------------------- */
-      let allWinners = [],
-        currentWinnerPage = 1;
-      const winnerItemsPerPage = 10;
-      let isDebugMode = false;
+      /* -------------------- Winners loader & pagination --------------------- */
 
-      // ENTRYPOINT: wires up everything on DOM ready
-      document.addEventListener('DOMContentLoaded', function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get('test') === 'true';
-        isDebugMode = isTestMode || urlParams.get('debug') === '1';
-
-        loadWinnerData(); // Fetch and render winners
-        checkTestMode(); // Applies TEST mode banners + floating toggle
-
-        // If in test mode and cached countdown exists, show it immediately
-        if (isTestMode) {
-          const cached = getCachedDeadline();
-          if (cached && cached - now() > 0) {
-            const clock = document.getElementById('countdown-clock');
-            if (clock) show(clock);
-            const label = document.getElementById('countdown-label');
-            if (label && !label.textContent.includes('(cached)')) label.textContent += ' (cached)';
-            usedCachedOnLoad = true;
-            startCountdown(cached);
-          }
-        }
-
-        loadFPLSeasonData(); // Fetch live GW metadata for countdown
-
-        try {
-          updateWinnersPageHeaderGW();
-        } catch (e) {}
-        // Safety: if countdown didn't initialize, boot with fallback after 1.5s
-        setTimeout(() => {
-          if (!countdownShown) {
-            const fallback = new Date('2025-08-15T17:30:00Z');
-            const clock = document.getElementById('countdown-clock');
-            if (clock) show(clock);
-            startCountdown(fallback);
-          }
-        }, 1500);
-      });
-
-      // Reads "data" query param to force test/live or keep auto behavior
+      /** Extract explicit data override from URL (?data=) */
       function getDataOverride() {
         const p = (new URLSearchParams(window.location.search).get('data') || 'auto').toLowerCase();
         return p === 'test' || p === 'live' ? p : 'auto';
       }
 
-      // Loads winner data from the right file and triggers render
+      /** Fetch winners JSON, compute + render current page. */
       function loadWinnerData() {
         const urlParams = new URLSearchParams(window.location.search);
         const isTest = urlParams.get('test') === 'true';
@@ -1527,38 +1594,34 @@
             return r.json();
           })
           .then((data) => {
-            // Visual indicator in header when browsing test dataset
             if (useTestData && data.testMode) {
               const p = document.querySelector('header p');
               if (p && !p.textContent.includes('[TEST MODE]')) {
-                p.textContent = p.textcontent + ' [TEST MODE - Demo Data]';
+                p.textContent = p.textContent + ' [TEST MODE - Demo Data]';
                 p.style.color = '#ff6b6b';
               }
             }
 
-            // Sort winners by totalPrizeWon (desc)
+            /* Sort by prize money high->low (server can also pre-sort) */
             allWinners = data.winners.sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
 
-            // Render desktop/tablet table or mobile cards
-            displayWinnerTable();
-
-            // Stats summary cards
+            displayWinnerTable(); // render according to breakpoint
             updateStatsSummary(data.winners);
 
-            // Additional summary from payload (if provided)
+            /* Optional summary details for header chips */
             if (data.summary && data.summary.completedGameweeks !== undefined) {
               document.getElementById('completed-gameweeks').textContent =
                 data.summary.completedGameweeks;
             }
             if (data.summary && typeof data.summary.lastProcessedGW === 'number') {
-              _lastProcessedGW = data.summary.lastProcessedGW; // used for "After GWX"
+              _lastProcessedGW = data.summary.lastProcessedGW;
             }
             if (data.summary && data.summary.completedMonths !== undefined) {
               document.getElementById('completed-gamemonths').textContent =
                 data.summary.completedMonths;
             }
 
-            // Last updated timestamp display
+            /* Human-friendly timestamp at user's local TZ */
             const lastUpdated = new Date(data.lastUpdated);
             const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const locale = navigator.language || 'en-GB';
@@ -1582,8 +1645,7 @@
           });
       }
 
-      // Computes the "After GWx" message: prefer winners.summary.lastProcessedGW,
-      // else derive from next GW id minus one, else use cached GW id minus one.
+      /** Compute the last finished GW to show "After GWx". */
       function getLastFinishedGW() {
         if (typeof _lastProcessedGW === 'number') return _lastProcessedGW;
         if (typeof _lastGwId === 'number') return _lastGwId - 1;
@@ -1592,7 +1654,7 @@
         return null;
       }
 
-      // Writes the subtitle after loading either winners or countdown data
+      /** Render the "After GWx" subtitle when we have enough info. */
       function updateWinnersPageHeaderGW() {
         const el = document.getElementById('winners-page-after-gw');
         if (!el) return;
@@ -1608,11 +1670,12 @@
         }
       }
 
-      /* -------------------------------------------------------------------
-         RENDERERS
-         - Table for ≥701px
-         - Card list for ≤700px
-         ------------------------------------------------------------------- */
+      /**
+       * Main renderer:
+       * - Desktop (>= DESKTOP_MIN_PX): table
+       * - Tablet/Mobile: cards
+       * Re-run this on resize to adapt to orientation changes.
+       */
       function displayWinnerTable() {
         const container = document.getElementById('winner-table-container');
         const navigation = document.getElementById('winner-navigation');
@@ -1625,11 +1688,10 @@
           return;
         }
 
-        const isWide = window.matchMedia('(min-width: 701px)').matches;
-        // NOTE: Keep this value consistent with CSS breakpoint (≤700px cards)
+        const isDesktopWide = window.matchMedia(`(min-width: ${DESKTOP_MIN_PX}px)`).matches;
 
-        if (isWide) {
-          // --------------------------- Desktop/Tablet (TABLE) ---------------------------
+        if (isDesktopWide) {
+          /* ----- Desktop TABLE ----- */
           const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
           const startIndex = (currentWinnerPage - 1) * winnerItemsPerPage;
           const endIndex = startIndex + winnerItemsPerPage;
@@ -1678,36 +1740,36 @@
             hide(navigation);
           }
         } else {
-          // ------------------------------- Mobile (CARDS) -------------------------------
+          /* ----- Tablet/Mobile CARDS ----- */
           const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
           const startIndex = (currentWinnerPage - 1) * winnerItemsPerPage;
           const endIndex = startIndex + winnerItemsPerPage;
           const pageData = allWinners.slice(startIndex, endIndex);
 
           const cards = `
-            <div class="winner-preview">
-              ${pageData
-                .map((w, i) => {
-                  const rank = startIndex + i + 1;
-                  const h = w.highlights || { gameWeeks: 0, gameMonths: 0 };
-                  return `
-                  <div class="winner-card${rank <= 3 ? ` rank-${rank}` : ''}" role="article" aria-label="Winner ${rank}: ${escapeHTML(w.playerName)}">
-                    <div class="winner-rank">#${rank}</div>
-                    <div class="winner-name" title="${escapeHTML(w.playerName)}">${escapeHTML(w.playerName)}</div>
-                    <div class="winner-prize" title="Total prize won: ₹${w.totalPrizeWon.toLocaleString('en-IN')}">
-                      ₹${w.totalPrizeWon.toLocaleString('en-IN')}
-                    </div>
-                    <div class="winner-highlights" aria-label="Achievements">
-                      ${h.gameWeeks > 0 ? `<span class="highlight-badge gw" title="${escapeHTML(h.gameWeeks + ' gameweek wins')}">${escapeHTML(h.gameWeeks + 'GW')}</span>` : ''}
-                      ${h.gameMonths > 0 ? `<span class="highlight-badge gm" title="${escapeHTML(h.gameMonths + ' monthly wins')}">${escapeHTML(h.gameMonths + 'GM')}</span>` : ''}
-                      ${h.overallRank ? `<span class="highlight-badge" title="Current league position">League Rank ${escapeHTML(h.overallRank)}</span>` : ''}
-                    </div>
-                  </div>
-                `;
-                })
-                .join('')}
-            </div>
-          `;
+           <div class="winner-preview">
+             ${pageData
+               .map((w, i) => {
+                 const rank = startIndex + i + 1;
+                 const h = w.highlights || { gameWeeks: 0, gameMonths: 0 };
+                 return `
+                 <div class="winner-card${rank <= 3 ? ` rank-${rank}` : ''}" role="article" aria-label="Winner ${rank}: ${escapeHTML(w.playerName)}">
+                   <div class="winner-rank">#${rank}</div>
+                   <div class="winner-name" title="${escapeHTML(w.playerName)}">${escapeHTML(w.playerName)}</div>
+                   <div class="winner-prize" title="Total prize won: ₹${w.totalPrizeWon.toLocaleString('en-IN')}">
+                     ₹${w.totalPrizeWon.toLocaleString('en-IN')}
+                   </div>
+                   <div class="winner-highlights" aria-label="Achievements">
+                     ${h.gameWeeks > 0 ? `<span class="highlight-badge gw" title="${escapeHTML(h.gameWeeks + ' gameweek wins')}">${escapeHTML(h.gameWeeks + 'GW')}</span>` : ''}
+                     ${h.gameMonths > 0 ? `<span class="highlight-badge gm" title="${escapeHTML(h.gameMonths + ' monthly wins')}">${escapeHTML(h.gameMonths + 'GM')}</span>` : ''}
+                     ${h.overallRank ? `<span class="highlight-badge" title="Current league position">League Rank ${escapeHTML(h.overallRank)}</span>` : ''}
+                   </div>
+                 </div>
+               `;
+               })
+               .join('')}
+           </div>
+         `;
           container.innerHTML = cards;
 
           if (totalPages > 1) {
@@ -1719,7 +1781,7 @@
         }
       }
 
-      // Updates pagination state (buttons + label)
+      /** Update pagination buttons + label. */
       function updateWinnerNavigation(totalPages) {
         const prev = document.getElementById('winner-prev-page');
         const next = document.getElementById('winner-next-page');
@@ -1728,6 +1790,8 @@
         if (next) next.disabled = currentWinnerPage === totalPages;
         if (info) info.textContent = `Page ${currentWinnerPage} of ${totalPages}`;
       }
+
+      /** Page navigation handlers (kept simple). */
       function previousWinnerPage() {
         if (currentWinnerPage > 1) {
           currentWinnerPage--;
@@ -1742,7 +1806,7 @@
         }
       }
 
-      // Summarizes total winners and total prize amount for the top stat cards
+      /** Aggregate totals for KPI strip. */
       function updateStatsSummary(winners) {
         if (!winners || winners.length === 0) return;
         const totalWinners = winners.length;
@@ -1752,9 +1816,14 @@
           '₹' + totalPrize.toLocaleString('en-IN');
       }
 
-      /* -------------------------------------------------------------------
-         NAV/PHASE TESTING HELPERS
-         ------------------------------------------------------------------- */
+      /* ---------------------- URL param preservation ------------------------ */
+
+      /**
+       * Build a query string containing selected keys from current URL.
+       * Use this whenever you create cross-page links to preserve state.
+       * @param {string[]} keys
+       * @returns {string} e.g. "?test=true&phase=pre"
+       */
       function buildNavQuery(keys = ['test', 'data', 'phase', 'clockOffset']) {
         try {
           const src = new URLSearchParams(window.location.search);
@@ -1770,12 +1839,15 @@
         }
       }
 
-      // Applies test mode visual hints and handles redirect if phase=pre
+      /* --------------------------- Test Mode UI ---------------------------- */
+
+      /** Apply test ribbons, dev toggles, and persist FAB link state. */
       function checkTestMode() {
         const params = new URLSearchParams(window.location.search);
         const isTest = params.get('test') === 'true';
         const phase = (params.get('phase') || 'auto').toLowerCase();
 
+        /* Wire FAB to preserve params (critical for state continuity) */
         const back = document.getElementById('back-fab');
         if (back) back.href = 'index.html' + buildNavQuery();
 
@@ -1799,7 +1871,6 @@
           const float = document.getElementById('floating-phase-toggle');
           if (float) float.classList.add('is-hidden');
           if (phase === 'pre') {
-            // Redirect to Home if phase=pre (keeps query params)
             const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
             const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
             qp.set('phase', 'pre');
@@ -1810,15 +1881,14 @@
         }
       }
 
-      // Dev control: re-open this page with phase=pre (for testing)
+      /** Dev-only helper to toggle phase while remaining on this page. */
       function togglePhaseWinners() {
         const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
         const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
         qp.set('phase', 'pre');
         window.location.href = 'winners.html' + (qp.toString() ? '?' + qp.toString() : '');
       }
-
-      // Dev control: open Home with the same toggled params
+      /** Dev-only helper to open home with preserved params. */
       function openHomeWithToggledPhase() {
         const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
         const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
@@ -1826,15 +1896,52 @@
         window.location.href = 'index.html' + (qp.toString() ? '?' + qp.toString() : '');
       }
 
-      /* -------------------------------------------------------------------
-         TODOs / FUTURE IMPROVEMENTS
-         - Add skeleton loading for cards/table while fetching.
-         - Move constants (breakpoints, itemsPerPage) to a config block.
-         - Add i18n for number formats and labels.
-         - Provide a "Download CSV" of winners.
-         - Persist pagination state in query param (?page=2).
-         - Add unit tests for date math and rendering thresholds.
-         ------------------------------------------------------------------- */
+      /* ------------------------------ Boot ------------------------------- */
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTestMode = urlParams.get('test') === 'true';
+        isDebugMode = isTestMode || urlParams.get('debug') === '1';
+
+        loadWinnerData(); // winners table/cards data
+        checkTestMode(); // ribbons, FAB link
+
+        // Optional: kick the countdown into cached mode immediately in test
+        if (isTestMode) {
+          const cached = getCachedDeadline();
+          if (cached && cached - now() > 0) {
+            const clock = document.getElementById('countdown-clock');
+            if (clock) show(clock);
+            const label = document.getElementById('countdown-label');
+            if (label && !label.textContent.includes('(cached)')) label.textContent += ' (cached)';
+            usedCachedOnLoad = true;
+            startCountdown(cached);
+          }
+        }
+
+        loadFPLSeasonData(); // fetch GW deadline from backend (with proxy fallback)
+
+        // Ensure countdown isn’t blank if network is slow
+        try {
+          updateWinnersPageHeaderGW();
+        } catch (e) {}
+        setTimeout(() => {
+          if (!countdownShown) {
+            const fallback = new Date('2025-08-15T17:30:00Z');
+            const clock = document.getElementById('countdown-clock');
+            if (clock) show(clock);
+            startCountdown(fallback);
+          }
+        }, 1500);
+
+        // RERENDER on resize/orientation changes (debounced).
+        // This ensures iPad/tablet switches between card/table correctly.
+        let _resizeTimer = null;
+        window.addEventListener('resize', () => {
+          clearTimeout(_resizeTimer);
+          _resizeTimer = setTimeout(() => displayWinnerTable(), 150);
+        });
+      });
     </script>
   </body>
 </html>
