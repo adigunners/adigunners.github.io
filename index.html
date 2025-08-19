@@ -2177,9 +2177,20 @@
       // Logic: prefer explicit processed value from winners data (summary.lastProcessedGW).
       // Fallback: derive from the next-gameweek id (`_lastGwId` or cached `fpl_cached_gw`) by subtracting 1.
       function getLastFinishedGW() {
-        // use explicit processed GW if available
-        if (typeof _lastProcessedGW === 'number') return _lastProcessedGW;
-        // if we have an explicit last synced GW (next GW id), the last finished is that - 1
+        // Prefer explicit processed GW if available and plausible. Some backends
+        // may carry stale or cross-season values (e.g. 38) which are not relevant
+        // for the current season. Validate against next-GW (if available).
+        if (typeof _lastProcessedGW === 'number') {
+          if (!Number.isFinite(_lastProcessedGW) || _lastProcessedGW < 0 || _lastProcessedGW > 1000) {
+            return null;
+          }
+          const nextGwId = typeof _lastGwId === 'number' ? _lastGwId : (getCachedGameweek() && getCachedGameweek().id);
+          if (typeof nextGwId === 'number') {
+            if (_lastProcessedGW <= nextGwId - 1) return _lastProcessedGW;
+          } else {
+            return _lastProcessedGW;
+          }
+        }
         if (typeof _lastGwId === 'number') return _lastGwId - 1;
         const gwFromCache = getCachedGameweek();
         if (gwFromCache && typeof gwFromCache.id === 'number') return gwFromCache.id - 1;
@@ -2423,8 +2434,12 @@
 
             displayWinnerPreview(data.winners, containerId, summaryId);
             // capture last processed GW from winners summary if available
-            if (data.summary && typeof data.summary.lastProcessedGW === 'number') {
-              _lastProcessedGW = data.summary.lastProcessedGW;
+            if (data.summary && data.summary.lastProcessedGW != null) {
+              // Accept both numbers and numeric-strings (some backends serialize as strings).
+              const parsed = Number(data.summary.lastProcessedGW);
+              if (!Number.isNaN(parsed)) {
+                _lastProcessedGW = parsed;
+              }
             }
             // Refresh any headers that show "After GWx"
             try {

@@ -1613,8 +1613,12 @@
               document.getElementById('completed-gameweeks').textContent =
                 data.summary.completedGameweeks;
             }
-            if (data.summary && typeof data.summary.lastProcessedGW === 'number') {
-              _lastProcessedGW = data.summary.lastProcessedGW;
+            if (data.summary && data.summary.lastProcessedGW != null) {
+              // Accept both numbers and numeric-strings (some backends serialize as strings).
+              const parsed = Number(data.summary.lastProcessedGW);
+              if (!Number.isNaN(parsed)) {
+                _lastProcessedGW = parsed;
+              }
             }
             if (data.summary && data.summary.completedMonths !== undefined) {
               document.getElementById('completed-gamemonths').textContent =
@@ -1647,11 +1651,27 @@
 
       /** Compute the last finished GW to show "After GWx". */
       function getLastFinishedGW() {
-        if (typeof _lastProcessedGW === 'number') return _lastProcessedGW;
-        if (typeof _lastGwId === 'number') return _lastGwId - 1;
-        const cached = getCachedGameweek();
-        if (cached && typeof cached.id === 'number') return cached.id - 1;
-        return null;
+              // Prefer explicit processed GW if available and plausible. Some backends
+              // may carry stale or cross-season values (e.g. 38) which are not relevant
+              // for the current season. Validate against next-GW (if available).
+              if (typeof _lastProcessedGW === 'number') {
+                // Basic sanity bounds
+                if (!Number.isFinite(_lastProcessedGW) || _lastProcessedGW < 0 || _lastProcessedGW > 1000) {
+                  return null;
+                }
+                // If we know the next GW id, ensure lastProcessedGW is <= nextGw - 1
+                const nextGwId = typeof _lastGwId === 'number' ? _lastGwId : (getCachedGameweek() && getCachedGameweek().id);
+                if (typeof nextGwId === 'number') {
+                  if (_lastProcessedGW <= nextGwId - 1) return _lastProcessedGW;
+                  // Inconsistent: don't trust stale processed GW
+                } else {
+                  return _lastProcessedGW; // no next-GW available — accept it
+                }
+              }
+              if (typeof _lastGwId === 'number') return _lastGwId - 1;
+              const cached = getCachedGameweek();
+              if (cached && typeof cached.id === 'number') return cached.id - 1;
+              return null;
       }
 
       /** Render the "After GWx" subtitle when we have enough info. */
