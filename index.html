@@ -2177,21 +2177,29 @@
       // Logic: prefer explicit processed value from winners data (summary.lastProcessedGW).
       // Fallback: derive from the next-gameweek id (`_lastGwId` or cached `fpl_cached_gw`) by subtracting 1.
       function getLastFinishedGW() {
-        // Prefer explicit processed GW if available and plausible. Some backends
-        // may carry stale or cross-season values (e.g. 38) which are not relevant
-        // for the current season. Validate against next-GW (if available).
+        // Prefer explicit processed GW when available and plausible.
+        // If next-GW (nextGwId) is available and >1, ensure processedGW isn't ahead of it.
+        // If nextGwId is missing or <=1 (season finished / wrapped), accept processedGW.
         if (typeof _lastProcessedGW === 'number') {
+          // Basic sanity bounds
           if (!Number.isFinite(_lastProcessedGW) || _lastProcessedGW < 0 || _lastProcessedGW > 1000) {
             return null;
           }
-          const nextGwId = typeof _lastGwId === 'number' ? _lastGwId : (getCachedGameweek() && getCachedGameweek().id);
-          if (typeof nextGwId === 'number') {
-            if (_lastProcessedGW <= nextGwId - 1) return _lastProcessedGW;
-          } else {
-            return _lastProcessedGW;
-          }
+          // Prefer the processed GW reported in the winners JSON for both live and test modes.
+          // This file is the authoritative snapshot of processed/completed GWs per dataset.
+          try {
+            const nextGwId = typeof _lastGwId === 'number' ? _lastGwId : (getCachedGameweek() && getCachedGameweek().id);
+            if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
+              // Mismatch: processed GW is ahead of nextGw-1 (could be cross-season/test snapshot)
+              console.warn('[GW WARN] lastProcessedGW (from winners JSON) is ahead of nextGw-1:', _lastProcessedGW, 'nextGwId=', nextGwId);
+            }
+          } catch (e) {}
+          console.debug('[GW] using lastProcessedGW from winners JSON ->', _lastProcessedGW);
+          return _lastProcessedGW;
         }
-        if (typeof _lastGwId === 'number') return _lastGwId - 1;
+
+        // Fallbacks: prefer last known next GW minus one (if present), otherwise cached GW.
+        if (typeof _lastGwId === 'number' && _lastGwId > 0) return _lastGwId - 1;
         const gwFromCache = getCachedGameweek();
         if (gwFromCache && typeof gwFromCache.id === 'number') return gwFromCache.id - 1;
         return null;
@@ -2202,6 +2210,13 @@
         const el = document.getElementById('winners-after-gw');
         if (!el) return;
         const gwId = getLastFinishedGW();
+        // Admin/test-only debug: show why a particular GW was chosen
+        try {
+          if (isAdminMode()) {
+            const cached = getCachedGameweek();
+            console.debug('[GW DEBUG] _lastProcessedGW=', _lastProcessedGW, '_lastGwId=', _lastGwId, 'cached=', cached, '-> resolvedGW=', gwId);
+          }
+        } catch (e) {}
         if (typeof gwId === 'number' && gwId > 0) {
           el.textContent = `After GW${gwId}`;
           el.style.display = 'inline';

@@ -518,6 +518,9 @@
       }
 
       /* Section title with optional subtitle "After GWx" */
+      /* Mobile-first: stacked (subtitle on its own line). On larger
+         screens (>=700px) we align subtitle inline beside the main title
+         to match the index page behavior. */
       .winners-heading {
         display: block;
         margin: 0 0 0.5rem 0;
@@ -541,6 +544,33 @@
       .winners-heading .heading-subtitle.show {
         opacity: 1;
         transform: translateY(0);
+      }
+
+      /* Respect reduced-motion preferences */
+      @media (prefers-reduced-motion: reduce) {
+        .winners-heading .heading-subtitle,
+        .winners-heading .heading-subtitle.show {
+          transition: none;
+          transform: none;
+        }
+      }
+
+      /* Larger screens: put subtitle inline beside the main title (same-line)
+         and remove the top margin so it sits on the same baseline. */
+      @media (min-width: 700px) {
+        .winners-heading {
+          display: flex;
+          align-items: baseline;
+          gap: 0.5rem;
+        }
+        .winners-heading .heading-main {
+          display: inline-block;
+          font-size: 1.25rem;
+        }
+        .winners-heading .heading-subtitle {
+          display: inline-block;
+          margin-top: 0;
+        }
       }
 
       /* Pagination cluster */
@@ -1618,6 +1648,9 @@
               const parsed = Number(data.summary.lastProcessedGW);
               if (!Number.isNaN(parsed)) {
                 _lastProcessedGW = parsed;
+                try {
+                  if (isAdminMode()) console.debug('[GW DEBUG] winners.json parsed lastProcessedGW =>', parsed);
+                } catch (e) {}
               }
             }
             if (data.summary && data.summary.completedMonths !== undefined) {
@@ -1650,25 +1683,28 @@
       }
 
       /** Compute the last finished GW to show "After GWx". */
-      function getLastFinishedGW() {
-              // Prefer explicit processed GW if available and plausible. Some backends
-              // may carry stale or cross-season values (e.g. 38) which are not relevant
-              // for the current season. Validate against next-GW (if available).
+  function getLastFinishedGW() {
+              // Prefer explicit processed GW when available and plausible.
+              // If next-GW (nextGwId) is available and >1, ensure processedGW isn't ahead of it.
+              // If nextGwId is missing or <=1 (season finished / wrapped), accept processedGW.
               if (typeof _lastProcessedGW === 'number') {
                 // Basic sanity bounds
                 if (!Number.isFinite(_lastProcessedGW) || _lastProcessedGW < 0 || _lastProcessedGW > 1000) {
                   return null;
                 }
-                // If we know the next GW id, ensure lastProcessedGW is <= nextGw - 1
-                const nextGwId = typeof _lastGwId === 'number' ? _lastGwId : (getCachedGameweek() && getCachedGameweek().id);
-                if (typeof nextGwId === 'number') {
-                  if (_lastProcessedGW <= nextGwId - 1) return _lastProcessedGW;
-                  // Inconsistent: don't trust stale processed GW
-                } else {
-                  return _lastProcessedGW; // no next-GW available — accept it
-                }
+                // Prefer the processed GW reported in the winners JSON for both live and test modes.
+                try {
+                  const nextGwId = typeof _lastGwId === 'number' ? _lastGwId : (getCachedGameweek() && getCachedGameweek().id);
+                  if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
+                    console.warn('[GW WARN] lastProcessedGW (from winners JSON) is ahead of nextGw-1:', _lastProcessedGW, 'nextGwId=', nextGwId);
+                  }
+                } catch (e) {}
+                try {
+                  if (isAdminMode()) console.debug('[GW] using lastProcessedGW from winners JSON ->', _lastProcessedGW);
+                } catch (e) {}
+                return _lastProcessedGW;
               }
-              if (typeof _lastGwId === 'number') return _lastGwId - 1;
+              if (typeof _lastGwId === 'number' && _lastGwId > 0) return _lastGwId - 1;
               const cached = getCachedGameweek();
               if (cached && typeof cached.id === 'number') return cached.id - 1;
               return null;
@@ -1679,6 +1715,9 @@
         const el = document.getElementById('winners-page-after-gw');
         if (!el) return;
         const gwId = getLastFinishedGW();
+        try {
+          if (isAdminMode()) console.debug('[GW DEBUG] winners page resolved GW ->', gwId, ' _lastProcessedGW=', _lastProcessedGW, '_lastGwId=', _lastGwId, 'cached=', getCachedGameweek());
+        } catch (e) {}
         if (typeof gwId === 'number' && gwId > 0) {
           el.textContent = `After GW${gwId}`;
           el.classList.add('show');
