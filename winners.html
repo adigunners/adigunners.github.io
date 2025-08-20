@@ -1646,7 +1646,6 @@
               const parsed = Number(data.summary.completedGameweeks);
               if (!Number.isNaN(parsed)) {
                 _lastProcessedGW = parsed;
-                console.log('🔍 DEBUG: Set _lastProcessedGW to completedGameweeks =', parsed, 'from JSON data');
                 try {
                   if (isAdminMode()) console.debug('[GW DEBUG] winners.json using completedGameweeks =>', parsed);
                 } catch (e) {}
