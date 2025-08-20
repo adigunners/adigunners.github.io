@@ -2160,7 +2160,7 @@
       // ======= ADMIN BADGE (visible in ?test=true or ?admin=true) =======
       let _lastSyncIso = null;
       let _lastGwId = null;
-      // last finished / processed GW according to winners data (summary.lastProcessedGW)
+      // last finished / processed GW according to winners data (summary.completedGameweeks)
       let _lastProcessedGW = null;
 
       function isAdminMode() {
@@ -2174,7 +2174,7 @@
       }
 
       // Return the last finished GW id.
-      // Logic: prefer explicit processed value from winners data (summary.lastProcessedGW).
+      // Logic: prefer explicit completed gameweeks value from winners data (summary.completedGameweeks).
       // Fallback: derive from the next-gameweek id (`_lastGwId` or cached `fpl_cached_gw`) by subtracting 1.
       function getLastFinishedGW() {
         // Prefer explicit processed GW when available and plausible.
@@ -2191,10 +2191,10 @@
             const nextGwId = typeof _lastGwId === 'number' ? _lastGwId : (getCachedGameweek() && getCachedGameweek().id);
             if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
               // Mismatch: processed GW is ahead of nextGw-1 (could be cross-season/test snapshot)
-              console.warn('[GW WARN] lastProcessedGW (from winners JSON) is ahead of nextGw-1:', _lastProcessedGW, 'nextGwId=', nextGwId);
+              console.warn('[GW WARN] completedGameweeks (from winners JSON) is ahead of nextGw-1:', _lastProcessedGW, 'nextGwId=', nextGwId);
             }
           } catch (e) {}
-          console.debug('[GW] using lastProcessedGW from winners JSON ->', _lastProcessedGW);
+          console.debug('[GW] using completedGameweeks from winners JSON ->', _lastProcessedGW);
           return _lastProcessedGW;
         }
 
@@ -2448,10 +2448,10 @@
             }
 
             displayWinnerPreview(data.winners, containerId, summaryId);
-            // capture last processed GW from winners summary if available
-            if (data.summary && data.summary.lastProcessedGW != null) {
-              // Accept both numbers and numeric-strings (some backends serialize as strings).
-              const parsed = Number(data.summary.lastProcessedGW);
+            // capture completed gameweeks from winners summary if available
+            if (data.summary && data.summary.completedGameweeks !== undefined) {
+              // Use completedGameweeks for the GW display instead of lastProcessedGW
+              const parsed = Number(data.summary.completedGameweeks);
               if (!Number.isNaN(parsed)) {
                 _lastProcessedGW = parsed;
               }

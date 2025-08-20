@@ -1642,14 +1642,12 @@
             if (data.summary && data.summary.completedGameweeks !== undefined) {
               document.getElementById('completed-gameweeks').textContent =
                 data.summary.completedGameweeks;
-            }
-            if (data.summary && data.summary.lastProcessedGW != null) {
-              // Accept both numbers and numeric-strings (some backends serialize as strings).
-              const parsed = Number(data.summary.lastProcessedGW);
+              // Use completedGameweeks for the GW display instead of lastProcessedGW
+              const parsed = Number(data.summary.completedGameweeks);
               if (!Number.isNaN(parsed)) {
                 _lastProcessedGW = parsed;
                 try {
-                  if (isAdminMode()) console.debug('[GW DEBUG] winners.json parsed lastProcessedGW =>', parsed);
+                  if (isAdminMode()) console.debug('[GW DEBUG] winners.json using completedGameweeks =>', parsed);
                 } catch (e) {}
               }
             }
@@ -1684,23 +1682,23 @@
 
       /** Compute the last finished GW to show "After GWx". */
   function getLastFinishedGW() {
-              // Prefer explicit processed GW when available and plausible.
-              // If next-GW (nextGwId) is available and >1, ensure processedGW isn't ahead of it.
-              // If nextGwId is missing or <=1 (season finished / wrapped), accept processedGW.
+              // Prefer explicit completed gameweeks when available and plausible.
+              // If next-GW (nextGwId) is available and >1, ensure completedGameweeks isn't ahead of it.
+              // If nextGwId is missing or <=1 (season finished / wrapped), accept completedGameweeks.
               if (typeof _lastProcessedGW === 'number') {
                 // Basic sanity bounds
                 if (!Number.isFinite(_lastProcessedGW) || _lastProcessedGW < 0 || _lastProcessedGW > 1000) {
                   return null;
                 }
-                // Prefer the processed GW reported in the winners JSON for both live and test modes.
+                // Prefer the completed gameweeks reported in the winners JSON for both live and test modes.
                 try {
                   const nextGwId = typeof _lastGwId === 'number' ? _lastGwId : (getCachedGameweek() && getCachedGameweek().id);
                   if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
-                    console.warn('[GW WARN] lastProcessedGW (from winners JSON) is ahead of nextGw-1:', _lastProcessedGW, 'nextGwId=', nextGwId);
+                    console.warn('[GW WARN] completedGameweeks (from winners JSON) is ahead of nextGw-1:', _lastProcessedGW, 'nextGwId=', nextGwId);
                   }
                 } catch (e) {}
                 try {
-                  if (isAdminMode()) console.debug('[GW] using lastProcessedGW from winners JSON ->', _lastProcessedGW);
+                  if (isAdminMode()) console.debug('[GW] using completedGameweeks from winners JSON ->', _lastProcessedGW);
                 } catch (e) {}
                 return _lastProcessedGW;
               }
