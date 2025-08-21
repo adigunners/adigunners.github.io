@@ -32,8 +32,8 @@
     z-index: 100;
     padding: 8px 6px;
     margin-bottom: 4px;
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
   }
 
