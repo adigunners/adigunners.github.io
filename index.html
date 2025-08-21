@@ -135,7 +135,9 @@
     <link rel="stylesheet" href="css/error-handling.css" />
     <link rel="stylesheet" href="css/mobile-optimizations.css" />
     <link rel="stylesheet" href="css/advanced-mobile.css" />
-
+    <link rel="stylesheet" href="css/desktop-tablet-optimizations.css" />
+    <link rel="stylesheet" href="css/unified-spacing.css" />
+    <link rel="stylesheet" href="css/countdown-enhancements.css" />
     <!-- Fallback CSS (loads only if external resources fail) -->
     <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
 
@@ -342,7 +344,7 @@
 
         <!-- Digital Countdown Clock -->
         <div id="countdown-clock" class="countdown-clock is-hidden">
-          <div class="countdown-label" id="countdown-label">Time until GW1 kick-off</div>
+          <div class="countdown-label" id="countdown-label">Time until GW1 deadline</div>
           <div class="countdown-time">
             <span class="countdown-unit">
               <span id="countdown-days">00</span>
@@ -390,10 +392,6 @@
             </article>
           </div>
         </section>
-        <!-- SHARED LAST UPDATED TEXT -->
-        <section id="stats-last-updated" class="stats-last-updated season-section">
-          Fetching latest data...
-        </section>
 
         <!-- REGISTRATION SECTION (Before Season) -->
         <section id="registration" class="season-section pre-season" tabindex="-1">
@@ -434,10 +432,6 @@
               🎯 View Complete Scorecard
             </a>
           </div>
-
-          <div id="winner-last-updated" class="stats-last-updated">
-            Fetching latest winner data...
-          </div>
         </section>
 
         <!-- LEADERBOARD SECTION (During Season) -->
@@ -477,10 +471,6 @@
               Next <i class="fas fa-chevron-right" aria-hidden="true"></i>
             </button>
           </nav>
-
-          <div id="leaderboard-last-updated" class="stats-last-updated">
-            Fetching latest standings...
-          </div>
         </section>
 
         <!-- RULES SECTION -->
@@ -516,7 +506,7 @@
               <!-- populated by JS -->
             </section>
             <footer class="prize-meta">
-              <span id="prize-last-updated" class="stats-last-updated">Loading…</span>
+              <!-- Prize timestamp removed - using unified footer timestamp -->
               <a
                 href="#prize-structure"
                 onclick="document.getElementById('rules-pre').scrollIntoView({behavior:'smooth'}); return false;"
@@ -557,7 +547,7 @@
 
       <footer>
         <p>developed by Aditya Garg (@addygunners)</p>
-        <p class="muted-small">Last updated: August 2025</p>
+        <p id="site-last-updated" class="site-timestamp">Data updated: Loading...</p>
       </footer>
       <!-- QA PANEL (shown in test mode) -->
       <aside
@@ -624,7 +614,7 @@
     <script src="js/ui-manager.js"></script>
     <script src="js/countdown.js"></script>
     <script src="js/prize-structure.js"></script>
-
+    <script src="js/countdown-enhancements.js"></script>
     <!-- Main application script -->
     <script>
       /*
@@ -1329,6 +1319,9 @@
           .then((data) => {
             console.log('Prize data loaded:', data);
             renderPrizeStructure(data);
+            if (data.lastUpdated) {
+              FPLDataLoader.updateDataTimestamp('prizes', data.lastUpdated);
+            }
             return data;
           })
           .catch((err) => {
@@ -1718,7 +1711,7 @@
         const labelEl = document.getElementById('countdown-label');
         if (labelEl) {
           // Pre-season message
-          labelEl.textContent = 'Time until GW1 kick-off';
+          labelEl.textContent = 'Time until GW1 deadline';
           attachAdminBadge();
         }
 
@@ -1748,7 +1741,7 @@
 
         if (countdownClock && countdownLabel) {
           show(countdownClock);
-          countdownLabel.textContent = `Time until GW${gameweek.id} kick-off`;
+          countdownLabel.textContent = `Time until GW${gameweek.id} deadline`;
           // Update winners header to indicate this GW has been used for the preview
           try {
             updateWinnersHeaderGW();
@@ -1839,6 +1832,7 @@
               // Track for QA panel
               try {
                 lastWinnersUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
+                FPLDataLoader.updateDataTimestamp('winners', data.lastUpdated);
               } catch {}
               updateQAPanel();
             }
@@ -2097,6 +2091,7 @@
                   }
                   try {
                     lastLeaderboardUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
+                    FPLDataLoader.updateDataTimestamp('leaderboard', data.lastUpdated);
                   } catch {}
                   updateQAPanel();
                   return data;
@@ -2129,6 +2124,7 @@
                   }
                   try {
                     lastLeaderboardUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
+                    FPLDataLoader.updateDataTimestamp('leaderboard', data.lastUpdated);
                   } catch {}
                   updateQAPanel();
                   return data;
@@ -2219,6 +2215,7 @@
               // Track for QA panel
               try {
                 lastLeaderboardUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
+                FPLDataLoader.updateDataTimestamp('leaderboard', data.lastUpdated);
               } catch {}
               updateQAPanel();
             }

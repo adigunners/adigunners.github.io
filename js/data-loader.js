@@ -18,6 +18,15 @@ window.FPLDataLoader = (function () {
   let _lastGwId = null;
   let _lastProcessedGW = null;
 
+  // Centralized timestamp tracking for all data sources
+  let allDataTimestamps = {
+    leagueStats: null,
+    winners: null,
+    leaderboard: null,
+    prizes: null,
+    countdown: null,
+  };
+
   /**
    * Enhanced fetch with comprehensive error handling
    */
@@ -74,24 +83,9 @@ window.FPLDataLoader = (function () {
           potAmountEl.textContent = `₹${data.potAmount ? data.potAmount.toLocaleString('en-IN') : '1,62,000'}`;
         }
 
-        // Update last updated text
-        if (lastUpdatedEl) {
-          if (data.lastUpdated) {
-            try {
-              const lastUpdated = new Date(data.lastUpdated);
-              const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-              const formattedDate = lastUpdated.toLocaleString('en-GB', {
-                dateStyle: 'medium',
-                timeStyle: 'short',
-                timeZone: userTimeZone,
-              });
-              lastUpdatedEl.textContent = `Last updated: ${formattedDate}`;
-            } catch {
-              lastUpdatedEl.textContent = 'Data updated recently';
-            }
-          } else {
-            lastUpdatedEl.textContent = 'Data updated recently';
-          }
+        // Update centralized timestamp system
+        if (data.lastUpdated) {
+          updateDataTimestamp('leagueStats', data.lastUpdated);
         }
       })
       .catch((error) => {
@@ -127,7 +121,7 @@ window.FPLDataLoader = (function () {
           FPLDataLoader.setCachedDeadline(deadline.toISOString());
           FPLDataLoader.setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
           FPLDataLoader.setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
-
+          updateDataTimestamp('countdown', data.lastUpdated || new Date().toISOString());
           seasonDataSource = 'backend';
 
           return { deadline, gameweek: gw };
@@ -400,6 +394,58 @@ window.FPLDataLoader = (function () {
       });
   }
 
+  /**
+   * Update timestamp for a specific data source
+   */
+  function updateDataTimestamp(source, timestamp) {
+    if (allDataTimestamps.hasOwnProperty(source)) {
+      allDataTimestamps[source] = timestamp;
+      updateSiteTimestamp();
+    }
+  }
+
+  /**
+   * Get the latest timestamp across all data sources
+   */
+  function getLatestTimestamp() {
+    const timestamps = Object.values(allDataTimestamps).filter((ts) => ts !== null);
+    if (timestamps.length === 0) return null;
+
+    // Find the most recent timestamp
+    return timestamps.reduce((latest, current) => {
+      return new Date(current) > new Date(latest) ? current : latest;
+    });
+  }
+
+  /**
+   * Update the site-wide timestamp display
+   */
+  function updateSiteTimestamp() {
+    const latestTimestamp = getLatestTimestamp();
+    const timestampElement = document.getElementById('site-last-updated');
+
+    if (timestampElement && latestTimestamp) {
+      try {
+        const date = new Date(latestTimestamp);
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const formattedDate = date.toLocaleString('en-GB', {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+          timeZone: userTimeZone,
+        });
+
+        // Check if we're in test mode
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTestMode = urlParams.get('test') === 'true';
+        const testSuffix = isTestMode ? ' (test data)' : '';
+
+        timestampElement.textContent = `Data updated: ${formattedDate}${testSuffix}`;
+      } catch (error) {
+        timestampElement.textContent = 'Data updated: Recently';
+      }
+    }
+  }
+
   // Public API
   return {
     fetchWithRetry,
@@ -426,5 +472,10 @@ window.FPLDataLoader = (function () {
     getLastLeaderboardUpdatedIso: () => lastLeaderboardUpdatedIso,
     getLastSyncIso: () => _lastSyncIso,
     getLastGwId: () => _lastGwId,
+
+    // Centralized timestamp management
+    updateDataTimestamp,
+    getLatestTimestamp,
+    updateSiteTimestamp,
   };
 })();

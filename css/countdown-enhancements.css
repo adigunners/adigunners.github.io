@@ -1,0 +1,347 @@
+/* =============== ENHANCED COUNTDOWN FOR DEADLINE URGENCY =============== */
+/* Makes the countdown much more prominent and appealing to remind users */
+
+/* =============== HERO COUNTDOWN WHEN DEADLINE IS APPROACHING =============== */
+/* Enhanced prominence when deadline is within 24 hours */
+
+.countdown-hero-mode {
+  /* Transform the entire header into a countdown hero section */
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52, #ff6b6b) !important;
+  color: white !important;
+  padding: 40px 20px !important;
+  text-align: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  animation: urgentGlow 2s infinite alternate !important;
+}
+
+.countdown-hero-mode::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes urgentGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 0 40px rgba(255, 107, 107, 0.8);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* =============== MEGA COUNTDOWN DISPLAY =============== */
+.countdown-mega {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.countdown-mega .countdown-label {
+  font-size: 1.8rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  color: white !important;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8) !important;
+  animation: urgentPulse 1.5s infinite !important;
+}
+
+@keyframes urgentPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.countdown-mega .countdown-time {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 20px 30px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.countdown-mega .countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.countdown-mega .countdown-unit span:first-child {
+  font-size: 3rem !important;
+  font-weight: 900 !important;
+  font-family: 'Courier New', monospace !important;
+  color: #fff !important;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8) !important;
+  line-height: 1 !important;
+  animation: numberFlip 1s infinite !important;
+}
+
+.countdown-mega .countdown-unit-label {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+}
+
+@keyframes numberFlip {
+  0%,
+  50%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  75% {
+    transform: scale(0.95);
+  }
+}
+
+.countdown-mega .countdown-separator {
+  font-size: 2rem !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 900;
+  animation: separatorBlink 2s infinite;
+}
+
+@keyframes separatorBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* =============== URGENT DEADLINE MESSAGE =============== */
+.countdown-urgent-message {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 15px 25px;
+  margin-top: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.countdown-urgent-message h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.countdown-urgent-message p {
+  margin: 0;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* =============== ENHANCED CURRENT COUNTDOWN (NON-URGENT) =============== */
+/* Improvements to current countdown when not in urgent mode */
+
+.countdown-enhanced {
+  background: linear-gradient(135deg, var(--primary-color), #5a1a5f) !important;
+  color: white !important;
+  border: 3px solid var(--secondary-color) !important;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(0, 255, 133, 0.4) !important;
+  animation: enhancedGlow 3s infinite alternate !important;
+  transform: scale(1.1) !important;
+  padding: 20px 25px !important;
+  max-width: 350px !important;
+}
+
+@keyframes enhancedGlow {
+  0% {
+    box-shadow:
+      0 8px 25px rgba(0, 0, 0, 0.2),
+      0 0 30px rgba(0, 255, 133, 0.4);
+  }
+  100% {
+    box-shadow:
+      0 12px 35px rgba(0, 0, 0, 0.3),
+      0 0 50px rgba(0, 255, 133, 0.6);
+  }
+}
+
+.countdown-enhanced .countdown-label {
+  font-size: 1.2rem !important;
+  color: var(--secondary-color) !important;
+  text-shadow: 0 0 15px rgba(0, 255, 133, 0.8) !important;
+  animation: enhancedFlash 2s infinite !important;
+}
+
+@keyframes enhancedFlash {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+.countdown-enhanced .countdown-time {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-radius: 10px !important;
+  padding: 8px 12px !important;
+  font-size: 1.1rem !important;
+}
+
+.countdown-enhanced .countdown-unit span:first-child {
+  font-size: 1.5rem !important;
+  font-weight: 900 !important;
+}
+
+/* =============== MOBILE OPTIMIZATIONS =============== */
+@media (max-width: 768px) {
+  .countdown-hero-mode {
+    padding: 25px 15px !important;
+  }
+
+  .countdown-mega .countdown-label {
+    font-size: 1.4rem !important;
+    letter-spacing: 1px;
+  }
+
+  .countdown-mega .countdown-time {
+    gap: 12px;
+    padding: 15px 20px;
+  }
+
+  .countdown-mega .countdown-unit {
+    min-width: 60px;
+  }
+
+  .countdown-mega .countdown-unit span:first-child {
+    font-size: 2.2rem !important;
+  }
+
+  .countdown-mega .countdown-unit-label {
+    font-size: 0.75rem !important;
+  }
+
+  .countdown-urgent-message {
+    padding: 12px 18px;
+    margin-top: 15px;
+  }
+
+  .countdown-urgent-message h3 {
+    font-size: 1.1rem;
+  }
+
+  .countdown-urgent-message p {
+    font-size: 0.9rem;
+  }
+
+  .countdown-enhanced {
+    transform: scale(1.05) !important;
+    max-width: 280px !important;
+    padding: 15px 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .countdown-mega .countdown-time {
+    gap: 8px;
+    padding: 12px 15px;
+  }
+
+  .countdown-mega .countdown-unit {
+    min-width: 50px;
+  }
+
+  .countdown-mega .countdown-unit span:first-child {
+    font-size: 1.8rem !important;
+  }
+}
+
+/* =============== DEADLINE URGENCY STATES =============== */
+/* Different visual states based on time remaining */
+
+/* Critical: Less than 2 hours */
+.countdown-critical {
+  background: linear-gradient(135deg, #ff4757, #ff3742) !important;
+  animation: criticalAlarm 1s infinite !important;
+}
+
+@keyframes criticalAlarm {
+  0%,
+  50%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 40px rgba(255, 71, 87, 0.8);
+  }
+  25%,
+  75% {
+    transform: scale(1.03);
+    box-shadow: 0 0 60px rgba(255, 71, 87, 1);
+  }
+}
+
+/* Warning: Less than 6 hours */
+.countdown-warning {
+  background: linear-gradient(135deg, #ffa726, #ff9800) !important;
+  animation: warningPulse 2s infinite !important;
+}
+
+@keyframes warningPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 30px rgba(255, 167, 38, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(255, 167, 38, 0.8);
+  }
+}
+
+/* Alert: Less than 24 hours */
+.countdown-alert {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52) !important;
+}

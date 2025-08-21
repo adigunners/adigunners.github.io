@@ -84,11 +84,23 @@ window.FPLCountdown = (function () {
     const labelEl = document.getElementById('countdown-label');
     if (labelEl) {
       // Pre-season message
-      labelEl.textContent = 'Time until GW1 kick-off';
+      labelEl.textContent = 'GW1 Deadline';
       FPLUIManager.attachAdminBadge();
     }
 
-    // Calculate time components
+    // Use enhanced countdown system if available
+    if (window.CountdownEnhancements) {
+      CountdownEnhancements.updateCountdownWithUrgency(deadlineTime);
+      // Dispatch event for other systems
+      document.dispatchEvent(
+        new CustomEvent('countdownUpdate', {
+          detail: { deadlineTime, gameweek: null },
+        })
+      );
+      return;
+    }
+
+    // Fallback: Calculate time components
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
@@ -117,7 +129,7 @@ window.FPLCountdown = (function () {
 
     if (countdownClock && countdownLabel) {
       FPLUtils.show(countdownClock);
-      countdownLabel.textContent = `Time until GW${gameweek.id} kick-off`;
+      countdownLabel.textContent = `GW${gameweek.id} Deadline`;
 
       // Update winners header to indicate this GW has been used for the preview
       try {
@@ -130,6 +142,20 @@ window.FPLCountdown = (function () {
 
       // Update the countdown display with gameweek deadline
       const deadlineTime = new Date(gameweek.deadline_time);
+
+      // Use enhanced countdown system if available
+      if (window.CountdownEnhancements) {
+        CountdownEnhancements.updateCountdownWithUrgency(deadlineTime, gameweek);
+        // Dispatch event for other systems
+        document.dispatchEvent(
+          new CustomEvent('countdownUpdate', {
+            detail: { deadlineTime, gameweek },
+          })
+        );
+        return;
+      }
+
+      // Fallback to basic countdown
       const currentDate = FPLUtils.now();
       const timeDifference = deadlineTime - currentDate;
 

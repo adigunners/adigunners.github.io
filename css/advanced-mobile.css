@@ -56,8 +56,11 @@
   }
 
   .countdown-label {
-    font-size: 0.65rem;
+    font-size: 0.6rem; /* Even smaller for mobile to fit "deadline" text */
     margin-bottom: 3px;
+    white-space: nowrap; /* Ensure single line on mobile */
+    letter-spacing: 0; /* No letter spacing on mobile for better fit */
+    min-width: unset; /* Remove min-width constraint on mobile */
   }
 
   .countdown-time {
@@ -75,7 +78,7 @@
   section {
     margin: 0 0 4px 0;
     padding: 8px 6px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   }
 
@@ -83,12 +86,6 @@
   #league-statistics {
     padding: 6px;
     margin-top: 12px; /* Add space below sticky header */
-  }
-
-  #stats-last-updated {
-    padding: 2px 4px;
-    margin: 0;
-    font-size: 0.65rem;
   }
 }
 
@@ -132,7 +129,7 @@
 
   .winner-card {
     padding: 6px 8px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     margin: 0;
   }
 
@@ -162,7 +159,7 @@
   .highlight-badge {
     padding: 1px 4px;
     font-size: 0.6rem;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
   }
 }
 
@@ -181,7 +178,7 @@
   .leaderboard-table tbody tr {
     margin-bottom: 3px;
     padding: 4px 6px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
   }
 
   .leaderboard-table tbody td {
@@ -218,7 +215,7 @@
   .leaderboard-nav-btn {
     padding: 4px 8px;
     font-size: 0.7rem;
-    border-radius: 3px;
+    border-radius: var(--radius-sm);
   }
 
   .page-info {
@@ -247,14 +244,14 @@
     padding: 10px 16px;
     font-size: 0.85rem;
     margin-top: 6px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
   }
 
   .view-all-winners {
     padding: 10px 16px;
     font-size: 0.85rem;
     margin-top: 8px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
   }
 }
 
@@ -304,4 +301,12 @@
   .leaderboard-table tbody tr {
     padding: 3px 5px;
   }
+}
+
+/* Mobile-optimized unified timestamp */
+.site-timestamp {
+  font-size: 0.6rem;
+  margin-top: 3px;
+  line-height: 1.2;
+  opacity: 0.7;
 }

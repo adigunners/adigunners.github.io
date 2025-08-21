@@ -16,13 +16,30 @@
   --heading-color: #37003c; /* Use primary color for headings */
 
   /* Layout */
-  --border-radius: 8px; /* More conservative radius like FPL */
+  --border-radius: var(--radius-lg); /* More conservative radius like FPL */
   --light-gray: #f1f3f4; /* For subtle backgrounds */
   --border-color: #e9ecef; /* For subtle borders */
 
+  /* Standardized Spacing System */
+  --spacing-xs: 4px; /* Tiny elements, tight spacing */
+  --spacing-sm: 8px; /* Small components, compact spacing */
+  --spacing-md: 16px; /* Standard spacing, most common */
+  --spacing-lg: 24px; /* Large spacing, section separation */
+  --spacing-xl: 32px; /* Extra large spacing, major sections */
+
+  /* Responsive Spacing Multipliers */
+  --spacing-mobile-multiplier: 0.75; /* 75% of desktop spacing on mobile */
+  --spacing-tablet-multiplier: 0.875; /* 87.5% of desktop spacing on tablet */
+
+  /* Standardized Border Radius System */
+  --radius-sm: 4px; /* Small elements (badges, small buttons) */
+  --radius-md: 6px; /* Medium elements (cards, inputs) */
+  --radius-lg: 8px; /* Large elements (sections, main containers) */
+  --radius-xl: 12px; /* Extra large elements (hero sections) */
+
   /* Container Sizes */
-  --container-max-width: 1000px;
-  --container-wide-max-width: 1200px;
+  --container-max-width: 1200px; /* Increased from 1000px for better screen utilization */
+  --container-wide-max-width: 1400px; /* Increased from 1200px for ultra-wide screens */
 
   /* Breakpoints (for JS reference) */
   --mobile-max: 600px;

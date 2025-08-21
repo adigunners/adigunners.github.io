@@ -420,6 +420,105 @@ css/
 
 This optimization ensures the website now provides a sleek, professional mobile experience while maintaining the robust desktop functionality that users expect.
 
+### Session Summary: Enhanced Countdown System & Design System Standardization (August 2025)
+
+#### Overview
+
+Implemented urgency-aware countdown system and standardized design tokens to improve deadline awareness and visual consistency.
+
+#### 1. Enhanced Countdown System
+
+**Problem**: Countdown not prominent enough to remind users of transfer deadlines.
+
+**Solution**: Dynamic urgency-based countdown with 5 escalation levels:
+
+- **Normal** (7+ days): Standard countdown display
+- **Enhanced** (1-7 days): Improved prominence with glow effects
+- **Alert** (24h): Hero mode with urgent messaging
+- **Warning** (6h): Orange theme with stronger pulsing
+- **Critical** (2h): Red background with intense animations
+
+**Technical Implementation**:
+
+```javascript
+// Automatic urgency detection
+const THRESHOLDS = {
+  CRITICAL: 2 * 60 * 60 * 1000, // 2 hours
+  WARNING: 6 * 60 * 60 * 1000, // 6 hours
+  ALERT: 24 * 60 * 60 * 1000, // 24 hours
+  ENHANCED: 7 * 24 * 60 * 60 * 1000, // 7 days
+};
+```
+
+**Files Added**:
+
+- `css/countdown-enhancements.css` - Urgency visual states and hero mode styling
+- `js/countdown-enhancements.js` - Automatic urgency detection and DOM manipulation
+- `countdown-demo.html` - Demo page showing all urgency states
+
+**Integration**: System automatically detects time remaining and applies appropriate urgency styling. Falls back gracefully to standard countdown if enhancements fail.
+
+#### 2. Unified Design System
+
+**Problem**: Inconsistent spacing, border radius, and timestamps across components.
+
+**Solution**: Standardized design tokens with responsive scaling:
+
+```css
+/* Spacing System */
+--spacing-xs: 4px;
+--spacing-sm: 8px;
+--spacing-md: 16px;
+--spacing-lg: 24px;
+--spacing-xl: 32px;
+
+/* Border Radius System */
+--radius-sm: 4px;
+--radius-md: 6px;
+--radius-lg: 8px;
+--radius-xl: 12px;
+
+/* Responsive Multipliers */
+@media (max-width: 768px) {
+  :root {
+    --spacing-multiplier: 0.75;
+  } /* 75% on mobile */
+}
+```
+
+**Files Added**:
+
+- `css/unified-spacing.css` - Comprehensive spacing standardization
+- `css/desktop-tablet-optimizations.css` - Layout density improvements
+
+**Data Timestamp Consolidation**: Eliminated 6 individual timestamps, created centralized system in `js/data-loader.js` with single footer timestamp.
+
+#### 3. Mobile Text Optimization
+
+**Change**: Updated countdown text from "Time until GWxx deadline" → "GWxx Deadline" to prevent mobile text wrapping.
+
+**Files Modified**: `js/countdown.js`, `js/countdown-enhancements.js`
+
+#### Developer Notes
+
+**Countdown Enhancement Usage**:
+
+- System auto-initializes on DOM ready
+- Integrates via custom events with existing countdown system
+- All urgency states are mobile-responsive
+- Demo page available at `/countdown-demo.html` for testing
+
+**Design System Usage**:
+
+- Use CSS variables for all spacing: `padding: var(--spacing-md);`
+- Apply responsive multipliers automatically via CSS
+- Border radius follows 4-tier system
+- Unified timestamp available via `FPLDataLoader.getLatestTimestamp()`
+
+**Testing**: Enhanced countdown can be tested with `?clockOffset=ms` parameter to simulate different deadline scenarios.
+
+This enhancement significantly improves deadline awareness while maintaining consistent visual design across all breakpoints.
+
 ⏺ Perfect questions! Looking at both files, I can see exactly what you're planning and provide a comprehensive analysis and recommendations.
 
 📂 Recommended Folder Structure for Tomorrow's Refactoring

@@ -46,10 +46,6 @@
   }
 
   /* Compact last updated */
-  #stats-last-updated {
-    padding: 4px 6px; /* Reduced from 6px 5px */
-    margin-bottom: 4px; /* Reduced from 8px */
-  }
 }
 
 /* =============== ULTRA-COMPACT FOR SMALL SCREENS =============== */
@@ -123,6 +119,6 @@
   }
 
   .leaderboard-table tbody tr {
-    border-radius: 6px; /* Reduced from 8px */
+    border-radius: var(--radius-md); /* Reduced from 8px */
   }
 }

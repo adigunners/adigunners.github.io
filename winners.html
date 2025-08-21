@@ -1079,7 +1079,7 @@
 
         <!-- Countdown (hidden until data is available) -->
         <div id="countdown-clock" class="countdown-clock is-hidden" aria-live="polite">
-          <div class="countdown-label" id="countdown-label">Time until GW1 kick-off</div>
+          <div class="countdown-label" id="countdown-label">Time until GW1 deadline</div>
           <div class="countdown-time" aria-label="Time remaining">
             <span class="countdown-unit">
               <span id="countdown-days">00</span>
@@ -1203,7 +1203,7 @@
 
       <footer>
         <p>developed by Aditya Garg (@addygunners)</p>
-        <p class="footer-last-updated">Last updated: August 2025</p>
+        <p id="site-last-updated" class="site-timestamp">Data updated: Loading...</p>
       </footer>
 
       <!-- Floating FAB linking back to Home (preserves URL params/state) -->
@@ -1425,7 +1425,7 @@
         }
         const label = document.getElementById('countdown-label');
         if (label) {
-          label.textContent = 'Time until GW1 kick-off';
+          label.textContent = 'Time until GW1 deadline';
           attachAdminBadge();
         }
         const d = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -1442,7 +1442,7 @@
         const label = document.getElementById('countdown-label');
         if (clock && label) {
           show(clock);
-          label.textContent = `Time until GW${gameweek.id} kick-off`;
+          label.textContent = `Time until GW${gameweek.id} deadline`;
           attachAdminBadge();
           const dl = new Date(gameweek.deadline_time);
           const diff = dl - now();
@@ -1647,7 +1647,8 @@
               if (!Number.isNaN(parsed)) {
                 _lastProcessedGW = parsed;
                 try {
-                  if (isAdminMode()) console.debug('[GW DEBUG] winners.json using completedGameweeks =>', parsed);
+                  if (isAdminMode())
+                    console.debug('[GW DEBUG] winners.json using completedGameweeks =>', parsed);
                 } catch (e) {}
               }
             }
@@ -1681,31 +1682,44 @@
       }
 
       /** Compute the last finished GW to show "After GWx". */
-  function getLastFinishedGW() {
-              // Prefer explicit completed gameweeks when available and plausible.
-              // If next-GW (nextGwId) is available and >1, ensure completedGameweeks isn't ahead of it.
-              // If nextGwId is missing or <=1 (season finished / wrapped), accept completedGameweeks.
-              if (typeof _lastProcessedGW === 'number') {
-                // Basic sanity bounds
-                if (!Number.isFinite(_lastProcessedGW) || _lastProcessedGW < 0 || _lastProcessedGW > 1000) {
-                  return null;
-                }
-                // Prefer the completed gameweeks reported in the winners JSON for both live and test modes.
-                try {
-                  const nextGwId = typeof _lastGwId === 'number' ? _lastGwId : (getCachedGameweek() && getCachedGameweek().id);
-                  if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
-                    console.warn('[GW WARN] completedGameweeks (from winners JSON) is ahead of nextGw-1:', _lastProcessedGW, 'nextGwId=', nextGwId);
-                  }
-                } catch (e) {}
-                try {
-                  if (isAdminMode()) console.debug('[GW] using completedGameweeks from winners JSON ->', _lastProcessedGW);
-                } catch (e) {}
-                return _lastProcessedGW;
-              }
-              if (typeof _lastGwId === 'number' && _lastGwId > 0) return _lastGwId - 1;
-              const cached = getCachedGameweek();
-              if (cached && typeof cached.id === 'number') return cached.id - 1;
-              return null;
+      function getLastFinishedGW() {
+        // Prefer explicit completed gameweeks when available and plausible.
+        // If next-GW (nextGwId) is available and >1, ensure completedGameweeks isn't ahead of it.
+        // If nextGwId is missing or <=1 (season finished / wrapped), accept completedGameweeks.
+        if (typeof _lastProcessedGW === 'number') {
+          // Basic sanity bounds
+          if (
+            !Number.isFinite(_lastProcessedGW) ||
+            _lastProcessedGW < 0 ||
+            _lastProcessedGW > 1000
+          ) {
+            return null;
+          }
+          // Prefer the completed gameweeks reported in the winners JSON for both live and test modes.
+          try {
+            const nextGwId =
+              typeof _lastGwId === 'number'
+                ? _lastGwId
+                : getCachedGameweek() && getCachedGameweek().id;
+            if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
+              console.warn(
+                '[GW WARN] completedGameweeks (from winners JSON) is ahead of nextGw-1:',
+                _lastProcessedGW,
+                'nextGwId=',
+                nextGwId
+              );
+            }
+          } catch (e) {}
+          try {
+            if (isAdminMode())
+              console.debug('[GW] using completedGameweeks from winners JSON ->', _lastProcessedGW);
+          } catch (e) {}
+          return _lastProcessedGW;
+        }
+        if (typeof _lastGwId === 'number' && _lastGwId > 0) return _lastGwId - 1;
+        const cached = getCachedGameweek();
+        if (cached && typeof cached.id === 'number') return cached.id - 1;
+        return null;
       }
 
       /** Render the "After GWx" subtitle when we have enough info. */
@@ -1714,7 +1728,17 @@
         if (!el) return;
         const gwId = getLastFinishedGW();
         try {
-          if (isAdminMode()) console.debug('[GW DEBUG] winners page resolved GW ->', gwId, ' _lastProcessedGW=', _lastProcessedGW, '_lastGwId=', _lastGwId, 'cached=', getCachedGameweek());
+          if (isAdminMode())
+            console.debug(
+              '[GW DEBUG] winners page resolved GW ->',
+              gwId,
+              ' _lastProcessedGW=',
+              _lastProcessedGW,
+              '_lastGwId=',
+              _lastGwId,
+              'cached=',
+              getCachedGameweek()
+            );
         } catch (e) {}
         if (typeof gwId === 'number' && gwId > 0) {
           el.textContent = `After GW${gwId}`;

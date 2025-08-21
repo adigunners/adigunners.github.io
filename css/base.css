@@ -29,6 +29,14 @@ body {
   background-color: transparent;
 }
 
+/* Enhanced container for wide screens */
+@media (min-width: 1201px) {
+  .container {
+    max-width: var(--container-wide-max-width);
+    padding: 0 24px;
+  }
+}
+
 /* =============== UTILITIES =============== */
 .is-hidden {
   display: none !important;
@@ -195,7 +203,7 @@ section {
   background-color: var(--card-background);
   padding: 30px;
   margin-bottom: 20px;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-lg);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   width: 100%;
 }
@@ -214,6 +222,16 @@ footer {
   font-size: 0.8rem;
   color: #888;
   padding: 20px;
+}
+
+/* Unified site timestamp styling */
+.site-timestamp {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 5px;
+  margin-bottom: 0;
+  font-style: italic;
+  opacity: 0.8;
 }
 
 /* Season-specific utility classes */

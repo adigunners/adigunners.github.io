@@ -85,6 +85,10 @@ header p {
   margin-bottom: 8px;
   opacity: 0.9;
   animation: flash 2s infinite;
+  white-space: nowrap; /* Prevent text wrapping to multiple lines */
+  overflow: hidden; /* Hide overflow if text is too long */
+  text-overflow: ellipsis; /* Show ellipsis if text is cut off */
+  text-align: center; /* Center the text */
 }
 
 @keyframes flash {
@@ -110,7 +114,7 @@ header p {
   line-height: 1.1;
   white-space: nowrap;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   padding: 4px 6px;
   margin-top: 5px;
 }

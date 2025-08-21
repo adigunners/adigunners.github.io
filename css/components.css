@@ -12,7 +12,7 @@
   flex: 1 1 0;
   min-width: 220px;
   background: var(--card-background);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-lg);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   padding: 28px 20px 22px 20px;
   display: flex;
@@ -44,21 +44,6 @@
   margin-bottom: 8px;
 }
 
-/* =============== LAST UPDATED =============== */
-#stats-last-updated {
-  background: transparent;
-  box-shadow: none;
-  padding: 12px 10px;
-  margin: 0 0 16px;
-  text-align: center;
-  color: var(--text-color);
-  font-style: italic;
-  font-size: 0.85rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 /* =============== BUTTONS =============== */
 .cta-button {
   display: inline-block;
@@ -67,7 +52,7 @@
   padding: 12px 25px;
   text-decoration: none;
   font-weight: 600;
-  border-radius: 5px;
+  border-radius: var(--radius-md);
   margin-top: 10px;
   transition:
     transform 0.2s ease,
@@ -84,7 +69,7 @@
   color: white;
   border: none;
   padding: 12px 25px;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-lg);
   cursor: pointer;
   font-weight: 600;
   transition:
@@ -104,7 +89,7 @@
   padding: 12px 25px;
   text-decoration: none;
   font-weight: 600;
-  border-radius: 5px;
+  border-radius: var(--radius-md);
   margin-top: 20px;
   transition:
     transform 0.2s ease,
@@ -139,7 +124,7 @@
   gap: 14px;
   padding: 16px 18px;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-lg);
   background: var(--card-background);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   transition:
@@ -157,7 +142,7 @@
   width: 40px;
   height: 40px;
   flex: 0 0 40px;
-  border-radius: 10px;
+  border-radius: var(--radius-xl);
   display: grid;
   place-items: center;
   background: linear-gradient(135deg, var(--primary-color), #59215e);
@@ -246,7 +231,7 @@
   z-index: 50;
   background: #111;
   color: #fff;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   padding: 10px 12px;
   min-width: 220px;
   max-width: 320px;
@@ -276,5 +261,48 @@
     left: 0;
     right: auto;
     max-width: 90vw;
+  }
+}
+
+/* =============== ENHANCED GRID LAYOUTS FOR DESKTOP/TABLET =============== */
+
+/* Stats row optimizations for wider screens */
+@media (min-width: 769px) {
+  .stats-row {
+    max-width: 700px;
+    margin: 0 auto 20px;
+    gap: 20px;
+  }
+
+  .stat-box {
+    padding: 20px 16px;
+    min-height: 120px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .stats-row {
+    max-width: 800px;
+    gap: 30px;
+  }
+
+  .stat-box {
+    padding: 24px 18px;
+    min-height: 130px;
+  }
+}
+
+/* Prize summary grid enhancements */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .prize-summary {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .prize-summary {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
 }

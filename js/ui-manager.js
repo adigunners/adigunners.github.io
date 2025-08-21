@@ -170,26 +170,9 @@ window.FPLUIManager = (function () {
               window.displayLeaderboard();
               console.log('📊 window.displayLeaderboard() completed');
 
-              // Update the timestamp for leaderboard
-              const lastUpdated = new Date(data.lastUpdated);
-              const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-              const formattedDate = lastUpdated.toLocaleString('en-GB', {
-                dateStyle: 'medium',
-                timeStyle: 'short',
-                timeZone: userTimeZone,
-              });
-
-              const updateElement = document.getElementById('leaderboard-last-updated');
-              if (updateElement) {
-                const dataOverride = FPLUtils.getDataOverride();
-                const isTestMode = FPLUtils.isAdminMode();
-                const useTestData =
-                  FPLDataLoader.getLastLeaderboardDataMode() === 'test' ||
-                  (dataOverride === 'auto' && isTestMode);
-                const updateText = useTestData
-                  ? `Last updated: ${formattedDate} (test data)`
-                  : `Last updated: ${formattedDate} (your local time)`;
-                updateElement.textContent = updateText;
+              // Update centralized timestamp system
+              if (data.lastUpdated) {
+                FPLDataLoader.updateDataTimestamp('leaderboard', data.lastUpdated);
               }
             } else {
               console.error(
@@ -354,25 +337,9 @@ window.FPLUIManager = (function () {
         if (data) {
           displayWinnerPreview(data.winners, 'winner-preview-container', 'winner-summary');
 
-          // Show last updated time for winners
-          const lastUpdated = new Date(data.lastUpdated);
-          const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          const formattedDate = lastUpdated.toLocaleString('en-GB', {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-            timeZone: userTimeZone,
-          });
-
-          const usedTest =
-            FPLDataLoader.getLastWinnersDataMode() === 'test' ||
-            (dataOverride === 'auto' && FPLUtils.isAdminMode());
-          const updateText = usedTest
-            ? `Last updated: ${formattedDate} (test data)`
-            : `Last updated: ${formattedDate} (your local time)`;
-
-          const updateElement = document.getElementById('winner-last-updated');
-          if (updateElement) {
-            updateElement.textContent = updateText;
+          // Update centralized timestamp system
+          if (data.lastUpdated) {
+            FPLDataLoader.updateDataTimestamp('winners', data.lastUpdated);
           }
 
           updateQAPanel();
