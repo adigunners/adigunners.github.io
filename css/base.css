@@ -24,8 +24,8 @@ body {
 .container {
   width: 100%;
   max-width: var(--container-max-width);
-  margin: 20px auto;
-  padding: 0 16px;
+  margin: var(--spacing-lg) auto;
+  padding: 0 var(--spacing-md);
   background-color: transparent;
 }
 
