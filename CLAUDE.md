@@ -452,11 +452,10 @@ const THRESHOLDS = {
 
 **Files Added**:
 
-- `css/countdown-enhancements.css` - Urgency visual states and hero mode styling
-- `js/countdown-enhancements.js` - Automatic urgency detection and DOM manipulation
-- `countdown-demo.html` - Demo page showing all urgency states
+- Enhanced countdown styling integrated into `css/header.css` - Prominent display with 6-hour FPL teal urgency
+- Simplified countdown logic in `js/countdown.js` - Clean implementation without external dependencies
 
-**Integration**: System automatically detects time remaining and applies appropriate urgency styling. Falls back gracefully to standard countdown if enhancements fail.
+**Integration**: Enhanced countdown system removed. Simple countdown with 6-hour FPL-branded urgency styling integrated directly into header components. More prominent sizing and better visual impact while maintaining clean architecture.
 
 #### 2. Unified Design System
 
@@ -497,16 +496,16 @@ const THRESHOLDS = {
 
 **Change**: Updated countdown text from "Time until GWxx deadline" → "GWxx Deadline" to prevent mobile text wrapping.
 
-**Files Modified**: `js/countdown.js`, `js/countdown-enhancements.js`
+**Files Modified**: `js/countdown.js`, `css/header.css`
 
 #### Developer Notes
 
-**Countdown Enhancement Usage**:
+**Countdown System**:
 
-- System auto-initializes on DOM ready
-- Integrates via custom events with existing countdown system
-- All urgency states are mobile-responsive
-- Demo page available at `/countdown-demo.html` for testing
+- Enhanced countdown styling integrated directly into header.css for better prominence
+- 6-hour urgency threshold with FPL teal branding (uses --accent-color)
+- Simplified architecture - no external enhancement dependencies
+- Responsive scaling with larger fonts and containers for better visibility
 
 **Design System Usage**:
 

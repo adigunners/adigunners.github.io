@@ -88,19 +88,8 @@ window.FPLCountdown = (function () {
       FPLUIManager.attachAdminBadge();
     }
 
-    // Use enhanced countdown system if available
-    if (window.CountdownEnhancements) {
-      CountdownEnhancements.updateCountdownWithUrgency(deadlineTime);
-      // Dispatch event for other systems
-      document.dispatchEvent(
-        new CustomEvent('countdownUpdate', {
-          detail: { deadlineTime, gameweek: null },
-        })
-      );
-      return;
-    }
-
-    // Fallback: Calculate time components
+    // Simple countdown display (enhanced system disabled)
+    // Calculate time components
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
@@ -109,6 +98,14 @@ window.FPLCountdown = (function () {
     const countdownClock = document.getElementById('countdown-clock');
     if (countdownClock) {
       countdownClock.style.display = 'block';
+
+      // Add minimal urgency styling if 6 hours or less remaining
+      const totalHours = days * 24 + hours;
+      if (totalHours <= 6) {
+        countdownClock.classList.add('countdown-urgent-minimal');
+      } else {
+        countdownClock.classList.remove('countdown-urgent-minimal');
+      }
 
       const daysEl = document.getElementById('countdown-days');
       const hoursEl = document.getElementById('countdown-hours');
@@ -143,19 +140,7 @@ window.FPLCountdown = (function () {
       // Update the countdown display with gameweek deadline
       const deadlineTime = new Date(gameweek.deadline_time);
 
-      // Use enhanced countdown system if available
-      if (window.CountdownEnhancements) {
-        CountdownEnhancements.updateCountdownWithUrgency(deadlineTime, gameweek);
-        // Dispatch event for other systems
-        document.dispatchEvent(
-          new CustomEvent('countdownUpdate', {
-            detail: { deadlineTime, gameweek },
-          })
-        );
-        return;
-      }
-
-      // Fallback to basic countdown
+      // Simple countdown display (enhanced system disabled)
       const currentDate = FPLUtils.now();
       const timeDifference = deadlineTime - currentDate;
 
@@ -181,6 +166,14 @@ window.FPLCountdown = (function () {
         const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+        // Add minimal urgency styling if 6 hours or less remaining
+        const totalHours = days * 24 + hours;
+        if (totalHours <= 6) {
+          countdownClock.classList.add('countdown-urgent-minimal');
+        } else {
+          countdownClock.classList.remove('countdown-urgent-minimal');
+        }
 
         const daysEl = document.getElementById('countdown-days');
         const hoursEl = document.getElementById('countdown-hours');

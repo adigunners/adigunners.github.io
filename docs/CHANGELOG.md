@@ -8,6 +8,9 @@
 
 - **Mobile-First Architecture**: Complete website audit and optimization for mobile devices
 - **Container Consistency**: Applied uniform `winner-scorecard` styling to all major sections
+- **Enhanced Countdown Display**: Redesigned countdown with larger, more prominent styling for better visibility
+- **FPL Brand Consistency**: Updated 6-hour urgency styling to use official FPL teal accent color
+- **Simplified Architecture**: Removed complex countdown enhancement system in favor of clean, integrated approach
 - **Space Optimization**: Reduced excessive white space by 50% on mobile while maintaining readability
 - **Sticky Header Enhancement**: Added proper spacing and professional positioning
 - **Table Improvements**: Implemented uniform row heights and restored appealing purple header design
@@ -19,6 +22,15 @@
 - **Progressive Space Reduction**: 30px → 16px → 8px → 6px across breakpoints
 - **Typography Density**: Optimized font sizes and spacing for mobile readability
 - **Responsive Headers**: Proper mobile header design with purple gradient background
+
+### ⏰ Countdown System Overhaul
+
+- **Removed**: `css/countdown-enhancements.css` and `js/countdown-enhancements.js` (complex system)
+- **Enhanced**: Integrated prominent countdown styling directly into `css/header.css`
+- **Sizing**: Increased container from 300px to 450px (500px desktop) for better visibility
+- **Typography**: Label: 1rem→1.4rem, Time: 0.85rem→1.3rem, Numbers: enhanced to 1.6rem
+- **Urgency**: 6-hour threshold with official FPL teal accent color (--accent-color)
+- **Responsive**: Optimized scaling across mobile (380px), tablet, and desktop breakpoints
 
 ### 🔧 Technical Improvements
 
