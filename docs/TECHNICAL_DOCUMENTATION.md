@@ -51,10 +51,60 @@ Project Structure:
 GitHub Pages Repository:
 ├── index.html - Main landing page
 ├── winners.html - Winner leaderboard page
-├── data/league_stats.json - Live player/pot stats
-├── data/winner_stats.json - Live winner data
-└── data/test_winner_stats.json - Test data for demos
+├── css/
+│   ├── variables.css - CSS custom properties & theming
+│   ├── base.css - Base container & section styles
+│   ├── responsive.css - Main responsive breakpoints
+│   ├── mobile-optimizations.css - Basic mobile compactness
+│   ├── advanced-mobile.css - Ultra-compact mobile experience
+│   ├── header.css - Header & countdown styling
+│   ├── winners.css - Winner card styling
+│   ├── leaderboard.css - Table styling
+│   ├── components.css - Reusable UI components
+│   ├── qa-panel.css - Admin/test panel styling
+│   └── error-handling.css - Error state styling
+├── js/
+│   ├── countdown.js - Countdown timer logic
+│   ├── data-loader.js - API data fetching
+│   ├── error-handler.js - Error handling utilities
+│   ├── ui-manager.js - UI state management
+│   └── utils.js - Helper utilities
+├── data/
+│   ├── league_stats.json - Live player/pot stats
+│   ├── winner_stats.json - Live winner data
+│   ├── next_deadline.json - Countdown deadline data
+│   └── test_winner_stats.json - Test data for demos
+└── docs/ - Technical documentation
 ```
+
+#### 4. **CSS Architecture (Mobile-First Design)**
+
+The website uses a progressive enhancement approach with mobile-first responsive design:
+
+##### Breakpoint Strategy
+
+- **≤600px**: Primary mobile optimizations
+- **≤480px**: Ultra-compact for small screens
+- **≤360px**: Hyper-compact for tiny devices
+- **701-1024px**: Tablet layouts (2-column cards)
+- **≥1025px**: Desktop layouts (tables)
+
+##### CSS File Organization
+
+- `variables.css` - CSS custom properties for consistent theming
+- `base.css` - Foundation styles and container layouts
+- `responsive.css` - Core responsive breakpoints and adaptive layouts
+- `mobile-optimizations.css` - Space optimization for mobile devices
+- `advanced-mobile.css` - Ultra-compact mobile experience with sticky header
+- Component-specific files for modular, maintainable styling
+
+##### Key Design Patterns
+
+- **Progressive Space Reduction**: 30px → 16px → 8px → 6px across breakpoints
+- **Adaptive Rendering**: Tables on desktop, cards on mobile
+- **Consistent Container Styling**: `winner-scorecard` class for uniform sections
+- **Mobile-First Typography**: Optimized font sizes and line heights
+- **Sticky Header**: Professional positioning with proper spacing
 
 ### Website Test Mode & Standings Fallback (2025-08-15)
 

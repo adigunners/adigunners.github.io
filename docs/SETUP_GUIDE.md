@@ -1,6 +1,6 @@
 # ⚙️ Setup Guide - IIM Mumbai FPL League
 
-**Complete step-by-step deployment instructions for setting up the fantasy league management system from scratch.**
+**Basic deployment instructions for setting up the fantasy league management system.**
 
 ---
 
@@ -15,163 +15,33 @@ Before starting, ensure you have:
 
 ---
 
-## 🏗 Phase 1: Google Sheets Setup
+## 🏗 Basic Setup Overview
 
-### Step 1: Create Master Database Spreadsheet
+This is an automated Fantasy Premier League management system with the following components:
 
-1. **Create New Spreadsheet**
-   - Go to [Google Sheets](https://sheets.google.com)
-   - Create new spreadsheet: "IIM Mumbai FPL Master Database"
+### Core Architecture
 
-2. **Create Required Tabs**
-   Create these tabs in exact order:
-   ```
-   ├── Players
-   ├── Weekly Scores
-   ├── Weekly Winners
-   ├── Monthly Winners
-   ├── Prize Tracking
-   ├── Settings
-   └── Form Responses
-   ```
+- **Google Sheets**: Database for players, scores, winners, and settings
+- **Google Apps Script**: Backend automation and data processing
+- **GitHub Pages**: Static website hosting
+- **FPL API**: Official data source for player scores
 
-### Step 2: Configure Each Tab
+### Website Features
 
-#### **Players Tab**
-
-Headers (Row 1):
-
-```
-A: Name | B: Email | C: Phone | D: FPL Team Name | E: FPL Team ID | F: Payment Status | G: Payment Date | H: Registration Date | I: Status | J: Notes
-```
-
-#### **Weekly Scores Tab**
-
-Headers (Row 1):
-
-#### **Weekly Winners Tab**
-
-Headers (Row 1):
-
-```
-A: Gameweek | B: Player Name | C: Points | D: Prize Amount | E: Position | F: Timestamp
-```
-
-#### **Monthly Winners Tab**
-
-Headers (Row 1):
-
-```
-A: Month | B: Period (e.g., GW1-GW4) | C: Player Name | D: Points | E: Prize Amount | F: Position | G: Timestamp
-```
-
-#### **Prize Tracking Tab**
-
-Headers (Row 1):
-
-```
-A: Prize Type | B: Identifier | C: Player Name | D: Position | E: Prize Amount | F: Status | G: Payout Date
-```
-
-#### **Settings Tab**
-
-Configure these key settings:
-
-```
-A1: Setting | B1: Value
-A2: League Name | B2: IIM Mumbai Fantasy League
-A3: Player Count | B3: =COUNTA(Players!A:A)-1
-A4: Pot Amount | B4: =B3*3000
-A5: Current Gameweek | B50: 1 (fallback). The script will update `B50` with the latest current GW; `B5` is used for League Name.
-A18: Weekly Prize 1st | B18: 500
-A19: Weekly Prize 2nd | B19: 300
-A26: Monthly Prize 1st | B26: 1000
-A27: Monthly Prize 2nd | B27: 700
-A49: Last Processed GW | B49: 0
-```
+- Live countdown to registration deadline
+- Real-time leaderboard and winner displays
+- Responsive design (desktop, tablet, mobile)
+- Test mode for development and demos
 
 ---
 
-## 🔧 Phase 2: Google Apps Script Setup
-
-### Step 1: Create Apps Script Project
-
-1. **Open Apps Script**
-   - From your Google Sheet: Extensions → Apps Script
-   - Or go to [script.google.com](https://script.google.com)
-
-2. **Project Configuration**
-   - Name: "IIM Mumbai FPL League Management"
-   - Delete default `Code.gs` file
-
-### Step 2: Add Script Files
-
-Create these files and copy the corresponding code:
-
-#### **File 1: FPL Registration Automation Script.js**
-
-- Copy code from the registration automation script
-- Configure `CONFIG` object with your sheet name and admin email
-
-#### **File 2: FPL_Data_Fetcher.js**
-
-- Copy the main data processing script
-- Update `FPL_CONFIG` with your settings
-- Configure `GITHUB_CONFIG` with your repository details
-
-#### **File 3: New_Email_System.js**
-
-- Copy the email system code
-- Update `EMAIL_CONFIG` with your league name
-
-#### **File 4: UpdateWebsiteCounter.js**
-
-- Copy the GitHub integration script
-- Configure with your GitHub username and repository
-
-#### **File 5: Countdown_mailers.js**
-
-- Copy the 5-day countdown email system script
-- Update `COUNTDOWN_CONFIG` with your league details:
-  - GW1 deadline date and time
-  - Registration form link
-  - Website link
-  - Email scheduling times
-- Configure daily content and pro tips for your league
-
-#### **File 5: WeeklyEmailTemplate.html**
-
-- Create HTML file for weekly email template
-- Copy the weekly email template code
-
-#### **File 6: MonthlyEmailTemplate.html**
-
-- Create HTML file for monthly email template
-- Copy the monthly email template code
-
-### Step 3: Configure Script Properties
-
-1. **Add GitHub Token**
-   - Go to Project Settings → Script Properties
-   - Add property: `GITHUB_TOKEN` with your GitHub Personal Access Token
-   - Generate token at: GitHub Settings → Developer Settings → Personal Access Tokens
-
-2. **Test Configuration**
-   ```javascript
-   // Run this function to verify setup
-   testGitHubToken();
-   ```
-
----
-
-## 🌐 Phase 3: GitHub Pages Setup
+## 🌐 GitHub Pages Setup
 
 ### Step 1: Create Repository
 
-1. **Create Repository**
-   - Repository name: `{yourusername}.github.io`
-   - Make it **public** (required for free GitHub Pages)
-   - Initialize with README
+1. Create repository named: `{yourusername}.github.io`
+2. Make it **public** (required for free GitHub Pages)
+3. Initialize with README
 
 ### Step 2: Upload Website Files
 
@@ -180,558 +50,120 @@ Upload these files to your repository:
 ```
 ├── index.html (Main landing page)
 ├── winners.html (Winner leaderboard page)
-├── data/league_stats.json (Will be auto-generated)
-├── data/winner_stats.json (Will be auto-generated)
-└── data/test_winner_stats.json (For testing)
+├── css/ (Styling files)
+├── js/ (JavaScript functionality)
+├── data/ (JSON data files - auto-generated)
+└── docs/ (Documentation)
 ```
 
 ### Step 3: Enable GitHub Pages
 
-1. **Repository Settings**
-   - Go to Settings → Pages
-   - Source: Deploy from branch
-   - Branch: main / (root)
-   - Save
-
-2. **Verify Deployment**
-   - Visit: `https://{yourusername}.github.io`
-   - Should see your league website
+1. Go to Settings → Pages
+2. Source: Deploy from branch
+3. Branch: main / (root)
+4. Save and verify deployment
 
 ---
 
-## 🔄 Phase 4: Automation Setup
+## 📱 Website Features
 
-### Step 1: Set Up Triggers
+### Responsive Design
 
-Run these functions once to create automated triggers:
+- **Desktop (≥1025px)**: Full table layouts
+- **Tablet (701-1024px)**: 2-column card layouts
+- **Mobile (≤700px)**: Single-column cards
 
-```javascript
-// Idempotent trigger helpers (Apps Script)
-function ensureClockTrigger(functionName, schedule) {
-  const exists = ScriptApp.getProjectTriggers().some(
-    (t) => t.getHandlerFunction() === functionName && t.getEventType() === ScriptApp.EventType.CLOCK
-  );
-  if (exists) return;
-  let builder = ScriptApp.newTrigger(functionName).timeBased();
-  if (schedule.everyHours) builder = builder.everyHours(schedule.everyHours);
-  if (schedule.everyMinutes) builder = builder.everyMinutes(schedule.everyMinutes);
-  if (schedule.atHour) builder = builder.atHour(schedule.atHour).everyDays(1);
-  if (schedule.onWeekDay) builder = builder.onWeekDay(schedule.onWeekDay);
-  builder.create();
-}
+### URL Parameters
 
-function ensureFormSubmitTrigger(functionName, { spreadsheetId, formId }) {
-  const exists = ScriptApp.getProjectTriggers().some(
-    (t) =>
-      t.getHandlerFunction() === functionName &&
-      t.getEventType() === ScriptApp.EventType.FORM_SUBMIT
-  );
-  if (exists) return;
-  let trig = ScriptApp.newTrigger(functionName);
-  if (spreadsheetId) {
-    trig = trig.forSpreadsheet(spreadsheetId).onFormSubmit();
-  } else if (formId) {
-    trig = trig.forForm(formId).onFormSubmit();
-  } else {
-    throw new Error('Provide spreadsheetId or formId for form-submit triggers');
-  }
-  trig.create();
-}
+- `?test=true` - Demo mode with test data
+- `?data=test|live|auto` - Force specific data source
+- `?phase=pre|season|auto` - Control UI state
+- `?clockOffset=ms` - Time offset for testing
+- `?debug=1` - Console logging
 
-// Set up daily processing trigger (runs every day at 2am)
-ensureTrigger('dailyMasterProcess', ScriptApp.EventType.TIME_BASED, {
-  timeMethod: 'atHour',
-  value: 2,
-});
+### Data Integration
 
-// Set up website update trigger (runs every hour)
-ensureTrigger('updateWebsiteCounter', ScriptApp.EventType.TIME_BASED, {
-  timeMethod: 'everyHours',
-  value: 1,
-});
-
-// Set up registration processing trigger (runs on form submit)
-ensureTrigger('processRegistration', ScriptApp.EventType.ON_FORM_SUBMIT);
-```
-
-### Step 2: Initialize System
-
-```javascript
-// Initialize prize tracking sheet
-initializePrizeTrackingSheet();
-
-// Validate sheet structure
-validateSheetStructure();
-
-// Test email system
-testEmailSending();
-```
-
-### Step 3: Verify Automation
-
-1. **Check Triggers**
-
-   ```javascript
-   checkTriggers(); // Should show 3 active triggers
-   ```
-
-2. **Test Website Updates**
-   ```javascript
-   updateLeagueStatsOnGitHub(); // Should update JSON files
-   ```
+- `data/league_stats.json` - Player counts and prize pool
+- `data/winner_stats.json` - Complete winner rankings
+- `data/next_deadline.json` - Countdown deadline data
 
 ---
 
-## ✅ Phase 5: Testing & Validation
+## 🔧 Basic Configuration
 
-### Step 1: Set Up Test Environment
+### Google Sheets Setup
 
-```javascript
-// Create comprehensive test data
-setupCompleteTestDemo();
+Create a Google Sheet with these tabs:
 
-// Check test data status
-checkTestDataStatus();
-```
+- **Players** - Registration data
+- **Weekly Scores** - Game week scores
+- **Weekly Winners** - Prize winners
+- **Settings** - Configuration values
 
-### Step 2: Test All Systems
+### Apps Script Integration
 
-1. **Email System**
+1. Create Apps Script project from Google Sheets
+2. Add the provided script files
+3. Configure with your repository details
+4. Set up automated triggers for daily processing
 
-   ```javascript
-   testEmailSending(); // Sends test emails to admin only
-   ```
+### GitHub Integration
 
-2. **Website Integration**
-   - Visit: `https://{yourusername}.github.io/?test=true`
-   - Should show test winner data
+- Generate Personal Access Token
+- Configure in Script Properties as `GITHUB_TOKEN`
+- Enable automatic JSON file updates
 
-3. **Winner Calculations**
-   ```javascript
-   showTestWinners(); // Display calculated winners
-   ```
+---
 
-### Step 3: Clean Up Test Data
+## ✅ Testing & Validation
 
-```javascript
-cleanupTestDataDirect(); // Remove all test data
+### Test Mode
+
+- Use `?test=true` URL parameter
+- Displays demo data while preserving live functionality
+- Safe testing environment for development
+
+### Local Testing
+
+```bash
+# Serve the site locally
+python3 -m http.server 8000
+# Then visit: http://localhost:8000
 ```
 
 ---
 
-## 🚀 Phase 6: Go Live
-
-### Step 1: Load Real Player Data
-
-1. **Import Form Responses**
-   - Copy form responses to "Form Responses" tab
-   - Run: `processNewRegistrations()`
-
-2. **Validate Player Data**
-   - Check "Players" tab for successful imports
-   - Verify FPL team ID validations
-
-### Step 2: Initialize Live System
-
-```javascript
-// Reset to clean state
-resetToFreshState();
-
-// Process any pending registrations
-processNewRegistrations();
-
-// Update website with live data
-updateLeagueStatsOnGitHub();
-```
-
-### Step 3: Monitor First Run
-
-1. **Check Daily Processing**
-   - Wait for gameweek to complete
-   - Monitor `dailyMasterProcess()` execution
-   - Verify email delivery
-
-2. **Website Updates**
-   - Confirm JSON files update automatically
-   - Test both live and winner data
-
----
-
-## 🔧 Maintenance & Monitoring
+## 🔧 Maintenance
 
 ### Daily Tasks
 
-- Monitor `dailyMasterProcess()` execution logs
-- Check email delivery reports
-- Verify website JSON updates
+- Monitor automated processing logs
+- Check website JSON updates
+- Verify email delivery reports
 
 ### Weekly Tasks
 
-- Review winner calculations for accuracy
-- Check prize tracking sheet
+- Review winner calculations
 - Monitor system performance
-
-### Monthly Tasks
-
-- Validate FPL API data accuracy
-- Review and update documentation
-- Check GitHub repository health
-
----
-
-## 🏢 SaaS Deployment Considerations
-
-### Multi-Tenant Architecture Preparation
-
-When scaling this system for multiple leagues:
-
-#### **Environment Separation**
-
-```javascript
-// Environment-specific configurations
-const ENVIRONMENT_CONFIG = {
-  development: {
-    GITHUB_REPO: 'test-league.github.io',
-    EMAIL_DOMAIN: 'test.example.com',
-    API_RATE_LIMITS: 'relaxed',
-  },
-  staging: {
-    GITHUB_REPO: 'staging-league.github.io',
-    EMAIL_DOMAIN: 'staging.example.com',
-    API_RATE_LIMITS: 'normal',
-  },
-  production: {
-    GITHUB_REPO: 'league.example.com',
-    EMAIL_DOMAIN: 'league.example.com',
-    API_RATE_LIMITS: 'strict',
-  },
-};
-```
-
-#### **League Template System**
-
-```javascript
-// Standardized league configuration template
-const LEAGUE_TEMPLATE = {
-  basic: {
-    maxPlayers: 20,
-    entryFee: 2000,
-    weeklyPrizes: [300, 200],
-    monthlyPrizes: [800, 500],
-  },
-  premium: {
-    maxPlayers: 50,
-    entryFee: 5000,
-    weeklyPrizes: [500, 300],
-    monthlyPrizes: [1200, 800],
-  },
-  enterprise: {
-    maxPlayers: 100,
-    entryFee: 10000,
-    weeklyPrizes: [1000, 600],
-    monthlyPrizes: [2500, 1500],
-  },
-};
-```
-
-### White-Label Customization
-
-#### **Branding Configuration**
-
-```javascript
-// Client-specific branding settings
-const BRANDING_CONFIG = {
-  organizationName: 'Your Organization Name',
-  primaryColor: '#37003c',
-  secondaryColor: '#00ff85',
-  logoUrl: 'https://your-domain.com/logo.png',
-  customDomain: 'league.your-domain.com',
-  emailSignature: 'Your League Management Team',
-};
-```
-
-#### **Feature Toggles**
-
-```javascript
-// Configurable features for different subscription tiers
-const FEATURE_FLAGS = {
-  advancedAnalytics: true,
-  customEmailTemplates: true,
-  paymentIntegration: false,
-  mobileApp: true,
-  apiAccess: false,
-};
-```
-
-## 🔧 Production Hardening
-
-### Security Best Practices
-
-#### **API Key Rotation**
-
-```javascript
-// Sanitizer to redact secrets from objects before logging or reporting
-function sanitizeForLogging(obj) {
-  const SENSITIVE_KEYS = ['token', 'key', 'secret', 'password', 'apiKey', 'accessToken'];
-  function redact(val) {
-    if (typeof val === 'string' && val.length > 6) return '***REDACTED***';
-    if (typeof val === 'object' && val !== null) return sanitizeForLogging(val);
-    return val;
-  }
-  if (Array.isArray(obj)) {
-    return obj.map(sanitizeForLogging);
-  }
-  if (typeof obj === 'object' && obj !== null) {
-    const out = {};
-    for (const k in obj) {
-      if (SENSITIVE_KEYS.some((s) => k.toLowerCase().includes(s))) {
-        out[k] = '***REDACTED***';
-      } else {
-        out[k] = sanitizeForLogging(obj[k]);
-      }
-    }
-    return out;
-  }
-  return obj;
-}
-
-// Helper to validate a GitHub token by making a test API call
-function testTokenValidity(token) {
-  try {
-    const response = UrlFetchApp.fetch('https://api.github.com/user', {
-      method: 'get',
-      muteHttpExceptions: true,
-      headers: {
-        Authorization: 'token ' + token,
-        Accept: 'application/vnd.github.v3+json',
-      },
-    });
-    return response.getResponseCode() === 200;
-  } catch (e) {
-    return false;
-  }
-}
-
-// Manual GitHub token update helper
-function updateGitHubToken(newToken) {
-  // Validate the new token by making a test API call
-  if (testTokenValidity(newToken)) {
-    PropertiesService.getScriptProperties().setProperty('GITHUB_TOKEN', newToken);
-    sendAdminAlert('Token Updated', 'GitHub token updated and validated.');
-  } else {
-    throw new Error('Invalid GitHub token. Please check and try again.');
-  }
-}
-
-// Example: Use sanitizer before logging or reporting errors/health
-function sendHealthCheck() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const settingsSheet = ss.getSheetByName('Settings');
-  const token = PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN');
-  const status = {
-    triggers: checkTriggers().length,
-    lastProcessed: settingsSheet.getRange('B49').getValue(),
-    currentGW: getCurrentGameweek(),
-    githubTokenPresent: !!token,
-    githubToken: token, // Will be redacted by sanitizer
-  };
-  const safeStatus = sanitizeForLogging(status);
-  sendAdminAlert('Daily Health Check', JSON.stringify(safeStatus, null, 2));
-}
-```
-
-> **Note:**
->
-> - GitHub does not support automated Personal Access Token (PAT) rotation via API. PATs must be created and revoked manually in your GitHub account settings.
-> - For improved security and automation, consider using a [GitHub App](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app) and generating short-lived installation tokens with JWT authentication instead of long-lived PATs.
-
-#### **Environment Variables**
-
-```javascript
-// Secure configuration management
-const CONFIG = {
-  FPL_API_KEY: PropertiesService.getScriptProperties().getProperty('FPL_API_KEY'),
-  GITHUB_TOKEN: PropertiesService.getScriptProperties().getProperty('GITHUB_TOKEN'),
-  ADMIN_EMAIL: PropertiesService.getScriptProperties().getProperty('ADMIN_EMAIL'),
-  ENCRYPTION_KEY: PropertiesService.getScriptProperties().getProperty('ENCRYPTION_KEY'),
-};
-```
-
-### Performance Optimization
-
-#### **Caching Strategy**
-
-```javascript
-// Multi-layer caching implementation
-class CacheManager {
-  static getWithFallback(key, fetchFunction, cacheTime = 3600) {
-    // Try script cache first (fastest)
-    let data = CacheService.getScriptCache().get(key);
-    if (data) return JSON.parse(data);
-
-    // Try document cache (medium speed)
-    data = CacheService.getDocumentCache().get(key);
-    if (data) {
-      CacheService.getScriptCache().put(key, data, cacheTime);
-      return JSON.parse(data);
-    }
-
-    // Fetch fresh data (slowest)
-    data = fetchFunction();
-    const serialized = JSON.stringify(data);
-    CacheService.getScriptCache().put(key, serialized, cacheTime);
-    CacheService.getDocumentCache().put(key, serialized, cacheTime * 24);
-
-    return data;
-  }
-}
-```
-
-#### **Rate Limiting**
-
-```javascript
-// Advanced rate limiting with exponential backoff
-class RateLimiter {
-  static async makeAPICall(apiFunction, maxRetries = 3) {
-    for (let attempt = 0; attempt < maxRetries; attempt++) {
-      try {
-        return await apiFunction();
-      } catch (error) {
-        if (error.toString().includes('rate limit')) {
-          const delay = Math.pow(2, attempt) * 1000; // Exponential backoff
-          Utilities.sleep(delay);
-          continue;
-        }
-        throw error;
-      }
-    }
-    throw new Error(`Max retries (${maxRetries}) exceeded`);
-  }
-}
-```
-
-### Monitoring & Observability
-
-#### **Health Check Endpoints**
-
-// Delete and recreate triggers
-ScriptApp.getProjectTriggers().forEach((trigger) => ScriptApp.deleteTrigger(trigger));
-ensureClockTrigger('dailyMasterProcess', { atHour: 2 });
-ensureClockTrigger('updateWebsiteCounter', { everyHours: 1 });
-ensureFormSubmitTrigger('processRegistration', { spreadsheetId: SpreadsheetApp.getActive().getId() });
-return {
-timestamp: new Date().toISOString(),
-version: '1.0.1',
-services: {
-sheets: checkSheetsAccess(),
-github: testGitHubToken(),
-email: testEmailConnectivity(),
-fpl_api: testFPLAPIAccess(),
-},
-metrics: {
-playersCount: getActivePlayersCount(),
-lastProcessedGW: getLastProcessedGameweek(),
-emailsSentToday: getEmailsSentCount(),
-userAgent: (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : 'Apps Script',
-};
-
-// Log to multiple destinations
-console.error(JSON.stringify(errorReport, null, 2));
-sendAdminAlert('System Error', JSON.stringify(errorReport, null, 2));
-
-```javascript
-// Enhanced error reporting with context
-function reportError(error, context = {}) {
-  const errorReport = {
-    timestamp: new Date().toISOString(),
-    error: error.toString(),
-    stack: error.stack,
-    context: context,
-    systemHealth: getSystemHealth(),
-    userAgent: navigator.userAgent || 'Apps Script',
-  };
-
-  // Log to multiple destinations
-  console.error(JSON.stringify(errorReport, null, 2));
-  sendAdminAlert('System Error', JSON.stringify(errorReport, null, 2));
-
-  // Optional: Send to external monitoring service
-  // sendToExternalMonitoring(errorReport);
-}
-```
-
-## 🆘 Troubleshooting Quick Fixes (Admin Only)
-
-### Critical Issues (v1.0.1 Updates)
-
-**Ranking Display Bug** (FIXED)
-
-```javascript
-// If you encounter "#{index + 1}" display issue:
-// 1. Clear browser cache completely
-// 2. Force refresh with Ctrl+F5 (Windows) or Cmd+Shift+R (Mac)
-// 3. Use incognito mode to test
-// 4. Verify latest code is deployed on GitHub
-```
-
-**Mobile Display Issues** (FIXED)
-
-```css
-/* Enhanced mobile responsiveness now included */
-/* Headers now scale properly on screens <400px */
-/* Text wrapping issues resolved */
-```
-
-**Trigger Not Running**
-
-```javascript
-// Delete and recreate triggers
-ScriptApp.getProjectTriggers().forEach((trigger) => ScriptApp.deleteTrigger(trigger));
-setupDailyMasterTrigger();
-```
-
-**GitHub Integration Failing**
-
-```javascript
-// Test GitHub connection
-testGitHubToken();
-// Check repository permissions
-// Ensure token has 'repo' scope
-```
-
-**Email System Issues**
-
-```javascript
-// Test with admin email only
-testEmailSending();
-// Check Gmail API quotas in Google Cloud Console
-```
-
-**Browser Compatibility**
-
-```javascript
-// v1.0.1 improvements:
-// - Replaced complex template literals with string concatenation
-// - Enhanced cross-browser compatibility
-// - Better error handling for template rendering
-```
-
-### Support Resources
-
-- Troubleshooting is maintained in the private admin repository (fml-admin-docs)
-- [API Reference](API_REFERENCE.md)
-- [Technical Documentation](TECHNICAL_DOCUMENTATION.md) - Enhanced with SaaS roadmap
+- Check data accuracy
 
 ---
 
 ## 📞 Support
 
-For setup assistance or technical issues:
+For detailed setup instructions and troubleshooting:
 
-- **Admin**: aditya.garg.2006@gmail.com
 - **Documentation**: [Complete Tech Docs](TECHNICAL_DOCUMENTATION.md)
-- **Repository**: [GitHub Repo](https://github.com/adigunners/adigunners.github.io)
+- **Collaboration**: [Git Workflow Guide](COLLABORATION_GUIDE.md)
+- **Changes**: [Version History](CHANGELOG.md)
+- **Repository**: [GitHub Pages Site](https://adigunners.github.io/)
 
 ---
 
-_Setup completed? Try running `dailyMasterProcess()` to test the full system!_
+## 🔒 Advanced Configuration
+
+For detailed implementation guides, security configurations, and SaaS deployment instructions, please refer to the private administrator documentation.
+
+---
+
+_This system automatically processes Fantasy Premier League data and manages prize calculations for your league._

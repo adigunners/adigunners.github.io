@@ -1,0 +1,128 @@
+/* =============== MOBILE-FIRST COMPACT OPTIMIZATIONS =============== */
+/* Add this file and include it in index.html after existing CSS */
+
+/* Mobile-first container optimization */
+@media (max-width: 600px) {
+  .container {
+    margin: 8px auto; /* Reduced from 20px */
+    padding: 0 8px; /* Reduced from 16px */
+  }
+
+  /* Compact header */
+  header {
+    padding: 16px 12px; /* Drastically reduced from 50px 20px */
+    margin-bottom: 12px; /* Reduced from 30px */
+  }
+
+  /* Compact sections */
+  section {
+    padding: 16px 12px; /* Reduced from 30px */
+    margin-bottom: 8px; /* Reduced from 20px */
+  }
+
+  /* Tighter main content spacing */
+  main > * {
+    margin-bottom: 8px; /* Reduced from 12px */
+  }
+
+  /* Stats optimization */
+  .stats-row {
+    gap: 12px; /* Reduced from 16px */
+  }
+
+  .stat-box {
+    padding: 12px 10px; /* Reduced from 16px 12px */
+  }
+
+  /* Compact leaderboard spacing */
+  .leaderboard-table tbody tr {
+    margin-bottom: 6px; /* Reduced from 10px */
+    padding: 8px 10px; /* Reduced from 10px 12px */
+  }
+
+  /* Winner card optimization */
+  .winner-card {
+    padding: 10px 12px; /* Reduced from 12px 14px */
+  }
+
+  /* Compact last updated */
+  #stats-last-updated {
+    padding: 4px 6px; /* Reduced from 6px 5px */
+    margin-bottom: 4px; /* Reduced from 8px */
+  }
+}
+
+/* =============== ULTRA-COMPACT FOR SMALL SCREENS =============== */
+@media (max-width: 480px) {
+  .container {
+    margin: 4px auto;
+    padding: 0 6px;
+  }
+
+  header {
+    padding: 12px 8px;
+    margin-bottom: 8px;
+  }
+
+  section {
+    padding: 12px 8px;
+    margin-bottom: 6px;
+  }
+
+  main > * {
+    margin-bottom: 6px;
+  }
+}
+
+/* =============== IMPROVED CONTENT DENSITY =============== */
+@media (max-width: 600px) {
+  /* More compact typography */
+  h2 {
+    font-size: 1.3rem; /* Reduced from 1.5rem */
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+  }
+
+  /* Denser stat boxes */
+  .stat-icon {
+    font-size: 1.8rem; /* Reduced from 2rem */
+    margin-bottom: 6px; /* Reduced from 8px */
+  }
+
+  .stat-title {
+    font-size: 1rem; /* Reduced from 1.1rem */
+    margin-bottom: 4px; /* Reduced from 6px */
+    line-height: 1.1;
+  }
+
+  .stat-number {
+    font-size: 1.8rem; /* Reduced from 2rem */
+    margin-bottom: 2px; /* Reduced from 4px */
+  }
+
+  /* Compact winner cards */
+  .winner-name {
+    font-size: 0.9rem; /* Reduced from 0.95rem */
+    margin-bottom: 3px; /* Reduced from 4px */
+  }
+
+  .winner-prize {
+    font-size: 1rem; /* Reduced from 1.1rem */
+    margin-bottom: 4px; /* Reduced from 6px */
+  }
+}
+
+/* =============== OPTIMIZED LEADERBOARD =============== */
+@media (max-width: 600px) {
+  .leaderboard-table thead {
+    margin-bottom: 6px; /* Reduced from 10px */
+  }
+
+  .leaderboard-table thead th {
+    padding: 4px 6px; /* Reduced from 6px 8px */
+  }
+
+  .leaderboard-table tbody tr {
+    border-radius: 6px; /* Reduced from 8px */
+  }
+}

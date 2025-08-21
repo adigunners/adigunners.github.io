@@ -1,0 +1,31 @@
+/* =============== CSS VARIABLES =============== */
+/* Single source of truth for colors, spacing, and design tokens */
+
+:root {
+  /* Official FPL Colors */
+  --primary-color: #37003c; /* Official FPL Purple */
+  --secondary-color: #00ff87; /* FPL Green (slightly adjusted from #00ff85) */
+  --accent-color: #5bbad5; /* Official FPL Teal/Cyan */
+
+  /* Background Colors */
+  --background-color: #f8f9fa; /* Softer gray, closer to FPL */
+  --card-background: #fff; /* Pure white like FPL */
+
+  /* Text Colors */
+  --text-color: #212529; /* Slightly darker for better contrast */
+  --heading-color: #37003c; /* Use primary color for headings */
+
+  /* Layout */
+  --border-radius: 8px; /* More conservative radius like FPL */
+  --light-gray: #f1f3f4; /* For subtle backgrounds */
+  --border-color: #e9ecef; /* For subtle borders */
+
+  /* Container Sizes */
+  --container-max-width: 1000px;
+  --container-wide-max-width: 1200px;
+
+  /* Breakpoints (for JS reference) */
+  --mobile-max: 600px;
+  --tablet-max: 1024px;
+  --desktop-min: 1025px;
+}

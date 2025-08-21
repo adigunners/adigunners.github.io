@@ -1,0 +1,307 @@
+/* =============== ADVANCED MOBILE OPTIMIZATIONS =============== */
+/* Ultra-sleek mobile experience with minimal white space */
+
+/* =============== MOBILE-FIRST GLOBAL RESET =============== */
+@media (max-width: 600px) {
+  /* Remove excessive margins globally */
+  * {
+    margin: 0;
+  }
+
+  /* Reset body margins */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Maximize screen usage */
+  .container {
+    width: 100vw;
+    max-width: none;
+    margin: 0;
+    padding: 0 6px;
+  }
+}
+
+/* =============== STICKY HEADER OPTIMIZATION =============== */
+@media (max-width: 600px) {
+  /* Compact sticky header for better space usage */
+  header {
+    position: sticky;
+    top: 8px;
+    z-index: 100;
+    padding: 8px 6px;
+    margin-bottom: 4px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+  }
+
+  header h1 {
+    font-size: 1.1rem;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  header p {
+    font-size: 0.75rem;
+    margin: 2px 0 0 0;
+    line-height: 1;
+  }
+
+  .countdown-clock {
+    padding: 6px 8px;
+    margin: 4px 0 0 0;
+    max-width: 200px;
+  }
+
+  .countdown-label {
+    font-size: 0.65rem;
+    margin-bottom: 3px;
+  }
+
+  .countdown-time {
+    font-size: 0.7rem;
+    padding: 2px 4px;
+  }
+}
+
+/* =============== ULTRA-COMPACT SECTIONS =============== */
+@media (max-width: 600px) {
+  main {
+    padding: 0;
+  }
+
+  section {
+    margin: 0 0 4px 0;
+    padding: 8px 6px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Special compact sections */
+  #league-statistics {
+    padding: 6px;
+    margin-top: 12px; /* Add space below sticky header */
+  }
+
+  #stats-last-updated {
+    padding: 2px 4px;
+    margin: 0;
+    font-size: 0.65rem;
+  }
+}
+
+/* =============== HYPER-COMPACT STATS =============== */
+@media (max-width: 600px) {
+  .stats-row {
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .stat-box {
+    padding: 8px 6px;
+    min-width: unset;
+  }
+
+  .stat-icon {
+    font-size: 1.5rem;
+    margin-bottom: 3px;
+  }
+
+  .stat-title {
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+    line-height: 1;
+  }
+
+  .stat-number {
+    font-size: 1.4rem;
+    margin-bottom: 0;
+    line-height: 1;
+  }
+}
+
+/* =============== STREAMLINED WINNER CARDS =============== */
+@media (max-width: 600px) {
+  .winner-preview {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .winner-card {
+    padding: 6px 8px;
+    border-radius: 4px;
+    margin: 0;
+  }
+
+  .winner-rank {
+    font-size: 0.75rem;
+    margin-bottom: 1px;
+    line-height: 1;
+  }
+
+  .winner-name {
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+    line-height: 1.1;
+  }
+
+  .winner-prize {
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+    line-height: 1;
+  }
+
+  .winner-highlights {
+    gap: 2px;
+    margin-top: 1px;
+  }
+
+  .highlight-badge {
+    padding: 1px 4px;
+    font-size: 0.6rem;
+    border-radius: 6px;
+  }
+}
+
+/* =============== CONDENSED LEADERBOARD =============== */
+@media (max-width: 600px) {
+  .leaderboard-table thead {
+    margin-bottom: 3px;
+  }
+
+  .leaderboard-table thead th {
+    padding: 2px 4px;
+    font-size: 0.65rem;
+    /* Preserve purple background from responsive.css - no color override */
+  }
+
+  .leaderboard-table tbody tr {
+    margin-bottom: 3px;
+    padding: 4px 6px;
+    border-radius: 4px;
+  }
+
+  .leaderboard-table tbody td {
+    font-size: 0.75rem;
+    line-height: 1.1;
+  }
+
+  /* Tighter column spacing */
+  .leaderboard-table tbody td:nth-child(1) {
+    flex: 0 0 32px;
+    font-size: 0.7rem;
+  }
+
+  .leaderboard-table tbody td:nth-child(3) {
+    flex: 0 0 70px;
+    font-size: 0.8rem;
+    padding-right: 4px;
+  }
+
+  .leaderboard-table tbody td:nth-child(4) {
+    flex: 0 0 50px;
+    font-size: 0.8rem;
+    padding-left: 4px;
+  }
+}
+
+/* =============== COMPACT NAVIGATION =============== */
+@media (max-width: 600px) {
+  .leaderboard-navigation {
+    padding: 4px 0;
+    gap: 6px;
+  }
+
+  .leaderboard-nav-btn {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    border-radius: 3px;
+  }
+
+  .page-info {
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+}
+
+/* =============== MINIMAL FOOTER =============== */
+@media (max-width: 600px) {
+  footer {
+    padding: 6px;
+    font-size: 0.65rem;
+    line-height: 1.2;
+  }
+
+  .muted-small {
+    font-size: 0.6rem;
+    margin-top: 2px;
+  }
+}
+
+/* =============== BUTTON OPTIMIZATIONS =============== */
+@media (max-width: 600px) {
+  .cta-button {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    border-radius: 4px;
+  }
+
+  .view-all-winners {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    border-radius: 4px;
+  }
+}
+
+/* =============== TYPOGRAPHY DENSITY =============== */
+@media (max-width: 600px) {
+  h2 {
+    font-size: 1.1rem;
+    line-height: 1.2;
+    margin: 0 0 4px 0;
+    padding-bottom: 3px;
+  }
+
+  p {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    margin: 0 0 4px 0;
+  }
+
+  ul {
+    margin: 4px 0;
+    padding-left: 12px;
+  }
+
+  li {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+}
+
+/* =============== ULTRA-COMPACT FOR TINY SCREENS =============== */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 4px;
+  }
+
+  section {
+    padding: 6px 4px;
+    margin: 0 0 2px 0;
+  }
+
+  header {
+    padding: 6px 4px;
+  }
+
+  .winner-card,
+  .leaderboard-table tbody tr {
+    padding: 3px 5px;
+  }
+}

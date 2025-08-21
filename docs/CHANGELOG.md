@@ -2,6 +2,41 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.1.0] - 2025-08-21 - Mobile-First Optimization & UI Enhancement
+
+### 🎨 UI/UX Improvements
+
+- **Mobile-First Architecture**: Complete website audit and optimization for mobile devices
+- **Container Consistency**: Applied uniform `winner-scorecard` styling to all major sections
+- **Space Optimization**: Reduced excessive white space by 50% on mobile while maintaining readability
+- **Sticky Header Enhancement**: Added proper spacing and professional positioning
+- **Table Improvements**: Implemented uniform row heights and restored appealing purple header design
+
+### 📱 Mobile Optimizations
+
+- **Created**: `css/mobile-optimizations.css` for basic compact layouts
+- **Created**: `css/advanced-mobile.css` for ultra-sleek mobile experience
+- **Progressive Space Reduction**: 30px → 16px → 8px → 6px across breakpoints
+- **Typography Density**: Optimized font sizes and spacing for mobile readability
+- **Responsive Headers**: Proper mobile header design with purple gradient background
+
+### 🔧 Technical Improvements
+
+- **CSS Architecture**: Organized mobile-first responsive design patterns
+- **Cross-Device Consistency**: Uniform styling across desktop, tablet, and mobile
+- **Performance**: Optimized CSS cascade and specificity management
+- **Accessibility**: Maintained WCAG compliance while improving compactness
+
+### 📋 Files Modified
+
+- `index.html` - Added mobile CSS includes and consistent container classes
+- `css/responsive.css` - Restored purple header design, added uniform row heights
+- `css/leaderboard.css` - Added desktop table row height consistency
+- `css/mobile-optimizations.css` - Created basic mobile compactness
+- `css/advanced-mobile.css` - Created ultra-compact mobile experience
+
+---
+
 ## [1.0.9] - 2025-08-18 - Config-first backend + safer operations (no UI change)
 
 ### 🔧 Backend & Ops

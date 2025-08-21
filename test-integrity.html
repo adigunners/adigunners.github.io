@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integrity Check Test</title>
+
+    <!-- Intentionally broken integrity to test fallbacks -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+      integrity="sha384-BROKEN-HASH-TO-TEST-FALLBACK"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha384-ANOTHER-BROKEN-HASH-TO-TEST-FALLBACK"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" />
+
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        padding: 20px;
+      }
+      .test-icon {
+        font-size: 2rem;
+        margin: 10px;
+      }
+      .status {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+      }
+      .pass {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .fail {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔒 External Resource Integrity Test</h1>
+
+    <div class="status" id="font-awesome-status">Testing Font Awesome fallback...</div>
+
+    <div class="status" id="google-fonts-status">Testing Google Fonts fallback...</div>
+
+    <div>
+      <h2>Font Awesome Icons Test:</h2>
+      <i class="fas fa-users test-icon" title="Users Icon"></i>
+      <i class="fas fa-coins test-icon" title="Coins Icon"></i>
+      <i class="fas fa-chevron-left test-icon" title="Left Arrow"></i>
+      <i class="fas fa-chevron-right test-icon" title="Right Arrow"></i>
+    </div>
+
+    <div>
+      <h2>Font Test:</h2>
+      <p style="font-family: 'Poppins', sans-serif">
+        This text should use Poppins or fallback fonts.
+      </p>
+    </div>
+
+    <script>
+      // Test Font Awesome
+      const testFA = document.createElement('div');
+      testFA.className = 'fas fa-users';
+      testFA.style.fontFamily = 'Font Awesome 6 Free';
+      testFA.style.position = 'absolute';
+      testFA.style.left = '-9999px';
+      document.body.appendChild(testFA);
+
+      setTimeout(() => {
+        const computedStyle = window.getComputedStyle(testFA);
+        const faStatus = document.getElementById('font-awesome-status');
+
+        if (computedStyle.fontFamily.indexOf('Font Awesome') === -1) {
+          faStatus.textContent = '✅ PASS: Font Awesome failed to load, fallbacks working';
+          faStatus.className = 'status pass';
+        } else {
+          faStatus.textContent = '❌ FAIL: Font Awesome loaded despite broken integrity';
+          faStatus.className = 'status fail';
+        }
+
+        document.body.removeChild(testFA);
+      }, 500);
+
+      // Test Google Fonts
+      const testGF = document.createElement('div');
+      testGF.style.fontFamily = 'Poppins, serif';
+      testGF.style.position = 'absolute';
+      testGF.style.left = '-9999px';
+      testGF.innerHTML = 'test';
+      document.body.appendChild(testGF);
+
+      setTimeout(() => {
+        const computedStyle = window.getComputedStyle(testGF);
+        const gfStatus = document.getElementById('google-fonts-status');
+
+        if (computedStyle.fontFamily.indexOf('Poppins') === -1) {
+          gfStatus.textContent = '✅ PASS: Google Fonts failed to load, system fonts working';
+          gfStatus.className = 'status pass';
+        } else {
+          gfStatus.textContent = '❌ FAIL: Google Fonts loaded despite broken integrity';
+          gfStatus.className = 'status fail';
+        }
+
+        document.body.removeChild(testGF);
+      }, 500);
+    </script>
+  </body>
+</html>
