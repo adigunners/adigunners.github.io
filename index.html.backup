@@ -634,10 +634,10 @@
         - Uses modular JavaScript architecture with separate modules for utilities, data loading, UI management, etc.
         - Initializes the application and coordinates between modules
         - Handles URL parameter processing and initial page setup
-
+        
         Module structure:
         - FPLUtils: Core utilities and helpers
-        - FPLDataLoader: Data loading and API management
+        - FPLDataLoader: Data loading and API management  
         - FPLUIManager: UI management and display logic
         - FPLCountdown: Countdown and time management
         - FPLPrizeStructure: Prize structure management
@@ -665,7 +665,7 @@
       function updateQAPanelLegacy() {
         // updateQAPanel: populates the QA overlay (visible in ?test=true or ?admin=true)
         // Shows cached gameweek, data sources used, and action buttons for cache/refetch
-        if (!FPLUtils.isAdminMode()) return;
+        if (!isAdminMode()) return;
         const panel = document.getElementById('qa-panel');
         if (!panel) return;
         const phaseEl = document.getElementById('qa-phase');
@@ -682,7 +682,7 @@
           .classList.contains('is-hidden');
         phaseEl.textContent = 'Phase: ' + (duringVisible ? 'in-season' : 'pre-season');
 
-        const gw = FPLDataLoader.FPLDataLoader.getCachedGameweek();
+        const gw = FPLDataLoader.getCachedGameweek();
         if (gw) {
           gwEl.textContent = `Next GW: GW${gw.id}`;
           try {
@@ -841,6 +841,11 @@
       // last finished / processed GW according to winners data (summary.completedGameweeks)
       // (already declared at line 619)
 
+      function isAdminMode() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('test') === 'true' || urlParams.get('admin') === 'true';
+      }
+
       function setLastSyncInfo(gwId, iso) {
         return FPLUIManager.setLastSyncInfo(gwId, iso);
       }
@@ -867,8 +872,7 @@
             const nextGwId =
               typeof _lastGwId === 'number'
                 ? _lastGwId
-                : FPLDataLoader.FPLDataLoader.getCachedGameweek() &&
-                  FPLDataLoader.FPLDataLoader.getCachedGameweek().id;
+                : FPLDataLoader.getCachedGameweek() && FPLDataLoader.getCachedGameweek().id;
             if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
               // Mismatch: processed GW is ahead of nextGw-1 (could be cross-season/test snapshot)
               console.warn(
@@ -885,7 +889,7 @@
 
         // Fallbacks: prefer last known next GW minus one (if present), otherwise cached GW.
         if (typeof _lastGwId === 'number' && _lastGwId > 0) return _lastGwId - 1;
-        const gwFromCache = FPLDataLoader.FPLDataLoader.getCachedGameweek();
+        const gwFromCache = FPLDataLoader.getCachedGameweek();
         if (gwFromCache && typeof gwFromCache.id === 'number') return gwFromCache.id - 1;
         return null;
       }
@@ -954,7 +958,7 @@
 
       // Legacy function
       function attachAdminBadgeLegacy() {
-        if (!FPLUtils.isAdminMode()) return;
+        if (!isAdminMode()) return;
         const label = document.getElementById('countdown-label');
         if (!label) return;
         // If a badge exists, update; else create
@@ -984,6 +988,16 @@
         } else {
           badge.textContent = text;
         }
+      }
+
+      // Load league statistics with error handling
+      function loadLeagueStats() {
+        return FPLDataLoader.loadLeagueStats();
+      }
+
+      // Check if we're in test mode
+      function checkTestMode() {
+        return FPLUIManager.checkTestMode();
       }
 
       // Testing function to toggle season mode
@@ -1036,7 +1050,7 @@
         containerId = 'winner-preview-container',
         summaryId = 'winner-summary',
         isTestSection = false,
-        dataOverride = FPLUtils.getDataOverride()
+        dataOverride = getDataOverride()
       ) {
         const urlParams = new URLSearchParams(window.location.search);
         const testContext = urlParams.get('test') === 'true' || isTestSection;
@@ -1061,7 +1075,7 @@
         console.log('🔍 Container exists:', !!container);
         console.log('🔍 Summary exists:', !!summary);
 
-        return FPLDataLoader.fetchWithRetry(winnerUrl, 3)
+        return fetchWithRetry(winnerUrl, 3)
           .then((data) => {
             console.log(`${useTestData ? '🧪 Loaded TEST' : '📊 Loaded LIVE'} winner data:`, data);
 
@@ -1097,13 +1111,39 @@
               <div class="winner-error">
                 <h3>Unable to load winner data</h3>
                 <p>There was a problem loading the winner statistics. Please try again.</p>
-                <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})"
+                <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})" 
                         style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
                   <i class="fas fa-redo"></i> Retry
                 </button>
               </div>
             `;
             document.getElementById(containerId).innerHTML = errorHTML;
+          });
+      }
+
+      // Enhanced fetch with comprehensive error handling
+      function fetchWithRetry(url, maxRetries = 3, delay = 1000) {
+        // Use the new error handling system if available, otherwise fallback to basic retry
+        if (window.ErrorHandler) {
+          return ErrorHandler.withRetry(() => ErrorHandler.safeFetch(url), maxRetries);
+        }
+
+        // Fallback implementation for backwards compatibility
+        return fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            if (maxRetries > 1) {
+              console.log(`Retrying fetch in ${delay}ms... (${maxRetries - 1} attempts left)`);
+              return new Promise((resolve) => {
+                setTimeout(() => resolve(fetchWithRetry(url, maxRetries - 1, delay * 1.5)), delay);
+              });
+            }
+            throw error;
           });
       }
 
@@ -1235,7 +1275,7 @@
       function loadPrizeSummary() {
         const url = 'data/prizes.json?cache=' + Date.now();
         console.log('Loading prize summary from:', url);
-        return FPLDataLoader.fetchWithRetry(url, 2)
+        return fetchWithRetry(url, 2)
           .then((data) => {
             console.log('Prize data loaded:', data);
             renderPrizeStructure(data);
@@ -1294,7 +1334,7 @@
           const cachedDeadline = FPLDataLoader.getCachedDeadline();
           if (cachedDeadline && cachedDeadline - FPLUtils.now() > 0) {
             const countdownClock = document.getElementById('countdown-clock');
-            if (countdownClock) FPLUtils.FPLUtils.show(countdownClock);
+            if (countdownClock) FPLUtils.show(countdownClock);
             const label = document.getElementById('countdown-label');
             if (label && !label.textContent.includes('(cached)')) {
               label.textContent = label.textContent + ' (cached)';
@@ -1324,7 +1364,7 @@
             console.warn('[Countdown] Safety fallback engaged – checking for cached data first');
 
             // Try to use cached gameweek data first
-            const cachedGW = FPLDataLoader.getCachedGameweek();
+            const cachedGW = getCachedGameweek();
             if (cachedGW && cachedGW.id) {
               console.log('[Fallback] Using cached gameweek data:', cachedGW);
               const deadline = new Date(cachedGW.deadline_time);
@@ -1335,7 +1375,7 @@
               const fallbackDate = new Date('2025-08-22T17:30:00Z'); // Updated to current GW2 deadline
               const fallbackGW = { id: 2, deadline_time: '2025-08-22T17:30:00Z' }; // Simulate GW2
               const countdownClock = document.getElementById('countdown-clock');
-              if (countdownClock) FPLUtils.show(countdownClock);
+              if (countdownClock) show(countdownClock);
               console.warn('[Countdown] Using hardcoded GW2 fallback');
               handleSeasonDisplay(fallbackDate, fallbackGW);
               startCountdown(fallbackDate, fallbackGW);
@@ -1345,13 +1385,10 @@
         }, 1500);
 
         // Load league stats with error handling
-        FPLDataLoader.loadLeagueStats();
-
-        // Load leaderboard/league standings data
-        FPLDataLoader.loadLeaderboardData();
+        loadLeagueStats();
 
         // Add this at the end
-        FPLUIManager.checkTestMode();
+        checkTestMode();
 
         /*
           Contributor notes / quick runbook (same patterns as winners.html):
@@ -1390,8 +1427,8 @@
                 'gameweek:',
                 gw
               );
-              FPLDataLoader.setCachedDeadline(deadline.toISOString());
-              FPLDataLoader.setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
+              setCachedDeadline(deadline.toISOString());
+              setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
               setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
               // Reflect latest GW in winners + leaderboard headers
               updateWinnersHeaderGW();
@@ -1399,7 +1436,7 @@
               seasonDataSource = 'backend';
               handleSeasonDisplay(deadline, gw);
               startCountdown(deadline, gw);
-              FPLCountdown.markCountdownShown();
+              markCountdownShown();
               // Also schedule a check shortly after deadline to roll over
               scheduleRolloverCheck(deadline);
               attachAdminBadge();
@@ -1425,8 +1462,8 @@
                 if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
                   const gw = data.nextGameweek;
                   const dl = new Date(gw.deadline_time);
-                  FPLDataLoader.setCachedDeadline(dl.toISOString());
-                  FPLDataLoader.setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
+                  setCachedDeadline(dl.toISOString());
+                  setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
                   setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
                   // Reflect latest GW in winners + leaderboard headers
                   updateWinnersHeaderGW();
@@ -1463,7 +1500,7 @@
             console.error('All CORS proxies failed, using fallback date');
             // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
             const fallbackDate = new Date('2025-08-15T17:30:00Z');
-            FPLDataLoader.setCachedDeadline(fallbackDate.toISOString());
+            setCachedDeadline(fallbackDate.toISOString());
             seasonDataSource = 'fallback';
             console.log('🚨 Using hardcoded GW1 deadline as fallback:', fallbackDate);
             console.log('📝 Current time:', now());
@@ -1476,7 +1513,7 @@
             // Force countdown to show
             const countdownClock = document.getElementById('countdown-clock');
             if (countdownClock) {
-              FPLUtils.show(countdownClock);
+              show(countdownClock);
               console.log('🕰️ Forced countdown clock to be visible');
             }
 
@@ -1487,7 +1524,7 @@
             }
             handleSeasonDisplay(fallbackDate);
             startCountdown(fallbackDate);
-            FPLCountdown.markCountdownShown();
+            markCountdownShown();
             updateQAPanel();
             return;
           }
@@ -1514,8 +1551,8 @@
               if (nextGameweek) {
                 console.log('Next gameweek found:', nextGameweek);
                 const deadlineTime = new Date(nextGameweek.deadline_time);
-                FPLDataLoader.setCachedDeadline(deadlineTime.toISOString());
-                FPLDataLoader.setCachedGameweek({
+                setCachedDeadline(deadlineTime.toISOString());
+                setCachedGameweek({
                   id: nextGameweek.id,
                   deadline_time: nextGameweek.deadline_time,
                 });
@@ -1542,14 +1579,14 @@
                 // Start countdown timer
                 startCountdown(deadlineTime, nextGameweek);
                 scheduleRolloverCheck(deadlineTime);
-                FPLCountdown.markCountdownShown();
+                markCountdownShown();
                 attachAdminBadge();
                 updateQAPanel();
               } else {
                 console.log('No next gameweek found, using fallback date');
                 // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
                 const fallbackDate = new Date('2025-08-15T17:30:00Z');
-                FPLDataLoader.setCachedDeadline(fallbackDate.toISOString());
+                setCachedDeadline(fallbackDate.toISOString());
                 seasonDataSource = 'fallback';
                 console.log('🚨 Using hardcoded GW1 deadline as fallback:', fallbackDate);
                 if (usedCachedOnLoad) {
@@ -1559,7 +1596,7 @@
                 }
                 FPLUIManager.handleSeasonDisplay(fallbackDate);
                 startCountdown(fallbackDate);
-                FPLCountdown.markCountdownShown();
+                markCountdownShown();
                 updateQAPanel();
               }
             })
@@ -1590,7 +1627,7 @@
         // Ensure the clock is visible immediately once we know a deadline
         const countdownClock = document.getElementById('countdown-clock');
         if (countdownClock) {
-          FPLUtils.FPLUtils.show(countdownClock);
+          show(countdownClock);
         }
 
         // Initial paint
@@ -1608,7 +1645,7 @@
             FPLCountdown.updateCountdownDisplay(deadlineTime);
           }
         }, 1000);
-        FPLCountdown.markCountdownShown();
+        markCountdownShown();
       }
 
       function updateCountdownDisplay(deadlineTime) {
@@ -1625,7 +1662,7 @@
           }
 
           if (countdownClock) {
-            FPLUtils.hide(countdownClock);
+            hide(countdownClock);
           }
           return;
         }
@@ -1663,7 +1700,7 @@
         const countdownLabel = document.getElementById('countdown-label');
 
         if (countdownClock && countdownLabel) {
-          FPLUtils.show(countdownClock);
+          show(countdownClock);
           countdownLabel.textContent = `Time until GW${gameweek.id} deadline`;
           // Update winners header to indicate this GW has been used for the preview
           try {
@@ -1728,7 +1765,7 @@
       function loadMainWinnerDataLegacy() {
         const urlParams = new URLSearchParams(window.location.search);
         const isTestMode = urlParams.get('test') === 'true';
-        const dataOverride = FPLUtils.getDataOverride();
+        const dataOverride = getDataOverride();
 
         loadWinnerData('winner-preview-container', 'winner-summary', false, dataOverride).then(
           (data) => {
@@ -1938,7 +1975,7 @@
         lastLeaderboardDataFile = 'data/test_winner_stats.json';
         console.log('🧪 Loading TEST leaderboard data for toggle');
 
-        return FPLDataLoader.fetchWithRetry(winnerUrl, 3)
+        return fetchWithRetry(winnerUrl, 3)
           .then((data) => {
             console.log('🧪 Loaded TEST leaderboard data for toggle:', data);
 
@@ -2064,7 +2101,7 @@
                 <div class="winner-error">
                   <h3>Unable to load test league standings</h3>
                   <p>There was a problem loading the test league standings. Please try again.</p>
-                  <button onclick="loadTestLeaderboardData()"
+                  <button onclick="loadTestLeaderboardData()" 
                           style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
                     <i class="fas fa-redo"></i> Retry
                   </button>
@@ -2083,7 +2120,7 @@
       function loadLeaderboardDataLegacy() {
         const urlParams = new URLSearchParams(window.location.search);
         const isTestParam = urlParams.get('test') === 'true';
-        const dataOverride = FPLUtils.getDataOverride();
+        const dataOverride = getDataOverride();
         let useTestData = isTestParam;
         if (dataOverride === 'test') useTestData = true;
         if (dataOverride === 'live') useTestData = false;
@@ -2098,7 +2135,7 @@
           useTestData ? '🧪 Loading TEST leaderboard data' : '📊 Loading LIVE leaderboard data'
         );
 
-        return FPLDataLoader.fetchWithRetry(winnerUrl, 3)
+        return fetchWithRetry(winnerUrl, 3)
           .then((data) => {
             console.log(
               `${useTestData ? '🧪 Loaded TEST' : '📊 Loaded LIVE'} leaderboard data:`,
@@ -2153,7 +2190,7 @@
                 <div class="winner-error">
                   <h3>Unable to load league standings</h3>
                   <p>There was a problem loading the league standings. Please try again.</p>
-                  <button onclick="loadLeaderboardData()"
+                  <button onclick="loadLeaderboardData()" 
                           style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
                     <i class="fas fa-redo"></i> Retry
                   </button>
@@ -2253,10 +2290,10 @@
         // Show/hide navigation if needed
         if (navigation) {
           if (totalPages > 1) {
-            FPLUtils.show(navigation);
+            show(navigation);
             updateLeaderboardNavigation(totalPages);
           } else {
-            FPLUtils.hide(navigation);
+            hide(navigation);
           }
         }
       }
