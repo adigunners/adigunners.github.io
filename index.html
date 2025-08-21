@@ -123,31 +123,34 @@
       crossorigin="anonymous"
     />
 
-    <!-- Extracted CSS files for better performance and maintainability -->
-    <!-- Core variables and base -->
+    <!-- CSS files in proper cascade order for optimal performance and maintainability -->
+    <!-- 1. Foundation: Variables and reset -->
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/base.css" />
 
-    <!-- Layout and structure (load early to prevent conflicts) -->
+    <!-- 2. Layout: Core layout and spacing -->
     <link rel="stylesheet" href="css/unified-spacing.css" />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/components.css" />
 
-    <!-- Page-specific components -->
+    <!-- 3. Components: Reusable UI components -->
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/header.css" />
+
+    <!-- 4. Page-specific: Individual page styles -->
     <link rel="stylesheet" href="css/winners.css" />
     <link rel="stylesheet" href="css/leaderboard.css" />
     <link rel="stylesheet" href="css/qa-panel.css" />
     <link rel="stylesheet" href="css/error-handling.css" />
 
-    <!-- Responsive (mobile first) -->
+    <!-- 5. Responsive: Device-specific overrides -->
     <link rel="stylesheet" href="css/mobile-optimizations.css" />
     <link rel="stylesheet" href="css/advanced-mobile.css" />
     <link rel="stylesheet" href="css/desktop-tablet-optimizations.css" />
     <link rel="stylesheet" href="css/responsive.css" />
 
-    <!-- Enhancements (load last) -->
+    <!-- 6. Enhancements: Special features and animations -->
     <link rel="stylesheet" href="css/countdown-enhancements.css" />
-    <!-- Fallback CSS (loads only if external resources fail) -->
+
+    <!-- 7. Fallback CSS (loads only if external resources fail) -->
     <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
 
     <!-- External Resource Integrity Check & Fallback Script -->

@@ -174,7 +174,8 @@
 }
 
 /* Larger screens: put subtitle inline beside the main title */
-@media (min-width: 700px) {
+@media (min-width: 769px) {
+  /* Tablet breakpoint - standardized */
   .winners-heading {
     display: flex;
     align-items: baseline;

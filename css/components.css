@@ -111,7 +111,8 @@
   background: transparent;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 769px) {
+  /* Tablet breakpoint - standardized */
   .prize-summary {
     grid-template-columns: repeat(3, 1fr);
   }

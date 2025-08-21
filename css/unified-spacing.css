@@ -1,23 +1,23 @@
 /* =============== UNIFIED SPACING & LAYOUT SYSTEM =============== */
 /* Consistent spacing and border radius across all containers and breakpoints */
-/* IMPORTANT: This file loads after base styles and overrides inconsistent spacing */
+/* IMPORTANT: This file loads early in cascade to provide consistent foundation */
 
-/* =============== OVERRIDE INCONSISTENT BASE STYLES =============== */
-/* Reset any inconsistent margins/padding from base.css */
+/* =============== CONSISTENT LAYOUT FOUNDATION =============== */
+/* Apply consistent spacing now that cascade order is fixed */
 main > * {
-  margin-bottom: var(--spacing-lg) !important; /* Override base.css 20px */
+  margin-bottom: var(--spacing-lg); /* No !important needed with proper cascade */
 }
 
 section {
-  margin-bottom: var(--spacing-lg) !important; /* Override base.css 20px */
-  padding: var(--spacing-xl) !important; /* Override base.css 30px */
+  margin-bottom: var(--spacing-lg); /* No !important needed with proper cascade */
+  padding: var(--spacing-xl); /* No !important needed with proper cascade */
 }
 
-/* Force consistent border radius */
+/* Consistent border radius */
 .winner-scorecard,
 .season-section,
 .league-stats {
-  border-radius: var(--radius-lg) !important;
+  border-radius: var(--radius-lg); /* No !important needed with proper cascade */
 }
 
 /* =============== DESKTOP/TABLET STANDARDIZATION (≥769px) =============== */
