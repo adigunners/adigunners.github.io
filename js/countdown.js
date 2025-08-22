@@ -164,10 +164,16 @@ window.FPLCountdown = (function () {
         const daysEl = document.getElementById('countdown-days');
         const hoursEl = document.getElementById('countdown-hours');
         const minutesEl = document.getElementById('countdown-minutes');
+        const countdownTime = document.querySelector('.countdown-time');
 
         if (daysEl) daysEl.textContent = 'LIVE';
         if (hoursEl) hoursEl.textContent = '';
         if (minutesEl) minutesEl.textContent = '';
+
+        // Add live-mode class to countdown-time for CSS styling
+        if (countdownTime) {
+          countdownTime.classList.add('live-mode');
+        }
 
         // Hide separators and labels
         document
@@ -185,10 +191,16 @@ window.FPLCountdown = (function () {
         const daysEl = document.getElementById('countdown-days');
         const hoursEl = document.getElementById('countdown-hours');
         const minutesEl = document.getElementById('countdown-minutes');
+        const countdownTime = document.querySelector('.countdown-time');
 
         if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
         if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
         if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+
+        // Remove live-mode class when showing normal countdown
+        if (countdownTime) {
+          countdownTime.classList.remove('live-mode');
+        }
 
         // Show separators and labels
         document

@@ -117,6 +117,49 @@ header p {
   border-radius: var(--radius-md);
   padding: 4px 6px;
   margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Center the countdown time container */
+.countdown-time {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  gap: 0;
+}
+
+/* Hide elements with is-hidden class */
+.countdown-separator.is-hidden,
+.countdown-unit-label.is-hidden {
+  display: none !important;
+}
+
+/* When in LIVE mode, override layout */
+.countdown-time.live-mode {
+  display: block !important;
+  text-align: center !important;
+}
+
+.countdown-time.live-mode .countdown-unit:not(:first-child),
+.countdown-time.live-mode .countdown-separator {
+  display: none !important;
+}
+
+.countdown-time.live-mode .countdown-unit:first-child {
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+/* Style the LIVE text */
+#countdown-days {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-align: center;
+  display: inline-block;
 }
 
 .countdown-separator {

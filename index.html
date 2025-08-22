@@ -658,7 +658,7 @@
 
       // Use modular functions directly - no more wrapper functions
       // Time controls: FPLUtils.now()
-      // Data source: FPLUtils.FPLUtils.getDataOverride()
+      // Data source: FPLUtils.getDataOverride()
       // QA/debug state: FPLUIManager.updateQAPanel()
 
       // Legacy function wrapper
@@ -792,11 +792,11 @@
       }
 
       // ===== Core Functions - Use Modular JavaScript Directly =====
-      // Visibility: FPLUtils.show(el), FPLUtils.hide(el), FPLUtils.FPLUtils.showGroup(selector), FPLUtils.FPLUtils.hideGroup(selector)
+      // Visibility: FPLUtils.show(el), FPLUtils.hide(el), FPLUtils.showGroup(selector), FPLUtils.hideGroup(selector)
       // Winner display: FPLUIManager.displayWinnerPreview(winners, containerId, summaryId)
       // Data fetching: FPLDataLoader.fetchWithRetry(url, retries)
       // Caching: FPLDataLoader.getCached/setCached functions
-      // Countdown: FPLCountdown.FPLCountdown.markCountdownShown()
+      // Countdown: FPLCountdown.markCountdownShown()
       // UI management: FPLUIManager.showDuringSeasonUI()
 
       // ------------------------------------------------------------------
@@ -1315,8 +1315,8 @@
             }
             usedCachedOnLoad = true;
             handleSeasonDisplay(cachedDeadline);
-            startCountdown(cachedDeadline);
-            FPLCountdown.FPLCountdown.markCountdownShown();
+            FPLCountdown.startCountdown(cachedDeadline);
+            FPLCountdown.markCountdownShown();
           }
         }
 
@@ -1343,16 +1343,16 @@
               console.log('[Fallback] Using cached gameweek data:', cachedGW);
               const deadline = new Date(cachedGW.deadline_time);
               handleSeasonDisplay(deadline, cachedGW);
-              startCountdown(deadline, cachedGW);
+              FPLCountdown.startCountdown(deadline, cachedGW);
             } else {
               // Only use hardcoded fallback if no cached data
               const fallbackDate = new Date('2025-08-22T17:30:00Z'); // Updated to current GW2 deadline
               const fallbackGW = { id: 2, deadline_time: '2025-08-22T17:30:00Z' }; // Simulate GW2
               const countdownClock = document.getElementById('countdown-clock');
-              if (countdownClock) show(countdownClock);
+              if (countdownClock) FPLUtils.show(countdownClock);
               console.warn('[Countdown] Using hardcoded GW2 fallback');
               handleSeasonDisplay(fallbackDate, fallbackGW);
-              startCountdown(fallbackDate, fallbackGW);
+              FPLCountdown.startCountdown(fallbackDate, fallbackGW);
             }
             updateQAPanel();
           }
@@ -1409,7 +1409,7 @@
               updateLeaderboardHeaderGW();
               seasonDataSource = 'backend';
               handleSeasonDisplay(deadline, gw);
-              startCountdown(deadline, gw);
+              FPLCountdown.startCountdown(deadline, gw);
               FPLCountdown.markCountdownShown();
               // Also schedule a check shortly after deadline to roll over
               scheduleRolloverCheck(deadline);
@@ -1487,7 +1487,7 @@
             // Force countdown to show
             const countdownClock = document.getElementById('countdown-clock');
             if (countdownClock) {
-              show(countdownClock);
+              FPLUtils.show(countdownClock);
               console.log('🕰️ Forced countdown clock to be visible');
             }
 
@@ -1497,7 +1497,7 @@
               usedCachedOnLoad = false;
             }
             handleSeasonDisplay(fallbackDate);
-            startCountdown(fallbackDate);
+            FPLCountdown.startCountdown(fallbackDate);
             FPLCountdown.markCountdownShown();
             updateQAPanel();
             return;
@@ -1551,7 +1551,7 @@
                 FPLUIManager.handleSeasonDisplay(deadlineTime, nextGameweek);
 
                 // Start countdown timer
-                startCountdown(deadlineTime, nextGameweek);
+                FPLCountdown.startCountdown(deadlineTime, nextGameweek);
                 scheduleRolloverCheck(deadlineTime);
                 FPLCountdown.markCountdownShown();
                 attachAdminBadge();
@@ -1569,7 +1569,7 @@
                   usedCachedOnLoad = false;
                 }
                 FPLUIManager.handleSeasonDisplay(fallbackDate);
-                startCountdown(fallbackDate);
+                FPLCountdown.startCountdown(fallbackDate);
                 FPLCountdown.markCountdownShown();
                 updateQAPanel();
               }
@@ -1591,144 +1591,11 @@
         return FPLUIManager.handleSeasonDisplay(seasonStartDate, gameweek);
       }
 
-      function startCountdown(deadlineTime, gameweek = null) {
-        // Clear any existing timer to avoid duplicate intervals
-        if (countdownInterval) {
-          clearInterval(countdownInterval);
-          countdownInterval = null;
-        }
+      // Removed duplicate startCountdown function - using FPLCountdown.startCountdown() instead
 
-        // Ensure the clock is visible immediately once we know a deadline
-        const countdownClock = document.getElementById('countdown-clock');
-        if (countdownClock) {
-          show(countdownClock);
-        }
+      // Removed duplicate updateCountdownDisplay function - using FPLCountdown.updateCountdownDisplay() instead
 
-        // Initial paint
-        if (gameweek) {
-          FPLCountdown.updateGameweekCountdown(gameweek);
-        } else {
-          FPLCountdown.updateCountdownDisplay(deadlineTime);
-        }
-
-        // Schedule updates
-        countdownInterval = setInterval(() => {
-          if (gameweek) {
-            FPLCountdown.updateGameweekCountdown(gameweek);
-          } else {
-            FPLCountdown.updateCountdownDisplay(deadlineTime);
-          }
-        }, 1000);
-        FPLCountdown.markCountdownShown();
-      }
-
-      function updateCountdownDisplay(deadlineTime) {
-        const currentDate = now();
-        const timeDifference = deadlineTime - currentDate;
-
-        if (timeDifference <= 0) {
-          // Season has started
-          const headerP = document.querySelector('header p');
-          const countdownClock = document.getElementById('countdown-clock');
-
-          if (headerP) {
-            headerP.textContent = 'Season 2025-26 - Live Updates';
-          }
-
-          if (countdownClock) {
-            hide(countdownClock);
-          }
-          return;
-        }
-
-        // Update label per requirement
-        const labelEl = document.getElementById('countdown-label');
-        if (labelEl) {
-          // Pre-season message
-          labelEl.textContent = 'Time until GW1 deadline';
-          attachAdminBadge();
-        }
-
-        // Calculate time components
-        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-
-        // Update digital clock
-        const countdownClock = document.getElementById('countdown-clock');
-        if (countdownClock) {
-          countdownClock.style.display = 'block';
-
-          document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
-          document.getElementById('countdown-hours').textContent = hours
-            .toString()
-            .padStart(2, '0');
-          document.getElementById('countdown-minutes').textContent = minutes
-            .toString()
-            .padStart(2, '0');
-        }
-      }
-
-      function updateGameweekCountdown(gameweek) {
-        const countdownClock = document.getElementById('countdown-clock');
-        const countdownLabel = document.getElementById('countdown-label');
-
-        if (countdownClock && countdownLabel) {
-          show(countdownClock);
-          countdownLabel.textContent = `Time until GW${gameweek.id} deadline`;
-          // Update winners header to indicate this GW has been used for the preview
-          try {
-            updateWinnersHeaderGW();
-            updateLeaderboardHeaderGW();
-          } catch (e) {
-            // non-fatal
-          }
-          attachAdminBadge();
-
-          // Update the countdown display with gameweek deadline
-          const deadlineTime = new Date(gameweek.deadline_time);
-          const currentDate = now();
-          const timeDifference = deadlineTime - currentDate;
-
-          if (timeDifference <= 0) {
-            // Deadline passed, show "Live" status
-            document.getElementById('countdown-days').textContent = 'LIVE';
-            document.getElementById('countdown-hours').textContent = '';
-            document.getElementById('countdown-minutes').textContent = '';
-
-            // Hide separators
-            document
-              .querySelectorAll('.countdown-separator')
-              .forEach((sep) => sep.classList.add('is-hidden'));
-            document
-              .querySelectorAll('.countdown-unit-label')
-              .forEach((label) => label.classList.add('is-hidden'));
-          } else {
-            // Show countdown to deadline
-            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-
-            document.getElementById('countdown-days').textContent = days
-              .toString()
-              .padStart(2, '0');
-            document.getElementById('countdown-hours').textContent = hours
-              .toString()
-              .padStart(2, '0');
-            document.getElementById('countdown-minutes').textContent = minutes
-              .toString()
-              .padStart(2, '0');
-
-            // Show separators and labels
-            document
-              .querySelectorAll('.countdown-separator')
-              .forEach((sep) => sep.classList.remove('is-hidden'));
-            document
-              .querySelectorAll('.countdown-unit-label')
-              .forEach((label) => label.classList.remove('is-hidden'));
-          }
-        }
-      }
+      // Removed duplicate updateGameweekCountdown function - using FPLCountdown.updateGameweekCountdown() instead
 
       // Main winner data loader - now uses the unified function with data override
       function loadMainWinnerData() {
@@ -2264,10 +2131,10 @@
         // Show/hide navigation if needed
         if (navigation) {
           if (totalPages > 1) {
-            show(navigation);
+            FPLUtils.show(navigation);
             updateLeaderboardNavigation(totalPages);
           } else {
-            hide(navigation);
+            FPLUtils.hide(navigation);
           }
         }
       }
