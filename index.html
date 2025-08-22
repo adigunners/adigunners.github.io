@@ -147,7 +147,10 @@
     <link rel="stylesheet" href="css/desktop-tablet-optimizations.css" />
     <link rel="stylesheet" href="css/responsive.css" />
 
-    <!-- 6. Fallback CSS (loads only if external resources fail) -->
+    <!-- 6. Enhancements: Special features and animations -->
+    <link rel="stylesheet" href="css/countdown-enhancements.css" />
+
+    <!-- 7. Fallback CSS (loads only if external resources fail) -->
     <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
 
     <!-- External Resource Integrity Check & Fallback Script -->
@@ -623,6 +626,7 @@
     <script src="js/ui-manager.js"></script>
     <script src="js/countdown.js"></script>
     <script src="js/prize-structure.js"></script>
+    <script src="js/countdown-enhancements.js"></script>
     <!-- Main application script -->
     <script>
       /*
@@ -654,7 +658,7 @@
 
       // Use modular functions directly - no more wrapper functions
       // Time controls: FPLUtils.now()
-      // Data source: FPLUtils.getDataOverride()
+      // Data source: FPLUtils.FPLUtils.getDataOverride()
       // QA/debug state: FPLUIManager.updateQAPanel()
 
       // Legacy function wrapper
@@ -788,11 +792,11 @@
       }
 
       // ===== Core Functions - Use Modular JavaScript Directly =====
-      // Visibility: FPLUtils.show(el), FPLUtils.hide(el), FPLUtils.showGroup(selector), FPLUtils.hideGroup(selector)
+      // Visibility: FPLUtils.show(el), FPLUtils.hide(el), FPLUtils.FPLUtils.showGroup(selector), FPLUtils.FPLUtils.hideGroup(selector)
       // Winner display: FPLUIManager.displayWinnerPreview(winners, containerId, summaryId)
       // Data fetching: FPLDataLoader.fetchWithRetry(url, retries)
       // Caching: FPLDataLoader.getCached/setCached functions
-      // Countdown: FPLCountdown.markCountdownShown()
+      // Countdown: FPLCountdown.FPLCountdown.markCountdownShown()
       // UI management: FPLUIManager.showDuringSeasonUI()
 
       // ------------------------------------------------------------------
@@ -837,6 +841,11 @@
       // last finished / processed GW according to winners data (summary.completedGameweeks)
       // (already declared at line 619)
 
+      function FPLUtils.isAdminMode() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('test') === 'true' || urlParams.get('admin') === 'true';
+      }
+
       function setLastSyncInfo(gwId, iso) {
         return FPLUIManager.setLastSyncInfo(gwId, iso);
       }
@@ -863,8 +872,7 @@
             const nextGwId =
               typeof _lastGwId === 'number'
                 ? _lastGwId
-                : FPLDataLoader.FPLDataLoader.getCachedGameweek() &&
-                  FPLDataLoader.FPLDataLoader.getCachedGameweek().id;
+                : FPLDataLoader.FPLDataLoader.getCachedGameweek() && FPLDataLoader.FPLDataLoader.getCachedGameweek().id;
             if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
               // Mismatch: processed GW is ahead of nextGw-1 (could be cross-season/test snapshot)
               console.warn(
@@ -898,8 +906,8 @@
         const gwId = getLastFinishedGW();
         // Admin/test-only debug: show why a particular GW was chosen
         try {
-          if (FPLUtils.isAdminMode()) {
-            const cached = FPLDataLoader.getCachedGameweek();
+          if (FPLUtils.FPLUtils.isAdminMode()) {
+            const cached = FPLDataLoader.FPLDataLoader.getCachedGameweek();
             console.debug(
               '[GW DEBUG] _lastProcessedGW=',
               _lastProcessedGW,
@@ -980,6 +988,16 @@
         } else {
           badge.textContent = text;
         }
+      }
+
+      // Load league statistics with error handling
+      function loadLeagueStats() {
+        return FPLDataLoader.loadLeagueStats();
+      }
+
+      // Check if we're in test mode
+      function checkTestMode() {
+        return FPLUIManager.checkTestMode();
       }
 
       // Testing function to toggle season mode
@@ -1290,7 +1308,7 @@
           const cachedDeadline = FPLDataLoader.getCachedDeadline();
           if (cachedDeadline && cachedDeadline - FPLUtils.now() > 0) {
             const countdownClock = document.getElementById('countdown-clock');
-            if (countdownClock) FPLUtils.FPLUtils.show(countdownClock);
+            if (countdownClock) FPLUtils.show(countdownClock);
             const label = document.getElementById('countdown-label');
             if (label && !label.textContent.includes('(cached)')) {
               label.textContent = label.textContent + ' (cached)';
@@ -1298,7 +1316,7 @@
             usedCachedOnLoad = true;
             handleSeasonDisplay(cachedDeadline);
             startCountdown(cachedDeadline);
-            FPLCountdown.markCountdownShown();
+            FPLCountdown.FPLCountdown.markCountdownShown();
           }
         }
 
@@ -1331,7 +1349,7 @@
               const fallbackDate = new Date('2025-08-22T17:30:00Z'); // Updated to current GW2 deadline
               const fallbackGW = { id: 2, deadline_time: '2025-08-22T17:30:00Z' }; // Simulate GW2
               const countdownClock = document.getElementById('countdown-clock');
-              if (countdownClock) FPLUtils.show(countdownClock);
+              if (countdownClock) show(countdownClock);
               console.warn('[Countdown] Using hardcoded GW2 fallback');
               handleSeasonDisplay(fallbackDate, fallbackGW);
               startCountdown(fallbackDate, fallbackGW);
@@ -1341,13 +1359,10 @@
         }, 1500);
 
         // Load league stats with error handling
-        FPLDataLoader.loadLeagueStats();
-
-        // Load leaderboard/league standings data
-        FPLDataLoader.loadLeaderboardData();
+        loadLeagueStats();
 
         // Add this at the end
-        FPLUIManager.checkTestMode();
+        checkTestMode();
 
         /*
           Contributor notes / quick runbook (same patterns as winners.html):
@@ -1472,7 +1487,7 @@
             // Force countdown to show
             const countdownClock = document.getElementById('countdown-clock');
             if (countdownClock) {
-              FPLUtils.show(countdownClock);
+              show(countdownClock);
               console.log('🕰️ Forced countdown clock to be visible');
             }
 
@@ -1586,7 +1601,7 @@
         // Ensure the clock is visible immediately once we know a deadline
         const countdownClock = document.getElementById('countdown-clock');
         if (countdownClock) {
-          FPLUtils.FPLUtils.show(countdownClock);
+          show(countdownClock);
         }
 
         // Initial paint
@@ -1621,7 +1636,7 @@
           }
 
           if (countdownClock) {
-            FPLUtils.hide(countdownClock);
+            hide(countdownClock);
           }
           return;
         }
@@ -1659,7 +1674,7 @@
         const countdownLabel = document.getElementById('countdown-label');
 
         if (countdownClock && countdownLabel) {
-          FPLUtils.show(countdownClock);
+          show(countdownClock);
           countdownLabel.textContent = `Time until GW${gameweek.id} deadline`;
           // Update winners header to indicate this GW has been used for the preview
           try {
@@ -2249,10 +2264,10 @@
         // Show/hide navigation if needed
         if (navigation) {
           if (totalPages > 1) {
-            FPLUtils.show(navigation);
+            show(navigation);
             updateLeaderboardNavigation(totalPages);
           } else {
-            FPLUtils.hide(navigation);
+            hide(navigation);
           }
         }
       }

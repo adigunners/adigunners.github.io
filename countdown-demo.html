@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced Countdown Demo - IIM Mumbai Fantasy League</title>
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/countdown-enhancements.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+      }
+      .demo-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .demo-section {
+        margin-bottom: 40px;
+        padding: 20px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+      }
+      .demo-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: var(--primary-color);
+      }
+      .demo-description {
+        margin-bottom: 20px;
+        color: #666;
+        line-height: 1.6;
+      }
+      .demo-buttons {
+        margin-bottom: 20px;
+      }
+      .demo-btn {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .demo-btn:hover {
+        opacity: 0.9;
+      }
+      .comparison {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .comparison h4 {
+        margin-top: 0;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-container">
+      <h1>🚨 Enhanced Countdown System Demo</h1>
+      <p>
+        <strong>Problem:</strong> Current countdown is not prominent enough to remind users about
+        transfer deadlines.
+      </p>
+      <p>
+        <strong>Solution:</strong> Dynamic countdown that becomes more urgent and prominent as
+        deadline approaches.
+      </p>
+
+      <!-- Normal State Demo -->
+      <div class="demo-section">
+        <h2 class="demo-title">🔵 Normal State (7+ days remaining)</h2>
+        <p class="demo-description">
+          Enhanced but subtle countdown - larger and more prominent than current, but not
+          overwhelming.
+        </p>
+        <header
+          style="
+            background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <div class="header-main">
+            <h1 style="margin: 0; font-size: 1.5rem">⚽ IIM Mumbai Fantasy League 🎯</h1>
+            <p style="margin: 5px 0 0; opacity: 0.9">Season 2025-26 - Registration Open</p>
+          </div>
+          <div class="countdown-clock countdown-enhanced">
+            <div class="countdown-label">Time until GW2 deadline</div>
+            <div class="countdown-time">
+              <span class="countdown-unit">
+                <span>05</span>
+                <span class="countdown-unit-label">D</span>
+              </span>
+              <span class="countdown-separator">:</span>
+              <span class="countdown-unit">
+                <span>14</span>
+                <span class="countdown-unit-label">H</span>
+              </span>
+              <span class="countdown-separator">:</span>
+              <span class="countdown-unit">
+                <span>23</span>
+                <span class="countdown-unit-label">M</span>
+              </span>
+            </div>
+          </div>
+        </header>
+      </div>
+
+      <!-- Alert State Demo -->
+      <div class="demo-section">
+        <h2 class="demo-title">🟡 Alert State (Less than 24 hours)</h2>
+        <p class="demo-description">
+          Hero mode activated! Header transforms into countdown-focused design with urgent
+          messaging.
+        </p>
+        <header class="countdown-hero-mode countdown-alert" style="position: relative">
+          <div class="countdown-mega">
+            <div class="countdown-label">DEADLINE REMINDER</div>
+            <div class="countdown-time">
+              <span class="countdown-unit">
+                <span>00</span>
+                <span class="countdown-unit-label">DAYS</span>
+              </span>
+              <span class="countdown-separator">:</span>
+              <span class="countdown-unit">
+                <span>18</span>
+                <span class="countdown-unit-label">HRS</span>
+              </span>
+              <span class="countdown-separator">:</span>
+              <span class="countdown-unit">
+                <span>45</span>
+                <span class="countdown-unit-label">MIN</span>
+              </span>
+            </div>
+          </div>
+          <div class="countdown-urgent-message">
+            <h3>DEADLINE REMINDER</h3>
+            <p>⏰ Less than 24 hours to make your transfers</p>
+          </div>
+        </header>
+      </div>
+
+      <!-- Warning State Demo -->
+      <div class="demo-section">
+        <h2 class="demo-title">🟠 Warning State (Less than 6 hours)</h2>
+        <p class="demo-description">
+          More intense orange theme with stronger pulsing and larger messaging.
+        </p>
+        <header class="countdown-hero-mode countdown-warning" style="position: relative">
+          <div class="countdown-mega">
+            <div class="countdown-label">WARNING: DEADLINE APPROACHING!</div>
+            <div class="countdown-time">
+              <span class="countdown-unit">
+                <span>00</span>
+                <span class="countdown-unit-label">DAYS</span>
+              </span>
+              <span class="countdown-separator">:</span>
+              <span class="countdown-unit">
+                <span>04</span>
+                <span class="countdown-unit-label">HRS</span>
+              </span>
+              <span class="countdown-separator">:</span>
+              <span class="countdown-unit">
+                <span>32</span>
+                <span class="countdown-unit-label">MIN</span>
+              </span>
+            </div>
+          </div>
+          <div class="countdown-urgent-message">
+            <h3>WARNING: DEADLINE APPROACHING!</h3>
+            <p>⚠️ Less than 6 hours remaining to make transfers</p>
+          </div>
+        </header>
+      </div>
+
+      <!-- Critical State Demo -->
+      <div class="demo-section">
+        <h2 class="demo-title">🔴 Critical State (Less than 2 hours)</h2>
+        <p class="demo-description">
+          Maximum urgency! Red background, intense animations, and clear call-to-action messaging.
+        </p>
+        <header class="countdown-hero-mode countdown-critical" style="position: relative">
+          <div class="countdown-mega">
+            <div class="countdown-label">CRITICAL: DEADLINE IN LESS THAN 2 HOURS!</div>
+            <div class="countdown-time">
+              <span class="countdown-unit">
+                <span>00</span>
+                <span class="countdown-unit-label">DAYS</span>
+              </span>
+              <span class="countdown-separator">:</span>
+              <span class="countdown-unit">
+                <span>01</span>
+                <span class="countdown-unit-label">HRS</span>
+              </span>
+              <span class="countdown-separator">:</span>
+              <span class="countdown-unit">
+                <span>23</span>
+                <span class="countdown-unit-label">MIN</span>
+              </span>
+            </div>
+          </div>
+          <div class="countdown-urgent-message">
+            <h3>CRITICAL: DEADLINE IN LESS THAN 2 HOURS!</h3>
+            <p>🚨 Make your transfers NOW!</p>
+          </div>
+        </header>
+      </div>
+
+      <!-- Comparison -->
+      <div class="demo-section">
+        <h2 class="demo-title">📊 Before vs After Comparison</h2>
+        <div class="comparison">
+          <div>
+            <h4>❌ Current (Not Prominent)</h4>
+            <div
+              style="
+                background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+                color: white;
+                padding: 15px;
+                border-radius: 8px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div>
+                <h3 style="margin: 0; font-size: 1.2rem">⚽ IIM Mumbai Fantasy League 🎯</h3>
+                <p style="margin: 5px 0 0; font-size: 0.9rem">Season 2025-26</p>
+              </div>
+              <div
+                style="
+                  background: rgba(255, 255, 255, 0.15);
+                  padding: 10px;
+                  border-radius: 5px;
+                  font-size: 0.8rem;
+                  text-align: center;
+                "
+              >
+                <div>Time until GW2 deadline</div>
+                <div style="margin-top: 5px; font-family: monospace">01:23:45</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>✅ Enhanced (Highly Prominent)</h4>
+            <header
+              class="countdown-hero-mode countdown-critical"
+              style="position: relative; transform: scale(0.9)"
+            >
+              <div class="countdown-mega">
+                <div class="countdown-label">CRITICAL: DEADLINE IN LESS THAN 2 HOURS!</div>
+                <div class="countdown-time">
+                  <span class="countdown-unit">
+                    <span>01</span>
+                    <span class="countdown-unit-label">HRS</span>
+                  </span>
+                  <span class="countdown-separator">:</span>
+                  <span class="countdown-unit">
+                    <span>23</span>
+                    <span class="countdown-unit-label">MIN</span>
+                  </span>
+                </div>
+              </div>
+              <div class="countdown-urgent-message">
+                <h3>CRITICAL: DEADLINE IN LESS THAN 2 HOURS!</h3>
+                <p>🚨 Make your transfers NOW!</p>
+              </div>
+            </header>
+          </div>
+        </div>
+      </div>
+
+      <!-- Implementation Details -->
+      <div class="demo-section">
+        <h2 class="demo-title">⚙️ Implementation Details</h2>
+        <ul>
+          <li>
+            <strong>Automatic Detection:</strong> System automatically detects time remaining and
+            applies appropriate urgency level
+          </li>
+          <li>
+            <strong>4 Urgency Levels:</strong> Normal (7+ days) → Enhanced (1-7 days) → Alert (24h)
+            → Warning (6h) → Critical (2h)
+          </li>
+          <li><strong>Mobile Responsive:</strong> All states scale properly on mobile devices</li>
+          <li>
+            <strong>Performance Optimized:</strong> Uses CSS animations and transforms for smooth
+            performance
+          </li>
+          <li>
+            <strong>Backwards Compatible:</strong> Falls back to current countdown if enhancements
+            fail to load
+          </li>
+          <li>
+            <strong>Accessibility:</strong> Maintains proper contrast ratios and text readability
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
