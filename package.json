@@ -4,9 +4,12 @@
   "description": "IIM Mumbai Fantasy Premier League - Automated fantasy football league management system",
   "private": true,
   "scripts": {
+    "dev": "python3 -m http.server 8000",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "prepare": "husky"
+    "prepare": "husky",
+    "check-consistency": "node scripts/check-consistency.js",
+    "fix-winners": "node scripts/fix-winners.js"
   },
   "engines": {
     "node": ">=18.0.0",
