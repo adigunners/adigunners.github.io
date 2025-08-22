@@ -665,7 +665,7 @@
       function updateQAPanelLegacy() {
         // updateQAPanel: populates the QA overlay (visible in ?test=true or ?admin=true)
         // Shows cached gameweek, data sources used, and action buttons for cache/refetch
-        if (!FPLUtils.isAdminMode()) return;
+        if (!isAdminMode()) return;
         const panel = document.getElementById('qa-panel');
         if (!panel) return;
         const phaseEl = document.getElementById('qa-phase');
@@ -682,7 +682,7 @@
           .classList.contains('is-hidden');
         phaseEl.textContent = 'Phase: ' + (duringVisible ? 'in-season' : 'pre-season');
 
-        const gw = FPLDataLoader.FPLDataLoader.getCachedGameweek();
+        const gw = FPLDataLoader.getCachedGameweek();
         if (gw) {
           gwEl.textContent = `Next GW: GW${gw.id}`;
           try {
@@ -841,7 +841,7 @@
       // last finished / processed GW according to winners data (summary.completedGameweeks)
       // (already declared at line 619)
 
-      function FPLUtils.isAdminMode() {
+      function isAdminMode() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('test') === 'true' || urlParams.get('admin') === 'true';
       }
@@ -872,7 +872,7 @@
             const nextGwId =
               typeof _lastGwId === 'number'
                 ? _lastGwId
-                : FPLDataLoader.FPLDataLoader.getCachedGameweek() && FPLDataLoader.FPLDataLoader.getCachedGameweek().id;
+                : FPLDataLoader.getCachedGameweek() && FPLDataLoader.getCachedGameweek().id;
             if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
               // Mismatch: processed GW is ahead of nextGw-1 (could be cross-season/test snapshot)
               console.warn(
@@ -889,7 +889,7 @@
 
         // Fallbacks: prefer last known next GW minus one (if present), otherwise cached GW.
         if (typeof _lastGwId === 'number' && _lastGwId > 0) return _lastGwId - 1;
-        const gwFromCache = FPLDataLoader.FPLDataLoader.getCachedGameweek();
+        const gwFromCache = FPLDataLoader.getCachedGameweek();
         if (gwFromCache && typeof gwFromCache.id === 'number') return gwFromCache.id - 1;
         return null;
       }
@@ -906,8 +906,8 @@
         const gwId = getLastFinishedGW();
         // Admin/test-only debug: show why a particular GW was chosen
         try {
-          if (FPLUtils.FPLUtils.isAdminMode()) {
-            const cached = FPLDataLoader.FPLDataLoader.getCachedGameweek();
+          if (isAdminMode()) {
+            const cached = FPLDataLoader.getCachedGameweek();
             console.debug(
               '[GW DEBUG] _lastProcessedGW=',
               _lastProcessedGW,
@@ -958,7 +958,7 @@
 
       // Legacy function
       function attachAdminBadgeLegacy() {
-        if (!FPLUtils.isAdminMode()) return;
+        if (!isAdminMode()) return;
         const label = document.getElementById('countdown-label');
         if (!label) return;
         // If a badge exists, update; else create
