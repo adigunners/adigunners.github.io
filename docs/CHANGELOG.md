@@ -2,6 +2,30 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.1.1] - 2025-08-23 - Countdown Rollover Update
+
+### ⏱️ Countdown & Rollover
+
+- Post‑deadline behavior: show `GWx LIVE` and poll only `data/next_deadline.json` until the backend updates (no proxy fallback post‑deadline).
+- Switch to the next GW countdown automatically once backend JSON publishes the next gameweek.
+- Unify countdown logic across pages and scope LIVE‑mode UI updates to the countdown container.
+
+### 🧩 Refactor & Parity
+
+- Refactored index to delegate season loading and rollover to shared modules; fixed the `now()` bug in inline scheduler.
+- Winners page now uses the shared countdown (removed static placeholders) for parity with the home page.
+
+### 🧪 Testing & Docs
+
+- Added `tools/testing/countdown-stress.html` (noindex) to generate `?clockOffset` and override parameters (`dl`, `gw`) in test/admin mode.
+- Documented testing steps and safe rollout in `docs/TESTING.md` and `docs/RELEASE_CHECKLIST.md`.
+
+---
+
+# 📝 Changelog - IIM Mumbai FPL League
+
+**All notable changes to the fantasy league management system will be documented in this file.**
+
 ## [1.1.0] - 2025-08-21 - Mobile-First Optimization & UI Enhancement
 
 ### 🎨 UI/UX Improvements
