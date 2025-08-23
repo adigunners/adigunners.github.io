@@ -18,7 +18,7 @@ This guide explains how to test the updated countdown behavior safely on the fea
 
 - `index.html` — main site (countdown, winners preview, QA panel)
 - `winners.html` — complete winners page (now uses shared countdown)
-- `tools/testing/countdown-stress.html` — test harness that generates `?clockOffset` and override links
+- `tools/testing/countdown-stress.html` — test harness that generates `?clockOffset` links and supports manual overrides.
 
 ## Core Behaviors
 
@@ -42,9 +42,25 @@ This guide explains how to test the updated countdown behavior safely on the fea
 
 1. Open `tools/testing/countdown-stress.html`
 2. Click "Fetch Backend JSON" (or set your own deadline via "Manual Deadline").
-3. Click a scenario button to generate links with computed `?clockOffset`:
+3. (Optional) Click "Use Manual Deadline" with a future date and a GW id to enable overrides (`dl`, `gw`).
+4. Click a scenario button to generate links with computed `?clockOffset`:
    - T-7d, T-1d, T-6h, T-2h, T-5m, T+5m, T+2h, T+12h
-4. Open the generated links to `index.html` and `winners.html` in new tabs.
+5. Open the generated links to `index.html` and `winners.html` in new tabs.
+
+### Manual Override Parameters (Test/Admin only)
+
+When `?test=true` or `?admin=true` is present, you can force the next deadline and gameweek via URL params:
+
+- `dl` or `deadline`: ISO timestamp for the next deadline (e.g., `2025-08-29T17:30:00.000Z`)
+- `gw` or `gameweek`: numeric gameweek id (e.g., `3`)
+
+Example:
+
+```
+index.html?test=true&dl=2025-08-29T17:30:00.000Z&gw=3&clockOffset=...
+```
+
+The stress harness includes these automatically when "override active" is set via the manual controls.
 
 ## Acceptance Criteria
 

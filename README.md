@@ -127,6 +127,14 @@ cleanupTestDataDirect();
 - **Mobile-responsive design** with optimized layouts for all devices
 - **Professional FPL branding** with official colors and styling
 
+### ⏱️ Countdown System (Public Overview)
+
+- Unified countdown logic shared across pages (see `js/countdown.js`).
+- Before the next gameweek deadline: shows `GWx Deadline` with days/hours/minutes.
+- After a deadline passes: shows `GWx LIVE` and polls only `data/next_deadline.json` until the backend publishes the next GW; then switches to the next countdown.
+- Local testing: `tools/testing/countdown-stress.html` generates `?clockOffset` and override params (`dl`, `gw`) for test/admin mode.
+- See `docs/TESTING.md` for step‑by‑step guidance and `docs/RELEASE_CHECKLIST.md` for safe rollout.
+
 ### 🧪 Testing & Demo System
 
 - **Test mode** with realistic demo data for presentations
