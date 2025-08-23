@@ -161,10 +161,10 @@ window.FPLCountdown = (function () {
 
       if (timeDifference <= 0) {
         // Deadline passed, show "Live" status
-        const daysEl = document.getElementById('countdown-days');
-        const hoursEl = document.getElementById('countdown-hours');
-        const minutesEl = document.getElementById('countdown-minutes');
-        const countdownTime = document.querySelector('.countdown-time');
+        const daysEl = countdownClock.querySelector('#countdown-days');
+        const hoursEl = countdownClock.querySelector('#countdown-hours');
+        const minutesEl = countdownClock.querySelector('#countdown-minutes');
+        const countdownTime = countdownClock.querySelector('.countdown-time');
 
         if (daysEl) daysEl.textContent = 'LIVE';
         if (hoursEl) hoursEl.textContent = '';
@@ -176,22 +176,30 @@ window.FPLCountdown = (function () {
         }
 
         // Hide separators and labels
-        document
+        countdownClock
           .querySelectorAll('.countdown-separator')
           .forEach((sep) => sep.classList.add('is-hidden'));
-        document
+        countdownClock
           .querySelectorAll('.countdown-unit-label')
           .forEach((label) => label.classList.add('is-hidden'));
+
+        // Update label to reflect LIVE for current GW
+        if (countdownLabel) {
+          countdownLabel.textContent = `GW${gameweek.id} LIVE`;
+          try {
+            FPLUIManager.attachAdminBadge();
+          } catch (e) {}
+        }
       } else {
         // Show countdown to deadline
         const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
-        const daysEl = document.getElementById('countdown-days');
-        const hoursEl = document.getElementById('countdown-hours');
-        const minutesEl = document.getElementById('countdown-minutes');
-        const countdownTime = document.querySelector('.countdown-time');
+        const daysEl = countdownClock.querySelector('#countdown-days');
+        const hoursEl = countdownClock.querySelector('#countdown-hours');
+        const minutesEl = countdownClock.querySelector('#countdown-minutes');
+        const countdownTime = countdownClock.querySelector('.countdown-time');
 
         if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
         if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
@@ -203,10 +211,10 @@ window.FPLCountdown = (function () {
         }
 
         // Show separators and labels
-        document
+        countdownClock
           .querySelectorAll('.countdown-separator')
           .forEach((sep) => sep.classList.remove('is-hidden'));
-        document
+        countdownClock
           .querySelectorAll('.countdown-unit-label')
           .forEach((label) => label.classList.remove('is-hidden'));
       }
@@ -218,48 +226,68 @@ window.FPLCountdown = (function () {
    */
   function scheduleRolloverCheck(deadline) {
     const ms = deadline - FPLUtils.now();
-    if (ms > 0 && ms < 1000 * 60 * 60 * 24 * 7) {
-      setTimeout(() => {
-        // Re-fetch backend to advance to next GW after deadline passes
-        fetch('data/next_deadline.json?cache=' + Date.now())
-          .then((r) => (r.ok ? r.json() : Promise.reject()))
-          .then((data) => {
-            if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
-              const gw = data.nextGameweek;
-              const dl = new Date(gw.deadline_time);
+    if (!(ms > 0 && ms < 1000 * 60 * 60 * 24 * 7)) return;
 
+    // After deadline passes, show LIVE (handled by update loop) and poll ONLY backend JSON
+    // until it publishes the next gameweek. Do not use proxies during this window.
+    const POLL_INTERVAL_MS = 10 * 60 * 1000; // 10 minutes
+    let stopped = false;
+    const previousGw = (function () {
+      try {
+        const gw = FPLDataLoader.getCachedGameweek();
+        return gw && typeof gw.id === 'number' ? gw.id : null;
+      } catch (e) {
+        return null;
+      }
+    })();
+
+    function pollBackendOnce() {
+      if (stopped) return;
+      fetch('data/next_deadline.json?cache=' + Date.now())
+        .then((r) => (r.ok ? r.json() : Promise.reject()))
+        .then((data) => {
+          if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
+            const gw = data.nextGameweek;
+            const dl = new Date(gw.deadline_time);
+            const isNewGw = typeof previousGw === 'number' ? gw.id > previousGw : true;
+
+            if (isNewGw) {
+              // Cache and switch to next GW countdown
               FPLDataLoader.setCachedDeadline(dl.toISOString());
               FPLDataLoader.setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
               FPLDataLoader.setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
 
-              // Reflect latest GW in winners + leaderboard headers
-              FPLUIManager.updateWinnersHeaderGW();
-              FPLUIManager.updateLeaderboardHeaderGW();
+              try {
+                FPLUIManager.updateWinnersHeaderGW();
+                FPLUIManager.updateLeaderboardHeaderGW();
+              } catch (e) {}
 
               updateGameweekCountdown(gw);
               startCountdown(dl, gw);
-              FPLUIManager.attachAdminBadge();
-              FPLUIManager.updateQAPanel();
+              try {
+                FPLUIManager.attachAdminBadge();
+                FPLUIManager.updateQAPanel();
+              } catch (e) {}
+
+              stopped = true; // stop polling
             } else {
-              // Fallback to proxy if backend fails
-              FPLDataLoader.loadFPLSeasonDataViaProxy()
-                .then(({ deadline, gameweek }) => {
-                  FPLUIManager.handleSeasonDisplay(deadline, gameweek);
-                  startCountdown(deadline, gameweek);
-                })
-                .catch(console.error);
+              // Not yet rolled over according to backend; poll again later
+              setTimeout(pollBackendOnce, POLL_INTERVAL_MS);
             }
-          })
-          .catch(() => {
-            FPLDataLoader.loadFPLSeasonDataViaProxy()
-              .then(({ deadline, gameweek }) => {
-                FPLUIManager.handleSeasonDisplay(deadline, gameweek);
-                startCountdown(deadline, gameweek);
-              })
-              .catch(console.error);
-          });
-      }, ms + 15000); // 15s after deadline
+          } else {
+            // Backend not ready; poll again later
+            setTimeout(pollBackendOnce, POLL_INTERVAL_MS);
+          }
+        })
+        .catch(() => {
+          // Network/backend temporarily unavailable; try again later
+          setTimeout(pollBackendOnce, POLL_INTERVAL_MS);
+        });
     }
+
+    setTimeout(() => {
+      if (!stopped) pollBackendOnce();
+    }, ms + 15000); // start ~15s after deadline
   }
 
   /**

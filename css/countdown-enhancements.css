@@ -1,0 +1,37 @@
+/* Placeholder for countdown enhancements stylesheet.
+   Added to silence 404s during local testing. The live site currently
+   uses the standard countdown styles in css/header.css. */
+
+/* Basic hero mode containers (used by countdown-demo.html). */
+.countdown-hero-mode {
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+.countdown-hero-mode .countdown-mega {
+  text-align: center;
+}
+.countdown-hero-mode .countdown-label {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.countdown-hero-mode .countdown-time {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  margin-top: 6px;
+}
+.countdown-hero-mode .countdown-urgent-message {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* State colors for demo purposes */
+.countdown-alert {
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+}
+.countdown-warning {
+  background: linear-gradient(135deg, #fb8c00, #ef6c00);
+}
+.countdown-critical {
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+}
