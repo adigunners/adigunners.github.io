@@ -367,7 +367,9 @@ window.FPLUIManager = (function () {
    * Update winners header with GW information
    */
   function updateWinnersHeaderGW() {
-    const el = document.getElementById('winners-after-gw');
+    const el =
+      document.getElementById('winners-after-gw') ||
+      document.getElementById('winners-page-after-gw');
     if (!el) return;
     const gwId = FPLDataLoader.getLastFinishedGW();
 
@@ -841,7 +843,9 @@ window.FPLUIManager = (function () {
    * Update winners header with GW info
    */
   function updateWinnersHeaderGW() {
-    const el = document.getElementById('winners-after-gw');
+    const el =
+      document.getElementById('winners-after-gw') ||
+      document.getElementById('winners-page-after-gw');
     if (!el) return;
     const gwId = getLastFinishedGW();
 

@@ -179,20 +179,26 @@
       let allWinners = [];
       let currentWinnerPage = 1;
 
-      // Simple countdown implementation
-      function initializeCountdown() {
-        const clock = document.getElementById('countdown-clock');
-        const days = document.getElementById('countdown-days');
-        const hours = document.getElementById('countdown-hours');
-        const minutes = document.getElementById('countdown-minutes');
-
-        if (clock) {
-          clock.classList.remove('is-hidden');
-          // Simple static countdown for now
-          days.textContent = '02';
-          hours.textContent = '14';
-          minutes.textContent = '30';
+      // Shared countdown bootstrap (uses modular loaders)
+      function bootCountdown() {
+        if (!window.FPLDataLoader || !window.FPLCountdown || !window.FPLUIManager) {
+          console.warn('Countdown modules not available; skipping dynamic countdown');
+          return;
         }
+        FPLDataLoader.loadFPLSeasonData()
+          .then(({ deadline, gameweek }) => {
+            try {
+              FPLUIManager.handleSeasonDisplay(deadline, gameweek);
+            } catch (e) {}
+            FPLCountdown.startCountdown(deadline, gameweek);
+            FPLCountdown.scheduleRolloverCheck(deadline);
+          })
+          .catch((e) => {
+            console.warn('Season data load failed on winners page:', e);
+            // As a minimal fallback, show clock container to avoid empty header
+            const clock = document.getElementById('countdown-clock');
+            if (clock) clock.classList.remove('is-hidden');
+          });
       }
 
       // Escape HTML utility (fallback if shared module not available)
@@ -208,8 +214,8 @@
 
       // Initialize page on load
       document.addEventListener('DOMContentLoaded', function () {
-        // Initialize countdown using basic approach (shared modules might not be available)
-        initializeCountdown();
+        // Initialize dynamic countdown via shared modules
+        bootCountdown();
 
         // Load data
         loadWinnerData();

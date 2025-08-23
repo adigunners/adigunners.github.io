@@ -355,7 +355,7 @@
         </div>
 
         <!-- Digital Countdown Clock -->
-        <div id="countdown-clock" class="countdown-clock is-hidden">
+        <div id="countdown-clock" class="countdown-clock is-hidden" aria-live="polite">
           <div class="countdown-label" id="countdown-label">Time until GW1 deadline</div>
           <div class="countdown-time">
             <span class="countdown-unit">
@@ -626,7 +626,6 @@
     <script src="js/ui-manager.js"></script>
     <script src="js/countdown.js"></script>
     <script src="js/prize-structure.js"></script>
-    <script src="js/countdown-enhancements.js"></script>
     <!-- Main application script -->
     <script>
       /*
@@ -1335,9 +1334,12 @@
             FPLCountdown && FPLCountdown.isCountdownShown ? FPLCountdown.isCountdownShown() : false;
           console.log('⏰ Safety fallback timeout triggered, countdownShown:', countdownShown);
           if (!countdownShown) {
-            console.warn('[Countdown] Safety fallback engaged – checking for cached data first');
+            console.warn('[Countdown] Safety fallback engaged');
+            const countdownClock = document.getElementById('countdown-clock');
+            const label = document.getElementById('countdown-label');
+            if (countdownClock) FPLUtils.show(countdownClock);
+            if (label) label.textContent = 'Fetching next deadline…';
 
-            // Try to use cached gameweek data first
             const cachedGW = FPLDataLoader.getCachedGameweek();
             if (cachedGW && cachedGW.id) {
               console.log('[Fallback] Using cached gameweek data:', cachedGW);
@@ -1345,14 +1347,8 @@
               handleSeasonDisplay(deadline, cachedGW);
               FPLCountdown.startCountdown(deadline, cachedGW);
             } else {
-              // Only use hardcoded fallback if no cached data
-              const fallbackDate = new Date('2025-08-22T17:30:00Z'); // Updated to current GW2 deadline
-              const fallbackGW = { id: 2, deadline_time: '2025-08-22T17:30:00Z' }; // Simulate GW2
-              const countdownClock = document.getElementById('countdown-clock');
-              if (countdownClock) FPLUtils.show(countdownClock);
-              console.warn('[Countdown] Using hardcoded GW2 fallback');
-              handleSeasonDisplay(fallbackDate, fallbackGW);
-              FPLCountdown.startCountdown(fallbackDate, fallbackGW);
+              // Attempt a fresh load via shared loader (may use proxy outside post-deadline window)
+              loadFPLSeasonData();
             }
             updateQAPanel();
           }
@@ -1383,206 +1379,91 @@
       });
 
       function loadFPLSeasonData() {
-        console.log('📡 loadFPLSeasonData called');
-        // First try backend-synced JSON published by Apps Script
-        const backendUrl = 'data/next_deadline.json?cache=' + Date.now();
-        console.log('📡 Fetching:', backendUrl);
-        fetch(backendUrl)
-          .then((r) => (r.ok ? r.json() : Promise.reject(new Error('backend 404'))))
-          .then((data) => {
-            console.log('📡 Data loaded successfully:', data);
-            if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
-              const gw = data.nextGameweek;
-              const deadline = new Date(gw.deadline_time);
-              console.log('🎯 Gameweek data:', gw);
-              console.log(
-                '🎯 Calling handleSeasonDisplay with deadline:',
-                deadline,
-                'gameweek:',
-                gw
-              );
-              FPLDataLoader.setCachedDeadline(deadline.toISOString());
-              FPLDataLoader.setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
-              setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
-              // Reflect latest GW in winners + leaderboard headers
+        console.log('📡 loadFPLSeasonData called (delegating to shared module)');
+        if (!window.FPLDataLoader) {
+          console.error('FPLDataLoader not available');
+          return;
+        }
+        FPLDataLoader.loadFPLSeasonData()
+          .then(({ deadline, gameweek }) => {
+            try {
+              seasonDataSource = FPLDataLoader.getSeasonDataSource();
+            } catch {}
+            console.log('🎯 Using season data from module:', {
+              deadline,
+              gameweek,
+              seasonDataSource,
+            });
+
+            // Reflect latest GW in winners + leaderboard headers
+            try {
               updateWinnersHeaderGW();
               updateLeaderboardHeaderGW();
-              seasonDataSource = 'backend';
-              handleSeasonDisplay(deadline, gw);
-              FPLCountdown.startCountdown(deadline, gw);
+            } catch (e) {
+              console.warn('Header GW update failed:', e);
+            }
+
+            // Delegate UI and countdown to shared modules
+            try {
+              handleSeasonDisplay(deadline, gameweek);
+              FPLCountdown.startCountdown(deadline, gameweek);
               FPLCountdown.markCountdownShown();
-              // Also schedule a check shortly after deadline to roll over
+              // Use shared rollover scheduler
               scheduleRolloverCheck(deadline);
               attachAdminBadge();
               updateQAPanel();
-              return; // stop here, we got data
+            } catch (e) {
+              console.error('Post-load wiring failed:', e);
             }
-            throw new Error('backend payload invalid');
           })
-          .catch(() => {
-            // Fallback to public FPL API via CORS proxies
-            loadFPLSeasonDataViaProxy();
+          .catch((err) => {
+            console.error('loadFPLSeasonData (module) failed:', err);
+            // As a last resort, try the shared proxy loader directly
+            if (FPLDataLoader.loadFPLSeasonDataViaProxy) {
+              FPLDataLoader.loadFPLSeasonDataViaProxy()
+                .then(({ deadline, gameweek }) => {
+                  try {
+                    seasonDataSource = FPLDataLoader.getSeasonDataSource();
+                  } catch {}
+                  handleSeasonDisplay(deadline, gameweek);
+                  FPLCountdown.startCountdown(deadline, gameweek);
+                  scheduleRolloverCheck(deadline);
+                  updateQAPanel();
+                })
+                .catch((e2) => console.error('Proxy fallback failed:', e2));
+            }
           });
       }
 
       function scheduleRolloverCheck(deadline) {
-        const ms = deadline - now();
-        if (ms > 0 && ms < 1000 * 60 * 60 * 24 * 7) {
-          setTimeout(() => {
-            // Re-fetch backend to advance to next GW after deadline passes
-            fetch('data/next_deadline.json?cache=' + Date.now())
-              .then((r) => (r.ok ? r.json() : Promise.reject()))
-              .then((data) => {
-                if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
-                  const gw = data.nextGameweek;
-                  const dl = new Date(gw.deadline_time);
-                  FPLDataLoader.setCachedDeadline(dl.toISOString());
-                  FPLDataLoader.setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
-                  setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
-                  // Reflect latest GW in winners + leaderboard headers
-                  updateWinnersHeaderGW();
-                  updateLeaderboardHeaderGW();
-                  seasonDataSource = 'backend';
-                  FPLCountdown.updateGameweekCountdown(gw);
-                  FPLCountdown.startCountdown(dl, gw);
-                  attachAdminBadge();
-                  updateQAPanel();
-                } else {
-                  loadFPLSeasonDataViaProxy();
-                }
-              })
-              .catch(loadFPLSeasonDataViaProxy);
-          }, ms + 15000); // 15s after deadline
+        // Delegate to shared countdown scheduler to avoid divergence and bugs
+        try {
+          if (window.FPLCountdown && typeof FPLCountdown.scheduleRolloverCheck === 'function') {
+            FPLCountdown.scheduleRolloverCheck(deadline);
+          } else {
+            console.warn('FPLCountdown.scheduleRolloverCheck not available');
+          }
+        } catch (e) {
+          console.error('scheduleRolloverCheck delegation failed:', e);
         }
       }
 
       function loadFPLSeasonDataViaProxy() {
-        // Multiple CORS proxy options - will try them in order if one fails
-        const corsProxies = [
-          'https://api.allorigins.win/raw?url=' +
-            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
-          'https://corsproxy.io/?' +
-            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
-          'https://api.codetabs.com/v1/proxy?quest=' +
-            encodeURIComponent('https://fantasy.premierleague.com/api/bootstrap-static/'),
-        ];
-
-        let currentProxyIndex = 0;
-
-        function tryNextProxy() {
-          if (currentProxyIndex >= corsProxies.length) {
-            console.error('All CORS proxies failed, using fallback date');
-            // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
-            const fallbackDate = new Date('2025-08-15T17:30:00Z');
-            FPLDataLoader.setCachedDeadline(fallbackDate.toISOString());
-            seasonDataSource = 'fallback';
-            console.log('🚨 Using hardcoded GW1 deadline as fallback:', fallbackDate);
-            console.log('📝 Current time:', now());
-            console.log('📝 Time difference (ms):', fallbackDate - now());
-            console.log(
-              '📝 Time until deadline (days):',
-              Math.floor((fallbackDate - now()) / (1000 * 60 * 60 * 24))
-            );
-
-            // Force countdown to show
-            const countdownClock = document.getElementById('countdown-clock');
-            if (countdownClock) {
-              FPLUtils.show(countdownClock);
-              console.log('🕰️ Forced countdown clock to be visible');
-            }
-
-            if (usedCachedOnLoad) {
-              removeCachedLabel();
-              showSyncedJustNow();
-              usedCachedOnLoad = false;
-            }
-            handleSeasonDisplay(fallbackDate);
-            FPLCountdown.startCountdown(fallbackDate);
-            FPLCountdown.markCountdownShown();
-            updateQAPanel();
-            return;
-          }
-
-          const fplApiUrl = corsProxies[currentProxyIndex];
-          console.log(`Trying CORS proxy ${currentProxyIndex + 1}:`, fplApiUrl);
-
-          fetch(fplApiUrl)
-            .then((response) => {
-              console.log(`Proxy ${currentProxyIndex + 1} response:`, response);
-              if (!response.ok) {
-                throw new Error(
-                  `Proxy ${currentProxyIndex + 1} failed with status ${response.status}`
-                );
-              }
-              return response.json();
-            })
-            .then((data) => {
-              console.log('✅ FPL API data successfully fetched via proxy:', data);
-
-              // Find the next gameweek (is_next: true)
-              const nextGameweek = data.events.find((event) => event.is_next === true);
-
-              if (nextGameweek) {
-                console.log('Next gameweek found:', nextGameweek);
-                const deadlineTime = new Date(nextGameweek.deadline_time);
-                FPLDataLoader.setCachedDeadline(deadlineTime.toISOString());
-                FPLDataLoader.setCachedGameweek({
-                  id: nextGameweek.id,
-                  deadline_time: nextGameweek.deadline_time,
-                });
-                setLastSyncInfo(nextGameweek.id, new Date().toISOString());
-                // Reflect latest GW in winners + leaderboard headers
-                updateWinnersHeaderGW();
-                updateLeaderboardHeaderGW();
-                seasonDataSource = 'proxy';
-                console.log('Deadline time:', deadlineTime);
-
-                // Store gameweek data for later use
-                window.currentGameweek = nextGameweek;
-
-                // If we rendered from cache on load, update the label and show the sync badge
-                if (usedCachedOnLoad) {
-                  removeCachedLabel();
-                  showSyncedJustNow();
-                  usedCachedOnLoad = false; // prevent repeat badges
-                }
-
-                // Handle season display with FPL data
-                FPLUIManager.handleSeasonDisplay(deadlineTime, nextGameweek);
-
-                // Start countdown timer
-                FPLCountdown.startCountdown(deadlineTime, nextGameweek);
-                scheduleRolloverCheck(deadlineTime);
-                FPLCountdown.markCountdownShown();
-                attachAdminBadge();
-                updateQAPanel();
-              } else {
-                console.log('No next gameweek found, using fallback date');
-                // GW1 deadline: 15/08/2025 at 19:30 CET = 17:30 UTC
-                const fallbackDate = new Date('2025-08-15T17:30:00Z');
-                FPLDataLoader.setCachedDeadline(fallbackDate.toISOString());
-                seasonDataSource = 'fallback';
-                console.log('🚨 Using hardcoded GW1 deadline as fallback:', fallbackDate);
-                if (usedCachedOnLoad) {
-                  removeCachedLabel();
-                  showSyncedJustNow();
-                  usedCachedOnLoad = false;
-                }
-                FPLUIManager.handleSeasonDisplay(fallbackDate);
-                FPLCountdown.startCountdown(fallbackDate);
-                FPLCountdown.markCountdownShown();
-                updateQAPanel();
-              }
-            })
-            .catch((error) => {
-              console.error(`❌ Proxy ${currentProxyIndex + 1} failed:`, error);
-              currentProxyIndex++;
-              tryNextProxy();
-            });
+        // Delegate to shared module implementation for proxies
+        if (!FPLDataLoader || typeof FPLDataLoader.loadFPLSeasonDataViaProxy !== 'function') {
+          console.error('Proxy loader not available');
+          return;
         }
-
-        // Start trying proxies
-        tryNextProxy();
+        FPLDataLoader.loadFPLSeasonDataViaProxy()
+          .then(({ deadline, gameweek }) => {
+            try {
+              seasonDataSource = FPLDataLoader.getSeasonDataSource();
+            } catch {}
+            handleSeasonDisplay(deadline, gameweek);
+            FPLCountdown.startCountdown(deadline, gameweek);
+            scheduleRolloverCheck(deadline);
+          })
+          .catch((e) => console.error('Proxy loader failed:', e));
       }
 
       function handleSeasonDisplay(seasonStartDate, gameweek = null) {

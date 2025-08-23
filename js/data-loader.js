@@ -108,6 +108,35 @@ window.FPLDataLoader = (function () {
    * Load FPL season data from backend or proxies
    */
   function loadFPLSeasonData() {
+    // Test/admin override: allow forcing deadline + gameweek via URL when in test/admin
+    try {
+      const url = new URLSearchParams(window.location.search);
+      const isTestOrAdmin = url.get('test') === 'true' || url.get('admin') === 'true';
+      const dlOverride = url.get('dl') || url.get('deadline') || null; // ISO string
+      const gwOverrideRaw = url.get('gw') || url.get('gameweek') || null; // number
+      if (isTestOrAdmin && dlOverride) {
+        const deadline = new Date(dlOverride);
+        if (!isNaN(deadline.getTime())) {
+          const gwId = gwOverrideRaw ? parseInt(gwOverrideRaw, 10) : null;
+          const gw =
+            gwId && Number.isFinite(gwId)
+              ? { id: gwId, deadline_time: deadline.toISOString() }
+              : null;
+
+          // Cache the override so the rest of the app is consistent
+          FPLDataLoader.setCachedDeadline(deadline.toISOString());
+          if (gw) FPLDataLoader.setCachedGameweek(gw);
+          FPLDataLoader.setLastSyncInfo(gw && gw.id, new Date().toISOString());
+          updateDataTimestamp('countdown', new Date().toISOString());
+          seasonDataSource = 'override';
+
+          return Promise.resolve({ deadline, gameweek: gw });
+        }
+      }
+    } catch (e) {
+      console.warn('Deadline override parse failed:', e);
+    }
+
     // First try backend-synced JSON published by Apps Script
     const backendUrl = 'data/next_deadline.json?cache=' + Date.now();
     return fetch(backendUrl)

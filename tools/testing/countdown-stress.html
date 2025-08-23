@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown Stress Test - IIM Mumbai Fantasy League</title>
+    <link rel="stylesheet" href="../../css/variables.css" />
+    <link rel="stylesheet" href="../../css/base.css" />
+    <link rel="stylesheet" href="../../css/header.css" />
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+      }
+      .wrap {
+        max-width: 920px;
+        margin: 20px auto;
+        padding: 16px;
+      }
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        background: var(--primary-color);
+        margin: 6px 8px 6px 0;
+      }
+      .btn.secondary {
+        background: #455a64;
+      }
+      .btn.link {
+        background: #7b1fa2;
+      }
+      .muted {
+        color: #666;
+        font-size: 0.9rem;
+      }
+      input[type='datetime-local'] {
+        padding: 6px 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+      code {
+        background: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>⏱️ Countdown Stress Test</h1>
+      <p class="muted">
+        Simulate pre/post-deadline scenarios by generating <code>?clockOffset</code> links for
+        <code>index.html</code> and <code>winners.html</code>. Uses cached next deadline if
+        available; otherwise you can enter a deadline manually.
+      </p>
+
+      <div class="card">
+        <h2>1) Baseline</h2>
+        <div class="row">
+          <div>
+            <div><strong>System time:</strong> <span id="sys-time">—</span></div>
+            <div><strong>Time zone:</strong> <span id="sys-tz">—</span></div>
+          </div>
+          <div>
+            <div><strong>Cached next GW:</strong> <span id="cached-gw">—</span></div>
+            <div><strong>Cached deadline:</strong> <span id="cached-deadline">—</span></div>
+          </div>
+        </div>
+        <button class="btn secondary" id="refresh-cached">Refresh Cached Data</button>
+        <button class="btn" id="fetch-backend">Fetch Backend JSON</button>
+        <div id="backend-status" class="muted" style="margin-top: 8px">Backend status: idle</div>
+      </div>
+
+      <div class="card">
+        <h2>2) Manual Deadline (optional)</h2>
+        <p class="muted">
+          If cached/backend isn’t available, set a manual deadline in your local time and optional
+          GW id override:
+        </p>
+        <div class="row">
+          <div>
+            <label for="manual-deadline"><strong>Deadline (local)</strong></label
+            ><br />
+            <input id="manual-deadline" type="datetime-local" />
+          </div>
+          <div>
+            <label for="manual-gw"><strong>GW id (override)</strong></label
+            ><br />
+            <input id="manual-gw" type="number" min="1" step="1" value="3" />
+          </div>
+        </div>
+        <button class="btn" id="use-manual">Use Manual Deadline</button>
+        <div class="muted" id="manual-note" style="margin-top: 6px">Current: none</div>
+      </div>
+
+      <div class="card">
+        <h2>3) Scenarios</h2>
+        <p class="muted">
+          Pick a scenario to generate links. We compute <code>clockOffset</code> so that “now”
+          equals <code>deadline - delta</code>.
+        </p>
+        <div class="grid">
+          <button class="btn link" data-delta="P7D">T-7 days</button>
+          <button class="btn link" data-delta="P1D">T-1 day</button>
+          <button class="btn link" data-delta="PT6H">T-6 hours</button>
+          <button class="btn link" data-delta="PT2H">T-2 hours</button>
+          <button class="btn link" data-delta="PT5M">T-5 minutes</button>
+          <button class="btn link" data-delta="PT-5M">T+5 minutes</button>
+          <button class="btn link" data-delta="PT-2H">T+2 hours</button>
+          <button class="btn link" data-delta="PT-12H">T+12 hours</button>
+        </div>
+        <div id="links" style="margin-top: 12px"></div>
+      </div>
+
+      <div class="card">
+        <h2>Notes</h2>
+        <ul>
+          <li>
+            After deadline, our code shows <strong>GWx LIVE</strong> and polls
+            <code>data/next_deadline.json</code> until it updates, then switches to the next GW
+            countdown.
+          </li>
+          <li>
+            Use <code>?test=true</code> to reveal QA/test UI. The stress links include
+            <code>test=true</code> and preserve <code>clockOffset</code>.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/data-loader.js"></script>
+    <script>
+      (function () {
+        const sysTimeEl = document.getElementById('sys-time');
+        const tzEl = document.getElementById('sys-tz');
+        const gwEl = document.getElementById('cached-gw');
+        const dlEl = document.getElementById('cached-deadline');
+        const backendStatus = document.getElementById('backend-status');
+        const manualInput = document.getElementById('manual-deadline');
+        const manualGwInput = document.getElementById('manual-gw');
+        const manualNote = document.getElementById('manual-note');
+        let chosenDeadline = null; // Date
+        let manualMode = false;
+
+        function fmt(d) {
+          try {
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            return d.toLocaleString('en-GB', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+              timeZone: tz,
+            });
+          } catch {
+            return String(d);
+          }
+        }
+
+        function refreshSystem() {
+          tzEl.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          sysTimeEl.textContent = fmt(new Date());
+        }
+
+        function refreshCached() {
+          const gw = FPLDataLoader.getCachedGameweek && FPLDataLoader.getCachedGameweek();
+          if (gw) {
+            gwEl.textContent = `GW${gw.id}`;
+            const d = new Date(gw.deadline_time);
+            dlEl.textContent = fmt(d);
+            chosenDeadline = d;
+            manualMode = false;
+          } else {
+            gwEl.textContent = '—';
+            dlEl.textContent = '—';
+          }
+        }
+
+        function parseISODelta(isoDur) {
+          // Minimal ISO-8601 duration parser for days/hours/minutes (e.g., P1D, PT2H, PT5M, PT-2H)
+          // Supports optional negative sign for time components.
+          let ms = 0;
+          const m = /^P(?:(\d+)D)?(?:T(?:(-?\d+)H)?(?:(-?\d+)M)?)?$/i.exec(isoDur);
+          if (!m) return 0;
+          const d = parseInt(m[1] || '0', 10);
+          const h = parseInt(m[2] || '0', 10);
+          const min = parseInt(m[3] || '0', 10);
+          ms += d * 24 * 60 * 60 * 1000;
+          ms += h * 60 * 60 * 1000;
+          ms += min * 60 * 1000;
+          return ms;
+        }
+
+        function buildLinks(deltaMs) {
+          const linksEl = document.getElementById('links');
+          linksEl.innerHTML = '';
+          if (!chosenDeadline || isNaN(chosenDeadline.getTime())) {
+            linksEl.innerHTML =
+              '<p class="muted">No deadline available. Use cached/backend/manual first.</p>';
+            return;
+          }
+          const now = Date.now();
+          const targetNow = chosenDeadline.getTime() - deltaMs; // we want app-now to be D - delta
+          const offset = targetNow - now; // clockOffset param
+
+          const qs = new URLSearchParams();
+          qs.set('test', 'true');
+          qs.set('clockOffset', String(offset));
+          if (manualMode) {
+            // Include override parameters so app uses manual deadline + GW in test mode
+            qs.set('dl', chosenDeadline.toISOString());
+            const gwVal = parseInt((manualGwInput && manualGwInput.value) || '3', 10);
+            if (Number.isFinite(gwVal)) qs.set('gw', String(gwVal));
+          }
+          const qstr = `?${qs.toString()}`;
+
+          const a1 = document.createElement('a');
+          a1.href = 'index.html' + qstr;
+          a1.className = 'btn link';
+          a1.textContent = 'Open index (new tab)';
+          a1.target = '_blank';
+
+          const a2 = document.createElement('a');
+          a2.href = 'winners.html' + qstr;
+          a2.className = 'btn link';
+          a2.textContent = 'Open winners (new tab)';
+          a2.target = '_blank';
+
+          const p = document.createElement('p');
+          p.className = 'muted';
+          p.textContent = `Computed clockOffset: ${offset} ms`;
+
+          linksEl.appendChild(a1);
+          linksEl.appendChild(a2);
+          linksEl.appendChild(p);
+        }
+
+        document.getElementById('refresh-cached').addEventListener('click', refreshCached);
+        document.getElementById('fetch-backend').addEventListener('click', () => {
+          backendStatus.textContent = 'Backend status: fetching…';
+          fetch('data/next_deadline.json?cache=' + Date.now())
+            .then((r) => (r.ok ? r.json() : Promise.reject()))
+            .then((data) => {
+              if (data && data.nextGameweek && data.nextGameweek.deadline_time) {
+                const gw = data.nextGameweek;
+                const d = new Date(gw.deadline_time);
+                chosenDeadline = d;
+                backendStatus.textContent = `Backend status: OK (GW${gw.id}, ${fmt(d)})`;
+                manualMode = false;
+              } else {
+                backendStatus.textContent = 'Backend status: invalid payload';
+              }
+            })
+            .catch(() => {
+              backendStatus.textContent = 'Backend status: fetch error';
+            });
+        });
+
+        document.getElementById('use-manual').addEventListener('click', () => {
+          const v = manualInput.value;
+          if (!v) {
+            manualNote.textContent = 'Current: none';
+            chosenDeadline = null;
+            manualMode = false;
+            return;
+          }
+          const d = new Date(v);
+          if (isNaN(d.getTime())) {
+            manualNote.textContent = 'Current: invalid';
+            chosenDeadline = null;
+            manualMode = false;
+            return;
+          }
+          chosenDeadline = d;
+          manualNote.textContent = 'Current: ' + fmt(d) + ' (override active)';
+          manualMode = true;
+        });
+
+        document.querySelectorAll('.btn.link[data-delta]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const iso = btn.getAttribute('data-delta');
+            const deltaMs = parseISODelta(iso);
+            buildLinks(deltaMs);
+          });
+        });
+
+        // initial
+        refreshSystem();
+        refreshCached();
+        setInterval(refreshSystem, 1000);
+      })();
+    </script>
+  </body>
+</html>
