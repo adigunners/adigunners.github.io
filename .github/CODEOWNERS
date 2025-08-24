@@ -1,0 +1,8 @@
+# Default owner for all files
+* @adigunners
+
+# Key areas (expand or change as your team grows)
+css/** @adigunners
+index.html @adigunners
+winners.html @adigunners
+.github/** @adigunners

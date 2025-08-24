@@ -1,30 +1,35 @@
-## What
+## Linked Issue
 
-<!-- Why is this change needed? What problem does it solve? -->
+Closes #
 
--
+## Summary
 
-## How to test
+Briefly explain what changed and why. Include scope (files/areas touched).
 
-## What
+## Screenshots/GIFs (UI)
 
-- Steps to verify the change locally (screens / URLs if relevant)
-<!-- Briefly describe what this change does. -->
+- Light/Dark, Desktop/Mobile comparisons if applicable.
 
-## Why
+## Acceptance Criteria
 
-## Screenshots (if UI)
+- [ ] …
+- [ ] …
 
- <!-- Why is this change needed? What problem does it solve? -->
+## Test Plan
 
-## How to test
+- Local URLs (Live Server): `index.html`, `winners.html`
+- Devices/Browsers: iOS Safari/Chrome, Desktop Safari/Chrome/Firefox
+- Steps to verify:
+  - …
 
 ## Risks / Rollback
 
-- Rollback plan if something breaks
+- Risks: …
+- Rollback: revert PR # …
 
 ## Checklist
 
-- [ ] I tested locally (VS Code Live Server or equivalent)
-- [ ] I updated docs if needed
-- [ ] I requested at least one reviewer
+- [ ] Labels added (type/area)
+- [ ] CHANGELOG/docs updated if user-visible
+- [ ] Requested at least one reviewer
+- [ ] format:check passes
