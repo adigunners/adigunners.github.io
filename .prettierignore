@@ -29,3 +29,7 @@ coverage/
 # Build artifacts
 *.min.js
 *.min.css
+
+# CI workflows (allow GitHub Actions YAML to remain machine-formatted)
+.github/workflows/*.yml
+.github/workflows/*.yaml
