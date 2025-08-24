@@ -93,10 +93,11 @@
   }
 
   header {
-    padding: 20px 10px;
+    padding: clamp(16px, 3svh, 24px) clamp(8px, 2vw, 12px); /* Use viewport units for better scaling */
     /* Margin bottom standardized via unified-spacing.css */
     flex-direction: column;
-    gap: 15px;
+    gap: clamp(12px, 2.5svh, 18px);
+    min-height: clamp(80px, 16svh, 120px); /* Ensure reasonable height scaling */
   }
 
   .header-main {

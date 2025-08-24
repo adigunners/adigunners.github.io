@@ -10,8 +10,9 @@
 
   /* Compact header */
   header {
-    padding: 16px 12px; /* Drastically reduced from 50px 20px */
-    margin-bottom: 12px; /* Reduced from 30px */
+    padding: clamp(12px, 3svh, 20px) clamp(8px, 2vw, 16px); /* Use dynamic viewport units */
+    margin-bottom: clamp(8px, 2svh, 16px); /* Responsive margin */
+    min-height: clamp(64px, 14svh, 100px); /* Ensure minimum viable height */
   }
 
   /* Compact sections */
@@ -56,8 +57,9 @@
   }
 
   header {
-    padding: 12px 8px;
-    margin-bottom: 8px;
+    padding: clamp(8px, 2svh, 16px) clamp(6px, 1.5vw, 12px); /* Ultra-compact with viewport units */
+    margin-bottom: clamp(6px, 1.5svh, 12px);
+    min-height: clamp(56px, 12svh, 80px); /* Minimum viable height for ultra-compact */
   }
 
   section {
