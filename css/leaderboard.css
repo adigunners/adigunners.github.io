@@ -9,6 +9,8 @@
 
 .leaderboard-table {
   width: 100%;
+  min-width: 560px; /* Allow horizontal scroll on very small screens */
+  table-layout: fixed; /* Keep columns proportional when narrowed */
   border-collapse: collapse;
   margin-top: 20px;
   background: white;
@@ -16,6 +18,12 @@
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   font-variant-numeric: tabular-nums;
+}
+
+/* Ensure rank cell layout doesn't bleed; keep medals fully contained */
+.leaderboard-rank {
+  position: relative;
+  overflow: hidden;
 }
 
 .leaderboard-table th {
@@ -114,6 +122,18 @@
   border-radius: var(--radius-sm);
 }
 
+/* Prevent truncation of the RANK header; keep medals within rank cell */
+.leaderboard-table th.col-rank {
+  white-space: nowrap;
+  text-overflow: clip;
+  overflow: visible;
+  letter-spacing: 0; /* avoid extra width pressure */
+}
+
+.leaderboard-table td.col-rank {
+  white-space: nowrap;
+}
+
 .leaderboard-player {
   font-weight: 600;
   color: var(--heading-color);
@@ -152,6 +172,8 @@
   cursor: pointer;
   font-size: 0.85rem;
   transition: background 0.2s ease;
+  min-height: 40px; /* touch-friendly */
+  min-width: 80px;
 }
 
 .leaderboard-nav-btn:hover:not(:disabled) {

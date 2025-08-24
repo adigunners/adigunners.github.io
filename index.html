@@ -474,18 +474,20 @@
               onclick="previousLeaderboardPage()"
               disabled
               aria-label="Go to previous page"
+              title="Previous page"
             >
-              <i class="fas fa-chevron-left" aria-hidden="true"></i> Previous
+              ◀︎ Prev
             </button>
-            <span id="leaderboard-page-info" class="page-info" aria-live="polite">Page 1 of 1</span>
+            <span id="leaderboard-page-info" class="page-info" aria-live="polite">1 / 1</span>
             <button
               id="leaderboard-next-page"
               class="leaderboard-nav-btn"
               onclick="nextLeaderboardPage()"
               disabled
               aria-label="Go to next page"
+              title="Next page"
             >
-              Next <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              Next ▶︎
             </button>
           </nav>
         </section>
@@ -1968,13 +1970,19 @@
         // Generate table HTML
 
         const tableHTML = `
-          <table class="leaderboard-table table-align-rank table-align-player table-align-prize table-align-points">
+          <table class="leaderboard-table table-density-compact table-align-rank table-align-player table-align-prize table-align-points">
+            <colgroup>
+              <col style="width:4.75ch"> <!-- Rank -->
+              <col style="width:auto">  <!-- Player name -->
+              <col style="width:8ch">   <!-- Prize -->
+              <col style="width:6ch">   <!-- Points -->
+            </colgroup>
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Player Name</th>
-                <th>Prize Won</th>
-                <th>Points</th>
+                <th scope="col" class="col-rank" aria-label="Rank" data-short="#">#</th>
+                <th scope="col" aria-label="Player Name" title="Player Name">PLAYER</th>
+                <th scope="col" aria-label="Prize Won" title="Prize Won">PRIZE</th>
+                <th scope="col" aria-label="Points" title="Points">PTS</th>
               </tr>
             </thead>
             <tbody>
@@ -1992,7 +2000,7 @@
                       : overallScore.toLocaleString('en-IN');
                   return `
                 <tr>
-                  <td class="leaderboard-rank${
+                  <td class="leaderboard-rank col-rank${
                     actualRank === 1
                       ? ' rank-1'
                       : actualRank === 2
@@ -2001,7 +2009,7 @@
                           ? ' rank-3'
                           : ''
                   }">${actualRank}</td>
-                  <td class="leaderboard-player">${escapeHTML(player.playerName)}</td>
+                  <td class="leaderboard-player" title="${escapeHTML(player.playerName)}" aria-label="${escapeHTML(player.playerName)}">${escapeHTML(player.playerName)}</td>
                   <td class="leaderboard-prize">₹${player.totalPrizeWon.toLocaleString('en-IN')}</td>
                   <td class="leaderboard-score">${scoreDisplay}</td>
                 </tr>
@@ -2012,7 +2020,7 @@
           </table>
         `;
 
-        container.innerHTML = tableHTML;
+        container.innerHTML = '<div class="table-scroll">' + tableHTML + '</div>';
 
         // Show/hide navigation if needed
         if (navigation) {
@@ -2033,7 +2041,7 @@
 
         if (prevBtn) prevBtn.disabled = currentLeaderboardPage === 1;
         if (nextBtn) nextBtn.disabled = currentLeaderboardPage === totalPages;
-        if (pageInfo) pageInfo.textContent = `Page ${currentLeaderboardPage} of ${totalPages}`;
+        if (pageInfo) pageInfo.textContent = `${currentLeaderboardPage} / ${totalPages}`;
       }
 
       // Pagination functions

@@ -239,149 +239,73 @@
     display: none;
   }
 
-  /* MOBILE LEADERBOARD TABLE OPTIMIZATION */
+  /* MOBILE LEADERBOARD TABLE OPTIMIZATION (revised to keep real table layout) */
   .leaderboard-table {
-    font-size: 0.8rem;
+    font-size: 0.86rem;
+    table-layout: fixed;
+    width: 100%;
     border-collapse: separate;
     border-spacing: 0;
+    min-width: auto; /* avoid forced scroll on narrow screens */
   }
 
-  /* Show compact visual headers on mobile */
+  /* Keep headers as proper table headers inside the scroll area */
   .leaderboard-table thead {
-    position: relative;
-    left: auto;
-    top: auto;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 0 2px; /* Add slight padding for visual balance */
+    display: table-header-group;
   }
 
   .leaderboard-table thead th {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: white;
-    background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
-    padding: 6px 8px;
-    border-radius: var(--radius-md);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+    padding: 8px 8px; /* reduced horizontal padding */
+    line-height: 1.15;
+    white-space: normal; /* allow wrapping */
+    word-break: keep-all; /* avoid mid-word splits like POIN/TS */
+    min-height: 40px; /* maintain tap target */
+    position: relative; /* ensure any dividers don't overlay text */
+    padding-right: 0.6rem; /* small breathing room to right edge */
   }
 
-  .leaderboard-table thead th:nth-child(1) {
-    flex: 0 0 44px;
+  .leaderboard-table th,
+  .leaderboard-table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Prevent truncation of the Rank header specifically */
+  .leaderboard-table thead th.col-rank {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+
+  .leaderboard-table td {
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 8px 8px; /* modestly reduced padding on mobile */
+  }
+
+  /* Rank centered; numeric right-aligned */
+  .leaderboard-table thead th:nth-child(1),
+  .leaderboard-table tbody td:nth-child(1) {
     text-align: center;
   }
-
-  .leaderboard-table thead th:nth-child(2) {
-    flex: 1 1 auto;
-    text-align: left;
-  }
-
-  .leaderboard-table thead th:nth-child(3) {
-    flex: 0 0 90px;
-    text-align: right;
-  }
-
-  .leaderboard-table thead th:nth-child(4) {
-    flex: 0 0 64px;
-    text-align: right;
-  }
-
-  /* Transform leaderboard rows to compact mobile cards */
-  .leaderboard-table tbody tr {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: white;
-    margin-bottom: 10px;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border: 1px solid #f0f2f5;
-    padding: 10px 12px;
-    position: relative;
-    min-height: 48px; /* Ensure uniform row heights */
-  }
-
-  .leaderboard-table tbody tr:hover {
-    transform: none;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
-  }
-
-  .leaderboard-table tbody td {
-    border: none;
-    padding: 0;
-    text-align: left !important;
-    vertical-align: middle;
-  }
-
-  /* Column mapping for mobile cards: 1=Rank, 2=Player, 3=Prize, 4=Overall Score */
-  .leaderboard-table tbody td:nth-child(1) {
-    font-weight: 700;
-    font-size: 0.75rem;
-    flex: 0 0 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center !important;
-  }
-
-  .leaderboard-table tbody td:nth-child(2) {
-    font-weight: 600;
-    font-size: 0.85rem;
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-
-  .leaderboard-table tbody td:nth-child(3) {
-    font-weight: 700;
-    text-align: right !important;
-    font-size: 0.9rem;
-    color: var(--primary-color);
-    padding-right: 8px;
-    flex: 0 0 90px;
-  }
-
+  .leaderboard-table thead th:nth-child(3),
+  .leaderboard-table tbody td:nth-child(3),
+  .leaderboard-table thead th:nth-child(4),
   .leaderboard-table tbody td:nth-child(4) {
-    font-weight: 700;
-    text-align: right !important;
-    font-size: 0.9rem;
-    color: #333;
-    padding-left: 8px;
-    margin-left: auto;
-    flex: 0 0 64px;
+    text-align: right;
   }
 
-  /* Enhanced mobile styles for top 3 leaderboard positions */
-  .leaderboard-table tbody tr:nth-child(1) {
-    background: linear-gradient(145deg, #fff8e6, #fff3d6) !important;
-    border-left: 4px solid #f4b400;
-    box-shadow: 0 2px 8px rgba(244, 180, 0, 0.12) !important;
+  /* Player name truncation (tooltip set in HTML via title) */
+  .leaderboard-table .leaderboard-player {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0; /* allow shrink in fixed layout */
   }
 
-  .leaderboard-table tbody tr:nth-child(1):hover {
-    box-shadow: 0 3px 12px rgba(244, 180, 0, 0.18) !important;
-  }
-
-  .leaderboard-table tbody tr:nth-child(2) {
-    background: linear-gradient(145deg, #f8f9fa, #f1f3f4) !important;
-    border-left: 4px solid #9e9e9e;
-    box-shadow: 0 2px 8px rgba(158, 158, 158, 0.15) !important;
-  }
-
-  .leaderboard-table tbody tr:nth-child(2):hover {
-    box-shadow: 0 3px 12px rgba(158, 158, 158, 0.25) !important;
-  }
-
-  .leaderboard-table tbody tr:nth-child(3) {
-    background: linear-gradient(145deg, #fef7e0, #fff3cd) !important;
-    border-left: 4px solid #d4b106;
-    box-shadow: 0 2px 8px rgba(212, 177, 6, 0.15) !important;
-  }
-
-  .leaderboard-table tbody tr:nth-child(3):hover {
-    box-shadow: 0 3px 12px rgba(212, 177, 6, 0.25) !important;
-  }
+  /* Removed page-position-based row highlights to prevent incorrect styling on paginated pages */
 
   /* Mobile navigation optimization */
   .leaderboard-navigation {
@@ -392,13 +316,66 @@
 
   .leaderboard-nav-btn {
     padding: 6px 12px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     border-radius: var(--radius-sm);
+    min-height: 40px;
+    min-width: 84px;
   }
 
   .page-info {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     order: 2;
+  }
+
+  /* Constrain sticky header appearance inside scroll wrapper */
+  .table-scroll .leaderboard-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+  }
+
+  /* Optional two-line clamp for very narrow screens */
+  @media (max-width: 375px) {
+    .leaderboard-table .leaderboard-player {
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.2;
+    }
+
+    /* Slightly tighten numeric column widths on very small screens */
+    .leaderboard-table col:nth-child(3) {
+      /* Prize */
+      width: 7ch !important;
+    }
+    .leaderboard-table col:nth-child(4) {
+      /* Points */
+      width: 5.5ch !important;
+    }
+
+    .leaderboard-table thead th {
+      font-size: 0.75rem;
+      padding: 6px 6px;
+    }
+
+    /* Ensure consistent fit for 2-digit ranks */
+    .leaderboard-table th.col-rank,
+    .leaderboard-table td.col-rank {
+      width: 4.75ch;
+    }
+  }
+
+  /* Ultra-narrow fallback: stacked row layout (no page-level scroll) */
+  @media (max-width: 320px) {
+    /* Ultra-narrow: keep containment; rely on truncation + tightened columns */
+    .leaderboard-table td,
+    .leaderboard-table th {
+      padding-left: 6px;
+      padding-right: 6px;
+    }
   }
 
   /* MOBILE RULES SECTION OPTIMIZATION */
@@ -453,7 +430,7 @@
 }
 
 /* Ultra-narrow screens (Galaxy Z Fold) */
-@media (max-width: 360px) {
+@media (max-width: 375px) {
   header {
     padding: 15px 10px;
   }
@@ -492,6 +469,84 @@
 
   .countdown-unit-label {
     font-size: 0.5rem;
+  }
+
+  /* XS screens: swap RANK label for short glyph while keeping aria-label */
+  .leaderboard-table th.col-rank {
+    font-size: 0; /* hide visual text */
+    position: relative;
+  }
+  .leaderboard-table th.col-rank::after {
+    content: attr(data-short);
+    font-size: 0.8rem;
+    line-height: 1;
+  }
+}
+
+/* Reset short-label swap for wider screens to avoid truncation */
+@media (min-width: 376px) {
+  .leaderboard-table th.col-rank {
+    font-size: inherit;
+  }
+  .leaderboard-table th.col-rank::after {
+    content: none;
+  }
+}
+
+/* Density utilities: ensure these load after component styles */
+/* Apply to either the table itself or a parent wrapper */
+table.table-density-compact tr,
+.table-density-compact table tr {
+  height: var(--row-h-compact);
+}
+
+table.table-density-cozy tr,
+.table-density-cozy table tr {
+  height: var(--row-h-cozy);
+}
+
+table.table-density-comfortable tr,
+.table-density-comfortable table tr {
+  height: var(--row-h-comfortable);
+}
+
+/* Vertical alignment and padding adjustments per density */
+table.table-density-compact th,
+table.table-density-compact td,
+.table-density-compact table th,
+.table-density-compact table td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  vertical-align: middle;
+}
+
+table.table-density-cozy th,
+table.table-density-cozy td,
+.table-density-cozy table th,
+.table-density-cozy table td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  vertical-align: middle;
+}
+
+table.table-density-comfortable th,
+table.table-density-comfortable td,
+.table-density-comfortable table th,
+.table-density-comfortable table td {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  vertical-align: middle;
+}
+
+/* Winners table headers: allow wrapping on narrow screens too */
+@media (max-width: 600px) {
+  .winner-table thead th {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+    line-height: 1.15;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    min-height: 40px;
   }
 }
 

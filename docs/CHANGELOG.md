@@ -2,6 +2,28 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.1.4] - 2025-08-24 - Mobile table containment, headers, and pagination (Closes #32)
+
+### ✅ Fixes
+
+- Prevent table overflow on small screens by wrapping tables in a scrollable container that stays within the card; no page-level horizontal scroll.
+- Winners and League Standings tables respect container width and maintain rounded corners/shadows.
+- Aligned table headers with body columns across breakpoints; removed flex/chip headers and kept real `<thead>` inside the scroll region.
+- Truncation and wrapping rules for long header text and player names; optional 2-line clamp on very small widths.
+- Added density utilities (`table-density-compact|cozy|comfortable`) with global row-height tokens and applied compact density to standings.
+- Fixed Rank header on mobile: shows `#` at all widths with accessible name “Rank”; ensured 2-digit ranks fit without clipping and medals stay within the rank cell.
+- Corrected top-3 highlight logic to rely on actual rank values instead of page index.
+- Compact mobile pagination: `◀︎ Prev • X / Y • Next ▶︎` with clear disabled states, a11y labels, and touch-friendly sizes.
+
+### 📂 Files
+
+- `index.html`, `winners.html`
+- `css/components.css`, `css/leaderboard.css`, `css/winners-specific.css`, `css/responsive.css`, `css/variables.css`
+
+### 🔗 Tracking
+
+- GitHub Issue: #32 (linked via PR)
+
 ## [1.1.3] - 2025-08-24 - GitHub Pages deploy-time cache-busting
 
 ### 🚀 CI/CD

@@ -111,6 +111,29 @@
   background: transparent;
 }
 
+/* =============== TABLE SCROLL WRAPPER =============== */
+/*
+  Ensures wide tables remain contained within cards on small screens.
+  Provides horizontal scroll within the card without causing page-level overflow.
+*/
+.table-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Avoid double rounding/shadows when a styled table sits inside the wrapper */
+.table-scroll .leaderboard-table,
+.table-scroll .winner-table {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+}
+
 @media (min-width: 769px) {
   /* Tablet breakpoint - standardized */
   .prize-summary {
