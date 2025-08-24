@@ -1,9 +1,16 @@
 /* =============== HEADER STYLES =============== */
 
 /* FIX: mobile sticky header opacity — backplate + safe-area vars */
+/* Adaptive backplate: light = page backdrop; dark = solid dark */
 :root {
-  --header-bg: #0d0815; /* solid backplate behind purple card */
+  --header-bg: var(--page-backdrop); /* matches page in light mode */
   --safe-top: env(safe-area-inset-top, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-bg: #0d0815; /* solid dark backplate in dark mode */
+  }
 }
 
 /* FIX: mobile sticky header opacity — sticky backplate wrapper */
