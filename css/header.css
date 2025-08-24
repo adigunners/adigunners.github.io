@@ -202,6 +202,7 @@ header p {
   margin: 0; /* no space around colon */
   padding: 0;
   letter-spacing: 0;
+  font-family: 'Courier New', monospace; /* match metrics to numbers */
 }
 
 @keyframes pulse {
@@ -221,18 +222,19 @@ header p {
   line-height: 1;
   margin: 0;
   padding: 0;
+  align-items: baseline;
 }
 
 .countdown-unit-label {
   font-family: 'Courier New', monospace;
-  font-size: 0.55rem;
-  font-weight: 700;
+  font-size: 1em; /* same as numbers */
+  font-weight: inherit; /* same weight as numbers */
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0; /* compact */
   opacity: 0.9;
   margin-left: 0; /* compact: number immediately followed by letter */
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: baseline;
 }
 
 /* Admin/sync badges */
