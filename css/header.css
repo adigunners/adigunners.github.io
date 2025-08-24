@@ -271,6 +271,32 @@ header p {
   }
 }
 
+/* FIX: standardize countdown sizing across pages and breakpoints */
+/* Use higher-specificity selectors so these values are consistent on index and winners */
+@media (min-width: 1025px) {
+  .site-header header .countdown-clock {
+    max-width: 300px;
+  }
+  .site-header header .countdown-label {
+    font-size: 1rem;
+  }
+  .site-header header .countdown-time {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header header .countdown-clock {
+    max-width: 200px;
+  }
+  .site-header header .countdown-label {
+    font-size: 0.6rem;
+  }
+  .site-header header .countdown-time {
+    font-size: 0.7rem;
+  }
+}
+
 /* Optional: if a dedicated scroll container exists */
 .page-scroll {
   overscroll-behavior-y: contain;
