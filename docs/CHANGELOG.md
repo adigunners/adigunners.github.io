@@ -2,6 +2,28 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.1.3] - 2025-08-24 - GitHub Pages deploy-time cache-busting
+
+### 🚀 CI/CD
+
+- Deploy workflow stamps local CSS/JS with `?v=<commit sha>` during deployment and publishes via GitHub Pages Actions.
+- Source HTML remains clean; stamping occurs only in the deployed artifact.
+
+### ✅ Fixes
+
+- Eliminates stale asset issues for end users without requiring manual hard refresh.
+
+### 📎 Notes
+
+- External CDN links (e.g., Google Fonts, Font Awesome) are untouched.
+- Removed temporary hard-coded `?v=…` from `index.html` and `winners.html`.
+
+### 📂 Files
+
+- `.github/workflows/deploy.yml`
+- `.github/scripts/stamp-version.js`
+- `index.html`, `winners.html` (reverted manual versioning)
+
 ## [1.1.2] - 2025-08-24 - Header Backplate + Spacing + Compact Countdown
 
 ### 🎯 Fixes & Visual Consistency
