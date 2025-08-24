@@ -25,16 +25,17 @@
 
 /* =============== STICKY HEADER OPTIMIZATION =============== */
 @media (max-width: 600px) {
-  /* Compact sticky header for better space usage */
+  /* Compact header sizing; sticky behavior handled by .site-header backplate */
   header {
-    position: sticky;
-    top: 8px;
-    z-index: 100;
+    position: static; /* allow outer .site-header to control stickiness */
+    top: auto;
+    z-index: auto;
     padding: 8px 6px;
     margin-bottom: 4px;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+    width: 100%;
   }
 
   header h1 {

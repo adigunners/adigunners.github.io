@@ -18,7 +18,8 @@
 }
 
 .header-inner {
-  max-width: 1024px;
+  /* Use full container width so header doesn’t look compressed on widescreens */
+  width: 100%;
   margin: 0 auto;
   padding: 0 16px;
 }
@@ -37,6 +38,7 @@ header {
   gap: 20px;
   flex-wrap: wrap;
   position: relative;
+  width: 100%;
   /* FIX: mobile sticky header opacity — help avoid clipping artifacts if glow present */
   background-clip: padding-box;
 }
@@ -260,19 +262,6 @@ header p {
   .header-inner {
     padding: 0 12px;
   }
-}
-
-/* FIX: mobile sticky header opacity — opaque scrolling columns/cards (safety) */
-.standings-column,
-.content-scroller,
-.container {
-  background-color: #1f1a1a; /* align with page backdrop */
-}
-
-.card,
-.list-item,
-.player-row {
-  background-color: #ffffff; /* ensure cards/rows are not transparent */
 }
 
 /* Optional: if a dedicated scroll container exists */
