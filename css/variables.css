@@ -46,3 +46,15 @@
   --tablet-max: 1024px;
   --desktop-min: 1025px;
 }
+
+/* FIX: mobile sticky header opacity — adaptive backdrop token */
+:root {
+  --page-backdrop: var(--background-color);
+}
+
+/* Respect system dark mode for page backdrop only (non-destructive) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-backdrop: #1f1a1a; /* unified dark backdrop */
+  }
+}

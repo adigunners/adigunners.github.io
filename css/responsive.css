@@ -61,7 +61,7 @@
 
   .countdown-clock {
     width: 100%;
-    max-width: 300px;
+    max-width: 250px; /* align with tablet sizing */
     margin: 0 auto;
   }
 }
@@ -94,7 +94,7 @@
 
   header {
     padding: 20px 10px;
-    margin-bottom: 16px;
+    /* Margin bottom standardized via unified-spacing.css */
     flex-direction: column;
     gap: 15px;
   }
@@ -151,7 +151,7 @@
   }
 
   .countdown-clock {
-    max-width: 280px;
+    max-width: 200px; /* standard mobile size */
     padding: 12px 15px;
   }
 
@@ -492,5 +492,67 @@
 
   .countdown-unit-label {
     font-size: 0.5rem;
+  }
+}
+
+/* =============== FINAL COUNTDOWN STANDARDIZATION =============== */
+/* Ensure identical countdown across index and winners after all other styles */
+@media (min-width: 1025px) {
+  .site-header header .countdown-clock {
+    max-width: 300px;
+  }
+  .site-header header .countdown-label {
+    font-size: 1rem;
+  }
+  .site-header header .countdown-time {
+    font-size: 0.85rem;
+  }
+  .site-header header .countdown-unit {
+    min-width: 0 !important;
+  }
+  .site-header header #countdown-days,
+  .site-header header #countdown-hours,
+  .site-header header #countdown-minutes {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .site-header header .countdown-clock {
+    max-width: 250px;
+  }
+  .site-header header .countdown-label {
+    font-size: 0.9rem;
+  }
+  .site-header header .countdown-time {
+    font-size: 0.8rem;
+  }
+  .site-header header .countdown-unit {
+    min-width: 0 !important;
+  }
+  .site-header header #countdown-days,
+  .site-header header #countdown-hours,
+  .site-header header #countdown-minutes {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header header .countdown-clock {
+    max-width: 200px;
+  }
+  .site-header header .countdown-label {
+    font-size: 0.6rem;
+  }
+  .site-header header .countdown-time {
+    font-size: 0.7rem;
+  }
+  .site-header header .countdown-unit {
+    min-width: 0 !important;
+  }
+  .site-header header #countdown-days,
+  .site-header header #countdown-hours,
+  .site-header header #countdown-minutes {
+    font-size: 1em;
   }
 }

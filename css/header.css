@@ -1,5 +1,36 @@
 /* =============== HEADER STYLES =============== */
 
+/* FIX: mobile sticky header opacity — backplate + safe-area vars */
+/* Adaptive backplate: light = page backdrop; dark = solid dark */
+:root {
+  --header-bg: var(--page-backdrop); /* matches page in light mode */
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-bg: #0d0815; /* solid dark backplate in dark mode */
+  }
+}
+
+/* FIX: mobile sticky header opacity — sticky backplate wrapper */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--header-bg); /* opaque */
+  padding-top: calc(8px + var(--safe-top));
+  padding-bottom: 0; /* uniform vertical rhythm handled by header margin */
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.header-inner {
+  /* Align with container grid; container already provides horizontal padding */
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
 header {
   background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
   color: #fff;
@@ -7,13 +38,16 @@ header {
   padding: 50px 20px;
   border-radius: var(--border-radius);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  margin-bottom: 30px;
+  /* Margin handled by unified-spacing.css for consistent rhythm */
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
   position: relative;
+  width: 100%;
+  /* FIX: mobile sticky header opacity — help avoid clipping artifacts if glow present */
+  background-clip: padding-box;
 }
 
 .header-main {
@@ -108,7 +142,7 @@ header p {
   font-family: 'Courier New', monospace;
   font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.3px;
+  letter-spacing: 0; /* compact, no extra space */
   color: var(--secondary-color);
   text-shadow: 0 0 8px rgba(0, 255, 133, 0.4);
   line-height: 1.1;
@@ -119,7 +153,7 @@ header p {
   margin-top: 5px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline; /* align numbers and unit letters tightly */
 }
 
 /* Center the countdown time container */
@@ -154,8 +188,9 @@ header p {
 }
 
 /* Style the LIVE text */
+/* Normalize unit font sizes; final values set in responsive.css */
 #countdown-days {
-  font-size: 1.1rem;
+  font-size: 1em;
   font-weight: 800;
   letter-spacing: 2px;
   text-align: center;
@@ -164,6 +199,10 @@ header p {
 
 .countdown-separator {
   animation: pulse 1s infinite;
+  margin: 0; /* no space around colon */
+  padding: 0;
+  letter-spacing: 0;
+  font-family: 'Courier New', monospace; /* match metrics to numbers */
 }
 
 @keyframes pulse {
@@ -177,22 +216,25 @@ header p {
 }
 
 .countdown-unit {
-  display: inline-block;
-  min-width: 18px;
-  text-align: center;
+  display: inline-flex; /* shrink-wrap content */
+  min-width: 0; /* no forced width, keep compact */
+  text-align: left;
   line-height: 1;
+  margin: 0;
+  padding: 0;
+  align-items: baseline;
 }
 
 .countdown-unit-label {
   font-family: 'Courier New', monospace;
-  font-size: 0.55rem;
-  font-weight: 700;
+  font-size: 1em; /* same as numbers */
+  font-weight: inherit; /* same weight as numbers */
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0; /* compact */
   opacity: 0.9;
-  margin-left: 2px;
+  margin-left: 0; /* compact: number immediately followed by letter */
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: baseline;
 }
 
 /* Admin/sync badges */
@@ -224,4 +266,46 @@ header p {
   color: #e65100;
   border: 1px solid #ffe0b2;
   border-radius: 999px;
+}
+
+/* FIX: mobile sticky header opacity — mobile refinements */
+@media (max-width: 480px) {
+  .site-header {
+    padding-top: calc(6px + var(--safe-top));
+    padding-bottom: 0;
+  }
+  .header-inner {
+    padding: 0;
+  }
+}
+
+/* FIX: standardize countdown sizing across pages and breakpoints */
+/* Use higher-specificity selectors so these values are consistent on index and winners */
+@media (min-width: 1025px) {
+  .site-header header .countdown-clock {
+    max-width: 300px;
+  }
+  .site-header header .countdown-label {
+    font-size: 1rem;
+  }
+  .site-header header .countdown-time {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header header .countdown-clock {
+    max-width: 200px;
+  }
+  .site-header header .countdown-label {
+    font-size: 0.6rem;
+  }
+  .site-header header .countdown-time {
+    font-size: 0.7rem;
+  }
+}
+
+/* Optional: if a dedicated scroll container exists */
+.page-scroll {
+  overscroll-behavior-y: contain;
 }
