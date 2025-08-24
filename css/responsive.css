@@ -61,7 +61,7 @@
 
   .countdown-clock {
     width: 100%;
-    max-width: 300px;
+    max-width: 250px; /* align with tablet sizing */
     margin: 0 auto;
   }
 }
@@ -94,7 +94,7 @@
 
   header {
     padding: 20px 10px;
-    margin-bottom: 16px;
+    /* Margin bottom standardized via unified-spacing.css */
     flex-direction: column;
     gap: 15px;
   }
@@ -151,7 +151,7 @@
   }
 
   .countdown-clock {
-    max-width: 280px;
+    max-width: 200px; /* standard mobile size */
     padding: 12px 15px;
   }
 

@@ -20,15 +20,15 @@
   z-index: 1000;
   background-color: var(--header-bg); /* opaque */
   padding-top: calc(8px + var(--safe-top));
-  padding-bottom: 12px; /* space for card shadow */
+  padding-bottom: 0; /* uniform vertical rhythm handled by header margin */
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .header-inner {
-  /* Use full container width so header doesn’t look compressed on widescreens */
+  /* Align with container grid; container already provides horizontal padding */
   width: 100%;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0;
 }
 
 header {
@@ -38,7 +38,7 @@ header {
   padding: 50px 20px;
   border-radius: var(--border-radius);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  margin-bottom: 30px;
+  /* Margin handled by unified-spacing.css for consistent rhythm */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -264,10 +264,10 @@ header p {
 @media (max-width: 480px) {
   .site-header {
     padding-top: calc(6px + var(--safe-top));
-    padding-bottom: 10px;
+    padding-bottom: 0;
   }
   .header-inner {
-    padding: 0 12px;
+    padding: 0;
   }
 }
 

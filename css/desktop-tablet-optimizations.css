@@ -193,25 +193,24 @@
     font-size: 0.85rem;
   }
 
-  /* Optimize countdown clock for wider screens */
+  /* Standardize countdown clock across desktop/tablet */
   .countdown-clock {
-    padding: 16px 20px;
-    max-width: 320px; /* Slightly wider to accommodate longer deadline text */
+    padding: 15px 20px;
+    max-width: 300px;
   }
 
-  /* Ensure countdown label doesn't wrap on desktop/tablet */
   .countdown-label {
-    font-size: 0.95rem; /* Slightly smaller to fit better */
-    letter-spacing: 1px; /* Reduced spacing for better fit */
-    min-width: 280px; /* Ensure minimum width for text */
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    min-width: 0;
   }
 
   .countdown-time {
-    gap: 12px;
+    gap: 0;
   }
 
   .countdown-unit {
-    min-width: 60px;
+    min-width: 18px;
   }
 
   /* More compact navigation */

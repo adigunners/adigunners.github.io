@@ -86,7 +86,8 @@
   /* Special compact sections */
   #league-statistics {
     padding: 6px;
-    margin-top: 12px; /* Add space below sticky header */
+    /* Spacing below header handled by unified-spacing.css */
+    margin-top: 0;
   }
 }
 
