@@ -36,7 +36,12 @@ assignees: ''
 - **Time of occurrence**:
 - **Number of players affected**:
 
-## 💡 Possible Solution
+## ✅ Acceptance Criteria
+
+- [ ] Clear, testable acceptance criteria describing the correct behaviour
+- [ ] Repro steps pass without error after fix
+
+## 💡 Possible Solution (optional)
 
 <!-- Optional: Suggest a fix if you have ideas -->
 

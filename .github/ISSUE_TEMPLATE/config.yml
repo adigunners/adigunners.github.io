@@ -1,8 +1,8 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
   - name: 💬 Discussions
-    url: https://github.com/[your-username]/[your-repo]/discussions
+    url: https://github.com/adigunners/adigunners.github.io/discussions
     about: Ask questions and discuss ideas
-  - name: 📚 Documentation
-    url: https://github.com/[your-username]/[your-repo]/wiki
-    about: Check the documentation first
+  - name: 📚 README
+    url: https://github.com/adigunners/adigunners.github.io#readme
+    about: Start here for project overview and docs
