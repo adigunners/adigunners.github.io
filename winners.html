@@ -27,16 +27,27 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
 
-    <!-- MODULAR CSS ARCHITECTURE (proven from index.html) -->
+    <!-- MODULAR CSS ARCHITECTURE (aligned with index.html cascade) -->
+    <!-- 1. Foundation: Variables and base -->
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/base.css" />
+
+    <!-- 2. Layout: Core layout and spacing -->
+    <link rel="stylesheet" href="css/unified-spacing.css" />
+
+    <!-- 3. Components -->
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/header.css" />
+
+    <!-- 4. Page-specific -->
     <link rel="stylesheet" href="css/winners.css" />
     <link rel="stylesheet" href="css/leaderboard.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+
+    <!-- 5. Responsive (device-specific overrides) -->
     <link rel="stylesheet" href="css/mobile-optimizations.css" />
     <link rel="stylesheet" href="css/advanced-mobile.css" />
+    <link rel="stylesheet" href="css/desktop-tablet-optimizations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
 
     <!-- Winners-specific styling to match original design exactly -->
     <link rel="stylesheet" href="css/winners-specific.css" />

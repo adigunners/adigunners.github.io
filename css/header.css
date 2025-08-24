@@ -142,7 +142,7 @@ header p {
   font-family: 'Courier New', monospace;
   font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.3px;
+  letter-spacing: 0; /* compact, no extra space */
   color: var(--secondary-color);
   text-shadow: 0 0 8px rgba(0, 255, 133, 0.4);
   line-height: 1.1;
@@ -153,7 +153,7 @@ header p {
   margin-top: 5px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline; /* align numbers and unit letters tightly */
 }
 
 /* Center the countdown time container */
@@ -188,8 +188,9 @@ header p {
 }
 
 /* Style the LIVE text */
+/* Normalize unit font sizes; final values set in responsive.css */
 #countdown-days {
-  font-size: 1.1rem;
+  font-size: 1em;
   font-weight: 800;
   letter-spacing: 2px;
   text-align: center;
@@ -198,6 +199,9 @@ header p {
 
 .countdown-separator {
   animation: pulse 1s infinite;
+  margin: 0; /* no space around colon */
+  padding: 0;
+  letter-spacing: 0;
 }
 
 @keyframes pulse {
@@ -211,10 +215,12 @@ header p {
 }
 
 .countdown-unit {
-  display: inline-block;
-  min-width: 18px;
-  text-align: center;
+  display: inline-flex; /* shrink-wrap content */
+  min-width: 0; /* no forced width, keep compact */
+  text-align: left;
   line-height: 1;
+  margin: 0;
+  padding: 0;
 }
 
 .countdown-unit-label {
@@ -224,7 +230,7 @@ header p {
   text-transform: uppercase;
   letter-spacing: 0.6px;
   opacity: 0.9;
-  margin-left: 2px;
+  margin-left: 0; /* compact: number immediately followed by letter */
   display: inline-block;
   vertical-align: middle;
 }
