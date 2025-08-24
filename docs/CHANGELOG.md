@@ -2,6 +2,26 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.1.2] - 2025-08-24 - Header Backplate + Spacing + Compact Countdown
+
+### 🎯 Fixes & Visual Consistency
+
+- Adaptive header backplate: light mode uses the page backdrop (no black band); dark mode uses an opaque dark backplate. Safe-area respected on iOS.
+- Uniform vertical spacing: the purple hero header now participates in the unified spacing system; no extra gap before the first section.
+- Width/alignment: hero header aligns with the same grid as `.container` across desktop and mobile.
+- Sticky behavior parity: consistent sticky header behavior on both index and winners (desktop + mobile).
+
+### ⏱️ Countdown Standardization
+
+- Compact format enforced across pages and breakpoints: `06D:00H:42M` (no spaces, colon-separated).
+- Two-digit padding for all units (days/hours/minutes) maintained via JS.
+- Identical sizing: countdown box width, padding, and text scale standardized; D/H/M letters match the number size and baseline.
+
+### 🧩 Technical Notes
+
+- Winners page CSS cascade aligned with index to ensure identical theming and spacing.
+- Hook for urgency/glow exists (`CountdownEnhancements.updateCountdownWithUrgency`) but no production JS module is wired; demo styles exist only in `countdown-demo.html`.
+
 ## [1.1.1] - 2025-08-23 - Countdown Rollover Update
 
 ### ⏱️ Countdown & Rollover
