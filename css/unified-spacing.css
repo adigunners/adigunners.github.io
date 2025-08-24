@@ -297,3 +297,49 @@ section {
     padding: calc(var(--spacing-xl) * 1.25) var(--spacing-xl); /* 40px vertical, 32px horizontal */
   }
 }
+
+/* =============== MOBILE LANDSCAPE & SMALL HEIGHT SPACING =============== */
+
+/* Compact spacing for landscape mode on mobile */
+@media (orientation: landscape) and (max-height: 480px) {
+  .site-header {
+    margin-bottom: clamp(8px, 2svh, 16px); /* Reduced gap after header */
+  }
+
+  section {
+    padding: clamp(8px, 2svh, 16px); /* Much more compact section padding */
+    margin-bottom: clamp(6px, 1.5svh, 12px); /* Reduced gaps between sections */
+  }
+
+  main > * {
+    margin-bottom: clamp(4px, 1svh, 8px); /* Tight spacing in main content */
+  }
+}
+
+/* General small-height spacing optimizations */
+@media (max-height: 560px) {
+  .site-header {
+    margin-bottom: clamp(8px, 2svh, 16px);
+  }
+
+  section {
+    padding: clamp(12px, 2.5svh, 20px);
+    margin-bottom: clamp(8px, 1.5svh, 16px);
+  }
+}
+
+/* Ultra-compact for very short screens */
+@media (max-height: 400px) {
+  .site-header {
+    margin-bottom: clamp(4px, 1svh, 8px);
+  }
+
+  section {
+    padding: clamp(6px, 1.5svh, 12px);
+    margin-bottom: clamp(4px, 1svh, 8px);
+  }
+
+  main > * {
+    margin-bottom: clamp(2px, 0.5svh, 6px);
+  }
+}

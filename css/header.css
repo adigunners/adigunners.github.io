@@ -35,19 +35,20 @@ header {
   background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
   color: #fff;
   text-align: center;
-  padding: 50px 20px;
+  padding: clamp(12px, 4svh, 50px) clamp(8px, 2vw, 20px);
   border-radius: var(--border-radius);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   /* Margin handled by unified-spacing.css for consistent rhythm */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: clamp(8px, 2svh, 20px);
   flex-wrap: wrap;
   position: relative;
   width: 100%;
   /* FIX: mobile sticky header opacity — help avoid clipping artifacts if glow present */
   background-clip: padding-box;
+  min-height: clamp(64px, 16svh, 140px);
 }
 
 .header-main {
@@ -308,4 +309,85 @@ header p {
 /* Optional: if a dedicated scroll container exists */
 .page-scroll {
   overscroll-behavior-y: contain;
+}
+
+/* =============== MOBILE LANDSCAPE & SMALL HEIGHT OPTIMIZATIONS =============== */
+
+/* Compact header rules for landscape and small heights */
+@media (orientation: landscape) and (max-height: 480px) {
+  .site-header {
+    padding-block: clamp(4px, 1svh, 8px);
+  }
+
+  header {
+    padding: clamp(6px, 2svh, 16px) clamp(8px, 2vw, 16px);
+    min-height: clamp(56px, 12svh, 88px);
+    gap: clamp(6px, 1.5svh, 12px);
+  }
+
+  .header-main {
+    gap: clamp(4px, 1svh, 8px);
+  }
+
+  header h1,
+  header p {
+    line-height: 1.1;
+  }
+
+  /* Hide subtitle in very constrained landscape if needed */
+  header p {
+    display: none;
+  }
+
+  .countdown-clock {
+    transform: scale(0.95);
+    padding: clamp(8px, 1.5svh, 12px) clamp(10px, 2vw, 15px);
+  }
+
+  .countdown-label {
+    font-size: clamp(0.7rem, 2svh, 0.9rem);
+    margin-bottom: clamp(4px, 1svh, 6px);
+  }
+
+  .countdown-time {
+    font-size: clamp(0.6rem, 1.8svh, 0.75rem);
+  }
+}
+
+/* General small-height safeguard for any orientation */
+@media (max-height: 560px) {
+  header {
+    min-height: clamp(56px, 16svh, 96px);
+    padding-block: clamp(8px, 2svh, 16px);
+  }
+
+  .site-header {
+    padding-block: clamp(4px, 1svh, 6px);
+  }
+
+  .countdown-clock {
+    padding: clamp(8px, 1.5svh, 12px) clamp(10px, 2vw, 15px);
+  }
+}
+
+/* Ultra-compact for very short screens */
+@media (max-height: 400px) {
+  .site-header {
+    padding-block: 2px;
+  }
+
+  header {
+    padding: clamp(4px, 1.5svh, 8px) clamp(6px, 1.5vw, 12px);
+    min-height: clamp(48px, 10svh, 64px);
+    gap: clamp(4px, 1svh, 8px);
+  }
+
+  header p {
+    display: none; /* Always hide subtitle on very short screens */
+  }
+
+  .countdown-clock {
+    transform: scale(0.9);
+    padding: clamp(6px, 1svh, 8px) clamp(8px, 1.5vw, 12px);
+  }
 }
