@@ -50,6 +50,10 @@
 /* FIX: mobile sticky header opacity — adaptive backdrop token */
 :root {
   --page-backdrop: var(--background-color);
+  /* Global table row height scales */
+  --row-h-compact: 44px;
+  --row-h-cozy: 52px;
+  --row-h-comfortable: 60px;
 }
 
 /* Respect system dark mode for page backdrop only (non-destructive) */

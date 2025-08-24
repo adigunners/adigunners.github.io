@@ -81,6 +81,8 @@
 /* Winner Table Styles */
 .winner-table {
   width: 100%;
+  min-width: 560px; /* Allow horizontal scroll on very small screens */
+  table-layout: fixed; /* Keep columns proportional when narrowed */
   border-collapse: collapse;
   margin-top: 20px;
   background: white;
