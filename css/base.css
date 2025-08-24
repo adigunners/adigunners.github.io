@@ -20,13 +20,23 @@ body {
   color: var(--text-color);
 }
 
+/* FIX: mobile sticky header opacity — solid page background + reduce rubber-band flash */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1f1a1a; /* unified site backdrop */
+  overscroll-behavior: none;
+}
+
 /* =============== CONTAINER =============== */
 .container {
   width: 100%;
   max-width: var(--container-max-width);
   margin: var(--spacing-lg) auto; /* Use spacing variable instead of hardcoded 20px */
   padding: 0 var(--spacing-md); /* Use spacing variable instead of hardcoded 16px */
-  background-color: transparent;
+  /* FIX: mobile sticky header opacity — ensure main scroller is opaque */
+  background-color: #1f1a1a; /* same as body to avoid see-through during rubber-band */
 }
 
 /* Enhanced container for wide screens */

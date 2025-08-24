@@ -1,5 +1,28 @@
 /* =============== HEADER STYLES =============== */
 
+/* FIX: mobile sticky header opacity — backplate + safe-area vars */
+:root {
+  --header-bg: #0d0815; /* solid backplate behind purple card */
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+/* FIX: mobile sticky header opacity — sticky backplate wrapper */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--header-bg); /* opaque */
+  padding-top: calc(8px + var(--safe-top));
+  padding-bottom: 12px; /* space for card shadow */
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.header-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
 header {
   background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
   color: #fff;
@@ -14,6 +37,8 @@ header {
   gap: 20px;
   flex-wrap: wrap;
   position: relative;
+  /* FIX: mobile sticky header opacity — help avoid clipping artifacts if glow present */
+  background-clip: padding-box;
 }
 
 .header-main {
@@ -224,4 +249,33 @@ header p {
   color: #e65100;
   border: 1px solid #ffe0b2;
   border-radius: 999px;
+}
+
+/* FIX: mobile sticky header opacity — mobile refinements */
+@media (max-width: 480px) {
+  .site-header {
+    padding-top: calc(6px + var(--safe-top));
+    padding-bottom: 10px;
+  }
+  .header-inner {
+    padding: 0 12px;
+  }
+}
+
+/* FIX: mobile sticky header opacity — opaque scrolling columns/cards (safety) */
+.standings-column,
+.content-scroller,
+.container {
+  background-color: #1f1a1a; /* align with page backdrop */
+}
+
+.card,
+.list-item,
+.player-row {
+  background-color: #ffffff; /* ensure cards/rows are not transparent */
+}
+
+/* Optional: if a dedicated scroll container exists */
+.page-scroll {
+  overscroll-behavior-y: contain;
 }

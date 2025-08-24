@@ -44,34 +44,38 @@
 
   <body>
     <div class="container">
-      <!-- HEADER with countdown (same pattern as index.html) -->
-      <header>
-        <div class="header-main">
-          <h1>🏆 Complete Winner Scorecard</h1>
-          <p>IIM Mumbai Fantasy League - Season 2025-26</p>
-        </div>
+      <!-- FIX: mobile sticky header opacity — sticky backplate wrapper (same pattern as index.html) -->
+      <div class="site-header">
+        <div class="header-inner">
+          <header>
+            <div class="header-main">
+              <h1>🏆 Complete Winner Scorecard</h1>
+              <p>IIM Mumbai Fantasy League - Season 2025-26</p>
+            </div>
 
-        <!-- Countdown (hidden until data is available) -->
-        <div id="countdown-clock" class="countdown-clock is-hidden" aria-live="polite">
-          <div class="countdown-label" id="countdown-label">GW1 Deadline</div>
-          <div class="countdown-time" aria-label="Time remaining">
-            <span class="countdown-unit">
-              <span id="countdown-days">00</span>
-              <span class="countdown-unit-label">D</span>
-            </span>
-            <span class="countdown-separator">:</span>
-            <span class="countdown-unit">
-              <span id="countdown-hours">00</span>
-              <span class="countdown-unit-label">H</span>
-            </span>
-            <span class="countdown-separator">:</span>
-            <span class="countdown-unit">
-              <span id="countdown-minutes">00</span>
-              <span class="countdown-unit-label">M</span>
-            </span>
-          </div>
+            <!-- Countdown (hidden until data is available) -->
+            <div id="countdown-clock" class="countdown-clock is-hidden" aria-live="polite">
+              <div class="countdown-label" id="countdown-label">GW1 Deadline</div>
+              <div class="countdown-time" aria-label="Time remaining">
+                <span class="countdown-unit">
+                  <span id="countdown-days">00</span>
+                  <span class="countdown-unit-label">D</span>
+                </span>
+                <span class="countdown-separator">:</span>
+                <span class="countdown-unit">
+                  <span id="countdown-hours">00</span>
+                  <span class="countdown-unit-label">H</span>
+                </span>
+                <span class="countdown-separator">:</span>
+                <span class="countdown-unit">
+                  <span id="countdown-minutes">00</span>
+                  <span class="countdown-unit-label">M</span>
+                </span>
+              </div>
+            </div>
+          </header>
         </div>
-      </header>
+      </div>
 
       <main>
         <!-- LEAGUE STATISTICS SECTION (using original winners.html structure) -->
