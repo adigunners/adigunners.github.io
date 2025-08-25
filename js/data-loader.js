@@ -281,19 +281,12 @@ window.FPLDataLoader = (function () {
         // Capture completed gameweeks from winners summary if available
         if (data.summary && data.summary.completedGameweeks !== undefined) {
           const parsed = Number(data.summary.completedGameweeks);
-          if (!Number.isNaN(parsed) && Number.isFinite(parsed)) {
+          if (!Number.isNaN(parsed) && Number.isFinite(parsed) && parsed > 0) {
             _lastProcessedGW = parsed;
-
-            // TEMP INSTRUMENTATION: Track when winner data becomes available
-            const t = () => performance.now().toFixed(1);
-            console.log(`[${t()}] winners_data_ready: completedGWs=${_lastProcessedGW}`);
             console.debug('[GW] Set _lastProcessedGW from winner data:', _lastProcessedGW);
 
-            // TRIGGER: Notify UI Manager to update headers (needed for index.html)
+            // TRIGGER: Notify UI Manager to update headers when valid winner data is available
             if (window.FPLUIManager && typeof FPLUIManager.setLastProcessedGW === 'function') {
-              console.log(
-                `[${t()}] data-loader triggering FPLUIManager.setLastProcessedGW(${_lastProcessedGW})`
-              );
               FPLUIManager.setLastProcessedGW(_lastProcessedGW);
             }
 
@@ -312,6 +305,8 @@ window.FPLDataLoader = (function () {
                 );
               }
             }
+          } else {
+            console.debug('[GW] Invalid completedGameweeks value, keeping Loading state:', parsed);
           }
         }
 
@@ -378,12 +373,6 @@ window.FPLDataLoader = (function () {
   function setLastSyncInfo(gwId, iso) {
     _lastGwId = gwId || _lastGwId;
     _lastSyncIso = iso || _lastSyncIso;
-
-    // TEMP INSTRUMENTATION: Track when season data becomes available
-    if (gwId) {
-      const t = () => performance.now().toFixed(1);
-      console.log(`[${t()}] season_data_ready: nextGW=${gwId}`);
-    }
   }
 
   function getLastFinishedGW() {

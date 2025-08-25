@@ -131,12 +131,6 @@ window.FPLCountdown = (function () {
       FPLUtils.show(countdownClock);
       countdownLabel.textContent = `GW${gameweek.id} Deadline`;
 
-      // TEMP INSTRUMENTATION: Track countdown setup
-      const t = () => performance.now().toFixed(1);
-      console.log(
-        `[${t()}] countdown_ready: GW${gameweek.id} countdown setup, triggering header updates`
-      );
-
       // Update winners header to indicate this GW has been used for the preview
       try {
         FPLUIManager.updateWinnersHeaderGW();

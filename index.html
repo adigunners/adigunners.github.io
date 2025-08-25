@@ -1204,9 +1204,6 @@
       }
 
       document.addEventListener('DOMContentLoaded', function () {
-        // TEMP INSTRUMENTATION: Track app start time
-        const t = () => performance.now().toFixed(1);
-        console.log(`[${t()}] app_start: DOM loaded, starting initialization`);
         console.log('🚀 DOM Content Loaded - Starting initialization');
 
         // DOMContentLoaded bootstrap: decides test vs live mode, attempts cached deadlines

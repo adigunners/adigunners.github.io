@@ -19,33 +19,26 @@ window.FPLUIManager = (function () {
 
   /**
    * SINGLE SOURCE: Idempotent header updater - only accepts winner data
+   *
+   * CONTRACT: Headers update only from winners data; season/countdown writes are blocked.
+   * This ensures consistent display of completed gameweeks without race conditions.
+   *
    * @param {number} finalGW - The completed gameweek from winners data
-   * @param {string} source - Source of the update (for logging)
+   * @param {string} source - Source of the update (must be 'winners')
    */
   function updateHeaderGW(finalGW, source = 'unknown') {
-    const t = () => performance.now().toFixed(1);
-
-    // Guard: Only accept numbers >= 1
-    if (typeof finalGW !== 'number' || finalGW < 1) {
-      console.log(
-        `[${t()}] updateHeaderGW BLOCKED: invalid finalGW=${finalGW} from source=${source}`
-      );
+    // Guard: Only accept valid gameweek numbers
+    if (typeof finalGW !== 'number' || !Number.isFinite(finalGW) || finalGW < 1) {
       return;
     }
 
     // Guard: Idempotent - no DOM write if same value
     if (headerState.finalGW === finalGW) {
-      console.log(
-        `[${t()}] updateHeaderGW SKIPPED: finalGW=${finalGW} unchanged from source=${source}`
-      );
       return;
     }
 
     // HARD BLOCK: Only winners data allowed
     if (source !== 'winners') {
-      console.warn(
-        `[${t()}] season/countdown header write blocked; winners is source of truth (attempted: source=${source}, gw=${finalGW})`
-      );
       return;
     }
 
@@ -54,29 +47,20 @@ window.FPLUIManager = (function () {
     headerState.ready = true;
     headerState.lastUpdate = Date.now();
 
-    // Update DOM elements
+    // Update all relevant DOM elements atomically
     const elements = [
       document.getElementById('winners-after-gw'),
       document.getElementById('winners-page-after-gw'),
       document.getElementById('leaderboard-after-gw'),
     ];
 
-    let updatedCount = 0;
-    elements.forEach((el, idx) => {
-      const ids = ['winners-after-gw', 'winners-page-after-gw', 'leaderboard-after-gw'];
+    elements.forEach((el) => {
       if (el) {
         el.textContent = `After GW${finalGW}`;
         el.style.display = 'inline';
         el.classList.add('show');
-        updatedCount++;
-      } else {
-        console.log(`[${t()}] updateHeaderGW: element ${ids[idx]} not found on this page`);
       }
     });
-
-    console.log(`[${t()}] updateHeaderGW: updated ${updatedCount}/3 DOM elements`);
-
-    console.log(`[${t()}] updateHeaderGW SUCCESS: finalGW=${finalGW} from source=${source}`);
   }
 
   /**
@@ -486,17 +470,12 @@ window.FPLUIManager = (function () {
    * Update winners header with GW information
    */
   function updateWinnersHeaderGW() {
-    const t = () => performance.now().toFixed(1);
-
     // DELEGATE to single source header updater
     const gwId = FPLDataLoader.getLastFinishedGW();
     const hasWinnerData = FPLDataLoader._lastProcessedGW !== undefined;
     const hasSeasonData = FPLDataLoader._lastGwId !== undefined;
     const source = hasWinnerData ? 'winners' : hasSeasonData ? 'season' : 'unknown';
 
-    console.log(
-      `[${t()}] updateWinnersHeaderGW LEGACY: delegating to updateHeaderGW(gw=${gwId}, source=${source})`
-    );
     updateHeaderGW(gwId, source);
   }
 
@@ -504,17 +483,12 @@ window.FPLUIManager = (function () {
    * Update leaderboard header with GW information
    */
   function updateLeaderboardHeaderGW() {
-    const t = () => performance.now().toFixed(1);
-
     // DELEGATE to single source header updater
     const gwId = FPLDataLoader.getLastFinishedGW();
     const hasWinnerData = FPLDataLoader._lastProcessedGW !== undefined;
     const hasSeasonData = FPLDataLoader._lastGwId !== undefined;
     const source = hasWinnerData ? 'winners' : hasSeasonData ? 'season' : 'unknown';
 
-    console.log(
-      `[${t()}] updateLeaderboardHeaderGW LEGACY: delegating to updateHeaderGW(gw=${gwId}, source=${source})`
-    );
     updateHeaderGW(gwId, source);
   }
 
@@ -982,6 +956,32 @@ window.FPLUIManager = (function () {
     updateHeaderGW, // NEW: Single source header updater
     setUsedCachedOnLoad: (value) => (usedCachedOnLoad = value),
     getUsedCachedOnLoad: () => usedCachedOnLoad,
+
+    // DEV UTILITY: Test header updates with mock data
+    testHeaderUpdate: (mockGW = 2, delayMs = 1000) => {
+      console.log(
+        `[TEST] Starting header rollover test: current=${headerState.finalGW} -> mock=${mockGW}`
+      );
+      const startTime = Date.now();
+
+      // Simulate rollover after delay
+      setTimeout(() => {
+        const elapsed = Date.now() - startTime;
+        console.log(`[TEST] After ${elapsed}ms: calling updateHeaderGW(${mockGW}, 'winners')`);
+        updateHeaderGW(mockGW, 'winners');
+
+        // Verify idempotent behavior
+        setTimeout(() => {
+          console.log(
+            `[TEST] Testing idempotency: calling updateHeaderGW(${mockGW}, 'winners') again`
+          );
+          updateHeaderGW(mockGW, 'winners');
+          console.log(
+            `[TEST] Header state: finalGW=${headerState.finalGW}, ready=${headerState.ready}`
+          );
+        }, 100);
+      }, delayMs);
+    },
     setLastProcessedGW: (gw) => {
       if (typeof gw === 'number' && Number.isFinite(gw)) {
         _lastProcessedGW = gw;
