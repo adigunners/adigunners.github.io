@@ -364,6 +364,110 @@
   }
 }
 
+/* =============== NAVIGATION COMPONENTS =============== */
+
+/* Base button styles (shared with other buttons) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
+  cursor: pointer;
+  border: none;
+  line-height: 1;
+}
+
+/* Back navigation button - filled compact style for desktop/tablet */
+.btn.nav-back {
+  background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+  color: #fff;
+  border: 0;
+  box-shadow: 0 2px 6px rgba(55, 0, 60, 0.15);
+  font-size: 0.9rem;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-md);
+}
+
+.btn.nav-back:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.btn.nav-back:active {
+  transform: translateY(1px);
+  filter: brightness(1);
+}
+
+/* Global pattern for muted text elements */
+.section-title .subtitle,
+.heading-subtitle,
+.section-desc {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Winners header layout - grid with divider */
+.winners-header {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--spacing-xs);
+  margin-bottom: 0;
+}
+
+.winners-header .section-title {
+  margin: 0;
+  border-bottom: none; /* Remove global h2 border since we use explicit hr */
+}
+
+.section-rule {
+  margin: var(--spacing-xs) 0;
+  border: 0;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Description row with back button */
+.winners-descrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: var(--spacing-xs) 0 var(--spacing-sm);
+  gap: var(--spacing-sm);
+}
+
+.section-desc {
+  margin: 0;
+}
+
+.btn.nav-back.nav-back--sm {
+  font-size: 0.9rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-md);
+}
+
+/* Mobile responsive behavior */
+@media (max-width: 768px) {
+  /* Mobile: stack description row */
+  .winners-descrow {
+    display: block;
+  }
+
+  .winners-descrow .btn.nav-back.nav-back--sm {
+    width: 100%;
+    margin-top: var(--spacing-sm);
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
 /* =============== ENHANCED GRID LAYOUTS FOR DESKTOP/TABLET =============== */
 
 /* Stats row optimizations for wider screens */
