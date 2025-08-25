@@ -1007,15 +1007,30 @@
             }
 
             displayWinnerPreview(data.winners, containerId, summaryId);
-            // Issue #37 Holistic Fix: Use modular system for gameweek management
-            if (data.summary && data.summary.completedGameweeks !== undefined) {
-              FPLUIManager.setLastProcessedGW(data.summary.completedGameweeks);
-            }
-            // Refresh any headers that show "After GWx"
-            try {
-              updateWinnersHeaderGW();
-              updateLeaderboardHeaderGW();
-            } catch (e) {}
+
+            // Issue #37 Critical Fix: Ensure data-loader also captures this data
+            // This syncs both the UI Manager and Data Loader modules
+            FPLDataLoader.loadWinnerPreview()
+              .then(() => {
+                console.debug('[GW] Successfully synced winner data with data-loader');
+                // Refresh any headers that show "After GWx" after syncing
+                try {
+                  updateWinnersHeaderGW();
+                  updateLeaderboardHeaderGW();
+                } catch (e) {
+                  console.warn('Header update failed after sync:', e);
+                }
+              })
+              .catch((e) => {
+                console.warn('Failed to sync winner data with data-loader:', e);
+                // Still try to update headers with current data
+                try {
+                  updateWinnersHeaderGW();
+                  updateLeaderboardHeaderGW();
+                } catch (e2) {
+                  console.warn('Header update failed:', e2);
+                }
+              });
             updateQAPanel();
             return data;
           })
