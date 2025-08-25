@@ -192,6 +192,7 @@
 
       // State
       let allWinners = [];
+      let winnersWithPrizes = [];
       let currentWinnerPage = 1;
 
       // Shared countdown bootstrap (uses modular loaders)
@@ -282,15 +283,19 @@
           .then((response) => response.json())
           .then((data) => {
             allWinners = data.winners.sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
+            winnersWithPrizes = allWinners.filter((winner) => winner.totalPrizeWon > 0);
 
             // Update stats
             document.getElementById('completed-gameweeks').textContent =
               data.summary?.completedGameweeks || '1';
             document.getElementById('completed-gamemonths').textContent =
               data.summary?.completedMonths || '0';
-            document.getElementById('total-winners').textContent = allWinners.length;
+            document.getElementById('total-winners').textContent = winnersWithPrizes.length;
             document.getElementById('total-prize-money').textContent =
-              '₹' + allWinners.reduce((sum, w) => sum + w.totalPrizeWon, 0).toLocaleString('en-IN');
+              '₹' +
+              winnersWithPrizes
+                .reduce((sum, w) => sum + w.totalPrizeWon, 0)
+                .toLocaleString('en-IN');
 
             // Update unified footer timestamp
             const lastUpdated = new Date(data.lastUpdated);
@@ -321,16 +326,16 @@
         const container = document.getElementById('winner-table-container');
         const navigation = document.getElementById('winner-navigation');
 
-        if (!allWinners.length) {
-          container.innerHTML = '<div class="winner-loading">No winner data available.</div>';
+        if (!winnersWithPrizes.length) {
+          container.innerHTML = '<div class="winner-loading">No prize winners yet.</div>';
           navigation.classList.add('is-hidden');
           return;
         }
 
         const isDesktop = window.matchMedia(`(min-width: ${DESKTOP_MIN_PX}px)`).matches;
-        const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
+        const totalPages = Math.ceil(winnersWithPrizes.length / winnerItemsPerPage);
         const startIndex = (currentWinnerPage - 1) * winnerItemsPerPage;
-        const pageData = allWinners.slice(startIndex, startIndex + winnerItemsPerPage);
+        const pageData = winnersWithPrizes.slice(startIndex, startIndex + winnerItemsPerPage);
 
         if (isDesktop) {
           renderDesktopTable(container, pageData, startIndex);
@@ -422,7 +427,7 @@
       }
 
       function nextWinnerPage() {
-        const totalPages = Math.ceil(allWinners.length / winnerItemsPerPage);
+        const totalPages = Math.ceil(winnersWithPrizes.length / winnerItemsPerPage);
         if (currentWinnerPage < totalPages) {
           currentWinnerPage++;
           displayWinnerTable();
