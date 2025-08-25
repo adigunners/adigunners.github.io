@@ -67,6 +67,8 @@ js/
   --background-color: #f8f9fa;
   --card-background: #fff;
   --text-color: #212529;
+  --heading-color: #37003c; /* Primary color for headings */
+  --text-muted: #777; /* Consistent muted text (subtitles, descriptions) */
 }
 ```
 
@@ -127,6 +129,51 @@ js/
   </body>
 </html>
 ```
+
+## 🧩 Component Library
+
+### Navigation Buttons
+
+Consistent navigation components for moving between pages.
+
+#### Back Navigation Button
+
+Use `.btn.nav-back` for returning to previous pages:
+
+**Desktop/Tablet (≥769px)**:
+
+```html
+<a href="index.html" class="btn nav-back nav-back--sm" aria-label="Go back to home page">
+  <i class="fas fa-arrow-left" aria-hidden="true"></i>
+  Back to Home
+</a>
+```
+
+**Mobile (<768px)**:
+
+- Automatically becomes full-width within container
+- Larger padding for thumb accessibility
+- Same gradient styling as other primary CTAs
+
+**Key Features**:
+
+- **Responsive**: Compact desktop placement, full-width mobile
+- **Accessible**: Proper ARIA labels and semantic HTML
+- **URL Preservation**: Maintains test/data/phase parameters via `setupPageNavigation()`
+- **Design Consistency**: Purple gradient matching other CTAs
+
+**CSS Classes**:
+
+- `.btn` - Base button styles
+- `.nav-back` - Navigation-specific styling
+- `.nav-back--sm` - Compact variant for desktop/tablet
+- `.full-width` - Mobile full-width modifier
+
+**Usage Context**:
+
+- Page headers (right-aligned below divider)
+- Description rows (inline with content)
+- Mobile navigation areas (centered, full-width)
 
 ## 🔧 Development Guidelines
 

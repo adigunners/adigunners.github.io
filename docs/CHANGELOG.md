@@ -2,6 +2,36 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.2.2] - 2025-08-25 - Winners page responsive navigation component
+
+### 🎨 **MVP Enhancement - Navigation Consistency**
+
+**Issue**: Winners page had a floating/hanging plain text link ("← Home") that felt disconnected from the overall design system with poor visual hierarchy and mobile UX.
+
+**Root Cause**: Inconsistent navigation pattern compared to other site CTAs; no responsive behavior for mobile users.
+
+### ✅ **Solution - Integrated Responsive Navigation**
+
+- **Desktop/Tablet (≥769px)**: Compact filled button right-aligned below divider in header section
+- **Mobile (<768px)**: Full-width button integrated into description row (optimal thumb access)
+- **Design Consistency**: Purple gradient styling matching "View Complete Scorecard" and other CTAs
+- **Visual Hierarchy**: Secondary placement below title/divider (not competing with page content)
+
+### 🏗️ **Technical Implementation**
+
+- **Responsive Layout**: CSS Grid header with `winners-descrow` flex container
+- **Design System**: Added `--text-muted: #777` token for consistent subtitle/description styling
+- **Single Divider Fix**: Removed global `h2` border-bottom conflict, use explicit `hr.section-rule` only
+- **Accessibility**: Proper ARIA labels, semantic HTML, screen reader support
+- **URL Preservation**: Test/data/phase parameters maintained across navigation
+
+### 📊 **Impact**
+
+- **Consistency**: Navigation now matches site-wide button patterns
+- **Mobile UX**: Easy thumb access with full-width button placement
+- **Design Tokens**: Eliminated hardcoded colors, added reusable `--text-muted` token
+- **Performance**: Consolidated navigation (removed redundant mobile nav section)
+
 ## [1.2.1] - 2025-08-25 - Winners table hides zero-prize rows with preserved Top-3 highlighting
 
 ### 🐛 **Bug Fix - Zero-Prize Row Visibility**
