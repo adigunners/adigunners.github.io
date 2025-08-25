@@ -300,6 +300,14 @@
             }
 
             displayWinnerTable();
+
+            // Update subtitle using shared modular system - Issue #37 Fix
+            try {
+              FPLUIManager.setLastProcessedGW(data.summary?.completedGameweeks);
+              FPLUIManager.updateWinnersHeaderGW();
+            } catch (e) {
+              console.warn('Failed to update winners subtitle:', e);
+            }
           })
           .catch((error) => {
             console.error('Error loading winner data:', error);
