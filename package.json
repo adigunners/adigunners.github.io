@@ -30,6 +30,10 @@
     "github-pages"
   ],
   "author": "Aditya Garg <aditya.garg.2006@gmail.com>",
+  "contributors": [
+    "Devyanshi Garg",
+    "Saurabh Sarin"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
