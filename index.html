@@ -1254,9 +1254,7 @@
         // Load FPL season data first
         loadFPLSeasonData();
 
-        // Ensure winners + leaderboard headers reflect known GW on initial load
-        updateWinnersHeaderGW();
-        updateLeaderboardHeaderGW();
+        // Headers will be updated when data loads (lines 1018, 1334)
 
         // Safety: if nothing has shown the countdown within 1500ms, try to use cached data or show appropriate fallback
         setTimeout(() => {
