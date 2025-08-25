@@ -106,6 +106,42 @@ The website uses a progressive enhancement approach with mobile-first responsive
 - **Mobile-First Typography**: Optimized font sizes and line heights
 - **Sticky Header**: Professional positioning with proper spacing
 
+#### 5. **Header Display System (Single Source Architecture)**
+
+The website implements a bulletproof header display system that prevents race conditions and ensures consistent gameweek information across all pages.
+
+##### System Contract
+
+**Headers update only from winners data; season/countdown writes are blocked.**
+
+- **✅ ALLOWED**: Updates from `completedGameweeks` in `winner_stats.json` (source = 'winners')
+- **❌ BLOCKED**: Updates from `nextGameweek.id - 1` calculations (source = 'season' or 'countdown')
+
+##### Architecture Components
+
+- **`updateHeaderGW(finalGW, source)`**: Central idempotent header updater with strict validation
+- **Guard System**: Blocks invalid values (≤0, NaN, non-numbers) and non-winners sources
+- **Auto-Trigger**: `data-loader.js` automatically notifies UI Manager when winner data loads
+- **Legacy Delegation**: Existing functions delegate to single source system for backward compatibility
+
+##### Data Flow
+
+```
+winner_stats.json → completedGameweeks → FPLUIManager.setLastProcessedGW() → updateHeaderGW('winners') → DOM
+```
+
+**Blocked Sources (Silent)**:
+
+```
+next_deadline.json → nextGW-1 → updateHeaderGW('season'/'countdown') → BLOCKED
+```
+
+##### State Management
+
+- **Central Store**: `headerState = { finalGW, ready, lastUpdate }`
+- **Idempotent Updates**: Multiple calls with same value safely ignored
+- **Clean Transitions**: "Loading…" → "After GWx" (single transition, no flash)
+
 ### Website Test Mode & Standings Fallback (2025-08-15)
 
 - Add `?test=true` to URLs to enable test mode (e.g., `index.html?test=true`).
