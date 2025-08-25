@@ -6,9 +6,62 @@
 window.FPLUIManager = (function () {
   'use strict';
 
+  // SINGLE SOURCE OF TRUTH: Central header state store
+  const headerState = {
+    finalGW: null,
+    ready: false,
+    lastUpdate: null,
+  };
+
   let seasonActiveLock = false;
   let usedCachedOnLoad = false;
   const SYNC_BADGE_ENABLED = true;
+
+  /**
+   * SINGLE SOURCE: Idempotent header updater - only accepts winner data
+   *
+   * CONTRACT: Headers update only from winners data; season/countdown writes are blocked.
+   * This ensures consistent display of completed gameweeks without race conditions.
+   *
+   * @param {number} finalGW - The completed gameweek from winners data
+   * @param {string} source - Source of the update (must be 'winners')
+   */
+  function updateHeaderGW(finalGW, source = 'unknown') {
+    // Guard: Only accept valid gameweek numbers
+    if (typeof finalGW !== 'number' || !Number.isFinite(finalGW) || finalGW < 1) {
+      return;
+    }
+
+    // Guard: Idempotent - no DOM write if same value
+    if (headerState.finalGW === finalGW) {
+      return;
+    }
+
+    // HARD BLOCK: Only winners data allowed
+    if (source !== 'winners') {
+      return;
+    }
+
+    // Update central state
+    headerState.finalGW = finalGW;
+    headerState.ready = true;
+    headerState.lastUpdate = Date.now();
+
+    // Update all relevant DOM elements atomically
+    const elements = [
+      document.getElementById('winners-after-gw'),
+      document.getElementById('winners-page-after-gw'),
+      document.getElementById('leaderboard-after-gw'),
+    ];
+
+    elements.forEach((el) => {
+      if (el) {
+        el.textContent = `After GW${finalGW}`;
+        el.style.display = 'inline';
+        el.classList.add('show');
+      }
+    });
+  }
 
   /**
    * Show during-season UI
@@ -417,40 +470,26 @@ window.FPLUIManager = (function () {
    * Update winners header with GW information
    */
   function updateWinnersHeaderGW() {
-    const el =
-      document.getElementById('winners-after-gw') ||
-      document.getElementById('winners-page-after-gw');
-    if (!el) return;
+    // DELEGATE to single source header updater
     const gwId = FPLDataLoader.getLastFinishedGW();
+    const hasWinnerData = FPLDataLoader._lastProcessedGW !== undefined;
+    const hasSeasonData = FPLDataLoader._lastGwId !== undefined;
+    const source = hasWinnerData ? 'winners' : hasSeasonData ? 'season' : 'unknown';
 
-    if (typeof gwId === 'number' && gwId > 0) {
-      el.textContent = `After GW${gwId}`;
-      el.style.display = 'inline';
-      el.classList.add('show');
-    } else {
-      el.textContent = '';
-      el.style.display = 'none';
-      el.classList.remove('show');
-    }
+    updateHeaderGW(gwId, source);
   }
 
   /**
    * Update leaderboard header with GW information
    */
   function updateLeaderboardHeaderGW() {
-    const el = document.getElementById('leaderboard-after-gw');
-    if (!el) return;
+    // DELEGATE to single source header updater
     const gwId = FPLDataLoader.getLastFinishedGW();
+    const hasWinnerData = FPLDataLoader._lastProcessedGW !== undefined;
+    const hasSeasonData = FPLDataLoader._lastGwId !== undefined;
+    const source = hasWinnerData ? 'winners' : hasSeasonData ? 'season' : 'unknown';
 
-    if (typeof gwId === 'number' && gwId > 0) {
-      el.textContent = `After GW${gwId}`;
-      el.style.display = 'inline';
-      el.classList.add('show');
-    } else {
-      el.textContent = '';
-      el.style.display = 'none';
-      el.classList.remove('show');
-    }
+    updateHeaderGW(gwId, source);
   }
 
   /**
@@ -858,94 +897,6 @@ window.FPLUIManager = (function () {
   }
 
   /**
-   * Get the last finished gameweek
-   */
-  function getLastFinishedGW() {
-    if (typeof _lastProcessedGW === 'number') {
-      if (!Number.isFinite(_lastProcessedGW) || _lastProcessedGW < 0 || _lastProcessedGW > 1000) {
-        return null;
-      }
-      try {
-        const nextGwId =
-          typeof _lastGwId === 'number'
-            ? _lastGwId
-            : FPLDataLoader.getCachedGameweek() && FPLDataLoader.getCachedGameweek().id;
-        if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
-          console.warn(
-            '[GW WARN] completedGameweeks (from winners JSON) is ahead of nextGw-1:',
-            _lastProcessedGW,
-            'nextGwId=',
-            nextGwId
-          );
-        }
-      } catch (e) {}
-      console.debug('[GW] using completedGameweeks from winners JSON ->', _lastProcessedGW);
-      return _lastProcessedGW;
-    }
-
-    if (typeof _lastGwId === 'number' && _lastGwId > 0) return _lastGwId - 1;
-    const gwFromCache = FPLDataLoader.getCachedGameweek();
-    if (gwFromCache && typeof gwFromCache.id === 'number') return gwFromCache.id - 1;
-    return null;
-  }
-
-  /**
-   * Update winners header with GW info
-   */
-  function updateWinnersHeaderGW() {
-    const el =
-      document.getElementById('winners-after-gw') ||
-      document.getElementById('winners-page-after-gw');
-    if (!el) return;
-    const gwId = getLastFinishedGW();
-
-    try {
-      if (FPLUtils.isAdminMode()) {
-        const cached = FPLDataLoader.getCachedGameweek();
-        console.debug(
-          '[GW DEBUG] _lastProcessedGW=',
-          _lastProcessedGW,
-          '_lastGwId=',
-          _lastGwId,
-          'cached=',
-          cached,
-          '-> resolvedGW=',
-          gwId
-        );
-      }
-    } catch (e) {}
-
-    if (typeof gwId === 'number' && gwId > 0) {
-      el.textContent = `After GW${gwId}`;
-      el.style.display = 'inline';
-      el.classList.add('show');
-    } else {
-      el.textContent = '';
-      el.style.display = 'none';
-      el.classList.remove('show');
-    }
-  }
-
-  /**
-   * Update leaderboard header with GW info
-   */
-  function updateLeaderboardHeaderGW() {
-    const el = document.getElementById('leaderboard-after-gw');
-    if (!el) return;
-    const gwId = getLastFinishedGW();
-
-    if (typeof gwId === 'number' && gwId > 0) {
-      el.textContent = `After GW${gwId}`;
-      el.style.display = 'inline';
-      el.classList.add('show');
-    } else {
-      el.textContent = '';
-      el.style.display = 'none';
-      el.classList.remove('show');
-    }
-  }
-
-  /**
    * Attach admin badge to countdown label
    */
   function attachAdminBadge() {
@@ -995,7 +946,6 @@ window.FPLUIManager = (function () {
     updateLeaderboardHeaderGW,
     attachAdminBadge,
     setLastSyncInfo,
-    getLastFinishedGW,
     showSyncedJustNow,
     removeCachedLabel,
     updateQAPanel,
@@ -1003,8 +953,59 @@ window.FPLUIManager = (function () {
     toggleSeasonMode,
     updatePhaseToggleButtons,
     openWinnersWithToggledPhase,
+    updateHeaderGW, // NEW: Single source header updater
     setUsedCachedOnLoad: (value) => (usedCachedOnLoad = value),
     getUsedCachedOnLoad: () => usedCachedOnLoad,
-    setLastProcessedGW: (gw) => (_lastProcessedGW = gw),
+
+    // DEV UTILITY: Test header updates with mock data
+    testHeaderUpdate: (mockGW = 2, delayMs = 1000) => {
+      console.log(
+        `[TEST] Starting header rollover test: current=${headerState.finalGW} -> mock=${mockGW}`
+      );
+      const startTime = Date.now();
+
+      // Simulate rollover after delay
+      setTimeout(() => {
+        const elapsed = Date.now() - startTime;
+        console.log(`[TEST] After ${elapsed}ms: calling updateHeaderGW(${mockGW}, 'winners')`);
+        updateHeaderGW(mockGW, 'winners');
+
+        // Verify idempotent behavior
+        setTimeout(() => {
+          console.log(
+            `[TEST] Testing idempotency: calling updateHeaderGW(${mockGW}, 'winners') again`
+          );
+          updateHeaderGW(mockGW, 'winners');
+          console.log(
+            `[TEST] Header state: finalGW=${headerState.finalGW}, ready=${headerState.ready}`
+          );
+        }, 100);
+      }, delayMs);
+    },
+    setLastProcessedGW: (gw) => {
+      if (typeof gw === 'number' && Number.isFinite(gw)) {
+        _lastProcessedGW = gw;
+        console.debug('[GW] UI Manager set _lastProcessedGW:', gw);
+
+        // SINGLE SOURCE TRIGGER: Update headers immediately when winner data is available
+        updateHeaderGW(gw, 'winners');
+
+        // Issue #37 Prevention: Validate against next GW if available
+        if (typeof _lastGwId === 'number' && _lastGwId > 0) {
+          const expectedMax = _lastGwId - 1;
+          if (gw > expectedMax) {
+            console.warn(
+              '[GW] Issue #37 Prevention in UI Manager: completedGameweeks (',
+              gw,
+              ') exceeds expected max (',
+              expectedMax,
+              ') based on nextGW (',
+              _lastGwId,
+              ')'
+            );
+          }
+        }
+      }
+    },
   };
 })();

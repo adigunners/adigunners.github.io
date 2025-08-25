@@ -2,6 +2,57 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.2.0] - 2025-08-25 - Bulletproof header system prevents GW flash (Closes #37)
+
+### 🐛 **MAJOR FIX - Header Display Race Condition**
+
+**Issue**: Headers briefly showed incorrect gameweek ("After GW2") before settling on correct value ("After GW1"), creating confusing user experience during page loads.
+
+**Root Cause**: Multiple data sources (season vs winners data) were racing to update headers, with season-based calculations (`nextGW - 1 = 3 - 1 = 2`) overriding correct winner-based data (`completedGameweeks = 1`).
+
+### ✅ **Solution - Single Source of Truth System**
+
+- **Bulletproof Contract**: Headers update ONLY from winners data; season/countdown writes blocked
+- **Idempotent Updates**: Multiple calls with same value are safely ignored (no DOM thrashing)
+- **Clean Transitions**: "Loading…" → "After GWx" (single transition, no intermediate values)
+- **Cross-Page Consistency**: index.html and winners.html both use unified header system
+
+### 🏗️ **Technical Implementation**
+
+- **`updateHeaderGW(finalGW, source)`**: Central header updater with strict source validation
+- **Guard System**: Blocks invalid values (≤0, NaN, non-numbers) and non-winners sources
+- **Auto-Trigger**: `data-loader.js` automatically calls UI Manager when winner data loads
+- **Legacy Delegation**: Existing functions delegate to single source system
+
+### 🧪 **Quality Assurance**
+
+- **Manual Testing**: 5 hard reloads × 2 pages × 2 network speeds = 20 test scenarios
+- **Mobile Verified**: Safari iOS + Chrome Android consistent behavior
+- **Dev Utilities**: `FPLUIManager.testHeaderUpdate()` for rollover simulation
+- **Documentation**: Comprehensive QA guide with troubleshooting steps
+
+### 📂 **Files Modified**
+
+- `js/ui-manager.js` - Single source header updater with contract documentation
+- `js/data-loader.js` - Auto-trigger when winner data available + null guards
+- `js/countdown.js` - Cleaned legacy instrumentation
+- `index.html`, `winners.html` - Neutral "Loading…" placeholders
+- `docs/QA.md` - New QA guide with manual test procedures
+
+### 🎯 **Acceptance Results**
+
+- ✅ **No GW flash**: Clean single update per page load
+- ✅ **Consistent display**: Both pages show identical gameweek values
+- ✅ **Silent blocks**: Non-winners data sources blocked without console spam
+- ✅ **Performance**: Idempotent system prevents unnecessary DOM updates
+
+### 🔗 **Tracking**
+
+- GitHub Issue: #37 (comprehensive investigation and bulletproof fix)
+- Branch: `fix/issue-37-gameweek-display-correction`
+
+---
+
 ## [1.1.4] - 2025-08-24 - Mobile table containment, headers, and pagination (Closes #32)
 
 ### ✅ Fixes

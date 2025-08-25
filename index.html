@@ -434,7 +434,7 @@
         >
           <h2 class="winners-heading" id="winners-heading">
             <span class="heading-main">🎆 Top Earners So Far</span>
-            <span class="heading-subtitle" id="winners-after-gw"></span>
+            <span class="heading-subtitle" id="winners-after-gw">Loading…</span>
           </h2>
           <p>Leading players and their prize money achievements this season.</p>
 
@@ -459,7 +459,7 @@
         >
           <h2 class="winners-heading" id="leaderboard-heading">
             <span class="heading-main">🏆 League Standings</span>
-            <span class="heading-subtitle" id="leaderboard-after-gw"></span>
+            <span class="heading-subtitle" id="leaderboard-after-gw">Loading…</span>
           </h2>
           <p>Complete league table showing all players ranked by their overall FPL performance.</p>
 
@@ -856,106 +856,18 @@
         return FPLUIManager.setLastSyncInfo(gwId, iso);
       }
 
-      // Return the last finished GW id.
-      // Logic: prefer explicit completed gameweeks value from winners data (summary.completedGameweeks).
-      // Fallback: derive from the next-gameweek id (`_lastGwId` or cached `fpl_cached_gw`) by subtracting 1.
+      // Issue #37 Holistic Fix: Use modular system only, no duplicate functions
       function getLastFinishedGW() {
-        // Prefer explicit processed GW when available and plausible.
-        // If next-GW (nextGwId) is available and >1, ensure processedGW isn't ahead of it.
-        // If nextGwId is missing or <=1 (season finished / wrapped), accept processedGW.
-        if (typeof _lastProcessedGW === 'number') {
-          // Basic sanity bounds
-          if (
-            !Number.isFinite(_lastProcessedGW) ||
-            _lastProcessedGW < 0 ||
-            _lastProcessedGW > 1000
-          ) {
-            return null;
-          }
-          // Prefer the processed GW reported in the winners JSON for both live and test modes.
-          // This file is the authoritative snapshot of processed/completed GWs per dataset.
-          try {
-            const nextGwId =
-              typeof _lastGwId === 'number'
-                ? _lastGwId
-                : FPLDataLoader.getCachedGameweek() && FPLDataLoader.getCachedGameweek().id;
-            if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
-              // Mismatch: processed GW is ahead of nextGw-1 (could be cross-season/test snapshot)
-              console.warn(
-                '[GW WARN] completedGameweeks (from winners JSON) is ahead of nextGw-1:',
-                _lastProcessedGW,
-                'nextGwId=',
-                nextGwId
-              );
-            }
-          } catch (e) {}
-          console.debug('[GW] using completedGameweeks from winners JSON ->', _lastProcessedGW);
-          return _lastProcessedGW;
-        }
-
-        // Fallbacks: prefer last known next GW minus one (if present), otherwise cached GW.
-        if (typeof _lastGwId === 'number' && _lastGwId > 0) return _lastGwId - 1;
-        const gwFromCache = FPLDataLoader.getCachedGameweek();
-        if (gwFromCache && typeof gwFromCache.id === 'number') return gwFromCache.id - 1;
-        return null;
+        return FPLDataLoader.getLastFinishedGW();
       }
 
-      // Update the winners subtitle to show "After GWx" when we know the last finished GW
+      // Issue #37 Holistic Fix: Use modular system only
       function updateWinnersHeaderGW() {
         return FPLUIManager.updateWinnersHeaderGW();
       }
 
-      // Legacy function
-      function updateWinnersHeaderGWLegacy() {
-        const el = document.getElementById('winners-after-gw');
-        if (!el) return;
-        const gwId = getLastFinishedGW();
-        // Admin/test-only debug: show why a particular GW was chosen
-        try {
-          if (isAdminMode()) {
-            const cached = FPLDataLoader.getCachedGameweek();
-            console.debug(
-              '[GW DEBUG] _lastProcessedGW=',
-              _lastProcessedGW,
-              '_lastGwId=',
-              _lastGwId,
-              'cached=',
-              cached,
-              '-> resolvedGW=',
-              gwId
-            );
-          }
-        } catch (e) {}
-        if (typeof gwId === 'number' && gwId > 0) {
-          el.textContent = `After GW${gwId}`;
-          el.style.display = 'inline';
-          el.classList.add('show');
-        } else {
-          el.textContent = '';
-          el.style.display = 'none';
-          el.classList.remove('show');
-        }
-      }
-
-      // Mirror for leaderboard heading
       function updateLeaderboardHeaderGW() {
         return FPLUIManager.updateLeaderboardHeaderGW();
-      }
-
-      // Legacy function
-      function updateLeaderboardHeaderGWLegacy() {
-        const el = document.getElementById('leaderboard-after-gw');
-        if (!el) return;
-        const gwId = getLastFinishedGW();
-        if (typeof gwId === 'number' && gwId > 0) {
-          el.textContent = `After GW${gwId}`;
-          el.style.display = 'inline';
-          el.classList.add('show');
-        } else {
-          el.textContent = '';
-          el.style.display = 'none';
-          el.classList.remove('show');
-        }
       }
 
       function attachAdminBadge() {
@@ -1095,19 +1007,30 @@
             }
 
             displayWinnerPreview(data.winners, containerId, summaryId);
-            // capture completed gameweeks from winners summary if available
-            if (data.summary && data.summary.completedGameweeks !== undefined) {
-              // Use completedGameweeks for the GW display instead of lastProcessedGW
-              const parsed = Number(data.summary.completedGameweeks);
-              if (!Number.isNaN(parsed)) {
-                _lastProcessedGW = parsed;
-              }
-            }
-            // Refresh any headers that show "After GWx"
-            try {
-              updateWinnersHeaderGW();
-              updateLeaderboardHeaderGW();
-            } catch (e) {}
+
+            // Issue #37 Critical Fix: Ensure data-loader also captures this data
+            // This syncs both the UI Manager and Data Loader modules
+            FPLDataLoader.loadWinnerPreview()
+              .then(() => {
+                console.debug('[GW] Successfully synced winner data with data-loader');
+                // Refresh any headers that show "After GWx" after syncing
+                try {
+                  updateWinnersHeaderGW();
+                  updateLeaderboardHeaderGW();
+                } catch (e) {
+                  console.warn('Header update failed after sync:', e);
+                }
+              })
+              .catch((e) => {
+                console.warn('Failed to sync winner data with data-loader:', e);
+                // Still try to update headers with current data
+                try {
+                  updateWinnersHeaderGW();
+                  updateLeaderboardHeaderGW();
+                } catch (e2) {
+                  console.warn('Header update failed:', e2);
+                }
+              });
             updateQAPanel();
             return data;
           })
@@ -1331,9 +1254,7 @@
         // Load FPL season data first
         loadFPLSeasonData();
 
-        // Ensure winners + leaderboard headers reflect known GW on initial load
-        updateWinnersHeaderGW();
-        updateLeaderboardHeaderGW();
+        // Headers will be updated when data loads (lines 1018, 1334)
 
         // Safety: if nothing has shown the countdown within 1500ms, try to use cached data or show appropriate fallback
         setTimeout(() => {
@@ -1402,13 +1323,28 @@
               seasonDataSource,
             });
 
-            // Reflect latest GW in winners + leaderboard headers
-            try {
-              updateWinnersHeaderGW();
-              updateLeaderboardHeaderGW();
-            } catch (e) {
-              console.warn('Header GW update failed:', e);
-            }
+            // Issue #37 Final Fix: After season data loads, ensure winner data is synced BEFORE updating headers
+            FPLDataLoader.loadWinnerPreview()
+              .then(() => {
+                console.debug('[GW] Season data loaded, winner data synced, now updating headers');
+                // Now both modules have consistent data - update headers
+                try {
+                  updateWinnersHeaderGW();
+                  updateLeaderboardHeaderGW();
+                } catch (e) {
+                  console.warn('Header GW update failed after sync:', e);
+                }
+              })
+              .catch((e) => {
+                console.warn('Failed to sync winner data after season load:', e);
+                // Still try to update headers
+                try {
+                  updateWinnersHeaderGW();
+                  updateLeaderboardHeaderGW();
+                } catch (e2) {
+                  console.warn('Header GW update failed:', e2);
+                }
+              });
 
             // Delegate UI and countdown to shared modules
             try {

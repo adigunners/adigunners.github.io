@@ -120,7 +120,7 @@
         <section aria-labelledby="winners-heading">
           <h2 class="winners-heading" id="winners-page-heading">
             <span class="heading-main" id="winners-heading">🏅 Complete Winner Rankings</span>
-            <span class="heading-subtitle" id="winners-page-after-gw"></span>
+            <span class="heading-subtitle" id="winners-page-after-gw">Loading…</span>
           </h2>
           <p>All players ranked by total prize money won this season.</p>
 
@@ -300,6 +300,14 @@
             }
 
             displayWinnerTable();
+
+            // Update subtitle using shared modular system - Issue #37 Fix
+            try {
+              FPLUIManager.setLastProcessedGW(data.summary?.completedGameweeks);
+              FPLUIManager.updateWinnersHeaderGW();
+            } catch (e) {
+              console.warn('Failed to update winners subtitle:', e);
+            }
           })
           .catch((error) => {
             console.error('Error loading winner data:', error);
