@@ -61,13 +61,20 @@ window.FPLUIManager = (function () {
       document.getElementById('leaderboard-after-gw'),
     ];
 
-    elements.forEach((el) => {
+    let updatedCount = 0;
+    elements.forEach((el, idx) => {
+      const ids = ['winners-after-gw', 'winners-page-after-gw', 'leaderboard-after-gw'];
       if (el) {
         el.textContent = `After GW${finalGW}`;
         el.style.display = 'inline';
         el.classList.add('show');
+        updatedCount++;
+      } else {
+        console.log(`[${t()}] updateHeaderGW: element ${ids[idx]} not found on this page`);
       }
     });
+
+    console.log(`[${t()}] updateHeaderGW: updated ${updatedCount}/3 DOM elements`);
 
     console.log(`[${t()}] updateHeaderGW SUCCESS: finalGW=${finalGW} from source=${source}`);
   }
