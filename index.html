@@ -856,15 +856,12 @@
         return FPLUIManager.setLastSyncInfo(gwId, iso);
       }
 
-      // Return the last finished GW id.
+      // Return the last finished GW id - Issue #37 Fixed
       // Logic: prefer explicit completed gameweeks value from winners data (summary.completedGameweeks).
       // Fallback: derive from the next-gameweek id (`_lastGwId` or cached `fpl_cached_gw`) by subtracting 1.
       function getLastFinishedGW() {
-        // Prefer explicit processed GW when available and plausible.
-        // If next-GW (nextGwId) is available and >1, ensure processedGW isn't ahead of it.
-        // If nextGwId is missing or <=1 (season finished / wrapped), accept processedGW.
+        // Prioritize completedGameweeks from winner data (most reliable)
         if (typeof _lastProcessedGW === 'number') {
-          // Basic sanity bounds
           if (
             !Number.isFinite(_lastProcessedGW) ||
             _lastProcessedGW < 0 ||
@@ -872,15 +869,14 @@
           ) {
             return null;
           }
-          // Prefer the processed GW reported in the winners JSON for both live and test modes.
-          // This file is the authoritative snapshot of processed/completed GWs per dataset.
+
+          // Data consistency validation
           try {
             const nextGwId =
               typeof _lastGwId === 'number'
                 ? _lastGwId
                 : FPLDataLoader.getCachedGameweek() && FPLDataLoader.getCachedGameweek().id;
             if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
-              // Mismatch: processed GW is ahead of nextGw-1 (could be cross-season/test snapshot)
               console.warn(
                 '[GW WARN] completedGameweeks (from winners JSON) is ahead of nextGw-1:',
                 _lastProcessedGW,
@@ -889,14 +885,49 @@
               );
             }
           } catch (e) {}
-          console.debug('[GW] using completedGameweeks from winners JSON ->', _lastProcessedGW);
+
+          console.debug('[GW] Using completedGameweeks from winners JSON:', _lastProcessedGW);
           return _lastProcessedGW;
         }
 
-        // Fallbacks: prefer last known next GW minus one (if present), otherwise cached GW.
-        if (typeof _lastGwId === 'number' && _lastGwId > 0) return _lastGwId - 1;
+        // Fallback to next GW calculation (with validation)
+        if (typeof _lastGwId === 'number' && _lastGwId > 0) {
+          const calculatedFinished = _lastGwId - 1;
+          console.debug('[GW] Using next GW calculation:', _lastGwId, '- 1 =', calculatedFinished);
+
+          // Validation: Don't show "After GW0" or negative values
+          if (calculatedFinished < 1) {
+            console.warn(
+              '[GW] Calculated finished GW is < 1, hiding subtitle:',
+              calculatedFinished
+            );
+            return null;
+          }
+
+          return calculatedFinished;
+        }
+
+        // Final fallback to cached gameweek data
         const gwFromCache = FPLDataLoader.getCachedGameweek();
-        if (gwFromCache && typeof gwFromCache.id === 'number') return gwFromCache.id - 1;
+        if (gwFromCache && typeof gwFromCache.id === 'number') {
+          const calculatedFromCache = gwFromCache.id - 1;
+          console.debug(
+            '[GW] Using cached gameweek calculation:',
+            gwFromCache.id,
+            '- 1 =',
+            calculatedFromCache
+          );
+
+          // Validation: Don't show "After GW0" or negative values
+          if (calculatedFromCache < 1) {
+            console.warn('[GW] Cached finished GW is < 1, hiding subtitle:', calculatedFromCache);
+            return null;
+          }
+
+          return calculatedFromCache;
+        }
+
+        console.debug('[GW] No reliable gameweek data available');
         return null;
       }
 
