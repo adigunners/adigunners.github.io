@@ -2,6 +2,35 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.2.1] - 2025-08-25 - Winners table hides zero-prize rows with preserved Top-3 highlighting
+
+### 🐛 **Bug Fix - Zero-Prize Row Visibility**
+
+**Issue**: Winners table displayed all 54 players including those with ₹0 prizes, cluttering the view and reducing focus on actual winners.
+
+**Root Cause**: Rendering logic used unfiltered `allWinners` array without checking `totalPrizeWon > 0`, and Top-3 highlighting was based on page index rather than global position in prize-sorted list.
+
+### ✅ **Solution - Filtered Display with Global Ranking**
+
+- **Zero-Prize Filter**: Only display players with `totalPrizeWon > 0` (49 from 54 total)
+- **Global Top-3**: Highlighting uses position in filtered, prize-sorted array (not per-page)
+- **Accurate Pagination**: Page count based on filtered winners, not total players
+- **Stats Correction**: Winner count and total prize money reflect filtered data
+- **Empty State**: Shows "No prize winners yet" when no prizes awarded
+
+### 🎨 **Visual Enhancement - Border Containment Fix**
+
+**Issue**: Top-3 highlight borders bled outside rounded table boundaries, creating visual overflow.
+
+**Solution**: Wrapper-level containment using `.table-scroll` with `overflow: hidden` and `box-shadow: inset` highlighting method to keep borders within table edges while preserving sticky header functionality.
+
+### 📊 **Impact**
+
+- **Data Accuracy**: 54 players → 49 displayed (hides 5 zero-prize players)
+- **User Focus**: Clean view showing only meaningful winners
+- **Visual Polish**: Professional highlight borders contained within table boundaries
+- **Responsive**: Works consistently across all breakpoints (320px-1440px+)
+
 ## [1.2.0] - 2025-08-25 - Bulletproof header system prevents GW flash (Closes #37)
 
 ### 🐛 **MAJOR FIX - Header Display Race Condition**
