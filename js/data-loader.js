@@ -289,6 +289,14 @@ window.FPLDataLoader = (function () {
             console.log(`[${t()}] winners_data_ready: completedGWs=${_lastProcessedGW}`);
             console.debug('[GW] Set _lastProcessedGW from winner data:', _lastProcessedGW);
 
+            // TRIGGER: Notify UI Manager to update headers (needed for index.html)
+            if (window.FPLUIManager && typeof FPLUIManager.setLastProcessedGW === 'function') {
+              console.log(
+                `[${t()}] data-loader triggering FPLUIManager.setLastProcessedGW(${_lastProcessedGW})`
+              );
+              FPLUIManager.setLastProcessedGW(_lastProcessedGW);
+            }
+
             // Issue #37 Prevention: Validate against next GW if available
             if (typeof _lastGwId === 'number' && _lastGwId > 0) {
               const expectedMax = _lastGwId - 1;
