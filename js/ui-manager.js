@@ -58,6 +58,31 @@ window.FPLUIManager = (function () {
           )
           .catch(console.error);
 
+        // Load leaderboard data for League Standings in test mode as well
+        FPLDataLoader.loadLeaderboardData()
+          .then((data) => {
+            if (data && data.winners) {
+              // Populate the global leaderboardData variable that displayLeaderboard expects
+              window.leaderboardData = data.winners
+                .filter(
+                  (winner) =>
+                    winner.highlights &&
+                    winner.highlights.overallRank !== null &&
+                    winner.highlights.overallRank !== undefined
+                )
+                .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+
+              if (typeof window.displayLeaderboard === 'function') {
+                window.displayLeaderboard();
+              }
+
+              try {
+                FPLDataLoader.updateDataTimestamp('leaderboard', data.lastUpdated);
+              } catch {}
+            }
+          })
+          .catch(console.error);
+
         if (gameweek) {
           FPLCountdown.updateGameweekCountdown(gameweek);
         } else {
@@ -113,6 +138,31 @@ window.FPLUIManager = (function () {
           .then((data) =>
             displayWinnerPreview(data.winners, 'winner-preview-container', 'winner-summary')
           )
+          .catch(console.error);
+
+        // Load leaderboard data for League Standings in test mode as well
+        FPLDataLoader.loadLeaderboardData()
+          .then((data) => {
+            if (data && data.winners) {
+              // Populate the global leaderboardData variable that displayLeaderboard expects
+              window.leaderboardData = data.winners
+                .filter(
+                  (winner) =>
+                    winner.highlights &&
+                    winner.highlights.overallRank !== null &&
+                    winner.highlights.overallRank !== undefined
+                )
+                .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+
+              if (typeof window.displayLeaderboard === 'function') {
+                window.displayLeaderboard();
+              }
+
+              try {
+                FPLDataLoader.updateDataTimestamp('leaderboard', data.lastUpdated);
+              } catch {}
+            }
+          })
           .catch(console.error);
 
         if (gameweek) {
