@@ -281,8 +281,25 @@ window.FPLDataLoader = (function () {
         // Capture completed gameweeks from winners summary if available
         if (data.summary && data.summary.completedGameweeks !== undefined) {
           const parsed = Number(data.summary.completedGameweeks);
-          if (!Number.isNaN(parsed)) {
+          if (!Number.isNaN(parsed) && Number.isFinite(parsed)) {
             _lastProcessedGW = parsed;
+            console.debug('[GW] Set _lastProcessedGW from winner data:', _lastProcessedGW);
+
+            // Issue #37 Prevention: Validate against next GW if available
+            if (typeof _lastGwId === 'number' && _lastGwId > 0) {
+              const expectedMax = _lastGwId - 1;
+              if (_lastProcessedGW > expectedMax) {
+                console.warn(
+                  '[GW] Issue #37 Prevention: completedGameweeks (',
+                  _lastProcessedGW,
+                  ') exceeds expected max (',
+                  expectedMax,
+                  ') based on nextGW (',
+                  _lastGwId,
+                  ')'
+                );
+              }
+            }
           }
         }
 
@@ -352,16 +369,50 @@ window.FPLDataLoader = (function () {
   }
 
   function getLastFinishedGW() {
+    // Prioritize completedGameweeks from winner data (most reliable)
     if (typeof _lastProcessedGW === 'number') {
       if (!Number.isFinite(_lastProcessedGW) || _lastProcessedGW < 0 || _lastProcessedGW > 1000) {
         return null;
       }
+      console.debug('[GW] Using completedGameweeks from winner data:', _lastProcessedGW);
       return _lastProcessedGW;
     }
 
-    if (typeof _lastGwId === 'number' && _lastGwId > 0) return _lastGwId - 1;
+    // Fallback to next GW calculation (with validation)
+    if (typeof _lastGwId === 'number' && _lastGwId > 0) {
+      const calculatedFinished = _lastGwId - 1;
+      console.debug('[GW] Using next GW calculation:', _lastGwId, '- 1 =', calculatedFinished);
+
+      // Validation: Don't show "After GW0" or negative values
+      if (calculatedFinished < 1) {
+        console.warn('[GW] Calculated finished GW is < 1, hiding subtitle:', calculatedFinished);
+        return null;
+      }
+
+      return calculatedFinished;
+    }
+
+    // Final fallback to cached gameweek data
     const gwFromCache = getCachedGameweek();
-    if (gwFromCache && typeof gwFromCache.id === 'number') return gwFromCache.id - 1;
+    if (gwFromCache && typeof gwFromCache.id === 'number') {
+      const calculatedFromCache = gwFromCache.id - 1;
+      console.debug(
+        '[GW] Using cached gameweek calculation:',
+        gwFromCache.id,
+        '- 1 =',
+        calculatedFromCache
+      );
+
+      // Validation: Don't show "After GW0" or negative values
+      if (calculatedFromCache < 1) {
+        console.warn('[GW] Cached finished GW is < 1, hiding subtitle:', calculatedFromCache);
+        return null;
+      }
+
+      return calculatedFromCache;
+    }
+
+    console.debug('[GW] No reliable gameweek data available');
     return null;
   }
 
