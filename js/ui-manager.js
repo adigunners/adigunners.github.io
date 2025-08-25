@@ -858,25 +858,6 @@ window.FPLUIManager = (function () {
   }
 
   /**
-   * Update leaderboard header with GW info
-   */
-  function updateLeaderboardHeaderGW() {
-    const el = document.getElementById('leaderboard-after-gw');
-    if (!el) return;
-    const gwId = FPLDataLoader.getLastFinishedGW();
-
-    if (typeof gwId === 'number' && gwId > 0) {
-      el.textContent = `After GW${gwId}`;
-      el.style.display = 'inline';
-      el.classList.add('show');
-    } else {
-      el.textContent = '';
-      el.style.display = 'none';
-      el.classList.remove('show');
-    }
-  }
-
-  /**
    * Attach admin badge to countdown label
    */
   function attachAdminBadge() {
