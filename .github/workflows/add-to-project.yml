@@ -1,23 +1,27 @@
-name: Add issues and PRs to Project
+name: Add PR to Project
 
 on:
-  issues:
-    types: [opened, reopened, labeled]
   pull_request:
-    types: [opened, reopened, ready_for_review]
+    branches: [main]
+    types: [opened, reopened, ready_for_review, synchronize]
+  workflow_dispatch:
 
 permissions:
   contents: read
-  issues: write
   pull-requests: write
-  projects: write
+  repository-projects: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   add-to-project:
+    if: github.event.pull_request.draft == false && github.repository_owner == 'adigunners'
     runs-on: ubuntu-latest
     steps:
-      - name: Add to project board
+      - name: Add PR to project
         uses: actions/add-to-project@v0.5.0
         with:
-          project-url: https://github.com/users/adigunners/projects/1
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          project-url: https://github.com/users/adigunners/projects/1 # update if different
+          github-token: ${{ secrets.PROJECTS_TOKEN }} # classic PAT with repo + project

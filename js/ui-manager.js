@@ -6,9 +6,71 @@
 window.FPLUIManager = (function () {
   'use strict';
 
+  // SINGLE SOURCE OF TRUTH: Central header state store
+  const headerState = {
+    finalGW: null,
+    ready: false,
+    lastUpdate: null,
+  };
+
   let seasonActiveLock = false;
   let usedCachedOnLoad = false;
   const SYNC_BADGE_ENABLED = true;
+
+  /**
+   * SINGLE SOURCE: Idempotent header updater - only accepts winner data
+   * @param {number} finalGW - The completed gameweek from winners data
+   * @param {string} source - Source of the update (for logging)
+   */
+  function updateHeaderGW(finalGW, source = 'unknown') {
+    const t = () => performance.now().toFixed(1);
+
+    // Guard: Only accept numbers >= 1
+    if (typeof finalGW !== 'number' || finalGW < 1) {
+      console.log(
+        `[${t()}] updateHeaderGW BLOCKED: invalid finalGW=${finalGW} from source=${source}`
+      );
+      return;
+    }
+
+    // Guard: Idempotent - no DOM write if same value
+    if (headerState.finalGW === finalGW) {
+      console.log(
+        `[${t()}] updateHeaderGW SKIPPED: finalGW=${finalGW} unchanged from source=${source}`
+      );
+      return;
+    }
+
+    // HARD BLOCK: Only winners data allowed
+    if (source !== 'winners') {
+      console.warn(
+        `[${t()}] season/countdown header write blocked; winners is source of truth (attempted: source=${source}, gw=${finalGW})`
+      );
+      return;
+    }
+
+    // Update central state
+    headerState.finalGW = finalGW;
+    headerState.ready = true;
+    headerState.lastUpdate = Date.now();
+
+    // Update DOM elements
+    const elements = [
+      document.getElementById('winners-after-gw'),
+      document.getElementById('winners-page-after-gw'),
+      document.getElementById('leaderboard-after-gw'),
+    ];
+
+    elements.forEach((el) => {
+      if (el) {
+        el.textContent = `After GW${finalGW}`;
+        el.style.display = 'inline';
+        el.classList.add('show');
+      }
+    });
+
+    console.log(`[${t()}] updateHeaderGW SUCCESS: finalGW=${finalGW} from source=${source}`);
+  }
 
   /**
    * Show during-season UI
@@ -417,40 +479,36 @@ window.FPLUIManager = (function () {
    * Update winners header with GW information
    */
   function updateWinnersHeaderGW() {
-    const el =
-      document.getElementById('winners-after-gw') ||
-      document.getElementById('winners-page-after-gw');
-    if (!el) return;
-    const gwId = FPLDataLoader.getLastFinishedGW();
+    const t = () => performance.now().toFixed(1);
 
-    if (typeof gwId === 'number' && gwId > 0) {
-      el.textContent = `After GW${gwId}`;
-      el.style.display = 'inline';
-      el.classList.add('show');
-    } else {
-      el.textContent = '';
-      el.style.display = 'none';
-      el.classList.remove('show');
-    }
+    // DELEGATE to single source header updater
+    const gwId = FPLDataLoader.getLastFinishedGW();
+    const hasWinnerData = FPLDataLoader._lastProcessedGW !== undefined;
+    const hasSeasonData = FPLDataLoader._lastGwId !== undefined;
+    const source = hasWinnerData ? 'winners' : hasSeasonData ? 'season' : 'unknown';
+
+    console.log(
+      `[${t()}] updateWinnersHeaderGW LEGACY: delegating to updateHeaderGW(gw=${gwId}, source=${source})`
+    );
+    updateHeaderGW(gwId, source);
   }
 
   /**
    * Update leaderboard header with GW information
    */
   function updateLeaderboardHeaderGW() {
-    const el = document.getElementById('leaderboard-after-gw');
-    if (!el) return;
-    const gwId = FPLDataLoader.getLastFinishedGW();
+    const t = () => performance.now().toFixed(1);
 
-    if (typeof gwId === 'number' && gwId > 0) {
-      el.textContent = `After GW${gwId}`;
-      el.style.display = 'inline';
-      el.classList.add('show');
-    } else {
-      el.textContent = '';
-      el.style.display = 'none';
-      el.classList.remove('show');
-    }
+    // DELEGATE to single source header updater
+    const gwId = FPLDataLoader.getLastFinishedGW();
+    const hasWinnerData = FPLDataLoader._lastProcessedGW !== undefined;
+    const hasSeasonData = FPLDataLoader._lastGwId !== undefined;
+    const source = hasWinnerData ? 'winners' : hasSeasonData ? 'season' : 'unknown';
+
+    console.log(
+      `[${t()}] updateLeaderboardHeaderGW LEGACY: delegating to updateHeaderGW(gw=${gwId}, source=${source})`
+    );
+    updateHeaderGW(gwId, source);
   }
 
   /**
@@ -914,12 +972,16 @@ window.FPLUIManager = (function () {
     toggleSeasonMode,
     updatePhaseToggleButtons,
     openWinnersWithToggledPhase,
+    updateHeaderGW, // NEW: Single source header updater
     setUsedCachedOnLoad: (value) => (usedCachedOnLoad = value),
     getUsedCachedOnLoad: () => usedCachedOnLoad,
     setLastProcessedGW: (gw) => {
       if (typeof gw === 'number' && Number.isFinite(gw)) {
         _lastProcessedGW = gw;
         console.debug('[GW] UI Manager set _lastProcessedGW:', gw);
+
+        // SINGLE SOURCE TRIGGER: Update headers immediately when winner data is available
+        updateHeaderGW(gw, 'winners');
 
         // Issue #37 Prevention: Validate against next GW if available
         if (typeof _lastGwId === 'number' && _lastGwId > 0) {

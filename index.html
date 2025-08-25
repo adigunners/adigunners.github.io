@@ -434,7 +434,7 @@
         >
           <h2 class="winners-heading" id="winners-heading">
             <span class="heading-main">🎆 Top Earners So Far</span>
-            <span class="heading-subtitle" id="winners-after-gw"></span>
+            <span class="heading-subtitle" id="winners-after-gw">Loading…</span>
           </h2>
           <p>Leading players and their prize money achievements this season.</p>
 
@@ -459,7 +459,7 @@
         >
           <h2 class="winners-heading" id="leaderboard-heading">
             <span class="heading-main">🏆 League Standings</span>
-            <span class="heading-subtitle" id="leaderboard-after-gw"></span>
+            <span class="heading-subtitle" id="leaderboard-after-gw">Loading…</span>
           </h2>
           <p>Complete league table showing all players ranked by their overall FPL performance.</p>
 
@@ -1204,6 +1204,9 @@
       }
 
       document.addEventListener('DOMContentLoaded', function () {
+        // TEMP INSTRUMENTATION: Track app start time
+        const t = () => performance.now().toFixed(1);
+        console.log(`[${t()}] app_start: DOM loaded, starting initialization`);
         console.log('🚀 DOM Content Loaded - Starting initialization');
 
         // DOMContentLoaded bootstrap: decides test vs live mode, attempts cached deadlines
