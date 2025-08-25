@@ -113,25 +113,101 @@
 
 /* =============== TABLE SCROLL WRAPPER =============== */
 /*
-  Ensures wide tables remain contained within cards on small screens.
-  Provides horizontal scroll within the card without causing page-level overflow.
+  ============================================================================
+  GLOBAL TABLE CONTAINMENT SYSTEM - Wrapper-level solution for all tables
+  ============================================================================
+  
+  Root cause: Table highlights (top-3 stripes) need containment within card 
+  rounded corners without breaking sticky headers or column alignment.
+  
+  Solution: Apply containment at wrapper level, not on <table> itself.
 */
-.table-scroll {
+
+/* Global: card/wrapper around any data table */
+.table-scroll,
+.card-table {
+  /* Containment at wrapper level */
+  overflow: hidden; /* Contains highlights and scrolling */
+  border-radius: var(--radius-lg); /* Matches card radius */
+
+  /* Layout and styling */
   width: 100%;
   max-width: 100%;
+  background: var(--surface);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  /* Horizontal scroll for wide tables */
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  background: white;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Avoid double rounding/shadows when a styled table sits inside the wrapper */
-.table-scroll .leaderboard-table,
-.table-scroll .winner-table {
-  border-radius: 0;
-  box-shadow: none;
+/* Keep table layout stable - never apply containment here */
+.table-scroll table,
+.card-table table {
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 0; /* No radius on table itself */
+  box-shadow: none; /* No shadow on table itself */
   margin: 0;
+  background: transparent; /* Inherit from wrapper */
+}
+
+/* NOTE: Containment must be on wrapper (.table-scroll) only.
+   Do NOT apply overflow/clip/radius to <table>/<thead>/<tr>; breaks sticky header & alignment. */
+
+/* Sticky header base positioning - backgrounds set by specific table types */
+.table-scroll thead th,
+.card-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1; /* above rows */
+  /* background set by specific table styles - don't override here */
+}
+
+/* Optional: rounded header corners when header is first row */
+.table-scroll thead th:first-child {
+  border-top-left-radius: var(--radius-md);
+}
+.table-scroll thead th:last-child {
+  border-top-right-radius: var(--radius-md);
+}
+
+/* Table-specific header backgrounds (must come after base sticky rules) */
+.table-scroll .leaderboard-table thead th {
+  background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+  color: white;
+}
+
+.table-scroll .winner-table thead th {
+  background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+  color: white;
+}
+
+/* Row highlight must not overlap header - implement inside tbody rows only */
+.table-scroll tbody tr,
+.card-table tbody tr {
+  position: relative;
+  background-clip: padding-box;
+}
+
+.table-scroll tbody tr.highlight-top1,
+.table-scroll tbody tr.winner-gold {
+  box-shadow: inset 4px 0 0 var(--gold-1);
+  background: linear-gradient(145deg, #fffbf0, #fff8e1);
+}
+
+.table-scroll tbody tr.highlight-top2,
+.table-scroll tbody tr.winner-silver {
+  box-shadow: inset 4px 0 0 var(--silver-1);
+  background: linear-gradient(145deg, #f8f9fa, #f1f3f4);
+}
+
+.table-scroll tbody tr.highlight-top3,
+.table-scroll tbody tr.winner-bronze {
+  box-shadow: inset 4px 0 0 var(--bronze-1);
+  background: linear-gradient(145deg, #fef7e0, #fff3cd);
 }
 
 @media (min-width: 769px) {
