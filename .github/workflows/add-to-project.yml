@@ -21,7 +21,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add PR to project
+        continue-on-error: true
         uses: actions/add-to-project@v0.5.0
         with:
-          project-url: https://github.com/users/adigunners/projects/1 # update if different
-          github-token: ${{ secrets.PROJECTS_TOKEN }} # classic PAT with repo + project
+          project-url: https://github.com/users/adigunners/projects/1
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Log completion
+        run: |
+          echo "✅ Workflow completed"
+          echo "ℹ️ If project assignment failed, check repository settings"
