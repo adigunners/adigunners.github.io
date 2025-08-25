@@ -45,6 +45,14 @@
   --mobile-max: 600px;
   --tablet-max: 1024px;
   --desktop-min: 1025px;
+
+  /* Table Highlight Colors */
+  --gold-1: #f9a825; /* Gold for 1st place */
+  --silver-1: #9e9e9e; /* Silver for 2nd place */
+  --bronze-1: #d4b106; /* Bronze for 3rd place */
+
+  /* Table Surface Colors */
+  --surface: var(--card-background); /* Unified surface color */
 }
 
 /* FIX: mobile sticky header opacity — adaptive backdrop token */

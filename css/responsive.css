@@ -328,13 +328,7 @@
     order: 2;
   }
 
-  /* Constrain sticky header appearance inside scroll wrapper */
-  .table-scroll .leaderboard-table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
-  }
+  /* Header styling now handled globally in components.css */
 
   /* Optional two-line clamp for very narrow screens */
   @media (max-width: 375px) {
