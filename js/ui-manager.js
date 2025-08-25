@@ -858,117 +858,12 @@ window.FPLUIManager = (function () {
   }
 
   /**
-   * Get the last finished gameweek
-   */
-  function getLastFinishedGW() {
-    // Prioritize completedGameweeks from winner data (most reliable)
-    if (typeof _lastProcessedGW === 'number') {
-      if (!Number.isFinite(_lastProcessedGW) || _lastProcessedGW < 0 || _lastProcessedGW > 1000) {
-        return null;
-      }
-
-      // Data consistency validation
-      try {
-        const nextGwId =
-          typeof _lastGwId === 'number'
-            ? _lastGwId
-            : FPLDataLoader.getCachedGameweek() && FPLDataLoader.getCachedGameweek().id;
-        if (typeof nextGwId === 'number' && _lastProcessedGW > nextGwId - 1) {
-          console.warn(
-            '[GW WARN] completedGameweeks (from winners JSON) is ahead of nextGw-1:',
-            _lastProcessedGW,
-            'nextGwId=',
-            nextGwId
-          );
-        }
-      } catch (e) {}
-
-      console.debug('[GW] Using completedGameweeks from winners JSON:', _lastProcessedGW);
-      return _lastProcessedGW;
-    }
-
-    // Fallback to next GW calculation (with validation)
-    if (typeof _lastGwId === 'number' && _lastGwId > 0) {
-      const calculatedFinished = _lastGwId - 1;
-      console.debug('[GW] Using next GW calculation:', _lastGwId, '- 1 =', calculatedFinished);
-
-      // Validation: Don't show "After GW0" or negative values
-      if (calculatedFinished < 1) {
-        console.warn('[GW] Calculated finished GW is < 1, hiding subtitle:', calculatedFinished);
-        return null;
-      }
-
-      return calculatedFinished;
-    }
-
-    // Final fallback to cached gameweek data
-    const gwFromCache = FPLDataLoader.getCachedGameweek();
-    if (gwFromCache && typeof gwFromCache.id === 'number') {
-      const calculatedFromCache = gwFromCache.id - 1;
-      console.debug(
-        '[GW] Using cached gameweek calculation:',
-        gwFromCache.id,
-        '- 1 =',
-        calculatedFromCache
-      );
-
-      // Validation: Don't show "After GW0" or negative values
-      if (calculatedFromCache < 1) {
-        console.warn('[GW] Cached finished GW is < 1, hiding subtitle:', calculatedFromCache);
-        return null;
-      }
-
-      return calculatedFromCache;
-    }
-
-    console.debug('[GW] No reliable gameweek data available');
-    return null;
-  }
-
-  /**
-   * Update winners header with GW info
-   */
-  function updateWinnersHeaderGW() {
-    const el =
-      document.getElementById('winners-after-gw') ||
-      document.getElementById('winners-page-after-gw');
-    if (!el) return;
-    const gwId = getLastFinishedGW();
-
-    try {
-      if (FPLUtils.isAdminMode()) {
-        const cached = FPLDataLoader.getCachedGameweek();
-        console.debug(
-          '[GW DEBUG] _lastProcessedGW=',
-          _lastProcessedGW,
-          '_lastGwId=',
-          _lastGwId,
-          'cached=',
-          cached,
-          '-> resolvedGW=',
-          gwId
-        );
-      }
-    } catch (e) {}
-
-    if (typeof gwId === 'number' && gwId > 0) {
-      el.textContent = `After GW${gwId}`;
-      el.style.display = 'inline';
-      el.classList.add('show');
-    } else {
-      el.textContent = '';
-      el.style.display = 'none';
-      el.classList.remove('show');
-    }
-  }
-
-  /**
    * Update leaderboard header with GW info
    */
   function updateLeaderboardHeaderGW() {
     const el = document.getElementById('leaderboard-after-gw');
     if (!el) return;
-    const gwId = getLastFinishedGW();
+    const gwId = FPLDataLoader.getLastFinishedGW();
 
     if (typeof gwId === 'number' && gwId > 0) {
       el.textContent = `After GW${gwId}`;
@@ -1031,7 +926,6 @@ window.FPLUIManager = (function () {
     updateLeaderboardHeaderGW,
     attachAdminBadge,
     setLastSyncInfo,
-    getLastFinishedGW,
     showSyncedJustNow,
     removeCachedLabel,
     updateQAPanel,
