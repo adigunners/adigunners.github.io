@@ -44,6 +44,75 @@
   margin-bottom: 8px;
 }
 
+/* =============== LOADING AND ERROR STATES =============== */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  color: var(--text-color);
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: #d32f2f;
+}
+
+.error-state .fas {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+
+.error-message {
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 /* =============== BUTTONS =============== */
 .cta-button {
   display: inline-block;
