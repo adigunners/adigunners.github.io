@@ -124,14 +124,8 @@ export function createTable({ caption, headers, rows, className }) {
   if (rows && rows.length) {
     const tbody = document.createElement('tbody');
 
-    rows.forEach((row, rowIndex) => {
+    rows.forEach((row) => {
       const tr = document.createElement('tr');
-
-      // Apply rank classes for top 3
-      const rank = rowIndex + 1;
-      if (rank === 1) tr.classList.add('winner-gold');
-      else if (rank === 2) tr.classList.add('winner-silver');
-      else if (rank === 3) tr.classList.add('winner-bronze');
 
       row.forEach((cellData, cellIndex) => {
         const cell = cellIndex === 0 ? document.createElement('th') : document.createElement('td');

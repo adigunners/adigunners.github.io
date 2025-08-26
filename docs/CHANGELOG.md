@@ -20,12 +20,12 @@
 
 ### 🏗️ **Technical Implementation**
 
-**New Module Structure** (`assets/js/`):
+**New Module Structure** (`js/*-module.js`):
 
-- **api.js**: Shared fetch wrappers with timeout/retry (8s timeout, 1 retry)
-- **ui.js**: DOM helpers, XSS protection, accessibility utilities
-- **state.js**: Constants, feature flags, responsive breakpoints
-- **winners.js**: Page controller with data flow coordination
+- **api-module.js**: Shared fetch wrappers with timeout/retry (8s timeout, 1 retry)
+- **ui-module.js**: DOM helpers, XSS protection, accessibility utilities
+- **state-module.js**: Constants, feature flags, responsive breakpoints
+- **winners-module.js**: Page controller with data flow coordination
 
 **Key Features**:
 

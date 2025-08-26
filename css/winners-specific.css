@@ -311,3 +311,167 @@
     font-weight: 700;
   }
 }
+
+/* ---- Winners table hard scope ----------------------------------------- */
+.c-table-wrap {
+  overflow: auto;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
+}
+
+.c-table {
+  width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+/* neutralise any global flex/grid/block on tables */
+.c-table thead {
+  display: table-header-group !important;
+}
+
+.c-table tbody {
+  display: table-row-group !important;
+}
+
+.c-table tr {
+  display: table-row !important;
+}
+
+.c-table th,
+.c-table td {
+  display: table-cell !important;
+  vertical-align: middle;
+  padding: 14px 16px;
+}
+
+/* sticky header styling */
+.c-table--winners thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #2c0037;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.c-table--winners thead th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.c-table--winners thead th:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* zebra + left accent */
+.c-table--winners tbody tr:nth-child(odd) {
+  background: #fff8e9;
+}
+
+.c-table--winners tbody tr:nth-child(even) {
+  background: #f6f7fb;
+}
+
+.c-table--winners tbody tr {
+  position: relative;
+}
+
+.c-table--winners tbody tr::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
+  background: #f4c430;
+}
+
+/* numeric column */
+.c-table--winners th.is-num,
+.c-table--winners td.is-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* chip */
+.c-chip {
+  display: inline-block;
+  min-width: 40px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #28f0b0;
+  color: #0b1330;
+  text-align: center;
+}
+
+/* a11y */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Winners header backplate: paints full-width sticky purple bar ---- */
+.c-table-wrap {
+  position: relative;
+}
+
+/* context for z-index */
+.c-table.c-table--winners {
+  position: relative;
+}
+
+.c-table--winners thead {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  /* stick the whole thead */
+}
+
+/* backplate fills any empty space to the right of the last <th> */
+.c-table--winners thead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* top:0 right:0 bottom:0 left:0 */
+  background: #2c0037;
+  /* brand purple */
+  z-index: -1;
+  /* sits behind the <th> cells */
+  pointer-events: none;
+}
+
+/* keep cell styles as-is (text, padding, etc.) */
+.c-table--winners thead th {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* defensively neutralise any global flex/grid overrides */
+.c-table--winners thead,
+.c-table--winners tbody,
+.c-table--winners tr {
+  display: table-row-group !important;
+}
+
+.c-table--winners tr {
+  display: table-row !important;
+}
+
+.c-table--winners th,
+.c-table--winners td {
+  display: table-cell !important;
+}

@@ -68,13 +68,12 @@ GitHub Pages Repository:
 │   ├── data-loader.js - API data fetching
 │   ├── error-handler.js - Error handling utilities
 │   ├── ui-manager.js - UI state management
-│   └── utils.js - Helper utilities
-├── assets/
-│   └── js/ - ES6 Modules (Modern Architecture)
-│       ├── api.js - Shared fetch wrappers with timeout/retry
-│       ├── ui.js - DOM helpers and rendering utilities
-│       ├── state.js - Constants and feature flags
-│       └── winners.js - Winners page controller module
+│   ├── utils.js - Helper utilities
+│   └── ES6 Modules (Modern Architecture):
+│       ├── api-module.js - Shared fetch wrappers with timeout/retry
+│       ├── ui-module.js - DOM helpers and rendering utilities
+│       ├── state-module.js - Constants and feature flags
+│       └── winners-module.js - Winners page controller module
 ├── data/
 │   ├── league_stats.json - Live player/pot stats
 │   ├── winner_stats.json - Live winner data
@@ -170,19 +169,19 @@ next_deadline.json → nextGW-1 → updateHeaderGW('season'/'countdown') → BLO
 
 ## JavaScript Module Architecture
 
-### ES6 Module System (assets/js/)
+### ES6 Module System (js/\*-module.js)
 
 The winners page now uses modern ES6 modules for improved maintainability, testability, and code organization:
 
 #### Module Responsibilities
 
-**api.js** - API Management
+**api-module.js** - API Management
 
 - `fetchJSON(url, options)` - Fetch with timeout and retry logic
 - `endpoints` - Centralized API endpoints with cache busting
 - Handles HTTP errors, timeouts, and network resilience
 
-**ui.js** - DOM Utilities
+**ui-module.js** - DOM Utilities
 
 - `escapeHTML(str)` - XSS protection for all user content
 - `renderSpinner(target, message)` - Loading states
@@ -191,14 +190,14 @@ The winners page now uses modern ES6 modules for improved maintainability, testa
 - `createTable(options)` - Semantic table generation with proper accessibility
 - `createCard(data, rank)` - Responsive card components
 
-**state.js** - Configuration & Constants
+**state-module.js** - Configuration & Constants
 
 - Responsive breakpoints (DESKTOP_MIN_PX: 1025)
 - Feature flags (test mode, admin mode, debug mode)
 - URL parameter handling and data source selection
 - Viewport detection utilities
 
-**winners.js** - Page Controller
+**winners-module.js** - Page Controller
 
 - Main page initialization and data flow coordination
 - Responsive rendering (desktop tables vs mobile cards)

@@ -101,7 +101,8 @@
   max-width: 400px;
 }
 
-.visually-hidden {
+.visually-hidden,
+.sr-only {
   position: absolute !important;
   width: 1px !important;
   height: 1px !important;
