@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2025-08-26T04:52:37.654Z",
+  "lastUpdated": "2025-08-26T04:56:43.225Z",
   "summary": {
-    "totalPrizeDistributed": 1650,
+    "totalPrizeDistributed": 2000,
     "totalPaid": 0,
-    "totalPending": 1650,
-    "gameweekPrizes": 1650,
+    "totalPending": 2000,
+    "gameweekPrizes": 2000,
     "monthlyPrizes": 0,
     "completedGameweeks": 2,
     "completedMonths": 0,
@@ -13,7 +13,7 @@
   },
   "winners": [
     {
-      "playerName": "Aditya Garg",
+      "playerName": "Kiran Kanoj",
       "totalPrizeWon": 650,
       "totalPaid": 0,
       "totalPending": 650,
@@ -24,8 +24,8 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 28,
-        "totalPoints": 98
+        "overallRank": 1,
+        "totalPoints": 142
       },
       "achievements": {
         "gameweeks": [
@@ -42,7 +42,7 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 98
+      "totalPoints": 142
     },
     {
       "playerName": "Avanit Kaushal",
@@ -107,6 +107,63 @@
         "second": 1
       },
       "totalPoints": 99
+    },
+    {
+      "playerName": "Soubhik Chakraborty ",
+      "totalPrizeWon": 350,
+      "totalPaid": 0,
+      "totalPending": 350,
+      "prizeBreakdown": {
+        "gameweek": 350,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 4,
+        "totalPoints": 118
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 118
+    },
+    {
+      "playerName": "Aditya Garg",
+      "totalPrizeWon": 0,
+      "totalPaid": 0,
+      "totalPending": 0,
+      "prizeBreakdown": {
+        "gameweek": 0,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 0,
+        "gameMonths": 0,
+        "overallRank": 28,
+        "totalPoints": 98
+      },
+      "achievements": {
+        "gameweeks": [],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 0
+      },
+      "totalPoints": 98
     },
     {
       "playerName": "Vikranth Reddy",
@@ -282,31 +339,6 @@
         "second": 0
       },
       "totalPoints": 111
-    },
-    {
-      "playerName": "Kiran Kanoj",
-      "totalPrizeWon": 0,
-      "totalPaid": 0,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 0,
-        "overallRank": 1,
-        "totalPoints": 142
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 0
-      },
-      "totalPoints": 142
     },
     {
       "playerName": "Mayur Kriplani",
@@ -682,31 +714,6 @@
         "second": 0
       },
       "totalPoints": 113
-    },
-    {
-      "playerName": "Soubhik Chakraborty ",
-      "totalPrizeWon": 0,
-      "totalPaid": 0,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 0,
-        "overallRank": 4,
-        "totalPoints": 118
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 0
-      },
-      "totalPoints": 118
     },
     {
       "playerName": "Avinash Jayashankar ",
