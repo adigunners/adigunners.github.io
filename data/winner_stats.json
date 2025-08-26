@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2025-08-26T04:56:43.225Z",
+  "lastUpdated": "2025-08-26T06:52:14.567Z",
   "summary": {
     "totalPrizeDistributed": 2000,
-    "totalPaid": 0,
-    "totalPending": 2000,
+    "totalPaid": 1000,
+    "totalPending": 1000,
     "gameweekPrizes": 2000,
     "monthlyPrizes": 0,
     "completedGameweeks": 2,
@@ -47,8 +47,8 @@
     {
       "playerName": "Avanit Kaushal",
       "totalPrizeWon": 650,
-      "totalPaid": 0,
-      "totalPending": 650,
+      "totalPaid": 650,
+      "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 650,
         "monthly": 0
@@ -65,7 +65,7 @@
             "week": 1,
             "position": "1st",
             "prize": 650,
-            "status": "Pending"
+            "status": "Paid"
           }
         ],
         "months": []
@@ -79,8 +79,8 @@
     {
       "playerName": "Sidharthshankar Pati",
       "totalPrizeWon": 350,
-      "totalPaid": 0,
-      "totalPending": 350,
+      "totalPaid": 350,
+      "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 350,
         "monthly": 0
@@ -88,8 +88,8 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 27,
-        "totalPoints": 99
+        "overallRank": 34,
+        "totalPoints": 95
       },
       "achievements": {
         "gameweeks": [
@@ -97,7 +97,7 @@
             "week": 1,
             "position": "2nd",
             "prize": 350,
-            "status": "Pending"
+            "status": "Paid"
           }
         ],
         "months": []
@@ -106,10 +106,10 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 99
+      "totalPoints": 95
     },
     {
-      "playerName": "Soubhik Chakraborty ",
+      "playerName": "Sanchay Srivastava",
       "totalPrizeWon": 350,
       "totalPaid": 0,
       "totalPending": 350,
@@ -120,8 +120,8 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 4,
-        "totalPoints": 118
+        "overallRank": 8,
+        "totalPoints": 113
       },
       "achievements": {
         "gameweeks": [
@@ -138,7 +138,7 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 118
+      "totalPoints": 113
     },
     {
       "playerName": "Aditya Garg",
@@ -152,7 +152,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 28,
+        "overallRank": 26,
         "totalPoints": 98
       },
       "achievements": {
@@ -202,7 +202,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 37,
+        "overallRank": 36,
         "totalPoints": 94
       },
       "achievements": {
@@ -227,7 +227,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 6,
+        "overallRank": 5,
         "totalPoints": 115
       },
       "achievements": {
@@ -252,7 +252,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 5,
+        "overallRank": 4,
         "totalPoints": 117
       },
       "achievements": {
@@ -277,7 +277,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 51,
+        "overallRank": 50,
         "totalPoints": 75
       },
       "achievements": {
@@ -302,7 +302,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 25,
+        "overallRank": 24,
         "totalPoints": 100
       },
       "achievements": {
@@ -327,7 +327,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 12,
+        "overallRank": 11,
         "totalPoints": 111
       },
       "achievements": {
@@ -352,7 +352,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 25,
+        "overallRank": 24,
         "totalPoints": 100
       },
       "achievements": {
@@ -377,7 +377,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 20,
+        "overallRank": 19,
         "totalPoints": 105
       },
       "achievements": {
@@ -402,7 +402,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 21,
+        "overallRank": 20,
         "totalPoints": 104
       },
       "achievements": {
@@ -427,8 +427,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 50,
-        "totalPoints": 79
+        "overallRank": 52,
+        "totalPoints": 71
       },
       "achievements": {
         "gameweeks": [],
@@ -438,7 +438,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 79
+      "totalPoints": 71
     },
     {
       "playerName": "Pallab Pegu",
@@ -452,7 +452,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 28,
+        "overallRank": 26,
         "totalPoints": 98
       },
       "achievements": {
@@ -477,8 +477,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 51,
-        "totalPoints": 75
+        "overallRank": 52,
+        "totalPoints": 71
       },
       "achievements": {
         "gameweeks": [],
@@ -488,7 +488,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 75
+      "totalPoints": 71
     },
     {
       "playerName": "Ankur Prasad",
@@ -502,7 +502,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 9,
+        "overallRank": 8,
         "totalPoints": 113
       },
       "achievements": {
@@ -528,7 +528,7 @@
         "gameWeeks": 0,
         "gameMonths": 0,
         "overallRank": 49,
-        "totalPoints": 85
+        "totalPoints": 81
       },
       "achievements": {
         "gameweeks": [],
@@ -538,7 +538,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 85
+      "totalPoints": 81
     },
     {
       "playerName": "Ronak Kadikar",
@@ -577,8 +577,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 43,
-        "totalPoints": 89
+        "overallRank": 47,
+        "totalPoints": 85
       },
       "achievements": {
         "gameweeks": [],
@@ -588,7 +588,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 89
+      "totalPoints": 85
     },
     {
       "playerName": "Bhushan Wagh",
@@ -602,8 +602,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 37,
-        "totalPoints": 94
+        "overallRank": 41,
+        "totalPoints": 90
       },
       "achievements": {
         "gameweeks": [],
@@ -613,7 +613,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 94
+      "totalPoints": 90
     },
     {
       "playerName": "Rahul Sahai",
@@ -652,7 +652,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 28,
+        "overallRank": 26,
         "totalPoints": 98
       },
       "achievements": {
@@ -677,7 +677,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 53,
+        "overallRank": 51,
         "totalPoints": 73
       },
       "achievements": {
@@ -691,7 +691,7 @@
       "totalPoints": 73
     },
     {
-      "playerName": "Sanchay Srivastava",
+      "playerName": "Soubhik Chakraborty ",
       "totalPrizeWon": 0,
       "totalPaid": 0,
       "totalPending": 0,
@@ -702,8 +702,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 9,
-        "totalPoints": 113
+        "overallRank": 7,
+        "totalPoints": 114
       },
       "achievements": {
         "gameweeks": [],
@@ -713,7 +713,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 113
+      "totalPoints": 114
     },
     {
       "playerName": "Avinash Jayashankar ",
@@ -727,8 +727,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 17,
-        "totalPoints": 106
+        "overallRank": 26,
+        "totalPoints": 98
       },
       "achievements": {
         "gameweeks": [],
@@ -738,7 +738,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 106
+      "totalPoints": 98
     },
     {
       "playerName": "Varun Gupta",
@@ -752,7 +752,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 47,
+        "overallRank": 46,
         "totalPoints": 86
       },
       "achievements": {
@@ -777,7 +777,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 40,
+        "overallRank": 38,
         "totalPoints": 93
       },
       "achievements": {
@@ -827,7 +827,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 34,
+        "overallRank": 32,
         "totalPoints": 96
       },
       "achievements": {
@@ -852,7 +852,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 22,
+        "overallRank": 21,
         "totalPoints": 102
       },
       "achievements": {
@@ -877,7 +877,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 22,
+        "overallRank": 21,
         "totalPoints": 102
       },
       "achievements": {
@@ -902,8 +902,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 47,
-        "totalPoints": 86
+        "overallRank": 48,
+        "totalPoints": 82
       },
       "achievements": {
         "gameweeks": [],
@@ -913,7 +913,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 86
+      "totalPoints": 82
     },
     {
       "playerName": "Sourabh Mandal",
@@ -927,7 +927,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 11,
+        "overallRank": 10,
         "totalPoints": 112
       },
       "achievements": {
@@ -952,7 +952,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 32,
+        "overallRank": 31,
         "totalPoints": 97
       },
       "achievements": {
@@ -977,7 +977,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 45,
+        "overallRank": 44,
         "totalPoints": 87
       },
       "achievements": {
@@ -1002,7 +1002,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 45,
+        "overallRank": 44,
         "totalPoints": 87
       },
       "achievements": {
@@ -1052,7 +1052,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 36,
+        "overallRank": 34,
         "totalPoints": 95
       },
       "achievements": {
@@ -1077,7 +1077,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 6,
+        "overallRank": 5,
         "totalPoints": 115
       },
       "achievements": {
@@ -1102,7 +1102,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 54,
+        "overallRank": 52,
         "totalPoints": 71
       },
       "achievements": {
@@ -1127,7 +1127,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 42,
+        "overallRank": 40,
         "totalPoints": 91
       },
       "achievements": {
@@ -1152,7 +1152,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 22,
+        "overallRank": 21,
         "totalPoints": 102
       },
       "achievements": {
@@ -1177,7 +1177,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 40,
+        "overallRank": 38,
         "totalPoints": 93
       },
       "achievements": {
@@ -1202,7 +1202,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 37,
+        "overallRank": 36,
         "totalPoints": 94
       },
       "achievements": {
@@ -1227,8 +1227,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 6,
-        "totalPoints": 115
+        "overallRank": 11,
+        "totalPoints": 111
       },
       "achievements": {
         "gameweeks": [],
@@ -1238,7 +1238,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 115
+      "totalPoints": 111
     },
     {
       "playerName": "Nipun Kochar",
@@ -1252,7 +1252,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 43,
+        "overallRank": 42,
         "totalPoints": 89
       },
       "achievements": {
@@ -1302,8 +1302,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 32,
-        "totalPoints": 97
+        "overallRank": 42,
+        "totalPoints": 89
       },
       "achievements": {
         "gameweeks": [],
@@ -1313,7 +1313,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 97
+      "totalPoints": 89
     },
     {
       "playerName": "Ashish Kumar",
@@ -1327,7 +1327,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 28,
+        "overallRank": 26,
         "totalPoints": 98
       },
       "achievements": {
@@ -1377,7 +1377,7 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 34,
+        "overallRank": 32,
         "totalPoints": 96
       },
       "achievements": {
