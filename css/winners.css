@@ -1,4 +1,12 @@
-/* =============== WINNER STYLES =============== */
+/* NOTE: Table styles now handled by global component at assets/css/components/table.css */
+
+/* Muted text for subtitles */
+.muted {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+/* =============== WINNER CARDS & STYLES =============== */
 
 .winner-scorecard {
   background: var(--card-background);

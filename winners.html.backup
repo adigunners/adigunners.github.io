@@ -1,0 +1,457 @@
+<!doctype html>
+<!--
+ =====================================================================
+ FILE: winners.html (NEW MODULAR VERSION)
+ PROJECT: IIM Mumbai Fantasy League - Public Website
+ PAGE: Complete Winner Scorecard (desktop table + tablet/mobile cards)
+ AUTHOR: Aditya Garg (@addygunners)
+ ARCHITECTURE: Uses proven modular CSS/JS architecture from index.html
+ =====================================================================
+-->
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complete Winner Scorecard - IIM Mumbai Fantasy League</title>
+
+    <!-- Preload fonts for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- MODULAR CSS ARCHITECTURE (aligned with index.html cascade) -->
+    <!-- 1. Foundation: Variables and base -->
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+
+    <!-- 2. Layout: Core layout and spacing -->
+    <link rel="stylesheet" href="css/unified-spacing.css" />
+
+    <!-- 3. Components -->
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/header.css" />
+
+    <!-- 4. Page-specific -->
+    <link rel="stylesheet" href="css/winners.css" />
+    <link rel="stylesheet" href="css/leaderboard.css" />
+
+    <!-- 5. Responsive (device-specific overrides) -->
+    <link rel="stylesheet" href="css/mobile-optimizations.css" />
+    <link rel="stylesheet" href="css/advanced-mobile.css" />
+    <link rel="stylesheet" href="css/desktop-tablet-optimizations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <!-- Winners-specific styling to match original design exactly -->
+    <link rel="stylesheet" href="css/winners-specific.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- FIX: mobile sticky header opacity — sticky backplate wrapper (same pattern as index.html) -->
+      <div class="site-header">
+        <div class="header-inner">
+          <header>
+            <div class="header-main">
+              <h1>🏆 Complete Winner Scorecard</h1>
+              <p>IIM Mumbai Fantasy League - Season 2025-26</p>
+            </div>
+
+            <!-- Countdown (hidden until data is available) -->
+            <div id="countdown-clock" class="countdown-clock is-hidden" aria-live="polite">
+              <div class="countdown-label" id="countdown-label">GW1 Deadline</div>
+              <div class="countdown-time" aria-label="Time remaining">
+                <span class="countdown-unit">
+                  <span id="countdown-days">00</span>
+                  <span class="countdown-unit-label">D</span>
+                </span>
+                <span class="countdown-separator">:</span>
+                <span class="countdown-unit">
+                  <span id="countdown-hours">00</span>
+                  <span class="countdown-unit-label">H</span>
+                </span>
+                <span class="countdown-separator">:</span>
+                <span class="countdown-unit">
+                  <span id="countdown-minutes">00</span>
+                  <span class="countdown-unit-label">M</span>
+                </span>
+              </div>
+            </div>
+          </header>
+        </div>
+      </div>
+
+      <main>
+        <!-- LEAGUE STATISTICS SECTION (using original winners.html structure) -->
+        <section id="league-statistics" aria-labelledby="stats-heading">
+          <h2 id="stats-heading">📊 League Statistics</h2>
+          <div class="stats-summary" id="stats-summary">
+            <div class="summary-card" aria-live="polite">
+              <div class="summary-icon"><i class="fas fa-calendar-check"></i></div>
+              <div class="summary-number" id="completed-gameweeks">--</div>
+              <div class="summary-label">Completed Gameweeks</div>
+            </div>
+            <div class="summary-card" aria-live="polite">
+              <div class="summary-icon"><i class="fas fa-calendar-alt"></i></div>
+              <div class="summary-number" id="completed-gamemonths">--</div>
+              <div class="summary-label">Completed Gamemonths</div>
+            </div>
+            <div class="summary-card" aria-live="polite">
+              <div class="summary-icon"><i class="fas fa-users"></i></div>
+              <div class="summary-number" id="total-winners">--</div>
+              <div class="summary-label">Total Winners</div>
+            </div>
+            <div class="summary-card primary-metric" aria-live="polite">
+              <div class="summary-icon"><i class="fas fa-coins"></i></div>
+              <div class="summary-number" id="total-prize-money">--</div>
+              <div class="summary-label">Total Prize Money</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WINNERS SECTION -->
+        <section aria-labelledby="winners-heading">
+          <div class="winners-header">
+            <h2 class="section-title" id="winners-page-heading">
+              <span class="heading-main" id="winners-heading">🏅 Complete Winner Rankings</span>
+              <span class="heading-subtitle" id="winners-page-after-gw">Loading…</span>
+            </h2>
+            <hr class="section-rule" />
+            <div class="winners-descrow">
+              <p class="section-desc">All players ranked by total prize money won this season.</p>
+              <a
+                href="index.html"
+                class="btn nav-back nav-back--sm"
+                aria-label="Go back to home page"
+              >
+                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                Back to Home
+              </a>
+            </div>
+          </div>
+
+          <!-- Container for table (desktop) or cards (mobile/tablet) -->
+          <div id="winner-table-container">
+            <div class="winner-loading">Loading complete winner data...</div>
+          </div>
+
+          <!-- Pagination -->
+          <div
+            class="winner-navigation is-hidden"
+            id="winner-navigation"
+            role="navigation"
+            aria-label="Winners navigation"
+          >
+            <button
+              id="winner-prev-page"
+              class="winner-nav-btn"
+              onclick="previousWinnerPage()"
+              disabled
+            >
+              <i class="fas fa-chevron-left" aria-hidden="true"></i> Previous
+            </button>
+            <span id="winner-page-info" class="page-info" aria-live="polite">Page 1 of 1</span>
+            <button
+              id="winner-next-page"
+              class="winner-nav-btn"
+              onclick="nextWinnerPage()"
+              disabled
+            >
+              Next <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>developed by Aditya Garg (@addygunners)</p>
+        <p id="site-last-updated" class="site-timestamp">Data updated: Loading...</p>
+      </footer>
+    </div>
+
+    <!-- MODULAR JAVASCRIPT (using shared modules) -->
+    <script src="js/utils.js"></script>
+    <script src="js/data-loader.js"></script>
+    <script src="js/error-handler.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/ui-manager.js"></script>
+
+    <!-- Winners-specific JavaScript -->
+    <script>
+      'use strict';
+
+      // Constants
+      const DESKTOP_MIN_PX = 1025;
+      const winnerItemsPerPage = 10;
+
+      // State
+      let allWinners = [];
+      let winnersWithPrizes = [];
+      let currentWinnerPage = 1;
+
+      // Shared countdown bootstrap (uses modular loaders)
+      function bootCountdown() {
+        console.log('bootCountdown: Checking modules...', {
+          FPLDataLoader: !!window.FPLDataLoader,
+          FPLCountdown: !!window.FPLCountdown,
+          FPLUIManager: !!window.FPLUIManager,
+        });
+
+        if (!window.FPLDataLoader || !window.FPLCountdown || !window.FPLUIManager) {
+          console.warn('Countdown modules not available; skipping dynamic countdown');
+          // Show clock container as fallback
+          const clock = document.getElementById('countdown-clock');
+          if (clock) clock.classList.remove('is-hidden');
+          return;
+        }
+
+        console.log('bootCountdown: All modules available, loading season data...');
+        FPLDataLoader.loadFPLSeasonData()
+          .then(({ deadline, gameweek }) => {
+            console.log('bootCountdown: Season data loaded', { deadline, gameweek });
+            try {
+              FPLUIManager.handleSeasonDisplay(deadline, gameweek);
+            } catch (e) {
+              console.warn('handleSeasonDisplay failed:', e);
+            }
+            FPLCountdown.startCountdown(deadline, gameweek);
+            FPLCountdown.scheduleRolloverCheck(deadline);
+          })
+          .catch((e) => {
+            console.warn('Season data load failed on winners page:', e);
+            // As a minimal fallback, show clock container to avoid empty header
+            const clock = document.getElementById('countdown-clock');
+            if (clock) clock.classList.remove('is-hidden');
+          });
+      }
+
+      // Escape HTML utility (fallback if shared module not available)
+      function escapeHTML(str) {
+        if (!str && str !== 0) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      // Initialize page on load
+      document.addEventListener('DOMContentLoaded', function () {
+        // Initialize dynamic countdown via shared modules (with retry for module loading)
+        function tryBootCountdown(attempts = 0) {
+          if (attempts > 5) {
+            console.warn('Failed to boot countdown after 5 attempts');
+            return;
+          }
+
+          if (window.FPLDataLoader && window.FPLCountdown && window.FPLUIManager) {
+            bootCountdown();
+          } else {
+            console.log(`Attempt ${attempts + 1}: Modules not ready, retrying in 100ms...`);
+            setTimeout(() => tryBootCountdown(attempts + 1), 100);
+          }
+        }
+
+        tryBootCountdown();
+
+        // Load data
+        loadWinnerData();
+        setupPageNavigation();
+
+        // Responsive resize handler
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => displayWinnerTable(), 150);
+        });
+      });
+
+      // Load winner data
+      function loadWinnerData() {
+        const params = new URLSearchParams(window.location.search);
+        const isTest = params.get('test') === 'true';
+        const dataUrl = isTest ? 'data/test_winner_stats.json' : 'data/winner_stats.json';
+
+        fetch(dataUrl + '?cache=' + Date.now())
+          .then((response) => response.json())
+          .then((data) => {
+            allWinners = data.winners.sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
+            winnersWithPrizes = allWinners.filter((winner) => winner.totalPrizeWon > 0);
+
+            // Update stats
+            document.getElementById('completed-gameweeks').textContent =
+              data.summary?.completedGameweeks || '1';
+            document.getElementById('completed-gamemonths').textContent =
+              data.summary?.completedMonths || '0';
+            document.getElementById('total-winners').textContent = winnersWithPrizes.length;
+            document.getElementById('total-prize-money').textContent =
+              '₹' +
+              winnersWithPrizes
+                .reduce((sum, w) => sum + w.totalPrizeWon, 0)
+                .toLocaleString('en-IN');
+
+            // Update unified footer timestamp
+            const lastUpdated = new Date(data.lastUpdated);
+            const footerTimestamp = document.getElementById('site-last-updated');
+            if (footerTimestamp) {
+              footerTimestamp.textContent = `Data updated: ${lastUpdated.toLocaleString()} ${isTest ? '(test data)' : '(your local time)'}`;
+            }
+
+            displayWinnerTable();
+
+            // Update subtitle using shared modular system - Issue #37 Fix
+            try {
+              FPLUIManager.setLastProcessedGW(data.summary?.completedGameweeks);
+              FPLUIManager.updateWinnersHeaderGW();
+            } catch (e) {
+              console.warn('Failed to update winners subtitle:', e);
+            }
+          })
+          .catch((error) => {
+            console.error('Error loading winner data:', error);
+            document.getElementById('winner-table-container').innerHTML =
+              '<div class="winner-error" style="text-align:center;padding:40px;color:#d32f2f;">Unable to load winner data. Please try again later.</div>';
+          });
+      }
+
+      // Display winner table (responsive)
+      function displayWinnerTable() {
+        const container = document.getElementById('winner-table-container');
+        const navigation = document.getElementById('winner-navigation');
+
+        if (!winnersWithPrizes.length) {
+          container.innerHTML = '<div class="winner-loading">No prize winners yet.</div>';
+          navigation.classList.add('is-hidden');
+          return;
+        }
+
+        const isDesktop = window.matchMedia(`(min-width: ${DESKTOP_MIN_PX}px)`).matches;
+        const totalPages = Math.ceil(winnersWithPrizes.length / winnerItemsPerPage);
+        const startIndex = (currentWinnerPage - 1) * winnerItemsPerPage;
+        const pageData = winnersWithPrizes.slice(startIndex, startIndex + winnerItemsPerPage);
+
+        if (isDesktop) {
+          renderDesktopTable(container, pageData, startIndex);
+        } else {
+          renderMobileCards(container, pageData, startIndex);
+        }
+
+        // Show navigation if needed
+        if (totalPages > 1) {
+          navigation.classList.remove('is-hidden');
+          updateNavigation(totalPages);
+        } else {
+          navigation.classList.add('is-hidden');
+        }
+      }
+
+      // Render desktop table
+      function renderDesktopTable(container, pageData, startIndex) {
+        let html =
+          '<table class="winner-table"><thead><tr><th>Rank</th><th>Player</th><th>Total Prize Won</th><th>Highlights</th></tr></thead><tbody>';
+
+        pageData.forEach((winner, idx) => {
+          const rank = startIndex + idx + 1;
+          const h = winner.highlights || {};
+
+          let rankClass = '';
+          if (rank === 1) rankClass = 'winner-gold';
+          else if (rank === 2) rankClass = 'winner-silver';
+          else if (rank === 3) rankClass = 'winner-bronze';
+
+          const highlights = [
+            h.gameWeeks > 0 ? `<span class="highlight-badge gw">${h.gameWeeks}GW</span>` : '',
+            h.gameMonths > 0 ? `<span class="highlight-badge gm">${h.gameMonths}GM</span>` : '',
+            h.overallRank
+              ? `<span class="highlight-badge">League Rank: ${h.overallRank}</span>`
+              : '',
+          ]
+            .filter(Boolean)
+            .join('');
+
+          html += `<tr${rankClass ? ` class="${rankClass}"` : ''}>
+            <td>${rank}</td>
+            <td class="player-name">${escapeHTML(winner.playerName)}</td>
+            <td class="prize-amount">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</td>
+            <td><div class="highlights">${highlights}</div></td>
+          </tr>`;
+        });
+
+        html += '</tbody></table>';
+        container.innerHTML = '<div class="table-scroll">' + html + '</div>';
+      }
+
+      // Render mobile cards
+      function renderMobileCards(container, pageData, startIndex) {
+        const cards = pageData
+          .map((winner, idx) => {
+            const rank = startIndex + idx + 1;
+            const h = winner.highlights || {};
+
+            const rankClass = rank <= 3 ? ` rank-${rank}` : '';
+            const highlights = [
+              h.gameWeeks > 0 ? `<span class="highlight-badge gw">${h.gameWeeks}GW</span>` : '',
+              h.gameMonths > 0 ? `<span class="highlight-badge gm">${h.gameMonths}GM</span>` : '',
+              h.overallRank
+                ? `<span class="highlight-badge">League Rank ${h.overallRank}</span>`
+                : '',
+            ]
+              .filter(Boolean)
+              .join('');
+
+            return `<div class="winner-card${rankClass}">
+            <div class="winner-rank">#${rank}</div>
+            <div class="winner-name">${escapeHTML(winner.playerName)}</div>
+            <div class="winner-prize">₹${winner.totalPrizeWon.toLocaleString('en-IN')}</div>
+            <div class="winner-highlights">${highlights}</div>
+          </div>`;
+          })
+          .join('');
+
+        container.innerHTML = `<div class="winner-preview">${cards}</div>`;
+      }
+
+      // Navigation functions
+      function previousWinnerPage() {
+        if (currentWinnerPage > 1) {
+          currentWinnerPage--;
+          displayWinnerTable();
+        }
+      }
+
+      function nextWinnerPage() {
+        const totalPages = Math.ceil(winnersWithPrizes.length / winnerItemsPerPage);
+        if (currentWinnerPage < totalPages) {
+          currentWinnerPage++;
+          displayWinnerTable();
+        }
+      }
+
+      function updateNavigation(totalPages) {
+        document.getElementById('winner-prev-page').disabled = currentWinnerPage === 1;
+        document.getElementById('winner-next-page').disabled = currentWinnerPage === totalPages;
+        document.getElementById('winner-page-info').textContent =
+          `Page ${currentWinnerPage} of ${totalPages}`;
+      }
+
+      function setupPageNavigation() {
+        // Preserve URL parameters in navigation buttons
+        const params = new URLSearchParams(window.location.search);
+        if (params.toString()) {
+          const navigationButtons = document.querySelectorAll('.nav-back');
+          navigationButtons.forEach((button) => {
+            button.href = `index.html?${params.toString()}`;
+          });
+        }
+      }
+    </script>
+  </body>
+</html>
