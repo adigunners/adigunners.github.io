@@ -1,35 +1,32 @@
-## Linked Issue
+# Pull Request
 
-Closes #
+## Description
 
-## Summary
+Brief description of changes made.
 
-Briefly explain what changed and why. Include scope (files/areas touched).
+## Type of Change
 
-## Screenshots/GIFs (UI)
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Documentation update
+- [ ] Performance improvement
+- [ ] Code refactoring
 
-- Light/Dark, Desktop/Mobile comparisons if applicable.
+## Public-safety checklist
 
-## Acceptance Criteria
+- [ ] No internal runbooks, pricing logic, scoring details, secrets, or admin guides
+- [ ] No backend code/config copied into public
+- [ ] Only UI/website-facing changes or sanitized docs
+- [ ] All sensitive information has been reviewed and removed
+- [ ] No proprietary implementation details exposed
 
-- [ ] …
-- [ ] …
+## Testing
 
-## Test Plan
+- [ ] Changes tested locally
+- [ ] Site builds without errors
+- [ ] No broken links or functionality
+- [ ] Mobile responsive design verified
 
-- Local URLs (Live Server): `index.html`, `winners.html`
-- Devices/Browsers: iOS Safari/Chrome, Desktop Safari/Chrome/Firefox
-- Steps to verify:
-  - …
+## Additional Notes
 
-## Risks / Rollback
-
-- Risks: …
-- Rollback: revert PR # …
-
-## Checklist
-
-- [ ] Labels added (type/area)
-- [ ] CHANGELOG/docs updated if user-visible
-- [ ] Requested at least one reviewer
-- [ ] format:check passes
+Add any additional context or notes about the PR here.

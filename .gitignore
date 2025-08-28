@@ -17,3 +17,13 @@ updated_winner_stats_function.js
 
 # Node.js dependencies
 node_modules/
+
+# Never allow private code/docs into public
+/private/
+/internal/
+/secrets/
+/config/
+/scripts/
+/gas/
+/src/
+/admin/
