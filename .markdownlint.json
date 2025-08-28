@@ -1,0 +1,17 @@
+{
+  "MD013": false,
+  "MD032": {
+    "ul_single": false,
+    "ol_single": false,
+    "ul_multi": true,
+    "ol_multi": true
+  },
+  "MD022": {
+    "lines_above": 1,
+    "lines_below": 1
+  },
+  "MD036": false,
+  "MD034": false,
+  "MD040": false,
+  "MD047": true
+}

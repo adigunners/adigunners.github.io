@@ -9,7 +9,8 @@
     "format:check": "prettier . --check",
     "prepare": "husky",
     "check-consistency": "node scripts/check-consistency.js",
-    "fix-winners": "node scripts/fix-winners.js"
+    "fix-winners": "node scripts/fix-winners.js",
+    "lint:md": "markdownlint \"**/*.md\" --fix"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -18,7 +19,8 @@
   "devDependencies": {
     "husky": "^9",
     "lint-staged": "^15",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "markdownlint-cli": "^0.37.0"
   },
   "lint-staged": {
     "*.{html,css,js,json,md,mdx}": "prettier --write"
