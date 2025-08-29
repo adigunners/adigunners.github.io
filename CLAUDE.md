@@ -209,6 +209,7 @@ Main Spreadsheet: "IIM Mumbai FPL Master Database"
 - Google Account with Sheets/Apps Script access
 - GitHub account for Pages hosting
 - Master database spreadsheet with specific tab structure:
+
   ```
   ├── Players Tab
   ├── Weekly Scores Tab
@@ -586,13 +587,13 @@ Based on today's successful modularization of index.html, here's the optimal str
 
 2. Embedded CSS Issues
 
-/_ 🔴 1050+ lines of embedded CSS should be extracted _/
-/_ Lines 89-1050 contain ALL styling that could be modularized _/
+/_🔴 1050+ lines of embedded CSS should be extracted _/
+/_ Lines 89-1050 contain ALL styling that could be modularized_/
 
 3. Monolithic JavaScript
 
-/_ 🔴 800+ lines of JavaScript in single script block _/
-/_ Lines 1227-2004+ contain logic that should be modularized _/
+/_🔴 800+ lines of JavaScript in single script block _/
+/_ Lines 1227-2004+ contain logic that should be modularized_/
 
 4. Performance Concerns
 
@@ -606,7 +607,7 @@ Phase 1: CSS Extraction
 
   <!-- 🔴 CURRENT (lines 89-1050) -->
   <style>
-    /* 1000+ lines of CSS embedded */
+    /*1000+ lines of CSS embedded*/
   </style>
 
   <!-- ✅ PROPOSED -->
@@ -623,7 +624,7 @@ Phase 2: JavaScript Modularization
 
   <!-- 🔴 CURRENT (lines 1227-2004+) -->
   <script>
-    /* 800+ lines of mixed logic */
+    /*800+ lines of mixed logic*/
   </script>
 
   <!-- ✅ PROPOSED -->
@@ -638,18 +639,18 @@ Phase 2: JavaScript Modularization
 Phase 3: Specific Extractions
 
 winners-table.css (extract lines 383-519):
-/_ Desktop table styles _/
+/_Desktop table styles _/
 .winner-table { /_ table layout styles _/ }
 .winner-table th { /_ header styles _/ }
-.winner-table tbody tr.winner-gold { /_ top 3 styling _/ }
+.winner-table tbody tr.winner-gold { /_ top 3 styling_/ }
 
 winner-pagination.js (extract lines 1851-1864):
-function previousWinnerPage() { /_ pagination logic _/ }
+function previousWinnerPage() { /_pagination logic _/ }
 function nextWinnerPage() { /_ pagination logic _/ }
-function updateWinnerNavigation() { /_ navigation state _/ }
+function updateWinnerNavigation() { /_ navigation state_/ }
 
 winner-table.js (extract lines 1735-1839):
-function displayWinnerTable() { /_ table/card rendering _/ }
+function displayWinnerTable() { /_table/card rendering_/ }
 // Desktop table generation
 // Mobile card generation  
  // Responsive switching logic

@@ -171,7 +171,7 @@ This project is currently in private development for IIM Mumbai alumni. For tech
 
 **Project Admin**: Aditya Garg
 
-- Email: aditya.garg.2006@gmail.com
+- Email: <aditya.garg.2006@gmail.com>
 - Based in: Amsterdam, NL
 - Role: Chief Mini-League Manager (CML)
 

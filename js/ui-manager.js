@@ -84,6 +84,12 @@ window.FPLUIManager = (function () {
    * Handle season display logic
    */
   function handleSeasonDisplay(seasonStartDate, gameweek = null) {
+    // Skip UI operations on winners page (only countdown needed)
+    if (window.FPL_PAGE_TYPE === 'winners') {
+      console.log('UI Manager: Skipping handleSeasonDisplay on winners page');
+      return;
+    }
+
     const currentDate = FPLUtils.now();
     const urlParams = new URLSearchParams(window.location.search);
     const isTestMode = urlParams.get('test') === 'true';

@@ -259,7 +259,13 @@ window.ErrorHandler = (function () {
 
   async function checkConnectivity() {
     try {
-      await fetch('/favicon.ico?check=' + Date.now(), {
+      // Use different connectivity check endpoint on winners page
+      const checkUrl =
+        window.FPL_PAGE_TYPE === 'winners'
+          ? '/data/next_deadline.json?check=' + Date.now()
+          : '/favicon.ico?check=' + Date.now();
+
+      await fetch(checkUrl, {
         method: 'HEAD',
         cache: 'no-store',
       });

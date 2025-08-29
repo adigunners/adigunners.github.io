@@ -45,9 +45,65 @@ Use the test-runner subagent to run the ALL tests in the application's test suit
 
 </step>
 
-<step number="2" subagent="git-workflow" name="git_workflow">
+<step number="2" subagent="file-creator" name="file_organization">
 
-### Step 2: Git Workflow
+### Step 2: File Organization & Cleanup
+
+Use the file-creator subagent to organize all files into proper directory structure and clean up temporary/development artifacts before committing.
+
+<instructions>
+  ACTION: Use file-creator subagent
+  REQUEST: "Organize project files and clean up development artifacts:
+            - Move all test files to tests/ directory structure
+            - Remove temporary/debug files (*.tmp, *.debug, *.bak, *~)
+            - Ensure proper directory structure for tests/manual/, tests/unit/, etc.
+            - Update relative paths in moved files if needed
+            - Verify no broken references after file moves"
+  WAIT: For file organization completion
+  PROCESS: Verify all files are in correct locations
+</instructions>
+
+<organization*rules>
+<test_files>
+<manual_tests>tests/manual/</manual_tests>
+<unit_tests>tests/unit/</unit_tests>
+<integration_tests>tests/integration/</integration_tests>
+<performance_tests>tests/performance/</performance_tests>
+</test_files>
+<cleanup_patterns>
+<temporary>*.tmp, _.debug, _.bak, \_~</temporary>
+<system>.DS_Store, Thumbs.db</system>
+<logs>\*.log (except in logs/ directory)</logs>
+</cleanup_patterns>
+<path_validation>
+<check>relative imports after file moves</check>
+<update>broken references in moved files</update>
+<verify>no orphaned dependencies</verify>
+</path_validation>
+</organization_rules>
+
+<structure_validation>
+<required_directories>
+
+- tests/manual/ (HTML test files)
+- tests/unit/ (Jest test files)
+- css/ (stylesheets)
+- js/ (JavaScript modules)
+- docs/ (documentation)
+  </required_directories>
+  <file_placement>
+- test-\*.html → tests/manual/
+- \*test.js → tests/unit/
+- \*spec.js → tests/unit/
+- README files → appropriate directories
+  </file_placement>
+  </structure_validation>
+
+</step>
+
+<step number="3" subagent="git-workflow" name="git_workflow">
+
+### Step 3: Git Workflow
 
 Use the git-workflow subagent to create git commit, push to GitHub, and create pull request for the implemented features.
 
@@ -80,9 +136,9 @@ Use the git-workflow subagent to create git commit, push to GitHub, and create p
 
 </step>
 
-<step number="3" subagent="project-manager" name="tasks_list_check">
+<step number="4" subagent="project-manager" name="tasks_list_check">
 
-### Step 3: Tasks Completion Verification
+### Step 4: Tasks Completion Verification
 
 Use the project-manager subagent to read the current spec's tasks.md file and verify that all tasks have been properly marked as complete with [x] or documented with blockers.
 
@@ -97,9 +153,9 @@ Use the project-manager subagent to read the current spec's tasks.md file and ve
 
 </step>
 
-<step number="4" subagent="project-manager" name="roadmap_progress_check">
+<step number="5" subagent="project-manager" name="roadmap_progress_check">
 
-### Step 4: Roadmap Progress Update (conditional)
+### Step 5: Roadmap Progress Update (conditional)
 
 Use the project-manager subagent to read @.agent-os/product/roadmap.md and mark roadmap items as complete with [x] ONLY IF the executed tasks have completed any roadmap item(s) and the spec completes that item.
 
@@ -108,7 +164,7 @@ Use the project-manager subagent to read @.agent-os/product/roadmap.md and mark 
 EVALUATE: Did executed tasks complete any roadmap item(s)?
 IF NO:
 SKIP this entire step
-PROCEED to step 6
+PROCEED to step 7
 IF YES:
 CONTINUE with roadmap check
 </preliminary_check>
@@ -128,9 +184,9 @@ CONTINUE with roadmap check
 
 </step>
 
-<step number="5" subagent="project-manager" name="document_recap">
+<step number="6" subagent="project-manager" name="document_recap">
 
-### Step 5: Create Recap Document
+### Step 6: Create Recap Document
 
 Use the project-manager subagent to create a recap document in .agent-os/recaps/ folder that summarizes what was built for this spec.
 

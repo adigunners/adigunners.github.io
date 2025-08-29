@@ -15,16 +15,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Complete Winner Scorecard - IIM Mumbai Fantasy League</title>
 
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////APFxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/////wD///8A8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/////AP///wDxcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv////8A////APFxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/////wD///8A8XFK/////////////////////////////////////////////////////////////////////////////////////////////////////////////wDxcUr/////AP///wDxcUr/////////////////////////////////////////////////////////////////////////////////8XFK/////wD///8A8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/+rg2v/q4Nr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/////wD///8A8XFK/////////////////////////////////+rg2v/q4Nr/////////////////////////////////8XFK/////wD///8A8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/+rg2v/q4Nr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/////wD///8A8XFK/////////////////////////////////////////////////////////////////////////////////8XFK/////wD///8A8XFK/////////////////////////////////////////////////////////////////////////////////////////////////////////////wDxcUr/////AP///wDxcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/////AP///wDxcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv////8A////APFxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/////wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+    />
+
     <!-- Preload fonts for better performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
+      crossorigin="anonymous"
+      onerror="console.warn('Google Fonts failed to load on winners page'); document.body.classList.add('poppins-fallback', 'external-resources-failed');"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      onerror="console.warn('Font Awesome failed to load on winners page'); document.body.classList.add('fontawesome-fallback', 'external-resources-failed');"
     />
 
     <!-- MODULAR CSS ARCHITECTURE (aligned with index.html cascade) -->
@@ -168,13 +179,117 @@
     </div>
 
     <!-- MODULAR JAVASCRIPT (using shared modules) -->
+    <script>
+      // Identify this as winners page to prevent UI manager from running index.html-specific code
+      window.FPL_PAGE_TYPE = 'winners';
+    </script>
+    <script src="js/error-handler.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/data-loader.js"></script>
-    <script src="js/error-handler.js"></script>
-    <script src="js/countdown.js"></script>
     <script src="js/ui-manager.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/prize-structure.js"></script>
 
     <!-- Winners page module loader -->
     <script type="module" src="js/winners-module.js" defer></script>
+
+    <!-- Countdown initialization for winners page -->
+    <script>
+      // Ensure countdown initialization after all modules are loaded
+      document.addEventListener('DOMContentLoaded', function () {
+        // Wait a bit to ensure all global modules are initialized
+        setTimeout(function () {
+          if (
+            window.FPLDataLoader &&
+            typeof window.FPLDataLoader.loadFPLSeasonData === 'function'
+          ) {
+            console.log('🏆 Winners page: Initializing countdown system');
+
+            // Load season data and start countdown (same pattern as index.html)
+            window.FPLDataLoader.loadFPLSeasonData()
+              .then(function (data) {
+                const deadline = data.deadline;
+                const gameweek = data.gameweek;
+
+                console.log('🏆 Winners page: Season data loaded successfully');
+
+                // Update the countdown label (winners page doesn't need full UI manager)
+                const countdownLabel = document.getElementById('countdown-label');
+                if (countdownLabel && gameweek && gameweek.id) {
+                  countdownLabel.textContent = `GW${gameweek.id} Deadline`;
+                }
+
+                if (
+                  window.FPLCountdown &&
+                  typeof window.FPLCountdown.startCountdown === 'function'
+                ) {
+                  const countdownResult = window.FPLCountdown.startCountdown(deadline, gameweek);
+                  console.log('🏆 Winners page: Countdown started:', countdownResult);
+
+                  // Show the countdown clock
+                  const countdownClock = document.getElementById('countdown-clock');
+                  if (countdownClock) {
+                    countdownClock.classList.remove('is-hidden');
+                  }
+                }
+
+                if (
+                  window.FPLCountdown &&
+                  typeof window.FPLCountdown.scheduleRolloverCheck === 'function'
+                ) {
+                  window.FPLCountdown.scheduleRolloverCheck(deadline);
+                }
+              })
+              .catch(function (error) {
+                console.warn(
+                  '🏆 Winners page: Season data load failed, trying proxy fallback',
+                  error
+                );
+
+                // Try proxy fallback without UI manager calls
+                if (
+                  window.FPLDataLoader &&
+                  typeof window.FPLDataLoader.loadFPLSeasonDataViaProxy === 'function'
+                ) {
+                  window.FPLDataLoader.loadFPLSeasonDataViaProxy()
+                    .then(function (data) {
+                      const deadline = data.deadline;
+                      const gameweek = data.gameweek;
+
+                      if (
+                        window.FPLCountdown &&
+                        typeof window.FPLCountdown.startCountdown === 'function'
+                      ) {
+                        window.FPLCountdown.startCountdown(deadline, gameweek);
+
+                        // Show the countdown clock
+                        const countdownClock = document.getElementById('countdown-clock');
+                        if (countdownClock) {
+                          countdownClock.classList.remove('is-hidden');
+                        }
+                      }
+                    })
+                    .catch(function (proxyError) {
+                      console.error(
+                        '🏆 Winners page: Both direct and proxy data loads failed',
+                        proxyError
+                      );
+
+                      // Show the countdown clock anyway (it will show static content)
+                      const countdownClock = document.getElementById('countdown-clock');
+                      if (countdownClock) {
+                        countdownClock.classList.remove('is-hidden');
+                      }
+                    });
+                }
+              });
+          } else {
+            console.warn(
+              '🏆 Winners page: FPLDataLoader not available for countdown initialization'
+            );
+          }
+        }, 100); // Small delay to ensure all modules are ready
+      });
+    </script>
   </body>
 </html>

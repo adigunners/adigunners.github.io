@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown Stability Test Suite</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+      .test-section {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: white;
+      }
+      .success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+      }
+      .warning {
+        background-color: #fff3cd;
+        border-color: #ffeaa7;
+        color: #856404;
+      }
+      .error {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+      }
+      .test-result {
+        margin: 10px 0;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+      .button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      .button:hover {
+        background: #0056b3;
+      }
+      .status-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+      .status-pass {
+        background-color: #28a745;
+      }
+      .status-fail {
+        background-color: #dc3545;
+      }
+      .status-warn {
+        background-color: #ffc107;
+      }
+      /* Mock countdown styles for testing */
+      .countdown-clock {
+        border: 2px solid #37003c;
+        padding: 20px;
+        margin: 10px 0;
+        border-radius: 8px;
+        text-align: center;
+        background: #f8f9fa;
+      }
+      .countdown-time {
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .is-hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Countdown Stability Test Suite</h1>
+    <p>This page tests countdown system stability, error recovery, and fallback mechanisms.</p>
+
+    <div class="test-section">
+      <h2>Test Control Panel</h2>
+      <button class="button" onclick="runAllStabilityTests()">🧪 Run All Stability Tests</button>
+      <button class="button" onclick="testErrorRecovery()">⚠️ Test Error Recovery</button>
+      <button class="button" onclick="testFallbackMechanisms()">🔄 Test Fallback Mechanisms</button>
+      <button class="button" onclick="clearResults()">🧹 Clear Results</button>
+    </div>
+
+    <!-- Mock countdown elements for testing -->
+    <div class="test-section">
+      <h2>Mock Countdown Display</h2>
+      <div id="countdown-clock" class="countdown-clock is-hidden">
+        <div id="countdown-label">Loading...</div>
+        <div class="countdown-time">
+          <span id="countdown-days">00</span>: <span id="countdown-hours">00</span>:
+          <span id="countdown-minutes">00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-section" id="stability-tests">
+      <h2>Stability Test Results</h2>
+      <div id="stability-results">Click "Run All Stability Tests" to begin testing.</div>
+    </div>
+
+    <div class="test-section" id="error-recovery-tests">
+      <h2>Error Recovery Test Results</h2>
+      <div id="error-results">Click "Test Error Recovery" to begin testing.</div>
+    </div>
+
+    <div class="test-section" id="fallback-tests">
+      <h2>Fallback Mechanism Test Results</h2>
+      <div id="fallback-results">Click "Test Fallback Mechanisms" to begin testing.</div>
+    </div>
+
+    <!-- Include countdown system modules -->
+    <script src="js/utils.js"></script>
+    <script src="js/error-handler.js"></script>
+    <script src="js/data-loader.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/ui-manager.js"></script>
+
+    <script>
+      // Test results storage
+      const testResults = {
+        stabilityTests: [],
+        errorRecoveryTests: [],
+        fallbackTests: [],
+      };
+
+      // Mock implementations for testing
+      window.FPLUtils = {
+        now: () => new Date(),
+        show: (element) => {
+          if (element) {
+            element.classList.remove('is-hidden');
+            element.style.display = 'block';
+            return true;
+          }
+          return false;
+        },
+        hide: (element) => {
+          if (element) {
+            element.classList.add('is-hidden');
+            element.style.display = 'none';
+            return true;
+          }
+          return false;
+        },
+      };
+
+      // Enhanced safety fallback test function (mimicking index.html)
+      function displayBasicCountdown(deadline, labelText = 'Next Deadline') {
+        try {
+          const now = new Date();
+          const timeDifference = new Date(deadline) - now;
+
+          const countdownClock = document.getElementById('countdown-clock');
+          const countdownLabel = document.getElementById('countdown-label');
+
+          if (!countdownClock) {
+            console.error('[BasicCountdown] Countdown clock element not found');
+            return false;
+          }
+
+          countdownClock.style.display = 'block';
+          countdownClock.classList.remove('is-hidden');
+
+          if (countdownLabel) {
+            countdownLabel.textContent = labelText;
+          }
+
+          if (timeDifference <= 0) {
+            const daysEl = document.getElementById('countdown-days');
+            if (daysEl) daysEl.textContent = 'LIVE';
+            if (countdownLabel) countdownLabel.textContent = labelText.replace('Deadline', 'LIVE');
+            return true;
+          }
+
+          const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+          const daysEl = document.getElementById('countdown-days');
+          const hoursEl = document.getElementById('countdown-hours');
+          const minutesEl = document.getElementById('countdown-minutes');
+
+          if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+          if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+          if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+
+          return true;
+        } catch (error) {
+          console.error('[BasicCountdown] Failed:', error);
+          return false;
+        }
+      }
+
+      // Test countdown system stability
+      function runStabilityTests() {
+        console.log('🧪 Running countdown stability tests...');
+        testResults.stabilityTests = [];
+        let html = '<h3>Countdown Stability Test Results</h3>';
+
+        const stabilityTests = [
+          {
+            name: 'FPLCountdown module availability',
+            test: () => {
+              return window.FPLCountdown && typeof window.FPLCountdown === 'object';
+            },
+          },
+          {
+            name: 'startCountdown function validation',
+            test: () => {
+              if (!window.FPLCountdown) return false;
+              const futureDeadline = new Date(Date.now() + 24 * 60 * 60 * 1000);
+              const result = FPLCountdown.startCountdown(futureDeadline);
+              return result !== false;
+            },
+          },
+          {
+            name: 'Invalid input handling',
+            test: () => {
+              if (!window.FPLCountdown) return false;
+              const result1 = FPLCountdown.startCountdown(null);
+              const result2 = FPLCountdown.startCountdown('invalid-date');
+              const result3 = FPLCountdown.startCountdown(undefined);
+              return result1 === false && result2 === false && result3 === false;
+            },
+          },
+          {
+            name: 'Multiple startCountdown calls handling',
+            test: () => {
+              if (!window.FPLCountdown) return false;
+              const deadline = new Date(Date.now() + 24 * 60 * 60 * 1000);
+              FPLCountdown.startCountdown(deadline);
+              const state1 = FPLCountdown.getCountdownState();
+              FPLCountdown.startCountdown(deadline);
+              const state2 = FPLCountdown.getCountdownState();
+              return state1.hasInterval && state2.hasInterval;
+            },
+          },
+          {
+            name: 'Countdown state tracking',
+            test: () => {
+              if (!window.FPLCountdown) return false;
+              FPLCountdown.clearCountdown();
+              const stateBefore = FPLCountdown.isCountdownShown();
+              const deadline = new Date(Date.now() + 24 * 60 * 60 * 1000);
+              FPLCountdown.startCountdown(deadline);
+              const stateAfter = FPLCountdown.isCountdownShown();
+              return !stateBefore && stateAfter;
+            },
+          },
+        ];
+
+        stabilityTests.forEach(({ name, test }) => {
+          try {
+            const passed = test();
+            testResults.stabilityTests.push({ name, passed, error: null });
+
+            html += `
+            <div class="test-result ${passed ? 'success' : 'error'}">
+              <span class="status-indicator status-${passed ? 'pass' : 'fail'}"></span>
+              <strong>${name}</strong>: ${passed ? '✅ Pass' : '❌ Fail'}
+            </div>
+          `;
+          } catch (error) {
+            testResults.stabilityTests.push({ name, passed: false, error: error.message });
+            html += `
+            <div class="test-result error">
+              <span class="status-indicator status-fail"></span>
+              <strong>${name}</strong>: ❌ Error - ${error.message}
+            </div>
+          `;
+          }
+        });
+
+        document.getElementById('stability-results').innerHTML = html;
+        console.log('✅ Countdown stability tests completed');
+      }
+
+      // Test error recovery mechanisms
+      function testErrorRecovery() {
+        console.log('🧪 Testing countdown error recovery mechanisms...');
+        testResults.errorRecoveryTests = [];
+        let html = '<h3>Error Recovery Test Results</h3>';
+
+        const errorTests = [
+          {
+            name: 'Missing FPLUtils fallback',
+            test: () => {
+              const originalFPLUtils = window.FPLUtils;
+              delete window.FPLUtils;
+              try {
+                const deadline = new Date(Date.now() + 60 * 60 * 1000);
+                const result = FPLCountdown.startCountdown(deadline);
+                return result !== false;
+              } finally {
+                window.FPLUtils = originalFPLUtils;
+              }
+            },
+          },
+          {
+            name: 'Missing DOM elements handling',
+            test: () => {
+              const clock = document.getElementById('countdown-clock');
+              const originalParent = clock.parentNode;
+              clock.remove();
+
+              try {
+                const deadline = new Date(Date.now() + 60 * 60 * 1000);
+                const result = FPLCountdown.startCountdown(deadline);
+                return result === false; // Should fail gracefully
+              } finally {
+                originalParent.appendChild(clock);
+              }
+            },
+          },
+          {
+            name: 'Display fallback function',
+            test: () => {
+              const deadline = new Date(Date.now() + 2 * 60 * 60 * 1000);
+              return displayBasicCountdown(deadline, 'Test Deadline');
+            },
+          },
+          {
+            name: 'Past deadline handling',
+            test: () => {
+              const pastDeadline = new Date(Date.now() - 60 * 60 * 1000);
+              return displayBasicCountdown(pastDeadline, 'Past Deadline');
+            },
+          },
+          {
+            name: 'Invalid date recovery',
+            test: () => {
+              try {
+                return displayBasicCountdown('invalid-date', 'Invalid Test');
+              } catch (error) {
+                return false; // Should return false, not throw
+              }
+            },
+          },
+        ];
+
+        errorTests.forEach(({ name, test }) => {
+          try {
+            const passed = test();
+            testResults.errorRecoveryTests.push({ name, passed, error: null });
+
+            html += `
+            <div class="test-result ${passed ? 'success' : 'warning'}">
+              <span class="status-indicator status-${passed ? 'pass' : 'warn'}"></span>
+              <strong>${name}</strong>: ${passed ? '✅ Pass' : '⚠️ Warning'}
+            </div>
+          `;
+          } catch (error) {
+            testResults.errorRecoveryTests.push({ name, passed: false, error: error.message });
+            html += `
+            <div class="test-result error">
+              <span class="status-indicator status-fail"></span>
+              <strong>${name}</strong>: ❌ Error - ${error.message}
+            </div>
+          `;
+          }
+        });
+
+        document.getElementById('error-results').innerHTML = html;
+        console.log('✅ Error recovery tests completed');
+      }
+
+      // Test fallback mechanisms
+      function testFallbackMechanisms() {
+        console.log('🧪 Testing countdown fallback mechanisms...');
+        testResults.fallbackTests = [];
+        let html = '<h3>Fallback Mechanism Test Results</h3>';
+
+        const fallbackTests = [
+          {
+            name: 'Basic countdown display',
+            test: () => {
+              const deadline = new Date(Date.now() + 3 * 60 * 60 * 1000);
+              return displayBasicCountdown(deadline, 'Fallback Test');
+            },
+          },
+          {
+            name: 'DOM visibility control',
+            test: () => {
+              const clock = document.getElementById('countdown-clock');
+              clock.classList.add('is-hidden');
+              const deadline = new Date(Date.now() + 60 * 60 * 1000);
+              const result = displayBasicCountdown(deadline);
+              return result && !clock.classList.contains('is-hidden');
+            },
+          },
+          {
+            name: 'Time calculation accuracy',
+            test: () => {
+              const deadline = new Date(Date.now() + 2 * 60 * 60 * 1000 + 30 * 60 * 1000); // 2h 30m
+              displayBasicCountdown(deadline, 'Accuracy Test');
+
+              const hoursEl = document.getElementById('countdown-hours');
+              const minutesEl = document.getElementById('countdown-minutes');
+
+              const hours = parseInt(hoursEl.textContent);
+              const minutes = parseInt(minutesEl.textContent);
+
+              return hours === 2 && minutes >= 29 && minutes <= 30;
+            },
+          },
+          {
+            name: 'LIVE status for past deadlines',
+            test: () => {
+              const pastDeadline = new Date(Date.now() - 30 * 60 * 1000);
+              displayBasicCountdown(pastDeadline, 'Live Test');
+
+              const daysEl = document.getElementById('countdown-days');
+              const labelEl = document.getElementById('countdown-label');
+
+              return daysEl.textContent === 'LIVE' && labelEl.textContent.includes('LIVE');
+            },
+          },
+        ];
+
+        fallbackTests.forEach(({ name, test }) => {
+          try {
+            const passed = test();
+            testResults.fallbackTests.push({ name, passed, error: null });
+
+            html += `
+            <div class="test-result ${passed ? 'success' : 'error'}">
+              <span class="status-indicator status-${passed ? 'pass' : 'fail'}"></span>
+              <strong>${name}</strong>: ${passed ? '✅ Pass' : '❌ Fail'}
+            </div>
+          `;
+          } catch (error) {
+            testResults.fallbackTests.push({ name, passed: false, error: error.message });
+            html += `
+            <div class="test-result error">
+              <span class="status-indicator status-fail"></span>
+              <strong>${name}</strong>: ❌ Error - ${error.message}
+            </div>
+          `;
+          }
+        });
+
+        document.getElementById('fallback-results').innerHTML = html;
+        console.log('✅ Fallback mechanism tests completed');
+      }
+
+      // Run all tests
+      function runAllStabilityTests() {
+        console.log('🚀 Running complete countdown stability test suite...');
+        setTimeout(runStabilityTests, 100);
+        setTimeout(testErrorRecovery, 200);
+        setTimeout(testFallbackMechanisms, 300);
+        console.log('✅ All stability tests queued for execution');
+      }
+
+      // Clear all results
+      function clearResults() {
+        document.getElementById('stability-results').innerHTML =
+          'Click "Run All Stability Tests" to begin testing.';
+        document.getElementById('error-results').innerHTML =
+          'Click "Test Error Recovery" to begin testing.';
+        document.getElementById('fallback-results').innerHTML =
+          'Click "Test Fallback Mechanisms" to begin testing.';
+
+        Object.keys(testResults).forEach((key) => {
+          testResults[key] = [];
+        });
+
+        // Reset countdown display
+        const countdownClock = document.getElementById('countdown-clock');
+        const countdownLabel = document.getElementById('countdown-label');
+        if (countdownClock) countdownClock.classList.add('is-hidden');
+        if (countdownLabel) countdownLabel.textContent = 'Loading...';
+
+        console.log('✅ Test results cleared');
+      }
+
+      // Auto-run basic tests on page load
+      window.addEventListener('load', () => {
+        console.log('🧪 Countdown Stability Test Suite loaded');
+        console.log('Use the control panel to run comprehensive stability tests');
+      });
+
+      // Export test functions for manual use
+      window.countdownStabilityTests = {
+        runAllStabilityTests,
+        runStabilityTests,
+        testErrorRecovery,
+        testFallbackMechanisms,
+        clearResults,
+        getTestResults: () => testResults,
+      };
+    </script>
+  </body>
+</html>
