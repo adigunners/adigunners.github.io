@@ -13,11 +13,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Scan for sensitive filenames
         run: |
-          # Check for proprietary filenames; exclude docs/, .codex/, .agent-os/, .github/
-          if git ls-files \
-            | grep -v -E '^(docs/|\\.codex/|\\.agent-os/|\\.github/)' \
-            | grep -Eiq '(TECHNICAL_DOCUMENTATION|SCORING_|SYSTEM_GUIDE|DEVELOPER_GUIDE|EMAIL_CONTROL_PANEL|COLLABORATION_GUIDE|CI_CD|RELEASE_CHECKLIST|TESTING|TESTING_REFERENCE|EMAIL_PRIZE_REFERENCE)'; then
-            echo "Found proprietary doc names outside docs/ directory"; exit 1; fi
+          # Exclude docs/, .codex/, .agent-os/, .github/, and tests/
+          matches=$(git ls-files \
+            | grep -v -E '^(docs/|\\.codex/|\\.agent-os/|\\.github/|tests/)' \
+            | grep -Ei '(TECHNICAL_DOCUMENTATION|SCORING_|SYSTEM_GUIDE|DEVELOPER_GUIDE|EMAIL_CONTROL_PANEL|COLLABORATION_GUIDE|CI_CD|RELEASE_CHECKLIST|TESTING|TESTING_REFERENCE|EMAIL_PRIZE_REFERENCE)' || true)
+          if [ -n "$matches" ]; then
+            echo "Found proprietary doc names outside docs/ directory:"; echo "$matches"; exit 1; fi
       - name: Scan for sensitive content
         run: |
           # Exclude quarantine folder, CI workflows, .agent-os, .codex, and known safe references

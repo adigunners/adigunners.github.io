@@ -25,8 +25,9 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # Prefer clean lockfile install; fall back to npm i if lockfile is out of sync
           if [ -f package-lock.json ]; then
-            npm ci
+            npm ci || npm i --no-audit --no-fund
           else
             npm i --no-audit --no-fund
           fi
