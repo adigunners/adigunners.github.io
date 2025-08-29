@@ -677,6 +677,39 @@
         - FPLPrizeStructure: Prize structure management
       */
 
+      // ===== Function Safety Utilities =====
+      // Prevent ReferenceError for undefined functions
+      function safeCall(obj, methodName, ...args) {
+        try {
+          if (obj && typeof obj[methodName] === 'function') {
+            return obj[methodName](...args);
+          }
+          console.warn(`Function ${methodName} not available on`, obj);
+          return null;
+        } catch (error) {
+          console.error(`Error calling ${methodName}:`, error);
+          return null;
+        }
+      }
+
+      function safeCallWithFallback(obj, methodName, fallback, ...args) {
+        try {
+          if (obj && typeof obj[methodName] === 'function') {
+            return obj[methodName](...args);
+          }
+          console.warn(`Function ${methodName} not available, using fallback`);
+          return fallback();
+        } catch (error) {
+          console.error(`Error calling ${methodName}, using fallback:`, error);
+          return fallback();
+        }
+      }
+
+      // Global function existence checker
+      function checkFunctionExists(obj, methodName) {
+        return obj && typeof obj[methodName] === 'function';
+      }
+
       // ===== Application Bootstrap =====
       // Initialize URL parameters and basic configuration
       const _urlParams_boot = new URLSearchParams(window.location.search);
@@ -1059,7 +1092,9 @@
                   console.warn('Header update failed:', e2);
                 }
               });
-            updateQAPanel();
+            if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+              FPLUIManager.updateQAPanel();
+            }
             return data;
           })
           .catch((error) => {
@@ -1234,6 +1269,32 @@
       document.addEventListener('DOMContentLoaded', function () {
         console.log('🚀 DOM Content Loaded - Starting initialization');
 
+        // ===== Module Availability Check =====
+        const requiredModules = {
+          FPLUtils: window.FPLUtils,
+          FPLDataLoader: window.FPLDataLoader,
+          FPLUIManager: window.FPLUIManager,
+          FPLCountdown: window.FPLCountdown,
+          ErrorHandler: window.ErrorHandler,
+        };
+
+        const missingModules = [];
+        const availableModules = [];
+
+        Object.entries(requiredModules).forEach(([name, module]) => {
+          if (module && typeof module === 'object') {
+            availableModules.push(name);
+          } else {
+            missingModules.push(name);
+          }
+        });
+
+        console.log('✅ Available modules:', availableModules);
+        if (missingModules.length > 0) {
+          console.warn('⚠️ Missing modules:', missingModules);
+          console.warn('Some functionality may be limited');
+        }
+
         // DOMContentLoaded bootstrap: decides test vs live mode, attempts cached deadlines
         // (only in test mode), sets up countdown safety fallback and loads league_stats.json
         // The majority of UI wiring happens in loadFPLSeasonData() and handleSeasonDisplay().
@@ -1262,18 +1323,22 @@
 
         // Only use cached deadline in test mode to avoid showing "cached" in live mode
         if (isTestMode) {
-          const cachedDeadline = FPLDataLoader.getCachedDeadline();
-          if (cachedDeadline && cachedDeadline - FPLUtils.now() > 0) {
+          const cachedDeadline = safeCall(window.FPLDataLoader, 'getCachedDeadline');
+          if (
+            cachedDeadline &&
+            safeCall(window.FPLUtils, 'now') &&
+            cachedDeadline - FPLUtils.now() > 0
+          ) {
             const countdownClock = document.getElementById('countdown-clock');
-            if (countdownClock) FPLUtils.show(countdownClock);
+            if (countdownClock) safeCall(window.FPLUtils, 'show', countdownClock);
             const label = document.getElementById('countdown-label');
             if (label && !label.textContent.includes('(cached)')) {
               label.textContent = label.textContent + ' (cached)';
             }
             usedCachedOnLoad = true;
-            handleSeasonDisplay(cachedDeadline);
-            FPLCountdown.startCountdown(cachedDeadline);
-            FPLCountdown.markCountdownShown();
+            safeCall(window, 'handleSeasonDisplay', cachedDeadline);
+            safeCall(window.FPLCountdown, 'startCountdown', cachedDeadline);
+            safeCall(window.FPLCountdown, 'markCountdownShown');
           }
         }
 
@@ -1286,27 +1351,28 @@
 
         // Safety: if nothing has shown the countdown within 1500ms, try to use cached data or show appropriate fallback
         setTimeout(() => {
-          const countdownShown =
-            FPLCountdown && FPLCountdown.isCountdownShown ? FPLCountdown.isCountdownShown() : false;
+          const countdownShown = safeCall(window.FPLCountdown, 'isCountdownShown') || false;
           console.log('⏰ Safety fallback timeout triggered, countdownShown:', countdownShown);
           if (!countdownShown) {
             console.warn('[Countdown] Safety fallback engaged');
             const countdownClock = document.getElementById('countdown-clock');
             const label = document.getElementById('countdown-label');
-            if (countdownClock) FPLUtils.show(countdownClock);
+            if (countdownClock) safeCall(window.FPLUtils, 'show', countdownClock);
             if (label) label.textContent = 'Fetching next deadline…';
 
-            const cachedGW = FPLDataLoader.getCachedGameweek();
+            const cachedGW = safeCall(window.FPLDataLoader, 'getCachedGameweek');
             if (cachedGW && cachedGW.id) {
               console.log('[Fallback] Using cached gameweek data:', cachedGW);
               const deadline = new Date(cachedGW.deadline_time);
-              handleSeasonDisplay(deadline, cachedGW);
-              FPLCountdown.startCountdown(deadline, cachedGW);
+              safeCall(window, 'handleSeasonDisplay', deadline, cachedGW);
+              safeCall(window.FPLCountdown, 'startCountdown', deadline, cachedGW);
             } else {
               // Attempt a fresh load via shared loader (may use proxy outside post-deadline window)
-              loadFPLSeasonData();
+              safeCall(window, 'loadFPLSeasonData');
             }
-            updateQAPanel();
+            if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+              FPLUIManager.updateQAPanel();
+            }
           }
         }, 1500);
 
@@ -1382,7 +1448,9 @@
               // Use shared rollover scheduler
               scheduleRolloverCheck(deadline);
               attachAdminBadge();
-              updateQAPanel();
+              if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+                FPLUIManager.updateQAPanel();
+              }
             } catch (e) {
               console.error('Post-load wiring failed:', e);
             }
@@ -1399,7 +1467,9 @@
                   handleSeasonDisplay(deadline, gameweek);
                   FPLCountdown.startCountdown(deadline, gameweek);
                   scheduleRolloverCheck(deadline);
-                  updateQAPanel();
+                  if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+                    FPLUIManager.updateQAPanel();
+                  }
                 })
                 .catch((e2) => console.error('Proxy fallback failed:', e2));
             }
@@ -1487,7 +1557,9 @@
                 lastWinnersUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
                 FPLDataLoader.updateDataTimestamp('winners', data.lastUpdated);
               } catch {}
-              updateQAPanel();
+              if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+                FPLUIManager.updateQAPanel();
+              }
             }
           }
         );
@@ -1746,7 +1818,9 @@
                     lastLeaderboardUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
                     FPLDataLoader.updateDataTimestamp('leaderboard', data.lastUpdated);
                   } catch {}
-                  updateQAPanel();
+                  if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+                    FPLUIManager.updateQAPanel();
+                  }
                   return data;
                 })
                 .catch((fetchError) => {
@@ -1779,7 +1853,9 @@
                     lastLeaderboardUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
                     FPLDataLoader.updateDataTimestamp('leaderboard', data.lastUpdated);
                   } catch {}
-                  updateQAPanel();
+                  if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+                    FPLUIManager.updateQAPanel();
+                  }
                   return data;
                 });
             }
@@ -1870,7 +1946,9 @@
                 lastLeaderboardUpdatedIso = data.lastUpdated || lastUpdated.toISOString();
                 FPLDataLoader.updateDataTimestamp('leaderboard', data.lastUpdated);
               } catch {}
-              updateQAPanel();
+              if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+                FPLUIManager.updateQAPanel();
+              }
             }
 
             return data;
@@ -1890,7 +1968,9 @@
                 </div>
               `;
             }
-            updateQAPanel();
+            if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+              FPLUIManager.updateQAPanel();
+            }
           });
       }
 

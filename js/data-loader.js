@@ -243,6 +243,91 @@ window.FPLDataLoader = (function () {
   }
 
   /**
+   * Load winner preview data for header sync and display
+   * This function loads winner data specifically for syncing gameweek information
+   * between data loader and UI manager modules
+   */
+  function loadWinnerPreview() {
+    console.debug('[loadWinnerPreview] Loading winner data for preview and GW sync');
+
+    try {
+      // Determine data source (test vs live)
+      const urlParams = new URLSearchParams(window.location.search);
+      const isTestMode = urlParams.get('test') === 'true';
+      const dataOverride = window.FPLUtils ? FPLUtils.getDataOverride() : 'auto';
+
+      let useTestData = isTestMode;
+      if (dataOverride === 'test') useTestData = true;
+      if (dataOverride === 'live') useTestData = false;
+
+      const winnersFile = useTestData ? 'data/test_winner_stats.json' : 'data/winner_stats.json';
+      const winnerUrl = winnersFile + '?cache=' + new Date().getTime();
+
+      console.debug(
+        `[loadWinnerPreview] Using ${useTestData ? 'test' : 'live'} data: ${winnersFile}`
+      );
+
+      return fetchWithRetry(winnerUrl, 3)
+        .then((data) => {
+          console.debug('[loadWinnerPreview] Winner preview data loaded:', data);
+
+          // Capture completed gameweeks from winners summary for header sync
+          if (data.summary && data.summary.completedGameweeks !== undefined) {
+            const parsed = Number(data.summary.completedGameweeks);
+            if (!Number.isNaN(parsed) && Number.isFinite(parsed) && parsed > 0) {
+              _lastProcessedGW = parsed;
+              console.debug(
+                '[loadWinnerPreview] Set _lastProcessedGW from winner data:',
+                _lastProcessedGW
+              );
+
+              // Sync with UI Manager if available
+              if (window.FPLUIManager && typeof FPLUIManager.setLastProcessedGW === 'function') {
+                FPLUIManager.setLastProcessedGW(_lastProcessedGW);
+                console.debug('[loadWinnerPreview] Synced _lastProcessedGW with UI Manager');
+              }
+
+              // Validate against next GW if available (Issue #37 prevention)
+              if (typeof _lastGwId === 'number' && _lastGwId > 0) {
+                const expectedMax = _lastGwId - 1;
+                if (_lastProcessedGW > expectedMax) {
+                  console.warn(
+                    '[loadWinnerPreview] Issue #37 Prevention: completedGameweeks (',
+                    _lastProcessedGW,
+                    ') exceeds expected max (',
+                    expectedMax,
+                    ') based on nextGW (',
+                    _lastGwId,
+                    ')'
+                  );
+                }
+              }
+            } else {
+              console.debug('[loadWinnerPreview] Invalid completedGameweeks value:', parsed);
+            }
+          } else {
+            console.debug('[loadWinnerPreview] No completedGameweeks found in summary');
+          }
+
+          // Update data timestamps
+          if (data.lastUpdated) {
+            lastWinnersUpdatedIso = data.lastUpdated;
+            updateDataTimestamp('winners', data.lastUpdated);
+          }
+
+          return data;
+        })
+        .catch((error) => {
+          console.error('[loadWinnerPreview] Failed to load winner preview data:', error);
+          throw error;
+        });
+    } catch (error) {
+      console.error('[loadWinnerPreview] Error in loadWinnerPreview:', error);
+      return Promise.reject(error);
+    }
+  }
+
+  /**
    * Load winner data (both test and live)
    */
   function loadWinnerData(
@@ -540,7 +625,7 @@ window.FPLDataLoader = (function () {
     loadFPLSeasonData,
     loadFPLSeasonDataViaProxy,
     loadWinnerData,
-    fetchWithRetry,
+    loadWinnerPreview,
     loadTestLeaderboardData,
     loadLeaderboardData,
     getCachedDeadline,
