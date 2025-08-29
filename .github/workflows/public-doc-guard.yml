@@ -15,7 +15,7 @@ jobs:
         run: |
           # Exclude docs/, .codex/, .agent-os/, .github/, and tests/
           matches=$(git ls-files \
-            | grep -v -E '^(docs/|\\.codex/|\\.agent-os/|\\.github/|tests/)' \
+            | grep -v -E '^(docs/|\.codex/|\.agent-os/|\.github/|tests/|tools/testing/)' \
             | grep -Ei '(TECHNICAL_DOCUMENTATION|SCORING_|SYSTEM_GUIDE|DEVELOPER_GUIDE|EMAIL_CONTROL_PANEL|COLLABORATION_GUIDE|CI_CD|RELEASE_CHECKLIST|TESTING|TESTING_REFERENCE|EMAIL_PRIZE_REFERENCE)' || true)
           if [ -n "$matches" ]; then
             echo "Found proprietary doc names outside docs/ directory:"; echo "$matches"; exit 1; fi
