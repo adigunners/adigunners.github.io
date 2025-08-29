@@ -113,14 +113,15 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
-      integrity="sha384-z0uT6z65k5i1goG2ndg/yZWdgm5SPxvjdXCgxe6nbIK/tr08n1237LM8zMeNerNR"
       crossorigin="anonymous"
+      onerror="console.warn('Google Fonts failed to load'); document.body.classList.add('poppins-fallback', 'external-resources-failed'); if(document.getElementById('fallback-css')) document.getElementById('fallback-css').disabled = false;"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g"
       crossorigin="anonymous"
+      onerror="console.warn('Font Awesome failed to load'); document.body.classList.add('external-resources-failed'); if(document.getElementById('fallback-css')) document.getElementById('fallback-css').disabled = false;"
     />
 
     <!-- CSS files in proper cascade order for optimal performance and maintainability -->
@@ -160,44 +161,71 @@
 
         // Check if external resources loaded successfully
         function checkExternalResources() {
-          const fallbackCSS = document.getElementById('fallback-css');
-          let needsFallback = false;
+          try {
+            const fallbackCSS = document.getElementById('fallback-css');
+            let needsFallback = false;
 
-          // Check if Font Awesome loaded
-          const testElement = document.createElement('div');
-          testElement.className = 'fas fa-users';
-          testElement.style.fontFamily = 'Font Awesome 6 Free';
-          testElement.style.position = 'absolute';
-          testElement.style.left = '-9999px';
-          document.body.appendChild(testElement);
+            // Check if Font Awesome loaded
+            try {
+              const testElement = document.createElement('div');
+              testElement.className = 'fas fa-users';
+              testElement.style.fontFamily = 'Font Awesome 6 Free';
+              testElement.style.position = 'absolute';
+              testElement.style.left = '-9999px';
+              document.body.appendChild(testElement);
 
-          const computedStyle = window.getComputedStyle(testElement);
-          if (computedStyle.fontFamily.indexOf('Font Awesome') === -1) {
-            needsFallback = true;
-            console.warn('Font Awesome failed to load, using fallbacks');
-          }
-          document.body.removeChild(testElement);
+              const computedStyle = window.getComputedStyle(testElement);
+              if (computedStyle.fontFamily.indexOf('Font Awesome') === -1) {
+                needsFallback = true;
+                console.warn('Font Awesome failed to load, using fallbacks');
+              }
+              document.body.removeChild(testElement);
+            } catch (e) {
+              console.warn('Font Awesome check failed:', e);
+              needsFallback = true;
+            }
 
-          // Check if Google Fonts loaded
-          const testPoppins = document.createElement('div');
-          testPoppins.style.fontFamily = 'Poppins, serif';
-          testPoppins.style.position = 'absolute';
-          testPoppins.style.left = '-9999px';
-          testPoppins.innerHTML = 'test';
-          document.body.appendChild(testPoppins);
+            // Check if Google Fonts loaded
+            try {
+              const testPoppins = document.createElement('div');
+              testPoppins.style.fontFamily = 'Poppins, serif';
+              testPoppins.style.position = 'absolute';
+              testPoppins.style.left = '-9999px';
+              testPoppins.innerHTML = 'test';
+              document.body.appendChild(testPoppins);
 
-          const poppinsStyle = window.getComputedStyle(testPoppins);
-          if (poppinsStyle.fontFamily.indexOf('Poppins') === -1) {
-            needsFallback = true;
-            document.body.classList.add('poppins-fallback');
-            console.warn('Google Fonts failed to load, using system fonts');
-          }
-          document.body.removeChild(testPoppins);
+              const poppinsStyle = window.getComputedStyle(testPoppins);
+              if (poppinsStyle.fontFamily.indexOf('Poppins') === -1) {
+                needsFallback = true;
+                document.body.classList.add('poppins-fallback');
+                console.warn('Google Fonts failed to load, using system fonts');
+              }
+              document.body.removeChild(testPoppins);
+            } catch (e) {
+              console.warn('Google Fonts check failed:', e);
+              needsFallback = true;
+              document.body.classList.add('poppins-fallback');
+            }
 
-          // Enable fallback CSS if needed
-          if (needsFallback && fallbackCSS) {
-            fallbackCSS.disabled = false;
-            document.body.classList.add('external-resources-failed');
+            // Enable fallback CSS if needed
+            if (needsFallback && fallbackCSS) {
+              fallbackCSS.disabled = false;
+              document.body.classList.add('external-resources-failed');
+              console.info('Fallback CSS enabled due to external resource failures');
+            }
+
+            // Report successful loading if no fallbacks needed
+            if (!needsFallback) {
+              console.info('All external resources loaded successfully');
+            }
+          } catch (e) {
+            console.error('External resource check failed completely:', e);
+            // Enable fallback as safety measure
+            const fallbackCSS = document.getElementById('fallback-css');
+            if (fallbackCSS) {
+              fallbackCSS.disabled = false;
+              document.body.classList.add('external-resources-failed');
+            }
           }
         }
 
