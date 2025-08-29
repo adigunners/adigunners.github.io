@@ -63,40 +63,41 @@ Use the file-creator subagent to organize all files into proper directory struct
   PROCESS: Verify all files are in correct locations
 </instructions>
 
-<organization_rules>
+<organization*rules>
 <test_files>
-  <manual_tests>tests/manual/</manual_tests>
-  <unit_tests>tests/unit/</unit_tests>
-  <integration_tests>tests/integration/</integration_tests>
-  <performance_tests>tests/performance/</performance_tests>
+<manual_tests>tests/manual/</manual_tests>
+<unit_tests>tests/unit/</unit_tests>
+<integration_tests>tests/integration/</integration_tests>
+<performance_tests>tests/performance/</performance_tests>
 </test_files>
 <cleanup_patterns>
-  <temporary>*.tmp, *.debug, *.bak, *~</temporary>
-  <system>.DS_Store, Thumbs.db</system>
-  <logs>*.log (except in logs/ directory)</logs>
+<temporary>*.tmp, _.debug, _.bak, \_~</temporary>
+<system>.DS_Store, Thumbs.db</system>
+<logs>\*.log (except in logs/ directory)</logs>
 </cleanup_patterns>
 <path_validation>
-  <check>relative imports after file moves</check>
-  <update>broken references in moved files</update>
-  <verify>no orphaned dependencies</verify>
+<check>relative imports after file moves</check>
+<update>broken references in moved files</update>
+<verify>no orphaned dependencies</verify>
 </path_validation>
 </organization_rules>
 
 <structure_validation>
 <required_directories>
+
 - tests/manual/ (HTML test files)
 - tests/unit/ (Jest test files)
 - css/ (stylesheets)
 - js/ (JavaScript modules)
 - docs/ (documentation)
-</required_directories>
-<file_placement>
-- test-*.html → tests/manual/
-- *test.js → tests/unit/
-- *spec.js → tests/unit/
+  </required_directories>
+  <file_placement>
+- test-\*.html → tests/manual/
+- \*test.js → tests/unit/
+- \*spec.js → tests/unit/
 - README files → appropriate directories
-</file_placement>
-</structure_validation>
+  </file_placement>
+  </structure_validation>
 
 </step>
 

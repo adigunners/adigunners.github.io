@@ -6,8 +6,9 @@ Refer to the comprehensive workflow instructions located in this file:
 @.agent-os/instructions/core/post-execution-tasks.md
 
 This includes:
+
 - Test suite verification
-- File organization & cleanup 
+- File organization & cleanup
 - Git workflow and PR creation
 - Task completion verification
 - Progress reporting and documentation
