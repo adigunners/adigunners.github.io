@@ -100,7 +100,11 @@
     <meta name="twitter:image:alt" content="IIM Mumbai Fantasy Premier League 2025-26" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////APFxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/////wD///8A8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/////AP///wDxcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv////8A////APFxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/////wD///8A8XFK/////////////////////////////////////////////////////////////////////////////////////////////////////////////wDxcUr/////AP///wDxcUr/////////////////////////////////////////////////////////////////////////////////8XFK/////wD///8A8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/+rg2v/q4Nr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/////wD///8A8XFK/////////////////////////////////+rg2v/q4Nr/////////////////////////////////8XFK/////wD///8A8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/+rg2v/q4Nr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/////wD///8A8XFK/////////////////////////////////////////////////////////////////////////////////8XFK/////wD///8A8XFK/////////////////////////////////////////////////////////////////////////////////////////////////////////////wDxcUr/////AP///wDxcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/////AP///wDxcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv////8A////APFxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK//FxSv/xcUr/8XFK/////wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+    />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- Performance Optimizations -->
@@ -974,6 +978,60 @@
         return FPLDataLoader.loadLeagueStats();
       }
 
+      /**
+       * Basic countdown display for emergency fallback scenarios
+       * When all other countdown systems fail, this provides minimal functionality
+       */
+      function displayBasicCountdown(deadline, labelText = 'Next Deadline') {
+        try {
+          const now = new Date();
+          const timeDifference = new Date(deadline) - now;
+
+          const countdownClock = document.getElementById('countdown-clock');
+          const countdownLabel = document.getElementById('countdown-label');
+
+          if (!countdownClock) {
+            console.error('[BasicCountdown] Countdown clock element not found');
+            return false;
+          }
+
+          // Show countdown
+          countdownClock.style.display = 'block';
+          countdownClock.classList.remove('is-hidden');
+
+          if (countdownLabel) {
+            countdownLabel.textContent = labelText;
+          }
+
+          if (timeDifference <= 0) {
+            // Show LIVE status
+            const daysEl = document.getElementById('countdown-days');
+            if (daysEl) daysEl.textContent = 'LIVE';
+            if (countdownLabel) countdownLabel.textContent = labelText.replace('Deadline', 'LIVE');
+            return true;
+          }
+
+          // Calculate and display time components
+          const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+          const daysEl = document.getElementById('countdown-days');
+          const hoursEl = document.getElementById('countdown-hours');
+          const minutesEl = document.getElementById('countdown-minutes');
+
+          if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+          if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+          if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+
+          console.log('[BasicCountdown] Successfully displayed basic countdown');
+          return true;
+        } catch (error) {
+          console.error('[BasicCountdown] Basic countdown display failed:', error);
+          return false;
+        }
+      }
+
       // Check if we're in test mode
       function checkTestMode() {
         return FPLUIManager.checkTestMode();
@@ -1349,30 +1407,95 @@
 
         // Headers will be updated when data loads (lines 1018, 1334)
 
-        // Safety: if nothing has shown the countdown within 1500ms, try to use cached data or show appropriate fallback
+        // Enhanced safety fallback with multiple layers of error recovery
         setTimeout(() => {
-          const countdownShown = safeCall(window.FPLCountdown, 'isCountdownShown') || false;
-          console.log('⏰ Safety fallback timeout triggered, countdownShown:', countdownShown);
-          if (!countdownShown) {
-            console.warn('[Countdown] Safety fallback engaged');
+          try {
+            const countdownShown = safeCall(window.FPLCountdown, 'isCountdownShown') || false;
+            console.log('⏰ Safety fallback timeout triggered, countdownShown:', countdownShown);
+
+            if (!countdownShown) {
+              console.warn('[Countdown] Safety fallback engaged - attempting recovery');
+
+              const countdownClock = document.getElementById('countdown-clock');
+              const label = document.getElementById('countdown-label');
+
+              // Show countdown elements with fallback DOM methods
+              if (countdownClock) {
+                if (!safeCall(window.FPLUtils, 'show', countdownClock)) {
+                  // FPLUtils failed, use direct DOM manipulation
+                  countdownClock.classList.remove('is-hidden');
+                  countdownClock.style.display = 'block';
+                }
+              }
+
+              if (label) label.textContent = 'Fetching next deadline…';
+
+              // Try cached data first
+              const cachedGW = safeCall(window.FPLDataLoader, 'getCachedGameweek');
+              if (cachedGW && cachedGW.id && cachedGW.deadline_time) {
+                console.log('[Fallback] Using cached gameweek data:', cachedGW);
+
+                try {
+                  const deadline = new Date(cachedGW.deadline_time);
+                  if (!isNaN(deadline.getTime())) {
+                    // Try full startup flow
+                    const handleSuccess = safeCall(
+                      window,
+                      'handleSeasonDisplay',
+                      deadline,
+                      cachedGW
+                    );
+                    const countdownSuccess = safeCall(
+                      window.FPLCountdown,
+                      'startCountdown',
+                      deadline,
+                      cachedGW
+                    );
+
+                    if (!countdownSuccess) {
+                      // If module countdown failed, try basic fallback
+                      console.warn('[Fallback] Module countdown failed, trying basic display');
+                      displayBasicCountdown(deadline, `GW${cachedGW.id} Deadline`);
+                    }
+                  } else {
+                    console.error('[Fallback] Invalid cached deadline format');
+                  }
+                } catch (deadlineError) {
+                  console.error('[Fallback] Error processing cached deadline:', deadlineError);
+                }
+              } else {
+                console.warn('[Fallback] No valid cached gameweek data available');
+
+                // Attempt a fresh load via shared loader
+                const freshLoadResult = safeCall(window, 'loadFPLSeasonData');
+                if (!freshLoadResult) {
+                  // Last resort: show generic countdown message
+                  if (label) label.textContent = 'Next deadline loading...';
+                  console.warn(
+                    '[Fallback] All recovery methods exhausted, showing generic message'
+                  );
+                }
+              }
+
+              // Update QA panel if available
+              try {
+                if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+                  FPLUIManager.updateQAPanel();
+                }
+              } catch (qaError) {
+                console.warn('[Fallback] QA panel update failed:', qaError);
+              }
+            }
+          } catch (fallbackError) {
+            console.error('[Countdown] Critical error in safety fallback:', fallbackError);
+            // Last resort: ensure countdown is visible with basic message
             const countdownClock = document.getElementById('countdown-clock');
             const label = document.getElementById('countdown-label');
-            if (countdownClock) safeCall(window.FPLUtils, 'show', countdownClock);
-            if (label) label.textContent = 'Fetching next deadline…';
-
-            const cachedGW = safeCall(window.FPLDataLoader, 'getCachedGameweek');
-            if (cachedGW && cachedGW.id) {
-              console.log('[Fallback] Using cached gameweek data:', cachedGW);
-              const deadline = new Date(cachedGW.deadline_time);
-              safeCall(window, 'handleSeasonDisplay', deadline, cachedGW);
-              safeCall(window.FPLCountdown, 'startCountdown', deadline, cachedGW);
-            } else {
-              // Attempt a fresh load via shared loader (may use proxy outside post-deadline window)
-              safeCall(window, 'loadFPLSeasonData');
+            if (countdownClock) {
+              countdownClock.style.display = 'block';
+              countdownClock.classList.remove('is-hidden');
             }
-            if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
-              FPLUIManager.updateQAPanel();
-            }
+            if (label) label.textContent = 'Loading...';
           }
         }, 1500);
 

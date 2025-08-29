@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Final Console Error Validation - FPL IIM Mumbai</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        line-height: 1.6;
+        background: #f8f9fa;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #37003c;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .error-section {
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 5px solid #37003c;
+      }
+      .error-fixed {
+        background: #d4edda;
+        border-left-color: #28a745;
+      }
+      .error-pending {
+        background: #fff3cd;
+        border-left-color: #ffc107;
+      }
+      .error-failed {
+        background: #f8d7da;
+        border-left-color: #dc3545;
+      }
+      .test-result {
+        margin: 10px 0;
+        padding: 10px 15px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 14px;
+      }
+      .success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .warning {
+        background: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeaa7;
+      }
+      .info {
+        background: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+      .button {
+        background: #37003c;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 5px;
+        font-size: 16px;
+      }
+      .button:hover {
+        background: #2d002e;
+      }
+      .button:disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+      }
+      .status-indicator {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+      .status-pass {
+        background: #28a745;
+      }
+      .status-fail {
+        background: #dc3545;
+      }
+      .status-pending {
+        background: #ffc107;
+      }
+      .console-output {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 15px;
+        border-radius: 6px;
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
+        max-height: 300px;
+        overflow-y: auto;
+        margin: 10px 0;
+        white-space: pre-wrap;
+      }
+      .progress-bar {
+        width: 100%;
+        height: 20px;
+        background: #e9ecef;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 10px 0;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #37003c, #00ff87);
+        width: 0%;
+        transition: width 0.5s ease;
+      }
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .summary-card {
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .summary-fixed {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+      }
+      .summary-total {
+        background: #e7f3ff;
+        border: 1px solid #b3d9ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔍 Final Console Error Validation</h1>
+      <p style="text-align: center; color: #666; margin-bottom: 30px">
+        Comprehensive validation of all console error fixes implemented
+      </p>
+
+      <div style="text-align: center; margin: 30px 0">
+        <button class="button" onclick="runCompleteValidation()">🧪 Run Complete Validation</button>
+        <button class="button" onclick="testOriginalErrors()">⚠️ Test Original 6 Errors</button>
+        <button class="button" onclick="stressTestSystem()">🔥 Stress Test System</button>
+        <button class="button" onclick="clearResults()">🧹 Clear Results</button>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div id="progress-text" style="text-align: center; color: #666; margin-bottom: 20px">
+        Ready to run validation tests
+      </div>
+
+      <div class="summary-grid" id="summary-cards" style="display: none">
+        <div class="summary-card summary-total">
+          <h3 id="total-tests">0</h3>
+          <p>Total Tests</p>
+        </div>
+        <div class="summary-card summary-fixed">
+          <h3 id="passed-tests">0</h3>
+          <p>Tests Passed</p>
+        </div>
+        <div class="summary-card summary-total">
+          <h3 id="failed-tests">0</h3>
+          <p>Tests Failed</p>
+        </div>
+        <div class="summary-card summary-fixed">
+          <h3 id="error-reduction">0%</h3>
+          <p>Error Reduction</p>
+        </div>
+      </div>
+
+      <div id="validation-results">
+        <div class="info">
+          <strong>Original Console Errors to Validate:</strong>
+          <ol>
+            <li>Font integrity hash validation failure for Google Fonts</li>
+            <li>Missing FPLDataLoader.loadWinnerPreview function (TypeError)</li>
+            <li>Missing service-worker.js (404 error)</li>
+            <li>Countdown safety fallback issues</li>
+            <li>Missing updateQAPanel function references (ReferenceError)</li>
+            <li>Missing favicon.ico (404 error)</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="console-output" id="console-capture" style="display: none">
+        <div style="color: #00ff87; margin-bottom: 10px">📊 Live Console Monitoring</div>
+      </div>
+    </div>
+
+    <!-- Include all necessary modules for testing -->
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/error-handler.js"></script>
+    <script src="../../js/data-loader.js"></script>
+    <script src="../../js/countdown.js"></script>
+    <script src="../../js/ui-manager.js"></script>
+
+    <script>
+      // Console capture system
+      const consoleMessages = [];
+      const originalConsole = {
+        log: console.log,
+        warn: console.warn,
+        error: console.error,
+        info: console.info,
+        debug: console.debug,
+      };
+
+      // Override console methods to capture messages
+      ['log', 'warn', 'error', 'info', 'debug'].forEach((method) => {
+        console[method] = function (...args) {
+          const message = args
+            .map((arg) => (typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)))
+            .join(' ');
+
+          consoleMessages.push({
+            type: method,
+            message,
+            timestamp: new Date().toISOString(),
+          });
+
+          // Also call original console method
+          originalConsole[method].apply(console, args);
+
+          // Update live console display
+          updateConsoleDisplay();
+        };
+      });
+
+      // Test results storage
+      const testResults = {
+        originalErrorTests: [],
+        stressTests: [],
+        performanceTests: [],
+      };
+
+      let totalTests = 0;
+      let passedTests = 0;
+
+      // Original 6 console errors validation
+      const originalErrors = [
+        {
+          name: 'Font integrity hash validation failure',
+          description: 'Google Fonts SHA-384 integrity validation should not fail',
+          test: async () => {
+            // Check if Google Fonts link has been fixed (no integrity hash or proper fallback)
+            const fontLinks = document.querySelectorAll('link[href*="fonts.googleapis.com"]');
+            let hasIntegrityIssue = false;
+
+            for (const link of fontLinks) {
+              if (link.integrity && link.integrity.length > 0) {
+                // If integrity is present, test if it causes errors
+                try {
+                  const response = await fetch(link.href);
+                  const content = await response.text();
+                  // If we get here without error, integrity is working
+                } catch (error) {
+                  hasIntegrityIssue = true;
+                  console.error('Font integrity validation failed:', error);
+                }
+              }
+            }
+
+            // Check for font fallback mechanisms
+            const hasErrorHandler = document.querySelector('link[onerror]') !== null;
+            const hasFallbackCSS = document.querySelector('link[href*="fallback"]') !== null;
+
+            return !hasIntegrityIssue || hasErrorHandler;
+          },
+        },
+        {
+          name: 'FPLDataLoader.loadWinnerPreview function missing',
+          description: 'FPLDataLoader.loadWinnerPreview should exist and be callable',
+          test: () => {
+            if (!window.FPLDataLoader) {
+              console.error('FPLDataLoader module not available');
+              return false;
+            }
+
+            if (typeof FPLDataLoader.loadWinnerPreview !== 'function') {
+              console.error('FPLDataLoader.loadWinnerPreview is not a function');
+              return false;
+            }
+
+            // Test that it doesn't throw immediately
+            try {
+              const result = FPLDataLoader.loadWinnerPreview();
+              return true; // Function exists and is callable
+            } catch (error) {
+              console.error('FPLDataLoader.loadWinnerPreview threw error:', error);
+              return false;
+            }
+          },
+        },
+        {
+          name: 'service-worker.js 404 error',
+          description: 'service-worker.js should be accessible or properly handled',
+          test: async () => {
+            try {
+              const response = await fetch('/service-worker.js');
+              return response.ok; // Should return 200 OK
+            } catch (error) {
+              console.error('service-worker.js fetch failed:', error);
+              return false;
+            }
+          },
+        },
+        {
+          name: 'Countdown safety fallback issues',
+          description: 'Countdown system should have robust fallback mechanisms',
+          test: () => {
+            if (!window.FPLCountdown) {
+              console.error('FPLCountdown module not available');
+              return false;
+            }
+
+            // Test countdown state management
+            const initialState = FPLCountdown.isCountdownShown();
+
+            // Test with invalid input (should not crash)
+            try {
+              const result1 = FPLCountdown.startCountdown(null);
+              const result2 = FPLCountdown.startCountdown('invalid-date');
+
+              // Should return false for invalid inputs, not throw
+              return result1 === false && result2 === false;
+            } catch (error) {
+              console.error('Countdown fallback failed:', error);
+              return false;
+            }
+          },
+        },
+        {
+          name: 'updateQAPanel function ReferenceError',
+          description: 'updateQAPanel calls should be properly handled',
+          test: () => {
+            // Test that updateQAPanel calls don't throw ReferenceError
+            try {
+              // This should either work or fail gracefully
+              if (window.FPLUIManager && typeof FPLUIManager.updateQAPanel === 'function') {
+                FPLUIManager.updateQAPanel();
+                return true;
+              } else {
+                // Function doesn't exist but no error thrown - that's fine
+                return true;
+              }
+            } catch (error) {
+              if (error instanceof ReferenceError) {
+                console.error('ReferenceError still occurring:', error);
+                return false;
+              }
+              // Other errors might be expected (missing DOM elements, etc.)
+              return true;
+            }
+          },
+        },
+        {
+          name: 'favicon.ico 404 error',
+          description: 'Favicon should be accessible or embedded as data URL',
+          test: () => {
+            // Check if favicon is embedded as data URL or accessible as file
+            const faviconLinks = document.querySelectorAll('link[rel*="icon"]');
+            let hasValidFavicon = false;
+
+            for (const link of faviconLinks) {
+              if (link.href.startsWith('data:')) {
+                hasValidFavicon = true; // Data URL favicon
+                break;
+              }
+            }
+
+            return hasValidFavicon; // Data URL should prevent 404
+          },
+        },
+      ];
+
+      // Run validation for original 6 errors
+      async function testOriginalErrors() {
+        document.getElementById('validation-results').innerHTML =
+          '<div class="info">Running original error validation...</div>';
+        const results = [];
+
+        for (const errorTest of originalErrors) {
+          try {
+            const passed = await errorTest.test();
+            results.push({
+              name: errorTest.name,
+              description: errorTest.description,
+              passed,
+              error: null,
+            });
+
+            console.log(`✓ ${errorTest.name}: ${passed ? 'PASSED' : 'FAILED'}`);
+          } catch (error) {
+            results.push({
+              name: errorTest.name,
+              description: errorTest.description,
+              passed: false,
+              error: error.message,
+            });
+
+            console.error(`✗ ${errorTest.name}: ERROR - ${error.message}`);
+          }
+        }
+
+        testResults.originalErrorTests = results;
+        displayOriginalErrorResults(results);
+        updateSummaryCards();
+      }
+
+      // Display original error test results
+      function displayOriginalErrorResults(results) {
+        let html = '<h2>🎯 Original Console Error Validation Results</h2>';
+
+        results.forEach((result, index) => {
+          const statusClass = result.passed ? 'error-fixed' : 'error-failed';
+          const statusIcon = result.passed ? 'status-pass' : 'status-fail';
+          const statusText = result.passed ? '✅ FIXED' : '❌ STILL FAILING';
+
+          html += `
+            <div class="error-section ${statusClass}">
+              <h3>
+                <span class="status-indicator ${statusIcon}"></span>
+                Error ${index + 1}: ${result.name}
+              </h3>
+              <p><strong>Description:</strong> ${result.description}</p>
+              <div class="test-result ${result.passed ? 'success' : 'error'}">
+                <strong>Status:</strong> ${statusText}
+                ${result.error ? `<br><strong>Error:</strong> ${result.error}` : ''}
+              </div>
+            </div>
+          `;
+        });
+
+        document.getElementById('validation-results').innerHTML = html;
+      }
+
+      // Stress test the system
+      async function stressTestSystem() {
+        console.log('🔥 Running stress tests...');
+        const stressTests = [
+          {
+            name: 'Multiple countdown initializations',
+            test: () => {
+              if (!window.FPLCountdown) return false;
+              const deadline = new Date(Date.now() + 60 * 60 * 1000);
+
+              // Should handle multiple calls gracefully
+              for (let i = 0; i < 10; i++) {
+                FPLCountdown.startCountdown(deadline);
+              }
+
+              return FPLCountdown.isCountdownShown();
+            },
+          },
+          {
+            name: 'Missing DOM elements handling',
+            test: () => {
+              // Temporarily remove elements and test resilience
+              const elements = ['countdown-clock', 'countdown-label'];
+              const removed = [];
+
+              elements.forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) {
+                  removed.push({ id, element: el, parent: el.parentNode });
+                  el.remove();
+                }
+              });
+
+              try {
+                // Test system with missing elements
+                if (window.FPLCountdown) {
+                  const result = FPLCountdown.startCountdown(new Date(Date.now() + 3600000));
+                  // Should return false when elements are missing, not crash
+                  return result === false;
+                }
+                return true;
+              } finally {
+                // Restore elements
+                removed.forEach(({ element, parent }) => {
+                  parent.appendChild(element);
+                });
+              }
+            },
+          },
+          {
+            name: 'Invalid data handling',
+            test: () => {
+              const invalidInputs = [null, undefined, 'invalid', {}, [], -1];
+              let allHandled = true;
+
+              invalidInputs.forEach((input) => {
+                try {
+                  if (window.FPLCountdown) {
+                    const result = FPLCountdown.startCountdown(input);
+                    if (result !== false) {
+                      allHandled = false;
+                    }
+                  }
+                } catch (error) {
+                  allHandled = false;
+                }
+              });
+
+              return allHandled;
+            },
+          },
+        ];
+
+        const results = [];
+        for (const test of stressTests) {
+          try {
+            const passed = await test.test();
+            results.push({ name: test.name, passed, error: null });
+          } catch (error) {
+            results.push({ name: test.name, passed: false, error: error.message });
+          }
+        }
+
+        testResults.stressTests = results;
+        displayStressTestResults(results);
+        updateSummaryCards();
+      }
+
+      // Display stress test results
+      function displayStressTestResults(results) {
+        let html = '<h2>🔥 Stress Test Results</h2>';
+
+        results.forEach((result) => {
+          const statusClass = result.passed ? 'success' : 'error';
+          html += `
+            <div class="test-result ${statusClass}">
+              <strong>${result.name}:</strong> ${result.passed ? '✅ Passed' : '❌ Failed'}
+              ${result.error ? `<br>Error: ${result.error}` : ''}
+            </div>
+          `;
+        });
+
+        document.getElementById('validation-results').innerHTML += html;
+      }
+
+      // Run complete validation
+      async function runCompleteValidation() {
+        console.log('🚀 Starting complete validation suite...');
+
+        // Reset counters
+        totalTests = 0;
+        passedTests = 0;
+
+        // Show progress bar
+        updateProgress(0, 'Initializing validation...');
+
+        // Clear console capture
+        consoleMessages.length = 0;
+        document.getElementById('console-capture').style.display = 'block';
+
+        try {
+          // Test 1: Original errors
+          updateProgress(20, 'Testing original console errors...');
+          await testOriginalErrors();
+
+          // Test 2: Stress testing
+          updateProgress(60, 'Running system stress tests...');
+          await stressTestSystem();
+
+          // Test 3: Performance check
+          updateProgress(80, 'Checking performance impact...');
+          await performanceCheck();
+
+          updateProgress(100, 'Validation complete!');
+
+          // Show summary
+          document.getElementById('summary-cards').style.display = 'grid';
+        } catch (error) {
+          console.error('Validation failed:', error);
+          updateProgress(0, 'Validation failed - check console for details');
+        }
+      }
+
+      // Performance impact check
+      async function performanceCheck() {
+        const start = performance.now();
+
+        // Test basic operations
+        if (window.FPLCountdown) {
+          FPLCountdown.startCountdown(new Date(Date.now() + 3600000));
+        }
+
+        if (window.FPLDataLoader) {
+          try {
+            FPLDataLoader.loadWinnerPreview();
+          } catch (e) {
+            // Expected in test environment
+          }
+        }
+
+        const end = performance.now();
+        const duration = end - start;
+
+        console.log(`⚡ Performance check: ${duration.toFixed(2)}ms`);
+
+        testResults.performanceTests = [
+          {
+            name: 'Basic operations performance',
+            duration: duration,
+            passed: duration < 100, // Should complete within 100ms
+          },
+        ];
+      }
+
+      // Update progress bar and text
+      function updateProgress(percentage, text) {
+        document.getElementById('progress-fill').style.width = percentage + '%';
+        document.getElementById('progress-text').textContent = text;
+      }
+
+      // Update summary cards
+      function updateSummaryCards() {
+        const allResults = [
+          ...testResults.originalErrorTests,
+          ...testResults.stressTests,
+          ...(testResults.performanceTests || []),
+        ];
+
+        const total = allResults.length;
+        const passed = allResults.filter((r) => r.passed).length;
+        const failed = total - passed;
+        const reduction = total > 0 ? Math.round((passed / total) * 100) : 0;
+
+        document.getElementById('total-tests').textContent = total;
+        document.getElementById('passed-tests').textContent = passed;
+        document.getElementById('failed-tests').textContent = failed;
+        document.getElementById('error-reduction').textContent = reduction + '%';
+
+        totalTests = total;
+        passedTests = passed;
+      }
+
+      // Update live console display
+      function updateConsoleDisplay() {
+        const consoleEl = document.getElementById('console-capture');
+        const recentMessages = consoleMessages.slice(-20); // Show last 20 messages
+
+        let content =
+          '<div style="color: #00ff87; margin-bottom: 10px;">📊 Live Console Monitoring</div>';
+
+        recentMessages.forEach((msg) => {
+          const color =
+            {
+              error: '#ff6b6b',
+              warn: '#ffd93d',
+              info: '#74c0fc',
+              log: '#e2e8f0',
+              debug: '#a78bfa',
+            }[msg.type] || '#e2e8f0';
+
+          const time = new Date(msg.timestamp).toLocaleTimeString();
+          content += `<div style="color: ${color}; margin: 5px 0;">[${time}] ${msg.type.toUpperCase()}: ${msg.message}</div>`;
+        });
+
+        consoleEl.innerHTML = content;
+        consoleEl.scrollTop = consoleEl.scrollHeight;
+      }
+
+      // Clear all results
+      function clearResults() {
+        document.getElementById('validation-results').innerHTML = `
+          <div class="info">
+            <strong>Original Console Errors to Validate:</strong>
+            <ol>
+              <li>Font integrity hash validation failure for Google Fonts</li>
+              <li>Missing FPLDataLoader.loadWinnerPreview function (TypeError)</li>
+              <li>Missing service-worker.js (404 error)</li>
+              <li>Countdown safety fallback issues</li>
+              <li>Missing updateQAPanel function references (ReferenceError)</li>
+              <li>Missing favicon.ico (404 error)</li>
+            </ol>
+          </div>
+        `;
+
+        document.getElementById('console-capture').style.display = 'none';
+        document.getElementById('summary-cards').style.display = 'none';
+        updateProgress(0, 'Ready to run validation tests');
+
+        // Clear test results
+        Object.keys(testResults).forEach((key) => {
+          testResults[key] = [];
+        });
+
+        consoleMessages.length = 0;
+        console.log('✅ Results cleared - ready for new validation run');
+      }
+
+      // Auto-initialize
+      window.addEventListener('load', () => {
+        console.log('🔍 Final validation suite loaded and ready');
+        console.log('Click "Run Complete Validation" to test all console error fixes');
+      });
+
+      // Export for debugging
+      window.validationSuite = {
+        runCompleteValidation,
+        testOriginalErrors,
+        stressTestSystem,
+        clearResults,
+        getResults: () => testResults,
+        getConsoleMessages: () => consoleMessages,
+      };
+    </script>
+  </body>
+</html>

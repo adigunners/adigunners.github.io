@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Winners Page Validation - FPL IIM Mumbai</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        line-height: 1.6;
+        background: #f8f9fa;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #37003c;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .test-section {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #f8f9fa;
+      }
+      .success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+      }
+      .error {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+      }
+      .warning {
+        background-color: #fff3cd;
+        border-color: #ffeaa7;
+        color: #856404;
+      }
+      .info {
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+        color: #0c5460;
+      }
+      .test-result {
+        margin: 10px 0;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+      .button {
+        background: #37003c;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      .button:hover {
+        background: #2d002e;
+      }
+      .status-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+      .status-pass {
+        background-color: #28a745;
+      }
+      .status-fail {
+        background-color: #dc3545;
+      }
+      .iframe-container {
+        border: 2px solid #37003c;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 20px 0;
+        height: 600px;
+      }
+      .iframe-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🏆 Winners Page Validation</h1>
+      <p style="text-align: center; color: #666; margin-bottom: 30px">
+        Testing console error fixes applied to winners.html
+      </p>
+
+      <div style="text-align: center; margin: 30px 0">
+        <button class="button" onclick="runWinnersPageTests()">🧪 Test Winners Page</button>
+        <button class="button" onclick="testFontFallbacks()">🔤 Test Font Fallbacks</button>
+        <button class="button" onclick="testModuleIntegration()">⚙️ Test Module Integration</button>
+        <button class="button" onclick="clearResults()">🧹 Clear Results</button>
+      </div>
+
+      <div class="test-section info">
+        <h3>Winners Page Console Error Fixes Applied:</h3>
+        <ul>
+          <li>
+            <strong>Font Loading</strong>: Added onerror handlers for Google Fonts and Font Awesome
+          </li>
+          <li><strong>Favicon</strong>: Added embedded data URL favicon to prevent 404</li>
+          <li><strong>Service Worker</strong>: Inherits service worker from main site</li>
+          <li>
+            <strong>JavaScript Modules</strong>: Uses same fixed countdown.js, data-loader.js etc.
+          </li>
+        </ul>
+      </div>
+
+      <div id="test-results">
+        <div class="info">
+          Click "Test Winners Page" to validate that winners.html has all console error fixes
+          applied.
+        </div>
+      </div>
+
+      <div class="test-section">
+        <h3>🖼️ Winners Page Preview</h3>
+        <p>Live preview of winners.html with applied fixes:</p>
+        <div class="iframe-container">
+          <iframe src="../../../winners.html" title="Winners Page Preview"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Test results storage
+      const testResults = {
+        winnersPageTests: [],
+        fontTests: [],
+        moduleTests: [],
+      };
+
+      // Winners page specific tests
+      function runWinnersPageTests() {
+        console.log('🧪 Testing winners page fixes...');
+        testResults.winnersPageTests = [];
+        let html = '<h3>Winners Page Console Error Fixes Validation</h3>';
+
+        const winnersTests = [
+          {
+            name: 'Favicon data URL prevents 404',
+            test: () => {
+              // Create a test iframe to check winners.html
+              return new Promise((resolve) => {
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = '../../../winners.html';
+
+                iframe.onload = () => {
+                  try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    const faviconLink = doc.querySelector('link[rel*="icon"]');
+                    const hasDataURL = faviconLink && faviconLink.href.startsWith('data:');
+                    document.body.removeChild(iframe);
+                    resolve(hasDataURL);
+                  } catch (error) {
+                    document.body.removeChild(iframe);
+                    resolve(false);
+                  }
+                };
+
+                iframe.onerror = () => {
+                  document.body.removeChild(iframe);
+                  resolve(false);
+                };
+
+                document.body.appendChild(iframe);
+              });
+            },
+          },
+          {
+            name: 'Google Fonts has error handler',
+            test: () => {
+              return fetch('../../../winners.html')
+                .then((response) => response.text())
+                .then((html) => {
+                  const hasGoogleFontsHandler =
+                    html.includes('onerror=') && html.includes('Google Fonts failed to load');
+                  return hasGoogleFontsHandler;
+                })
+                .catch(() => false);
+            },
+          },
+          {
+            name: 'Font Awesome has error handler',
+            test: () => {
+              return fetch('../../../winners.html')
+                .then((response) => response.text())
+                .then((html) => {
+                  const hasFontAwesomeHandler =
+                    html.includes('onerror=') && html.includes('Font Awesome failed to load');
+                  return hasFontAwesomeHandler;
+                })
+                .catch(() => false);
+            },
+          },
+          {
+            name: 'Winners page loads without errors',
+            test: () => {
+              return fetch('../../../winners.html')
+                .then((response) => response.ok)
+                .catch(() => false);
+            },
+          },
+          {
+            name: 'Required JavaScript modules included',
+            test: () => {
+              return fetch('../../../winners.html')
+                .then((response) => response.text())
+                .then((html) => {
+                  const requiredModules = [
+                    'js/utils.js',
+                    'js/data-loader.js',
+                    'js/error-handler.js',
+                    'js/countdown.js',
+                    'js/ui-manager.js',
+                  ];
+
+                  return requiredModules.every((module) => html.includes(module));
+                })
+                .catch(() => false);
+            },
+          },
+        ];
+
+        Promise.all(
+          winnersTests.map(async ({ name, test }) => {
+            try {
+              const passed = await test();
+              testResults.winnersPageTests.push({ name, passed, error: null });
+              return { name, passed, error: null };
+            } catch (error) {
+              testResults.winnersPageTests.push({ name, passed: false, error: error.message });
+              return { name, passed: false, error: error.message };
+            }
+          })
+        ).then((results) => {
+          results.forEach((result) => {
+            const statusClass = result.passed ? 'success' : 'error';
+            const statusIcon = result.passed ? 'status-pass' : 'status-fail';
+            const statusText = result.passed ? '✅ Pass' : '❌ Fail';
+
+            html += `
+              <div class="test-result ${statusClass}">
+                <span class="status-indicator ${statusIcon}"></span>
+                <strong>${result.name}</strong>: ${statusText}
+                ${result.error ? `<br>Error: ${result.error}` : ''}
+              </div>
+            `;
+          });
+
+          document.getElementById('test-results').innerHTML = html;
+          console.log('✅ Winners page tests completed');
+        });
+      }
+
+      // Test font fallback mechanisms
+      function testFontFallbacks() {
+        console.log('🧪 Testing font fallback mechanisms...');
+        testResults.fontTests = [];
+        let html = '<h3>Font Fallback Mechanism Tests</h3>';
+
+        const fontTests = [
+          {
+            name: 'Google Fonts fallback CSS classes exist',
+            test: () => {
+              return fetch('../../../winners.html')
+                .then((response) => response.text())
+                .then((html) => {
+                  return (
+                    html.includes('poppins-fallback') && html.includes('external-resources-failed')
+                  );
+                })
+                .catch(() => false);
+            },
+          },
+          {
+            name: 'Font Awesome fallback CSS classes exist',
+            test: () => {
+              return fetch('../../../winners.html')
+                .then((response) => response.text())
+                .then((html) => {
+                  return (
+                    html.includes('fontawesome-fallback') &&
+                    html.includes('external-resources-failed')
+                  );
+                })
+                .catch(() => false);
+            },
+          },
+          {
+            name: 'CORS attributes present for external fonts',
+            test: () => {
+              return fetch('../../../winners.html')
+                .then((response) => response.text())
+                .then((html) => {
+                  const googleFontsLine = html
+                    .split('\n')
+                    .find((line) => line.includes('fonts.googleapis.com'));
+                  const fontAwesomeLine = html
+                    .split('\n')
+                    .find((line) => line.includes('font-awesome'));
+
+                  return (
+                    googleFontsLine?.includes('crossorigin="anonymous"') &&
+                    fontAwesomeLine?.includes('crossorigin="anonymous"')
+                  );
+                })
+                .catch(() => false);
+            },
+          },
+        ];
+
+        Promise.all(
+          fontTests.map(async ({ name, test }) => {
+            try {
+              const passed = await test();
+              testResults.fontTests.push({ name, passed, error: null });
+              return { name, passed, error: null };
+            } catch (error) {
+              testResults.fontTests.push({ name, passed: false, error: error.message });
+              return { name, passed: false, error: error.message };
+            }
+          })
+        ).then((results) => {
+          results.forEach((result) => {
+            const statusClass = result.passed ? 'success' : 'warning';
+            const statusIcon = result.passed ? 'status-pass' : 'status-fail';
+            const statusText = result.passed ? '✅ Pass' : '⚠️ Warning';
+
+            html += `
+              <div class="test-result ${statusClass}">
+                <span class="status-indicator ${statusIcon}"></span>
+                <strong>${result.name}</strong>: ${statusText}
+                ${result.error ? `<br>Error: ${result.error}` : ''}
+              </div>
+            `;
+          });
+
+          document.getElementById('test-results').innerHTML += html;
+          console.log('✅ Font fallback tests completed');
+        });
+      }
+
+      // Test module integration
+      function testModuleIntegration() {
+        console.log('🧪 Testing module integration...');
+        testResults.moduleTests = [];
+        let html = '<h3>Module Integration Tests</h3>';
+
+        const moduleTests = [
+          {
+            name: 'winners-module.js is included',
+            test: () => {
+              return fetch('../../../winners.html')
+                .then((response) => response.text())
+                .then((html) => html.includes('winners-module.js'))
+                .catch(() => false);
+            },
+          },
+          {
+            name: 'winners-module.js exists',
+            test: () => {
+              return fetch('../../../js/winners-module.js')
+                .then((response) => response.ok)
+                .catch(() => false);
+            },
+          },
+          {
+            name: 'Required API modules exist',
+            test: () => {
+              const modules = ['api-module.js', 'ui-module.js', 'state-module.js'];
+              return Promise.all(
+                modules.map((module) =>
+                  fetch(`../../../js/${module}`)
+                    .then((response) => response.ok)
+                    .catch(() => false)
+                )
+              ).then((results) => results.every(Boolean));
+            },
+          },
+          {
+            name: 'Countdown module integration',
+            test: () => {
+              return fetch('../../../winners.html')
+                .then((response) => response.text())
+                .then((html) => {
+                  return html.includes('countdown-clock') && html.includes('countdown-label');
+                })
+                .catch(() => false);
+            },
+          },
+        ];
+
+        Promise.all(
+          moduleTests.map(async ({ name, test }) => {
+            try {
+              const passed = await test();
+              testResults.moduleTests.push({ name, passed, error: null });
+              return { name, passed, error: null };
+            } catch (error) {
+              testResults.moduleTests.push({ name, passed: false, error: error.message });
+              return { name, passed: false, error: error.message };
+            }
+          })
+        ).then((results) => {
+          results.forEach((result) => {
+            const statusClass = result.passed ? 'success' : 'error';
+            const statusIcon = result.passed ? 'status-pass' : 'status-fail';
+            const statusText = result.passed ? '✅ Pass' : '❌ Fail';
+
+            html += `
+              <div class="test-result ${statusClass}">
+                <span class="status-indicator ${statusIcon}"></span>
+                <strong>${result.name}</strong>: ${statusText}
+                ${result.error ? `<br>Error: ${result.error}` : ''}
+              </div>
+            `;
+          });
+
+          document.getElementById('test-results').innerHTML += html;
+          console.log('✅ Module integration tests completed');
+        });
+      }
+
+      // Clear all results
+      function clearResults() {
+        document.getElementById('test-results').innerHTML = `
+          <div class="info">
+            Click "Test Winners Page" to validate that winners.html has all console error fixes applied.
+          </div>
+        `;
+
+        Object.keys(testResults).forEach((key) => {
+          testResults[key] = [];
+        });
+
+        console.log('✅ Test results cleared');
+      }
+
+      // Auto-initialize
+      window.addEventListener('load', () => {
+        console.log('🏆 Winners page validation suite loaded');
+      });
+
+      // Export for debugging
+      window.winnersPageTests = {
+        runWinnersPageTests,
+        testFontFallbacks,
+        testModuleIntegration,
+        clearResults,
+        getResults: () => testResults,
+      };
+    </script>
+  </body>
+</html>

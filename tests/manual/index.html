@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual Test Suite - FPL IIM Mumbai</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 30px;
+        max-width: 900px;
+        margin: 0 auto;
+        line-height: 1.6;
+        background: #f8f9fa;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #37003c;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .test-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+      }
+      .test-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        background: #f8f9fa;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .test-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .test-card h3 {
+        color: #37003c;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+      .test-card p {
+        color: #666;
+        margin: 10px 0;
+        font-size: 14px;
+      }
+      .test-link {
+        display: inline-block;
+        background: #37003c;
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-top: 15px;
+        transition: background-color 0.2s;
+      }
+      .test-link:hover {
+        background: #2d002e;
+      }
+      .coverage-badge {
+        display: inline-block;
+        background: #00ff87;
+        color: #37003c;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+        margin: 5px 0;
+      }
+      .info-section {
+        background: #e7f3ff;
+        border: 1px solid #b3d9ff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+      .quick-start {
+        background: #f0f9ff;
+        border-left: 4px solid #37003c;
+        padding: 15px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🧪 Manual Test Suite</h1>
+      <p style="text-align: center; color: #666; margin-bottom: 30px">
+        Interactive testing tools for the FPL IIM Mumbai website
+      </p>
+
+      <div class="quick-start">
+        <h3>Quick Start</h3>
+        <p>
+          <strong>Local Server:</strong> Ensure you're running a local HTTP server:
+          <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px"
+            >python3 -m http.server 8000</code
+          >
+        </p>
+        <p>
+          <strong>Browser Testing:</strong> All tests are designed to work in modern browsers with
+          JavaScript enabled.
+        </p>
+      </div>
+
+      <div class="test-grid">
+        <div class="test-card">
+          <h3>🔤 Font Loading Tests</h3>
+          <div class="coverage-badge">External Resources</div>
+          <p>
+            Test font loading mechanisms, CDN fallbacks, and visual regression prevention when
+            Google Fonts or Font Awesome fail to load.
+          </p>
+          <p><strong>Coverage:</strong> Font integrity, CSS fallbacks, graceful degradation</p>
+          <a href="test-font-loading.html" class="test-link">Run Font Tests</a>
+        </div>
+
+        <div class="test-card">
+          <h3>⚙️ JavaScript Functions</h3>
+          <div class="coverage-badge">Function Implementation</div>
+          <p>
+            Validate implementation of previously missing JavaScript functions and test error
+            prevention mechanisms.
+          </p>
+          <p>
+            <strong>Coverage:</strong> FPLDataLoader.loadWinnerPreview(),
+            FPLUIManager.updateQAPanel(), safe calling patterns
+          </p>
+          <a href="test-js-functions.html" class="test-link">Run Function Tests</a>
+        </div>
+
+        <div class="test-card">
+          <h3>⏰ Countdown Stability</h3>
+          <div class="coverage-badge">System Stability</div>
+          <p>
+            Comprehensive countdown system testing including error recovery, fallback mechanisms,
+            and timer management.
+          </p>
+          <p>
+            <strong>Coverage:</strong> Input validation, DOM corruption recovery, dependency-free
+            fallbacks
+          </p>
+          <a href="test-countdown-stability.html" class="test-link">Run Stability Tests</a>
+        </div>
+
+        <div class="test-card">
+          <h3>🏆 Winners Page Validation</h3>
+          <div class="coverage-badge">Page-Specific Fixes</div>
+          <p>
+            Validates that winners.html has all console error fixes applied, including font loading
+            error handlers and favicon fixes.
+          </p>
+          <p>
+            <strong>Coverage:</strong> Font fallbacks, module integration, error prevention,
+            cross-page consistency
+          </p>
+          <a href="test-winners-page.html" class="test-link">Test Winners Page</a>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <h3>Test Suite Information</h3>
+        <p>
+          This manual test suite complements automated Jest tests and provides visual, interactive
+          validation of system behavior under various conditions including:
+        </p>
+        <ul>
+          <li><strong>Network failures</strong> - CDN unavailability, slow connections</li>
+          <li><strong>Module failures</strong> - Missing dependencies, corrupted resources</li>
+          <li><strong>DOM corruption</strong> - Missing elements, invalid HTML structure</li>
+          <li><strong>Invalid data</strong> - Malformed JSON, incorrect date formats</li>
+          <li><strong>Edge cases</strong> - Empty datasets, concurrent operations</li>
+        </ul>
+      </div>
+
+      <div class="info-section">
+        <h3>Troubleshooting</h3>
+        <p>
+          If tests fail to load properly, ensure you're accessing them via HTTP server (not file://)
+          and check the browser console for error messages.
+        </p>
+        <p>
+          <strong>Common issues:</strong> CORS restrictions, missing dependencies, network
+          connectivity.
+        </p>
+      </div>
+
+      <div style="text-align: center; margin-top: 30px; color: #666; font-size: 14px">
+        <p>
+          📚 For detailed documentation, see
+          <strong><a href="../README.md" style="color: #37003c">tests/README.md</a></strong>
+        </p>
+        <p>🔄 Last updated: 2025-08-29</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -24,91 +24,122 @@ window.FPLCountdown = (function () {
   }
 
   /**
-   * Start countdown timer with proper cleanup
+   * Start countdown timer with proper cleanup and error boundaries
    */
   function startCountdown(deadlineTime, gameweek = null) {
-    // Clear any existing timer to avoid duplicate intervals
-    if (countdownInterval) {
-      clearInterval(countdownInterval);
-      countdownInterval = null;
-    }
-
-    // Ensure the clock is visible immediately once we know a deadline
-    const countdownClock = document.getElementById('countdown-clock');
-    if (countdownClock) {
-      FPLUtils.show(countdownClock);
-    }
-
-    // Initial paint
-    if (gameweek) {
-      updateGameweekCountdown(gameweek);
-    } else {
-      updateCountdownDisplay(deadlineTime);
-    }
-
-    // Schedule updates every second
-    countdownInterval = setInterval(() => {
-      if (gameweek) {
-        updateGameweekCountdown(gameweek);
-      } else {
-        updateCountdownDisplay(deadlineTime);
+    try {
+      // Validate inputs first
+      if (!deadlineTime) {
+        console.error('[Countdown] Invalid deadline time provided');
+        return false;
       }
-    }, 1000);
 
-    markCountdownShown();
+      const deadline = new Date(deadlineTime);
+      if (isNaN(deadline.getTime())) {
+        console.error('[Countdown] Invalid date format:', deadlineTime);
+        return false;
+      }
+
+      // Clear any existing timer to avoid duplicate intervals
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+        console.debug('[Countdown] Cleared existing countdown interval');
+      }
+
+      // Validate required DOM elements exist
+      const countdownClock = document.getElementById('countdown-clock');
+      if (!countdownClock) {
+        console.error('[Countdown] Countdown clock element not found');
+        return false;
+      }
+
+      // Ensure FPLUtils is available for DOM manipulation
+      if (!window.FPLUtils || typeof window.FPLUtils.show !== 'function') {
+        console.warn('[Countdown] FPLUtils not available, using fallback DOM methods');
+        countdownClock.classList.remove('is-hidden');
+        countdownClock.style.display = 'block';
+      } else {
+        FPLUtils.show(countdownClock);
+      }
+
+      // Initial paint with error handling
+      try {
+        if (gameweek) {
+          updateGameweekCountdown(gameweek);
+        } else {
+          updateCountdownDisplay(deadline);
+        }
+      } catch (error) {
+        console.error('[Countdown] Error in initial countdown update:', error);
+        // Try basic fallback display
+        displayFallbackCountdown(deadline);
+      }
+
+      // Schedule updates every second with error recovery
+      countdownInterval = setInterval(() => {
+        try {
+          if (gameweek) {
+            updateGameweekCountdown(gameweek);
+          } else {
+            updateCountdownDisplay(deadline);
+          }
+        } catch (error) {
+          console.error('[Countdown] Error in countdown update interval:', error);
+          // Try fallback display
+          try {
+            displayFallbackCountdown(deadline);
+          } catch (fallbackError) {
+            console.error('[Countdown] Fallback display also failed:', fallbackError);
+            // Clear the broken interval
+            clearCountdown();
+          }
+        }
+      }, 1000);
+
+      markCountdownShown();
+      console.debug('[Countdown] Successfully started countdown timer');
+      return true;
+    } catch (error) {
+      console.error('[Countdown] Critical error in startCountdown:', error);
+      // Ensure we don't leave broken timers running
+      clearCountdown();
+      return false;
+    }
   }
 
   /**
-   * Update countdown display for general deadlines
+   * Basic fallback countdown display when main functions fail
    */
-  function updateCountdownDisplay(deadlineTime) {
-    const currentDate = FPLUtils.now();
-    const timeDifference = deadlineTime - currentDate;
+  function displayFallbackCountdown(deadlineTime) {
+    try {
+      const now = new Date();
+      const timeDifference = new Date(deadlineTime) - now;
 
-    if (timeDifference <= 0) {
-      // Season has started
-      const headerP = document.querySelector('header p');
       const countdownClock = document.getElementById('countdown-clock');
+      const labelEl = document.getElementById('countdown-label');
 
-      if (headerP) {
-        headerP.textContent = 'Season 2025-26 - Live Updates';
-      }
+      if (!countdownClock) return;
 
-      if (countdownClock) {
-        FPLUtils.hide(countdownClock);
-      }
-      return;
-    }
-
-    // Update label per requirement
-    const labelEl = document.getElementById('countdown-label');
-    if (labelEl) {
-      // Pre-season message
-      labelEl.textContent = 'GW1 Deadline';
-      FPLUIManager.attachAdminBadge();
-    }
-
-    // Use enhanced countdown system if available
-    if (window.CountdownEnhancements) {
-      CountdownEnhancements.updateCountdownWithUrgency(deadlineTime);
-      // Dispatch event for other systems
-      document.dispatchEvent(
-        new CustomEvent('countdownUpdate', {
-          detail: { deadlineTime, gameweek: null },
-        })
-      );
-      return;
-    }
-
-    // Fallback: Calculate time components
-    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-
-    // Update digital clock
-    const countdownClock = document.getElementById('countdown-clock');
-    if (countdownClock) {
+      // Make countdown visible
       countdownClock.style.display = 'block';
+      countdownClock.classList.remove('is-hidden');
+
+      if (timeDifference <= 0) {
+        // Show LIVE status
+        if (labelEl) labelEl.textContent = 'Season LIVE';
+        const daysEl = document.getElementById('countdown-days');
+        if (daysEl) daysEl.textContent = 'LIVE';
+        return;
+      }
+
+      // Calculate basic time components
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+      // Update elements if they exist
+      if (labelEl) labelEl.textContent = 'Next Deadline';
 
       const daysEl = document.getElementById('countdown-days');
       const hoursEl = document.getElementById('countdown-hours');
@@ -117,6 +148,104 @@ window.FPLCountdown = (function () {
       if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
       if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
       if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+    } catch (error) {
+      console.error('[Countdown] Fallback display failed:', error);
+    }
+  }
+
+  /**
+   * Update countdown display for general deadlines
+   */
+  function updateCountdownDisplay(deadlineTime) {
+    try {
+      // Validate FPLUtils availability
+      const currentDate =
+        window.FPLUtils && typeof window.FPLUtils.now === 'function' ? FPLUtils.now() : new Date();
+
+      const timeDifference = deadlineTime - currentDate;
+
+      if (timeDifference <= 0) {
+        // Season has started
+        const headerP = document.querySelector('header p');
+        const countdownClock = document.getElementById('countdown-clock');
+
+        if (headerP) {
+          headerP.textContent = 'Season 2025-26 - Live Updates';
+        }
+
+        if (countdownClock) {
+          // Use FPLUtils if available, otherwise fallback to direct DOM manipulation
+          if (window.FPLUtils && typeof window.FPLUtils.hide === 'function') {
+            FPLUtils.hide(countdownClock);
+          } else {
+            countdownClock.classList.add('is-hidden');
+            countdownClock.style.display = 'none';
+          }
+        }
+        return;
+      }
+
+      // Update label per requirement
+      const labelEl = document.getElementById('countdown-label');
+      if (labelEl) {
+        // Pre-season message
+        labelEl.textContent = 'GW1 Deadline';
+
+        // Safe call to attach admin badge
+        try {
+          if (window.FPLUIManager && typeof window.FPLUIManager.attachAdminBadge === 'function') {
+            FPLUIManager.attachAdminBadge();
+          }
+        } catch (badgeError) {
+          console.warn('[Countdown] Admin badge attachment failed:', badgeError);
+        }
+      }
+
+      // Use enhanced countdown system if available
+      if (
+        window.CountdownEnhancements &&
+        typeof window.CountdownEnhancements.updateCountdownWithUrgency === 'function'
+      ) {
+        try {
+          CountdownEnhancements.updateCountdownWithUrgency(deadlineTime);
+          // Dispatch event for other systems
+          document.dispatchEvent(
+            new CustomEvent('countdownUpdate', {
+              detail: { deadlineTime, gameweek: null },
+            })
+          );
+          return;
+        } catch (enhancementError) {
+          console.warn(
+            '[Countdown] Enhancement system failed, falling back to basic countdown:',
+            enhancementError
+          );
+        }
+      }
+
+      // Fallback: Calculate time components
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+      // Update digital clock
+      const countdownClock = document.getElementById('countdown-clock');
+      if (countdownClock) {
+        countdownClock.style.display = 'block';
+        countdownClock.classList.remove('is-hidden');
+
+        const daysEl = document.getElementById('countdown-days');
+        const hoursEl = document.getElementById('countdown-hours');
+        const minutesEl = document.getElementById('countdown-minutes');
+
+        if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+        if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+      }
+    } catch (error) {
+      console.error('[Countdown] Error in updateCountdownDisplay:', error);
+      // Try fallback display
+      displayFallbackCountdown(deadlineTime);
     }
   }
 
@@ -124,39 +253,81 @@ window.FPLCountdown = (function () {
    * Update countdown for specific gameweek
    */
   function updateGameweekCountdown(gameweek) {
-    const countdownClock = document.getElementById('countdown-clock');
-    const countdownLabel = document.getElementById('countdown-label');
+    try {
+      // Validate gameweek data
+      if (!gameweek || !gameweek.id || !gameweek.deadline_time) {
+        console.error('[Countdown] Invalid gameweek data provided:', gameweek);
+        return;
+      }
 
-    if (countdownClock && countdownLabel) {
-      FPLUtils.show(countdownClock);
+      const countdownClock = document.getElementById('countdown-clock');
+      const countdownLabel = document.getElementById('countdown-label');
+
+      if (!countdownClock || !countdownLabel) {
+        console.error('[Countdown] Required countdown elements not found');
+        return;
+      }
+
+      // Show countdown clock with fallback DOM methods
+      if (window.FPLUtils && typeof window.FPLUtils.show === 'function') {
+        FPLUtils.show(countdownClock);
+      } else {
+        countdownClock.classList.remove('is-hidden');
+        countdownClock.style.display = 'block';
+      }
+
       countdownLabel.textContent = `GW${gameweek.id} Deadline`;
 
       // Update winners header to indicate this GW has been used for the preview
       try {
-        FPLUIManager.updateWinnersHeaderGW();
-        FPLUIManager.updateLeaderboardHeaderGW();
+        if (window.FPLUIManager) {
+          if (typeof FPLUIManager.updateWinnersHeaderGW === 'function') {
+            FPLUIManager.updateWinnersHeaderGW();
+          }
+          if (typeof FPLUIManager.updateLeaderboardHeaderGW === 'function') {
+            FPLUIManager.updateLeaderboardHeaderGW();
+          }
+          if (typeof FPLUIManager.attachAdminBadge === 'function') {
+            FPLUIManager.attachAdminBadge();
+          }
+        }
       } catch (e) {
-        // non-fatal
+        console.warn('[Countdown] Header/badge update failed:', e);
       }
-      FPLUIManager.attachAdminBadge();
 
       // Update the countdown display with gameweek deadline
       const deadlineTime = new Date(gameweek.deadline_time);
-
-      // Use enhanced countdown system if available
-      if (window.CountdownEnhancements) {
-        CountdownEnhancements.updateCountdownWithUrgency(deadlineTime, gameweek);
-        // Dispatch event for other systems
-        document.dispatchEvent(
-          new CustomEvent('countdownUpdate', {
-            detail: { deadlineTime, gameweek },
-          })
-        );
+      if (isNaN(deadlineTime.getTime())) {
+        console.error('[Countdown] Invalid deadline_time in gameweek:', gameweek.deadline_time);
         return;
       }
 
+      // Use enhanced countdown system if available
+      if (
+        window.CountdownEnhancements &&
+        typeof window.CountdownEnhancements.updateCountdownWithUrgency === 'function'
+      ) {
+        try {
+          CountdownEnhancements.updateCountdownWithUrgency(deadlineTime, gameweek);
+          // Dispatch event for other systems
+          document.dispatchEvent(
+            new CustomEvent('countdownUpdate', {
+              detail: { deadlineTime, gameweek },
+            })
+          );
+          return;
+        } catch (enhancementError) {
+          console.warn(
+            '[Countdown] Enhancement system failed, falling back to basic countdown:',
+            enhancementError
+          );
+        }
+      }
+
       // Fallback to basic countdown
-      const currentDate = FPLUtils.now();
+      const currentDate =
+        window.FPLUtils && typeof window.FPLUtils.now === 'function' ? FPLUtils.now() : new Date();
+
       const timeDifference = deadlineTime - currentDate;
 
       if (timeDifference <= 0) {
@@ -217,6 +388,14 @@ window.FPLCountdown = (function () {
         countdownClock
           .querySelectorAll('.countdown-unit-label')
           .forEach((label) => label.classList.remove('is-hidden'));
+      }
+    } catch (error) {
+      console.error('[Countdown] Error in updateGameweekCountdown:', error);
+      // Try fallback display using the basic countdown
+      try {
+        displayFallbackCountdown(new Date(gameweek.deadline_time));
+      } catch (fallbackError) {
+        console.error('[Countdown] Fallback gameweek display also failed:', fallbackError);
       }
     }
   }

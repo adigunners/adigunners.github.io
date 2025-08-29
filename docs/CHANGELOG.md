@@ -788,7 +788,7 @@
 
 ### Development Team
 
-- **Lead Developer**: Aditya Garg (aditya.garg.2006@gmail.com)
+- **Lead Developer**: Aditya Garg (<aditya.garg.2006@gmail.com>)
 - **System Architecture**: Aditya Garg
 - **Frontend Development**: Aditya Garg
 - **Testing & QA**: Aditya Garg
@@ -836,7 +836,7 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 For questions about this changelog or the system:
 
-- **Email**: aditya.garg.2006@gmail.com
+- **Email**: <aditya.garg.2006@gmail.com>
 - **Documentation**: [Technical Docs](TECHNICAL_DOCUMENTATION.md)
 - **Issues**: Report via email with detailed description
 - **Feature Requests**: Send suggestions for future versions
