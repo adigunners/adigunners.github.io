@@ -1,0 +1,7 @@
+{
+  // Ignore Codex agent command/docs directory
+  "globs": [
+    "**/*.{md,mdx}",
+    "!**/.codex/**"
+  ]
+}
