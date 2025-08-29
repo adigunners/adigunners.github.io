@@ -137,7 +137,7 @@ document.dispatchEvent(
 
 ```javascript
 // Used throughout error fixes
-console.error(), console.warn(), console.debug();
+(console.error(), console.warn(), console.debug());
 ```
 
 - ✅ **Universal Support**: All browsers since IE8

@@ -40,13 +40,11 @@ The website consists of two main pages:
 #### Key Frontend Features
 
 1. **Responsive Design Strategy**:
-
    - Desktop (≥1025px): Tables for data comparison
    - Tablet (701-1024px): 2-column card layouts
    - Mobile (≤700px): Single-column cards
 
 2. **URL Parameter System** (both pages):
-
    - `?test=true` - Demo mode with test data
    - `?data=test|live|auto` - Force specific data source
    - `?phase=pre|season|auto` - Control UI state

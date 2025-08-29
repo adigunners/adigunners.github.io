@@ -252,12 +252,10 @@ function startCountdown(deadlineTime, gameweek = null) {
 ### **Future Optimizations**
 
 1. **Code Splitting**
-
    - Lazy load error recovery modules: **-3KB initial bundle**
    - Dynamic import for non-critical fallbacks: **-2KB initial bundle**
 
 2. **Service Worker Enhancements**
-
    - Precache optimization: **+20% cache hit rate**
    - Background sync for data updates: **Offline functionality**
 

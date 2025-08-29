@@ -250,7 +250,6 @@ python3 -m http.server 8000
 ```
 
 2. **Study the design system**:
-
    - Review `css/variables.css` for available tokens
    - Check `css/components.css` for reusable components
    - Look at `js/utils.js` for shared functions
