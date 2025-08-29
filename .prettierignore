@@ -33,3 +33,9 @@ coverage/
 # CI workflows (allow GitHub Actions YAML to remain machine-formatted)
 .github/workflows/*.yml
 .github/workflows/*.yaml
+
+# Agent OS / Codex agent docs and commands
+.codex/
+
+# Tooling configs not required to be prettified in CI
+.markdownlint-cli2.jsonc
