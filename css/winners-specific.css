@@ -326,19 +326,82 @@
 }
 
 /* ---- Winners table hard scope ----------------------------------------- */
-.c-table-wrap {
-  overflow: auto;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
+/* Reset any bad display overrides and align with global table semantics */
+.winners-table thead,
+.winners-table tbody,
+.winners-table tr,
+.winners-table th,
+.winners-table td {
+  display: revert;
 }
 
-.c-table {
-  width: 100% !important;
+/* Table box model and layout */
+.winners-table .c-table {
+  width: 100%;
+  table-layout: fixed; /* respect colgroup widths */
   border-collapse: separate;
   border-spacing: 0;
-  table-layout: fixed;
 }
+
+/* Sticky header parity */
+.winners-table .c-table thead th {
+  position: sticky;
+  top: var(--sticky-header-offset, 0);
+  z-index: 2;
+  background: var(--table-head-bg, #2a0833);
+  color: var(--table-head-fg, #fff);
+  font-weight: 700;
+}
+
+/* Column alignment helpers */
+.winners-table .col-rank,
+.winners-table .col-total {
+  text-align: left;
+}
+.winners-table .col-player {
+  text-align: left;
+}
+.winners-table .col-highlights {
+  text-align: left;
+}
+
+/* Cells */
+.winners-table .c-table td,
+.winners-table .c-table th {
+  padding: 14px 16px;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Zebra rows */
+.winners-table .c-table tbody tr:nth-child(even) {
+  background: var(--row-alt, #f7f8fb);
+}
+.winners-table .c-table tbody tr:nth-child(odd) {
+  background: var(--row-bg, #fff);
+}
+
+/* Ensure Top-3 highlight does not alter column metrics */
+.winners-table .c-table tbody tr.winner-gold,
+.winners-table .c-table tbody tr.winner-silver,
+.winners-table .c-table tbody tr.winner-bronze {
+  /* keep only background-related styling here */
+}
+
+/* Scroll container for narrow viewports */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent style drift from global tables */
+.winners-table .c-table * {
+  box-sizing: border-box;
+}
+
+/* keep existing hard scope neutralizers (no change) */
 
 /* neutralise any global flex/grid/block on tables */
 .c-table thead {

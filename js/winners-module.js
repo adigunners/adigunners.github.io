@@ -192,26 +192,23 @@ async function renderWinnersTable() {
 // Desktop: one semantic table, fixed four columns, robust to CSS overrides
 function renderDesktopTable(container, pageData, startIndex) {
   let html = `
-  <div class="c-table-wrap">
-    <table class="c-table c-table--winners" aria-describedby="winners-caption">
-      <caption id="winners-caption" class="sr-only">
-        All players ranked by total prize money won this season.
-      </caption>
+  <div class="table-scroll winners-table">
+    <table class="c-table c-table--winners" role="table">
       <colgroup>
-        <col style="width:72px">
-        <col>
-        <col style="width:180px">
-        <col style="width:260px">
+        <col style="width:64px" />
+        <col />
+        <col style="width:140px" />
+        <col style="width:240px" />
       </colgroup>
-      <thead>
+      <thead class="c-table__head">
         <tr>
-          <th scope="col">RANK</th>
-          <th scope="col">PLAYER</th>
-          <th scope="col" class="is-num">TOTAL PRIZE WON</th>
-          <th scope="col">HIGHLIGHTS</th>
+          <th scope="col" class="col-rank">RANK</th>
+          <th scope="col" class="col-player">PLAYER</th>
+          <th scope="col" class="col-total">TOTAL PRIZE WON</th>
+          <th scope="col" class="col-highlights">HIGHLIGHTS</th>
         </tr>
       </thead>
-      <tbody>`;
+      <tbody class="c-table__body" id="winners-tbody">`;
 
   pageData.forEach((w, i) => {
     const rank = startIndex + i + 1;
@@ -221,12 +218,14 @@ function renderDesktopTable(container, pageData, startIndex) {
     if (h.gameMonths > 0) chips.push(`<span class="c-chip">${h.gameMonths}GM</span>`);
     if (h.overallRank) chips.push(`<span class="muted">League Rank ${h.overallRank}</span>`);
 
+    const topClass = RANK_CLASSES && RANK_CLASSES[rank] ? ` ${RANK_CLASSES[rank]}` : '';
+
     html += `
-      <tr>
-        <td>${rank}</td>
-        <td>${w.playerName}</td>
-        <td class="is-num">₹${(w.totalPrizeWon || 0).toLocaleString('en-IN')}</td>
-        <td>${chips.join(' ')}</td>
+      <tr class="${topClass.trim()}">
+        <td class="col-rank">${rank}</td>
+        <td class="col-player">${w.playerName}</td>
+        <td class="col-total">₹${(w.totalPrizeWon || 0).toLocaleString('en-IN')}</td>
+        <td class="col-highlights">${chips.join(' ')}</td>
       </tr>`;
   });
 
