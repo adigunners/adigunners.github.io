@@ -39,3 +39,21 @@ coverage/
 
 # Tooling configs not required to be prettified in CI
 .markdownlint-cli2.jsonc
+
+# Test files that are intentionally unformatted
+tests/format-test-files/
+
+# Service worker (auto-generated)
+service-worker.js
+
+# Package lock files (auto-generated)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Git files
+.git/
+.gitignore
+
+# Agent OS specs (may contain template formatting)
+.agent-os/

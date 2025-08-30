@@ -10,7 +10,7 @@
     "prepare": "husky",
     "check-consistency": "node scripts/check-consistency.js",
     "fix-winners": "node scripts/fix-winners.js",
-    "lint:md": "markdownlint \"**/*.md\" --fix"
+    "lint:md": "markdownlint-cli2"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -20,10 +20,16 @@
     "husky": "^9",
     "lint-staged": "^15",
     "prettier": "^3.6.2",
-    "markdownlint-cli": "^0.37.0"
+    "markdownlint-cli2": "^0.14.0"
   },
   "lint-staged": {
-    "*.{html,css,js,json,md,mdx}": "prettier --write"
+    "*.{html,css,js,json}": [
+      "prettier --write"
+    ],
+    "*.{md,mdx}": [
+      "prettier --write",
+      "markdownlint-cli2"
+    ]
   },
   "keywords": [
     "fantasy-football",

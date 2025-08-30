@@ -1,7 +1,53 @@
 {
-  // Ignore Codex agent command/docs directory
+  "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema.json",
+  
+  // File pattern matching
   "globs": [
     "**/*.{md,mdx}",
-    "!**/.codex/**"
-  ]
+    "!**/.codex/**",
+    "!**/.claude/**",
+    "!node_modules/**",
+    "!tests/format-test-files/**",
+    "!tests/format-consistency-test/**",
+    "!tests/markdown-lint-test/**",
+    "!.agent-os/**",
+    "!coverage/**",
+    "!dist/**",
+    "!build/**"
+  ],
+  
+  // Markdown linting rules (migrated from .markdownlint.json)
+  "config": {
+    "default": true,
+    
+    // MD013: Line length - disabled for flexibility with long links/tables
+    "MD013": false,
+    
+    // MD024: Multiple headings with the same content - disabled for FAQ sections
+    "MD024": false,
+    
+    // MD025: Multiple top-level headings - disabled for complex docs
+    "MD025": false,
+    
+    // MD026: Trailing punctuation in heading - disabled for question headings
+    "MD026": false,
+    
+    // MD033: Inline HTML - disabled for necessary HTML in markdown
+    "MD033": false,
+    
+    // MD036: Emphasis as heading - disabled for flexibility in styling
+    "MD036": false,
+    
+    // MD040: Fenced code language - disabled for flexibility with plain code blocks
+    "MD040": false,
+    
+    // MD041: First line in file should be a top level heading - disabled for flexibility
+    "MD041": false,
+    
+    // MD029: Ordered list item prefix - disabled for flexibility in numbering styles
+    "MD029": false,
+    
+    // MD058: Tables surrounded by blank lines - disabled for compact documentation
+    "MD058": false
+  }
 }

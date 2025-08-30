@@ -1,9 +1,25 @@
 {
+  "$schema": "https://json.schemastore.org/prettierrc",
   "printWidth": 100,
   "tabWidth": 2,
   "singleQuote": true,
   "semi": true,
   "trailingComma": "es5",
   "arrowParens": "always",
-  "endOfLine": "lf"
+  "endOfLine": "lf",
+  "proseWrap": "always",
+  "overrides": [
+    {
+      "files": ["*.md", "*.mdx"],
+      "options": {
+        "embeddedLanguageFormatting": "auto"
+      }
+    },
+    {
+      "files": ["*.yml", "*.yaml", "*.json"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
 }

@@ -7,23 +7,23 @@ on:
       - '.codex/**'
 
 jobs:
-  format-check:
+  formatting-validation:
     runs-on: ubuntu-latest
     env:
-      HUSKY: 0
-    name: Check code formatting
+      HUSKY: 0  # Disable Husky in CI to prevent hook conflicts
+    name: 🎯 Formatting & Linting Validation
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20
+      - name: 📦 Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Install dependencies
+      - name: ⚡ Install dependencies
         run: |
           # Prefer clean lockfile install; fall back to npm i if lockfile is out of sync
           if [ -f package-lock.json ]; then
@@ -32,5 +32,15 @@ jobs:
             npm i --no-audit --no-fund
           fi
 
-      - name: Run Prettier format check
-        run: npm run format:check
+      - name: 🎨 Run Prettier format check
+        run: |
+          echo "🔍 Checking code formatting with Prettier..."
+          npm run format:check || (echo "❌ Formatting issues found. Run 'npm run format' locally to fix." && exit 1)
+
+      - name: 📝 Run Markdown linting
+        run: |
+          echo "📋 Linting Markdown files..."
+          npm run lint:md || (echo "❌ Markdown linting failed. Check the errors above." && exit 1)
+
+      - name: ✅ Formatting validation complete
+        run: echo "🎉 All formatting and linting checks passed!"
