@@ -11,8 +11,8 @@
     "check-consistency": "node scripts/check-consistency.js",
     "fix-winners": "node scripts/fix-winners.js",
     "lint:md": "markdownlint-cli2",
-    "audit:index": "lighthouse http://localhost:${PORT:-8000} --output html --output json --quiet --chrome-flags=\"--headless\" --output-path ./docs/lighthouse-index",
-    "audit:winners": "lighthouse http://localhost:${PORT:-8000}/winners.html --output html --output json --quiet --chrome-flags=\"--headless\" --output-path ./docs/lighthouse-winners",
+    "audit:index": "lighthouse http://localhost:${PORT:-8000} --output html --output json --quiet --chrome-flags=\"--headless\" --output-path ./tests/integration/performance/reports/lighthouse-index",
+    "audit:winners": "lighthouse http://localhost:${PORT:-8000}/winners.html --output html --output json --quiet --chrome-flags=\"--headless\" --output-path ./tests/integration/performance/reports/lighthouse-winners",
     "audit": "npm run audit:index && npm run audit:winners"
   },
   "engines": {
