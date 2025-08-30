@@ -1,6 +1,7 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this
+repository.
 
 ## Development Commands
 
@@ -22,7 +23,8 @@ python3 -m http.server 8000
 
 ## System Architecture
 
-This is an **automated Fantasy Premier League (FPL) management system** for IIM Mumbai alumni. The system combines a static GitHub Pages frontend with Google Apps Script backend automation.
+This is an **automated Fantasy Premier League (FPL) management system** for IIM Mumbai alumni. The
+system combines a static GitHub Pages frontend with Google Apps Script backend automation.
 
 ### Core Data Flow
 
@@ -34,7 +36,8 @@ FPL API → Google Sheets → Apps Script → GitHub API → JSON Files → Live
 
 The website consists of two main pages:
 
-- **`index.html`** - Landing page with live countdown, registration UI, leaderboard preview, and winner cards
+- **`index.html`** - Landing page with live countdown, registration UI, leaderboard preview, and
+  winner cards
 - **`winners.html`** - Paginated winner rankings with responsive table/card layouts
 
 #### Key Frontend Features
@@ -70,7 +73,8 @@ The backend handles:
 
 #### Adaptive Rendering
 
-- `displayWinnerTable()` and `displayLeaderboard()` functions switch between table/card layouts based on viewport
+- `displayWinnerTable()` and `displayLeaderboard()` functions switch between table/card layouts
+  based on viewport
 - Debounced resize handlers for responsive layout switching
 
 #### Data Management
@@ -286,7 +290,9 @@ git push -u origin feature/short-name
 
 #### Overview
 
-Comprehensive mobile-first audit and optimization of the entire website to eliminate excessive white space, improve responsive design, and ensure consistent visual presentation across all containers and components.
+Comprehensive mobile-first audit and optimization of the entire website to eliminate excessive white
+space, improve responsive design, and ensure consistent visual presentation across all containers
+and components.
 
 #### Key Changes Made
 
@@ -419,13 +425,15 @@ css/
 4. **Validate** that the consistent container styling looks good with varying content lengths
 5. **Monitor** user feedback on the new compact design
 
-This optimization ensures the website now provides a sleek, professional mobile experience while maintaining the robust desktop functionality that users expect.
+This optimization ensures the website now provides a sleek, professional mobile experience while
+maintaining the robust desktop functionality that users expect.
 
 ### Session Summary: Enhanced Countdown System & Design System Standardization (August 2025)
 
 #### Overview
 
-Implemented urgency-aware countdown system and standardized design tokens to improve deadline awareness and visual consistency.
+Implemented urgency-aware countdown system and standardized design tokens to improve deadline
+awareness and visual consistency.
 
 #### 1. Enhanced Countdown System
 
@@ -457,7 +465,8 @@ const THRESHOLDS = {
 - `js/countdown-enhancements.js` - Automatic urgency detection and DOM manipulation
 - `countdown-demo.html` - Demo page showing all urgency states
 
-**Integration**: System automatically detects time remaining and applies appropriate urgency styling. Falls back gracefully to standard countdown if enhancements fail.
+**Integration**: System automatically detects time remaining and applies appropriate urgency
+styling. Falls back gracefully to standard countdown if enhancements fail.
 
 #### 2. Unified Design System
 
@@ -492,11 +501,13 @@ const THRESHOLDS = {
 - `css/unified-spacing.css` - Comprehensive spacing standardization
 - `css/desktop-tablet-optimizations.css` - Layout density improvements
 
-**Data Timestamp Consolidation**: Eliminated 6 individual timestamps, created centralized system in `js/data-loader.js` with single footer timestamp.
+**Data Timestamp Consolidation**: Eliminated 6 individual timestamps, created centralized system in
+`js/data-loader.js` with single footer timestamp.
 
 #### 3. Mobile Text Optimization
 
-**Change**: Updated countdown text from "Time until GWxx deadline" → "GWxx Deadline" to prevent mobile text wrapping.
+**Change**: Updated countdown text from "Time until GWxx deadline" → "GWxx Deadline" to prevent
+mobile text wrapping.
 
 **Files Modified**: `js/countdown.js`, `js/countdown-enhancements.js`
 
@@ -516,38 +527,33 @@ const THRESHOLDS = {
 - Border radius follows 4-tier system
 - Unified timestamp available via `FPLDataLoader.getLatestTimestamp()`
 
-**Testing**: Enhanced countdown can be tested with `?clockOffset=ms` parameter to simulate different deadline scenarios.
+**Testing**: Enhanced countdown can be tested with `?clockOffset=ms` parameter to simulate different
+deadline scenarios.
 
-This enhancement significantly improves deadline awareness while maintaining consistent visual design across all breakpoints.
+This enhancement significantly improves deadline awareness while maintaining consistent visual
+design across all breakpoints.
 
-⏺ Perfect questions! Looking at both files, I can see exactly what you're planning and provide a comprehensive analysis and recommendations.
+⏺ Perfect questions! Looking at both files, I can see exactly what you're planning and provide a
+comprehensive analysis and recommendations.
 
 📂 Recommended Folder Structure for Tomorrow's Refactoring
 
-Based on today's successful modularization of index.html, here's the optimal structure for winners.html:
+Based on today's successful modularization of index.html, here's the optimal structure for
+winners.html:
 
-📁 css/
-├── variables.css ✅ (shared)
-├── base.css ✅ (shared)
-├── header.css ✅ (shared - both pages use same header)
-├── components.css ✅ (shared - buttons, stats cards)
-├── winners.css ✅ (winner-specific cards and badges)
-├── leaderboard.css ✅ (table styles)
-├── responsive.css ✅ (shared responsive patterns)
-├── qa-panel.css ✅ (shared - admin tools)
-├── error-handling.css ✅ (shared - error states)
-├── mobile-optimizations.css ✅ (shared mobile patterns)
-├── advanced-mobile.css ✅ (shared ultra-compact mobile)
-└── fallbacks.css ✅ (shared - external resource fallbacks)
+📁 css/ ├── variables.css ✅ (shared) ├── base.css ✅ (shared) ├── header.css ✅ (shared - both
+pages use same header) ├── components.css ✅ (shared - buttons, stats cards) ├── winners.css ✅
+(winner-specific cards and badges) ├── leaderboard.css ✅ (table styles) ├── responsive.css ✅
+(shared responsive patterns) ├── qa-panel.css ✅ (shared - admin tools) ├── error-handling.css ✅
+(shared - error states) ├── mobile-optimizations.css ✅ (shared mobile patterns) ├──
+advanced-mobile.css ✅ (shared ultra-compact mobile) └── fallbacks.css ✅ (shared - external
+resource fallbacks)
 
-📁 js/
-├── utils.js ✅ (shared - escapeHTML, show/hide, etc.)
-├── data-loader.js ✅ (shared - fetch functions, caching)
-├── error-handler.js ✅ (shared - retry logic, error handling)
-├── countdown.js ✅ (shared - both pages have countdown)
-├── ui-manager.js 📝 (needs winners-specific functions)
-├── winner-pagination.js 🆕 (new - pagination logic for winners.html)
-└── winner-table.js 🆕 (new - table/card rendering for winners.html)
+📁 js/ ├── utils.js ✅ (shared - escapeHTML, show/hide, etc.) ├── data-loader.js ✅ (shared - fetch
+functions, caching) ├── error-handler.js ✅ (shared - retry logic, error handling) ├── countdown.js
+✅ (shared - both pages have countdown) ├── ui-manager.js 📝 (needs winners-specific functions) ├──
+winner-pagination.js 🆕 (new - pagination logic for winners.html) └── winner-table.js 🆕 (new -
+table/card rendering for winners.html)
 
 🔍 Thorough Audit of winners.html
 
@@ -587,13 +593,13 @@ Based on today's successful modularization of index.html, here's the optimal str
 
 2. Embedded CSS Issues
 
-/_🔴 1050+ lines of embedded CSS should be extracted _/
-/_ Lines 89-1050 contain ALL styling that could be modularized_/
+/_🔴 1050+ lines of embedded CSS should be extracted _/ /_ Lines 89-1050 contain ALL styling that
+could be modularized_/
 
 3. Monolithic JavaScript
 
-/_🔴 800+ lines of JavaScript in single script block _/
-/_ Lines 1227-2004+ contain logic that should be modularized_/
+/_🔴 800+ lines of JavaScript in single script block _/ /_ Lines 1227-2004+ contain logic that
+should be modularized_/
 
 4. Performance Concerns
 
@@ -638,21 +644,16 @@ Phase 2: JavaScript Modularization
 
 Phase 3: Specific Extractions
 
-winners-table.css (extract lines 383-519):
-/_Desktop table styles _/
-.winner-table { /_ table layout styles _/ }
-.winner-table th { /_ header styles _/ }
-.winner-table tbody tr.winner-gold { /_ top 3 styling_/ }
+winners-table.css (extract lines 383-519): /_Desktop table styles _/ .winner-table { /_ table layout
+styles _/ } .winner-table th { /_ header styles _/ } .winner-table tbody tr.winner-gold { /_ top 3
+styling_/ }
 
-winner-pagination.js (extract lines 1851-1864):
-function previousWinnerPage() { /_pagination logic _/ }
-function nextWinnerPage() { /_ pagination logic _/ }
-function updateWinnerNavigation() { /_ navigation state_/ }
+winner-pagination.js (extract lines 1851-1864): function previousWinnerPage() { /_pagination logic
+_/ } function nextWinnerPage() { /_ pagination logic _/ } function updateWinnerNavigation() { /_
+navigation state_/ }
 
-winner-table.js (extract lines 1735-1839):
-function displayWinnerTable() { /_table/card rendering_/ }
-// Desktop table generation
-// Mobile card generation  
+winner-table.js (extract lines 1735-1839): function displayWinnerTable() { /_table/card rendering_/
+} // Desktop table generation // Mobile card generation  
  // Responsive switching logic
 
 🏗️ TOMORROW'S IMPLEMENTATION PLAN
@@ -665,8 +666,7 @@ cp winners.html winners.html.backup
 
 # Prepare new CSS files
 
-touch css/winners-table.css
-touch css/winners-pagination.css
+touch css/winners-table.css touch css/winners-pagination.css
 
 Step 2: CSS Extraction (Priority Order)
 
@@ -713,4 +713,5 @@ After Refactoring
 - Admin/test modes work perfectly
 - Performance improvement from caching
 
-This refactoring will give you a perfectly modular, maintainable codebase with shared components and zero duplication between pages!
+This refactoring will give you a perfectly modular, maintainable codebase with shared components and
+zero duplication between pages!

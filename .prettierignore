@@ -40,8 +40,8 @@ coverage/
 # Tooling configs not required to be prettified in CI
 .markdownlint-cli2.jsonc
 
-# Test files that are intentionally unformatted
-tests/format-test-files/
+# Test fixtures that are intentionally unformatted (preserve formatting errors for testing)
+tests/fixtures/formatting/
 
 # Service worker (auto-generated)
 service-worker.js

@@ -13,18 +13,22 @@
 
 ## 🎯 What This Project Does
 
-This system automatically manages a complete fantasy football mini-league for any group, club, or organization (scalable to multiple leagues):
+This system automatically manages a complete fantasy football mini-league for any group, club, or
+organization (scalable to multiple leagues):
 
 - **🔄 Automated Data Processing** - Fetches live FPL scores and calculates winners
 - **💰 Prize Management** - Tracks weekly/monthly prizes and payments
-- **📧 Email Notifications** - Sends personalized league updates and countdown campaigns to all players
+- **📧 Email Notifications** - Sends personalized league updates and countdown campaigns to all
+  players
 - **🌐 Live Website** - Real-time leaderboards and winner statistics
 - **📊 Admin Dashboard** - Complete league management in Google Sheets
 
 ## Website updates
 
-- 2025-08-17: Added dynamic "After GWx" subtitles to Winners & Leaderboard headings for parity with the countdown widget. Mobile-first stacked subtitle and accessibility improvements.
-- 2025-08-18: Bugfix — hide "After GW0" subtitle when no finished gameweek has been processed (pre-season). Files: `index.html`, `winners.html`.
+- 2025-08-17: Added dynamic "After GWx" subtitles to Winners & Leaderboard headings for parity with
+  the countdown widget. Mobile-first stacked subtitle and accessibility improvements.
+- 2025-08-18: Bugfix — hide "After GW0" subtitle when no finished gameweek has been processed
+  (pre-season). Files: `index.html`, `winners.html`.
 
 ## 🚀 Live Features
 
@@ -62,7 +66,8 @@ This system automatically manages a complete fantasy football mini-league for an
 
 Experience the system with realistic test data:
 
-**[📱 Live Demo](https://adigunners.github.io/?test=true)** - See the system in action with test winner data  
+**[📱 Live Demo](https://adigunners.github.io/?test=true)** - See the system in action with test
+winner data  
 _💡 Tip: Right-click links to open in new tab_
 
 ## 📚 Documentation
@@ -131,8 +136,10 @@ cleanupTestDataDirect();
 
 - Unified countdown logic shared across pages (see `js/countdown.js`).
 - Before the next gameweek deadline: shows `GWx Deadline` with days/hours/minutes.
-- After a deadline passes: shows `GWx LIVE` and polls only `data/next_deadline.json` until the backend publishes the next GW; then switches to the next countdown.
-- Local testing: `tools/testing/countdown-stress.html` generates `?clockOffset` and override params (`dl`, `gw`) for test/admin mode.
+- After a deadline passes: shows `GWx LIVE` and polls only `data/next_deadline.json` until the
+  backend publishes the next GW; then switches to the next countdown.
+- Local testing: `tools/testing/countdown-stress.html` generates `?clockOffset` and override params
+  (`dl`, `gw`) for test/admin mode.
 - See `docs/TESTING.md` for step‑by‑step guidance and `docs/RELEASE_CHECKLIST.md` for safe rollout.
 
 ### 🧪 Testing & Demo System
@@ -165,7 +172,8 @@ FPL API → Google Sheets → Winner Calculations → Email System → Website U
 
 ## 🤝 Contributing
 
-This project is currently in private development for IIM Mumbai alumni. For technical discussions or collaboration opportunities, please reach out via the contact information below.
+This project is currently in private development for IIM Mumbai alumni. For technical discussions or
+collaboration opportunities, please reach out via the contact information below.
 
 ## 📧 Contact
 
@@ -195,11 +203,13 @@ This project is currently in private development for IIM Mumbai alumni. For tech
 
 - **[🌐 Live Website](https://adigunners.github.io/)** - Current league standings
 - **[🧪 Test Demo](https://adigunners.github.io/?test=true)** - Experience with sample data
-- **[🏆 Winner Leaderboard](https://adigunners.github.io/winners.html)** - Complete winner rankings (paginated)
+- **[🏆 Winner Leaderboard](https://adigunners.github.io/winners.html)** - Complete winner rankings
+  (paginated)
 - **[📖 Technical Docs](docs/TECHNICAL_DOCUMENTATION.md)** - Full implementation details
 
 ---
 
 _Built with ❤️ for the FPL mini-league managers community_
 
-Note: Troubleshooting content is maintained exclusively in the private admin repository (fml-admin-docs) and not in this public repo.
+Note: Troubleshooting content is maintained exclusively in the private admin repository
+(fml-admin-docs) and not in this public repo.

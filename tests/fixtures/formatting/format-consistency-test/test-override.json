@@ -1,0 +1,5 @@
+{
+  "name": "Test JSON",
+  "version": "1.0.0",
+  "settings": { "enabled": true, "features": ["feature1", "feature2"] }
+}

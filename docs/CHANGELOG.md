@@ -6,9 +6,11 @@
 
 ### 🏗️ **Architecture Enhancement - ES6 Module System**
 
-**Issue**: Winners page contained 270+ lines of inline JavaScript with code duplication, making maintenance difficult and blocking advanced features like testing and error handling improvements.
+**Issue**: Winners page contained 270+ lines of inline JavaScript with code duplication, making
+maintenance difficult and blocking advanced features like testing and error handling improvements.
 
-**Root Cause**: Monolithic inline scripts with duplicated utilities across pages, no module boundaries, and limited reusability.
+**Root Cause**: Monolithic inline scripts with duplicated utilities across pages, no module
+boundaries, and limited reusability.
 
 ### ✅ **Solution - Modern ES6 Module Architecture**
 
@@ -54,9 +56,11 @@
 
 ### 🎨 **MVP Enhancement - Navigation Consistency**
 
-**Issue**: Winners page had a floating/hanging plain text link ("← Home") that felt disconnected from the overall design system with poor visual hierarchy and mobile UX.
+**Issue**: Winners page had a floating/hanging plain text link ("← Home") that felt disconnected
+from the overall design system with poor visual hierarchy and mobile UX.
 
-**Root Cause**: Inconsistent navigation pattern compared to other site CTAs; no responsive behavior for mobile users.
+**Root Cause**: Inconsistent navigation pattern compared to other site CTAs; no responsive behavior
+for mobile users.
 
 ### ✅ **Solution - Integrated Responsive Navigation**
 
@@ -69,7 +73,8 @@
 
 - **Responsive Layout**: CSS Grid header with `winners-descrow` flex container
 - **Design System**: Added `--text-muted: #777` token for consistent subtitle/description styling
-- **Single Divider Fix**: Removed global `h2` border-bottom conflict, use explicit `hr.section-rule` only
+- **Single Divider Fix**: Removed global `h2` border-bottom conflict, use explicit `hr.section-rule`
+  only
 - **Accessibility**: Proper ARIA labels, semantic HTML, screen reader support
 - **URL Preservation**: Test/data/phase parameters maintained across navigation
 
@@ -84,9 +89,12 @@
 
 ### 🐛 **Bug Fix - Zero-Prize Row Visibility**
 
-**Issue**: Winners table displayed all 54 players including those with ₹0 prizes, cluttering the view and reducing focus on actual winners.
+**Issue**: Winners table displayed all 54 players including those with ₹0 prizes, cluttering the
+view and reducing focus on actual winners.
 
-**Root Cause**: Rendering logic used unfiltered `allWinners` array without checking `totalPrizeWon > 0`, and Top-3 highlighting was based on page index rather than global position in prize-sorted list.
+**Root Cause**: Rendering logic used unfiltered `allWinners` array without checking
+`totalPrizeWon > 0`, and Top-3 highlighting was based on page index rather than global position in
+prize-sorted list.
 
 ### ✅ **Solution - Filtered Display with Global Ranking**
 
@@ -100,7 +108,9 @@
 
 **Issue**: Top-3 highlight borders bled outside rounded table boundaries, creating visual overflow.
 
-**Solution**: Wrapper-level containment using `.table-scroll` with `overflow: hidden` and `box-shadow: inset` highlighting method to keep borders within table edges while preserving sticky header functionality.
+**Solution**: Wrapper-level containment using `.table-scroll` with `overflow: hidden` and
+`box-shadow: inset` highlighting method to keep borders within table edges while preserving sticky
+header functionality.
 
 ### 📊 **Impact**
 
@@ -113,9 +123,12 @@
 
 ### 🐛 **MAJOR FIX - Header Display Race Condition**
 
-**Issue**: Headers briefly showed incorrect gameweek ("After GW2") before settling on correct value ("After GW1"), creating confusing user experience during page loads.
+**Issue**: Headers briefly showed incorrect gameweek ("After GW2") before settling on correct value
+("After GW1"), creating confusing user experience during page loads.
 
-**Root Cause**: Multiple data sources (season vs winners data) were racing to update headers, with season-based calculations (`nextGW - 1 = 3 - 1 = 2`) overriding correct winner-based data (`completedGameweeks = 1`).
+**Root Cause**: Multiple data sources (season vs winners data) were racing to update headers, with
+season-based calculations (`nextGW - 1 = 3 - 1 = 2`) overriding correct winner-based data
+(`completedGameweeks = 1`).
 
 ### ✅ **Solution - Single Source of Truth System**
 
@@ -164,19 +177,26 @@
 
 ### ✅ Fixes
 
-- Prevent table overflow on small screens by wrapping tables in a scrollable container that stays within the card; no page-level horizontal scroll.
+- Prevent table overflow on small screens by wrapping tables in a scrollable container that stays
+  within the card; no page-level horizontal scroll.
 - Winners and League Standings tables respect container width and maintain rounded corners/shadows.
-- Aligned table headers with body columns across breakpoints; removed flex/chip headers and kept real `<thead>` inside the scroll region.
-- Truncation and wrapping rules for long header text and player names; optional 2-line clamp on very small widths.
-- Added density utilities (`table-density-compact|cozy|comfortable`) with global row-height tokens and applied compact density to standings.
-- Fixed Rank header on mobile: shows `#` at all widths with accessible name “Rank”; ensured 2-digit ranks fit without clipping and medals stay within the rank cell.
+- Aligned table headers with body columns across breakpoints; removed flex/chip headers and kept
+  real `<thead>` inside the scroll region.
+- Truncation and wrapping rules for long header text and player names; optional 2-line clamp on very
+  small widths.
+- Added density utilities (`table-density-compact|cozy|comfortable`) with global row-height tokens
+  and applied compact density to standings.
+- Fixed Rank header on mobile: shows `#` at all widths with accessible name “Rank”; ensured 2-digit
+  ranks fit without clipping and medals stay within the rank cell.
 - Corrected top-3 highlight logic to rely on actual rank values instead of page index.
-- Compact mobile pagination: `◀︎ Prev • X / Y • Next ▶︎` with clear disabled states, a11y labels, and touch-friendly sizes.
+- Compact mobile pagination: `◀︎ Prev • X / Y • Next ▶︎` with clear disabled states, a11y labels,
+  and touch-friendly sizes.
 
 ### 📂 Files
 
 - `index.html`, `winners.html`
-- `css/components.css`, `css/leaderboard.css`, `css/winners-specific.css`, `css/responsive.css`, `css/variables.css`
+- `css/components.css`, `css/leaderboard.css`, `css/winners-specific.css`, `css/responsive.css`,
+  `css/variables.css`
 
 ### 🔗 Tracking
 
@@ -186,7 +206,8 @@
 
 ### 🚀 CI/CD
 
-- Deploy workflow stamps local CSS/JS with `?v=<commit sha>` during deployment and publishes via GitHub Pages Actions.
+- Deploy workflow stamps local CSS/JS with `?v=<commit sha>` during deployment and publishes via
+  GitHub Pages Actions.
 - Source HTML remains clean; stamping occurs only in the deployed artifact.
 
 ### ✅ Fixes
@@ -208,38 +229,47 @@
 
 ### 🎯 Fixes & Visual Consistency
 
-- Adaptive header backplate: light mode uses the page backdrop (no black band); dark mode uses an opaque dark backplate. Safe-area respected on iOS.
-- Uniform vertical spacing: the purple hero header now participates in the unified spacing system; no extra gap before the first section.
+- Adaptive header backplate: light mode uses the page backdrop (no black band); dark mode uses an
+  opaque dark backplate. Safe-area respected on iOS.
+- Uniform vertical spacing: the purple hero header now participates in the unified spacing system;
+  no extra gap before the first section.
 - Width/alignment: hero header aligns with the same grid as `.container` across desktop and mobile.
-- Sticky behavior parity: consistent sticky header behavior on both index and winners (desktop + mobile).
+- Sticky behavior parity: consistent sticky header behavior on both index and winners (desktop +
+  mobile).
 
 ### ⏱️ Countdown Standardization
 
 - Compact format enforced across pages and breakpoints: `06D:00H:42M` (no spaces, colon-separated).
 - Two-digit padding for all units (days/hours/minutes) maintained via JS.
-- Identical sizing: countdown box width, padding, and text scale standardized; D/H/M letters match the number size and baseline.
+- Identical sizing: countdown box width, padding, and text scale standardized; D/H/M letters match
+  the number size and baseline.
 
 ### 🧩 Technical Notes
 
 - Winners page CSS cascade aligned with index to ensure identical theming and spacing.
-- Hook for urgency/glow exists (`CountdownEnhancements.updateCountdownWithUrgency`) but no production JS module is wired; demo styles exist only in `countdown-demo.html`.
+- Hook for urgency/glow exists (`CountdownEnhancements.updateCountdownWithUrgency`) but no
+  production JS module is wired; demo styles exist only in `countdown-demo.html`.
 
 ## [1.1.1] - 2025-08-23 - Countdown Rollover Update
 
 ### ⏱️ Countdown & Rollover
 
-- Post‑deadline behavior: show `GWx LIVE` and poll only `data/next_deadline.json` until the backend updates (no proxy fallback post‑deadline).
+- Post‑deadline behavior: show `GWx LIVE` and poll only `data/next_deadline.json` until the backend
+  updates (no proxy fallback post‑deadline).
 - Switch to the next GW countdown automatically once backend JSON publishes the next gameweek.
 - Unify countdown logic across pages and scope LIVE‑mode UI updates to the countdown container.
 
 ### 🧩 Refactor & Parity
 
-- Refactored index to delegate season loading and rollover to shared modules; fixed the `now()` bug in inline scheduler.
-- Winners page now uses the shared countdown (removed static placeholders) for parity with the home page.
+- Refactored index to delegate season loading and rollover to shared modules; fixed the `now()` bug
+  in inline scheduler.
+- Winners page now uses the shared countdown (removed static placeholders) for parity with the home
+  page.
 
 ### 🧪 Testing & Docs
 
-- Added `tools/testing/countdown-stress.html` (noindex) to generate `?clockOffset` and override parameters (`dl`, `gw`) in test/admin mode.
+- Added `tools/testing/countdown-stress.html` (noindex) to generate `?clockOffset` and override
+  parameters (`dl`, `gw`) in test/admin mode.
 - Documented testing steps and safe rollout in `docs/TESTING.md` and `docs/RELEASE_CHECKLIST.md`.
 
 ---
@@ -254,9 +284,11 @@
 
 - **Mobile-First Architecture**: Complete website audit and optimization for mobile devices
 - **Container Consistency**: Applied uniform `winner-scorecard` styling to all major sections
-- **Space Optimization**: Reduced excessive white space by 50% on mobile while maintaining readability
+- **Space Optimization**: Reduced excessive white space by 50% on mobile while maintaining
+  readability
 - **Sticky Header Enhancement**: Added proper spacing and professional positioning
-- **Table Improvements**: Implemented uniform row heights and restored appealing purple header design
+- **Table Improvements**: Implemented uniform row heights and restored appealing purple header
+  design
 
 ### 📱 Mobile Optimizations
 
@@ -287,11 +319,15 @@
 
 ### 🔧 Backend & Ops
 
-- Introduced normalized Config and Prize tables in Google Sheets with a central `Config.js` access layer.
+- Introduced normalized Config and Prize tables in Google Sheets with a central `Config.js` access
+  layer.
 - Added preflight checks and a visible `SYSTEM` banner indicating mode (TEST/LIVE, DRY_RUN status).
-- Safe TEST/LIVE routing via Script Properties; one-click admin menu actions for dry-run, test-writes, and live runs.
-- JSON publishing now respects `TEST_MODE`: publishes to `data/test_winner_stats.json` when testing; live continues at `data/winner_stats.json`.
-- Demo helpers: run a full 38-GW or 4-GW simulated season and publish test JSON for website previews.
+- Safe TEST/LIVE routing via Script Properties; one-click admin menu actions for dry-run,
+  test-writes, and live runs.
+- JSON publishing now respects `TEST_MODE`: publishes to `data/test_winner_stats.json` when testing;
+  live continues at `data/winner_stats.json`.
+- Demo helpers: run a full 38-GW or 4-GW simulated season and publish test JSON for website
+  previews.
 
 ### 📣 Notes
 
@@ -304,14 +340,18 @@
 
 ### 🎨 UI/UX Improvements
 
-- Winners page header now mirrors the home page exactly. Title remains perfectly centered on desktop regardless of side content width.
-- Introduced a floating “Back to Home” button (bottom-right). This keeps layout clean across desktop and mobile and prevents header overlap issues.
+- Winners page header now mirrors the home page exactly. Title remains perfectly centered on desktop
+  regardless of side content width.
+- Introduced a floating “Back to Home” button (bottom-right). This keeps layout clean across desktop
+  and mobile and prevents header overlap issues.
 - Improved mobile wrapping for header title/subtitle to avoid clipping on small screens.
 
 ### 🔧 Implementation Notes
 
-- Header implemented with CSS Grid (1fr auto 1fr) to lock center alignment; countdown sits in the right column.
-- The Back button is no longer part of the header flow; it’s a fixed-position control with safe-area support and an accessible focus state.
+- Header implemented with CSS Grid (1fr auto 1fr) to lock center alignment; countdown sits in the
+  right column.
+- The Back button is no longer part of the header flow; it’s a fixed-position control with safe-area
+  support and an accessible focus state.
 - Navigation preserves query params (test/data/phase/clockOffset) when returning to Home.
 
 ### ✅ QA & Verification
@@ -325,18 +365,24 @@
 
 ### 🎨 UI Consistency & Accessibility
 
-- Added dynamic "After GWx" subtitle to the Winners and Leaderboard headings so both pages use the same cached gameweek source as the countdown widget.
-- Mobile-first stacked subtitle (stacks under title on small screens, inline on wider screens). Subtitle is accessible and respects prefers-reduced-motion.
+- Added dynamic "After GWx" subtitle to the Winners and Leaderboard headings so both pages use the
+  same cached gameweek source as the countdown widget.
+- Mobile-first stacked subtitle (stacks under title on small screens, inline on wider screens).
+  Subtitle is accessible and respects prefers-reduced-motion.
 
 ### 🔧 Implementation Notes
 
-- `winners.html`: Added `.winners-heading` rules, `#winners-page-after-gw` span, and `updateWinnersPageHeaderGW()` to read `_lastGwId` / `fpl_cached_gw` and update the subtitle.
-- `index.html`: Ensured winners/leaderboard headings use the same heading structure and updater functions.
+- `winners.html`: Added `.winners-heading` rules, `#winners-page-after-gw` span, and
+  `updateWinnersPageHeaderGW()` to read `_lastGwId` / `fpl_cached_gw` and update the subtitle.
+- `index.html`: Ensured winners/leaderboard headings use the same heading structure and updater
+  functions.
 
 ### ✅ QA
 
-- Verified subtitle shows "After GW{n}" when `fpl_cached_gw` is present in localStorage or when `_lastGwId` is set.
-- Responsive behavior: stacked on mobile, inline on desktop; animation disabled when `prefers-reduced-motion: reduce`.
+- Verified subtitle shows "After GW{n}" when `fpl_cached_gw` is present in localStorage or when
+  `_lastGwId` is set.
+- Responsive behavior: stacked on mobile, inline on desktop; animation disabled when
+  `prefers-reduced-motion: reduce`.
 
 ---
 
@@ -344,20 +390,28 @@
 
 ### 🎨 UI/UX & Mobile Fixes
 
-- Restored wide-screen winners layout to the original table while switching to index-style winner cards on small screens (prevents mobile distortion caused by table-row flex rules).
-- Floating phase/back toggle now matches the home page visually and by markup/IDs for consistent behaviour across pages.
-- Rank column is centered on mobile, and the #1 card keeps the left gold highlight border in the card layout.
+- Restored wide-screen winners layout to the original table while switching to index-style winner
+  cards on small screens (prevents mobile distortion caused by table-row flex rules).
+- Floating phase/back toggle now matches the home page visually and by markup/IDs for consistent
+  behaviour across pages.
+- Rank column is centered on mobile, and the #1 card keeps the left gold highlight border in the
+  card layout.
 
 ### 🧩 Data & Standings
 
-- Added a "Points" (Overall Score) column to the League Standings preview and populated demo/test data with `totalPoints` so preview and generators show consistent overall scores.
+- Added a "Points" (Overall Score) column to the League Standings preview and populated demo/test
+  data with `totalPoints` so preview and generators show consistent overall scores.
 
 ### 🛠 Implementation Notes
 
-- File: `winners.html` — fixed malformed CSS, removed problematic row-level flex rules, added card-based mobile renderer and viewport-branching in `displayWinnerTable()` (table on wide screens, cards on mobile).
+- File: `winners.html` — fixed malformed CSS, removed problematic row-level flex rules, added
+  card-based mobile renderer and viewport-branching in `displayWinnerTable()` (table on wide
+  screens, cards on mobile).
 - File: `index.html` — winner card styles used as canonical mobile card markup.
-- Data: `data/test_winner_stats.json` and Apps Script generators updated to include `totalPoints` for demo/test runs.
-- Added `escapeHTML()` helper and limited `optimizeTableColumnWidths()` to run only when a table is rendered.
+- Data: `data/test_winner_stats.json` and Apps Script generators updated to include `totalPoints`
+  for demo/test runs.
+- Added `escapeHTML()` helper and limited `optimizeTableColumnWidths()` to run only when a table is
+  rendered.
 
 ### ✅ QA
 
@@ -369,20 +423,25 @@
 
 ### 🐛 Bug Fixes
 
-- Fixed "League Standings" showing as empty in test mode when `data/winner_stats.json` is empty (pre-season).
-- Implemented safe fallback in `loadTestLeaderboardData()` to use `data/test_winner_stats.json` directly when live data has no winners.
-- Improved merge logic when live data exists: overlays test ranks on matching names and safely pushes unranked players to the bottom.
+- Fixed "League Standings" showing as empty in test mode when `data/winner_stats.json` is empty
+  (pre-season).
+- Implemented safe fallback in `loadTestLeaderboardData()` to use `data/test_winner_stats.json`
+  directly when live data has no winners.
+- Improved merge logic when live data exists: overlays test ranks on matching names and safely
+  pushes unranked players to the bottom.
 
 ### 🔧 Technical Notes
 
 - Leaderboard sorting uses `winners[].highlights.overallRank` (ascending).
-- Test mode begins in pre-season view; use the on-page toggle to preview in-season sections, or open `index.html?test=true` and click the toggle.
+- Test mode begins in pre-season view; use the on-page toggle to preview in-season sections, or open
+  `index.html?test=true` and click the toggle.
 - Cache-busting retained on JSON fetches via `?cache=timestamp`.
 
 ### 📚 Documentation Updates
 
 - Documented website test mode and leaderboard data fallback in Technical Documentation.
-- Consolidated troubleshooting into the private admin repository (fml-admin-docs); removed public troubleshooting doc.
+- Consolidated troubleshooting into the private admin repository (fml-admin-docs); removed public
+  troubleshooting doc.
 
 ---
 
@@ -390,15 +449,19 @@
 
 ### 🐛 Bug Fix
 
-- Fixed issue where Winners and League Standings subtitles displayed "After GW0" during pre-season (when no finished gameweek has been processed). The UI now hides the subtitle unless a positive (>=1) finished GW is known.
+- Fixed issue where Winners and League Standings subtitles displayed "After GW0" during pre-season
+  (when no finished gameweek has been processed). The UI now hides the subtitle unless a positive
+  (>=1) finished GW is known.
 
 ### 🔧 Implementation Notes
 
-- Files updated: `index.html`, `winners.html` — new helper `getLastFinishedGW()` and stricter display condition (only show subtitle when finished GW &gt; 0).
+- Files updated: `index.html`, `winners.html` — new helper `getLastFinishedGW()` and stricter
+  display condition (only show subtitle when finished GW &gt; 0).
 
 ### ✅ QA
 
-- Verified that when `data/winner_stats.json` contains `summary.lastProcessedGW: 0` the subtitle is hidden; subtitle appears correctly once `lastProcessedGW` becomes 1.
+- Verified that when `data/winner_stats.json` contains `summary.lastProcessedGW: 0` the subtitle is
+  hidden; subtitle appears correctly once `lastProcessedGW` becomes 1.
 
 ---
 
@@ -406,28 +469,37 @@
 
 ### 📧 Major Email System Improvements
 
-- **Day 0 Countdown Enhancement** - Final day now displays "6 HOURS REMAINING" instead of "0 DAYS REMAINING" with urgent blinking animation
-- **Smart Name Personalization** - If first name is less than 3 characters, uses full name for personalized greetings
-- **Center-Aligned Messaging** - Hook messages and main content now properly center-aligned for better visual presentation
-- **Mobile-Optimized Countdown** - Responsive design with appropriate font scaling and button stacking for mobile devices
-- **British English Consistency** - All email content uses British spellings ("analysing," "strategising," etc.)
+- **Day 0 Countdown Enhancement** - Final day now displays "6 HOURS REMAINING" instead of "0 DAYS
+  REMAINING" with urgent blinking animation
+- **Smart Name Personalization** - If first name is less than 3 characters, uses full name for
+  personalized greetings
+- **Center-Aligned Messaging** - Hook messages and main content now properly center-aligned for
+  better visual presentation
+- **Mobile-Optimized Countdown** - Responsive design with appropriate font scaling and button
+  stacking for mobile devices
+- **British English Consistency** - All email content uses British spellings ("analysing,"
+  "strategising," etc.)
 
 ### 🚨 Urgency Features for Final Hours
 
 - **Blinking Animation** - Day 0 countdown number pulses with CSS animation to create urgency
 - **Updated Subject Lines** - Final email uses "6 HOURS LEFT - Final call! 🚨" for maximum impact
-- **Enhanced Visual Hierarchy** - Countdown display optimized for different screen sizes while maintaining urgency
+- **Enhanced Visual Hierarchy** - Countdown display optimized for different screen sizes while
+  maintaining urgency
 
 ### 🎯 Technical Improvements
 
-- **Conditional Display Logic** - Smart countdown switching between days/hours based on remaining time
-- **CSS Animation Optimization** - Lightweight blinking animation using keyframes for better performance
+- **Conditional Display Logic** - Smart countdown switching between days/hours based on remaining
+  time
+- **CSS Animation Optimization** - Lightweight blinking animation using keyframes for better
+  performance
 - **Template Flexibility** - Modular countdown display system for easy future customization
 - **Test Function Addition** - New `testDay0WithBlinking()` function for specific Day 0 testing
 
 ### 📱 Mobile Responsiveness Enhancements
 
-- **Dynamic Font Scaling** - Countdown numbers scale appropriately on mobile devices (80px on small screens)
+- **Dynamic Font Scaling** - Countdown numbers scale appropriately on mobile devices (80px on small
+  screens)
 - **Button Stacking** - Call-to-action buttons stack vertically on mobile for better usability
 - **Optimized Padding** - Mobile-specific padding adjustments for better content flow
 - **Center Alignment** - All message content centers properly across all device sizes
@@ -435,8 +507,10 @@
 ### 🧪 Enhanced Testing Capabilities
 
 - **Dedicated Test Functions** - Individual test functions for each day (0-4) of the countdown
-- **Day 0 Specific Testing** - `testDay0WithBlinking()` function to verify 6-hour display and animation
-- **Quick Setup Function** - `quickSetupCountdownCampaign()` for complete campaign setup with testing
+- **Day 0 Specific Testing** - `testDay0WithBlinking()` function to verify 6-hour display and
+  animation
+- **Quick Setup Function** - `quickSetupCountdownCampaign()` for complete campaign setup with
+  testing
 - **Comprehensive Email Preview** - Test all 5 countdown emails in sequence before live deployment
 
 ---
@@ -445,21 +519,28 @@
 
 ### 🎨 Major Visual Consistency Updates
 
-- **Unified Top 3 Winner Styling** - Rolled back shimmering border animations to solid gradient backgrounds across both index.html and winners.html
-- **Performance Optimization** - Removed resource-intensive CSS animations in favor of elegant static styling
-- **Cross-Platform Consistency** - Ensured identical visual treatment of top 3 winners on all screen sizes (desktop, tablet, mobile)
+- **Unified Top 3 Winner Styling** - Rolled back shimmering border animations to solid gradient
+  backgrounds across both index.html and winners.html
+- **Performance Optimization** - Removed resource-intensive CSS animations in favor of elegant
+  static styling
+- **Cross-Platform Consistency** - Ensured identical visual treatment of top 3 winners on all screen
+  sizes (desktop, tablet, mobile)
 
 ### 🏆 Enhanced Winner Card Design
 
-- **Gold Winner (1st Place)**: Warm gradient background (#fffbf0 to #fff8e1) with gold border (#f9a825)
-- **Silver Winner (2nd Place)**: Cool gradient background (#f8f9fa to #f1f3f4) with silver border (#9e9e9e)
-- **Bronze Winner (3rd Place)**: Warm gradient background (#fef7e0 to #fff3cd) with bronze border (#d4b106)
+- **Gold Winner (1st Place)**: Warm gradient background (#fffbf0 to #fff8e1) with gold border
+  (#f9a825)
+- **Silver Winner (2nd Place)**: Cool gradient background (#f8f9fa to #f1f3f4) with silver border
+  (#9e9e9e)
+- **Bronze Winner (3rd Place)**: Warm gradient background (#fef7e0 to #fff3cd) with bronze border
+  (#d4b106)
 - **Subtle Shadow Effects**: Professional depth with rgba-based box shadows
 - **Hover Enhancements**: Interactive hover states maintaining visual hierarchy
 
 ### 🔧 Technical Improvements
 
-- **Reduced Animation Overhead**: Eliminated complex CSS animations that could impact performance on lower-end devices
+- **Reduced Animation Overhead**: Eliminated complex CSS animations that could impact performance on
+  lower-end devices
 - **Better Battery Life**: Reduced CPU usage on mobile devices by removing continuous animations
 - **Faster Page Load**: Simplified CSS reduces parsing time and improves Core Web Vitals
 - **Accessibility**: Removed motion that could trigger vestibular disorders for sensitive users
@@ -472,7 +553,8 @@
 
 ### 🧪 Test Data & Badge System
 
-- **GM Badge Logic**: Confirmed proper implementation of gameMonth badges (displays when `highlights.gameMonths > 0`)
+- **GM Badge Logic**: Confirmed proper implementation of gameMonth badges (displays when
+  `highlights.gameMonths > 0`)
 - **Dynamic Badge System**: Green GW badges for gameweek wins, red GM badges for monthly wins
 - **Test Data Integrity**: Maintained clean test data structure for proper JSON ingestion pipeline
 
@@ -482,17 +564,20 @@
 
 ### 🚀 Major Features Added
 
-- **Complete Pagination System for Winners Page** - Implemented comprehensive pagination with 10 winners per page
+- **Complete Pagination System for Winners Page** - Implemented comprehensive pagination with 10
+  winners per page
 - **Navigation Controls** - Added Previous/Next buttons with proper state management
 - **Page Information Display** - Shows current page and total pages (e.g., "Page 1 of 5")
 - **Auto Show/Hide Controls** - Pagination controls automatically appear only when needed
 
 ### 🎨 Enhanced User Experience
 
-- **Global Rank Calculation** - Maintains correct ranking across all pages (1, 2, 3... regardless of current page)
+- **Global Rank Calculation** - Maintains correct ranking across all pages (1, 2, 3... regardless of
+  current page)
 - **Smooth Page Transitions** - Seamless navigation between pages with state preservation
 - **Dynamic Table Optimization** - Column widths optimized for each page's content
-- **Performance Optimization** - Only renders current page data, improving performance with large datasets
+- **Performance Optimization** - Only renders current page data, improving performance with large
+  datasets
 
 ### 📱 Mobile Responsiveness Fixes
 
@@ -518,9 +603,12 @@
 
 ### 🐛 Bug Fixes
 
-- **Mobile Text Display** - Fixed subtitle "All players ranked by total prize money won this season" being cut off
-- **Table Styling Consistency** - Removed conflicting gold/silver/bronze rank number styling on desktop
-- **Navigation State Management** - Proper enabling/disabling of navigation buttons based on current position
+- **Mobile Text Display** - Fixed subtitle "All players ranked by total prize money won this season"
+  being cut off
+- **Table Styling Consistency** - Removed conflicting gold/silver/bronze rank number styling on
+  desktop
+- **Navigation State Management** - Proper enabling/disabling of navigation buttons based on current
+  position
 
 ---
 
@@ -528,14 +616,19 @@
 
 ### 🐛 Critical Bug Fixes
 
-- **Fixed Winner Table Ranking Display** - Resolved template literal parsing issue causing "#{index + 1}" to display instead of actual rank numbers (1, 2, 3, etc.)
-- **Enhanced Mobile Title Display** - Fixed header title wrapping on small screens with responsive font scaling
-- **Improved Browser Compatibility** - Replaced complex template literals with explicit string concatenation for better cross-browser support
+- **Fixed Winner Table Ranking Display** - Resolved template literal parsing issue causing
+  "#{index + 1}" to display instead of actual rank numbers (1, 2, 3, etc.)
+- **Enhanced Mobile Title Display** - Fixed header title wrapping on small screens with responsive
+  font scaling
+- **Improved Browser Compatibility** - Replaced complex template literals with explicit string
+  concatenation for better cross-browser support
 
 ### 🎨 UI/UX Enhancements
 
-- **Updated Winner Page Icon** - Changed from trophy 🏆 to bullseye 🎯 emoji for cleaner visual design
-- **Enhanced Mobile Responsiveness** - Added progressive font scaling for extra small and ultra narrow screens
+- **Updated Winner Page Icon** - Changed from trophy 🏆 to bullseye 🎯 emoji for cleaner visual
+  design
+- **Enhanced Mobile Responsiveness** - Added progressive font scaling for extra small and ultra
+  narrow screens
 - **Improved Visual Hierarchy** - Better contrast and styling for rank badges (gold/silver/bronze)
 - **Cache-Busting Improvements** - Enhanced browser cache management for faster updates
 
@@ -663,13 +756,11 @@
 ### 🛰 Data Source and Monthly Winners
 
 - **Authoritative months** — Monthly winner calculation now prefers the FPL
-  `bootstrap-static.phases` block to determine month boundaries and phase names.
-  A legacy 4-GW partitioning is retained as a fallback when phases[] are
-  unavailable.
+  `bootstrap-static.phases` block to determine month boundaries and phase names. A legacy 4-GW
+  partitioning is retained as a fallback when phases[] are unavailable.
 
-- **Parity** — Test harness and production fetcher now share the same
-  phase-aware logic to ensure consistent monthly winner detection and labels
-  (GM1..GMn mapping where applicable).
+- **Parity** — Test harness and production fetcher now share the same phase-aware logic to ensure
+  consistent monthly winner detection and labels (GM1..GMn mapping where applicable).
 
 ## [0.8.0] - 2025-08-01 - Core System Complete
 
@@ -843,5 +934,5 @@ For questions about this changelog or the system:
 
 ---
 
-_This changelog follows the [Keep a Changelog](https://keepachangelog.com/) format._
-_Last Updated: August 2025_
+_This changelog follows the [Keep a Changelog](https://keepachangelog.com/) format._ _Last Updated:
+August 2025_

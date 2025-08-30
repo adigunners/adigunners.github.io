@@ -6,21 +6,21 @@ auto_review: false
 
 # Reduce noise - only show important issues
 reviews:
-  level: 'important' # Options: all, important, critical
+  level: "important" # Options: all, important, critical
 
 # Don't review certain file types
 ignore:
-  - '*.min.js'
-  - '*.min.css'
-  - 'node_modules/**'
-  - '*.log'
+  - "*.min.js"
+  - "*.min.css"
+  - "node_modules/**"
+  - "*.log"
 
 # Only review specific file types for a website
 include:
-  - '*.html'
-  - '*.css'
-  - '*.js'
-  - '*.md'
+  - "*.html"
+  - "*.css"
+  - "*.js"
+  - "*.md"
 
 # Customize what to check
 checks:

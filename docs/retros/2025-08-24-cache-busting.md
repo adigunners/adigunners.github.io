@@ -2,16 +2,20 @@
 
 ## Summary
 
-Auto-append commit SHA to local CSS/JS URLs at deploy time so users always fetch fresh assets without a manual hard refresh.
+Auto-append commit SHA to local CSS/JS URLs at deploy time so users always fetch fresh assets
+without a manual hard refresh.
 
 ## Problem
 
-GitHub Pages and browsers cached CSS/JS aggressively, causing users to see stale assets after merges. Asking for a hard refresh isn’t acceptable for most users.
+GitHub Pages and browsers cached CSS/JS aggressively, causing users to see stale assets after
+merges. Asking for a hard refresh isn’t acceptable for most users.
 
 ## Solution
 
-- Added a GitHub Action that stamps local asset URLs with `?v=<commit-sha>` during deployment, then deploys via Pages.
-- Reverted hard-coded `?v=` parameters in source HTML; stamping now happens only in the deployed artifact.
+- Added a GitHub Action that stamps local asset URLs with `?v=<commit-sha>` during deployment, then
+  deploys via Pages.
+- Reverted hard-coded `?v=` parameters in source HTML; stamping now happens only in the deployed
+  artifact.
 
 ## Scope
 

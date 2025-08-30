@@ -13,4 +13,5 @@ This includes:
 - Task completion verification
 - Progress reporting and documentation
 
-Use this command after completing any significant development work to ensure proper project organization and delivery.
+Use this command after completing any significant development work to ensure proper project
+organization and delivery.

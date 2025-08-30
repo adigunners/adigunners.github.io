@@ -4,7 +4,8 @@
 
 ### 🎯 Purpose
 
-Ensure consistent design and development across all pages, making it easy for team members to add features and maintain consistency.
+Ensure consistent design and development across all pages, making it easy for team members to add
+features and maintain consistency.
 
 ## 🏗️ Architecture Principles
 

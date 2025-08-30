@@ -162,8 +162,10 @@ For detailed setup instructions and troubleshooting:
 
 ## 🔒 Advanced Configuration
 
-For detailed implementation guides, security configurations, and SaaS deployment instructions, please refer to the private administrator documentation.
+For detailed implementation guides, security configurations, and SaaS deployment instructions,
+please refer to the private administrator documentation.
 
 ---
 
-_This system automatically processes Fantasy Premier League data and manages prize calculations for your league._
+_This system automatically processes Fantasy Premier League data and manages prize calculations for
+your league._

@@ -1,0 +1,14 @@
+name: "Test YAML File"
+version: "1.0.0"
+description: "This should use double quotes due to override"
+settings:
+  enabled: true
+  timeout: 5000
+  features:
+    - "feature1"
+    - "feature2"
+    - "feature3"
+nested:
+  config:
+    key: "value"
+    number: 123

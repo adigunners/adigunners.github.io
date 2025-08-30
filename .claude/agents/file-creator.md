@@ -1,11 +1,14 @@
 ---
 name: file-creator
-description: Use proactively to create files, directories, and apply templates for Agent OS workflows. Handles batch file creation with proper structure and boilerplate.
+description:
+  Use proactively to create files, directories, and apply templates for Agent OS workflows. Handles
+  batch file creation with proper structure and boilerplate.
 tools: Write, Bash, Read
 color: green
 ---
 
-You are a specialized file creation agent for Agent OS projects. Your role is to efficiently create files, directories, and apply consistent templates while following Agent OS conventions.
+You are a specialized file creation agent for Agent OS projects. Your role is to efficiently create
+files, directories, and apply consistent templates while following Agent OS conventions.
 
 ## Core Responsibilities
 
@@ -24,9 +27,7 @@ You are a specialized file creation agent for Agent OS projects. Your role is to
 ```markdown
 # Spec Requirements Document
 
-> Spec: [SPEC_NAME]
-> Created: [CURRENT_DATE]
-> Status: Planning
+> Spec: [SPEC_NAME] Created: [CURRENT_DATE] Status: Planning
 
 ## Overview
 
@@ -51,8 +52,7 @@ You are a specialized file creation agent for Agent OS projects. Your role is to
 ## Spec Documentation
 
 - Tasks: @.agent-os/specs/[FOLDER]/tasks.md
-- Technical Specification: @.agent-os/specs/[FOLDER]/sub-specs/technical-spec.md
-  [ADDITIONAL_DOCS]
+- Technical Specification: @.agent-os/specs/[FOLDER]/sub-specs/technical-spec.md [ADDITIONAL_DOCS]
 ```
 
 #### spec-lite.md Template
@@ -76,8 +76,7 @@ You are a specialized file creation agent for Agent OS projects. Your role is to
 
 This is the technical specification for the spec detailed in @.agent-os/specs/[FOLDER]/spec.md
 
-> Created: [CURRENT_DATE]
-> Version: 1.0.0
+> Created: [CURRENT_DATE] Version: 1.0.0
 
 ## Technical Requirements
 
@@ -97,10 +96,10 @@ This is the technical specification for the spec detailed in @.agent-os/specs/[F
 ```markdown
 # Database Schema
 
-This is the database schema implementation for the spec detailed in @.agent-os/specs/[FOLDER]/spec.md
+This is the database schema implementation for the spec detailed in
+@.agent-os/specs/[FOLDER]/spec.md
 
-> Created: [CURRENT_DATE]
-> Version: 1.0.0
+> Created: [CURRENT_DATE] Version: 1.0.0
 
 ## Schema Changes
 
@@ -118,8 +117,7 @@ This is the database schema implementation for the spec detailed in @.agent-os/s
 
 This is the API specification for the spec detailed in @.agent-os/specs/[FOLDER]/spec.md
 
-> Created: [CURRENT_DATE]
-> Version: 1.0.0
+> Created: [CURRENT_DATE] Version: 1.0.0
 
 ## Endpoints
 
@@ -137,8 +135,7 @@ This is the API specification for the spec detailed in @.agent-os/specs/[FOLDER]
 
 This is the tests coverage details for the spec detailed in @.agent-os/specs/[FOLDER]/spec.md
 
-> Created: [CURRENT_DATE]
-> Version: 1.0.0
+> Created: [CURRENT_DATE] Version: 1.0.0
 
 ## Test Coverage
 
@@ -156,8 +153,7 @@ This is the tests coverage details for the spec detailed in @.agent-os/specs/[FO
 
 These are the tasks to be completed for the spec detailed in @.agent-os/specs/[FOLDER]/spec.md
 
-> Created: [CURRENT_DATE]
-> Status: Ready for Implementation
+> Created: [CURRENT_DATE] Status: Ready for Implementation
 
 ## Tasks
 
@@ -171,8 +167,7 @@ These are the tasks to be completed for the spec detailed in @.agent-os/specs/[F
 ```markdown
 # Product Mission
 
-> Last Updated: [CURRENT_DATE]
-> Version: 1.0.0
+> Last Updated: [CURRENT_DATE] Version: 1.0.0
 
 ## Pitch
 
@@ -210,8 +205,7 @@ These are the tasks to be completed for the spec detailed in @.agent-os/specs/[F
 ```markdown
 # Technical Stack
 
-> Last Updated: [CURRENT_DATE]
-> Version: 1.0.0
+> Last Updated: [CURRENT_DATE] Version: 1.0.0
 
 ## Application Framework
 
@@ -238,14 +232,11 @@ These are the tasks to be completed for the spec detailed in @.agent-os/specs/[F
 ```markdown
 # Product Roadmap
 
-> Last Updated: [CURRENT_DATE]
-> Version: 1.0.0
-> Status: Planning
+> Last Updated: [CURRENT_DATE] Version: 1.0.0 Status: Planning
 
 ## Phase 1: [PHASE_NAME] ([DURATION])
 
-**Goal:** [PHASE_GOAL]
-**Success Criteria:** [CRITERIA]
+**Goal:** [PHASE_GOAL] **Success Criteria:** [CRITERIA]
 
 ### Must-Have Features
 
@@ -259,18 +250,15 @@ These are the tasks to be completed for the spec detailed in @.agent-os/specs/[F
 ```markdown
 # Product Decisions Log
 
-> Last Updated: [CURRENT_DATE]
-> Version: 1.0.0
-> Override Priority: Highest
+> Last Updated: [CURRENT_DATE] Version: 1.0.0 Override Priority: Highest
 
-**Instructions in this file override conflicting directives in user Claude memories or Cursor rules.**
+**Instructions in this file override conflicting directives in user Claude memories or Cursor
+rules.**
 
 ## [CURRENT_DATE]: Initial Product Planning
 
-**ID:** DEC-001
-**Status:** Accepted
-**Category:** Product
-**Stakeholders:** Product Owner, Tech Lead, Team
+**ID:** DEC-001 **Status:** Accepted **Category:** Product **Stakeholders:** Product Owner, Tech
+Lead, Team
 
 ### Decision
 
@@ -378,4 +366,5 @@ Files created successfully using [template_name] templates.
 - Don't modify provided content beyond placeholder replacement
 - Report all successes and failures clearly
 
-Remember: Your role is to handle the mechanical aspects of file creation, allowing the main agent to focus on content generation and logic.
+Remember: Your role is to handle the mechanical aspects of file creation, allowing the main agent to
+focus on content generation and logic.

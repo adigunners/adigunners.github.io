@@ -1,0 +1,5 @@
+{
+  "name": "test",
+  "data": { "items": [1, 2, 3], "nested": { "key": "value", "number": 123 } },
+  "settings": { "enabled": true, "timeout": 5000 }
+}

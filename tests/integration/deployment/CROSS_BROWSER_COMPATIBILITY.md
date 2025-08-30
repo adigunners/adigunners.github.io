@@ -6,7 +6,8 @@
 
 ## Browser Support Matrix
 
-Our console error fixes target **modern browsers (2018+)** with ES6+ support, matching the existing codebase architecture.
+Our console error fixes target **modern browsers (2018+)** with ES6+ support, matching the existing
+codebase architecture.
 
 ### **Primary Browser Targets** ✅
 
@@ -284,7 +285,8 @@ if ('serviceWorker' in navigator) {
 **Best Experience**: Latest versions of supported browsers  
 **Graceful Degradation**: Older browsers get basic functionality without enhancements
 
-**Note**: This project targets modern web users accessing a Fantasy Premier League management system. The browser requirements align with typical user demographics and business requirements.
+**Note**: This project targets modern web users accessing a Fantasy Premier League management
+system. The browser requirements align with typical user demographics and business requirements.
 
 ---
 

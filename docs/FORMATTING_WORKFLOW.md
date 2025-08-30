@@ -237,6 +237,51 @@ git add .
 git commit -m "Apply formatting fixes"
 ```
 
+## 🧪 Testing File Organization
+
+### Standardized Directory Structure
+
+All testing files are organized under a single `tests/` directory:
+
+```
+tests/
+├── README.md                    # Testing organization guide
+├── unit/                        # Unit tests (.test.js files)
+│   ├── formatting/              # Formatting system tests
+│   ├── functions/               # JavaScript function tests
+│   └── components/              # Component-specific tests
+├── integration/                 # Integration and E2E tests
+│   ├── deployment/              # Deployment-related tests
+│   └── performance/             # Performance assessment
+├── manual/                      # Manual testing files and tools
+│   ├── test-*.html              # Interactive testing tools
+│   └── testing-README.md        # Manual testing documentation
+├── fixtures/                    # Test data and sample files
+│   ├── formatting/              # Formatting test samples
+│   └── data/                    # Test data files
+└── docs/                        # Testing documentation
+    ├── TESTING_GUIDELINES.md    # Testing best practices
+    └── AGENT_WORKFLOW.md        # Guidelines for .claude/.codex agents
+```
+
+### Agent Workflow Integration
+
+For Claude Code and Codex agents, always use this standardized structure:
+
+- **Unit Tests** → `tests/unit/[category]/[name].test.js`
+- **Test Fixtures** → `tests/fixtures/[category]/[descriptive-name]`
+- **Manual Tests** → `tests/manual/test-[feature].html`
+- **Documentation** → `tests/docs/[TOPIC].md`
+
+See `tests/docs/AGENT_WORKFLOW.md` for complete agent guidelines.
+
+### Benefits of Unified Testing Structure
+
+- ✅ **Single Source**: All testing files in one organized location
+- ✅ **Agent Consistency**: Claude and Codex agents follow same patterns
+- ✅ **Clear Categories**: Easy to find and organize test types
+- ✅ **Build Integration**: Proper exclusions in formatting configurations
+
 ## 🔧 Configuration Files Reference
 
 ### Primary Configuration

@@ -2,8 +2,8 @@
 
 This folder contains manual testing utilities that should not ship to production users.
 
-- `countdown-stress.html` — Generates links with `?clockOffset` and optional override params
-  (`dl`, `gw`) to simulate pre/post-deadline behavior and next-GW rollovers in test/admin mode.
+- `countdown-stress.html` — Generates links with `?clockOffset` and optional override params (`dl`,
+  `gw`) to simulate pre/post-deadline behavior and next-GW rollovers in test/admin mode.
 
 Usage:
 
@@ -14,5 +14,6 @@ Usage:
 
 Notes:
 
-- These tools rely on the shared modules under `js/` and will not function if served outside the repo root.
+- These tools rely on the shared modules under `js/` and will not function if served outside the
+  repo root.
 - The override parameters (`dl`, `gw`) are only honored in `?test=true` or `?admin=true` mode.
