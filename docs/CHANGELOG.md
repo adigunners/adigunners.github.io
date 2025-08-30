@@ -2,6 +2,44 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.3.0] - 2025-08-30 - Performance & Resource Loading Overhaul
+
+### 🚀 Highlights
+
+- Replaced external icon font with a lightweight local SVG sprite (`assets/icons.svg`).
+- Switched from Google Fonts CSS to self‑hosted Poppins (WOFF2) with preload hints and swap.
+- Standardized CSS cascade and deferred non‑critical styles (preload+onload) to reduce
+  render‑blocking.
+- Added minimal critical CSS inline for above‑the‑fold (header + stats) to avoid layout shift.
+- Improved winners and homepage robustness with fallback checks and graceful degradation.
+
+### 📊 Lighthouse Impact (local, mobile emulation)
+
+- Homepage Performance improved to ~84, CLS reduced to ~0.14 while keeping TBT at 0ms.
+- Winners page remains strong (~93 Performance) with stable CLS and fast FCP/LCP.
+
+### 🧩 Technical Changes (public)
+
+- Icons: New `assets/icons.svg` and `<svg><use></use></svg>` usage across pages.
+- Fonts: Added `css/fonts.css` and `assets/fonts/poppins/*.woff2` (weights 400/600/700) + preload.
+- CSS: Deferred responsive/mobile/auxiliary styles; kept core foundation blocking for stable first
+  paint.
+- Inline critical CSS for header + first sections to eliminate post‑paint spacing/geometry shifts.
+- Testing: Added Lighthouse scripts to `package.json` (`audit`, `audit:index`, `audit:winners`).
+- Tooling: `.prettierignore` updated to skip generated Lighthouse reports under `docs/`.
+
+### 📂 Files (not exhaustive)
+
+- Added: `assets/icons.svg`, `assets/fonts/poppins/*.woff2`, `css/fonts.css`,
+  `js/test-admin-wrappers.js`.
+- Updated: `index.html`, `winners.html`, `css/components.css`, `css/header.css`,
+  `css/winners-specific.css`, `css/fallbacks.css`.
+
+### 🔎 Notes
+
+- Changes prioritize stable first paint (no FOUC) while reducing render‑blocking.
+- No private credentials or sensitive configuration are stored in this repository.
+
 ## [1.2.3] - 2025-08-26 - Winners Page JavaScript Modularization
 
 ### 🏗️ **Architecture Enhancement - ES6 Module System**

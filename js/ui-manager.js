@@ -464,7 +464,7 @@ window.FPLUIManager = (function () {
               <p>There was a problem loading the winner statistics. Please try again.</p>
               <button onclick="FPLUIManager.loadMainWinnerData()" 
                       style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                <i class="fas fa-redo"></i> Retry
+                ↻ Retry
               </button>
             </div>
           `;

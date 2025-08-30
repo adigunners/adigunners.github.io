@@ -171,6 +171,7 @@ tests/format-test-files/  # Test fixtures
 .claude/               # Claude agent files
 dist/, build/          # Build outputs
 coverage/              # Test coverage
+docs/lighthouse-*.report.*  # Generated Lighthouse reports (local audits)
 ```
 
 ## ⚡ Performance Optimizations

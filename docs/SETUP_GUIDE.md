@@ -131,6 +131,18 @@ python3 -m http.server 8000
 # Then visit: http://localhost:8000
 ```
 
+You can also use the npm script and choose a port:
+
+```bash
+# Default port 8000
+npm run dev
+
+# Custom port
+PORT=3000 npm run dev
+```
+
+To generate local Lighthouse reports for performance benchmarking, see `docs/TESTING.md`.
+
 ---
 
 ## 🔧 Maintenance

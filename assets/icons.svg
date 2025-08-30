@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <!-- Simple, lightweight SVG symbols using currentColor fill -->
+  <symbol id="icon-users" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.42 0-8 2.239-8 5v1h16v-1c0-2.761-3.58-5-8-5Z"/>
+  </symbol>
+
+  <symbol id="icon-coins" viewBox="0 0 24 24">
+    <ellipse cx="10" cy="8" rx="7" ry="3.5" fill="currentColor"/>
+    <path fill="currentColor" d="M3 10.5C3 12.433 6.134 14 10 14s7-1.567 7-3.5v2c0 1.933-3.134 3.5-7 3.5s-7-1.567-7-3.5Z"/>
+    <path fill="currentColor" d="M3 14.5C3 16.433 6.134 18 10 18s7-1.567 7-3.5v2C17 18.433 13.866 20 10 20s-7-1.567-7-3.5Z"/>
+  </symbol>
+
+  <symbol id="icon-calendar" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M7 2h2v2h6V2h2v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3Zm13 6H4v12h16Z"/>
+  </symbol>
+
+  <symbol id="icon-trophy" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M5 3h14v3a5 5 0 0 1-4 4.9V13a4 4 0 0 1-3 3.873V19h4v2H8v-2h4v-2.127A4 4 0 0 1 9 13V10.9A5 5 0 0 1 5 6V3Zm14 3h2a3 3 0 0 1-3 3V6ZM5 6v3a3 3 0 0 1-3-3h3Z"/>
+  </symbol>
+
+  <symbol id="icon-info" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2Zm1 15h-2v-6h2Zm0-8h-2V7h2Z"/>
+  </symbol>
+
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M13 6 7 12l6 6V6Z"/>
+  </symbol>
+
+  <symbol id="icon-chevron-left" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M14.5 6 9.5 12l5 6V6Z"/>
+  </symbol>
+
+  <symbol id="icon-chevron-right" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M9.5 6 14.5 12l-5 6V6Z"/>
+  </symbol>
+
+  <symbol id="icon-redo" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M20 8V3l-2.5 2.5A9 9 0 1 0 21 12h-2a7 7 0 1 1-2.05-4.95L14 9Z"/>
+  </symbol>
+
+  <symbol id="icon-shuffle" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M16 3h5v5l-2-2-2.586 2.586-1.414-1.414L15.172 5 16 4.172V3ZM4 7h5l8 10h4v3h-5l-8-10H4V7Zm11.414 4.414 1.414 1.414L19 10.657 21 12V7h-5l2 2-2.586 2.414Z"/>
+  </symbol>
+
+  <symbol id="icon-calendar-week" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M7 2h2v2h6V2h2v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3Zm13 6H4v12h16Zm-9 3h6v2h-6Z"/>
+  </symbol>
+</svg>

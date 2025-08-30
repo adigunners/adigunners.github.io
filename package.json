@@ -4,13 +4,16 @@
   "description": "IIM Mumbai Fantasy Premier League - Automated fantasy football league management system",
   "private": true,
   "scripts": {
-    "dev": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 3000",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "prepare": "husky",
     "check-consistency": "node scripts/check-consistency.js",
     "fix-winners": "node scripts/fix-winners.js",
-    "lint:md": "markdownlint-cli2"
+    "lint:md": "markdownlint-cli2",
+    "audit:index": "lighthouse http://localhost:${PORT:-8000} --output html --output json --quiet --chrome-flags=\"--headless\" --output-path ./docs/lighthouse-index",
+    "audit:winners": "lighthouse http://localhost:${PORT:-8000}/winners.html --output html --output json --quiet --chrome-flags=\"--headless\" --output-path ./docs/lighthouse-winners",
+    "audit": "npm run audit:index && npm run audit:winners"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -18,9 +21,10 @@
   },
   "devDependencies": {
     "husky": "^9",
+    "lighthouse": "^12.8.2",
     "lint-staged": "^15",
-    "prettier": "^3.6.2",
-    "markdownlint-cli2": "^0.14.0"
+    "markdownlint-cli2": "^0.14.0",
+    "prettier": "^3.6.2"
   },
   "lint-staged": {
     "*.{html,css,js,json}": [

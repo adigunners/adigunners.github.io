@@ -44,6 +44,9 @@
   margin-bottom: 8px;
 }
 
+/* Reserve space for dynamic sections to reduce CLS */
+/* Removed aggressive placeholder sizing due to CLS regressions in audit */
+
 /* =============== LOADING AND ERROR STATES =============== */
 .loading-state {
   display: flex;
@@ -318,6 +321,24 @@
   background: linear-gradient(135deg, var(--primary-color), #59215e);
   color: #fff;
   font-size: 1.05rem;
+}
+
+/* Generic inline SVG helper */
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+}
+
+.prize-card .icon .svg-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.stat-icon .svg-icon {
+  width: 1em;
+  height: 1em;
 }
 
 .prize-card .content {

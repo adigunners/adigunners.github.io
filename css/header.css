@@ -96,6 +96,12 @@ header p {
   animation: pulseBorder 3s infinite;
 }
 
+/* Prevent countdown from causing layout shift when revealed */
+.countdown-clock.is-hidden {
+  display: block !important; /* keep space in layout */
+  visibility: hidden; /* hide visually until ready */
+}
+
 @keyframes pulseBorder {
   0%,
   100% {

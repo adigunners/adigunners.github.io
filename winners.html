@@ -23,49 +23,120 @@
     />
 
     <!-- Preload fonts for better performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload self-hosted fonts for fast paint -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-      crossorigin="anonymous"
-      onerror="console.warn('Google Fonts failed to load on winners page'); document.body.classList.add('poppins-fallback', 'external-resources-failed');"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="assets/fonts/poppins/poppins-latin-400.woff2"
+      crossorigin
     />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      crossorigin="anonymous"
-      onerror="console.warn('Font Awesome failed to load on winners page'); document.body.classList.add('fontawesome-fallback', 'external-resources-failed');"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="assets/fonts/poppins/poppins-latin-600.woff2"
+      crossorigin
     />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="assets/fonts/poppins/poppins-latin-700.woff2"
+      crossorigin
+    />
+    <!-- Font Awesome removed: replaced with emoji/SVG to avoid render-blocking CSS -->
+
+    <!-- (Fallback CSS link declared later; keep last for override power) -->
 
     <!-- MODULAR CSS ARCHITECTURE (aligned with index.html cascade) -->
     <!-- 1. Foundation: Variables and base -->
     <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/base.css" />
 
     <!-- 2. Layout: Core layout and spacing -->
     <link rel="stylesheet" href="css/unified-spacing.css" />
 
-    <!-- 3. Components -->
+    <!-- 3. Components (base first, then component extensions) -->
+    <!-- Removed global components.css to reduce unused CSS; essential bits copied into winners-specific.css -->
     <link rel="stylesheet" href="assets/css/components/table.css" />
-    <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/header.css" />
 
-    <!-- 4. Page-specific -->
+    <!-- 4. Page-specific (before responsive so responsive can override) -->
     <link rel="stylesheet" href="css/winners.css" />
     <link rel="stylesheet" href="css/leaderboard.css" />
+    <link rel="stylesheet" href="css/winners-specific.css" />
 
-    <!-- 5. Responsive (device-specific overrides) -->
-    <link rel="stylesheet" href="css/mobile-optimizations.css" />
-    <link rel="stylesheet" href="css/advanced-mobile.css" />
-    <link rel="stylesheet" href="css/desktop-tablet-optimizations.css" />
+    <!-- 5. Responsive (device-specific overrides last) -->
+    <link rel="stylesheet" href="css/mobile-optimizations.css" media="(max-width: 600px)" />
+    <link rel="stylesheet" href="css/advanced-mobile.css" media="(max-width: 600px)" />
+    <link rel="stylesheet" href="css/desktop-tablet-optimizations.css" media="(min-width: 769px)" />
     <link rel="stylesheet" href="css/responsive.css" />
 
-    <!-- Winners-specific styling to match original design exactly -->
-    <link rel="stylesheet" href="css/winners-specific.css" />
+    <!-- 6. Fallback CSS (loads only if external resources fail; kept last) -->
+    <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
   </head>
 
   <body>
+    <script>
+      // External Resource Integrity Check & Fallback (mirrors index.html, FA removed)
+      (function () {
+        'use strict';
+
+        function checkExternalResources() {
+          try {
+            const fallbackCSS = document.getElementById('fallback-css');
+            let needsFallback = false;
+
+            // Check Google Fonts (Poppins)
+            try {
+              const testP = document.createElement('div');
+              testP.style.fontFamily = 'Poppins, serif';
+              testP.style.position = 'absolute';
+              testP.style.left = '-9999px';
+              testP.textContent = 'test';
+              document.body.appendChild(testP);
+              const ps = window.getComputedStyle(testP);
+              if (ps.fontFamily.indexOf('Poppins') === -1) {
+                needsFallback = true;
+                document.body.classList.add('poppins-fallback');
+                console.warn('Google Fonts failed to load (winners)');
+              }
+              document.body.removeChild(testP);
+            } catch (e) {
+              console.warn('Google Fonts check failed (winners):', e);
+              needsFallback = true;
+              document.body.classList.add('poppins-fallback');
+            }
+
+            if (needsFallback && fallbackCSS) {
+              fallbackCSS.disabled = false;
+              document.body.classList.add('external-resources-failed');
+              console.info('Fallback CSS enabled (winners)');
+            }
+          } catch (e) {
+            console.error('External resource check failed completely (winners):', e);
+            const fallbackCSS = document.getElementById('fallback-css');
+            if (fallbackCSS) {
+              fallbackCSS.disabled = false;
+              document.body.classList.add('external-resources-failed');
+            }
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(checkExternalResources, 100);
+          });
+        } else {
+          setTimeout(checkExternalResources, 100);
+        }
+        window.addEventListener('load', function () {
+          setTimeout(checkExternalResources, 200);
+        });
+      })();
+    </script>
     <div class="container">
       <!-- FIX: mobile sticky header opacity — sticky backplate wrapper (same pattern as index.html) -->
       <div class="site-header">
@@ -106,22 +177,38 @@
           <h2 id="stats-heading">📊 League Statistics</h2>
           <div class="stats-summary" id="stats-summary">
             <div class="summary-card" aria-live="polite">
-              <div class="summary-icon"><i class="fas fa-calendar-check"></i></div>
+              <div class="summary-icon" aria-hidden="true">
+                <svg class="svg-icon" aria-hidden="true">
+                  <use href="assets/icons.svg#icon-calendar"></use>
+                </svg>
+              </div>
               <div class="summary-number" id="completed-gameweeks">--</div>
               <div class="summary-label">Completed Gameweeks</div>
             </div>
             <div class="summary-card" aria-live="polite">
-              <div class="summary-icon"><i class="fas fa-calendar-alt"></i></div>
+              <div class="summary-icon" aria-hidden="true">
+                <svg class="svg-icon" aria-hidden="true">
+                  <use href="assets/icons.svg#icon-calendar"></use>
+                </svg>
+              </div>
               <div class="summary-number" id="completed-gamemonths">--</div>
               <div class="summary-label">Completed Gamemonths</div>
             </div>
             <div class="summary-card" aria-live="polite">
-              <div class="summary-icon"><i class="fas fa-users"></i></div>
+              <div class="summary-icon" aria-hidden="true">
+                <svg class="svg-icon" aria-hidden="true">
+                  <use href="assets/icons.svg#icon-users"></use>
+                </svg>
+              </div>
               <div class="summary-number" id="total-winners">--</div>
               <div class="summary-label">Total Winners</div>
             </div>
             <div class="summary-card primary-metric" aria-live="polite">
-              <div class="summary-icon"><i class="fas fa-coins"></i></div>
+              <div class="summary-icon" aria-hidden="true">
+                <svg class="svg-icon" aria-hidden="true">
+                  <use href="assets/icons.svg#icon-coins"></use>
+                </svg>
+              </div>
               <div class="summary-number" id="total-prize-money">--</div>
               <div class="summary-label">Total Prize Money</div>
             </div>
@@ -143,7 +230,9 @@
                 class="btn nav-back nav-back--sm"
                 aria-label="Go back to home page"
               >
-                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                <svg class="svg-icon" aria-hidden="true">
+                  <use href="assets/icons.svg#icon-arrow-left"></use>
+                </svg>
                 Back to Home
               </a>
             </div>
@@ -162,11 +251,17 @@
             aria-label="Winners navigation"
           >
             <button id="winner-prev-page" class="winner-nav-btn" disabled>
-              <i class="fas fa-chevron-left" aria-hidden="true"></i> Previous
+              <svg class="svg-icon" aria-hidden="true">
+                <use href="assets/icons.svg#icon-chevron-left"></use>
+              </svg>
+              Previous
             </button>
             <span id="winner-page-info" class="page-info" aria-live="polite">Page 1 of 1</span>
             <button id="winner-next-page" class="winner-nav-btn" disabled>
-              Next <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              Next
+              <svg class="svg-icon" aria-hidden="true">
+                <use href="assets/icons.svg#icon-chevron-right"></use>
+              </svg>
             </button>
           </div>
         </section>
@@ -183,12 +278,12 @@
       // Identify this as winners page to prevent UI manager from running index.html-specific code
       window.FPL_PAGE_TYPE = 'winners';
     </script>
-    <script src="js/error-handler.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/data-loader.js"></script>
-    <script src="js/ui-manager.js"></script>
-    <script src="js/countdown.js"></script>
-    <script src="js/prize-structure.js"></script>
+    <script src="js/error-handler.js" defer></script>
+    <script src="js/utils.js" defer></script>
+    <script src="js/data-loader.js" defer></script>
+    <script src="js/ui-manager.js" defer></script>
+    <script src="js/countdown.js" defer></script>
+    <script src="js/prize-structure.js" defer></script>
 
     <!-- Winners page module loader -->
     <script type="module" src="js/winners-module.js" defer></script>

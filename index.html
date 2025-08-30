@@ -112,51 +112,259 @@
     <link rel="preconnect" href="https://fantasy.premierleague.com" crossorigin />
     <!-- theme-color meta is optional; removed to avoid cross-browser support warning -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload self-hosted fonts for fast paint -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-      crossorigin="anonymous"
-      onerror="console.warn('Google Fonts failed to load'); document.body.classList.add('poppins-fallback', 'external-resources-failed'); if(document.getElementById('fallback-css')) document.getElementById('fallback-css').disabled = false;"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="assets/fonts/poppins/poppins-latin-400.woff2"
+      crossorigin
     />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g"
-      crossorigin="anonymous"
-      onerror="console.warn('Font Awesome failed to load'); document.body.classList.add('external-resources-failed'); if(document.getElementById('fallback-css')) document.getElementById('fallback-css').disabled = false;"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="assets/fonts/poppins/poppins-latin-600.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="assets/fonts/poppins/poppins-latin-700.woff2"
+      crossorigin
     />
 
     <!-- CSS files in proper cascade order for optimal performance and maintainability -->
     <!-- 1. Foundation: Variables and reset -->
     <link rel="stylesheet" href="css/variables.css" />
+    <link
+      rel="preload"
+      as="style"
+      href="css/fonts.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/fonts.css" /></noscript>
     <link rel="stylesheet" href="css/base.css" />
 
+    <!-- Critical CSS: minimal above-the-fold styles for stable first paint -->
+    <style>
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: var(--page-backdrop);
+      }
+      .header-inner {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+      }
+      header {
+        background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+        color: #fff;
+        text-align: center;
+        padding: 16px 12px;
+        border-radius: var(--border-radius);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        position: relative;
+        width: 100%;
+        min-height: 80px;
+      }
+      .site-header {
+        margin-bottom: var(--spacing-lg);
+      }
+      .header-main {
+        flex: 1 1 auto;
+        min-width: 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      header h1 {
+        margin: 0;
+        font-size: clamp(1rem, 4vw, 2rem);
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      header p {
+        margin: 4px 0 0;
+        font-size: clamp(0.8rem, 3vw, 1rem);
+        opacity: 0.9;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .countdown-clock {
+        max-width: 300px;
+        border-radius: var(--border-radius);
+        padding: 12px 16px;
+        border: 2px solid transparent;
+      }
+      .countdown-clock.is-hidden {
+        display: block !important;
+        visibility: hidden;
+      }
+      /* First section spacing to avoid post-paint jumps */
+      #league-statistics {
+        padding: var(--spacing-xl);
+        margin-bottom: var(--spacing-lg);
+        border-radius: var(--radius-lg);
+      }
+      /* Second section (registration) spacing to avoid CLS */
+      #registration {
+        padding: var(--spacing-xl);
+        margin-bottom: var(--spacing-lg);
+        border-radius: var(--radius-lg);
+      }
+      /* Stats row minimal critical styles */
+      .stats-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+      .stat-box {
+        flex: 1 1 0;
+        min-width: 220px;
+        padding: 24px 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: center;
+        border-radius: var(--radius-lg);
+        background: var(--card-background);
+        min-height: 120px;
+      }
+      .stat-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+      .stat-title {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--heading-color);
+        margin: 0 0 6px;
+      }
+      .stat-number {
+        font-weight: 700;
+        font-size: 2rem;
+        color: var(--primary-color);
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+      }
+    </style>
+
     <!-- 2. Layout: Core layout and spacing -->
-    <link rel="stylesheet" href="css/unified-spacing.css" />
+    <link
+      rel="preload"
+      as="style"
+      href="css/unified-spacing.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/unified-spacing.css" /></noscript>
 
     <!-- 3. Components: Reusable UI components -->
     <link rel="stylesheet" href="css/components.css" />
-    <link rel="stylesheet" href="css/header.css" />
+    <link
+      rel="preload"
+      as="style"
+      href="css/header.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/header.css" /></noscript>
 
     <!-- 4. Page-specific: Individual page styles -->
-    <link rel="stylesheet" href="css/winners.css" />
-    <link rel="stylesheet" href="css/leaderboard.css" />
-    <link rel="stylesheet" href="css/qa-panel.css" />
-    <link rel="stylesheet" href="css/error-handling.css" />
+    <link
+      rel="preload"
+      as="style"
+      href="css/winners.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/winners.css" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="css/leaderboard.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/leaderboard.css" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="css/qa-panel.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/qa-panel.css" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="css/error-handling.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/error-handling.css" /></noscript>
 
-    <!-- 5. Responsive: Device-specific overrides -->
-    <link rel="stylesheet" href="css/mobile-optimizations.css" />
-    <link rel="stylesheet" href="css/advanced-mobile.css" />
-    <link rel="stylesheet" href="css/desktop-tablet-optimizations.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+    <!-- 5. Enhancements: Special features and animations -->
+    <link
+      rel="preload"
+      as="style"
+      href="css/countdown-enhancements.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/countdown-enhancements.css" /></noscript>
 
-    <!-- 6. Enhancements: Special features and animations -->
-    <link rel="stylesheet" href="css/countdown-enhancements.css" />
+    <!-- 6. Responsive: Device-specific overrides (kept last) -->
+    <link
+      rel="preload"
+      as="style"
+      href="css/mobile-optimizations.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/mobile-optimizations.css" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="css/advanced-mobile.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/advanced-mobile.css" /></noscript>
+    <link rel="stylesheet" href="css/desktop-tablet-optimizations.css" media="(min-width: 769px)" />
+    <link
+      rel="preload"
+      as="style"
+      href="css/responsive.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="css/responsive.css" /></noscript>
 
     <!-- 7. Fallback CSS (loads only if external resources fail) -->
     <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
+
+    <!-- Load test/admin wrappers only when needed to reduce main bundle size -->
+    <script>
+      (function () {
+        var qp = new URLSearchParams(location.search);
+        if (qp.get('test') === 'true' || qp.get('admin') === 'true') {
+          var s = document.createElement('script');
+          s.src = 'js/test-admin-wrappers.js';
+          s.defer = true;
+          document.head.appendChild(s);
+        }
+      })();
+    </script>
 
     <!-- External Resource Integrity Check & Fallback Script -->
     <script>
@@ -168,26 +376,6 @@
           try {
             const fallbackCSS = document.getElementById('fallback-css');
             let needsFallback = false;
-
-            // Check if Font Awesome loaded
-            try {
-              const testElement = document.createElement('div');
-              testElement.className = 'fas fa-users';
-              testElement.style.fontFamily = 'Font Awesome 6 Free';
-              testElement.style.position = 'absolute';
-              testElement.style.left = '-9999px';
-              document.body.appendChild(testElement);
-
-              const computedStyle = window.getComputedStyle(testElement);
-              if (computedStyle.fontFamily.indexOf('Font Awesome') === -1) {
-                needsFallback = true;
-                console.warn('Font Awesome failed to load, using fallbacks');
-              }
-              document.body.removeChild(testElement);
-            } catch (e) {
-              console.warn('Font Awesome check failed:', e);
-              needsFallback = true;
-            }
 
             // Check if Google Fonts loaded
             try {
@@ -425,16 +613,20 @@
           <div class="stats-row">
             <!-- PLAYER COUNT BOX -->
             <article class="stat-box" aria-labelledby="player-count-title">
-              <div class="stat-icon" title="Fantasy Football Managers">
-                <i class="fas fa-users" aria-hidden="true"></i>
+              <div class="stat-icon" title="Fantasy Football Managers" aria-hidden="true">
+                <svg class="svg-icon" aria-hidden="true">
+                  <use href="assets/icons.svg#icon-users"></use>
+                </svg>
               </div>
               <h3 id="player-count-title" class="stat-title">Total Registered Players</h3>
               <div id="player-count" class="stat-number" aria-live="polite">--</div>
             </article>
             <!-- POT AMOUNT BOX -->
             <article class="stat-box" aria-labelledby="pot-amount-title">
-              <div class="stat-icon" title="Prize Money Pot">
-                <i class="fas fa-coins" aria-hidden="true"></i>
+              <div class="stat-icon" title="Prize Money Pot" aria-hidden="true">
+                <svg class="svg-icon" aria-hidden="true">
+                  <use href="assets/icons.svg#icon-coins"></use>
+                </svg>
               </div>
               <h3 id="pot-amount-title" class="stat-title">Total Pot Amount</h3>
               <div id="pot-amount" class="stat-number" aria-live="polite">--</div>
@@ -641,7 +833,9 @@
         role="complementary"
         aria-label="Test mode controls"
       >
-        <i class="fas fa-random" aria-hidden="true"></i>
+        <svg class="svg-icon" aria-hidden="true">
+          <use href="assets/icons.svg#icon-shuffle"></use>
+        </svg>
         <button id="phase-toggle-btn-float" onclick="toggleSeasonMode()" type="button">
           Toggle phase
         </button>
@@ -659,12 +853,12 @@
 
     <!-- === JS: MODULAR STRUCTURE === -->
     <!-- Core modules -->
-    <script src="js/error-handler.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/data-loader.js"></script>
-    <script src="js/ui-manager.js"></script>
-    <script src="js/countdown.js"></script>
-    <script src="js/prize-structure.js"></script>
+    <script src="js/error-handler.js" defer></script>
+    <script src="js/utils.js" defer></script>
+    <script src="js/data-loader.js" defer></script>
+    <script src="js/ui-manager.js" defer></script>
+    <script src="js/countdown.js" defer></script>
+    <script src="js/prize-structure.js" defer></script>
     <!-- Main application script -->
     <script>
       /*
@@ -731,131 +925,6 @@
       // Time controls: FPLUtils.now()
       // Data source: FPLUtils.getDataOverride()
       // QA/debug state: FPLUIManager.updateQAPanel()
-
-      // Legacy function wrapper
-      function updateQAPanelLegacy() {
-        // updateQAPanel: populates the QA overlay (visible in ?test=true or ?admin=true)
-        // Shows cached gameweek, data sources used, and action buttons for cache/refetch
-        if (!isAdminMode()) return;
-        const panel = document.getElementById('qa-panel');
-        if (!panel) return;
-        const phaseEl = document.getElementById('qa-phase');
-        const gwEl = document.getElementById('qa-gw');
-        const dlEl = document.getElementById('qa-deadline');
-        const srcEl = document.getElementById('qa-source');
-        const dmEl = document.getElementById('qa-data-mode');
-        const wuEl = document.getElementById('qa-winners-updated');
-        const luEl = document.getElementById('qa-leaderboard-updated');
-        const timeEl = document.getElementById('qa-time');
-
-        const duringVisible = !document
-          .querySelector('.during-season')
-          .classList.contains('is-hidden');
-        phaseEl.textContent = 'Phase: ' + (duringVisible ? 'in-season' : 'pre-season');
-
-        const gw = FPLDataLoader.getCachedGameweek();
-        if (gw) {
-          gwEl.textContent = `Next GW: GW${gw.id}`;
-          try {
-            const d = new Date(gw.deadline_time);
-            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            dlEl.textContent =
-              'Deadline: ' +
-              d.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: tz });
-          } catch {
-            dlEl.textContent = 'Deadline: —';
-          }
-        } else {
-          gwEl.textContent = 'Next GW: —';
-          dlEl.textContent = 'Deadline: —';
-        }
-
-        srcEl.textContent = 'Season data source: ' + seasonDataSource;
-        const winnersBase = lastWinnersDataFile
-          ? ` (${lastWinnersDataFile.replace(/\?.*$/, '')})`
-          : '';
-        const leaderboardBase = lastLeaderboardDataFile
-          ? ` (${lastLeaderboardDataFile.replace(/\?.*$/, '')})`
-          : '';
-        dmEl.textContent = `Data sources — winners: ${lastWinnersDataMode}${winnersBase} • leaderboard: ${lastLeaderboardDataMode}${leaderboardBase}`;
-
-        const n = FPLUtils.now();
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const sign =
-          timeOffsetMs === 0
-            ? ''
-            : ` (${timeOffsetMs > 0 ? '+' : ''}${Math.round(timeOffsetMs / 60000)}m)`;
-        timeEl.textContent =
-          'Now (offset): ' +
-          n.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: tz }) +
-          sign;
-
-        // Per-dataset last updated
-        try {
-          if (wuEl) {
-            wuEl.textContent =
-              'Winners updated: ' +
-              (lastWinnersUpdatedIso
-                ? new Date(lastWinnersUpdatedIso).toLocaleString('en-GB', {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                    timeZone: tz,
-                  })
-                : '—');
-          }
-          if (luEl) {
-            luEl.textContent =
-              'Leaderboard updated: ' +
-              (lastLeaderboardUpdatedIso
-                ? new Date(lastLeaderboardUpdatedIso).toLocaleString('en-GB', {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                    timeZone: tz,
-                  })
-                : '—');
-          }
-        } catch {}
-
-        // Actions
-        const clearBtn = document.getElementById('qa-clear-cache');
-        const refetchBtn = document.getElementById('qa-refetch');
-        const copyBtn = document.getElementById('qa-copy');
-        if (!clearBtn._wired) {
-          clearBtn._wired = true;
-          clearBtn.addEventListener('click', () => {
-            try {
-              localStorage.removeItem('fpl_next_deadline');
-            } catch {}
-            try {
-              localStorage.removeItem('fpl_cached_gw');
-            } catch {}
-            location.reload();
-          });
-        }
-        if (!refetchBtn._wired) {
-          refetchBtn._wired = true;
-          refetchBtn.addEventListener('click', () => {
-            loadFPLSeasonData();
-          });
-        }
-        if (!copyBtn._wired) {
-          copyBtn._wired = true;
-          copyBtn.addEventListener('click', async () => {
-            const payload = {
-              phase: duringVisible ? 'in-season' : 'pre-season',
-              nextGw: gw || null,
-              seasonDataSource,
-              winnersDataMode: lastWinnersDataMode,
-              leaderboardDataMode: lastLeaderboardDataMode,
-              clockOffsetMs: timeOffsetMs,
-              now: FPLUtils.now().toISOString(),
-            };
-            try {
-              await navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
-            } catch {}
-          });
-        }
-      }
 
       // Build a query string preserving selected params for navigation
       function buildNavQuery(keys = ['test', 'data', 'phase', 'clockOffset']) {
@@ -939,40 +1008,6 @@
         return FPLUIManager.attachAdminBadge();
       }
 
-      // Legacy function
-      function attachAdminBadgeLegacy() {
-        if (!isAdminMode()) return;
-        const label = document.getElementById('countdown-label');
-        if (!label) return;
-        // If a badge exists, update; else create
-        let badge = label.querySelector('.admin-badge');
-        const parts = [];
-        if (typeof _lastGwId === 'number') parts.push(`GW${_lastGwId}`);
-        if (_lastSyncIso) {
-          try {
-            const d = new Date(_lastSyncIso);
-            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const nice = d.toLocaleString('en-GB', {
-              dateStyle: 'medium',
-              timeStyle: 'short',
-              timeZone: tz,
-            });
-            parts.push(`synced ${nice}`);
-          } catch (e) {
-            // ignore formatting issues
-          }
-        }
-        const text = parts.length ? parts.join(' • ') : 'admin';
-        if (!badge) {
-          badge = document.createElement('span');
-          badge.className = 'admin-badge';
-          badge.textContent = text;
-          label.appendChild(badge);
-        } else {
-          badge.textContent = text;
-        }
-      }
-
       // Load league statistics with error handling
       function loadLeagueStats() {
         return FPLDataLoader.loadLeagueStats();
@@ -1032,55 +1067,7 @@
         }
       }
 
-      // Check if we're in test mode
-      function checkTestMode() {
-        return FPLUIManager.checkTestMode();
-      }
-
-      // Testing function to toggle season mode
-      function toggleSeasonMode() {
-        return FPLUIManager.toggleSeasonMode();
-      }
-
-      // Keep phase toggle buttons in sync with current UI state
-      function updatePhaseToggleButtons() {
-        return FPLUIManager.updatePhaseToggleButtons();
-      }
-
-      // Legacy function
-      function updatePhaseToggleButtonsLegacy() {
-        const duringEl = document.querySelector('.during-season');
-        if (!duringEl) return;
-        const inSeasonVisible = !duringEl.classList.contains('is-hidden');
-        const inlineBtn = document.getElementById('phase-toggle-btn');
-        const floatBtn = document.getElementById('phase-toggle-btn-float');
-        const openWinnersBtn = document.getElementById('phase-toggle-open-winners');
-        const preText = '📝 Preview Pre-season View';
-        const inText = '📊 Preview In-season View';
-        const label = inSeasonVisible ? preText : inText;
-        if (inlineBtn) inlineBtn.textContent = label;
-        if (floatBtn) floatBtn.textContent = label;
-        if (openWinnersBtn) openWinnersBtn.textContent = 'Open Winners (In-season)';
-      }
-
-      // Open winners page in in-season mode, preserving test/data/clockOffset
-      function openWinnersWithToggledPhase() {
-        try {
-          // Force phase=season on Winners
-          const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
-          const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
-          qp.set('phase', 'season');
-          const finalQs = qp.toString();
-          window.location.href = 'winners.html' + (finalQs ? '?' + finalQs : '');
-        } catch (e) {
-          // Fallback: simple nav
-          const qs = buildNavQuery(['test', 'data', 'phase', 'clockOffset']);
-          const qp = new URLSearchParams(qs.replace(/^\?/, '') || '');
-          qp.set('phase', 'season');
-          const finalQs = qp.toString();
-          window.location.href = 'winners.html' + (finalQs ? '?' + finalQs : '');
-        }
-      }
+      // test/admin wrappers moved to js/test-admin-wrappers.js
 
       // Unified function to load winner data (both test and live)
       function loadWinnerData(
@@ -1163,7 +1150,7 @@
                 <p>There was a problem loading the winner statistics. Please try again.</p>
                 <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})"
                         style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                  <i class="fas fa-redo"></i> Retry
+                  <svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-redo"></use></svg> Retry
                 </button>
               </div>
             `;
@@ -1196,7 +1183,7 @@
         return `
           <article class="prize-card" aria-labelledby="weekly-prize-title">
             <div class="header">
-              <div class="icon" aria-hidden="true"><i class="fas fa-calendar-week"></i></div>
+              <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-calendar-week"></use></svg></div>
               <h4 id="weekly-prize-title" class="title">Weekly</h4>
             </div>
             <div class="amount" aria-label="Total weekly prize amount">${formatINR(total)}</div>
@@ -1212,7 +1199,7 @@
         return `
           <article class="prize-card" aria-labelledby="monthly-prize-title">
             <div class="header">
-              <div class="icon" aria-hidden="true"><i class="fas fa-calendar-alt"></i></div>
+              <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-calendar"></use></svg></div>
               <h4 id="monthly-prize-title" class="title">Monthly</h4>
             </div>
             <div class="amount" aria-label="Total monthly prize amount">${formatINR(total)}</div>
@@ -1245,11 +1232,11 @@
         return `
           <article class="prize-card" aria-labelledby="annual-prize-title">
             <div class="header">
-              <div class="icon" aria-hidden="true"><i class="fas fa-trophy"></i></div>
+              <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-trophy"></use></svg></div>
               <h4 id="annual-prize-title" class="title">
                 Overall
                 <button class="tooltip" type="button" aria-describedby="overall-tooltip" aria-expanded="false">
-                  <i class="fas fa-info-circle info-icon" aria-hidden="true"></i>
+                  <svg class="svg-icon info-icon" aria-hidden="true"><use href="assets/icons.svg#icon-info"></use></svg>
                   <span id="overall-tooltip" class="tooltip-content" role="tooltip">
                     <span class="tooltip-arrow" aria-hidden="true"></span>
                     <strong>All Season-End Prizes</strong>
@@ -1502,8 +1489,10 @@
         // Load league stats with error handling
         loadLeagueStats();
 
-        // Add this at the end
-        checkTestMode();
+        // Add this at the end (test/admin only)
+        if (window.FPLUIManager && typeof FPLUIManager.checkTestMode === 'function') {
+          FPLUIManager.checkTestMode();
+        }
 
         /*
           Contributor notes / quick runbook (same patterns as winners.html):
@@ -1995,7 +1984,7 @@
                   <p>There was a problem loading the test league standings. Please try again.</p>
                   <button onclick="loadTestLeaderboardData()"
                           style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                    <i class="fas fa-redo"></i> Retry
+                    <svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-redo"></use></svg> Retry
                   </button>
                 </div>
               `;
@@ -2086,7 +2075,7 @@
                   <p>There was a problem loading the league standings. Please try again.</p>
                   <button onclick="loadLeaderboardData()"
                           style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                    <i class="fas fa-redo"></i> Retry
+                    <svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-redo"></use></svg> Retry
                   </button>
                 </div>
               `;

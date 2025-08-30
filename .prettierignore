@@ -57,3 +57,7 @@ pnpm-lock.yaml
 
 # Agent OS specs (may contain template formatting)
 .agent-os/
+
+# Lighthouse reports (large machine-generated files)
+docs/lighthouse-*.report.html
+docs/lighthouse-*.report.json
