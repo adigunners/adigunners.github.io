@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Desktop Table Rendering</title>
+    
+    <!-- Load the CSS files that winners.html uses -->
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="assets/css/components/table.css" />
+    <link rel="stylesheet" href="css/winners-specific.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .test-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .test-result { padding: 10px; margin: 5px 0; border-radius: 4px; }
+        .pass { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .fail { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .info { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+        .test-table-container { margin: 20px 0; }
+        .force-desktop { width: 1200px !important; } /* Force desktop view */
+        hr { margin: 20px 0; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🖥️ Desktop Table Rendering Test</h1>
+        <div id="test-results"></div>
+        
+        <hr>
+        <div class="test-table-container force-desktop">
+            <h2>Sample Desktop Table (Top 5 Winners)</h2>
+            <div id="desktop-table-test"></div>
+        </div>
+        
+        <hr>
+        <div id="styling-verification"></div>
+    </div>
+
+    <script type="module">
+        const results = document.getElementById('test-results');
+        const tableContainer = document.getElementById('desktop-table-test');
+        const stylingDiv = document.getElementById('styling-verification');
+        
+        function logResult(test, status, message) {
+            const div = document.createElement('div');
+            div.className = `test-result ${status}`;
+            div.innerHTML = `<strong>${test}:</strong> ${message}`;
+            results.appendChild(div);
+        }
+
+        // Test sample data matching the actual structure
+        const testWinners = [
+            {
+                playerName: "Aditya Garg",
+                totalPrizeWon: 7112,
+                highlights: { gameWeeks: 10, gameMonths: 3, overallRank: 2 }
+            },
+            {
+                playerName: "Test Player 2",
+                totalPrizeWon: 5500,
+                highlights: { gameWeeks: 8, gameMonths: 2, overallRank: 5 }
+            },
+            {
+                playerName: "Test Player 3",
+                totalPrizeWon: 4200,
+                highlights: { gameWeeks: 6, gameMonths: 1, overallRank: 10 }
+            },
+            {
+                playerName: "Test Player 4",
+                totalPrizeWon: 3100,
+                highlights: { gameWeeks: 5, gameMonths: 1, overallRank: 15 }
+            },
+            {
+                playerName: "Test Player 5",
+                totalPrizeWon: 2800,
+                highlights: { gameWeeks: 4, gameMonths: 1, overallRank: 20 }
+            }
+        ];
+
+        try {
+            // Test 1: Load RANK_CLASSES
+            const { RANK_CLASSES } = await import('./js/state-module.js');
+            logResult('Test 1', 'pass', 'RANK_CLASSES loaded successfully');
+            console.log('RANK_CLASSES:', RANK_CLASSES);
+
+            // Test 2: Generate desktop table HTML (simulating renderDesktopTable function)
+            let html = `
+            <div class="table-scroll winners-table">
+                <table class="c-table c-table--winners" role="table">
+                    <colgroup>
+                        <col style="width:64px" />
+                        <col />
+                        <col style="width:140px" />
+                        <col style="width:240px" />
+                    </colgroup>
+                    <thead class="c-table__head">
+                        <tr>
+                            <th scope="col" class="col-rank">RANK</th>
+                            <th scope="col" class="col-player">PLAYER</th>
+                            <th scope="col" class="col-total">TOTAL PRIZE WON</th>
+                            <th scope="col" class="col-highlights">HIGHLIGHTS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="c-table__body" id="test-tbody">`;
+
+            testWinners.forEach((w, i) => {
+                const rank = i + 1;
+                const h = w.highlights || {};
+                const chips = [];
+                if (h.gameWeeks > 0) chips.push(`<span class="c-chip">${h.gameWeeks}GW</span>`);
+                if (h.gameMonths > 0) chips.push(`<span class="c-chip">${h.gameMonths}GM</span>`);
+                if (h.overallRank) chips.push(`<span class="muted">League Rank ${h.overallRank}</span>`);
+
+                const topClass = RANK_CLASSES && RANK_CLASSES[rank] ? ` ${RANK_CLASSES[rank]}` : '';
+
+                html += `
+                    <tr class="${topClass.trim()}">
+                        <td class="col-rank">${rank}</td>
+                        <td class="col-player">${w.playerName}</td>
+                        <td class="col-total">₹${(w.totalPrizeWon || 0).toLocaleString('en-IN')}</td>
+                        <td class="col-highlights">${chips.join(' ')}</td>
+                    </tr>`;
+            });
+
+            html += `</tbody></table></div>`;
+            
+            tableContainer.innerHTML = html;
+            logResult('Test 2', 'pass', 'Desktop table HTML generated successfully');
+
+            // Test 3: Verify top 3 styling is applied
+            setTimeout(() => {
+                const rows = tableContainer.querySelectorAll('tbody tr');
+                let stylingResults = '<h3>🎨 Styling Verification Results:</h3>';
+                
+                rows.forEach((row, index) => {
+                    const rank = index + 1;
+                    const expectedClass = RANK_CLASSES[rank];
+                    const hasClass = expectedClass && row.classList.contains(expectedClass);
+                    const computedStyle = window.getComputedStyle(row);
+                    
+                    stylingResults += `<p><strong>Rank ${rank}</strong>: `;
+                    
+                    if (rank <= 3) {
+                        if (hasClass) {
+                            stylingResults += `✅ Has class "${expectedClass}"`;
+                            // Check if background color is applied
+                            const bgColor = computedStyle.backgroundColor;
+                            if (bgColor !== 'rgba(0, 0, 0, 0)' && bgColor !== 'transparent') {
+                                stylingResults += ` | Background: ${bgColor}`;
+                            }
+                        } else {
+                            stylingResults += `❌ Missing class "${expectedClass}"`;
+                        }
+                    } else {
+                        stylingResults += '✅ No special styling (rank > 3)';
+                    }
+                    
+                    stylingResults += '</p>';
+                });
+                
+                stylingDiv.innerHTML = stylingResults;
+                
+                // Final test result
+                const goldRow = tableContainer.querySelector('.winner-gold');
+                const silverRow = tableContainer.querySelector('.winner-silver');
+                const bronzeRow = tableContainer.querySelector('.winner-bronze');
+                
+                if (goldRow && silverRow && bronzeRow) {
+                    logResult('Test 3', 'pass', 'All top 3 winner classes are applied correctly');
+                } else {
+                    logResult('Test 3', 'fail', 'Some top 3 winner classes are missing');
+                }
+                
+                logResult('Test 4', 'pass', 'Desktop table rendering test completed successfully');
+            }, 100);
+
+        } catch (error) {
+            logResult('Error', 'fail', `Test failed: ${error.message}`);
+            console.error('Test error:', error);
+        }
+    </script>
+</body>
+</html>

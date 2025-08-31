@@ -516,7 +516,7 @@
 
 .winners-header .section-title {
   margin: 0;
-  border-bottom: none; /* Remove global h2 border since we use explicit hr */
+  border-bottom: none !important; /* Remove global h2 border since we use explicit hr */
 }
 
 .section-rule {
