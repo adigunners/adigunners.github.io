@@ -26,6 +26,7 @@ import {
   LOADING_MESSAGES,
   isDesktopViewport,
   buildNavQuery,
+  RANK_CLASSES,
 } from './state-module.js';
 
 // ------------------ State ------------------
