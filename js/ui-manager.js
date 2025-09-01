@@ -380,8 +380,10 @@ window.FPLUIManager = (function () {
       )
       .sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
 
-    // Show top 6 winners in preview
-    const topWinners = sortedWinners.slice(0, 6);
+    // Show top winners in preview (limit based on context)
+    // For winners page full table, show all; for index preview, limit to 6
+    const isWinnersPage = window.FPL_PAGE_TYPE === 'winners';
+    const topWinners = isWinnersPage ? sortedWinners : sortedWinners.slice(0, 6);
 
     const previewHTML = `
       <section class="winner-preview" aria-label="Top prize winners">
