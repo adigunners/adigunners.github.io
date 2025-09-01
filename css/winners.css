@@ -153,6 +153,8 @@
 
 /* Winners page specific: subtitle animation on data load */
 .winners-heading .heading-subtitle {
+  /* Preserve global font-weight when adding animation */
+  font-weight: 400; /* Must match global rule in components.css */
   opacity: 0;
   transform: translateY(4px);
   transition:

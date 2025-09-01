@@ -561,6 +561,7 @@
 
   .winners-heading .heading-subtitle {
     font-size: 0.9rem;
+    font-weight: 400; /* Preserve normal weight at responsive breakpoints */
     margin-top: 4px;
   }
 }
