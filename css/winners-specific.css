@@ -611,6 +611,12 @@
   margin: 0;
 }
 
+/* Fix duplicate horizontal lines: Remove global h2 border since we use explicit hr */
+.winners-header .section-title {
+  margin: 0;
+  border-bottom: none !important;
+}
+
 .section-rule {
   margin: var(--spacing-xs) 0;
   border: 0;
