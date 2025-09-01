@@ -338,13 +338,12 @@
     padding: 20px 30px;
   }
 
+  /* 
+   * TEAM WARNING: Basic heading styles now handled globally in components.css
+   * Only desktop-specific spacing adjustments should be here
+   */
   .winners-heading {
-    margin-bottom: 16px;
-  }
-
-  .heading-subtitle {
-    font-size: 0.9rem;
-    margin-top: 4px;
+    margin-bottom: 16px; /* Desktop-specific spacing - not in global rule */
   }
 
   /* Leaderboard section optimizations */

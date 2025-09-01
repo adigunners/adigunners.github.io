@@ -143,24 +143,16 @@
   font-size: 0.9rem;
 }
 
-/* Winners heading with subtitle */
-.winners-heading {
-  display: block;
-  margin: 0 0 0.5rem 0;
-}
+/* 
+ * TEAM WARNING: Basic heading styles are now handled globally in components.css
+ * Only page-specific animations and states should be defined here
+ * 
+ * If you need to override global styles, document WHY and consider if the
+ * change should be made globally instead.
+ */
 
-.winners-heading .heading-main {
-  display: block;
-  font-size: 1.35rem;
-  font-weight: 700;
-}
-
+/* Winners page specific: subtitle animation on data load */
 .winners-heading .heading-subtitle {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 400; /* Normal weight to match index.html muted appearance */
-  color: #666;
-  margin-top: 4px;
   opacity: 0;
   transform: translateY(4px);
   transition:
@@ -182,21 +174,10 @@
   }
 }
 
-/* Larger screens: put subtitle inline beside the main title */
-@media (min-width: 769px) {
-  /* Tablet breakpoint - standardized to match index.html behavior */
-  .winners-heading {
-    display: block; /* Keep stacked layout like index.html */
-  }
-
-  .winners-heading .heading-main {
-    display: block; /* Keep block layout like index.html */
-    font-size: 1.25rem;
-  }
-
-  .winners-heading .heading-subtitle {
-    display: block; /* Keep block layout like index.html */
-    font-weight: 400; /* Ensure normal weight in responsive mode too */
-    margin-top: 4px; /* Add slight margin like index.html */
-  }
-}
+/* 
+ * REMOVED: Responsive heading styles now handled globally in components.css
+ * This ensures consistency between index.html and winners.html
+ * 
+ * If you need winners-page-specific responsive behavior, add it here with
+ * clear documentation explaining why it differs from the global pattern.
+ */

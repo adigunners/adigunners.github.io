@@ -611,9 +611,13 @@
   margin: 0;
 }
 
-/* Fix duplicate horizontal lines: Remove global h2 border since we use explicit hr */
+/* 
+ * TEAM WARNING: Heading styles are now managed globally in components.css
+ * This override is only needed to prevent h2 border conflicts with explicit <hr>
+ * Consider if this should be addressed in the global h2 styles instead
+ */
 .winners-header .winners-heading {
-  border-bottom: none !important;
+  border-bottom: none !important; /* Override global h2 border - we use explicit <hr> */
 }
 
 .section-rule {
