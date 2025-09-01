@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2025-09-01T04:07:47.086Z",
+  "lastUpdated": "2025-09-01T06:08:42.721Z",
   "summary": {
-    "totalPrizeDistributed": 4999,
+    "totalPrizeDistributed": 4998,
     "totalPaid": 2000,
-    "totalPending": 2999,
+    "totalPending": 2998,
     "gameweekPrizes": 3000,
-    "monthlyPrizes": 1999,
+    "monthlyPrizes": 1998,
     "completedGameweeks": 3,
     "completedMonths": 1,
     "totalWinners": 54,
@@ -14,12 +14,12 @@
   "winners": [
     {
       "playerName": "Kiran Kanoj",
-      "totalPrizeWon": 1083,
+      "totalPrizeWon": 1316,
       "totalPaid": 650,
-      "totalPending": 433,
+      "totalPending": 666,
       "prizeBreakdown": {
         "gameweek": 650,
-        "monthly": 433
+        "monthly": 666
       },
       "highlights": {
         "gameWeeks": 1,
@@ -40,7 +40,7 @@
           {
             "month": 1,
             "position": "1st",
-            "prize": 433,
+            "prize": 666,
             "status": "Pending"
           }
         ]
@@ -53,12 +53,12 @@
     },
     {
       "playerName": "Avanit Kaushal",
-      "totalPrizeWon": 1083,
+      "totalPrizeWon": 1316,
       "totalPaid": 650,
-      "totalPending": 433,
+      "totalPending": 666,
       "prizeBreakdown": {
         "gameweek": 650,
-        "monthly": 433
+        "monthly": 666
       },
       "highlights": {
         "gameWeeks": 1,
@@ -79,7 +79,7 @@
           {
             "month": 1,
             "position": "1st",
-            "prize": 433,
+            "prize": 666,
             "status": "Pending"
           }
         ]
@@ -91,36 +91,36 @@
       "totalPoints": 179
     },
     {
-      "playerName": "Ankur Prasad",
-      "totalPrizeWon": 700,
+      "playerName": "B V Dhananjay",
+      "totalPrizeWon": 666,
       "totalPaid": 0,
-      "totalPending": 700,
+      "totalPending": 666,
       "prizeBreakdown": {
         "gameweek": 0,
-        "monthly": 700
+        "monthly": 666
       },
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 1,
-        "overallRank": 4,
-        "totalPoints": 174
+        "overallRank": 1,
+        "totalPoints": 179
       },
       "achievements": {
         "gameweeks": [],
         "months": [
           {
             "month": 1,
-            "position": "2nd",
-            "prize": 700,
+            "position": "1st",
+            "prize": 666,
             "status": "Pending"
           }
         ]
       },
       "positions": {
-        "first": 0,
-        "second": 1
+        "first": 1,
+        "second": 0
       },
-      "totalPoints": 174
+      "totalPoints": 179
     },
     {
       "playerName": "Lakshman Aravind ",
@@ -153,38 +153,6 @@
         "second": 0
       },
       "totalPoints": 160
-    },
-    {
-      "playerName": "B V Dhananjay",
-      "totalPrizeWon": 433,
-      "totalPaid": 0,
-      "totalPending": 433,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 433
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 1,
-        "overallRank": 1,
-        "totalPoints": 179
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": [
-          {
-            "month": 1,
-            "position": "1st",
-            "prize": 433,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 179
     },
     {
       "playerName": "Sidharthshankar Pati",
@@ -606,6 +574,31 @@
         "second": 0
       },
       "totalPoints": 104
+    },
+    {
+      "playerName": "Ankur Prasad",
+      "totalPrizeWon": 0,
+      "totalPaid": 0,
+      "totalPending": 0,
+      "prizeBreakdown": {
+        "gameweek": 0,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 0,
+        "gameMonths": 0,
+        "overallRank": 4,
+        "totalPoints": 174
+      },
+      "achievements": {
+        "gameweeks": [],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 0
+      },
+      "totalPoints": 174
     },
     {
       "playerName": "Bharanidharan S",
