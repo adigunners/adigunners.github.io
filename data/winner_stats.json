@@ -1,19 +1,129 @@
 {
-  "lastUpdated": "2025-08-26T06:52:14.567Z",
+  "lastUpdated": "2025-09-01T04:07:47.086Z",
   "summary": {
-    "totalPrizeDistributed": 2000,
-    "totalPaid": 1000,
-    "totalPending": 1000,
-    "gameweekPrizes": 2000,
-    "monthlyPrizes": 0,
-    "completedGameweeks": 2,
-    "completedMonths": 0,
+    "totalPrizeDistributed": 4999,
+    "totalPaid": 2000,
+    "totalPending": 2999,
+    "gameweekPrizes": 3000,
+    "monthlyPrizes": 1999,
+    "completedGameweeks": 3,
+    "completedMonths": 1,
     "totalWinners": 54,
-    "lastProcessedGW": 1
+    "lastProcessedGW": 2
   },
   "winners": [
     {
       "playerName": "Kiran Kanoj",
+      "totalPrizeWon": 1083,
+      "totalPaid": 650,
+      "totalPending": 433,
+      "prizeBreakdown": {
+        "gameweek": 650,
+        "monthly": 433
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 1,
+        "overallRank": 1,
+        "totalPoints": 179
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "1st",
+            "prize": 650,
+            "status": "Paid"
+          }
+        ],
+        "months": [
+          {
+            "month": 1,
+            "position": "1st",
+            "prize": 433,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 2,
+        "second": 0
+      },
+      "totalPoints": 179
+    },
+    {
+      "playerName": "Avanit Kaushal",
+      "totalPrizeWon": 1083,
+      "totalPaid": 650,
+      "totalPending": 433,
+      "prizeBreakdown": {
+        "gameweek": 650,
+        "monthly": 433
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 1,
+        "overallRank": 1,
+        "totalPoints": 179
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 1,
+            "position": "1st",
+            "prize": 650,
+            "status": "Paid"
+          }
+        ],
+        "months": [
+          {
+            "month": 1,
+            "position": "1st",
+            "prize": 433,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 2,
+        "second": 0
+      },
+      "totalPoints": 179
+    },
+    {
+      "playerName": "Ankur Prasad",
+      "totalPrizeWon": 700,
+      "totalPaid": 0,
+      "totalPending": 700,
+      "prizeBreakdown": {
+        "gameweek": 0,
+        "monthly": 700
+      },
+      "highlights": {
+        "gameWeeks": 0,
+        "gameMonths": 1,
+        "overallRank": 4,
+        "totalPoints": 174
+      },
+      "achievements": {
+        "gameweeks": [],
+        "months": [
+          {
+            "month": 1,
+            "position": "2nd",
+            "prize": 700,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 174
+    },
+    {
+      "playerName": "Lakshman Aravind ",
       "totalPrizeWon": 650,
       "totalPaid": 0,
       "totalPending": 650,
@@ -24,13 +134,13 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 1,
-        "totalPoints": 142
+        "overallRank": 11,
+        "totalPoints": 160
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 2,
+            "week": 3,
             "position": "1st",
             "prize": 650,
             "status": "Pending"
@@ -42,39 +152,39 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 142
+      "totalPoints": 160
     },
     {
-      "playerName": "Avanit Kaushal",
-      "totalPrizeWon": 650,
-      "totalPaid": 650,
-      "totalPending": 0,
+      "playerName": "B V Dhananjay",
+      "totalPrizeWon": 433,
+      "totalPaid": 0,
+      "totalPending": 433,
       "prizeBreakdown": {
-        "gameweek": 650,
-        "monthly": 0
+        "gameweek": 0,
+        "monthly": 433
       },
       "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 2,
-        "totalPoints": 137
+        "gameWeeks": 0,
+        "gameMonths": 1,
+        "overallRank": 1,
+        "totalPoints": 179
       },
       "achievements": {
-        "gameweeks": [
+        "gameweeks": [],
+        "months": [
           {
-            "week": 1,
+            "month": 1,
             "position": "1st",
-            "prize": 650,
-            "status": "Paid"
+            "prize": 433,
+            "status": "Pending"
           }
-        ],
-        "months": []
+        ]
       },
       "positions": {
         "first": 1,
         "second": 0
       },
-      "totalPoints": 137
+      "totalPoints": 179
     },
     {
       "playerName": "Sidharthshankar Pati",
@@ -88,8 +198,8 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 34,
-        "totalPoints": 95
+        "overallRank": 33,
+        "totalPoints": 142
       },
       "achievements": {
         "gameweeks": [
@@ -106,10 +216,10 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 95
+      "totalPoints": 142
     },
     {
-      "playerName": "Sanchay Srivastava",
+      "playerName": "Bhushan Wagh",
       "totalPrizeWon": 350,
       "totalPaid": 0,
       "totalPending": 350,
@@ -120,13 +230,13 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 8,
-        "totalPoints": 113
+        "overallRank": 11,
+        "totalPoints": 160
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 2,
+            "week": 3,
             "position": "2nd",
             "prize": 350,
             "status": "Pending"
@@ -138,7 +248,39 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 113
+      "totalPoints": 160
+    },
+    {
+      "playerName": "Sanchay Srivastava",
+      "totalPrizeWon": 350,
+      "totalPaid": 350,
+      "totalPending": 0,
+      "prizeBreakdown": {
+        "gameweek": 350,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 11,
+        "totalPoints": 160
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Paid"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 160
     },
     {
       "playerName": "Aditya Garg",
@@ -152,8 +294,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 26,
-        "totalPoints": 98
+        "overallRank": 29,
+        "totalPoints": 148
       },
       "achievements": {
         "gameweeks": [],
@@ -163,7 +305,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 98
+      "totalPoints": 148
     },
     {
       "playerName": "Vikranth Reddy",
@@ -177,8 +319,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 14,
-        "totalPoints": 109
+        "overallRank": 6,
+        "totalPoints": 167
       },
       "achievements": {
         "gameweeks": [],
@@ -188,7 +330,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 109
+      "totalPoints": 167
     },
     {
       "playerName": "Harshit Gupta",
@@ -202,8 +344,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 36,
-        "totalPoints": 94
+        "overallRank": 32,
+        "totalPoints": 143
       },
       "achievements": {
         "gameweeks": [],
@@ -213,7 +355,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 94
+      "totalPoints": 143
     },
     {
       "playerName": "Vinod Shankar",
@@ -227,8 +369,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 5,
-        "totalPoints": 115
+        "overallRank": 14,
+        "totalPoints": 159
       },
       "achievements": {
         "gameweeks": [],
@@ -238,32 +380,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 115
-    },
-    {
-      "playerName": "B V Dhananjay",
-      "totalPrizeWon": 0,
-      "totalPaid": 0,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 0,
-        "overallRank": 4,
-        "totalPoints": 117
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 0
-      },
-      "totalPoints": 117
+      "totalPoints": 159
     },
     {
       "playerName": "Soman Panda",
@@ -277,8 +394,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 50,
-        "totalPoints": 75
+        "overallRank": 42,
+        "totalPoints": 133
       },
       "achievements": {
         "gameweeks": [],
@@ -288,7 +405,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 75
+      "totalPoints": 133
     },
     {
       "playerName": "Anish Banerjee",
@@ -302,8 +419,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 24,
-        "totalPoints": 100
+        "overallRank": 39,
+        "totalPoints": 136
       },
       "achievements": {
         "gameweeks": [],
@@ -313,7 +430,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 100
+      "totalPoints": 136
     },
     {
       "playerName": "Ritesh Motghare",
@@ -327,8 +444,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 11,
-        "totalPoints": 111
+        "overallRank": 7,
+        "totalPoints": 166
       },
       "achievements": {
         "gameweeks": [],
@@ -338,7 +455,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 111
+      "totalPoints": 166
     },
     {
       "playerName": "Mayur Kriplani",
@@ -352,8 +469,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 24,
-        "totalPoints": 100
+        "overallRank": 27,
+        "totalPoints": 150
       },
       "achievements": {
         "gameweeks": [],
@@ -363,7 +480,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 100
+      "totalPoints": 150
     },
     {
       "playerName": "Alen Aloysius",
@@ -377,8 +494,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 19,
-        "totalPoints": 105
+        "overallRank": 25,
+        "totalPoints": 151
       },
       "achievements": {
         "gameweeks": [],
@@ -388,7 +505,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 105
+      "totalPoints": 151
     },
     {
       "playerName": "Rohan Desai",
@@ -402,8 +519,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 20,
-        "totalPoints": 104
+        "overallRank": 27,
+        "totalPoints": 150
       },
       "achievements": {
         "gameweeks": [],
@@ -413,7 +530,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 104
+      "totalPoints": 150
     },
     {
       "playerName": "Somnath Pawar ",
@@ -427,8 +544,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 52,
-        "totalPoints": 71
+        "overallRank": 51,
+        "totalPoints": 123
       },
       "achievements": {
         "gameweeks": [],
@@ -438,7 +555,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 71
+      "totalPoints": 123
     },
     {
       "playerName": "Pallab Pegu",
@@ -452,8 +569,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 26,
-        "totalPoints": 98
+        "overallRank": 20,
+        "totalPoints": 154
       },
       "achievements": {
         "gameweeks": [],
@@ -463,7 +580,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 98
+      "totalPoints": 154
     },
     {
       "playerName": "Sushil Coppa",
@@ -477,8 +594,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 52,
-        "totalPoints": 71
+        "overallRank": 53,
+        "totalPoints": 104
       },
       "achievements": {
         "gameweeks": [],
@@ -488,32 +605,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 71
-    },
-    {
-      "playerName": "Ankur Prasad",
-      "totalPrizeWon": 0,
-      "totalPaid": 0,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 0,
-        "overallRank": 8,
-        "totalPoints": 113
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 0
-      },
-      "totalPoints": 113
+      "totalPoints": 104
     },
     {
       "playerName": "Bharanidharan S",
@@ -527,8 +619,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 49,
-        "totalPoints": 81
+        "overallRank": 44,
+        "totalPoints": 130
       },
       "achievements": {
         "gameweeks": [],
@@ -538,7 +630,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 81
+      "totalPoints": 130
     },
     {
       "playerName": "Ronak Kadikar",
@@ -552,8 +644,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 15,
-        "totalPoints": 107
+        "overallRank": 25,
+        "totalPoints": 151
       },
       "achievements": {
         "gameweeks": [],
@@ -563,7 +655,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 107
+      "totalPoints": 151
     },
     {
       "playerName": "Kashyap Rana",
@@ -577,8 +669,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 47,
-        "totalPoints": 85
+        "overallRank": 46,
+        "totalPoints": 128
       },
       "achievements": {
         "gameweeks": [],
@@ -588,32 +680,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 85
-    },
-    {
-      "playerName": "Bhushan Wagh",
-      "totalPrizeWon": 0,
-      "totalPaid": 0,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 0,
-        "overallRank": 41,
-        "totalPoints": 90
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 0
-      },
-      "totalPoints": 90
+      "totalPoints": 128
     },
     {
       "playerName": "Rahul Sahai",
@@ -627,8 +694,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 17,
-        "totalPoints": 106
+        "overallRank": 20,
+        "totalPoints": 154
       },
       "achievements": {
         "gameweeks": [],
@@ -638,7 +705,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 106
+      "totalPoints": 154
     },
     {
       "playerName": "Abhishek Ghorpade",
@@ -652,8 +719,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 26,
-        "totalPoints": 98
+        "overallRank": 35,
+        "totalPoints": 141
       },
       "achievements": {
         "gameweeks": [],
@@ -663,7 +730,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 98
+      "totalPoints": 141
     },
     {
       "playerName": "Varun Elango",
@@ -677,8 +744,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 51,
-        "totalPoints": 73
+        "overallRank": 46,
+        "totalPoints": 128
       },
       "achievements": {
         "gameweeks": [],
@@ -688,7 +755,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 73
+      "totalPoints": 128
     },
     {
       "playerName": "Soubhik Chakraborty ",
@@ -702,8 +769,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 7,
-        "totalPoints": 114
+        "overallRank": 16,
+        "totalPoints": 158
       },
       "achievements": {
         "gameweeks": [],
@@ -713,7 +780,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 114
+      "totalPoints": 158
     },
     {
       "playerName": "Avinash Jayashankar ",
@@ -727,8 +794,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 26,
-        "totalPoints": 98
+        "overallRank": 29,
+        "totalPoints": 148
       },
       "achievements": {
         "gameweeks": [],
@@ -738,7 +805,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 98
+      "totalPoints": 148
     },
     {
       "playerName": "Varun Gupta",
@@ -752,8 +819,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 46,
-        "totalPoints": 86
+        "overallRank": 43,
+        "totalPoints": 132
       },
       "achievements": {
         "gameweeks": [],
@@ -763,7 +830,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 86
+      "totalPoints": 132
     },
     {
       "playerName": "Shivam Sachan",
@@ -777,8 +844,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 38,
-        "totalPoints": 93
+        "overallRank": 46,
+        "totalPoints": 128
       },
       "achievements": {
         "gameweeks": [],
@@ -788,7 +855,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 93
+      "totalPoints": 128
     },
     {
       "playerName": "Tejeshwar Singh",
@@ -802,8 +869,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 13,
-        "totalPoints": 110
+        "overallRank": 10,
+        "totalPoints": 161
       },
       "achievements": {
         "gameweeks": [],
@@ -813,7 +880,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 110
+      "totalPoints": 161
     },
     {
       "playerName": "Vikash Kumar",
@@ -827,8 +894,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 32,
-        "totalPoints": 96
+        "overallRank": 20,
+        "totalPoints": 154
       },
       "achievements": {
         "gameweeks": [],
@@ -838,7 +905,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 96
+      "totalPoints": 154
     },
     {
       "playerName": "Ansh Makhija",
@@ -852,8 +919,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 21,
-        "totalPoints": 102
+        "overallRank": 33,
+        "totalPoints": 142
       },
       "achievements": {
         "gameweeks": [],
@@ -863,7 +930,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 102
+      "totalPoints": 142
     },
     {
       "playerName": "Abhishek Addy",
@@ -877,8 +944,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 21,
-        "totalPoints": 102
+        "overallRank": 23,
+        "totalPoints": 152
       },
       "achievements": {
         "gameweeks": [],
@@ -888,7 +955,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 102
+      "totalPoints": 152
     },
     {
       "playerName": "Vinay Sudershan",
@@ -902,8 +969,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 48,
-        "totalPoints": 82
+        "overallRank": 52,
+        "totalPoints": 109
       },
       "achievements": {
         "gameweeks": [],
@@ -913,7 +980,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 82
+      "totalPoints": 109
     },
     {
       "playerName": "Sourabh Mandal",
@@ -927,8 +994,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 10,
-        "totalPoints": 112
+        "overallRank": 17,
+        "totalPoints": 155
       },
       "achievements": {
         "gameweeks": [],
@@ -938,7 +1005,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 112
+      "totalPoints": 155
     },
     {
       "playerName": "Harshvardhan Maru",
@@ -952,8 +1019,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 31,
-        "totalPoints": 97
+        "overallRank": 49,
+        "totalPoints": 127
       },
       "achievements": {
         "gameweeks": [],
@@ -963,7 +1030,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 97
+      "totalPoints": 127
     },
     {
       "playerName": "Siddharth Krishna",
@@ -977,8 +1044,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 44,
-        "totalPoints": 87
+        "overallRank": 38,
+        "totalPoints": 137
       },
       "achievements": {
         "gameweeks": [],
@@ -988,32 +1055,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 87
-    },
-    {
-      "playerName": "Lakshman Aravind ",
-      "totalPrizeWon": 0,
-      "totalPaid": 0,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 0,
-        "overallRank": 44,
-        "totalPoints": 87
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 0
-      },
-      "totalPoints": 87
+      "totalPoints": 137
     },
     {
       "playerName": "Devesh Singh",
@@ -1027,8 +1069,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 3,
-        "totalPoints": 121
+        "overallRank": 9,
+        "totalPoints": 163
       },
       "achievements": {
         "gameweeks": [],
@@ -1038,7 +1080,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 121
+      "totalPoints": 163
     },
     {
       "playerName": "Sivakumar N",
@@ -1052,8 +1094,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 34,
-        "totalPoints": 95
+        "overallRank": 40,
+        "totalPoints": 134
       },
       "achievements": {
         "gameweeks": [],
@@ -1063,7 +1105,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 95
+      "totalPoints": 134
     },
     {
       "playerName": "Ashutosh Thombal",
@@ -1078,7 +1120,7 @@
         "gameWeeks": 0,
         "gameMonths": 0,
         "overallRank": 5,
-        "totalPoints": 115
+        "totalPoints": 169
       },
       "achievements": {
         "gameweeks": [],
@@ -1088,7 +1130,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 115
+      "totalPoints": 169
     },
     {
       "playerName": "Praveen Pujer",
@@ -1102,8 +1144,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 52,
-        "totalPoints": 71
+        "overallRank": 54,
+        "totalPoints": 103
       },
       "achievements": {
         "gameweeks": [],
@@ -1113,7 +1155,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 71
+      "totalPoints": 103
     },
     {
       "playerName": "Gaurav G B",
@@ -1128,7 +1170,7 @@
         "gameWeeks": 0,
         "gameMonths": 0,
         "overallRank": 40,
-        "totalPoints": 91
+        "totalPoints": 134
       },
       "achievements": {
         "gameweeks": [],
@@ -1138,7 +1180,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 91
+      "totalPoints": 134
     },
     {
       "playerName": "Parth Pillai",
@@ -1152,8 +1194,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 21,
-        "totalPoints": 102
+        "overallRank": 23,
+        "totalPoints": 152
       },
       "achievements": {
         "gameweeks": [],
@@ -1163,7 +1205,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 102
+      "totalPoints": 152
     },
     {
       "playerName": "Siddharth Sharma",
@@ -1177,8 +1219,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 38,
-        "totalPoints": 93
+        "overallRank": 17,
+        "totalPoints": 155
       },
       "achievements": {
         "gameweeks": [],
@@ -1188,7 +1230,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 93
+      "totalPoints": 155
     },
     {
       "playerName": "Raghav Verma",
@@ -1202,8 +1244,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 36,
-        "totalPoints": 94
+        "overallRank": 31,
+        "totalPoints": 144
       },
       "achievements": {
         "gameweeks": [],
@@ -1213,7 +1255,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 94
+      "totalPoints": 144
     },
     {
       "playerName": "Maheep Ajay",
@@ -1227,8 +1269,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 11,
-        "totalPoints": 111
+        "overallRank": 14,
+        "totalPoints": 159
       },
       "achievements": {
         "gameweeks": [],
@@ -1238,7 +1280,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 111
+      "totalPoints": 159
     },
     {
       "playerName": "Nipun Kochar",
@@ -1252,8 +1294,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 42,
-        "totalPoints": 89
+        "overallRank": 45,
+        "totalPoints": 129
       },
       "achievements": {
         "gameweeks": [],
@@ -1263,7 +1305,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 89
+      "totalPoints": 129
     },
     {
       "playerName": "Abhishek Agarwal",
@@ -1277,8 +1319,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 15,
-        "totalPoints": 107
+        "overallRank": 8,
+        "totalPoints": 165
       },
       "achievements": {
         "gameweeks": [],
@@ -1288,7 +1330,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 107
+      "totalPoints": 165
     },
     {
       "playerName": "Shubham Tripathi",
@@ -1302,8 +1344,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 42,
-        "totalPoints": 89
+        "overallRank": 50,
+        "totalPoints": 125
       },
       "achievements": {
         "gameweeks": [],
@@ -1313,7 +1355,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 89
+      "totalPoints": 125
     },
     {
       "playerName": "Ashish Kumar",
@@ -1327,8 +1369,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 26,
-        "totalPoints": 98
+        "overallRank": 36,
+        "totalPoints": 140
       },
       "achievements": {
         "gameweeks": [],
@@ -1338,7 +1380,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 98
+      "totalPoints": 140
     },
     {
       "playerName": "Tulasi Ram Garapati",
@@ -1353,7 +1395,7 @@
         "gameWeeks": 0,
         "gameMonths": 0,
         "overallRank": 17,
-        "totalPoints": 106
+        "totalPoints": 155
       },
       "achievements": {
         "gameweeks": [],
@@ -1363,7 +1405,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 106
+      "totalPoints": 155
     },
     {
       "playerName": "Arkadeep Bal",
@@ -1377,8 +1419,8 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 32,
-        "totalPoints": 96
+        "overallRank": 37,
+        "totalPoints": 138
       },
       "achievements": {
         "gameweeks": [],
@@ -1388,7 +1430,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 96
+      "totalPoints": 138
     }
   ]
 }
