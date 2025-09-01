@@ -114,6 +114,15 @@ async function loadWinners() {
     allWinners = (data.winners || []).sort((a, b) => b.totalPrizeWon - a.totalPrizeWon);
     winnersWithPrizes = allWinners.filter((w) => (w.totalPrizeWon || 0) > 0);
 
+    // DEBUG: Log winner counts for Task 3 debugging
+    console.log(
+      `🏆 Winners Module Debug - Total winners: ${allWinners.length}, With prizes: ${winnersWithPrizes.length}`
+    );
+    console.log(
+      '🏆 Winners with prizes:',
+      winnersWithPrizes.map((w) => ({ name: w.playerName, prize: w.totalPrizeWon }))
+    );
+
     updateStatistics(data);
     updateFooterTimestamp(data.lastUpdated);
     await renderWinnersTable();
@@ -177,6 +186,11 @@ async function renderWinnersTable() {
   const totalPages = Math.ceil(winnersWithPrizes.length / PAGINATION.WINNERS_PER_PAGE);
   const start = (currentWinnerPage - 1) * PAGINATION.WINNERS_PER_PAGE;
   const pageData = winnersWithPrizes.slice(start, start + PAGINATION.WINNERS_PER_PAGE);
+
+  // DEBUG: Log pagination details for Task 3 debugging
+  console.log(
+    `🏆 Render Debug - Page: ${currentWinnerPage}, Per page: ${PAGINATION.WINNERS_PER_PAGE}, Total: ${winnersWithPrizes.length}, Start: ${start}, Page data: ${pageData.length}`
+  );
 
   container.innerHTML = '';
   if (isDesktop) renderDesktopTable(container, pageData, start);
