@@ -519,12 +519,6 @@
   border-bottom: none !important; /* Remove global h2 border since we use explicit hr */
 }
 
-.section-rule {
-  margin: var(--spacing-xs) 0;
-  border: 0;
-  border-top: 1px solid var(--border-color);
-}
-
 /* Description row with back button */
 .winners-descrow {
   display: flex;

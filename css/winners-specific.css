@@ -613,7 +613,6 @@
 
 /* Fix duplicate horizontal lines: Remove global h2 border since we use explicit hr */
 .winners-header .winners-heading {
-  margin: 0;
   border-bottom: none !important;
 }
 
