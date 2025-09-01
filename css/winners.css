@@ -183,20 +183,18 @@
 
 /* Larger screens: put subtitle inline beside the main title */
 @media (min-width: 769px) {
-  /* Tablet breakpoint - standardized */
+  /* Tablet breakpoint - standardized to match index.html behavior */
   .winners-heading {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
+    display: block; /* Keep stacked layout like index.html */
   }
 
   .winners-heading .heading-main {
-    display: inline-block;
+    display: block; /* Keep block layout like index.html */
     font-size: 1.25rem;
   }
 
   .winners-heading .heading-subtitle {
-    display: inline-block;
-    margin-top: 0;
+    display: block; /* Keep block layout like index.html */
+    margin-top: 4px; /* Add slight margin like index.html */
   }
 }

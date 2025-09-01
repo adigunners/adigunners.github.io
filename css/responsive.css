@@ -235,8 +235,8 @@
     white-space: nowrap;
   }
 
-  /* Show more winners on mobile due to compact design */
-  .winner-preview .winner-card:nth-child(n + 7) {
+  /* Limit winner preview to 6 cards on index.html only (not on winners.html full page) */
+  .season-section .winner-preview .winner-card:nth-child(n + 7) {
     display: none;
   }
 
