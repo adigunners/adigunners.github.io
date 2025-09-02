@@ -226,6 +226,13 @@ h2 {
   font-size: 1.8rem;
 }
 
+/* Section heading emoji icons should follow global icon sizing */
+h2 > span.section-emoji,
+h1 > span.section-emoji {
+  font-size: var(--icon-size, 1.8rem);
+  margin-right: 0.5rem;
+}
+
 /* =============== FOOTER =============== */
 footer {
   text-align: center;
