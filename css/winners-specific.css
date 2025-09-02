@@ -613,12 +613,9 @@
 
 /* 
  * TEAM WARNING: Heading styles are now managed globally in components.css
- * This override is only needed to prevent h2 border conflicts with explicit <hr>
- * Consider if this should be addressed in the global h2 styles instead
+ * Removed border override to allow natural h2 underline like index.html
+ * This creates consistent spacing with the global h2 border-bottom from base.css
  */
-.winners-header .winners-heading {
-  border-bottom: none !important; /* Override global h2 border - we use explicit <hr> */
-}
 
 .section-rule {
   margin: var(--spacing-xs) 0;
