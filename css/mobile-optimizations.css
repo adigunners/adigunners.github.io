@@ -76,9 +76,14 @@
 @media (max-width: 600px) {
   /* More compact typography */
   h2 {
-    font-size: 1.3rem; /* Reduced from 1.5rem */
+    font-size: 1.35rem; /* Match .winners-heading mobile size for consistency */
     margin-bottom: 8px;
     padding-bottom: 6px;
+  }
+
+  /* Ensure .winners-heading maintains same size as h2 on mobile */
+  .winners-heading .heading-main {
+    font-size: 1.35rem; /* Consistent with h2 mobile sizing */
   }
 
   /* Denser stat boxes */

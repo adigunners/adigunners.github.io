@@ -755,7 +755,7 @@
 
 .winners-heading .heading-main {
   display: block;
-  font-size: 1.35rem;
+  font-size: 1.35rem; /* Mobile baseline - consistent with mobile h2 */
   font-weight: 700;
   color: var(--heading-color);
   margin: 0;
@@ -773,7 +773,7 @@
 /* Responsive heading behavior - CONSISTENT ACROSS ALL PAGES */
 @media (min-width: 769px) {
   .winners-heading .heading-main {
-    font-size: 1.25rem; /* Slightly smaller on larger screens */
+    font-size: 1.8rem; /* Desktop - match global h2 standard */
   }
 
   .winners-heading .heading-subtitle {
