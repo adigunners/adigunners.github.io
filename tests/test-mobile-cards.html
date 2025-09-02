@@ -1,179 +1,220 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test Mobile Card Rendering</title>
-    
+
     <!-- Load the CSS files that winners.html uses -->
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/winners.css" />
     <link rel="stylesheet" href="css/mobile-optimizations.css" />
     <link rel="stylesheet" href="css/advanced-mobile.css" />
-    
+
     <style>
-        body { font-family: Arial, sans-serif; margin: 10px; background: #f5f5f5; }
-        .test-container { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .test-result { padding: 8px; margin: 4px 0; border-radius: 4px; font-size: 0.9em; }
-        .pass { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
-        .fail { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
-        .info { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
-        .force-mobile { max-width: 400px !important; margin: 0 auto; } /* Force mobile view */
-        hr { margin: 15px 0; border: 1px solid #ddd; }
-        .demo-cards { margin: 15px 0; }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 10px;
+        background: #f5f5f5;
+      }
+      .test-container {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .test-result {
+        padding: 8px;
+        margin: 4px 0;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+      .pass {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+      .fail {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+      }
+      .info {
+        background: #d1ecf1;
+        border: 1px solid #bee5eb;
+        color: #0c5460;
+      }
+      .force-mobile {
+        max-width: 400px !important;
+        margin: 0 auto;
+      } /* Force mobile view */
+      hr {
+        margin: 15px 0;
+        border: 1px solid #ddd;
+      }
+      .demo-cards {
+        margin: 15px 0;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="test-container force-mobile">
-        <h1>📱 Mobile Card Rendering Test</h1>
-        <div id="test-results"></div>
-        
-        <hr>
-        <div class="demo-cards">
-            <h2>Sample Mobile Cards (Top 5 Winners)</h2>
-            <div id="mobile-cards-test"></div>
-        </div>
-        
-        <hr>
-        <div id="responsive-verification"></div>
+      <h1>📱 Mobile Card Rendering Test</h1>
+      <div id="test-results"></div>
+
+      <hr />
+      <div class="demo-cards">
+        <h2>Sample Mobile Cards (Top 5 Winners)</h2>
+        <div id="mobile-cards-test"></div>
+      </div>
+
+      <hr />
+      <div id="responsive-verification"></div>
     </div>
 
     <script type="module">
-        const results = document.getElementById('test-results');
-        const cardsContainer = document.getElementById('mobile-cards-test');
-        const responsiveDiv = document.getElementById('responsive-verification');
-        
-        function logResult(test, status, message) {
-            const div = document.createElement('div');
-            div.className = `test-result ${status}`;
-            div.innerHTML = `<strong>${test}:</strong> ${message}`;
-            results.appendChild(div);
+      const results = document.getElementById('test-results');
+      const cardsContainer = document.getElementById('mobile-cards-test');
+      const responsiveDiv = document.getElementById('responsive-verification');
+
+      function logResult(test, status, message) {
+        const div = document.createElement('div');
+        div.className = `test-result ${status}`;
+        div.innerHTML = `<strong>${test}:</strong> ${message}`;
+        results.appendChild(div);
+      }
+
+      // Test sample data
+      const testWinners = [
+        {
+          playerName: 'Aditya Garg',
+          totalPrizeWon: 7112,
+          highlights: { gameWeeks: 10, gameMonths: 3, overallRank: 2 },
+        },
+        {
+          playerName: 'Test Player 2',
+          totalPrizeWon: 5500,
+          highlights: { gameWeeks: 8, gameMonths: 2, overallRank: 5 },
+        },
+        {
+          playerName: 'Test Player 3',
+          totalPrizeWon: 4200,
+          highlights: { gameWeeks: 6, gameMonths: 1, overallRank: 10 },
+        },
+        {
+          playerName: 'Test Player 4',
+          totalPrizeWon: 3100,
+          highlights: { gameWeeks: 5, gameMonths: 1, overallRank: 15 },
+        },
+        {
+          playerName: 'Test Player 5',
+          totalPrizeWon: 2800,
+          highlights: { gameWeeks: 4, gameMonths: 1, overallRank: 20 },
+        },
+      ];
+
+      try {
+        // Test 1: Load UI module and createCard function
+        const uiModule = await import('./js/ui-module.js');
+        logResult('Test 1', 'pass', 'UI module loaded successfully');
+
+        if (typeof uiModule.createCard === 'function') {
+          logResult('Test 1.1', 'pass', 'createCard function is available');
+        } else {
+          logResult('Test 1.1', 'fail', 'createCard function is not available');
+          throw new Error('createCard function missing');
         }
 
-        // Test sample data
-        const testWinners = [
-            {
-                playerName: "Aditya Garg",
-                totalPrizeWon: 7112,
-                highlights: { gameWeeks: 10, gameMonths: 3, overallRank: 2 }
-            },
-            {
-                playerName: "Test Player 2", 
-                totalPrizeWon: 5500,
-                highlights: { gameWeeks: 8, gameMonths: 2, overallRank: 5 }
-            },
-            {
-                playerName: "Test Player 3",
-                totalPrizeWon: 4200,
-                highlights: { gameWeeks: 6, gameMonths: 1, overallRank: 10 }
-            },
-            {
-                playerName: "Test Player 4",
-                totalPrizeWon: 3100,
-                highlights: { gameWeeks: 5, gameMonths: 1, overallRank: 15 }
-            },
-            {
-                playerName: "Test Player 5",
-                totalPrizeWon: 2800,
-                highlights: { gameWeeks: 4, gameMonths: 1, overallRank: 20 }
-            }
-        ];
+        // Test 2: Generate mobile cards (simulating renderMobileCards function)
+        const wrap = document.createElement('div');
+        wrap.className = 'winner-preview';
 
-        try {
-            // Test 1: Load UI module and createCard function
-            const uiModule = await import('./js/ui-module.js');
-            logResult('Test 1', 'pass', 'UI module loaded successfully');
-            
-            if (typeof uiModule.createCard === 'function') {
-                logResult('Test 1.1', 'pass', 'createCard function is available');
+        testWinners.forEach((winner, index) => {
+          const rank = index + 1;
+          try {
+            const card = uiModule.createCard(winner, rank);
+            wrap.appendChild(card);
+          } catch (cardError) {
+            logResult(
+              'Test 2',
+              'fail',
+              `Failed to create card for rank ${rank}: ${cardError.message}`
+            );
+            throw cardError;
+          }
+        });
+
+        cardsContainer.appendChild(wrap);
+        logResult('Test 2', 'pass', 'Mobile cards generated successfully');
+
+        // Test 3: Verify responsive behavior and styling
+        setTimeout(() => {
+          const cards = cardsContainer.querySelectorAll('.winner-card');
+          let responsiveResults = '<h3>📱 Responsive & Styling Verification:</h3>';
+
+          responsiveResults += `<p><strong>Total Cards Generated:</strong> ${cards.length}</p>`;
+
+          cards.forEach((card, index) => {
+            const rank = index + 1;
+            const computedStyle = window.getComputedStyle(card);
+
+            responsiveResults += `<p><strong>Rank ${rank} Card:</strong> `;
+
+            // Check if top 3 cards have special classes
+            if (rank <= 3) {
+              if (card.classList.contains(`rank-${rank}`)) {
+                responsiveResults += `✅ Has rank-${rank} class`;
+              } else {
+                responsiveResults += `❌ Missing rank-${rank} class`;
+              }
             } else {
-                logResult('Test 1.1', 'fail', 'createCard function is not available');
-                throw new Error('createCard function missing');
+              responsiveResults += '✅ No special ranking class (rank > 3)';
             }
 
-            // Test 2: Generate mobile cards (simulating renderMobileCards function)
-            const wrap = document.createElement('div');
-            wrap.className = 'winner-preview';
-            
-            testWinners.forEach((winner, index) => {
-                const rank = index + 1;
-                try {
-                    const card = uiModule.createCard(winner, rank);
-                    wrap.appendChild(card);
-                } catch (cardError) {
-                    logResult('Test 2', 'fail', `Failed to create card for rank ${rank}: ${cardError.message}`);
-                    throw cardError;
-                }
-            });
-            
-            cardsContainer.appendChild(wrap);
-            logResult('Test 2', 'pass', 'Mobile cards generated successfully');
+            // Check basic styling
+            const display = computedStyle.display;
+            const marginBottom = computedStyle.marginBottom;
+            responsiveResults += ` | Display: ${display}`;
+            if (marginBottom !== '0px') responsiveResults += ` | Margin: ${marginBottom}`;
 
-            // Test 3: Verify responsive behavior and styling
-            setTimeout(() => {
-                const cards = cardsContainer.querySelectorAll('.winner-card');
-                let responsiveResults = '<h3>📱 Responsive & Styling Verification:</h3>';
-                
-                responsiveResults += `<p><strong>Total Cards Generated:</strong> ${cards.length}</p>`;
-                
-                cards.forEach((card, index) => {
-                    const rank = index + 1;
-                    const computedStyle = window.getComputedStyle(card);
-                    
-                    responsiveResults += `<p><strong>Rank ${rank} Card:</strong> `;
-                    
-                    // Check if top 3 cards have special classes
-                    if (rank <= 3) {
-                        if (card.classList.contains(`rank-${rank}`)) {
-                            responsiveResults += `✅ Has rank-${rank} class`;
-                        } else {
-                            responsiveResults += `❌ Missing rank-${rank} class`;
-                        }
-                    } else {
-                        responsiveResults += '✅ No special ranking class (rank > 3)';
-                    }
-                    
-                    // Check basic styling
-                    const display = computedStyle.display;
-                    const marginBottom = computedStyle.marginBottom;
-                    responsiveResults += ` | Display: ${display}`;
-                    if (marginBottom !== '0px') responsiveResults += ` | Margin: ${marginBottom}`;
-                    
-                    responsiveResults += '</p>';
-                });
-                
-                responsiveDiv.innerHTML = responsiveResults;
-                
-                // Test 4: Verify mobile layout is working
-                const containerWidth = cardsContainer.offsetWidth;
-                const firstCard = cards[0];
-                const cardWidth = firstCard ? firstCard.offsetWidth : 0;
-                
-                if (containerWidth > 0 && cardWidth > 0) {
-                    logResult('Test 3', 'pass', `Mobile cards are responsive (Container: ${containerWidth}px, Card: ${cardWidth}px)`);
-                } else {
-                    logResult('Test 3', 'fail', 'Mobile cards have no width - layout issue detected');
-                }
-                
-                // Test 5: Verify top 3 cards have special styling
-                const rank1Card = cardsContainer.querySelector('.rank-1');
-                const rank2Card = cardsContainer.querySelector('.rank-2'); 
-                const rank3Card = cardsContainer.querySelector('.rank-3');
-                
-                if (rank1Card && rank2Card && rank3Card) {
-                    logResult('Test 4', 'pass', 'All top 3 mobile cards have proper rank classes');
-                } else {
-                    logResult('Test 4', 'fail', 'Some top 3 mobile cards are missing rank classes');
-                }
-                
-                logResult('Test 5', 'pass', 'Mobile card rendering test completed successfully');
-            }, 100);
+            responsiveResults += '</p>';
+          });
 
-        } catch (error) {
-            logResult('Error', 'fail', `Test failed: ${error.message}`);
-            console.error('Mobile test error:', error);
-        }
+          responsiveDiv.innerHTML = responsiveResults;
+
+          // Test 4: Verify mobile layout is working
+          const containerWidth = cardsContainer.offsetWidth;
+          const firstCard = cards[0];
+          const cardWidth = firstCard ? firstCard.offsetWidth : 0;
+
+          if (containerWidth > 0 && cardWidth > 0) {
+            logResult(
+              'Test 3',
+              'pass',
+              `Mobile cards are responsive (Container: ${containerWidth}px, Card: ${cardWidth}px)`
+            );
+          } else {
+            logResult('Test 3', 'fail', 'Mobile cards have no width - layout issue detected');
+          }
+
+          // Test 5: Verify top 3 cards have special styling
+          const rank1Card = cardsContainer.querySelector('.rank-1');
+          const rank2Card = cardsContainer.querySelector('.rank-2');
+          const rank3Card = cardsContainer.querySelector('.rank-3');
+
+          if (rank1Card && rank2Card && rank3Card) {
+            logResult('Test 4', 'pass', 'All top 3 mobile cards have proper rank classes');
+          } else {
+            logResult('Test 4', 'fail', 'Some top 3 mobile cards are missing rank classes');
+          }
+
+          logResult('Test 5', 'pass', 'Mobile card rendering test completed successfully');
+        }, 100);
+      } catch (error) {
+        logResult('Error', 'fail', `Test failed: ${error.message}`);
+        console.error('Mobile test error:', error);
+      }
     </script>
-</body>
+  </body>
 </html>

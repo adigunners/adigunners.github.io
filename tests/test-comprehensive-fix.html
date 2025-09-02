@@ -1,221 +1,308 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Comprehensive Winners Table Fix Test</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
-        .test-container { background: white; padding: 20px; border-radius: 8px; max-width: 1000px; margin: 0 auto; }
-        .test-result { padding: 10px; margin: 5px 0; border-radius: 4px; }
-        .pass { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
-        .fail { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
-        .info { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
-        .warning { background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; }
-        .summary { font-size: 1.1em; font-weight: bold; padding: 15px; }
-        hr { margin: 20px 0; border: 1px solid #ddd; }
-        .console-log { background: #1e1e1e; color: #fff; padding: 15px; border-radius: 8px; font-family: monospace; white-space: pre-wrap; max-height: 300px; overflow-y: auto; }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f5f5f5;
+      }
+      .test-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .test-result {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+      }
+      .pass {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+      .fail {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+      }
+      .info {
+        background: #d1ecf1;
+        border: 1px solid #bee5eb;
+        color: #0c5460;
+      }
+      .warning {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        color: #856404;
+      }
+      .summary {
+        font-size: 1.1em;
+        font-weight: bold;
+        padding: 15px;
+      }
+      hr {
+        margin: 20px 0;
+        border: 1px solid #ddd;
+      }
+      .console-log {
+        background: #1e1e1e;
+        color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        max-height: 300px;
+        overflow-y: auto;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="test-container">
-        <h1>🔧 Comprehensive Winners Table Fix Verification</h1>
-        <p><strong>Original Error:</strong> <code>ReferenceError: RANK_CLASSES is not defined at winners-module.js:221:22</code></p>
-        
-        <div id="test-results"></div>
-        
-        <hr>
-        <div>
-            <h2>📊 Test Summary</h2>
-            <div id="test-summary"></div>
-        </div>
-        
-        <hr>
-        <div>
-            <h2>🖥️ Console Output</h2>
-            <div id="console-output" class="console-log">Capturing console output...</div>
-        </div>
+      <h1>🔧 Comprehensive Winners Table Fix Verification</h1>
+      <p>
+        <strong>Original Error:</strong>
+        <code>ReferenceError: RANK_CLASSES is not defined at winners-module.js:221:22</code>
+      </p>
+
+      <div id="test-results"></div>
+
+      <hr />
+      <div>
+        <h2>📊 Test Summary</h2>
+        <div id="test-summary"></div>
+      </div>
+
+      <hr />
+      <div>
+        <h2>🖥️ Console Output</h2>
+        <div id="console-output" class="console-log">Capturing console output...</div>
+      </div>
     </div>
 
     <script>
-        const results = document.getElementById('test-results');
-        const summaryDiv = document.getElementById('test-summary');
-        const consoleDiv = document.getElementById('console-output');
-        
-        // Capture console output
-        const originalConsoleLog = console.log;
-        const originalConsoleError = console.error;
-        const originalConsoleWarn = console.warn;
-        let consoleOutput = '';
-        let hasConsoleErrors = false;
-        
-        function captureConsole(type, args) {
-            const timestamp = new Date().toLocaleTimeString();
-            const message = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : String(arg)).join(' ');
-            consoleOutput += `[${timestamp}] ${type.toUpperCase()}: ${message}\n`;
-            consoleDiv.textContent = consoleOutput;
-            
-            if (type === 'error') hasConsoleErrors = true;
+      const results = document.getElementById('test-results');
+      const summaryDiv = document.getElementById('test-summary');
+      const consoleDiv = document.getElementById('console-output');
+
+      // Capture console output
+      const originalConsoleLog = console.log;
+      const originalConsoleError = console.error;
+      const originalConsoleWarn = console.warn;
+      let consoleOutput = '';
+      let hasConsoleErrors = false;
+
+      function captureConsole(type, args) {
+        const timestamp = new Date().toLocaleTimeString();
+        const message = args
+          .map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : String(arg)))
+          .join(' ');
+        consoleOutput += `[${timestamp}] ${type.toUpperCase()}: ${message}\n`;
+        consoleDiv.textContent = consoleOutput;
+
+        if (type === 'error') hasConsoleErrors = true;
+      }
+
+      console.log = function (...args) {
+        originalConsoleLog.apply(console, args);
+        captureConsole('log', args);
+      };
+
+      console.error = function (...args) {
+        originalConsoleError.apply(console, args);
+        captureConsole('error', args);
+      };
+
+      console.warn = function (...args) {
+        originalConsoleWarn.apply(console, args);
+        captureConsole('warn', args);
+      };
+
+      let testCount = 0;
+      let passCount = 0;
+      let failCount = 0;
+
+      function logResult(test, status, message) {
+        testCount++;
+        const div = document.createElement('div');
+        div.className = `test-result ${status}`;
+        div.innerHTML = `<strong>Test ${testCount} (${test}):</strong> ${message}`;
+        results.appendChild(div);
+
+        if (status === 'pass') passCount++;
+        else if (status === 'fail') failCount++;
+      }
+
+      function updateSummary() {
+        const successRate = Math.round((passCount / testCount) * 100);
+        let summaryClass = 'pass';
+        let summaryText = '✅ All tests passed!';
+
+        if (failCount > 0) {
+          summaryClass = 'fail';
+          summaryText = `❌ ${failCount} test(s) failed`;
+        } else if (hasConsoleErrors) {
+          summaryClass = 'warning';
+          summaryText = '⚠️ Tests passed but console errors detected';
         }
-        
-        console.log = function(...args) {
-            originalConsoleLog.apply(console, args);
-            captureConsole('log', args);
-        };
-        
-        console.error = function(...args) {
-            originalConsoleError.apply(console, args);
-            captureConsole('error', args);
-        };
-        
-        console.warn = function(...args) {
-            originalConsoleWarn.apply(console, args);
-            captureConsole('warn', args);
-        };
-        
-        let testCount = 0;
-        let passCount = 0;
-        let failCount = 0;
-        
-        function logResult(test, status, message) {
-            testCount++;
-            const div = document.createElement('div');
-            div.className = `test-result ${status}`;
-            div.innerHTML = `<strong>Test ${testCount} (${test}):</strong> ${message}`;
-            results.appendChild(div);
-            
-            if (status === 'pass') passCount++;
-            else if (status === 'fail') failCount++;
-        }
-        
-        function updateSummary() {
-            const successRate = Math.round((passCount / testCount) * 100);
-            let summaryClass = 'pass';
-            let summaryText = '✅ All tests passed!';
-            
-            if (failCount > 0) {
-                summaryClass = 'fail';
-                summaryText = `❌ ${failCount} test(s) failed`;
-            } else if (hasConsoleErrors) {
-                summaryClass = 'warning';
-                summaryText = '⚠️ Tests passed but console errors detected';
-            }
-            
-            summaryDiv.innerHTML = `
+
+        summaryDiv.innerHTML = `
                 <div class="test-result summary ${summaryClass}">
                     ${summaryText}<br>
                     Success Rate: ${successRate}% (${passCount}/${testCount} tests passed)<br>
                     Console Errors: ${hasConsoleErrors ? '❌ Yes' : '✅ None detected'}
                 </div>
             `;
-        }
+      }
 
-        // Run comprehensive tests
-        async function runTests() {
-            try {
-                console.log('🚀 Starting comprehensive winners table fix verification...');
-                
-                // Test 1: Import RANK_CLASSES from state-module
-                console.log('Testing RANK_CLASSES import from state-module...');
-                const stateModule = await import('./js/state-module.js');
-                
-                if (stateModule.RANK_CLASSES) {
-                    logResult('RANK_CLASSES Import', 'pass', 'RANK_CLASSES successfully imported from state-module.js');
-                    console.log('RANK_CLASSES:', stateModule.RANK_CLASSES);
-                } else {
-                    logResult('RANK_CLASSES Import', 'fail', 'RANK_CLASSES not found in state-module.js');
-                }
+      // Run comprehensive tests
+      async function runTests() {
+        try {
+          console.log('🚀 Starting comprehensive winners table fix verification...');
 
-                // Test 2: Verify RANK_CLASSES structure
-                const expectedMapping = { 1: 'winner-gold', 2: 'winner-silver', 3: 'winner-bronze' };
-                let mappingCorrect = true;
-                
-                for (const [rank, expectedClass] of Object.entries(expectedMapping)) {
-                    if (stateModule.RANK_CLASSES[rank] !== expectedClass) {
-                        mappingCorrect = false;
-                        logResult('RANK_CLASSES Mapping', 'fail', `Rank ${rank} should map to "${expectedClass}", got "${stateModule.RANK_CLASSES[rank]}"`);
-                        break;
-                    }
-                }
-                
-                if (mappingCorrect) {
-                    logResult('RANK_CLASSES Mapping', 'pass', 'All rank mappings are correct (1→gold, 2→silver, 3→bronze)');
-                }
+          // Test 1: Import RANK_CLASSES from state-module
+          console.log('Testing RANK_CLASSES import from state-module...');
+          const stateModule = await import('./js/state-module.js');
 
-                // Test 3: Import winners-module.js (this was the failing import)
-                console.log('Testing winners-module.js import (this was previously failing)...');
-                try {
-                    const winnersModule = await import('./js/winners-module.js?' + Date.now()); // Cache bust
-                    logResult('Winners Module Import', 'pass', 'winners-module.js imported successfully - RANK_CLASSES error fixed!');
-                } catch (importError) {
-                    if (importError.message.includes('RANK_CLASSES is not defined')) {
-                        logResult('Winners Module Import', 'fail', '❌ RANK_CLASSES is still not defined - fix did not work');
-                    } else {
-                        logResult('Winners Module Import', 'fail', `Import error: ${importError.message}`);
-                    }
-                    throw importError;
-                }
+          if (stateModule.RANK_CLASSES) {
+            logResult(
+              'RANK_CLASSES Import',
+              'pass',
+              'RANK_CLASSES successfully imported from state-module.js'
+            );
+            console.log('RANK_CLASSES:', stateModule.RANK_CLASSES);
+          } else {
+            logResult('RANK_CLASSES Import', 'fail', 'RANK_CLASSES not found in state-module.js');
+          }
 
-                // Test 4: Test other required imports
-                console.log('Testing other module dependencies...');
-                try {
-                    await import('./js/ui-module.js');
-                    logResult('UI Module Import', 'pass', 'ui-module.js imported successfully');
-                } catch (e) {
-                    logResult('UI Module Import', 'fail', `UI module error: ${e.message}`);
-                }
+          // Test 2: Verify RANK_CLASSES structure
+          const expectedMapping = { 1: 'winner-gold', 2: 'winner-silver', 3: 'winner-bronze' };
+          let mappingCorrect = true;
 
-                try {
-                    await import('./js/api-module.js');
-                    logResult('API Module Import', 'pass', 'api-module.js imported successfully');
-                } catch (e) {
-                    logResult('API Module Import', 'fail', `API module error: ${e.message}`);
-                }
-
-                // Test 5: Verify pagination constants
-                if (stateModule.PAGINATION && stateModule.PAGINATION.WINNERS_PER_PAGE === 10) {
-                    logResult('Pagination Constants', 'pass', 'PAGINATION.WINNERS_PER_PAGE correctly set to 10');
-                } else {
-                    logResult('Pagination Constants', 'fail', 'PAGINATION constants not properly configured');
-                }
-
-                // Test 6: Test error handling constants
-                if (stateModule.ERROR_MESSAGES && stateModule.LOADING_MESSAGES) {
-                    logResult('Message Constants', 'pass', 'ERROR_MESSAGES and LOADING_MESSAGES available');
-                } else {
-                    logResult('Message Constants', 'fail', 'Message constants not available');
-                }
-
-                // Test 7: Verify the original error line works
-                console.log('Testing the specific line that was failing...');
-                const testRank = 1;
-                const topClass = stateModule.RANK_CLASSES && stateModule.RANK_CLASSES[testRank] 
-                    ? ` ${stateModule.RANK_CLASSES[testRank]}` 
-                    : '';
-                
-                if (topClass.trim() === 'winner-gold') {
-                    logResult('Original Error Line', 'pass', 'Line 222 (formerly 221) now works correctly - returns "winner-gold" for rank 1');
-                } else {
-                    logResult('Original Error Line', 'fail', `Expected "winner-gold", got "${topClass.trim()}"`);
-                }
-
-                console.log('✅ All tests completed successfully!');
-
-            } catch (error) {
-                logResult('Critical Error', 'fail', `Test suite failed: ${error.message}`);
-                console.error('Critical test error:', error);
-            } finally {
-                // Final summary update
-                setTimeout(updateSummary, 500);
+          for (const [rank, expectedClass] of Object.entries(expectedMapping)) {
+            if (stateModule.RANK_CLASSES[rank] !== expectedClass) {
+              mappingCorrect = false;
+              logResult(
+                'RANK_CLASSES Mapping',
+                'fail',
+                `Rank ${rank} should map to "${expectedClass}", got "${stateModule.RANK_CLASSES[rank]}"`
+              );
+              break;
             }
-        }
+          }
 
-        // Start tests when page loads
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', runTests);
-        } else {
-            runTests();
+          if (mappingCorrect) {
+            logResult(
+              'RANK_CLASSES Mapping',
+              'pass',
+              'All rank mappings are correct (1→gold, 2→silver, 3→bronze)'
+            );
+          }
+
+          // Test 3: Import winners-module.js (this was the failing import)
+          console.log('Testing winners-module.js import (this was previously failing)...');
+          try {
+            const winnersModule = await import('./js/winners-module.js?' + Date.now()); // Cache bust
+            logResult(
+              'Winners Module Import',
+              'pass',
+              'winners-module.js imported successfully - RANK_CLASSES error fixed!'
+            );
+          } catch (importError) {
+            if (importError.message.includes('RANK_CLASSES is not defined')) {
+              logResult(
+                'Winners Module Import',
+                'fail',
+                '❌ RANK_CLASSES is still not defined - fix did not work'
+              );
+            } else {
+              logResult('Winners Module Import', 'fail', `Import error: ${importError.message}`);
+            }
+            throw importError;
+          }
+
+          // Test 4: Test other required imports
+          console.log('Testing other module dependencies...');
+          try {
+            await import('./js/ui-module.js');
+            logResult('UI Module Import', 'pass', 'ui-module.js imported successfully');
+          } catch (e) {
+            logResult('UI Module Import', 'fail', `UI module error: ${e.message}`);
+          }
+
+          try {
+            await import('./js/api-module.js');
+            logResult('API Module Import', 'pass', 'api-module.js imported successfully');
+          } catch (e) {
+            logResult('API Module Import', 'fail', `API module error: ${e.message}`);
+          }
+
+          // Test 5: Verify pagination constants
+          if (stateModule.PAGINATION && stateModule.PAGINATION.WINNERS_PER_PAGE === 10) {
+            logResult(
+              'Pagination Constants',
+              'pass',
+              'PAGINATION.WINNERS_PER_PAGE correctly set to 10'
+            );
+          } else {
+            logResult(
+              'Pagination Constants',
+              'fail',
+              'PAGINATION constants not properly configured'
+            );
+          }
+
+          // Test 6: Test error handling constants
+          if (stateModule.ERROR_MESSAGES && stateModule.LOADING_MESSAGES) {
+            logResult('Message Constants', 'pass', 'ERROR_MESSAGES and LOADING_MESSAGES available');
+          } else {
+            logResult('Message Constants', 'fail', 'Message constants not available');
+          }
+
+          // Test 7: Verify the original error line works
+          console.log('Testing the specific line that was failing...');
+          const testRank = 1;
+          const topClass =
+            stateModule.RANK_CLASSES && stateModule.RANK_CLASSES[testRank]
+              ? ` ${stateModule.RANK_CLASSES[testRank]}`
+              : '';
+
+          if (topClass.trim() === 'winner-gold') {
+            logResult(
+              'Original Error Line',
+              'pass',
+              'Line 222 (formerly 221) now works correctly - returns "winner-gold" for rank 1'
+            );
+          } else {
+            logResult(
+              'Original Error Line',
+              'fail',
+              `Expected "winner-gold", got "${topClass.trim()}"`
+            );
+          }
+
+          console.log('✅ All tests completed successfully!');
+        } catch (error) {
+          logResult('Critical Error', 'fail', `Test suite failed: ${error.message}`);
+          console.error('Critical test error:', error);
+        } finally {
+          // Final summary update
+          setTimeout(updateSummary, 500);
         }
+      }
+
+      // Start tests when page loads
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runTests);
+      } else {
+        runTests();
+      }
     </script>
-</body>
+  </body>
 </html>
