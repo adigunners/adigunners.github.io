@@ -2,6 +2,30 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.3.1] - 2025-09-02 - Winners Page UI Consistency Fix (Closes #56)
+
+### 🐛 **Bug Fixes**
+
+- **Fixed duplicate horizontal lines** - Removed conflicting CSS rules causing double borders in
+  winners table header
+- **Standardized title/subtitle styling** - Unified heading structure between index.html and
+  winners.html
+- **Fixed missing 7th winner on mobile** - Corrected CSS selector to show all winners on winners
+  page vs 6-winner preview on index
+- **Consolidated CSS architecture** - Established global component hierarchy with centralized
+  styling rules
+
+### 📂 **Files Modified**
+
+- `winners.html`, `css/components.css`, `css/winners-specific.css`, `css/winners.css`,
+  `css/responsive.css`, `js/ui-manager.js`
+
+### 🔗 **References**
+
+- **GitHub PR**: [#56](https://github.com/adigunners/adigunners.github.io/pull/56)
+
+---
+
 ## [1.3.0] - 2025-08-30 - Performance & Resource Loading Overhaul
 
 ### 🚀 Highlights
@@ -39,6 +63,10 @@
 
 - Changes prioritize stable first paint (no FOUC) while reducing render‑blocking.
 - No private credentials or sensitive configuration are stored in this repository.
+
+### 🔗 **References**
+
+- GitHub PR: [#52](https://github.com/adigunners/adigunners.github.io/pull/52)
 
 ## [1.2.3] - 2025-08-26 - Winners Page JavaScript Modularization
 
@@ -90,6 +118,10 @@ boundaries, and limited reusability.
 - Error states render inline within content areas (no blank pages)
 - URL parameters and navigation state preserved across all interactions
 
+### 🔗 **References**
+
+- GitHub PR: [#42](https://github.com/adigunners/adigunners.github.io/pull/42)
+
 ## [1.2.2] - 2025-08-25 - Winners page responsive navigation component
 
 ### 🎨 **MVP Enhancement - Navigation Consistency**
@@ -122,6 +154,10 @@ for mobile users.
 - **Mobile UX**: Easy thumb access with full-width button placement
 - **Design Tokens**: Eliminated hardcoded colors, added reusable `--text-muted` token
 - **Performance**: Consolidated navigation (removed redundant mobile nav section)
+
+### 🔗 **References**
+
+- GitHub PR: [#41](https://github.com/adigunners/adigunners.github.io/pull/41)
 
 ## [1.2.1] - 2025-08-25 - Winners table hides zero-prize rows with preserved Top-3 highlighting
 
@@ -156,6 +192,10 @@ header functionality.
 - **User Focus**: Clean view showing only meaningful winners
 - **Visual Polish**: Professional highlight borders contained within table boundaries
 - **Responsive**: Works consistently across all breakpoints (320px-1440px+)
+
+### 🔗 **References**
+
+- GitHub PR: [#39](https://github.com/adigunners/adigunners.github.io/pull/39)
 
 ## [1.2.0] - 2025-08-25 - Bulletproof header system prevents GW flash (Closes #37)
 
@@ -204,9 +244,10 @@ season-based calculations (`nextGW - 1 = 3 - 1 = 2`) overriding correct winner-b
 - ✅ **Silent blocks**: Non-winners data sources blocked without console spam
 - ✅ **Performance**: Idempotent system prevents unnecessary DOM updates
 
-### 🔗 **Tracking**
+### 🔗 **References**
 
 - GitHub Issue: #37 (comprehensive investigation and bulletproof fix)
+- GitHub PR: [#38](https://github.com/adigunners/adigunners.github.io/pull/38)
 - Branch: `fix/issue-37-gameweek-display-correction`
 
 ---
@@ -236,9 +277,10 @@ season-based calculations (`nextGW - 1 = 3 - 1 = 2`) overriding correct winner-b
 - `css/components.css`, `css/leaderboard.css`, `css/winners-specific.css`, `css/responsive.css`,
   `css/variables.css`
 
-### 🔗 Tracking
+### 🔗 **References**
 
 - GitHub Issue: #32 (linked via PR)
+- GitHub PR: [#33](https://github.com/adigunners/adigunners.github.io/pull/33)
 
 ## [1.1.3] - 2025-08-24 - GitHub Pages deploy-time cache-busting
 
@@ -262,6 +304,10 @@ season-based calculations (`nextGW - 1 = 3 - 1 = 2`) overriding correct winner-b
 - `.github/workflows/deploy.yml`
 - `.github/scripts/stamp-version.js`
 - `index.html`, `winners.html` (reverted manual versioning)
+
+### 🔗 **References**
+
+- GitHub PR: [#30](https://github.com/adigunners/adigunners.github.io/pull/30)
 
 ## [1.1.2] - 2025-08-24 - Header Backplate + Spacing + Compact Countdown
 
