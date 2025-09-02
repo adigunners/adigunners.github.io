@@ -20,50 +20,226 @@
  * If you see inconsistencies between pages, fix them HERE, not in page-specific CSS!
  */
 
+/* =============== UNIFIED STAT BOX VARIABLES =============== */
+/* Mobile-first responsive design system for stat boxes */
+:root {
+  /* FLEXIBLE DIMENSIONS - Mobile First */
+  --box-min-width: 140px; /* Smallest mobile width */
+  --box-max-width: 280px; /* Prevent over-stretching */
+  --box-gap: 12px; /* Mobile gap between boxes */
+  --box-padding: 16px 12px; /* Mobile padding */
+
+  /* TYPOGRAPHY SCALE - Mobile */
+  --icon-size: 1.5rem; /* Mobile icon size */
+  --icon-size-primary: 1.7rem; /* Primary variant mobile */
+  --icon-margin: 8px; /* Space below icon */
+
+  --number-size: 1.8rem; /* Mobile number size */
+  --number-size-primary: 2rem; /* Primary variant mobile */
+  --number-margin: 6px; /* Space below number */
+
+  --title-size: 0.85rem; /* Mobile title size */
+  --title-size-primary: 0.9rem; /* Primary variant mobile */
+
+  /* VISUAL STYLING */
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --box-shadow-primary: 0 4px 12px rgba(55, 0, 60, 0.12);
+  --box-shadow-primary-hover: 0 6px 20px rgba(55, 0, 60, 0.18);
+
+  --primary-background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 249, 250, 0.8));
+}
+
+/* TABLET ENHANCEMENTS (701px - 1024px) */
+@media (min-width: 701px) {
+  :root {
+    --box-min-width: 160px;
+    --box-gap: 16px;
+    --box-padding: 20px 16px;
+
+    --icon-size: 1.8rem;
+    --icon-size-primary: 2rem;
+    --icon-margin: 10px;
+
+    --number-size: 2rem;
+    --number-size-primary: 2.2rem;
+    --number-margin: 8px;
+
+    --title-size: 0.9rem;
+    --title-size-primary: 0.95rem;
+
+    --box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* DESKTOP ENHANCEMENTS (≥1025px) */
+@media (min-width: 1025px) {
+  :root {
+    --box-min-width: 180px;
+    --box-max-width: 320px;
+    --box-gap: 24px;
+    --box-padding: 24px 20px;
+
+    --icon-size: 2rem;
+    --icon-size-primary: 2.3rem;
+    --icon-margin: 12px;
+
+    --number-size: 2.2rem;
+    --number-size-primary: 2.5rem;
+    --number-margin: 10px;
+
+    --title-size: 1rem;
+    --title-size-primary: 1.1rem;
+
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+}
+
 /* =============== STATS ROW =============== */
 .stats-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: var(--box-gap); /* Responsive gap using variables */
   justify-content: center;
-  margin-bottom: 20px;
+  align-items: stretch; /* Equal heights for all boxes */
+  margin-bottom: var(--spacing-lg, 20px);
   width: 100%;
 }
 
 .stat-box {
-  flex: 1 1 0;
-  min-width: 220px;
+  /* FLEXIBLE LAYOUT - NO FIXED WIDTHS */
+  flex: 1 1 0; /* Equal flex growth */
+  min-width: var(--box-min-width); /* Responsive minimum */
+  max-width: var(--box-max-width); /* Prevent over-stretching */
+
+  /* VISUAL STYLING */
   background: var(--card-background);
   border-radius: var(--radius-lg);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  padding: 28px 20px 22px 20px;
+  box-shadow: var(--box-shadow);
+
+  /* LAYOUT */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   text-align: center;
+
+  /* SPACING */
+  padding: var(--box-padding);
+
+  /* TRANSITIONS */
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  border: 2px solid transparent;
 }
 
-.stat-icon {
-  font-size: 2.5rem;
+/* =============== UNIFIED BEM ELEMENT CLASSES =============== */
+
+/* Icon */
+.stat-box__icon {
+  font-size: var(--icon-size);
   color: var(--primary-color);
-  margin-bottom: 12px;
+  margin-bottom: var(--icon-margin);
+  opacity: 0.9;
+}
+
+/* Number */
+.stat-box__number {
+  font-size: var(--number-size);
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: 0.5px;
+  margin-bottom: var(--number-margin);
+  line-height: 1.1;
+
+  /* Text overflow prevention */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  /* Responsive font sizing */
+  font-size: clamp(1.5rem, 4vw, var(--number-size));
+}
+
+/* Title */
+.stat-box__title {
+  font-size: var(--title-size);
+  font-weight: 600;
+  color: var(--heading-color);
+  margin: 0;
+  line-height: 1.2;
+
+  /* Text overflow prevention */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+
+  /* Prevent very long text from breaking layout */
+  max-width: 100%;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Backward compatibility - keep old classes working */
+.stat-icon {
+  font-size: var(--icon-size);
+  color: var(--primary-color);
+  margin-bottom: var(--icon-margin);
+  opacity: 0.9;
 }
 
 .stat-title {
-  font-weight: 700;
-  font-size: 1.35rem;
+  font-size: var(--title-size);
+  font-weight: 600;
   color: var(--heading-color);
-  margin-bottom: 8px;
-  margin-top: 0; /* Reset h3 default margin */
+  margin: 0;
+  line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .stat-number {
+  font-size: var(--number-size);
   font-weight: 700;
-  font-size: 2.5rem;
   color: var(--primary-color);
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--number-margin);
+  line-height: 1.1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: clamp(1.5rem, 4vw, var(--number-size));
+}
+
+/* =============== PRIMARY VARIANT SYSTEM =============== */
+.stat-box--primary {
+  box-shadow: var(--box-shadow-primary);
+  background: var(--primary-background);
+  border-color: transparent;
+}
+
+.stat-box--primary:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--box-shadow-primary-hover);
+  border-color: var(--primary-color);
+}
+
+.stat-box--primary .stat-box__icon {
+  font-size: var(--icon-size-primary);
+  opacity: 1;
+}
+
+.stat-box--primary .stat-box__number {
+  font-size: var(--number-size-primary);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, var(--number-size-primary));
+}
+
+.stat-box--primary .stat-box__title {
+  font-size: var(--title-size-primary);
+  font-weight: 700;
+  color: var(--heading-color);
 }
 
 /* Reserve space for dynamic sections to reduce CLS */
@@ -624,31 +800,8 @@
 
 /* =============== ENHANCED GRID LAYOUTS FOR DESKTOP/TABLET =============== */
 
-/* Stats row optimizations for wider screens */
-@media (min-width: 769px) {
-  .stats-row {
-    max-width: 700px;
-    margin: 0 auto 20px;
-    gap: 20px;
-  }
-
-  .stat-box {
-    padding: 20px 16px;
-    min-height: 120px;
-  }
-}
-
-@media (min-width: 1025px) {
-  .stats-row {
-    max-width: 800px;
-    gap: 30px;
-  }
-
-  .stat-box {
-    padding: 24px 18px;
-    min-height: 130px;
-  }
-}
+/* Legacy responsive rules removed - now handled by CSS variables system */
+/* The unified variable system automatically handles responsive scaling */
 
 /* Prize summary grid enhancements */
 @media (min-width: 769px) and (max-width: 1024px) {
