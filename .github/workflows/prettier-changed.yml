@@ -1,0 +1,49 @@
+name: Prettier on changed files
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches: [main]
+
+jobs:
+  prettier-changed:
+    name: Run Prettier --check on changed files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dev dependencies
+        run: |
+          if [ -f package-lock.json ]; then npm ci --no-audit --no-fund; else npm i --no-audit --no-fund; fi
+
+      - name: Get changed files
+        id: changed-files
+        run: |
+          # Find files changed in the PR compared to base branch
+          BASE=${{ github.event.pull_request.base.ref }}
+          echo "Base branch: $BASE"
+          git fetch origin $BASE --depth=1 || true
+          CHANGED=$(git diff --name-only origin/$BASE...HEAD || git diff --name-only origin/$BASE..HEAD)
+          echo "changed-files<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Filter files we care about and run Prettier
+        run: |
+          files=$(echo "${{ steps.changed-files.outputs.changed-files }}" | tr '\n' ' ')
+          echo "Files found: $files"
+          # Limit to files supported by Prettier
+          targets="$(echo $files | tr ' ' '\n' | grep -Ei '\.(js|ts|json|css|html|md|mdx|yml|yaml)$' || true)"
+          if [ -z "$targets" ]; then
+            echo "No files to check with Prettier. Skipping."; exit 0
+          fi
+          echo "Running Prettier check on: "$targets
+          npx prettier --check $targets
