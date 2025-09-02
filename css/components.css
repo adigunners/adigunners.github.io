@@ -97,6 +97,9 @@
   .stats-row {
     justify-content: space-between; /* Use entire container width */
     gap: 0; /* Remove gap, use justify-content spacing instead */
+    max-width: none !important; /* Override any max-width constraints */
+    margin: 0 !important; /* Remove centering margins */
+    width: 100%; /* Use full container width like table below */
   }
 
   .stat-box {
