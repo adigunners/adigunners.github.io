@@ -175,43 +175,43 @@
         <!-- LEAGUE STATISTICS SECTION (using original winners.html structure) -->
         <section id="league-statistics" aria-labelledby="stats-heading">
           <h2 id="stats-heading">📊 League Statistics</h2>
-          <div class="stats-summary" id="stats-summary">
-            <div class="summary-card" aria-live="polite">
-              <div class="summary-icon" aria-hidden="true">
+          <div class="stats-row" id="stats-summary">
+            <article class="stat-box" aria-live="polite">
+              <div class="stat-box__icon" aria-hidden="true">
                 <svg class="svg-icon" aria-hidden="true">
                   <use href="assets/icons.svg#icon-calendar"></use>
                 </svg>
               </div>
-              <div class="summary-number" id="completed-gameweeks">--</div>
-              <div class="summary-label">Completed Gameweeks</div>
-            </div>
-            <div class="summary-card" aria-live="polite">
-              <div class="summary-icon" aria-hidden="true">
+              <div class="stat-box__number" id="completed-gameweeks">--</div>
+              <h3 class="stat-box__title">Completed Gameweeks</h3>
+            </article>
+            <article class="stat-box" aria-live="polite">
+              <div class="stat-box__icon" aria-hidden="true">
                 <svg class="svg-icon" aria-hidden="true">
                   <use href="assets/icons.svg#icon-calendar"></use>
                 </svg>
               </div>
-              <div class="summary-number" id="completed-gamemonths">--</div>
-              <div class="summary-label">Completed Gamemonths</div>
-            </div>
-            <div class="summary-card" aria-live="polite">
-              <div class="summary-icon" aria-hidden="true">
+              <div class="stat-box__number" id="completed-gamemonths">--</div>
+              <h3 class="stat-box__title">Completed Gamemonths</h3>
+            </article>
+            <article class="stat-box" aria-live="polite">
+              <div class="stat-box__icon" aria-hidden="true">
                 <svg class="svg-icon" aria-hidden="true">
                   <use href="assets/icons.svg#icon-users"></use>
                 </svg>
               </div>
-              <div class="summary-number" id="total-winners">--</div>
-              <div class="summary-label">Total Winners</div>
-            </div>
-            <div class="summary-card primary-metric" aria-live="polite">
-              <div class="summary-icon" aria-hidden="true">
+              <div class="stat-box__number" id="total-winners">--</div>
+              <h3 class="stat-box__title">Total Winners</h3>
+            </article>
+            <article class="stat-box stat-box--primary" aria-live="polite">
+              <div class="stat-box__icon" aria-hidden="true">
                 <svg class="svg-icon" aria-hidden="true">
                   <use href="assets/icons.svg#icon-coins"></use>
                 </svg>
               </div>
-              <div class="summary-number" id="total-prize-money">--</div>
-              <div class="summary-label">Total Prize Money</div>
-            </div>
+              <div class="stat-box__number" id="total-prize-money">--</div>
+              <h3 class="stat-box__title">Total Prize Money</h3>
+            </article>
           </div>
         </section>
 

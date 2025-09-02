@@ -6,7 +6,8 @@
       "Bash(mkdir:*)",
       "Bash(git checkout:*)",
       "Bash(lsof:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
