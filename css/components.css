@@ -1,3 +1,25 @@
+/* 
+ * =============== COMPONENTS.CSS - MASTER SHARED STYLES ===============
+ * 
+ * ⚠️  CRITICAL TEAM NOTICE ⚠️
+ * This file contains MASTER styles used across ALL pages (index.html, winners.html, etc.)
+ * 
+ * BEFORE MAKING LOCAL OVERRIDES:
+ * 1. Check if the change should be made globally instead
+ * 2. Document WHY you need a page-specific override 
+ * 3. Add team warnings in your override comments
+ * 4. Consider discussing with the team first
+ * 
+ * PATTERNS MANAGED HERE:
+ * - .winners-heading (title/subtitle containers) 
+ * - .stat-box (statistics cards)
+ * - .btn.nav-back (navigation buttons)
+ * - Global responsive breakpoints
+ * - Spacing and typography standards
+ * 
+ * If you see inconsistencies between pages, fix them HERE, not in page-specific CSS!
+ */
+
 /* =============== STATS ROW =============== */
 .stats-row {
   display: flex;
@@ -498,12 +520,58 @@
   filter: brightness(1);
 }
 
-/* Global pattern for muted text elements */
+/* =============== GLOBAL HEADING SYSTEM =============== */
+/* 
+ * TEAM WARNING: These are the MASTER heading styles used across all pages.
+ * DO NOT override these in page-specific CSS without careful consideration.
+ * Any local changes should be well documented and justified.
+ * 
+ * Pattern: .winners-heading > .heading-main + .heading-subtitle
+ * Used by: index.html, winners.html
+ */
+
+/* Main heading container - use this class consistently */
+.winners-heading {
+  display: block;
+  margin: 0 0 0.5rem 0;
+}
+
+.winners-heading .heading-main {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--heading-color);
+  margin: 0;
+}
+
+.winners-heading .heading-subtitle {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400; /* Normal weight for muted appearance */
+  color: var(--text-muted);
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+/* Responsive heading behavior - CONSISTENT ACROSS ALL PAGES */
+@media (min-width: 769px) {
+  .winners-heading .heading-main {
+    font-size: 1.25rem; /* Slightly smaller on larger screens */
+  }
+
+  .winners-heading .heading-subtitle {
+    font-size: 0.9rem;
+    font-weight: 400; /* Preserve normal weight at responsive breakpoints */
+    margin-top: 4px;
+  }
+}
+
+/* Legacy support - gradually migrate to .winners-heading pattern */
 .section-title .subtitle,
 .heading-subtitle,
 .section-desc {
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 400; /* Standardized to 400 instead of 500 */
 }
 
 /* Winners header layout - grid with divider */
@@ -514,15 +582,10 @@
   margin-bottom: 0;
 }
 
+/* Legacy selector - no longer used after HTML standardization */
 .winners-header .section-title {
   margin: 0;
-  border-bottom: none !important; /* Remove global h2 border since we use explicit hr */
-}
-
-.section-rule {
-  margin: var(--spacing-xs) 0;
-  border: 0;
-  border-top: 1px solid var(--border-color);
+  /* Removed border override - now using consistent global h2 border */
 }
 
 /* Description row with back button */

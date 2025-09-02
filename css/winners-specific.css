@@ -611,6 +611,12 @@
   margin: 0;
 }
 
+/* 
+ * TEAM WARNING: Heading styles are now managed globally in components.css
+ * Removed border override to allow natural h2 underline like index.html
+ * This creates consistent spacing with the global h2 border-bottom from base.css
+ */
+
 .section-rule {
   margin: var(--spacing-xs) 0;
   border: 0;
