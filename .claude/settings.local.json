@@ -1,6 +1,13 @@
 {
   "permissions": {
-    "allow": ["Bash(git push:*)", "Bash(gh pr create:*)"],
+    "allow": [
+      "Bash(git push:*)",
+      "Bash(gh pr create:*)",
+      "Bash(mkdir:*)",
+      "Bash(git checkout:*)",
+      "Bash(lsof:*)",
+      "Bash(curl:*)"
+    ],
     "deny": [],
     "ask": []
   }
