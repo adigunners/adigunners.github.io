@@ -27,7 +27,7 @@
   --box-min-width: 140px; /* Smallest mobile width */
   --box-max-width: 280px; /* Prevent over-stretching */
   --box-gap: 12px; /* Mobile gap between boxes */
-  --box-padding: 16px 12px; /* Mobile padding */
+  --box-padding: 20px 16px; /* Increased mobile padding to prevent text cutoff */
 
   /* TYPOGRAPHY SCALE - Mobile */
   --icon-size: 1.5rem; /* Mobile icon size */
@@ -74,8 +74,8 @@
 /* DESKTOP ENHANCEMENTS (≥1025px) */
 @media (min-width: 1025px) {
   :root {
-    --box-min-width: 180px;
-    --box-max-width: 320px;
+    --box-min-width: 150px; /* Reduced from 180px to fit 4 boxes in row */
+    --box-max-width: 280px;
     --box-gap: 24px;
     --box-padding: 24px 20px;
 
@@ -87,8 +87,8 @@
     --number-size-primary: 2.5rem;
     --number-margin: 10px;
 
-    --title-size: 1rem;
-    --title-size-primary: 1.1rem;
+    --title-size: 0.9rem; /* Reduced from 1rem to prevent text wrapping */
+    --title-size-primary: 1rem; /* Reduced from 1.1rem */
 
     --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   }
@@ -103,6 +103,24 @@
   align-items: stretch; /* Equal heights for all boxes */
   margin-bottom: var(--spacing-lg, 20px);
   width: 100%;
+}
+
+/* Mobile: Ensure proper centering for stacked boxes */
+@media (max-width: 700px) {
+  .stats-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-box {
+    width: 100%;
+    max-width: 300px; /* Reasonable max width on mobile */
+    min-height: 120px; /* Ensure adequate height for all content */
+  }
+
+  .stat-box__title {
+    margin-bottom: 4px; /* Extra bottom margin on mobile */
+  }
 }
 
 .stat-box {
