@@ -1,196 +1,272 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test Pagination Functionality</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
-        .test-container { background: white; padding: 20px; border-radius: 8px; max-width: 800px; margin: 0 auto; }
-        .test-result { padding: 10px; margin: 5px 0; border-radius: 4px; }
-        .pass { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
-        .fail { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
-        .info { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
-        .pagination-demo { margin: 20px 0; }
-        .page-info { margin: 10px 0; font-weight: bold; }
-        .winner-list { list-style: none; padding: 0; margin: 15px 0; }
-        .winner-item { padding: 8px; margin: 2px 0; background: #f8f9fa; border-radius: 4px; }
-        hr { margin: 20px 0; border: 1px solid #ddd; }
-        button { padding: 8px 16px; margin: 0 5px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer; }
-        button:disabled { opacity: 0.6; cursor: not-allowed; background: #f5f5f5; }
-        button:hover:not(:disabled) { background: #e9ecef; }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f5f5f5;
+      }
+      .test-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .test-result {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+      }
+      .pass {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+      .fail {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+      }
+      .info {
+        background: #d1ecf1;
+        border: 1px solid #bee5eb;
+        color: #0c5460;
+      }
+      .pagination-demo {
+        margin: 20px 0;
+      }
+      .page-info {
+        margin: 10px 0;
+        font-weight: bold;
+      }
+      .winner-list {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0;
+      }
+      .winner-item {
+        padding: 8px;
+        margin: 2px 0;
+        background: #f8f9fa;
+        border-radius: 4px;
+      }
+      hr {
+        margin: 20px 0;
+        border: 1px solid #ddd;
+      }
+      button {
+        padding: 8px 16px;
+        margin: 0 5px;
+        border: 1px solid #ccc;
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background: #f5f5f5;
+      }
+      button:hover:not(:disabled) {
+        background: #e9ecef;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="test-container">
-        <h1>📄 Pagination Functionality Test</h1>
-        <div id="test-results"></div>
-        
-        <hr>
-        <div class="pagination-demo">
-            <h2>Pagination Demo (25 Test Winners)</h2>
-            <div id="pagination-controls">
-                <button id="prev-btn" disabled>← Previous</button>
-                <span id="page-info" class="page-info">Page 1 of 3</span>
-                <button id="next-btn">Next →</button>
-            </div>
-            <div id="winner-display"></div>
+      <h1>📄 Pagination Functionality Test</h1>
+      <div id="test-results"></div>
+
+      <hr />
+      <div class="pagination-demo">
+        <h2>Pagination Demo (25 Test Winners)</h2>
+        <div id="pagination-controls">
+          <button id="prev-btn" disabled>← Previous</button>
+          <span id="page-info" class="page-info">Page 1 of 3</span>
+          <button id="next-btn">Next →</button>
         </div>
-        
-        <hr>
-        <div id="pagination-verification"></div>
+        <div id="winner-display"></div>
+      </div>
+
+      <hr />
+      <div id="pagination-verification"></div>
     </div>
 
     <script type="module">
-        const results = document.getElementById('test-results');
-        const winnerDisplay = document.getElementById('winner-display');
-        const pageInfo = document.getElementById('page-info');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const verificationDiv = document.getElementById('pagination-verification');
-        
-        function logResult(test, status, message) {
-            const div = document.createElement('div');
-            div.className = `test-result ${status}`;
-            div.innerHTML = `<strong>${test}:</strong> ${message}`;
-            results.appendChild(div);
-        }
+      const results = document.getElementById('test-results');
+      const winnerDisplay = document.getElementById('winner-display');
+      const pageInfo = document.getElementById('page-info');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const verificationDiv = document.getElementById('pagination-verification');
 
-        // Generate 25 test winners to test pagination (more than 10 = 2+ pages)
-        const testWinners = Array.from({ length: 25 }, (_, i) => ({
-            playerName: `Test Player ${i + 1}`,
-            totalPrizeWon: Math.floor(Math.random() * 5000) + 1000,
-            highlights: {
-                gameWeeks: Math.floor(Math.random() * 10) + 1,
-                gameMonths: Math.floor(Math.random() * 3) + 1,
-                overallRank: i + 1
-            }
-        }));
+      function logResult(test, status, message) {
+        const div = document.createElement('div');
+        div.className = `test-result ${status}`;
+        div.innerHTML = `<strong>${test}:</strong> ${message}`;
+        results.appendChild(div);
+      }
 
-        // Test pagination logic (simulating winners-module.js behavior)
-        let currentPage = 1;
-        const WINNERS_PER_PAGE = 10;
-        const totalPages = Math.ceil(testWinners.length / WINNERS_PER_PAGE);
+      // Generate 25 test winners to test pagination (more than 10 = 2+ pages)
+      const testWinners = Array.from({ length: 25 }, (_, i) => ({
+        playerName: `Test Player ${i + 1}`,
+        totalPrizeWon: Math.floor(Math.random() * 5000) + 1000,
+        highlights: {
+          gameWeeks: Math.floor(Math.random() * 10) + 1,
+          gameMonths: Math.floor(Math.random() * 3) + 1,
+          overallRank: i + 1,
+        },
+      }));
 
-        function updateDisplay() {
-            const start = (currentPage - 1) * WINNERS_PER_PAGE;
-            const pageData = testWinners.slice(start, start + WINNERS_PER_PAGE);
-            
-            // Update page info
-            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-            
-            // Update button states
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages;
-            
-            // Display current page winners
-            const list = document.createElement('ul');
-            list.className = 'winner-list';
-            
-            pageData.forEach((winner, index) => {
-                const globalRank = start + index + 1;
-                const item = document.createElement('li');
-                item.className = 'winner-item';
-                item.innerHTML = `
+      // Test pagination logic (simulating winners-module.js behavior)
+      let currentPage = 1;
+      const WINNERS_PER_PAGE = 10;
+      const totalPages = Math.ceil(testWinners.length / WINNERS_PER_PAGE);
+
+      function updateDisplay() {
+        const start = (currentPage - 1) * WINNERS_PER_PAGE;
+        const pageData = testWinners.slice(start, start + WINNERS_PER_PAGE);
+
+        // Update page info
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
+        // Update button states
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+
+        // Display current page winners
+        const list = document.createElement('ul');
+        list.className = 'winner-list';
+
+        pageData.forEach((winner, index) => {
+          const globalRank = start + index + 1;
+          const item = document.createElement('li');
+          item.className = 'winner-item';
+          item.innerHTML = `
                     <strong>Rank ${globalRank}:</strong> ${winner.playerName} 
                     - ₹${winner.totalPrizeWon.toLocaleString('en-IN')} 
                     (${winner.highlights.gameWeeks}GW, ${winner.highlights.gameMonths}GM)
                 `;
-                list.appendChild(item);
-            });
-            
-            winnerDisplay.innerHTML = '';
-            winnerDisplay.appendChild(list);
+          list.appendChild(item);
+        });
+
+        winnerDisplay.innerHTML = '';
+        winnerDisplay.appendChild(list);
+      }
+
+      function previousPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          updateDisplay();
+          return true;
+        }
+        return false;
+      }
+
+      function nextPage() {
+        if (currentPage < totalPages) {
+          currentPage++;
+          updateDisplay();
+          return true;
+        }
+        return false;
+      }
+
+      try {
+        // Test 1: Load pagination constants
+        const { PAGINATION } = await import('./js/state-module.js');
+        logResult(
+          'Test 1',
+          'pass',
+          `PAGINATION constants loaded (WINNERS_PER_PAGE: ${PAGINATION.WINNERS_PER_PAGE})`
+        );
+
+        // Test 2: Verify pagination math
+        if (PAGINATION.WINNERS_PER_PAGE === 10) {
+          logResult('Test 2', 'pass', 'Winners per page is correctly set to 10');
+        } else {
+          logResult(
+            'Test 2',
+            'fail',
+            `Expected 10 winners per page, got ${PAGINATION.WINNERS_PER_PAGE}`
+          );
         }
 
-        function previousPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                updateDisplay();
-                return true;
-            }
-            return false;
+        // Test 3: Test with 25 winners (should create 3 pages)
+        const expectedPages = Math.ceil(testWinners.length / PAGINATION.WINNERS_PER_PAGE);
+        if (expectedPages === 3) {
+          logResult(
+            'Test 3',
+            'pass',
+            `Correct pagination: 25 winners → 3 pages (${PAGINATION.WINNERS_PER_PAGE} per page)`
+          );
+        } else {
+          logResult('Test 3', 'fail', `Expected 3 pages, calculated ${expectedPages} pages`);
         }
 
-        function nextPage() {
-            if (currentPage < totalPages) {
-                currentPage++;
-                updateDisplay();
-                return true;
-            }
-            return false;
-        }
+        // Test 4: Initialize display
+        updateDisplay();
+        logResult('Test 4', 'pass', 'Pagination display initialized successfully');
 
-        try {
-            // Test 1: Load pagination constants
-            const { PAGINATION } = await import('./js/state-module.js');
-            logResult('Test 1', 'pass', `PAGINATION constants loaded (WINNERS_PER_PAGE: ${PAGINATION.WINNERS_PER_PAGE})`);
+        // Test 5: Setup event listeners
+        prevBtn.addEventListener('click', () => {
+          const moved = previousPage();
+          if (moved) {
+            logResult('Navigation', 'info', `Moved to page ${currentPage}`);
+          }
+        });
 
-            // Test 2: Verify pagination math
-            if (PAGINATION.WINNERS_PER_PAGE === 10) {
-                logResult('Test 2', 'pass', 'Winners per page is correctly set to 10');
-            } else {
-                logResult('Test 2', 'fail', `Expected 10 winners per page, got ${PAGINATION.WINNERS_PER_PAGE}`);
-            }
+        nextBtn.addEventListener('click', () => {
+          const moved = nextPage();
+          if (moved) {
+            logResult('Navigation', 'info', `Moved to page ${currentPage}`);
+          }
+        });
 
-            // Test 3: Test with 25 winners (should create 3 pages)
-            const expectedPages = Math.ceil(testWinners.length / PAGINATION.WINNERS_PER_PAGE);
-            if (expectedPages === 3) {
-                logResult('Test 3', 'pass', `Correct pagination: 25 winners → 3 pages (${PAGINATION.WINNERS_PER_PAGE} per page)`);
-            } else {
-                logResult('Test 3', 'fail', `Expected 3 pages, calculated ${expectedPages} pages`);
-            }
+        logResult('Test 5', 'pass', 'Event listeners attached successfully');
 
-            // Test 4: Initialize display
-            updateDisplay();
-            logResult('Test 4', 'pass', 'Pagination display initialized successfully');
+        // Test 6: Verify initial state
+        setTimeout(() => {
+          const displayedItems = winnerDisplay.querySelectorAll('.winner-item');
+          let verificationResults = '<h3>🔍 Pagination Verification:</h3>';
 
-            // Test 5: Setup event listeners
-            prevBtn.addEventListener('click', () => {
-                const moved = previousPage();
-                if (moved) {
-                    logResult('Navigation', 'info', `Moved to page ${currentPage}`);
-                }
-            });
+          verificationResults += `<p><strong>Total Winners:</strong> ${testWinners.length}</p>`;
+          verificationResults += `<p><strong>Winners Per Page:</strong> ${PAGINATION.WINNERS_PER_PAGE}</p>`;
+          verificationResults += `<p><strong>Total Pages:</strong> ${totalPages}</p>`;
+          verificationResults += `<p><strong>Current Page:</strong> ${currentPage}</p>`;
+          verificationResults += `<p><strong>Items on Current Page:</strong> ${displayedItems.length}</p>`;
 
-            nextBtn.addEventListener('click', () => {
-                const moved = nextPage();
-                if (moved) {
-                    logResult('Navigation', 'info', `Moved to page ${currentPage}`);
-                }
-            });
+          // Test edge cases
+          verificationResults += '<h4>Navigation Tests:</h4>';
+          verificationResults += `<p><strong>Previous Button:</strong> ${prevBtn.disabled ? '✅ Correctly disabled (page 1)' : '❌ Should be disabled on page 1'}</p>`;
+          verificationResults += `<p><strong>Next Button:</strong> ${nextBtn.disabled ? '❌ Should not be disabled (more pages available)' : '✅ Correctly enabled (more pages available)'}</p>`;
 
-            logResult('Test 5', 'pass', 'Event listeners attached successfully');
+          // Test manual navigation
+          verificationResults +=
+            '<p><strong>📝 Manual Test:</strong> Use the Previous/Next buttons above to test navigation between pages.</p>';
 
-            // Test 6: Verify initial state
-            setTimeout(() => {
-                const displayedItems = winnerDisplay.querySelectorAll('.winner-item');
-                let verificationResults = '<h3>🔍 Pagination Verification:</h3>';
-                
-                verificationResults += `<p><strong>Total Winners:</strong> ${testWinners.length}</p>`;
-                verificationResults += `<p><strong>Winners Per Page:</strong> ${PAGINATION.WINNERS_PER_PAGE}</p>`;
-                verificationResults += `<p><strong>Total Pages:</strong> ${totalPages}</p>`;
-                verificationResults += `<p><strong>Current Page:</strong> ${currentPage}</p>`;
-                verificationResults += `<p><strong>Items on Current Page:</strong> ${displayedItems.length}</p>`;
-                
-                // Test edge cases
-                verificationResults += '<h4>Navigation Tests:</h4>';
-                verificationResults += `<p><strong>Previous Button:</strong> ${prevBtn.disabled ? '✅ Correctly disabled (page 1)' : '❌ Should be disabled on page 1'}</p>`;
-                verificationResults += `<p><strong>Next Button:</strong> ${nextBtn.disabled ? '❌ Should not be disabled (more pages available)' : '✅ Correctly enabled (more pages available)'}</p>`;
-                
-                // Test manual navigation
-                verificationResults += '<p><strong>📝 Manual Test:</strong> Use the Previous/Next buttons above to test navigation between pages.</p>';
-                
-                verificationDiv.innerHTML = verificationResults;
-                
-                logResult('Test 6', 'pass', `Initial page shows ${displayedItems.length} winners correctly`);
-                logResult('Final', 'pass', 'Pagination functionality test completed - use buttons above to test navigation');
-            }, 100);
+          verificationDiv.innerHTML = verificationResults;
 
-        } catch (error) {
-            logResult('Error', 'fail', `Test failed: ${error.message}`);
-            console.error('Pagination test error:', error);
-        }
+          logResult(
+            'Test 6',
+            'pass',
+            `Initial page shows ${displayedItems.length} winners correctly`
+          );
+          logResult(
+            'Final',
+            'pass',
+            'Pagination functionality test completed - use buttons above to test navigation'
+          );
+        }, 100);
+      } catch (error) {
+        logResult('Error', 'fail', `Test failed: ${error.message}`);
+        console.error('Pagination test error:', error);
+      }
     </script>
-</body>
+  </body>
 </html>
