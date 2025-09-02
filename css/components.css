@@ -74,10 +74,10 @@
 /* DESKTOP ENHANCEMENTS (≥1025px) */
 @media (min-width: 1025px) {
   :root {
-    --box-min-width: 200px; /* Increased for better proportions */
-    --box-max-width: 350px; /* Allow wider boxes */
-    --box-gap: 20px; /* Reduced gap to use more width for boxes */
-    --box-padding: 18px 24px 16px 24px; /* Shorter height, wider width */
+    --box-min-width: 160px; /* Reduced to ensure 4 boxes fit in row */
+    --box-max-width: 280px; /* Reasonable max for 4-box layout */
+    --box-gap: 16px; /* Smaller gap for more box space */
+    --box-padding: 18px 20px 16px 20px; /* Compact but proportional */
 
     --icon-size: 2rem;
     --icon-size-primary: 2.3rem;
@@ -93,9 +93,23 @@
     --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   }
 
-  /* Desktop: Full width utilization for better proportions */
+  /* Desktop: Force full width utilization - all 4 boxes in single row */
   .stats-row {
-    justify-content: space-evenly; /* Even distribution with better spacing */
+    justify-content: space-between; /* Use entire container width */
+    gap: 0; /* Remove gap, use justify-content spacing instead */
+  }
+
+  .stat-box {
+    flex: 1 1 0; /* Equal width distribution */
+    margin: 0 8px; /* Small margin between boxes */
+  }
+
+  .stat-box:first-child {
+    margin-left: 0; /* No left margin on first box */
+  }
+
+  .stat-box:last-child {
+    margin-right: 0; /* No right margin on last box */
   }
 }
 
@@ -120,7 +134,7 @@
   .stat-box {
     width: 100%;
     max-width: 300px; /* Reasonable max width on mobile */
-    min-height: 100px; /* Reduced from 120px for compactness */
+    min-height: 140px; /* Increased height for better mobile appearance */
   }
 
   .stat-box__title {
