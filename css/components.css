@@ -184,6 +184,20 @@
   opacity: 0.9;
 }
 
+/* Twemoji/SVG sizing inside icon container */
+.stat-box__icon img.emoji,
+.stat-box__icon img.twemoji {
+  width: var(--icon-size);
+  height: auto;
+  display: block;
+}
+
+/* If using inline emoji text without Twemoji, ensure it scales */
+.stat-box__icon .emoji-text {
+  font-size: var(--icon-size);
+  line-height: 1;
+}
+
 /* Number */
 .stat-box__number {
   font-size: var(--number-size);

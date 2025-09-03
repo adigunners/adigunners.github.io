@@ -66,4 +66,3 @@ Actual: …
 Notes: console/network, screenshots
 Repro: always/sometimes/rare
 ```
-

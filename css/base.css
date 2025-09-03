@@ -259,6 +259,14 @@ footer {
   opacity: 0.85;
 }
 
+/* Global Twemoji defaults */
+img.emoji,
+img.twemoji {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.1em;
+}
+
 /* Season-specific utility classes */
 .pre-season {
   margin-bottom: 12px !important;

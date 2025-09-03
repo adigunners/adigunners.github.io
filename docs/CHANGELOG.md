@@ -2,6 +2,34 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.4.1] - 2025-09-03 - Self-hosted Twemoji icons + a11y polish
+
+### 🚀 New
+
+- Self-host Twemoji SVG icons for consistent, colorful UI across platforms.
+- Local Twemoji parser with CDN fallback; tiny helper `applyTwemoji()` to parse dynamic content.
+- Minimal Twemoji subset fetch script: `npm run twemoji:fetch` downloads required SVGs + `twemoji.min.js`.
+
+### 🧩 Changes
+
+- Replaced monochrome sprite icons with Twemoji in stat boxes, prize cards, navigation, and buttons.
+- Unified header: single football emoji (⚽) per title for a clean look.
+- Global emoji image sizing + stat-box sizing to respect `--icon-size`.
+
+### 🧰 DevOps
+
+- Parser configured to use `assets/twemoji/` base; CDN autoloads only if local file missing.
+- Added `scripts/fetch-twemoji.js` and npm script `twemoji:fetch`.
+
+### 📂 Files (not exhaustive)
+
+- Updated: `index.html`, `winners.html`, `css/base.css`, `css/components.css`.
+- Added: `assets/twemoji/svg/` (subset), `scripts/fetch-twemoji.js`, `docs/THIRD_PARTY_NOTICES.md`.
+
+### 🔎 Notes
+
+- Service Worker continues to cache at runtime; pre-cache list left unchanged to avoid install failures when assets are not yet fetched.
+
 ## [1.4.0] - 2025-09-02 - Unified Stat Box System Implementation (Closes #62)
 
 ### 🚀 **New Features**

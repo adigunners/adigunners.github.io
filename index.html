@@ -574,10 +574,7 @@
             <!-- Main Content -->
             <div class="header-main">
               <h1>
-                <span class="section-emoji">⚽</span>IIM Mumbai Fantasy League<span
-                  class="section-emoji"
-                  >🎯</span
-                >
+                <span class="section-emoji">⚽</span>IIM Mumbai Fantasy League
               </h1>
               <p>Season 2025-26 - Registration Open</p>
             </div>
@@ -618,21 +615,13 @@
           <div class="stats-row">
             <!-- PLAYER COUNT BOX -->
             <article class="stat-box" aria-labelledby="player-count-title">
-              <div class="stat-box__icon" title="Fantasy Football Managers" aria-hidden="true">
-                <svg class="svg-icon" aria-hidden="true">
-                  <use href="assets/icons.svg#icon-users"></use>
-                </svg>
-              </div>
+              <div class="stat-box__icon" title="Fantasy Football Managers" aria-hidden="true">👥</div>
               <div id="player-count" class="stat-box__number" aria-live="polite">--</div>
               <h3 id="player-count-title" class="stat-box__title">Total Registered Players</h3>
             </article>
             <!-- POT AMOUNT BOX -->
             <article class="stat-box" aria-labelledby="pot-amount-title">
-              <div class="stat-box__icon" title="Prize Money Pot" aria-hidden="true">
-                <svg class="svg-icon" aria-hidden="true">
-                  <use href="assets/icons.svg#icon-coins"></use>
-                </svg>
-              </div>
+              <div class="stat-box__icon" title="Prize Money Pot" aria-hidden="true">💰</div>
               <div id="pot-amount" class="stat-box__number" aria-live="polite">--</div>
               <h3 id="pot-amount-title" class="stat-box__title">Total Pot Amount</h3>
             </article>
@@ -843,9 +832,7 @@
         role="complementary"
         aria-label="Test mode controls"
       >
-        <svg class="svg-icon" aria-hidden="true">
-          <use href="assets/icons.svg#icon-shuffle"></use>
-        </svg>
+        🔀
         <button id="phase-toggle-btn-float" onclick="toggleSeasonMode()" type="button">
           Toggle phase
         </button>
@@ -1157,9 +1144,9 @@
               <div class="winner-error">
                 <h3>Unable to load winner data</h3>
                 <p>There was a problem loading the winner statistics. Please try again.</p>
-                <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})"
+          <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})"
                         style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                  <svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-redo"></use></svg> Retry
+                  🔄 Retry
                 </button>
               </div>
             `;
@@ -1192,7 +1179,7 @@
         return `
           <article class="prize-card" aria-labelledby="weekly-prize-title">
             <div class="header">
-              <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-calendar-week"></use></svg></div>
+              <div class="icon" aria-hidden="true">📅</div>
               <h3 id="weekly-prize-title" class="title">Weekly</h3>
             </div>
             <div class="amount" aria-label="Total weekly prize amount">${formatINR(total)}</div>
@@ -1208,7 +1195,7 @@
         return `
           <article class="prize-card" aria-labelledby="monthly-prize-title">
             <div class="header">
-              <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-calendar"></use></svg></div>
+              <div class="icon" aria-hidden="true">🗓️</div>
               <h3 id="monthly-prize-title" class="title">Monthly</h3>
             </div>
             <div class="amount" aria-label="Total monthly prize amount">${formatINR(total)}</div>
@@ -1241,11 +1228,11 @@
         return `
           <article class="prize-card" aria-labelledby="annual-prize-title">
             <div class="header">
-              <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-trophy"></use></svg></div>
+              <div class="icon" aria-hidden="true">🏆</div>
               <h3 id="annual-prize-title" class="title">
                 Overall
                 <button class="tooltip" type="button" aria-describedby="overall-tooltip" aria-expanded="false" aria-label="Show season-end prize breakdown">
-                  <svg class="svg-icon info-icon" aria-hidden="true"><use href="assets/icons.svg#icon-info"></use></svg>
+                  ℹ️
                   <span id="overall-tooltip" class="tooltip-content" role="tooltip">
                     <span class="tooltip-arrow" aria-hidden="true"></span>
                     <strong>All Season-End Prizes</strong>
@@ -1270,6 +1257,9 @@
         const monthly = buildMonthlyCard(data.monthlyPrizes || []);
         const annual = buildAnnualCard(data.annualPrizes || []);
         container.innerHTML = `${weekly}${monthly}${annual}`;
+        if (window.applyTwemoji) {
+          window.applyTwemoji(container);
+        }
         // Entry fee line above cards (keeps layout consistent with request)
         const rulesSection = document.getElementById('rules-season');
         if (rulesSection && !rulesSection.querySelector('.entry-fee')) {
@@ -1793,10 +1783,9 @@
           const titleContainer = document.querySelector('.title-with-logo');
           if (titleContainer) {
             titleContainer.innerHTML = `
-              <span class="header-icon">⚽</span>
+              <span class=\"header-icon\">⚽</span>
               <span>IIM-M Fantasy League</span>
-              <img src="FPL logo.jpg" alt="FPL" class="fpl-logo" title="Fantasy Premier League">
-              <span class="header-icon">🎯</span>
+              <img src=\"FPL logo.jpg\" alt=\"FPL\" class=\"fpl-logo\" title=\"Fantasy Premier League\">
             `;
           }
         } else {
@@ -1804,10 +1793,9 @@
           const titleContainer = document.querySelector('.title-with-logo');
           if (titleContainer) {
             titleContainer.innerHTML = `
-              <span class="header-icon">⚽</span>
+              <span class=\"header-icon\">⚽</span>
               <span>IIM Mumbai Fantasy League</span>
-              <img src="FPL logo.jpg" alt="Fantasy Premier League" class="fpl-logo" title="Fantasy Premier League">
-              <span class="header-icon">🎯</span>
+              <img src=\"FPL logo.jpg\" alt=\"Fantasy Premier League\" class=\"fpl-logo\" title=\"Fantasy Premier League\">
             `;
           }
           h1.style.fontSize = ''; // Clear any inline styles
@@ -1992,9 +1980,7 @@
                   <h3>Unable to load test league standings</h3>
                   <p>There was a problem loading the test league standings. Please try again.</p>
                   <button onclick="loadTestLeaderboardData()"
-                          style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                    <svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-redo"></use></svg> Retry
-                  </button>
+                          style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">🔄 Retry</button>
                 </div>
               `;
             }
@@ -2083,9 +2069,7 @@
                   <h3>Unable to load league standings</h3>
                   <p>There was a problem loading the league standings. Please try again.</p>
                   <button onclick="loadLeaderboardData()"
-                          style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                    <svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-redo"></use></svg> Retry
-                  </button>
+                          style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">🔄 Retry</button>
                 </div>
               `;
             }
@@ -2243,6 +2227,34 @@
       window.addEventListener('resize', debouncedAdjustForZFold);
 
       // Remove duplicate loadPrizeSummary - the correct one is already defined above
+    </script>
+    <!-- Twemoji for stat-box icons -->
+    <script defer src="assets/twemoji/twemoji.min.js"></script>
+    <script>
+      window.applyTwemoji = function (root) {
+        try {
+          if (window.twemoji && typeof window.twemoji.parse === 'function') {
+            window.twemoji.parse(root || document.body, {
+              base: 'assets/twemoji/',
+              folder: 'svg',
+              ext: '.svg',
+            });
+          }
+        } catch (e) {}
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!window.twemoji) {
+          var s = document.createElement('script');
+          s.src = 'https://twemoji.maxcdn.com/v/latest/twemoji.min.js';
+          s.crossOrigin = 'anonymous';
+          s.onload = function () {
+            window.applyTwemoji(document.body);
+          };
+          document.head.appendChild(s);
+        } else {
+          window.applyTwemoji(document.body);
+        }
+      });
     </script>
   </body>
 </html>
