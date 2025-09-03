@@ -6,11 +6,11 @@
  * - Handles failed network requests gracefully
  * - Supports caching of CSS, JS, and image files
  *
- * @version 1.0.1
+ * @version 1.0.2
  * @date 2025-09-03
 */
 
-const CACHE_NAME = 'fpl-iim-mumbai-v1.0.1';
+const CACHE_NAME = 'fpl-iim-mumbai-v1.0.2';
 const CACHE_URLS = [
   '/',
   '/index.html',
@@ -35,6 +35,23 @@ const CACHE_URLS = [
   '/assets/fonts/poppins/poppins-latin-400.woff2',
   '/assets/fonts/poppins/poppins-latin-600.woff2',
   '/assets/fonts/poppins/poppins-latin-700.woff2',
+  // Twemoji local assets (self-hosted subset)
+  '/assets/twemoji/twemoji.min.js',
+  '/assets/twemoji/svg/26bd.svg', // ⚽
+  '/assets/twemoji/svg/1f386.svg', // 🎆
+  '/assets/twemoji/svg/1f3c6.svg', // 🏆
+  '/assets/twemoji/svg/1f4b0.svg', // 💰
+  '/assets/twemoji/svg/1f6aa.svg', // 🚪
+  '/assets/twemoji/svg/1f4c5.svg', // 📅
+  '/assets/twemoji/svg/1f5d3.svg', // 🗓️
+  '/assets/twemoji/svg/1f3c5.svg', // 🏅
+  '/assets/twemoji/svg/1f500.svg', // 🔀
+  '/assets/twemoji/svg/1f504.svg', // 🔄
+  '/assets/twemoji/svg/2b05.svg',  // ⬅️
+  '/assets/twemoji/svg/25c0.svg', // ◀️
+  '/assets/twemoji/svg/25b6.svg', // ▶️
+  '/assets/twemoji/svg/1f465.svg', // 👥
+  '/assets/twemoji/svg/2139.svg', // ℹ️
 ];
 
 // Install event - cache static assets
