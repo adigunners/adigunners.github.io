@@ -6,11 +6,11 @@
  * - Handles failed network requests gracefully
  * - Supports caching of CSS, JS, and image files
  *
- * @version 1.0.0
- * @date 2025-08-29
- */
+ * @version 1.0.1
+ * @date 2025-09-03
+*/
 
-const CACHE_NAME = 'fpl-iim-mumbai-v1.0.0';
+const CACHE_NAME = 'fpl-iim-mumbai-v1.0.1';
 const CACHE_URLS = [
   '/',
   '/index.html',
@@ -24,12 +24,17 @@ const CACHE_URLS = [
   '/css/responsive.css',
   '/css/mobile-optimizations.css',
   '/css/advanced-mobile.css',
+  '/css/fonts.css',
   '/js/utils.js',
   '/js/data-loader.js',
   '/js/error-handler.js',
   '/js/countdown.js',
   '/js/ui-manager.js',
   '/favicon.ico',
+  '/assets/icons.svg',
+  '/assets/fonts/poppins/poppins-latin-400.woff2',
+  '/assets/fonts/poppins/poppins-latin-600.woff2',
+  '/assets/fonts/poppins/poppins-latin-700.woff2',
 ];
 
 // Install event - cache static assets
@@ -92,9 +97,20 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      // Return cached version if available
+      // Return cached immediately if available (stale-while-revalidate)
       if (cachedResponse) {
-        console.log('[ServiceWorker] Serving from cache:', event.request.url);
+        // Kick off background update
+        event.waitUntil(
+          fetch(event.request)
+            .then((networkResp) => {
+              if (networkResp && networkResp.status === 200 && networkResp.type === 'basic') {
+                return caches.open(CACHE_NAME).then((cache) =>
+                  cache.put(event.request, withLongTTL(networkResp.clone(), event.request))
+                );
+              }
+            })
+            .catch(() => {})
+        );
         return cachedResponse;
       }
 
@@ -108,7 +124,7 @@ self.addEventListener('fetch', (event) => {
 
           // Cache the new response for static assets
           if (shouldCache(event.request.url)) {
-            const responseToCache = response.clone();
+            const responseToCache = withLongTTL(response.clone(), event.request);
             caches
               .open(CACHE_NAME)
               .then((cache) => {
@@ -119,7 +135,7 @@ self.addEventListener('fetch', (event) => {
               });
           }
 
-          return response;
+          return withLongTTL(response, event.request);
         })
         .catch((error) => {
           console.warn('[ServiceWorker] Network request failed:', event.request.url, error);
@@ -207,6 +223,35 @@ function shouldCache(url) {
     url.includes('.html') ||
     url.endsWith('/')
   );
+}
+
+/**
+ * Wrap a Response ensuring long-lived caching semantics for static assets.
+ * Adds Cache-Control headers to responses we serve (does not change server headers).
+ */
+function withLongTTL(response, request) {
+  try {
+    const url = new URL(request.url);
+    const isHTML = request.destination === 'document' || url.pathname.endsWith('.html');
+    const isStatic = ['style', 'script', 'font', 'image'].includes(request.destination);
+
+    // For HTML, avoid long TTL; let the browser revalidate normally.
+    if (isHTML) return response;
+
+    // For static assets, add long TTL + immutable hint.
+    if (isStatic || shouldCache(url.pathname)) {
+      const headers = new Headers(response.headers);
+      headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+      });
+    }
+  } catch (e) {
+    // Fall through if anything goes wrong
+  }
+  return response;
 }
 
 // Handle service worker updates
