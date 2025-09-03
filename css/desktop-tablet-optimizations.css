@@ -342,7 +342,7 @@
    * TEAM WARNING: Basic heading styles now handled globally in components.css
    * Only desktop-specific spacing adjustments should be here
    */
-  .winners-heading {
+  .section-heading {
     margin-bottom: 16px; /* Desktop-specific spacing - not in global rule */
   }
 

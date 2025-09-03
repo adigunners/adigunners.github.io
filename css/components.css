@@ -743,19 +743,16 @@
  * DO NOT override these in page-specific CSS without careful consideration.
  * Any local changes should be well documented and justified.
  * 
- * Pattern A (legacy): .winners-heading > .heading-main + .heading-subtitle
- * Pattern B (unified): .section-heading > .heading-main + .heading-subtitle
+ * Unified pattern: .section-heading > .heading-main + .heading-subtitle
  * Used by: index.html, winners.html
  */
 
-/* Main heading container - legacy and unified alias */
-.winners-heading,
+/* Main heading container */
 .section-heading {
   display: block;
   margin: 0 0 0.5rem 0;
 }
 
-.winners-heading .heading-main,
 .section-heading .heading-main {
   display: block;
   font-size: 1.35rem; /* Mobile baseline - consistent with mobile h2 */
@@ -764,7 +761,6 @@
   margin: 0;
 }
 
-.winners-heading .heading-subtitle,
 .section-heading .heading-subtitle {
   display: block;
   font-size: 0.85rem;
@@ -776,17 +772,20 @@
 
 /* Responsive heading behavior - CONSISTENT ACROSS ALL PAGES */
 @media (min-width: 769px) {
-  .winners-heading .heading-main,
   .section-heading .heading-main {
     font-size: 1.8rem; /* Desktop - match global h2 standard */
   }
 
-  .winners-heading .heading-subtitle,
   .section-heading .heading-subtitle {
     font-size: 0.9rem;
     font-weight: 400; /* Preserve normal weight at responsive breakpoints */
     margin-top: 4px;
   }
+}
+
+/* DEPRECATED: .winners-heading — kept as non-functional alias for one release cycle */
+/* Remove after verifying no external consumers rely on it */
+.winners-heading {
 }
 
 /* Legacy support - gradually migrate to .winners-heading pattern */

@@ -152,7 +152,6 @@
  */
 
 /* Winners page specific: subtitle animation on data load */
-.winners-heading .heading-subtitle,
 .section-heading .heading-subtitle {
   /* Preserve global font-weight when adding animation */
   font-weight: 400; /* Must match global rule in components.css */
@@ -163,7 +162,6 @@
     transform 180ms ease;
 }
 
-.winners-heading .heading-subtitle.show,
 .section-heading .heading-subtitle.show {
   opacity: 1;
   transform: translateY(0);
@@ -171,8 +169,6 @@
 
 /* Respect reduced-motion preferences */
 @media (prefers-reduced-motion: reduce) {
-  .winners-heading .heading-subtitle,
-  .winners-heading .heading-subtitle.show,
   .section-heading .heading-subtitle,
   .section-heading .heading-subtitle.show {
     transition: none;

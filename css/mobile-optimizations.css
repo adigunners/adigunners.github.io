@@ -81,8 +81,8 @@
     padding-bottom: 6px;
   }
 
-  /* Ensure .winners-heading maintains same size as h2 on mobile */
-  .winners-heading .heading-main {
+  /* Ensure section headings maintain same size as h2 on mobile */
+  .section-heading .heading-main {
     font-size: 1.35rem; /* Consistent with h2 mobile sizing */
   }
 
