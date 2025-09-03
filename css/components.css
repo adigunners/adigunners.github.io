@@ -783,11 +783,6 @@
   }
 }
 
-/* DEPRECATED: .winners-heading — kept as non-functional alias for one release cycle */
-/* Remove after verifying no external consumers rely on it */
-.winners-heading {
-}
-
 /* Legacy support - gradually migrate to .winners-heading pattern */
 .section-title .subtitle,
 .heading-subtitle,
