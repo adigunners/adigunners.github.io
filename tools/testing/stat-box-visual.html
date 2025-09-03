@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stat Box Visual Test</title>
+    <link rel="stylesheet" href="../../css/variables.css" />
+    <link rel="stylesheet" href="../../css/base.css" />
+    <link rel="stylesheet" href="../../css/components.css" />
+    <style>
+      body { padding: 16px; }
+      .section-heading { margin-bottom: 12px; }
+      .test-row { margin-bottom: 24px; }
+      .card { background: var(--card-background); padding: 12px; border-radius: var(--radius-md); }
+      .hint { font-size: 0.85rem; color: var(--text-muted); margin: 8px 0 16px; }
+    </style>
+  </head>
+  <body>
+    <h1 class="section-heading"><span class="heading-main">Unified Stat Box Visual Test</span></h1>
+    <p class="hint">Resize the viewport to test mobile (≤600px), tablet (701–1024px), and desktop (≥1025px) layouts.</p>
+
+    <section class="test-row">
+      <h2 class="section-heading"><span class="heading-main">Index Layout (2 boxes)</span></h2>
+      <div class="stats-row">
+        <article class="stat-box" aria-live="polite">
+          <div class="stat-box__icon" aria-hidden="true">👥</div>
+          <div class="stat-box__number">60</div>
+          <h3 class="stat-box__title">Total Registered Players</h3>
+        </article>
+        <article class="stat-box" aria-live="polite">
+          <div class="stat-box__icon" aria-hidden="true">💰</div>
+          <div class="stat-box__number">₹180,000</div>
+          <h3 class="stat-box__title">Total Pot Amount</h3>
+        </article>
+      </div>
+    </section>
+
+    <section class="test-row">
+      <h2 class="section-heading"><span class="heading-main">Winners Layout (4 boxes)</span></h2>
+      <div class="stats-row">
+        <article class="stat-box" aria-live="polite">
+          <div class="stat-box__icon" aria-hidden="true">📅</div>
+          <div class="stat-box__number">3</div>
+          <h3 class="stat-box__title">Completed Gameweeks</h3>
+        </article>
+        <article class="stat-box" aria-live="polite">
+          <div class="stat-box__icon" aria-hidden="true">🗓️</div>
+          <div class="stat-box__number">1</div>
+          <h3 class="stat-box__title">Completed Gamemonths</h3>
+        </article>
+        <article class="stat-box" aria-live="polite">
+          <div class="stat-box__icon" aria-hidden="true">🏅</div>
+          <div class="stat-box__number">49</div>
+          <h3 class="stat-box__title">Total Winners</h3>
+        </article>
+        <article class="stat-box stat-box--primary" aria-live="polite">
+          <div class="stat-box__icon" aria-hidden="true">🪙</div>
+          <div class="stat-box__number">₹1,23,456</div>
+          <h3 class="stat-box__title">Total Prize Money</h3>
+        </article>
+      </div>
+    </section>
+
+    <section class="test-row">
+      <h2 class="section-heading"><span class="heading-main">Text Overflow Stress</span></h2>
+      <div class="stats-row">
+        <article class="stat-box">
+          <div class="stat-box__icon" aria-hidden="true">🔤</div>
+          <div class="stat-box__number">₹12,34,56,789</div>
+          <h3 class="stat-box__title">Extremely Long Prize Title That Should Wrap Nicely Without Breaking Layout Or Overflowing Bounds</h3>
+        </article>
+        <article class="stat-box">
+          <div class="stat-box__icon" aria-hidden="true">🔢</div>
+          <div class="stat-box__number">999,999,999,999</div>
+          <h3 class="stat-box__title">Very Large Number Rendering</h3>
+        </article>
+      </div>
+    </section>
+  </body>
+  </html>
+

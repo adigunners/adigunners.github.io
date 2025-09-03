@@ -676,6 +676,13 @@
   display: block;
 }
 
+/* Ensure visible focus for tooltip trigger */
+.tooltip:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
 .tooltip .tooltip-arrow {
   position: absolute;
   top: -6px;
