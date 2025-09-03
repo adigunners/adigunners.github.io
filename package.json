@@ -13,7 +13,8 @@
     "lint:md": "markdownlint-cli2",
     "audit:index": "lighthouse http://localhost:${PORT:-8000} --output html --output json --quiet --chrome-flags=\"--headless\" --output-path ./tests/integration/performance/reports/lighthouse-index",
     "audit:winners": "lighthouse http://localhost:${PORT:-8000}/winners.html --output html --output json --quiet --chrome-flags=\"--headless\" --output-path ./tests/integration/performance/reports/lighthouse-winners",
-    "audit": "npm run audit:index && npm run audit:winners"
+    "audit": "npm run audit:index && npm run audit:winners",
+    "twemoji:fetch": "node scripts/fetch-twemoji.js"
   },
   "engines": {
     "node": ">=18.0.0",

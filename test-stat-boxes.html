@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unified Stat Box Testing - IIM Mumbai Fantasy League</title>
+
+    <!-- Load existing CSS architecture -->
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/unified-spacing.css" />
+    <link rel="stylesheet" href="css/components.css" />
+
+    <style>
+      body {
+        padding: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--page-background);
+      }
+      .test-section {
+        margin: 40px 0;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .test-section h2 {
+        color: var(--heading-color);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .comparison {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin: 20px 0;
+      }
+      .comparison h3 {
+        text-align: center;
+        padding: 10px;
+        background: var(--card-background);
+        margin-bottom: 20px;
+        border-radius: 8px;
+      }
+
+      /* Test overlays for validation */
+      .test-overlay {
+        position: relative;
+      }
+      .test-overlay::before {
+        content: 'TEST MEASURE';
+        position: absolute;
+        top: -10px;
+        left: 0;
+        background: #ff6b6b;
+        color: white;
+        padding: 2px 8px;
+        font-size: 10px;
+        border-radius: 3px;
+        z-index: 10;
+      }
+
+      /* Mobile breakpoint indicators */
+      .breakpoint-indicator {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: var(--primary-color);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        z-index: 1000;
+      }
+
+      /* Test validation helpers */
+      .validation-checklist {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+      }
+      .validation-checklist ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+      .validation-checklist li {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="breakpoint-indicator" id="breakpoint">Loading...</div>
+
+    <header>
+      <h1>🧪 Unified Stat Box Component Testing</h1>
+      <p>Testing the unified stat box system across different implementations and breakpoints</p>
+    </header>
+
+    <!-- SECTION 1: Unified System Demo -->
+    <section class="test-section">
+      <h2>✨ New Unified Stat Box System</h2>
+      <p>
+        The new unified system with BEM methodology, responsive design, and accessibility features.
+      </p>
+
+      <h3>Standard Stat Boxes</h3>
+      <div class="stat-box-container">
+        <article class="stat-box" aria-labelledby="unified-players-title">
+          <div class="stat-box__icon" aria-hidden="true">
+            <svg class="svg-icon" width="40" height="40" fill="currentColor">
+              <circle cx="20" cy="20" r="18" fill="currentColor" />
+              <text
+                x="20"
+                y="26"
+                text-anchor="middle"
+                fill="white"
+                font-size="14"
+                font-weight="bold"
+              >
+                54
+              </text>
+            </svg>
+          </div>
+          <h3 id="unified-players-title" class="stat-box__title">Total Registered Players</h3>
+          <div class="stat-box__number" aria-describedby="unified-players-title">54</div>
+        </article>
+
+        <article class="stat-box" aria-labelledby="unified-gameweeks-title">
+          <div class="stat-box__icon" aria-hidden="true">
+            <svg class="svg-icon" width="40" height="40" fill="currentColor">
+              <circle cx="20" cy="20" r="18" fill="currentColor" />
+              <text
+                x="20"
+                y="26"
+                text-anchor="middle"
+                fill="white"
+                font-size="12"
+                font-weight="bold"
+              >
+                38
+              </text>
+            </svg>
+          </div>
+          <h3 id="unified-gameweeks-title" class="stat-box__title">Completed Gameweeks</h3>
+          <div class="stat-box__number" aria-describedby="unified-gameweeks-title">38</div>
+        </article>
+      </div>
+
+      <h3>Primary Variant (Emphasized)</h3>
+      <div class="stat-box-container">
+        <article class="stat-box stat-box--primary" aria-labelledby="unified-prize-title">
+          <div class="stat-box__icon" aria-hidden="true">
+            <svg class="svg-icon" width="44" height="44" fill="currentColor">
+              <circle cx="22" cy="22" r="20" fill="currentColor" />
+              <text
+                x="22"
+                y="28"
+                text-anchor="middle"
+                fill="white"
+                font-size="12"
+                font-weight="bold"
+              >
+                ₹
+              </text>
+            </svg>
+          </div>
+          <h3 id="unified-prize-title" class="stat-box__title">Total Prize Money</h3>
+          <div class="stat-box__number" aria-describedby="unified-prize-title">₹57,986</div>
+        </article>
+
+        <article class="stat-box" aria-labelledby="unified-winners-title">
+          <div class="stat-box__icon" aria-hidden="true">
+            <svg class="svg-icon" width="40" height="40" fill="currentColor">
+              <circle cx="20" cy="20" r="18" fill="currentColor" />
+              <text
+                x="20"
+                y="26"
+                text-anchor="middle"
+                fill="white"
+                font-size="12"
+                font-weight="bold"
+              >
+                54
+              </text>
+            </svg>
+          </div>
+          <h3 id="unified-winners-title" class="stat-box__title">Total Winners</h3>
+          <div class="stat-box__number" aria-describedby="unified-winners-title">54</div>
+        </article>
+      </div>
+
+      <div class="validation-checklist">
+        <h4>✅ Unified System Benefits:</h4>
+        <ul>
+          <li>✅ Consistent typography scaling: 2rem → 2.5rem (mobile → desktop)</li>
+          <li>✅ BEM methodology: .stat-box__icon, .stat-box__title, .stat-box__number</li>
+          <li>✅ Primary variant: Enhanced sizing and visual emphasis</li>
+          <li>✅ CSS variables: Full integration with design system</li>
+          <li>✅ Mobile-first responsive: Proper overflow prevention</li>
+          <li>✅ Accessibility: ARIA labels, semantic structure, reduced motion</li>
+          <li>✅ Cross-browser compatibility and high contrast support</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Current Implementation Comparison -->
+    <section class="test-section">
+      <h2>📊 Current Implementation Comparison</h2>
+      <div class="comparison">
+        <div>
+          <h3>index.html Style (.stat-box)</h3>
+          <div class="stats-row">
+            <article class="stat-box">
+              <div class="stat-icon" aria-hidden="true">
+                <svg class="svg-icon" width="40" height="40" fill="currentColor">
+                  <circle cx="20" cy="20" r="18" fill="var(--primary-color)" />
+                  <text
+                    x="20"
+                    y="26"
+                    text-anchor="middle"
+                    fill="white"
+                    font-size="14"
+                    font-weight="bold"
+                  >
+                    54
+                  </text>
+                </svg>
+              </div>
+              <h3 class="stat-title">Total Registered Players</h3>
+              <div class="stat-number">54</div>
+            </article>
+            <article class="stat-box">
+              <div class="stat-icon" aria-hidden="true">
+                <svg class="svg-icon" width="40" height="40" fill="currentColor">
+                  <circle cx="20" cy="20" r="18" fill="var(--primary-color)" />
+                  <text
+                    x="20"
+                    y="26"
+                    text-anchor="middle"
+                    fill="white"
+                    font-size="12"
+                    font-weight="bold"
+                  >
+                    ₹
+                  </text>
+                </svg>
+              </div>
+              <h3 class="stat-title">Total Pot Amount</h3>
+              <div class="stat-number">₹1,62,000</div>
+            </article>
+          </div>
+        </div>
+
+        <div>
+          <h3>winners.html Style (.summary-card)</h3>
+          <div
+            class="stats-summary"
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px"
+          >
+            <div
+              class="summary-card"
+              style="
+                background: white;
+                padding: 25px 20px;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+                text-align: center;
+              "
+            >
+              <div
+                class="summary-icon"
+                style="font-size: 1.8rem; color: var(--primary-color); margin-bottom: 12px"
+                aria-hidden="true"
+              >
+                <svg class="svg-icon" width="36" height="36" fill="currentColor">
+                  <circle cx="18" cy="18" r="16" fill="var(--primary-color)" />
+                  <text
+                    x="18"
+                    y="24"
+                    text-anchor="middle"
+                    fill="white"
+                    font-size="12"
+                    font-weight="bold"
+                  >
+                    38
+                  </text>
+                </svg>
+              </div>
+              <div
+                class="summary-number"
+                style="
+                  font-size: 2rem;
+                  font-weight: 600;
+                  color: var(--primary-color);
+                  margin-bottom: 8px;
+                "
+              >
+                38
+              </div>
+              <div
+                class="summary-label"
+                style="
+                  font-size: 0.85rem;
+                  font-weight: 500;
+                  color: #666;
+                  text-transform: uppercase;
+                  letter-spacing: 0.5px;
+                "
+              >
+                Completed Gameweeks
+              </div>
+            </div>
+            <div
+              class="summary-card primary-metric"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  rgba(255, 255, 255, 1),
+                  rgba(248, 249, 250, 0.8)
+                );
+                padding: 25px 20px;
+                border-radius: 12px;
+                box-shadow: 0 6px 20px rgba(55, 0, 60, 0.12);
+                text-align: center;
+              "
+            >
+              <div
+                class="summary-icon"
+                style="font-size: 2.2rem; color: var(--primary-color); margin-bottom: 12px"
+                aria-hidden="true"
+              >
+                <svg class="svg-icon" width="44" height="44" fill="currentColor">
+                  <circle cx="22" cy="22" r="20" fill="var(--primary-color)" />
+                  <text
+                    x="22"
+                    y="28"
+                    text-anchor="middle"
+                    fill="white"
+                    font-size="12"
+                    font-weight="bold"
+                  >
+                    ₹
+                  </text>
+                </svg>
+              </div>
+              <div
+                class="summary-number"
+                style="
+                  font-size: 2.8rem;
+                  font-weight: 700;
+                  color: var(--primary-color);
+                  margin-bottom: 12px;
+                "
+              >
+                ₹57,986
+              </div>
+              <div
+                class="summary-label"
+                style="
+                  font-size: 0.95rem;
+                  font-weight: 700;
+                  color: var(--heading-color);
+                  text-transform: uppercase;
+                  letter-spacing: 0.6px;
+                "
+              >
+                Total Prize Money
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="validation-checklist">
+        <h4>🔍 Issues Identified:</h4>
+        <ul>
+          <li>❌ Icon sizes: 2.5rem vs 1.8rem (2.2rem primary) - 28% difference</li>
+          <li>❌ Number sizes: 2.5rem vs 2rem (2.8rem primary) - inconsistent hierarchy</li>
+          <li>❌ Typography weights: 700 vs 600 (500) - different emphasis levels</li>
+          <li>❌ Label styling: normal vs uppercase + letter-spacing</li>
+          <li>❌ Layout systems: flexbox vs CSS grid - different responsive behavior</li>
+          <li>❌ Color usage: CSS variables vs hardcoded #666</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Mobile Overflow Testing -->
+    <section class="test-section">
+      <h2>📱 Mobile Overflow Testing</h2>
+      <p>
+        Testing current implementations at different viewport sizes to identify overflow issues.
+      </p>
+
+      <div style="border: 2px solid #ff6b6b; max-width: 360px; margin: 20px auto; padding: 10px">
+        <h4 style="text-align: center; margin: 0 0 15px; color: #ff6b6b">
+          360px Width Simulation (Galaxy Fold)
+        </h4>
+        <div class="stats-row test-overlay">
+          <article class="stat-box">
+            <div class="stat-icon" aria-hidden="true">
+              <svg class="svg-icon" width="40" height="40" fill="currentColor">
+                <circle cx="20" cy="20" r="18" fill="var(--primary-color)" />
+                <text
+                  x="20"
+                  y="26"
+                  text-anchor="middle"
+                  fill="white"
+                  font-size="10"
+                  font-weight="bold"
+                >
+                  Long
+                </text>
+              </svg>
+            </div>
+            <h3 class="stat-title">Very Long Statistical Title That Might Overflow</h3>
+            <div class="stat-number">₹99,99,999</div>
+          </article>
+        </div>
+      </div>
+
+      <div class="validation-checklist">
+        <h4>🔍 Mobile Issues to Fix:</h4>
+        <ul>
+          <li>❌ Text overflow with long titles on narrow screens</li>
+          <li>❌ Icon-to-container ratio issues at small sizes</li>
+          <li>❌ Number formatting with large values</li>
+          <li>❌ Insufficient padding/margin on mobile</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Accessibility Testing -->
+    <section class="test-section">
+      <h2>♿ Accessibility Validation</h2>
+      <p>Testing current implementations for WCAG compliance and screen reader support.</p>
+
+      <div class="stats-row">
+        <article class="stat-box" aria-labelledby="accessibility-test-title">
+          <div class="stat-icon" aria-hidden="true">
+            <svg
+              class="svg-icon"
+              width="40"
+              height="40"
+              fill="currentColor"
+              role="img"
+              aria-label="Accessibility icon"
+            >
+              <circle cx="20" cy="20" r="18" fill="var(--primary-color)" />
+              <text
+                x="20"
+                y="26"
+                text-anchor="middle"
+                fill="white"
+                font-size="14"
+                font-weight="bold"
+              >
+                ♿
+              </text>
+            </svg>
+          </div>
+          <h3 id="accessibility-test-title" class="stat-title">Screen Reader Test</h3>
+          <div class="stat-number" aria-describedby="accessibility-test-title">100%</div>
+        </article>
+      </div>
+
+      <div class="validation-checklist">
+        <h4>🔍 Accessibility Requirements:</h4>
+        <ul>
+          <li>✅ ARIA labels and relationships</li>
+          <li>✅ Semantic HTML structure (article, h3)</li>
+          <li>❌ Missing aria-live for dynamic updates</li>
+          <li>❌ Inconsistent ID patterns across implementations</li>
+          <li>✅ Color contrast compliance (will verify in unified system)</li>
+        </ul>
+      </div>
+    </section>
+
+    <script>
+      // Breakpoint indicator
+      function updateBreakpointIndicator() {
+        const indicator = document.getElementById('breakpoint');
+        const width = window.innerWidth;
+        let breakpoint = '';
+
+        if (width <= 480) {
+          breakpoint = `📱 Mobile: ${width}px`;
+          document.body.style.background = '#ffe6e6';
+        } else if (width <= 768) {
+          breakpoint = `📱 Large Mobile: ${width}px`;
+          document.body.style.background = '#fff4e6';
+        } else if (width <= 1024) {
+          breakpoint = `📱 Tablet: ${width}px`;
+          document.body.style.background = '#e6f3ff';
+        } else {
+          breakpoint = `🖥️ Desktop: ${width}px`;
+          document.body.style.background = '#f0f8ff';
+        }
+
+        indicator.textContent = breakpoint;
+      }
+
+      // Initialize and listen for resize
+      updateBreakpointIndicator();
+      window.addEventListener('resize', updateBreakpointIndicator);
+
+      console.log('🧪 Stat Box Testing Environment Ready');
+      console.log('📏 Resize the window to test different breakpoints');
+      console.log('🔍 Check console for any overflow or accessibility issues');
+
+      // Test validation function
+      function validateStatBoxes() {
+        const statBoxes = document.querySelectorAll('.stat-box, .summary-card');
+        const issues = [];
+
+        statBoxes.forEach((box, index) => {
+          // Check for overflow
+          if (box.scrollWidth > box.clientWidth || box.scrollHeight > box.clientHeight) {
+            issues.push(`Box ${index + 1}: Content overflow detected`);
+          }
+
+          // Check for accessibility
+          if (!box.hasAttribute('aria-labelledby') && !box.hasAttribute('aria-label')) {
+            issues.push(`Box ${index + 1}: Missing ARIA labels`);
+          }
+        });
+
+        if (issues.length > 0) {
+          console.warn('🚨 Stat Box Issues Found:', issues);
+        } else {
+          console.log('✅ All stat boxes passed validation');
+        }
+
+        return issues;
+      }
+
+      // Run validation on load and resize
+      setTimeout(validateStatBoxes, 1000);
+      window.addEventListener('resize', () => setTimeout(validateStatBoxes, 500));
+    </script>
+  </body>
+</html>

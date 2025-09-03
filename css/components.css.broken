@@ -20,281 +20,327 @@
  * If you see inconsistencies between pages, fix them HERE, not in page-specific CSS!
  */
 
-/* =============== UNIFIED STAT BOX VARIABLES =============== */
-/* Mobile-first responsive design system for stat boxes */
-:root {
-  /* FLEXIBLE DIMENSIONS - Mobile First */
-  --box-min-width: 140px; /* Smallest mobile width */
-  --box-max-width: 280px; /* Prevent over-stretching */
-  --box-gap: 12px; /* Mobile gap between boxes */
-  --box-padding: 16px 16px 12px 16px; /* Compact: top right bottom left */
+/* =============== UNIFIED STAT BOX SYSTEM =============== */
+/*
+ * Unified stat box component replacing inconsistent implementations
+ * Supports both flexbox and grid container systems
+ * Uses BEM methodology for consistent structure
+ */
 
-  /* TYPOGRAPHY SCALE - Mobile (Compact Spacing) */
-  --icon-size: 1.5rem; /* Mobile icon size */
-  --icon-size-primary: 1.7rem; /* Primary variant mobile */
-  --icon-margin: 4px; /* Reduced from 8px - tight spacing */
-
-  --number-size: 1.8rem; /* Mobile number size */
-  --number-size-primary: 2rem; /* Primary variant mobile */
-  --number-margin: 2px; /* Reduced from 6px - minimal gap */
-
-  --title-size: 0.85rem; /* Mobile title size */
-  --title-size-primary: 0.9rem; /* Primary variant mobile */
-
-  /* VISUAL STYLING */
-  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --box-shadow-primary: 0 4px 12px rgba(55, 0, 60, 0.12);
-  --box-shadow-primary-hover: 0 6px 20px rgba(55, 0, 60, 0.18);
-
-  --primary-background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 249, 250, 0.8));
-}
-
-/* TABLET ENHANCEMENTS (701px - 1024px) */
-@media (min-width: 701px) {
-  :root {
-    --box-min-width: 160px;
-    --box-gap: 16px;
-    --box-padding: 16px 18px 12px 18px; /* More compact tablet spacing */
-
-    --icon-size: 1.8rem;
-    --icon-size-primary: 2rem;
-    --icon-margin: 6px; /* Reduced from 10px */
-
-    --number-size: 2rem;
-    --number-size-primary: 2.2rem;
-    --number-margin: 4px; /* Reduced from 8px */
-
-    --title-size: 0.9rem;
-    --title-size-primary: 0.95rem;
-
-    --box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-  }
-}
-
-/* DESKTOP ENHANCEMENTS (≥1025px) */
-@media (min-width: 1025px) {
-  :root {
-    --box-min-width: 160px; /* Reduced to ensure 4 boxes fit in row */
-    --box-max-width: 280px; /* Reasonable max for 4-box layout */
-    --box-gap: 16px; /* Smaller gap for more box space */
-    --box-padding: 18px 20px 16px 20px; /* Compact but proportional */
-
-    --icon-size: 2rem;
-    --icon-size-primary: 2.3rem;
-    --icon-margin: 8px; /* Reduced from 12px for compactness */
-
-    --number-size: 2.2rem;
-    --number-size-primary: 2.5rem;
-    --number-margin: 6px; /* Reduced from 10px for compactness */
-
-    --title-size: 0.9rem; /* Reduced from 1rem to prevent text wrapping */
-    --title-size-primary: 1rem; /* Reduced from 1.1rem */
-
-    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  }
-
-  /* Desktop: Force full width utilization - all 4 boxes in single row */
-  .stats-row {
-    justify-content: space-between; /* Use entire container width */
-    gap: 0; /* Remove gap, use justify-content spacing instead */
-    max-width: none !important; /* Override any max-width constraints */
-    margin: 0 !important; /* Remove centering margins */
-    width: 100%; /* Use full container width like table below */
-  }
-
-  .stat-box {
-    flex: 1 1 0; /* Equal width distribution */
-    margin: 0 8px; /* Small margin between boxes */
-  }
-
-  .stat-box:first-child {
-    margin-left: 0; /* No left margin on first box */
-  }
-
-  .stat-box:last-child {
-    margin-right: 0; /* No right margin on last box */
-  }
-}
-
-/* =============== STATS ROW =============== */
+/* Container Systems - Support both flexbox (index.html) and grid (winners.html) patterns */
+.stat-box-container,
 .stats-row {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--box-gap); /* Responsive gap using variables */
-  justify-content: center; /* Center for small layouts */
-  align-items: stretch; /* Equal heights for all boxes */
-  margin-bottom: var(--spacing-lg, 20px);
+  gap: var(--spacing-lg); /* 24px */
+  justify-content: center; /* Center the group horizontally */
+  align-items: center; /* Center the group vertically */
   width: 100%;
+  margin: 0 auto var(--spacing-lg); /* Center container itself */
 }
 
-/* Mobile: Ensure proper centering for stacked boxes */
-@media (max-width: 700px) {
-  .stats-row {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .stat-box {
-    width: 100%;
-    max-width: none; /* Remove width restriction to match winner cards */
-    min-height: 140px; /* Increased height for better mobile appearance */
-    margin: 0 16px; /* Add side margins to match winner card spacing */
-  }
-
-  .stat-box__title {
-    margin-bottom: 0; /* Remove extra bottom margin - use box padding instead */
-  }
+.stat-box-container--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
 }
 
+/* Base Stat Box Component - Unified BEM Structure */
 .stat-box {
-  /* FLEXIBLE LAYOUT - NO FIXED WIDTHS */
-  flex: 1 1 0; /* Equal flex growth */
-  min-width: var(--box-min-width); /* Responsive minimum */
-  max-width: var(--box-max-width); /* Prevent over-stretching */
-
-  /* VISUAL STYLING */
-  background: var(--card-background);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--box-shadow);
-
-  /* LAYOUT */
+  /* Layout Foundation - IDENTICAL dimensions for all boxes */
+  flex: 0 0 200px; /* Fixed width, no grow/shrink */
+  width: 200px; /* Explicit width */
+  height: 110px; /* Explicit height */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   text-align: center;
-
-  /* SPACING */
-  padding: var(--box-padding);
-
-  /* TRANSITIONS */
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  position: relative;
+  
+  /* Visual Foundation */
+  background: var(--card-background);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   border: 2px solid transparent;
-}
-
-/* =============== UNIFIED BEM ELEMENT CLASSES =============== */
-
-/* Icon */
-.stat-box__icon {
-  font-size: var(--icon-size);
-  color: var(--primary-color);
-  margin-bottom: var(--icon-margin);
-  opacity: 0.9;
-}
-
-/* Twemoji/SVG sizing inside icon container */
-.stat-box__icon img.emoji,
-.stat-box__icon img.twemoji {
-  width: var(--icon-size);
-  height: auto;
-  display: block;
-}
-
-/* If using inline emoji text without Twemoji, ensure it scales */
-.stat-box__icon .emoji-text {
-  font-size: var(--icon-size);
-  line-height: 1;
-}
-
-/* Number */
-.stat-box__number {
-  font-size: var(--number-size);
-  font-weight: 700;
-  color: var(--primary-color);
-  letter-spacing: 0.5px;
-  margin-bottom: var(--number-margin);
-  line-height: 1.1;
-
-  /* Text overflow prevention */
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-
-  /* Responsive font sizing */
-  font-size: clamp(1.5rem, 4vw, var(--number-size));
-}
-
-/* Title */
-.stat-box__title {
-  font-size: var(--title-size);
-  font-weight: 600;
-  color: var(--heading-color);
-  margin: 0;
-  line-height: 1.2;
-
-  /* Text overflow prevention */
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-
-  /* Prevent very long text from breaking layout */
-  max-width: 100%;
+  
+  /* Spacing Foundation - Fixed padding */
+  padding: var(--spacing-md); /* 16px all around */
+  
+  /* Interaction & Performance */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  cursor: default;
+  
+  /* Overflow Prevention */
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  box-sizing: border-box;
+  word-wrap: break-word;
 }
 
-/* Backward compatibility - keep old classes working */
-.stat-icon {
-  font-size: var(--icon-size);
+.stat-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border-color: var(--secondary-color);
+}
+
+/* BEM Elements - Consistent Naming */
+.stat-box__icon {
+  font-size: 1.8rem;
   color: var(--primary-color);
-  margin-bottom: var(--icon-margin);
-  opacity: 0.9;
+  margin-bottom: var(--spacing-xs);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 40px;
+  height: 40px;
 }
 
-.stat-title {
-  font-size: var(--title-size);
+.stat-box__title {
   font-weight: 600;
+  font-size: 0.9rem;
   color: var(--heading-color);
-  margin: 0;
+  margin: 0 0 var(--spacing-xs) 0;
   line-height: 1.2;
   word-wrap: break-word;
-  overflow-wrap: break-word;
   hyphens: auto;
+  text-align: center;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
-.stat-number {
-  font-size: var(--number-size);
+.stat-box__number {
   font-weight: 700;
+  font-size: 2rem;
   color: var(--primary-color);
-  letter-spacing: 0.5px;
-  margin-bottom: var(--number-margin);
-  line-height: 1.1;
+  letter-spacing: 0.3px;
+  margin: 0;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  font-size: clamp(1.5rem, 4vw, var(--number-size));
+  max-width: 100%;
 }
 
-/* =============== PRIMARY VARIANT SYSTEM =============== */
+/* Primary Variant - Enhanced Emphasis System */
 .stat-box--primary {
-  box-shadow: var(--box-shadow-primary);
-  background: var(--primary-background);
-  border-color: transparent;
+  box-shadow: 0 6px 20px rgba(55, 0, 60, 0.12);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 249, 250, 0.9));
+  border-color: rgba(55, 0, 60, 0.1);
+  /* IDENTICAL dimensions to regular boxes */
+  /* Styling emphasis only, not size */
 }
 
 .stat-box--primary:hover {
   transform: translateY(-4px);
-  box-shadow: var(--box-shadow-primary-hover);
+  box-shadow: 0 10px 30px rgba(55, 0, 60, 0.18);
   border-color: var(--primary-color);
 }
 
 .stat-box--primary .stat-box__icon {
-  font-size: var(--icon-size-primary);
+  font-size: 1.8rem; /* Same as regular boxes */
   opacity: 1;
 }
 
 .stat-box--primary .stat-box__number {
-  font-size: var(--number-size-primary);
-  font-weight: 800;
-  font-size: clamp(1.8rem, 4vw, var(--number-size-primary));
+  font-size: 2rem; /* Same as regular boxes */
+  font-weight: 700; /* Emphasis through weight */
 }
 
 .stat-box--primary .stat-box__title {
-  font-size: var(--title-size-primary);
-  font-weight: 700;
+  font-size: 0.9rem; /* Same as regular boxes */
+  font-weight: 700; /* Emphasis through weight */
   color: var(--heading-color);
+}
+
+/* Legacy Support - Maintain Backward Compatibility */
+.stat-icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+.stat-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--heading-color);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.stat-number {
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-xs);
+}
+
+/* =============== RESPONSIVE MOBILE-FIRST DESIGN =============== */
+/* Mobile First - Base styles above apply to mobile (≤480px) */
+
+/* Large Mobile (481px - 768px) */
+@media (min-width: 481px) {
+  .stat-box {
+    min-width: 220px;
+  }
+  
+  .stat-box__icon {
+    font-size: 2.1rem;
+  }
+  
+  .stat-box__number {
+    font-size: 2.3rem;
+  }
+  
+  .stat-box--primary .stat-box__icon {
+    font-size: 2.3rem;
+  }
+  
+  .stat-box--primary .stat-box__number {
+    font-size: 2.9rem;
+  }
+}
+
+/* Tablet (769px - 1024px) */
+@media (min-width: 769px) {
+  .stat-box-container,
+  .stats-row {
+    max-width: 900px; /* Width to contain 4 boxes */
+    margin: 0 auto var(--spacing-lg); /* Center container */
+    gap: var(--spacing-md); /* Consistent gap */
+    flex-wrap: wrap; /* Allow wrap if needed */
+    justify-content: center; /* Center the boxes */
+  }
+  
+  .stat-box {
+    width: 200px; /* Fixed identical width */
+    height: 110px; /* Fixed identical height */
+    padding: var(--spacing-md); /* Fixed identical padding */
+    min-width: 200px;
+  }
+  
+  .stat-box__icon {
+    font-size: 2.2rem;
+  }
+  
+  .stat-box__number {
+    font-size: 2.4rem;
+  }
+  
+  .stat-box--primary .stat-box__icon {
+    font-size: 2.4rem;
+  }
+  
+  .stat-box--primary .stat-box__number {
+    font-size: 3rem;
+  }
+}
+
+/* Desktop (≥1025px) */
+@media (min-width: 1025px) {
+  .stat-box-container,
+  .stats-row {
+    max-width: 1000px; /* Width to contain 4 boxes */
+    margin: 0 auto var(--spacing-lg); /* Center container */
+    gap: var(--spacing-lg); /* Generous gap for desktop */
+    flex-wrap: wrap; /* Allow wrap if needed */
+    justify-content: center; /* Center the boxes */
+  }
+  
+  .stat-box {
+    width: 200px; /* Fixed identical width */
+    height: 110px; /* Fixed identical height */
+    padding: var(--spacing-md); /* Fixed identical padding */
+  }
+  
+  .stat-box__icon {
+    font-size: 2.5rem;
+  }
+  
+  .stat-box__number {
+    font-size: 2.5rem;
+  }
+  
+  .stat-box--primary .stat-box__icon {
+    font-size: 2.6rem;
+  }
+  
+  .stat-box--primary .stat-box__number {
+    font-size: 3.2rem;
+  }
+}
+
+/* Ultra-compact mobile (≤360px) - Galaxy Fold, iPhone SE */
+@media (max-width: 360px) {
+  .stat-box-container,
+  .stats-row {
+    gap: var(--spacing-sm);
+  }
+  
+  .stat-box {
+    min-width: 160px;
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+  
+  .stat-box__icon {
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .stat-box__title {
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+  
+  .stat-box__number {
+    font-size: 2rem;
+  }
+  
+  .stat-box--primary .stat-box__icon {
+    font-size: 2rem;
+  }
+  
+  .stat-box--primary .stat-box__number {
+    font-size: 2.6rem;
+  }
+  
+  .stat-box--primary .stat-box__title {
+    font-size: 0.95rem;
+  }
+}
+
+/* =============== ACCESSIBILITY ENHANCEMENTS =============== */
+.stat-box[aria-live] {
+  /* Ensures screen readers announce dynamic content updates */
+}
+
+.stat-box:focus-within {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .stat-box {
+    border-color: var(--heading-color);
+  }
+  
+  .stat-box--primary {
+    background: white;
+    border-color: var(--primary-color);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .stat-box,
+  .stat-box:hover,
+  .stat-box--primary:hover {
+    transition: none;
+    transform: none;
+  }
 }
 
 /* Reserve space for dynamic sections to reduce CLS */
@@ -639,7 +685,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 12px;
-  color: var(--text-muted);
+  color: #777;
   font-size: 0.85rem;
 }
 
@@ -688,13 +734,6 @@
 .tooltip:focus .tooltip-content,
 .tooltip:hover .tooltip-content {
   display: block;
-}
-
-/* Ensure visible focus for tooltip trigger */
-.tooltip:focus-visible {
-  outline: 2px solid var(--accent-color);
-  outline-offset: 2px;
-  border-radius: var(--radius-md);
 }
 
 .tooltip .tooltip-arrow {
@@ -764,25 +803,25 @@
  * DO NOT override these in page-specific CSS without careful consideration.
  * Any local changes should be well documented and justified.
  * 
- * Unified pattern: .section-heading > .heading-main + .heading-subtitle
+ * Pattern: .winners-heading > .heading-main + .heading-subtitle
  * Used by: index.html, winners.html
  */
 
-/* Main heading container */
-.section-heading {
+/* Main heading container - use this class consistently */
+.winners-heading {
   display: block;
   margin: 0 0 0.5rem 0;
 }
 
-.section-heading .heading-main {
+.winners-heading .heading-main {
   display: block;
-  font-size: 1.35rem; /* Mobile baseline - consistent with mobile h2 */
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--heading-color);
   margin: 0;
 }
 
-.section-heading .heading-subtitle {
+.winners-heading .heading-subtitle {
   display: block;
   font-size: 0.85rem;
   font-weight: 400; /* Normal weight for muted appearance */
@@ -793,11 +832,11 @@
 
 /* Responsive heading behavior - CONSISTENT ACROSS ALL PAGES */
 @media (min-width: 769px) {
-  .section-heading .heading-main {
-    font-size: 1.8rem; /* Desktop - match global h2 standard */
+  .winners-heading .heading-main {
+    font-size: 1.25rem; /* Slightly smaller on larger screens */
   }
 
-  .section-heading .heading-subtitle {
+  .winners-heading .heading-subtitle {
     font-size: 0.9rem;
     font-weight: 400; /* Preserve normal weight at responsive breakpoints */
     margin-top: 4px;
@@ -862,8 +901,33 @@
 
 /* =============== ENHANCED GRID LAYOUTS FOR DESKTOP/TABLET =============== */
 
-/* Legacy responsive rules removed - now handled by CSS variables system */
-/* The unified variable system automatically handles responsive scaling */
+/* Stats row optimizations for wider screens */
+@media (min-width: 769px) {
+  .stats-row {
+    max-width: 700px;
+    margin: 0 auto 20px;
+    gap: 20px;
+  }
+
+  .stat-box {
+    width: 200px; /* Fixed identical width */
+    height: 110px; /* Fixed identical height */
+    padding: var(--spacing-md); /* Fixed identical padding */
+  }
+}
+
+@media (min-width: 1025px) {
+  .stats-row {
+    max-width: 800px;
+    gap: 30px;
+  }
+
+  .stat-box {
+    width: 200px; /* Fixed identical width */
+    height: 110px; /* Fixed identical height */
+    padding: var(--spacing-md); /* Fixed identical padding */
+  }
+}
 
 /* Prize summary grid enhancements */
 @media (min-width: 769px) and (max-width: 1024px) {

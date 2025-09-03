@@ -3,7 +3,7 @@
 .leaderboard-loading {
   text-align: center;
   padding: 40px;
-  color: #777;
+  color: var(--text-muted);
   font-style: italic;
 }
 
@@ -181,12 +181,19 @@
 }
 
 .leaderboard-nav-btn:disabled {
-  background: #ccc;
+  background: #e0e0e0;
+  color: #555;
   cursor: not-allowed;
+}
+
+/* Keyboard accessibility */
+.leaderboard-nav-btn:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 .page-info {
   font-size: 0.9rem;
-  color: #777;
+  color: var(--text-muted);
   font-weight: 600;
 }

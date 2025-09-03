@@ -573,7 +573,7 @@
           <header>
             <!-- Main Content -->
             <div class="header-main">
-              <h1>⚽ IIM Mumbai Fantasy League 🎯</h1>
+              <h1><span class="section-emoji">⚽</span>IIM Mumbai Fantasy League</h1>
               <p>Season 2025-26 - Registration Open</p>
             </div>
 
@@ -613,23 +613,17 @@
           <div class="stats-row">
             <!-- PLAYER COUNT BOX -->
             <article class="stat-box" aria-labelledby="player-count-title">
-              <div class="stat-icon" title="Fantasy Football Managers" aria-hidden="true">
-                <svg class="svg-icon" aria-hidden="true">
-                  <use href="assets/icons.svg#icon-users"></use>
-                </svg>
+              <div class="stat-box__icon" title="Fantasy Football Managers" aria-hidden="true">
+                👥
               </div>
-              <h3 id="player-count-title" class="stat-title">Total Registered Players</h3>
-              <div id="player-count" class="stat-number" aria-live="polite">--</div>
+              <div id="player-count" class="stat-box__number" aria-live="polite">--</div>
+              <h3 id="player-count-title" class="stat-box__title">Total Registered Players</h3>
             </article>
             <!-- POT AMOUNT BOX -->
             <article class="stat-box" aria-labelledby="pot-amount-title">
-              <div class="stat-icon" title="Prize Money Pot" aria-hidden="true">
-                <svg class="svg-icon" aria-hidden="true">
-                  <use href="assets/icons.svg#icon-coins"></use>
-                </svg>
-              </div>
-              <h3 id="pot-amount-title" class="stat-title">Total Pot Amount</h3>
-              <div id="pot-amount" class="stat-number" aria-live="polite">--</div>
+              <div class="stat-box__icon" title="Prize Money Pot" aria-hidden="true">💰</div>
+              <div id="pot-amount" class="stat-box__number" aria-live="polite">--</div>
+              <h3 id="pot-amount-title" class="stat-box__title">Total Pot Amount</h3>
             </article>
           </div>
         </section>
@@ -656,8 +650,10 @@
           class="winner-scorecard season-section during-season is-hidden"
           tabindex="-1"
         >
-          <h2 class="winners-heading" id="winners-heading">
-            <span class="heading-main">🎆 Top Earners So Far</span>
+          <h2 class="section-heading" id="winners-heading">
+            <span class="heading-main"
+              ><span class="section-emoji">🎆</span>Top Earners So Far</span
+            >
             <span class="heading-subtitle" id="winners-after-gw">Loading…</span>
           </h2>
           <p>Leading players and their prize money achievements this season.</p>
@@ -681,8 +677,8 @@
           class="winner-scorecard season-section during-season is-hidden"
           tabindex="-1"
         >
-          <h2 class="winners-heading" id="leaderboard-heading">
-            <span class="heading-main">🏆 League Standings</span>
+          <h2 class="section-heading" id="leaderboard-heading">
+            <span class="heading-main"><span class="section-emoji">🏆</span>League Standings</span>
             <span class="heading-subtitle" id="leaderboard-after-gw">Loading…</span>
           </h2>
           <p>Complete league table showing all players ranked by their overall FPL performance.</p>
@@ -697,7 +693,6 @@
               class="leaderboard-nav-btn"
               onclick="previousLeaderboardPage()"
               disabled
-              aria-label="Go to previous page"
               title="Previous page"
             >
               ◀︎ Prev
@@ -708,7 +703,6 @@
               class="leaderboard-nav-btn"
               onclick="nextLeaderboardPage()"
               disabled
-              aria-label="Go to next page"
               title="Next page"
             >
               Next ▶︎
@@ -718,7 +712,9 @@
 
         <!-- RULES SECTION -->
         <section id="prize-structure" class="winner-scorecard" tabindex="-1">
-          <h2>Prize Structure</h2>
+          <h2 class="section-heading">
+            <span class="heading-main"><span class="section-emoji">💰</span>Prize Structure</span>
+          </h2>
           <!-- Pre-season view: keep full text (unchanged) -->
           <div id="rules-pre" class="pre-season">
             <p><strong>Entry Fee:</strong> ₹3,000</p>
@@ -753,7 +749,6 @@
               <a
                 href="#prize-structure"
                 onclick="document.getElementById('rules-pre').scrollIntoView({behavior:'smooth'}); return false;"
-                aria-label="View full rules and prize details"
                 >Full rules</a
               >
             </footer>
@@ -763,7 +758,11 @@
 
         <!-- LATE REGISTRATION SECTION (During Season) -->
         <section id="late-register" class="winner-scorecard season-section during-season is-hidden">
-          <h2>Still Want to Join?</h2>
+          <h2 class="section-heading">
+            <span class="heading-main"
+              ><span class="section-emoji">🚪</span>Still Want to Join?</span
+            >
+          </h2>
           <p>
             Missed the initial registration? Contact us to check if late entries are still
             available.
@@ -800,7 +799,7 @@
         role="complementary"
       >
         <header>
-          <h4>QA Panel</h4>
+          <h3>QA Panel</h3>
         </header>
         <dl class="qa-info">
           <dt class="visually-hidden">Phase</dt>
@@ -833,9 +832,7 @@
         role="complementary"
         aria-label="Test mode controls"
       >
-        <svg class="svg-icon" aria-hidden="true">
-          <use href="assets/icons.svg#icon-shuffle"></use>
-        </svg>
+        🔀
         <button id="phase-toggle-btn-float" onclick="toggleSeasonMode()" type="button">
           Toggle phase
         </button>
@@ -843,7 +840,6 @@
           id="phase-toggle-open-winners"
           onclick="openWinnersWithToggledPhase()"
           title="Opens Winners with toggled phase; preserves test/data/clockOffset"
-          aria-label="Open Winners with toggled phase; preserves test, data, and clockOffset"
           type="button"
         >
           Open Winners
@@ -1148,9 +1144,9 @@
               <div class="winner-error">
                 <h3>Unable to load winner data</h3>
                 <p>There was a problem loading the winner statistics. Please try again.</p>
-                <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})"
+          <button onclick="loadWinnerData('${containerId}', '${summaryId}', ${isTestSection})"
                         style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                  <svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-redo"></use></svg> Retry
+                  🔄 Retry
                 </button>
               </div>
             `;
@@ -1183,8 +1179,8 @@
         return `
           <article class="prize-card" aria-labelledby="weekly-prize-title">
             <div class="header">
-              <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-calendar-week"></use></svg></div>
-              <h4 id="weekly-prize-title" class="title">Weekly</h4>
+              <div class="icon" aria-hidden="true">📅</div>
+              <h3 id="weekly-prize-title" class="title">Weekly</h3>
             </div>
             <div class="amount" aria-label="Total weekly prize amount">${formatINR(total)}</div>
             <div class="breakdown" aria-label="Prize breakdown">${breakdown}</div>
@@ -1199,8 +1195,8 @@
         return `
           <article class="prize-card" aria-labelledby="monthly-prize-title">
             <div class="header">
-              <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-calendar"></use></svg></div>
-              <h4 id="monthly-prize-title" class="title">Monthly</h4>
+              <div class="icon" aria-hidden="true">🗓️</div>
+              <h3 id="monthly-prize-title" class="title">Monthly</h3>
             </div>
             <div class="amount" aria-label="Total monthly prize amount">${formatINR(total)}</div>
             <div class="breakdown" aria-label="Prize breakdown">${breakdown}</div>
@@ -1232,11 +1228,11 @@
         return `
           <article class="prize-card" aria-labelledby="annual-prize-title">
             <div class="header">
-              <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-trophy"></use></svg></div>
-              <h4 id="annual-prize-title" class="title">
+              <div class="icon" aria-hidden="true">🏆</div>
+              <h3 id="annual-prize-title" class="title">
                 Overall
-                <button class="tooltip" type="button" aria-describedby="overall-tooltip" aria-expanded="false">
-                  <svg class="svg-icon info-icon" aria-hidden="true"><use href="assets/icons.svg#icon-info"></use></svg>
+                <button class="tooltip" type="button" aria-describedby="overall-tooltip" aria-expanded="false" aria-label="Show season-end prize breakdown">
+                  ℹ️
                   <span id="overall-tooltip" class="tooltip-content" role="tooltip">
                     <span class="tooltip-arrow" aria-hidden="true"></span>
                     <strong>All Season-End Prizes</strong>
@@ -1245,7 +1241,7 @@
                     </div>
                   </span>
                 </button>
-              </h4>
+              </h3>
             </div>
             <div class="amount" aria-label="Total annual prize amount">${formatINR(totalOverallPrize)}</div>
             <div class="breakdown" aria-label="Top three prize breakdown">${topThree}</div>
@@ -1261,6 +1257,9 @@
         const monthly = buildMonthlyCard(data.monthlyPrizes || []);
         const annual = buildAnnualCard(data.annualPrizes || []);
         container.innerHTML = `${weekly}${monthly}${annual}`;
+        if (window.applyTwemoji) {
+          window.applyTwemoji(container);
+        }
         // Entry fee line above cards (keeps layout consistent with request)
         const rulesSection = document.getElementById('rules-season');
         if (rulesSection && !rulesSection.querySelector('.entry-fee')) {
@@ -1489,7 +1488,7 @@
         // Load league stats with error handling
         loadLeagueStats();
 
-        // Add this at the end (test/admin only)
+        // Add this at the end (test/admin-only)
         if (window.FPLUIManager && typeof FPLUIManager.checkTestMode === 'function') {
           FPLUIManager.checkTestMode();
         }
@@ -1722,7 +1721,7 @@
                 index < 3 ? ` rank-${index + 1}` : ''
               }" aria-labelledby="winner-name-${index}">
                 <div class="winner-rank" aria-label="Position">#${index + 1}</div>
-                <h4 id="winner-name-${index}" class="winner-name" title="${escapeHTML(winner.playerName)}">${escapeHTML(winner.playerName)}</h4>
+                <p id="winner-name-${index}" class="winner-name" title="${escapeHTML(winner.playerName)}">${escapeHTML(winner.playerName)}</p>
                 <div class="winner-prize" title="Total prize won: ₹${winner.totalPrizeWon.toLocaleString(
                   'en-IN'
                 )}" aria-label="Total prize won">
@@ -1784,10 +1783,9 @@
           const titleContainer = document.querySelector('.title-with-logo');
           if (titleContainer) {
             titleContainer.innerHTML = `
-              <span class="header-icon">⚽</span>
+              <span class=\"header-icon\">⚽</span>
               <span>IIM-M Fantasy League</span>
-              <img src="FPL logo.jpg" alt="FPL" class="fpl-logo" title="Fantasy Premier League">
-              <span class="header-icon">🎯</span>
+              <img src=\"FPL logo.jpg\" alt=\"FPL\" class=\"fpl-logo\" title=\"Fantasy Premier League\">
             `;
           }
         } else {
@@ -1795,10 +1793,9 @@
           const titleContainer = document.querySelector('.title-with-logo');
           if (titleContainer) {
             titleContainer.innerHTML = `
-              <span class="header-icon">⚽</span>
+              <span class=\"header-icon\">⚽</span>
               <span>IIM Mumbai Fantasy League</span>
-              <img src="FPL logo.jpg" alt="Fantasy Premier League" class="fpl-logo" title="Fantasy Premier League">
-              <span class="header-icon">🎯</span>
+              <img src=\"FPL logo.jpg\" alt=\"Fantasy Premier League\" class=\"fpl-logo\" title=\"Fantasy Premier League\">
             `;
           }
           h1.style.fontSize = ''; // Clear any inline styles
@@ -1983,9 +1980,7 @@
                   <h3>Unable to load test league standings</h3>
                   <p>There was a problem loading the test league standings. Please try again.</p>
                   <button onclick="loadTestLeaderboardData()"
-                          style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                    <svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-redo"></use></svg> Retry
-                  </button>
+                          style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">🔄 Retry</button>
                 </div>
               `;
             }
@@ -2074,9 +2069,7 @@
                   <h3>Unable to load league standings</h3>
                   <p>There was a problem loading the league standings. Please try again.</p>
                   <button onclick="loadLeaderboardData()"
-                          style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">
-                    <svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-redo"></use></svg> Retry
-                  </button>
+                          style="background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">🔄 Retry</button>
                 </div>
               `;
             }
@@ -2234,6 +2227,34 @@
       window.addEventListener('resize', debouncedAdjustForZFold);
 
       // Remove duplicate loadPrizeSummary - the correct one is already defined above
+    </script>
+    <!-- Twemoji for stat-box icons -->
+    <script defer src="assets/twemoji/twemoji.min.js"></script>
+    <script>
+      window.applyTwemoji = function (root) {
+        try {
+          if (window.twemoji && typeof window.twemoji.parse === 'function') {
+            window.twemoji.parse(root || document.body, {
+              base: 'assets/twemoji/',
+              folder: 'svg',
+              ext: '.svg',
+            });
+          }
+        } catch (e) {}
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!window.twemoji) {
+          var s = document.createElement('script');
+          s.src = 'https://twemoji.maxcdn.com/v/latest/twemoji.min.js';
+          s.crossOrigin = 'anonymous';
+          s.onload = function () {
+            window.applyTwemoji(document.body);
+          };
+          document.head.appendChild(s);
+        } else {
+          window.applyTwemoji(document.body);
+        }
+      });
     </script>
   </body>
 </html>

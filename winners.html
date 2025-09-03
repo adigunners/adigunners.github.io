@@ -143,7 +143,7 @@
         <div class="header-inner">
           <header>
             <div class="header-main">
-              <h1>🏆 Complete Winner Scorecard</h1>
+              <h1><span class="section-emoji">🏆</span>Complete Winner Scorecard</h1>
               <p>IIM Mumbai Fantasy League - Season 2025-26</p>
             </div>
 
@@ -174,52 +174,40 @@
       <main id="main-content">
         <!-- LEAGUE STATISTICS SECTION (using original winners.html structure) -->
         <section id="league-statistics" aria-labelledby="stats-heading">
-          <h2 id="stats-heading">📊 League Statistics</h2>
-          <div class="stats-summary" id="stats-summary">
-            <div class="summary-card" aria-live="polite">
-              <div class="summary-icon" aria-hidden="true">
-                <svg class="svg-icon" aria-hidden="true">
-                  <use href="assets/icons.svg#icon-calendar"></use>
-                </svg>
-              </div>
-              <div class="summary-number" id="completed-gameweeks">--</div>
-              <div class="summary-label">Completed Gameweeks</div>
-            </div>
-            <div class="summary-card" aria-live="polite">
-              <div class="summary-icon" aria-hidden="true">
-                <svg class="svg-icon" aria-hidden="true">
-                  <use href="assets/icons.svg#icon-calendar"></use>
-                </svg>
-              </div>
-              <div class="summary-number" id="completed-gamemonths">--</div>
-              <div class="summary-label">Completed Gamemonths</div>
-            </div>
-            <div class="summary-card" aria-live="polite">
-              <div class="summary-icon" aria-hidden="true">
-                <svg class="svg-icon" aria-hidden="true">
-                  <use href="assets/icons.svg#icon-users"></use>
-                </svg>
-              </div>
-              <div class="summary-number" id="total-winners">--</div>
-              <div class="summary-label">Total Winners</div>
-            </div>
-            <div class="summary-card primary-metric" aria-live="polite">
-              <div class="summary-icon" aria-hidden="true">
-                <svg class="svg-icon" aria-hidden="true">
-                  <use href="assets/icons.svg#icon-coins"></use>
-                </svg>
-              </div>
-              <div class="summary-number" id="total-prize-money">--</div>
-              <div class="summary-label">Total Prize Money</div>
-            </div>
+          <h2 class="section-heading" id="stats-heading">
+            <span class="heading-main"><span class="section-emoji">📊</span>League Statistics</span>
+          </h2>
+          <div class="stats-row" id="stats-summary">
+            <article class="stat-box" aria-live="polite">
+              <div class="stat-box__icon" aria-hidden="true">📅</div>
+              <div class="stat-box__number" id="completed-gameweeks">--</div>
+              <h3 class="stat-box__title">Completed Gameweeks</h3>
+            </article>
+            <article class="stat-box" aria-live="polite">
+              <div class="stat-box__icon" aria-hidden="true">🗓️</div>
+              <div class="stat-box__number" id="completed-gamemonths">--</div>
+              <h3 class="stat-box__title">Completed Gamemonths</h3>
+            </article>
+            <article class="stat-box" aria-live="polite">
+              <div class="stat-box__icon" aria-hidden="true">🏅</div>
+              <div class="stat-box__number" id="total-winners">--</div>
+              <h3 class="stat-box__title">Total Winners</h3>
+            </article>
+            <article class="stat-box stat-box--primary" aria-live="polite">
+              <div class="stat-box__icon" aria-hidden="true">💰</div>
+              <div class="stat-box__number" id="total-prize-money">--</div>
+              <h3 class="stat-box__title">Total Prize Money</h3>
+            </article>
           </div>
         </section>
 
         <!-- WINNERS SECTION -->
         <section aria-labelledby="winners-heading">
           <div class="winners-header">
-            <h2 class="winners-heading" id="winners-heading">
-              <span class="heading-main">🏅 Complete Winner Rankings</span>
+            <h2 class="section-heading" id="winners-heading">
+              <span class="heading-main"
+                ><span class="section-emoji">🏅</span>Complete Winner Rankings</span
+              >
               <span class="heading-subtitle" id="winners-page-after-gw">Loading…</span>
             </h2>
             <div class="winners-descrow">
@@ -229,10 +217,7 @@
                 class="btn nav-back nav-back--sm"
                 aria-label="Go back to home page"
               >
-                <svg class="svg-icon" aria-hidden="true">
-                  <use href="assets/icons.svg#icon-arrow-left"></use>
-                </svg>
-                Back to Home
+                ⬅️ Back to Home
               </a>
             </div>
           </div>
@@ -249,19 +234,9 @@
             role="navigation"
             aria-label="Winners navigation"
           >
-            <button id="winner-prev-page" class="winner-nav-btn" disabled>
-              <svg class="svg-icon" aria-hidden="true">
-                <use href="assets/icons.svg#icon-chevron-left"></use>
-              </svg>
-              Previous
-            </button>
+            <button id="winner-prev-page" class="winner-nav-btn" disabled>◀️ Previous</button>
             <span id="winner-page-info" class="page-info" aria-live="polite">Page 1 of 1</span>
-            <button id="winner-next-page" class="winner-nav-btn" disabled>
-              Next
-              <svg class="svg-icon" aria-hidden="true">
-                <use href="assets/icons.svg#icon-chevron-right"></use>
-              </svg>
-            </button>
+            <button id="winner-next-page" class="winner-nav-btn" disabled>Next ▶️</button>
           </div>
         </section>
       </main>
@@ -286,6 +261,35 @@
 
     <!-- Winners page module loader -->
     <script type="module" src="js/winners-module.js" defer></script>
+
+    <!-- Twemoji for stat-box icons -->
+    <script defer src="assets/twemoji/twemoji.min.js"></script>
+    <script>
+      window.applyTwemoji = function (root) {
+        try {
+          if (window.twemoji && typeof window.twemoji.parse === 'function') {
+            window.twemoji.parse(root || document.body, {
+              base: 'assets/twemoji/',
+              folder: 'svg',
+              ext: '.svg',
+            });
+          }
+        } catch (e) {}
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!window.twemoji) {
+          var s = document.createElement('script');
+          s.src = 'https://twemoji.maxcdn.com/v/latest/twemoji.min.js';
+          s.crossOrigin = 'anonymous';
+          s.onload = function () {
+            window.applyTwemoji(document.body);
+          };
+          document.head.appendChild(s);
+        } else {
+          window.applyTwemoji(document.body);
+        }
+      });
+    </script>
 
     <!-- Countdown initialization for winners page -->
     <script>

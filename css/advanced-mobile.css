@@ -260,10 +260,15 @@
 /* =============== TYPOGRAPHY DENSITY =============== */
 @media (max-width: 600px) {
   h2 {
-    font-size: 1.1rem;
+    font-size: 1.35rem; /* Match .winners-heading size for consistency */
     line-height: 1.2;
     margin: 0 0 4px 0;
     padding-bottom: 3px;
+  }
+
+  /* Ensure section headings maintain same size as h2 on ultra-compact mobile */
+  .section-heading .heading-main {
+    font-size: 1.35rem; /* Consistent with h2 ultra-mobile sizing */
   }
 
   p {
