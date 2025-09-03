@@ -158,13 +158,13 @@ body {
 
 .muted-small {
   font-size: 0.7rem;
-  color: #ccc;
+  color: var(--text-muted);
   margin-top: 5px;
 }
 
 .note-small {
   font-size: 0.9rem;
-  color: #777;
+  color: var(--text-muted);
   margin-top: 10px;
 }
 
@@ -245,18 +245,18 @@ h1 > span.section-emoji,
 footer {
   text-align: center;
   font-size: 0.8rem;
-  color: #888;
+  color: var(--text-muted);
   padding: 20px;
 }
 
 /* Unified site timestamp styling */
 .site-timestamp {
   font-size: 0.75rem;
-  color: #999;
+  color: var(--text-muted);
   margin-top: 5px;
   margin-bottom: 0;
   font-style: italic;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 /* Season-specific utility classes */

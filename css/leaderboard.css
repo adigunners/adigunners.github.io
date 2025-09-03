@@ -3,7 +3,7 @@
 .leaderboard-loading {
   text-align: center;
   padding: 40px;
-  color: #777;
+  color: var(--text-muted);
   font-style: italic;
 }
 
@@ -181,12 +181,13 @@
 }
 
 .leaderboard-nav-btn:disabled {
-  background: #ccc;
+  background: #e0e0e0;
+  color: #555;
   cursor: not-allowed;
 }
 
 .page-info {
   font-size: 0.9rem;
-  color: #777;
+  color: var(--text-muted);
   font-weight: 600;
 }

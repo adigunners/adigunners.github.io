@@ -14,7 +14,7 @@
   /* Text Colors */
   --text-color: #212529; /* Slightly darker for better contrast */
   --heading-color: #37003c; /* Use primary color for headings */
-  --text-muted: #777; /* Consistent muted text color used across site */
+  --text-muted: #666; /* Increased contrast for WCAG AA compliance */
 
   /* Layout */
   --border-radius: var(--radius-lg); /* More conservative radius like FPL */

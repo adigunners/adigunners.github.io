@@ -704,7 +704,6 @@
               class="leaderboard-nav-btn"
               onclick="previousLeaderboardPage()"
               disabled
-              aria-label="Go to previous page"
               title="Previous page"
             >
               ◀︎ Prev
@@ -715,7 +714,6 @@
               class="leaderboard-nav-btn"
               onclick="nextLeaderboardPage()"
               disabled
-              aria-label="Go to next page"
               title="Next page"
             >
               Next ▶︎
@@ -725,7 +723,9 @@
 
         <!-- RULES SECTION -->
         <section id="prize-structure" class="winner-scorecard" tabindex="-1">
-          <h2><span class="section-emoji">💰</span>Prize Structure</h2>
+          <h2 class="section-heading">
+            <span class="heading-main"><span class="section-emoji">💰</span>Prize Structure</span>
+          </h2>
           <!-- Pre-season view: keep full text (unchanged) -->
           <div id="rules-pre" class="pre-season">
             <p><strong>Entry Fee:</strong> ₹3,000</p>
@@ -760,7 +760,6 @@
               <a
                 href="#prize-structure"
                 onclick="document.getElementById('rules-pre').scrollIntoView({behavior:'smooth'}); return false;"
-                aria-label="View full rules and prize details"
                 >Full rules</a
               >
             </footer>
@@ -770,7 +769,11 @@
 
         <!-- LATE REGISTRATION SECTION (During Season) -->
         <section id="late-register" class="winner-scorecard season-section during-season is-hidden">
-          <h2><span class="section-emoji">🚪</span>Still Want to Join?</h2>
+          <h2 class="section-heading">
+            <span class="heading-main"
+              ><span class="section-emoji">🚪</span>Still Want to Join?</span
+            >
+          </h2>
           <p>
             Missed the initial registration? Contact us to check if late entries are still
             available.
@@ -807,7 +810,7 @@
         role="complementary"
       >
         <header>
-          <h4>QA Panel</h4>
+          <h3>QA Panel</h3>
         </header>
         <dl class="qa-info">
           <dt class="visually-hidden">Phase</dt>
@@ -850,7 +853,6 @@
           id="phase-toggle-open-winners"
           onclick="openWinnersWithToggledPhase()"
           title="Opens Winners with toggled phase; preserves test/data/clockOffset"
-          aria-label="Open Winners with toggled phase; preserves test, data, and clockOffset"
           type="button"
         >
           Open Winners
@@ -1191,7 +1193,7 @@
           <article class="prize-card" aria-labelledby="weekly-prize-title">
             <div class="header">
               <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-calendar-week"></use></svg></div>
-              <h4 id="weekly-prize-title" class="title">Weekly</h4>
+              <h3 id="weekly-prize-title" class="title">Weekly</h3>
             </div>
             <div class="amount" aria-label="Total weekly prize amount">${formatINR(total)}</div>
             <div class="breakdown" aria-label="Prize breakdown">${breakdown}</div>
@@ -1207,7 +1209,7 @@
           <article class="prize-card" aria-labelledby="monthly-prize-title">
             <div class="header">
               <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-calendar"></use></svg></div>
-              <h4 id="monthly-prize-title" class="title">Monthly</h4>
+              <h3 id="monthly-prize-title" class="title">Monthly</h3>
             </div>
             <div class="amount" aria-label="Total monthly prize amount">${formatINR(total)}</div>
             <div class="breakdown" aria-label="Prize breakdown">${breakdown}</div>
@@ -1240,9 +1242,9 @@
           <article class="prize-card" aria-labelledby="annual-prize-title">
             <div class="header">
               <div class="icon" aria-hidden="true"><svg class="svg-icon" aria-hidden="true"><use href="assets/icons.svg#icon-trophy"></use></svg></div>
-              <h4 id="annual-prize-title" class="title">
+              <h3 id="annual-prize-title" class="title">
                 Overall
-                <button class="tooltip" type="button" aria-describedby="overall-tooltip" aria-expanded="false">
+                <button class="tooltip" type="button" aria-describedby="overall-tooltip" aria-expanded="false" aria-label="Show season-end prize breakdown">
                   <svg class="svg-icon info-icon" aria-hidden="true"><use href="assets/icons.svg#icon-info"></use></svg>
                   <span id="overall-tooltip" class="tooltip-content" role="tooltip">
                     <span class="tooltip-arrow" aria-hidden="true"></span>
@@ -1252,7 +1254,7 @@
                     </div>
                   </span>
                 </button>
-              </h4>
+              </h3>
             </div>
             <div class="amount" aria-label="Total annual prize amount">${formatINR(totalOverallPrize)}</div>
             <div class="breakdown" aria-label="Top three prize breakdown">${topThree}</div>
@@ -1729,7 +1731,7 @@
                 index < 3 ? ` rank-${index + 1}` : ''
               }" aria-labelledby="winner-name-${index}">
                 <div class="winner-rank" aria-label="Position">#${index + 1}</div>
-                <h4 id="winner-name-${index}" class="winner-name" title="${escapeHTML(winner.playerName)}">${escapeHTML(winner.playerName)}</h4>
+                <p id="winner-name-${index}" class="winner-name" title="${escapeHTML(winner.playerName)}">${escapeHTML(winner.playerName)}</p>
                 <div class="winner-prize" title="Total prize won: ₹${winner.totalPrizeWon.toLocaleString(
                   'en-IN'
                 )}" aria-label="Total prize won">

@@ -625,7 +625,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 12px;
-  color: #777;
+  color: var(--text-muted);
   font-size: 0.85rem;
 }
 
@@ -743,17 +743,20 @@
  * DO NOT override these in page-specific CSS without careful consideration.
  * Any local changes should be well documented and justified.
  * 
- * Pattern: .winners-heading > .heading-main + .heading-subtitle
+ * Pattern A (legacy): .winners-heading > .heading-main + .heading-subtitle
+ * Pattern B (unified): .section-heading > .heading-main + .heading-subtitle
  * Used by: index.html, winners.html
  */
 
-/* Main heading container - use this class consistently */
-.winners-heading {
+/* Main heading container - legacy and unified alias */
+.winners-heading,
+.section-heading {
   display: block;
   margin: 0 0 0.5rem 0;
 }
 
-.winners-heading .heading-main {
+.winners-heading .heading-main,
+.section-heading .heading-main {
   display: block;
   font-size: 1.35rem; /* Mobile baseline - consistent with mobile h2 */
   font-weight: 700;
@@ -761,7 +764,8 @@
   margin: 0;
 }
 
-.winners-heading .heading-subtitle {
+.winners-heading .heading-subtitle,
+.section-heading .heading-subtitle {
   display: block;
   font-size: 0.85rem;
   font-weight: 400; /* Normal weight for muted appearance */
@@ -772,11 +776,13 @@
 
 /* Responsive heading behavior - CONSISTENT ACROSS ALL PAGES */
 @media (min-width: 769px) {
-  .winners-heading .heading-main {
+  .winners-heading .heading-main,
+  .section-heading .heading-main {
     font-size: 1.8rem; /* Desktop - match global h2 standard */
   }
 
-  .winners-heading .heading-subtitle {
+  .winners-heading .heading-subtitle,
+  .section-heading .heading-subtitle {
     font-size: 0.9rem;
     font-weight: 400; /* Preserve normal weight at responsive breakpoints */
     margin-top: 4px;
