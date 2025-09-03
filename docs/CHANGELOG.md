@@ -8,7 +8,8 @@
 
 - Self-host Twemoji SVG icons for consistent, colorful UI across platforms.
 - Local Twemoji parser with CDN fallback; tiny helper `applyTwemoji()` to parse dynamic content.
-- Minimal Twemoji subset fetch script: `npm run twemoji:fetch` downloads required SVGs + `twemoji.min.js`.
+- Minimal Twemoji subset fetch script: `npm run twemoji:fetch` downloads required SVGs +
+  `twemoji.min.js`.
 
 ### 🧩 Changes
 
@@ -28,7 +29,8 @@
 
 ### 🔎 Notes
 
-- Service Worker continues to cache at runtime; pre-cache list left unchanged to avoid install failures when assets are not yet fetched.
+- Service Worker continues to cache at runtime; pre-cache list left unchanged to avoid install
+  failures when assets are not yet fetched.
 
 ## [1.4.0] - 2025-09-02 - Unified Stat Box System Implementation (Closes #62)
 

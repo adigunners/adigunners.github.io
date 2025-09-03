@@ -1,76 +1,110 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test RANK_CLASSES - Winners Table</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .test-result { padding: 10px; margin: 5px 0; border-radius: 4px; }
-        .pass { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
-        .fail { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
-        .info { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .test-result {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+      }
+      .pass {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+      .fail {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+      }
+      .info {
+        background: #d1ecf1;
+        border: 1px solid #bee5eb;
+        color: #0c5460;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>🧪 RANK_CLASSES Test Suite</h1>
     <div id="test-results"></div>
 
     <script type="module">
-        const results = document.getElementById('test-results');
-        
-        function logResult(test, status, message) {
-            const div = document.createElement('div');
-            div.className = `test-result ${status}`;
-            div.innerHTML = `<strong>${test}:</strong> ${message}`;
-            results.appendChild(div);
-        }
+      const results = document.getElementById('test-results');
 
-        // Test 1: Check if RANK_CLASSES is available from state-module
-        try {
-            const { RANK_CLASSES } = await import('./js/state-module.js');
-            logResult('Test 1', 'pass', 'RANK_CLASSES successfully imported from state-module.js');
-            console.log('RANK_CLASSES:', RANK_CLASSES);
-            
-            // Test 2: Verify RANK_CLASSES structure
-            if (RANK_CLASSES && typeof RANK_CLASSES === 'object') {
-                logResult('Test 2', 'pass', 'RANK_CLASSES is a valid object');
-                
-                // Test 3: Check expected rank mappings
-                const expectedRanks = { 1: 'winner-gold', 2: 'winner-silver', 3: 'winner-bronze' };
-                let mappingCorrect = true;
-                
-                for (const [rank, expectedClass] of Object.entries(expectedRanks)) {
-                    if (RANK_CLASSES[rank] !== expectedClass) {
-                        mappingCorrect = false;
-                        logResult('Test 3', 'fail', `Rank ${rank} should map to "${expectedClass}", got "${RANK_CLASSES[rank]}"`);
-                    }
-                }
-                
-                if (mappingCorrect) {
-                    logResult('Test 3', 'pass', 'All rank mappings are correct (1→gold, 2→silver, 3→bronze)');
-                }
-            } else {
-                logResult('Test 2', 'fail', 'RANK_CLASSES is not a valid object');
-            }
-            
-        } catch (error) {
-            logResult('Test 1', 'fail', `Failed to import RANK_CLASSES: ${error.message}`);
-        }
+      function logResult(test, status, message) {
+        const div = document.createElement('div');
+        div.className = `test-result ${status}`;
+        div.innerHTML = `<strong>${test}:</strong> ${message}`;
+        results.appendChild(div);
+      }
 
-        // Test 4: Try to import winners-module.js to see the current error
-        logResult('Test 4', 'info', 'Testing winners-module.js import...');
-        try {
-            await import('./js/winners-module.js');
-            logResult('Test 4', 'pass', 'winners-module.js imported successfully');
-        } catch (error) {
-            if (error.message.includes('RANK_CLASSES is not defined')) {
-                logResult('Test 4', 'fail', '❌ CONFIRMED: RANK_CLASSES is not defined in winners-module.js');
-                logResult('Fix Required', 'info', 'Need to add RANK_CLASSES to import statement in winners-module.js');
-            } else {
-                logResult('Test 4', 'fail', `winners-module.js error: ${error.message}`);
+      // Test 1: Check if RANK_CLASSES is available from state-module
+      try {
+        const { RANK_CLASSES } = await import('./js/state-module.js');
+        logResult('Test 1', 'pass', 'RANK_CLASSES successfully imported from state-module.js');
+        console.log('RANK_CLASSES:', RANK_CLASSES);
+
+        // Test 2: Verify RANK_CLASSES structure
+        if (RANK_CLASSES && typeof RANK_CLASSES === 'object') {
+          logResult('Test 2', 'pass', 'RANK_CLASSES is a valid object');
+
+          // Test 3: Check expected rank mappings
+          const expectedRanks = { 1: 'winner-gold', 2: 'winner-silver', 3: 'winner-bronze' };
+          let mappingCorrect = true;
+
+          for (const [rank, expectedClass] of Object.entries(expectedRanks)) {
+            if (RANK_CLASSES[rank] !== expectedClass) {
+              mappingCorrect = false;
+              logResult(
+                'Test 3',
+                'fail',
+                `Rank ${rank} should map to "${expectedClass}", got "${RANK_CLASSES[rank]}"`
+              );
             }
+          }
+
+          if (mappingCorrect) {
+            logResult(
+              'Test 3',
+              'pass',
+              'All rank mappings are correct (1→gold, 2→silver, 3→bronze)'
+            );
+          }
+        } else {
+          logResult('Test 2', 'fail', 'RANK_CLASSES is not a valid object');
         }
+      } catch (error) {
+        logResult('Test 1', 'fail', `Failed to import RANK_CLASSES: ${error.message}`);
+      }
+
+      // Test 4: Try to import winners-module.js to see the current error
+      logResult('Test 4', 'info', 'Testing winners-module.js import...');
+      try {
+        await import('./js/winners-module.js');
+        logResult('Test 4', 'pass', 'winners-module.js imported successfully');
+      } catch (error) {
+        if (error.message.includes('RANK_CLASSES is not defined')) {
+          logResult(
+            'Test 4',
+            'fail',
+            '❌ CONFIRMED: RANK_CLASSES is not defined in winners-module.js'
+          );
+          logResult(
+            'Fix Required',
+            'info',
+            'Need to add RANK_CLASSES to import statement in winners-module.js'
+          );
+        } else {
+          logResult('Test 4', 'fail', `winners-module.js error: ${error.message}`);
+        }
+      }
     </script>
-</body>
+  </body>
 </html>
