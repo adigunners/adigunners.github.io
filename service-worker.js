@@ -6,11 +6,11 @@
  * - Handles failed network requests gracefully
  * - Supports caching of CSS, JS, and image files
  *
- * @version 1.0.2
- * @date 2025-09-03
+ * @version 1.0.3
+ * @date 2025-09-04
 */
 
-const CACHE_NAME = 'fpl-iim-mumbai-v1.0.2';
+const CACHE_NAME = 'fpl-iim-mumbai-v1.0.3';
 const CACHE_URLS = [
   '/',
   '/index.html',
@@ -45,6 +45,8 @@ const CACHE_URLS = [
   '/assets/twemoji/svg/1f4c5.svg', // 📅
   '/assets/twemoji/svg/1f5d3.svg', // 🗓️
   '/assets/twemoji/svg/1f3c5.svg', // 🏅
+  '/assets/twemoji/svg/1f3af.svg', // 🎯
+  '/assets/twemoji/svg/1f4ca.svg', // 📊
   '/assets/twemoji/svg/1f500.svg', // 🔀
   '/assets/twemoji/svg/1f504.svg', // 🔄
   '/assets/twemoji/svg/2b05.svg',  // ⬅️

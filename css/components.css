@@ -879,3 +879,38 @@
     gap: 20px;
   }
 }
+
+/* =============== STAT-BOX UNIFICATION ENFORCEMENT =============== */
+/* Ensure variable-driven typography is respected across late-loaded responsive files */
+@media (max-width: 600px) {
+  /* Typography */
+  .stats-row > .stat-box .stat-box__icon,
+  .stats-row > .stat-box .stat-icon {
+    font-size: var(--icon-size);
+  }
+  .stats-row > .stat-box .stat-box__title,
+  .stats-row > .stat-box .stat-title {
+    font-size: var(--title-size);
+    line-height: 1.2;
+  }
+  .stats-row > .stat-box .stat-box__number,
+  .stats-row > .stat-box .stat-number {
+    font-size: clamp(1.5rem, 4vw, var(--number-size));
+  }
+
+  /* Spacing */
+  .stats-row > .stat-box {
+    padding: var(--box-padding);
+  }
+}
+
+/* Tablet range should follow variables, not fixed sizes */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .stats-row > .stat-box .stat-box__number,
+  .stats-row > .stat-box .stat-number {
+    font-size: var(--number-size);
+  }
+  .stats-row > .stat-box.stat-box--primary .stat-box__number {
+    font-size: var(--number-size-primary);
+  }
+}

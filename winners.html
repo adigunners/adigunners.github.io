@@ -389,5 +389,19 @@
         }, 100); // Small delay to ensure all modules are ready
       });
     </script>
+
+    <!-- Service worker registration for offline support (match index.html) -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/service-worker.js')
+            .then((registration) => console.log('SW registered:', registration))
+            .catch((registrationError) =>
+              console.log('SW registration failed:', registrationError)
+            );
+        });
+      }
+    </script>
   </body>
 </html>
