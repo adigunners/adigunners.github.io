@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual Regression Testing - Baseline Capture</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+      }
+      .test-info {
+        background: #f0f0f0;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+      .viewport-tests {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .viewport-test {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .viewport-label {
+        background: #333;
+        color: white;
+        padding: 10px;
+        text-align: center;
+      }
+      .viewport-frame {
+        border: none;
+      }
+      .instructions {
+        background: #e8f4fd;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+      .breakpoint {
+        font-weight: bold;
+        color: #007acc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test-info">
+      <h1>CSS Architecture Audit - Visual Regression Baseline</h1>
+      <p>
+        This page helps capture baseline screenshots for visual regression testing during CSS
+        optimization.
+      </p>
+      <p><strong>Branch:</strong> feature/css-architecture-optimization</p>
+      <p><strong>Date:</strong> <span id="currentDate"></span></p>
+    </div>
+
+    <div class="instructions">
+      <h2>Testing Instructions</h2>
+      <ol>
+        <li>
+          Open <strong>index.html</strong> and <strong>winners.html</strong> in separate browser
+          tabs
+        </li>
+        <li>Use browser developer tools to test these key breakpoints:</li>
+        <ul>
+          <li><span class="breakpoint">320px</span> - Small mobile</li>
+          <li><span class="breakpoint">375px</span> - iPhone SE</li>
+          <li><span class="breakpoint">768px</span> - Tablet</li>
+          <li><span class="breakpoint">1024px</span> - Desktop</li>
+          <li><span class="breakpoint">1440px</span> - Large desktop</li>
+        </ul>
+        <li>Take screenshots at each breakpoint for both pages</li>
+        <li>Save screenshots in: <code>testing/visual-regression/baseline/</code></li>
+        <li>Naming convention: <code>[page]-[width]px.png</code></li>
+      </ol>
+    </div>
+
+    <div class="test-info">
+      <h2>Test Matrix</h2>
+      <p>Screenshots needed (10 total):</p>
+      <ul>
+        <li>
+          index-320px.png, index-375px.png, index-768px.png, index-1024px.png, index-1440px.png
+        </li>
+        <li>
+          winners-320px.png, winners-375px.png, winners-768px.png, winners-1024px.png,
+          winners-1440px.png
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      document.getElementById('currentDate').textContent = new Date().toISOString().split('T')[0];
+    </script>
+  </body>
+</html>

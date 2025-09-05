@@ -9,7 +9,8 @@
       "Bash(curl:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Read(//Users/aditya.garg/Documents/**)"
     ],
     "deny": [],
     "ask": []
