@@ -102,6 +102,8 @@ Use: Bash tool with command `date '+%Y-%m-%d'` to get current date in required f
 
 Create directory: .agent-os/specs/YYYY-MM-DD-spec-name/ using the date from step 4. Use Bash tool with `mkdir -p` command to create the directory structure.
 
+Also create spec-specific analysis folder: .agent-os/specs/YYYY-MM-DD-spec-name/analysis/ for storing spec-specific documentation and analysis files.
+
 Use kebab-case for spec name. Maximum 5 words in name.
 
 <folder_naming>
@@ -375,9 +377,38 @@ SKIP this_step
 
 </step>
 
-<step number="11" name="user_review">
+<step number="11" name="setup_testing_infrastructure">
 
-### Step 11: User Review
+### Step 11: Setup Centralized Testing Infrastructure
+
+Check if centralized testing infrastructure exists at .agent-os/testing/. If not, create the shared testing structure for reuse across all specs.
+
+<testing_infrastructure_check>
+IF .agent-os/testing/ directory exists:
+SKIP infrastructure creation, reuse existing
+ELSE:
+CREATE centralized testing structure:
+
+- .agent-os/testing/visual-regression/
+- .agent-os/testing/performance/
+- .agent-os/testing/css-analysis/
+- .agent-os/testing/utils/
+
+</testing_infrastructure_check>
+
+<shared_testing_benefits>
+
+- Consistent testing standards across all specs
+- Reusable testing utilities and frameworks
+- Cleaner repository structure
+- Reduced duplication of testing infrastructure
+</shared_testing_benefits>
+
+</step>
+
+<step number="12" name="user_review">
+
+### Step 12: User Review
 
 Request user review of spec.md and all sub-specs files, waiting for approval or revision requests.
 
