@@ -31,9 +31,7 @@
     gap: 12px; /* Reduced from 16px */
   }
 
-  .stat-box {
-    padding: 12px 10px; /* Reduced from 16px 12px */
-  }
+  /* Rely on variable-driven padding from css/components.css for .stat-box */
 
   /* Compact leaderboard spacing */
   .leaderboard-table tbody tr {
@@ -86,22 +84,7 @@
     font-size: 1.35rem; /* Consistent with h2 mobile sizing */
   }
 
-  /* Denser stat boxes */
-  .stat-icon {
-    font-size: 1.8rem; /* Reduced from 2rem */
-    margin-bottom: 6px; /* Reduced from 8px */
-  }
-
-  .stat-title {
-    font-size: 1rem; /* Reduced from 1.1rem */
-    margin-bottom: 4px; /* Reduced from 6px */
-    line-height: 1.1;
-  }
-
-  .stat-number {
-    font-size: 1.8rem; /* Reduced from 2rem */
-    margin-bottom: 2px; /* Reduced from 4px */
-  }
+  /* Denser stat boxes: typography now unified via variables in components.css */
 
   /* Compact winner cards */
   .winner-name {

@@ -59,10 +59,8 @@
     gap: 40px; /* Increased gap for better separation */
   }
 
-  .stat-box {
-    padding: 20px 16px; /* More compact padding */
-    min-height: 120px; /* Consistent height */
-  }
+  /* Stat box padding/height are governed by components.css variables */
+  /* .stat-box { padding: var(--box-padding); min-height: 120px; } */
 
   /* Winner preview optimizations */
   .winner-preview {
@@ -130,14 +128,10 @@
     margin: 0 auto;
   }
 
-  .stat-box {
-    padding: 18px 14px;
-    min-height: 110px;
-  }
+  /* Follow variable-driven sizing for tablet */
+  /* .stat-box { padding: var(--box-padding); min-height: 110px; } */
 
-  .stat-number {
-    font-size: 2.2rem; /* Slightly smaller for better fit */
-  }
+  /* Typography unified via variables; avoid overriding .stat-number size here */
 
   /* Winner preview in 2-column layout */
   .winner-preview {
