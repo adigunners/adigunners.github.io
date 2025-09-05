@@ -11,7 +11,10 @@
       "Bash(git commit:*)",
       "Bash(python3:*)",
       "Read(//Users/aditya.garg/Documents/**)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(./performance-audit.sh:*)",
+      "Bash(./.agent-os/testing/performance/performance-audit.sh:*)",
+      "Bash(jq:*)"
     ],
     "deny": [],
     "ask": []

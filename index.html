@@ -145,6 +145,25 @@
 
     <!-- Critical CSS: minimal above-the-fold styles for stable first paint -->
     <style>
+      /* Essential variables inlined for critical path */
+      :root {
+        --primary-color: #37003c;
+        --heading-color: #37003c;
+        --background-color: #f8f9fa;
+        --page-backdrop: #f8f9fa;
+        --card-background: #fff;
+        --text-color: #212529;
+        --border-radius: 8px;
+        --spacing-lg: 24px;
+        --spacing-xl: 32px;
+        --radius-lg: 8px;
+        --container-max-width: 1200px;
+        --spacing-md: 16px;
+        --box-gap: 16px;
+        --box-min-width: 200px;
+        --box-padding: 20px;
+      }
+
       .site-header {
         position: sticky;
         top: 0;
