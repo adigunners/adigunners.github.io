@@ -98,27 +98,7 @@
     margin-bottom: 6px;
   }
 
-  .stat-box {
-    padding: 8px 6px;
-    min-width: unset;
-  }
-
-  .stat-icon {
-    font-size: 1.5rem;
-    margin-bottom: 3px;
-  }
-
-  .stat-title {
-    font-size: 0.8rem;
-    margin-bottom: 2px;
-    line-height: 1;
-  }
-
-  .stat-number {
-    font-size: 1.4rem;
-    margin-bottom: 0;
-    line-height: 1;
-  }
+  /* Use unified variable-driven stat-box styles from components.css */
 }
 
 /* =============== STREAMLINED WINNER CARDS =============== */

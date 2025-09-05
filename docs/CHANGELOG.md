@@ -2,6 +2,43 @@
 
 **All notable changes to the fantasy league management system will be documented in this file.**
 
+## [1.4.2] - 2025-09-04 - Unified Stat Box Cascade Cleanup + PWA parity
+
+### 🧩 Changes
+
+- Cleaned up duplicate responsive overrides for `.stat-box`, `.stat-icon`, `.stat-title`,
+  `.stat-number` across responsive CSS files; typography and padding now fully governed by
+  `css/components.css` variables.
+- Trimmed inline critical CSS in `index.html` to rely on `--box-gap`, `--box-min-width`, and
+  `--box-padding`, avoiding cascade conflicts while preserving stable initial paint.
+- Adjusted mobile `.stat-box` margins to prevent horizontal overflow; rely on container padding.
+- Enforced variable-driven stat-box sizing at mobile/tablet inside `components.css` so late-loaded
+  responsive files don’t override the unified scale.
+
+### 🚀 New / Parity
+
+- Winners page now registers the Service Worker (PWA parity with homepage) to enable offline caching
+  when the page is opened directly.
+
+### 🧰 DevOps
+
+- Added missing Twemoji assets used in UI (🎯 `1f3af`, 📊 `1f4ca`) to the self-hosted subset and
+  included them in the Service Worker pre-cache list.
+- Bumped Service Worker cache name to `v1.0.3` to pick up new assets.
+
+### 📂 Files (not exhaustive)
+
+- Updated: `css/components.css`, `css/responsive.css`, `css/mobile-optimizations.css`,
+  `css/advanced-mobile.css`, `css/desktop-tablet-optimizations.css`, `index.html`, `winners.html`,
+  `service-worker.js`.
+- Added: `assets/twemoji/svg/1f3af.svg`, `assets/twemoji/svg/1f4ca.svg`.
+
+### 🔗 References
+
+- GitHub PR: [#69](https://github.com/adigunners/adigunners.github.io/pull/69)
+
+---
+
 ## [1.4.1] - 2025-09-03 - Self-hosted Twemoji icons + a11y polish
 
 ### 🚀 New

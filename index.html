@@ -222,19 +222,19 @@
         margin-bottom: var(--spacing-lg);
         border-radius: var(--radius-lg);
       }
-      /* Stats row minimal critical styles */
+      /* Stats row minimal critical styles (defer sizes to components.css) */
       .stats-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 24px;
+        gap: var(--box-gap);
         justify-content: center;
-        margin-bottom: 20px;
+        margin-bottom: var(--spacing-lg);
         width: 100%;
       }
       .stat-box {
         flex: 1 1 0;
-        min-width: 220px;
-        padding: 24px 18px;
+        min-width: var(--box-min-width);
+        padding: var(--box-padding);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -242,25 +242,7 @@
         text-align: center;
         border-radius: var(--radius-lg);
         background: var(--card-background);
-        min-height: 120px;
-      }
-      .stat-icon {
-        font-size: 2rem;
-        color: var(--primary-color);
-        margin-bottom: 10px;
-      }
-      .stat-title {
-        font-weight: 700;
-        font-size: 1.2rem;
-        color: var(--heading-color);
-        margin: 0 0 6px;
-      }
-      .stat-number {
-        font-weight: 700;
-        font-size: 2rem;
-        color: var(--primary-color);
-        letter-spacing: 0.5px;
-        margin-bottom: 6px;
+        min-height: 120px; /* keep stable initial paint */
       }
     </style>
 

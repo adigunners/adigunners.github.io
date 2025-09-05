@@ -138,7 +138,7 @@
     width: 100%;
     max-width: none; /* Remove width restriction to match winner cards */
     min-height: 140px; /* Increased height for better mobile appearance */
-    margin: 0 16px; /* Add side margins to match winner card spacing */
+    margin: 0; /* Avoid horizontal overflow; rely on container padding */
   }
 
   .stat-box__title {
@@ -877,5 +877,40 @@
   .prize-summary {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+  }
+}
+
+/* =============== STAT-BOX UNIFICATION ENFORCEMENT =============== */
+/* Ensure variable-driven typography is respected across late-loaded responsive files */
+@media (max-width: 600px) {
+  /* Typography */
+  .stats-row > .stat-box .stat-box__icon,
+  .stats-row > .stat-box .stat-icon {
+    font-size: var(--icon-size);
+  }
+  .stats-row > .stat-box .stat-box__title,
+  .stats-row > .stat-box .stat-title {
+    font-size: var(--title-size);
+    line-height: 1.2;
+  }
+  .stats-row > .stat-box .stat-box__number,
+  .stats-row > .stat-box .stat-number {
+    font-size: clamp(1.5rem, 4vw, var(--number-size));
+  }
+
+  /* Spacing */
+  .stats-row > .stat-box {
+    padding: var(--box-padding);
+  }
+}
+
+/* Tablet range should follow variables, not fixed sizes */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .stats-row > .stat-box .stat-box__number,
+  .stats-row > .stat-box .stat-number {
+    font-size: var(--number-size);
+  }
+  .stats-row > .stat-box.stat-box--primary .stat-box__number {
+    font-size: var(--number-size-primary);
   }
 }

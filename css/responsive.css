@@ -129,27 +129,8 @@
     gap: 16px;
   }
 
-  .stat-box {
-    width: 100%;
-    min-width: unset;
-    padding: 16px 12px;
-  }
-
-  .stat-icon {
-    font-size: 2rem;
-    margin-bottom: 8px;
-  }
-
-  .stat-title {
-    font-size: 1.1rem;
-    margin-bottom: 6px;
-    line-height: 1.2;
-  }
-
-  .stat-number {
-    font-size: 2rem;
-    margin-bottom: 4px;
-  }
+  /* Stat box sizing and typography are standardized in css/components.css.
+     Keep responsive layout only here; avoid overriding .stat-* sizes/padding. */
 
   .countdown-clock {
     max-width: 200px; /* standard mobile size */
