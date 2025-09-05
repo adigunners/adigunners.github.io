@@ -138,7 +138,7 @@
     width: 100%;
     max-width: none; /* Remove width restriction to match winner cards */
     min-height: 140px; /* Increased height for better mobile appearance */
-    margin: 0 16px; /* Add side margins to match winner card spacing */
+    margin: 0; /* Avoid horizontal overflow; rely on container padding */
   }
 
   .stat-box__title {
