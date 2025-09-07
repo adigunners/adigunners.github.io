@@ -50,7 +50,7 @@
 }
 
 /* TABLET ENHANCEMENTS (701px - 1024px) */
-@media (min-width: 701px) {
+@media (min-width: 700.01px) {
   :root {
     --box-min-width: 160px;
     --box-gap: 16px;
@@ -72,7 +72,7 @@
 }
 
 /* DESKTOP ENHANCEMENTS (≥1025px) */
-@media (min-width: 1025px) {
+@media (min-width: 1024.01px) {
   :root {
     --box-min-width: 160px; /* Reduced to ensure 4 boxes fit in row */
     --box-max-width: 280px; /* Reasonable max for 4-box layout */
@@ -536,7 +536,7 @@
   background: linear-gradient(145deg, #fef7e0, #fff3cd);
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768.01px) {
   /* Tablet breakpoint - standardized */
   .prize-summary {
     grid-template-columns: repeat(3, 1fr);
@@ -792,7 +792,7 @@
 }
 
 /* Responsive heading behavior - CONSISTENT ACROSS ALL PAGES */
-@media (min-width: 769px) {
+@media (min-width: 768.01px) {
   .section-heading .heading-main {
     font-size: 1.8rem; /* Desktop - match global h2 standard */
   }
@@ -866,14 +866,14 @@
 /* The unified variable system automatically handles responsive scaling */
 
 /* Prize summary grid enhancements */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 768.01px) and (max-width: 1024px) {
   .prize-summary {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1024.01px) {
   .prize-summary {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -905,7 +905,7 @@
 }
 
 /* Tablet range should follow variables, not fixed sizes */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 768.01px) and (max-width: 1024px) {
   .stats-row > .stat-box .stat-box__number,
   .stats-row > .stat-box .stat-number {
     font-size: var(--number-size);

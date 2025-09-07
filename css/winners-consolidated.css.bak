@@ -1,0 +1,403 @@
+/* =============== WINNER STYLES (CONSOLIDATED) =============== */
+/* Combines winners.css + winners-specific.css */
+/* Used on both index.html (preview) and winners.html (full page) */
+
+/* =============== SHARED WINNER UTILITIES =============== */
+
+/* Muted text for subtitles */
+.muted {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+/* =============== WINNER PREVIEW CARDS (for index.html) =============== */
+
+.winner-scorecard {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  margin-bottom: 20px;
+}
+
+.winner-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.winner-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.winner-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.winner-card h3 {
+  margin: 0 0 12px 0;
+  color: var(--heading-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.winner-card p {
+  margin: 6px 0;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.winner-card .highlight {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Winner preview grid responsive behavior */
+@media (max-width: 768px) {
+  .winner-preview {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+/* =============== WINNERS PAGE SPECIFIC STYLES =============== */
+
+/* Note: Stats cards styling is handled by components.css (.stat-box) */
+/* This section was causing conflicts with actual HTML structure */
+
+/* =============== WINNER TABLE STYLES (Winners Page) =============== */
+
+/* Winners header section */
+.winners-header {
+  margin-bottom: 30px;
+}
+
+.winners-descrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  gap: 20px;
+}
+
+/* Winner table container */
+#winner-table-container {
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
+}
+
+.winner-loading {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* Winner pagination */
+.winner-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.winner-nav-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.winner-nav-btn:hover:not(:disabled) {
+  background: var(--heading-color);
+}
+
+.winner-nav-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.page-info {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* =============== WINNER TABLE DESKTOP STYLES =============== */
+
+.winner-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.winner-table th {
+  background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+  color: white;
+  padding: 15px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.winner-table th:first-child {
+  text-align: center;
+  width: 60px;
+}
+
+.winner-table th:last-child {
+  text-align: right;
+}
+
+.winner-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.winner-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.winner-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+/* Winner rankings styling */
+.winner-table tbody tr.winner-gold {
+  background: linear-gradient(135deg, #fff9e6, #fef7e0);
+  border-left: 4px solid #f9a825;
+}
+
+.winner-table tbody tr.winner-silver {
+  background: linear-gradient(135deg, #f5f5f5, #f0f0f0);
+  border-left: 4px solid #9e9e9e;
+}
+
+.winner-table tbody tr.winner-bronze {
+  background: linear-gradient(135deg, #fff8e1, #fff3c4);
+  border-left: 4px solid #d4b106;
+}
+
+.winner-rank {
+  text-align: center;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.winner-name {
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+.winner-prize {
+  text-align: right;
+  font-weight: 700;
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.winner-details {
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* =============== WINNER CARDS MOBILE STYLES =============== */
+/* Mobile winner cards for winners.html should match index.html winner-card styling */
+
+.winner-cards {
+  display: none; /* Hidden by default, shown on mobile */
+}
+
+/* Ensure all winner cards (both pages) have consistent styling */
+.winner-card-item,
+#winner-table-container .winner-card,
+.winner-cards .winner-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.winner-card-item:hover,
+#winner-table-container .winner-card:hover,
+.winner-cards .winner-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Consistent typography for all winner cards */
+.winner-card-item h3,
+#winner-table-container .winner-card h3,
+.winner-cards .winner-card h3 {
+  margin: 0 0 12px 0;
+  color: var(--heading-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.winner-card-item p,
+#winner-table-container .winner-card p,
+.winner-cards .winner-card p {
+  margin: 6px 0;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.winner-card-item .highlight,
+#winner-table-container .winner-card .highlight,
+.winner-cards .winner-card .highlight {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Only hide complex winner-specific mobile elements, NOT general content */
+.winner-cards .winner-card-header {
+  display: none; /* Hide only in winner-cards context */
+}
+
+.winner-cards .winner-card-rank {
+  display: none; /* Hide only in winner-cards context */
+}
+
+.winner-cards .winner-card-name {
+  display: none; /* Hide only in winner-cards context */
+}
+
+.winner-cards .winner-card-prize {
+  display: none; /* Hide only in winner-cards context */
+}
+
+.winner-cards .winner-card-details {
+  display: none; /* Hide only in winner-cards context */
+}
+
+/* =============== RESPONSIVE WINNER STYLES =============== */
+
+/* Desktop: Show table, hide cards */
+@media (min-width: 1025px) {
+  .winner-table {
+    display: table;
+  }
+  .winner-cards {
+    display: none;
+  }
+}
+
+/* Tablet and mobile: Hide table, show cards */
+@media (max-width: 1024px) {
+  .winner-table {
+    display: none;
+  }
+  .winner-cards {
+    display: block;
+  }
+  
+  .winners-descrow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .nav-back {
+    align-self: flex-end;
+  }
+}
+
+/* Small mobile optimizations */
+@media (max-width: 600px) {
+  .winner-card-item {
+    padding: 15px;
+    margin-bottom: 12px;
+  }
+  
+  .winner-card-header {
+    margin-bottom: 8px;
+  }
+  
+  .winner-card-name {
+    font-size: 1rem;
+  }
+  
+  .winner-card-prize {
+    font-size: 1.1rem;
+  }
+  
+  .winner-navigation {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .winner-nav-btn {
+    padding: 12px 24px;
+    width: 100%;
+  }
+}
+
+/* =============== WINNER LOADING STATES =============== */
+
+.winner-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.winner-error {
+  padding: 40px 20px;
+  text-align: center;
+  color: #dc3545;
+  background: #f8d7da;
+  border-radius: var(--radius-md);
+  margin: 20px 0;
+}
+
+/* =============== WINNER UTILITY CLASSES =============== */
+
+.winner-highlight {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.winner-muted {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.winner-badge {
+  display: inline-block;
+  background: var(--primary-color);
+  color: white;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

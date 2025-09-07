@@ -21,7 +21,7 @@ section {
 }
 
 /* =============== DESKTOP/TABLET STANDARDIZATION (≥769px) =============== */
-@media (min-width: 769px) {
+@media (min-width: 768.01px) {
   /* Main container and section spacing */
   .container {
     margin: var(--spacing-lg) auto; /* 24px top/bottom */
@@ -132,7 +132,7 @@ section {
 }
 
 /* =============== TABLET OPTIMIZATION (769px - 1024px) =============== */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 768.01px) and (max-width: 1024px) {
   /* Slightly reduced spacing for tablets */
   .container {
     margin: calc(var(--spacing-lg) * var(--spacing-tablet-multiplier)) auto; /* ~21px */
@@ -282,7 +282,7 @@ section {
 }
 
 /* =============== ULTRA-WIDE DESKTOP (≥1401px) =============== */
-@media (min-width: 1401px) {
+@media (min-width: 1400.01px) {
   /* Slightly increased spacing for ultra-wide screens */
   .container {
     margin: calc(var(--spacing-xl) * 1.25) auto; /* 40px top/bottom */

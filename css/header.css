@@ -288,7 +288,7 @@ header p {
 
 /* FIX: standardize countdown sizing across pages and breakpoints */
 /* Use higher-specificity selectors so these values are consistent on index and winners */
-@media (min-width: 1025px) {
+@media (min-width: 1024.01px) {
   .site-header header .countdown-clock {
     max-width: 300px;
   }

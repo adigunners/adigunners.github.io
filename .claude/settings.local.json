@@ -15,7 +15,8 @@
       "Bash(./performance-audit.sh:*)",
       "Bash(./.agent-os/testing/performance/performance-audit.sh:*)",
       "Bash(jq:*)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []

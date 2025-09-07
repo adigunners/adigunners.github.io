@@ -3,7 +3,7 @@
 /* while maintaining functionality and responsive behavior */
 
 /* =============== WIDE DESKTOP OPTIMIZATIONS (≥1401px) =============== */
-@media (min-width: 1401px) {
+@media (min-width: 1400.01px) {
   .container {
     max-width: 1400px; /* Increase from 1200px to utilize wide screens */
     padding: 0 40px; /* More generous padding for ultra-wide screens */
@@ -40,7 +40,7 @@
 }
 
 /* =============== DESKTOP OPTIMIZATIONS (1025px - 1400px) =============== */
-@media (min-width: 1025px) and (max-width: 1400px) {
+@media (min-width: 1024.01px) and (max-width: 1400px) {
   .container {
     max-width: 1200px;
     padding: 0 30px; /* Reduce excessive side padding */
@@ -104,7 +104,7 @@
 }
 
 /* =============== LARGE TABLET OPTIMIZATIONS (769px - 1024px) =============== */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 768.01px) and (max-width: 1024px) {
   .container {
     max-width: 100%;
     padding: 0 20px; /* Reduce side padding */
@@ -174,7 +174,7 @@
 }
 
 /* =============== CONTENT DENSITY IMPROVEMENTS =============== */
-@media (min-width: 769px) {
+@media (min-width: 768.01px) {
   /* Reduce excessive spacing in content */
   main > * {
     margin-bottom: 16px; /* Reduce from 20px */
@@ -236,7 +236,7 @@
 }
 
 /* =============== GRID LAYOUT OPTIMIZATIONS =============== */
-@media (min-width: 1025px) {
+@media (min-width: 1024.01px) {
   /* Enhanced two-column layout for sections when beneficial */
   .main-content-grid {
     display: grid;
@@ -275,7 +275,7 @@
 }
 
 /* =============== TYPOGRAPHY DENSITY =============== */
-@media (min-width: 769px) {
+@media (min-width: 768.01px) {
   /* Optimize heading spacing */
   h2 {
     margin-bottom: 16px;
@@ -310,7 +310,7 @@
 }
 
 /* =============== SECTION-SPECIFIC OPTIMIZATIONS =============== */
-@media (min-width: 769px) {
+@media (min-width: 768.01px) {
   /* League statistics section */
   #league-statistics {
     padding: 20px 30px;
@@ -362,7 +362,7 @@
 }
 
 /* =============== FOOTER OPTIMIZATIONS =============== */
-@media (min-width: 769px) {
+@media (min-width: 768.01px) {
   footer {
     padding: 16px 20px;
     margin-top: 20px;
@@ -374,7 +374,7 @@
 }
 
 /* =============== ADMIN PANEL OPTIMIZATIONS =============== */
-@media (min-width: 769px) {
+@media (min-width: 768.01px) {
   .qa-panel {
     max-width: 400px;
     padding: 16px;
@@ -399,7 +399,7 @@
 }
 
 /* =============== FLOATING ELEMENTS OPTIMIZATION =============== */
-@media (min-width: 769px) {
+@media (min-width: 768.01px) {
   .floating-toggle {
     padding: 12px;
     bottom: 20px;

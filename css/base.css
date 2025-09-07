@@ -227,7 +227,7 @@ h2 {
 }
 
 /* Desktop h2 sizing to match .winners-heading */
-@media (min-width: 769px) {
+@media (min-width: 768.01px) {
   h2 {
     font-size: 1.8rem;
   }

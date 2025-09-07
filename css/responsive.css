@@ -25,7 +25,7 @@
 }
 
 /* Tablets and medium screens */
-@media (max-width: 1024px) and (min-width: 769px) {
+@media (max-width: 1024px) and (min-width: 768.01px) {
   header h1 {
     font-size: clamp(1.3rem, 3.5vw, 2rem);
     letter-spacing: -0.3px;
@@ -528,7 +528,7 @@ table.table-density-comfortable td,
 
 /* =============== FINAL COUNTDOWN STANDARDIZATION =============== */
 /* Ensure identical countdown across index and winners after all other styles */
-@media (min-width: 1025px) {
+@media (min-width: 1024.01px) {
   .site-header header .countdown-clock {
     max-width: 300px;
   }
@@ -548,7 +548,7 @@ table.table-density-comfortable td,
   }
 }
 
-@media (min-width: 601px) and (max-width: 1024px) {
+@media (min-width: 600.01px) and (max-width: 1024px) {
   .site-header header .countdown-clock {
     max-width: 250px;
   }
