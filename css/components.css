@@ -41,6 +41,9 @@
   --title-size: 0.85rem; /* Mobile title size */
   --title-size-primary: 0.9rem; /* Primary variant mobile */
 
+  /* COUNTDOWN STYLING */
+  --countdown-text-size: 0.75rem; /* Mobile countdown size (same for label & time) */
+
   /* VISUAL STYLING */
   --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   --box-shadow-primary: 0 4px 12px rgba(55, 0, 60, 0.12);
@@ -67,6 +70,9 @@
     --title-size: 0.9rem;
     --title-size-primary: 0.95rem;
 
+    /* COUNTDOWN STYLING */
+    --countdown-text-size: 0.85rem; /* Tablet countdown size */
+
     --box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
   }
 }
@@ -89,6 +95,9 @@
 
     --title-size: 0.9rem; /* Reduced from 1rem to prevent text wrapping */
     --title-size-primary: 1rem; /* Reduced from 1.1rem */
+
+    /* COUNTDOWN STYLING */
+    --countdown-text-size: 1rem; /* Desktop countdown size */
 
     --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   }

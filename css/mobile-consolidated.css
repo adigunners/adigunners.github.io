@@ -64,21 +64,7 @@
     margin-bottom: 8px;
   }
 
-  .stat-box {
-    min-width: calc(50% - 4px); /* 2-column layout on mobile */
-    padding: 12px 8px; /* Compact padding */
-    min-height: 90px; /* Reduced height */
-  }
-
-  .stat-box__number {
-    font-size: 1.2rem; /* Smaller but still prominent */
-    margin: 4px 0;
-  }
-
-  .stat-box__title {
-    font-size: 0.75rem;
-    line-height: 1.2;
-  }
+  /* .stat-box styling removed - handled by components.css with responsive variables */
 }
 
 /* =============== MOBILE LEADERBOARD =============== */
@@ -227,18 +213,7 @@
     padding: 12px 8px;
   }
 
-  .stat-box {
-    min-height: 80px;
-    padding: 8px 6px;
-  }
-
-  .stat-box__number {
-    font-size: 1.1rem;
-  }
-
-  .stat-box__title {
-    font-size: 0.7rem;
-  }
+  /* .stat-box styling removed - handled by components.css with responsive variables */
 }
 
 /* =============== MOBILE TINY SCREENS =============== */
@@ -258,10 +233,7 @@
     margin-bottom: 6px;
   }
 
-  .stat-box {
-    min-height: 70px;
-    padding: 6px 4px;
-  }
+  /* .stat-box styling removed - handled by components.css with responsive variables */
 
   .btn {
     padding: 8px 12px;
