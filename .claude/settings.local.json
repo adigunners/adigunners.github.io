@@ -14,7 +14,8 @@
       "Bash(chmod:*)",
       "Bash(./performance-audit.sh:*)",
       "Bash(./.agent-os/testing/performance/performance-audit.sh:*)",
-      "Bash(jq:*)"
+      "Bash(jq:*)",
+      "Bash(cd:*)"
     ],
     "deny": [],
     "ask": []
