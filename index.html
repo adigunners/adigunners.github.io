@@ -131,17 +131,8 @@
       crossorigin
     />
 
-    <!-- CSS files in proper cascade order for optimal performance and maintainability -->
-    <!-- 1. Foundation: Variables and reset -->
-    <link rel="stylesheet" href="css/variables.css" />
-    <link
-      rel="preload"
-      as="style"
-      href="css/fonts.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/fonts.css" /></noscript>
-    <link rel="stylesheet" href="css/base.css" />
+    <!-- CSS: Consolidated foundation (variables, fonts, base, spacing) -->
+    <link rel="stylesheet" href="css/styles.css" />
 
     <!-- Critical CSS: minimal above-the-fold styles for stable first paint -->
     <style>
@@ -162,6 +153,8 @@
         --box-gap: 16px;
         --box-min-width: 200px;
         --box-padding: 20px;
+        /* safe-area for consistent header height on first paint */
+        --safe-top: env(safe-area-inset-top, 0px);
       }
 
       .site-header {
@@ -169,6 +162,9 @@
         top: 0;
         z-index: 1000;
         background-color: var(--page-backdrop);
+        padding-top: calc(8px + var(--safe-top));
+        padding-bottom: 0;
+        margin-bottom: var(--spacing-lg);
       }
       .header-inner {
         width: 100%;
@@ -179,19 +175,35 @@
         background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: #fff;
         text-align: center;
-        padding: 16px 12px;
+        padding: clamp(12px, 4svh, 50px) clamp(8px, 2vw, 20px);
         border-radius: var(--border-radius);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        gap: clamp(8px, 2svh, 20px);
         flex-wrap: wrap;
         position: relative;
         width: 100%;
-        min-height: 80px;
+        min-height: clamp(56px, 12svh, 120px);
+        background-clip: padding-box;
       }
-      .site-header {
-        margin-bottom: var(--spacing-lg);
+      @media (max-width: 600px) {
+        .site-header {
+          padding-top: calc(4px + var(--safe-top));
+          margin-bottom: 12px;
+        }
+        header {
+          padding: 10px 10px;
+          min-height: 56px;
+          gap: 8px;
+        }
+        .countdown-clock {
+          max-width: 200px;
+          padding: 8px 10px;
+        }
+        .container {
+          margin-top: 4px;
+        }
       }
       .header-main {
         flex: 1 1 auto;
@@ -265,87 +277,18 @@
       }
     </style>
 
-    <!-- 2. Layout: Core layout and spacing -->
-    <link
-      rel="preload"
-      as="style"
-      href="css/unified-spacing.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/unified-spacing.css" /></noscript>
+    <!-- 2. Layout: Core layout and spacing (merged into styles.css) -->
 
-    <!-- 3. Components: Reusable UI components -->
-    <link rel="stylesheet" href="css/components.css" />
-    <link
-      rel="preload"
-      as="style"
-      href="css/header.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/header.css" /></noscript>
+    <!-- 3. Components: now in styles.css -->
 
     <!-- 4. Page-specific: Individual page styles -->
-    <link
-      rel="preload"
-      as="style"
-      href="css/winners.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/winners.css" /></noscript>
-    <link
-      rel="preload"
-      as="style"
-      href="css/leaderboard.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/leaderboard.css" /></noscript>
-    <link
-      rel="preload"
-      as="style"
-      href="css/qa-panel.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/qa-panel.css" /></noscript>
-    <link
-      rel="preload"
-      as="style"
-      href="css/error-handling.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/error-handling.css" /></noscript>
+    <!-- 4. Page-specific: now in styles.css -->
+    <!-- 5. Enhancements & QA: now in styles.css -->
 
     <!-- 5. Enhancements: Special features and animations -->
-    <link
-      rel="preload"
-      as="style"
-      href="css/countdown-enhancements.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/countdown-enhancements.css" /></noscript>
+    <!-- countdown enhancements merged into styles.css -->
 
-    <!-- 6. Responsive: Device-specific overrides (kept last) -->
-    <link
-      rel="preload"
-      as="style"
-      href="css/mobile-consolidated.css"
-      media="(max-width: 600px)"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript
-      ><link rel="stylesheet" href="css/mobile-consolidated.css" media="(max-width: 600px)"
-    /></noscript>
-    <link
-      rel="stylesheet"
-      href="css/desktop-tablet-optimizations.css"
-      media="(min-width: 768.01px)"
-    />
-    <link
-      rel="preload"
-      as="style"
-      href="css/responsive.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/responsive.css" /></noscript>
+    <!-- 6. Responsive: merged into styles.css -->
 
     <!-- 7. Fallback CSS (loads only if external resources fail) -->
     <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
@@ -575,7 +518,7 @@
             </div>
 
             <!-- Digital Countdown Clock -->
-            <div id="countdown-clock" class="countdown-clock is-hidden" aria-live="polite">
+            <div id="countdown-clock" class="countdown-clock" aria-live="polite">
               <div class="countdown-label" id="countdown-label">Time until GW1 deadline</div>
               <div class="countdown-time">
                 <span class="countdown-unit">
@@ -795,8 +738,17 @@
         aria-live="polite"
         role="complementary"
       >
-        <header>
+        <header class="qa-header">
           <h3>QA Panel</h3>
+          <button
+            id="qa-toggle"
+            class="qa-toggle"
+            type="button"
+            aria-label="Minimize QA panel"
+            aria-expanded="true"
+          >
+            −
+          </button>
         </header>
         <dl class="qa-info">
           <dt class="visually-hidden">Phase</dt>

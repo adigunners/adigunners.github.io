@@ -46,28 +46,12 @@
     <!-- (Fallback CSS link declared later; keep last for override power) -->
 
     <!-- MODULAR CSS ARCHITECTURE (standardized async loading like index.html) -->
-    <!-- 1. Foundation: Variables and base (critical CSS - direct loading) -->
-    <link rel="stylesheet" href="css/variables.css" />
-    <link
-      rel="preload"
-      as="style"
-      href="css/fonts.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/fonts.css" /></noscript>
-    <link rel="stylesheet" href="css/base.css" />
+    <!-- 1. Foundation: Consolidated (variables, fonts, base, spacing) -->
+    <link rel="stylesheet" href="css/styles.css" />
 
-    <!-- 2. Layout: Core layout and spacing (async loading) -->
-    <link
-      rel="preload"
-      as="style"
-      href="css/unified-spacing.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/unified-spacing.css" /></noscript>
+    <!-- 2. Layout: Core layout and spacing (merged into styles.css) -->
 
-    <!-- 3. Components (base first, then component extensions) -->
-    <link rel="stylesheet" href="css/components.css" />
+    <!-- 3. Components (base first, then component extensions) - merged into styles.css -->
     <link
       rel="preload"
       as="style"
@@ -75,60 +59,14 @@
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript><link rel="stylesheet" href="assets/css/components/table.css" /></noscript>
-    <link
-      rel="preload"
-      as="style"
-      href="css/header.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/header.css" /></noscript>
+    <!-- header.css merged into styles.css -->
 
     <!-- 4. Page-specific (async loading for non-critical styles) -->
-    <link
-      rel="preload"
-      as="style"
-      href="css/winners.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/winners.css" /></noscript>
-    <link
-      rel="preload"
-      as="style"
-      href="css/winners-specific.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/winners-specific.css" /></noscript>
-    <link
-      rel="preload"
-      as="style"
-      href="css/leaderboard.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/leaderboard.css" /></noscript>
+    <!-- winners.css merged into styles.css -->
+    <!-- winners-specific.css merged into styles.css -->
+    <!-- leaderboard.css merged into styles.css -->
 
-    <!-- 5. Responsive (async loading with media query optimization) -->
-    <link
-      rel="preload"
-      as="style"
-      href="css/mobile-consolidated.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-      media="(max-width: 600px)"
-    />
-    <noscript
-      ><link rel="stylesheet" href="css/mobile-consolidated.css" media="(max-width: 600px)"
-    /></noscript>
-    <link
-      rel="stylesheet"
-      href="css/desktop-tablet-optimizations.css"
-      media="(min-width: 768.01px)"
-    />
-    <link
-      rel="preload"
-      as="style"
-      href="css/responsive.css"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="css/responsive.css" /></noscript>
+    <!-- 5. Responsive (merged into styles.css) -->
 
     <!-- 6. Fallback CSS (loads only if external resources fail; kept last) -->
     <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
@@ -149,6 +87,7 @@
         --radius-lg: 8px;
         --container-max-width: 1200px;
         --spacing-md: 16px;
+        --safe-top: env(safe-area-inset-top, 0px);
       }
 
       /* Critical layout foundation */
@@ -187,6 +126,8 @@
         top: 0;
         z-index: 1000;
         background-color: var(--page-backdrop);
+        padding-top: calc(8px + var(--safe-top));
+        padding-bottom: 0;
         margin-bottom: var(--spacing-lg);
       }
 
@@ -200,16 +141,35 @@
         background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
         color: #fff;
         text-align: center;
-        padding: 16px 12px;
+        padding: clamp(12px, 4svh, 50px) clamp(8px, 2vw, 20px);
         border-radius: var(--border-radius);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        gap: clamp(8px, 2svh, 20px);
         flex-wrap: wrap;
         position: relative;
         width: 100%;
-        min-height: 80px;
+        min-height: clamp(56px, 12svh, 120px);
+        background-clip: padding-box;
+      }
+      @media (max-width: 600px) {
+        .site-header {
+          padding-top: calc(4px + var(--safe-top));
+          margin-bottom: 12px;
+        }
+        header {
+          padding: 10px 10px;
+          min-height: 56px;
+          gap: 8px;
+        }
+        .countdown-clock {
+          max-width: 200px;
+          padding: 8px 10px;
+        }
+        .container {
+          margin-top: 4px;
+        }
       }
 
       .header-main {
@@ -445,7 +405,68 @@
         <p>developed by Aditya Garg (@addygunners)</p>
         <p id="site-last-updated" class="site-timestamp">Data updated: Loading...</p>
       </footer>
+      <!-- QA PANEL (shown in test mode) -->
+      <aside
+        id="qa-panel"
+        class="qa-panel test-only is-hidden"
+        aria-live="polite"
+        role="complementary"
+      >
+        <header class="qa-header">
+          <h4>QA Panel</h4>
+          <button
+            id="qa-toggle"
+            class="qa-toggle"
+            type="button"
+            aria-label="Minimize QA panel"
+            aria-expanded="true"
+          >
+            −
+          </button>
+        </header>
+        <dl class="qa-info">
+          <dt class="visually-hidden">Phase</dt>
+          <dd class="qa-kv" id="qa-phase">Phase: —</dd>
+          <dt class="visually-hidden">Next Gameweek</dt>
+          <dd class="qa-kv" id="qa-gw">Next GW: —</dd>
+          <dt class="visually-hidden">Deadline</dt>
+          <dd class="qa-kv" id="qa-deadline">Deadline: —</dd>
+          <dt class="visually-hidden">Season Data Source</dt>
+          <dd class="qa-kv" id="qa-source">Season data source: —</dd>
+          <dt class="visually-hidden">Data Mode</dt>
+          <dd class="qa-kv" id="qa-data-mode">Data sources — winners: — • leaderboard: —</dd>
+          <dt class="visually-hidden">Winners Updated</dt>
+          <dd class="qa-kv" id="qa-winners-updated">Winners updated: —</dd>
+          <dt class="visually-hidden">Leaderboard Updated</dt>
+          <dd class="qa-kv" id="qa-leaderboard-updated">Leaderboard updated: —</dd>
+          <dt class="visually-hidden">Current Time</dt>
+          <dd class="qa-kv" id="qa-time">Now (offset): —</dd>
+        </dl>
+        <footer class="qa-actions">
+          <button id="qa-clear-cache" class="qa-btn" type="button">Clear cache</button>
+          <button id="qa-refetch" class="qa-btn" type="button">Re-fetch</button>
+          <button id="qa-copy" class="qa-btn" type="button">Copy</button>
+        </footer>
+      </aside>
     </div>
+
+    <!-- Floating test controls (test mode only) -->
+    <aside
+      id="floating-phase-toggle-w"
+      class="floating-toggle test-only is-hidden"
+      role="complementary"
+      aria-label="Test mode controls"
+    >
+      ⬅️
+      <a
+        id="back-index-test"
+        href="index.html?test=true"
+        class="btn nav-back nav-back--sm"
+        title="Back to Home (test)"
+      >
+        Back to Home
+      </a>
+    </aside>
 
     <!-- MODULAR JAVASCRIPT (using shared modules) -->
     <script>
@@ -461,6 +482,28 @@
 
     <!-- Winners page module loader -->
     <script type="module" src="js/winners-module.js" defer></script>
+
+    <!-- Ensure test-only controls appear on winners when ?test=true -->
+    <script>
+      (function () {
+        try {
+          var qp = new URLSearchParams(location.search);
+          if (qp.get('test') === 'true') {
+            document.querySelectorAll('.test-only').forEach(function (el) {
+              el.classList.remove('is-hidden');
+            });
+            // Ensure UI manager is ready (defer scripts run before DOMContentLoaded)
+            document.addEventListener('DOMContentLoaded', function () {
+              try {
+                if (window.FPLUIManager && typeof FPLUIManager.checkTestMode === 'function') {
+                  FPLUIManager.checkTestMode();
+                }
+              } catch (e) {}
+            });
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Twemoji for stat-box icons -->
     <script defer src="assets/twemoji/twemoji.min.js"></script>

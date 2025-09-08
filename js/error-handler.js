@@ -240,7 +240,16 @@ window.ErrorHandler = (function () {
       showNetworkStatus('offline');
     });
 
-    // Periodic connectivity check
+    // If we loaded while offline, reflect status immediately
+    if (!navigator.onLine) {
+      showNetworkStatus('offline');
+    }
+
+    // Initial and periodic connectivity checks
+    // Run an immediate check so offline banner appears even if page loads while offline
+    try {
+      checkConnectivity();
+    } catch (_) {}
     setInterval(checkConnectivity, 30000);
   }
 
@@ -254,16 +263,39 @@ window.ErrorHandler = (function () {
       banner.className = 'network-banner offline';
       banner.innerHTML = "📡 You're offline. Some features may not work.";
       document.body.insertBefore(banner, document.body.firstChild);
+
+      // Ensure critical UI placeholders are visible when offline
+      try {
+        ensureStaticCountdown();
+      } catch (_) {}
+    }
+  }
+
+  // Make countdown visible with static zeros when offline
+  function ensureStaticCountdown() {
+    try {
+      const clock = document.getElementById('countdown-clock');
+      if (!clock) return;
+      clock.classList.remove('is-hidden');
+      clock.style.display = 'block';
+      const label = document.getElementById('countdown-label');
+      if (label) label.textContent = 'GW Deadline (offline)';
+      const d = document.getElementById('countdown-days');
+      const h = document.getElementById('countdown-hours');
+      const m = document.getElementById('countdown-minutes');
+      if (d) d.textContent = '00';
+      if (h) h.textContent = '00';
+      if (m) m.textContent = '00';
+    } catch (e) {
+      // no-op
     }
   }
 
   async function checkConnectivity() {
     try {
       // Use different connectivity check endpoint on winners page
-      const checkUrl =
-        window.FPL_PAGE_TYPE === 'winners'
-          ? '/data/next_deadline.json?check=' + Date.now()
-          : '/favicon.ico?check=' + Date.now();
+      // Use a guaranteed-local asset to avoid 404s in dev
+      const checkUrl = '/css/styles.css?check=' + Date.now();
 
       await fetch(checkUrl, {
         method: 'HEAD',
@@ -274,6 +306,8 @@ window.ErrorHandler = (function () {
         window.dispatchEvent(new Event('online'));
       }
     } catch {
+      // Always ensure banner is visible
+      showNetworkStatus('offline');
       if (!errorState.isOffline) {
         errorState.isOffline = true;
         window.dispatchEvent(new Event('offline'));
