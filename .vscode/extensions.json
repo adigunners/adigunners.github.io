@@ -1,0 +1,11 @@
+{
+  "recommendations": ["esbenp.prettier-vscode", "DavidAnson.vscode-markdownlint"],
+  "unwantedRecommendations": [
+    "dbaeumer.vscode-eslint", // ESLint can sometimes conflict with Prettier formatting
+    "ms-vscode.vscode-typescript-tslint-plugin", // TSLint is deprecated and can conflict
+    "HookyQR.beautify", // Beautify is a competing formatter
+    "formulahendry.auto-close-tag", // Can interfere with Prettier's formatting
+    "formulahendry.auto-rename-tag", // Can interfere with Prettier's formatting
+    "naumovs.color-highlight" // Sometimes causes issues with Prettier's color formatting
+  ]
+}
