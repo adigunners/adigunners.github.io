@@ -586,6 +586,34 @@ window.FPLUIManager = (function () {
     const panel = document.getElementById('qa-panel');
     if (!panel) return;
 
+    // Wire minimize/maximize toggle once
+    (function wireQaToggle() {
+      const toggle = document.getElementById('qa-toggle');
+      if (!toggle || toggle._wired) return;
+      toggle._wired = true;
+      const titleEl = panel.querySelector('.qa-header h3, .qa-header h4');
+      toggle.addEventListener('click', () => {
+        const collapsed = panel.classList.toggle('is-collapsed');
+        toggle.textContent = collapsed ? '+' : '−';
+        toggle.setAttribute('aria-expanded', String(!collapsed));
+        if (titleEl) titleEl.textContent = collapsed ? 'QA' : 'QA Panel';
+        // Persist state per session
+        try {
+          sessionStorage.setItem('qaCollapsed', collapsed ? '1' : '0');
+        } catch {}
+      });
+      // Restore prior state
+      try {
+        const was = sessionStorage.getItem('qaCollapsed');
+        if (was === '1') {
+          panel.classList.add('is-collapsed');
+          toggle.textContent = '+';
+          toggle.setAttribute('aria-expanded', 'false');
+          if (titleEl) titleEl.textContent = 'QA';
+        }
+      } catch {}
+    })();
+
     const phaseEl = document.getElementById('qa-phase');
     const gwEl = document.getElementById('qa-gw');
     const dlEl = document.getElementById('qa-deadline');
@@ -595,7 +623,20 @@ window.FPLUIManager = (function () {
     const luEl = document.getElementById('qa-leaderboard-updated');
     const timeEl = document.getElementById('qa-time');
 
-    const duringVisible = !document.querySelector('.during-season').classList.contains('is-hidden');
+    // Determine phase visibility robustly (winners page has no .during-season markers)
+    let duringVisible = true;
+    try {
+      const dsEl = document.querySelector('.during-season');
+      if (dsEl) {
+        duringVisible = !dsEl.classList.contains('is-hidden');
+      } else if (window.FPL_PAGE_TYPE === 'winners') {
+        duringVisible = true; // Winners page is inherently during-season view
+      } else {
+        duringVisible = false;
+      }
+    } catch (_) {
+      duringVisible = window.FPL_PAGE_TYPE === 'winners';
+    }
     phaseEl.textContent = 'Phase: ' + (duringVisible ? 'in-season' : 'pre-season');
 
     const gw = FPLDataLoader.getCachedGameweek();
@@ -769,6 +810,18 @@ window.FPLUIManager = (function () {
     const testMode = urlParams.get('test') === 'true';
 
     if (testMode) {
+      // Mark body for test-mode specific styling
+      try {
+        document.body.classList.add('test-mode');
+        if (window.FPL_PAGE_TYPE === 'winners') {
+          document.body.classList.add('test-mode-winners');
+          document.body.classList.remove('test-mode-index');
+        } else {
+          document.body.classList.add('test-mode-index');
+          document.body.classList.remove('test-mode-winners');
+        }
+      } catch (_) {}
+
       // Show ALL test-only elements
       FPLUtils.showGroup('.test-only');
       console.log('🧪 Test mode: Showing test-only elements including toggle button');

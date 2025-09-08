@@ -57,7 +57,22 @@ Use the file-creator subagent to create file: tasks.md inside of the current fea
 - Follow TDD approach
 - Group related functionality
 - Build incrementally
-  </ordering_principles>
+- Use shared testing infrastructure at @.agent-os/testing/
+- Store spec-specific analysis in @.agent-os/specs/YYYY-MM-DD-spec-name/analysis/
+</ordering_principles>
+
+<testing_infrastructure_guidance>
+<shared_testing_location>@.agent-os/testing/</shared_testing_location>
+<reusable_components>
+
+- visual-regression/ - Screenshot comparison tools
+- performance/ - Lighthouse and performance testing utilities
+- css-analysis/ - CSS analysis and optimization tools
+- utils/ - Common testing utilities and helpers
+
+</reusable_components>
+<spec_specific_location>@.agent-os/specs/YYYY-MM-DD-spec-name/analysis/</spec_specific_location>
+</testing_infrastructure_guidance>
 
 </step>
 

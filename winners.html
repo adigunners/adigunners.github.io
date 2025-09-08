@@ -45,33 +45,197 @@
 
     <!-- (Fallback CSS link declared later; keep last for override power) -->
 
-    <!-- MODULAR CSS ARCHITECTURE (aligned with index.html cascade) -->
-    <!-- 1. Foundation: Variables and base -->
-    <link rel="stylesheet" href="css/variables.css" />
-    <link rel="stylesheet" href="css/fonts.css" />
-    <link rel="stylesheet" href="css/base.css" />
+    <!-- MODULAR CSS ARCHITECTURE (standardized async loading like index.html) -->
+    <!-- 1. Foundation: Consolidated (variables, fonts, base, spacing) -->
+    <link rel="stylesheet" href="css/styles.css" />
 
-    <!-- 2. Layout: Core layout and spacing -->
-    <link rel="stylesheet" href="css/unified-spacing.css" />
+    <!-- 2. Layout: Core layout and spacing (merged into styles.css) -->
 
-    <!-- 3. Components (base first, then component extensions) -->
-    <link rel="stylesheet" href="css/components.css" />
-    <link rel="stylesheet" href="assets/css/components/table.css" />
-    <link rel="stylesheet" href="css/header.css" />
+    <!-- 3. Components (base first, then component extensions) - merged into styles.css -->
+    <link
+      rel="preload"
+      as="style"
+      href="assets/css/components/table.css"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="assets/css/components/table.css" /></noscript>
+    <!-- header.css merged into styles.css -->
 
-    <!-- 4. Page-specific (before responsive so responsive can override) -->
-    <link rel="stylesheet" href="css/winners.css" />
-    <link rel="stylesheet" href="css/leaderboard.css" />
-    <link rel="stylesheet" href="css/winners-specific.css" />
+    <!-- 4. Page-specific (async loading for non-critical styles) -->
+    <!-- winners.css merged into styles.css -->
+    <!-- winners-specific.css merged into styles.css -->
+    <!-- leaderboard.css merged into styles.css -->
 
-    <!-- 5. Responsive (device-specific overrides last) -->
-    <link rel="stylesheet" href="css/mobile-optimizations.css" media="(max-width: 600px)" />
-    <link rel="stylesheet" href="css/advanced-mobile.css" media="(max-width: 600px)" />
-    <link rel="stylesheet" href="css/desktop-tablet-optimizations.css" media="(min-width: 769px)" />
-    <link rel="stylesheet" href="css/responsive.css" />
+    <!-- 5. Responsive (merged into styles.css) -->
 
     <!-- 6. Fallback CSS (loads only if external resources fail; kept last) -->
     <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
+
+    <!-- Critical CSS: Above-the-fold styles for stable first paint -->
+    <style>
+      /* Essential variables needed for critical path */
+      :root {
+        --primary-color: #37003c;
+        --heading-color: #37003c;
+        --background-color: #f8f9fa;
+        --page-backdrop: #f8f9fa;
+        --card-background: #fff;
+        --text-color: #212529;
+        --border-radius: 8px;
+        --spacing-lg: 24px;
+        --spacing-xl: 32px;
+        --radius-lg: 8px;
+        --container-max-width: 1200px;
+        --spacing-md: 16px;
+        --safe-top: env(safe-area-inset-top, 0px);
+      }
+
+      /* Critical layout foundation */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          'Poppins',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+        line-height: 1.7;
+        margin: 0;
+        padding: 0;
+        background-color: var(--page-backdrop);
+        color: var(--text-color);
+        overscroll-behavior: none;
+      }
+
+      /* Container critical layout */
+      .container {
+        width: 100%;
+        max-width: var(--container-max-width);
+        margin: var(--spacing-lg) auto;
+        padding: 0 var(--spacing-md);
+        background-color: transparent;
+      }
+
+      /* Header critical styles - above-the-fold */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: var(--page-backdrop);
+        padding-top: calc(8px + var(--safe-top));
+        padding-bottom: 0;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .header-inner {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+      }
+
+      header {
+        background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+        color: #fff;
+        text-align: center;
+        padding: clamp(12px, 4svh, 50px) clamp(8px, 2vw, 20px);
+        border-radius: var(--border-radius);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: clamp(8px, 2svh, 20px);
+        flex-wrap: wrap;
+        position: relative;
+        width: 100%;
+        min-height: clamp(56px, 12svh, 120px);
+        background-clip: padding-box;
+      }
+      @media (max-width: 600px) {
+        .site-header {
+          padding-top: calc(4px + var(--safe-top));
+          margin-bottom: 12px;
+        }
+        header {
+          padding: 10px 10px;
+          min-height: 56px;
+          gap: 8px;
+        }
+        .countdown-clock {
+          max-width: 200px;
+          padding: 8px 10px;
+        }
+        .container {
+          margin-top: 4px;
+        }
+      }
+
+      .header-main {
+        flex: 1 1 auto;
+        min-width: 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: clamp(1rem, 4vw, 2rem);
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      header p {
+        margin: 4px 0 0;
+        font-size: clamp(0.8rem, 3vw, 1rem);
+        opacity: 0.9;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Countdown critical layout */
+      .countdown-clock {
+        max-width: 300px;
+        border-radius: var(--border-radius);
+        padding: 12px 16px;
+        border: 2px solid transparent;
+      }
+
+      .countdown-clock.is-hidden {
+        display: block !important;
+        visibility: hidden;
+      }
+
+      /* Critical section spacing to prevent layout shifts */
+      #league-statistics {
+        padding: var(--spacing-xl);
+        margin-bottom: var(--spacing-lg);
+        border-radius: var(--radius-lg);
+        background-color: var(--card-background);
+      }
+
+      /* Loading state to prevent flash of unstyled content */
+      .winner-loading {
+        padding: var(--spacing-xl);
+        text-align: center;
+        background-color: var(--card-background);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      /* Hide content until loaded to prevent layout shifts */
+      .is-hidden {
+        display: none !important;
+      }
+    </style>
   </head>
 
   <body>
@@ -241,7 +405,68 @@
         <p>developed by Aditya Garg (@addygunners)</p>
         <p id="site-last-updated" class="site-timestamp">Data updated: Loading...</p>
       </footer>
+      <!-- QA PANEL (shown in test mode) -->
+      <aside
+        id="qa-panel"
+        class="qa-panel test-only is-hidden"
+        aria-live="polite"
+        role="complementary"
+      >
+        <header class="qa-header">
+          <h4>QA Panel</h4>
+          <button
+            id="qa-toggle"
+            class="qa-toggle"
+            type="button"
+            aria-label="Minimize QA panel"
+            aria-expanded="true"
+          >
+            −
+          </button>
+        </header>
+        <dl class="qa-info">
+          <dt class="visually-hidden">Phase</dt>
+          <dd class="qa-kv" id="qa-phase">Phase: —</dd>
+          <dt class="visually-hidden">Next Gameweek</dt>
+          <dd class="qa-kv" id="qa-gw">Next GW: —</dd>
+          <dt class="visually-hidden">Deadline</dt>
+          <dd class="qa-kv" id="qa-deadline">Deadline: —</dd>
+          <dt class="visually-hidden">Season Data Source</dt>
+          <dd class="qa-kv" id="qa-source">Season data source: —</dd>
+          <dt class="visually-hidden">Data Mode</dt>
+          <dd class="qa-kv" id="qa-data-mode">Data sources — winners: — • leaderboard: —</dd>
+          <dt class="visually-hidden">Winners Updated</dt>
+          <dd class="qa-kv" id="qa-winners-updated">Winners updated: —</dd>
+          <dt class="visually-hidden">Leaderboard Updated</dt>
+          <dd class="qa-kv" id="qa-leaderboard-updated">Leaderboard updated: —</dd>
+          <dt class="visually-hidden">Current Time</dt>
+          <dd class="qa-kv" id="qa-time">Now (offset): —</dd>
+        </dl>
+        <footer class="qa-actions">
+          <button id="qa-clear-cache" class="qa-btn" type="button">Clear cache</button>
+          <button id="qa-refetch" class="qa-btn" type="button">Re-fetch</button>
+          <button id="qa-copy" class="qa-btn" type="button">Copy</button>
+        </footer>
+      </aside>
     </div>
+
+    <!-- Floating test controls (test mode only) -->
+    <aside
+      id="floating-phase-toggle-w"
+      class="floating-toggle test-only is-hidden"
+      role="complementary"
+      aria-label="Test mode controls"
+    >
+      ⬅️
+      <a
+        id="back-index-test"
+        href="index.html?test=true"
+        class="btn nav-back nav-back--sm"
+        title="Back to Home (test)"
+      >
+        Back to Home
+      </a>
+    </aside>
 
     <!-- MODULAR JAVASCRIPT (using shared modules) -->
     <script>
@@ -257,6 +482,28 @@
 
     <!-- Winners page module loader -->
     <script type="module" src="js/winners-module.js" defer></script>
+
+    <!-- Ensure test-only controls appear on winners when ?test=true -->
+    <script>
+      (function () {
+        try {
+          var qp = new URLSearchParams(location.search);
+          if (qp.get('test') === 'true') {
+            document.querySelectorAll('.test-only').forEach(function (el) {
+              el.classList.remove('is-hidden');
+            });
+            // Ensure UI manager is ready (defer scripts run before DOMContentLoaded)
+            document.addEventListener('DOMContentLoaded', function () {
+              try {
+                if (window.FPLUIManager && typeof FPLUIManager.checkTestMode === 'function') {
+                  FPLUIManager.checkTestMode();
+                }
+              } catch (e) {}
+            });
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Twemoji for stat-box icons -->
     <script defer src="assets/twemoji/twemoji.min.js"></script>

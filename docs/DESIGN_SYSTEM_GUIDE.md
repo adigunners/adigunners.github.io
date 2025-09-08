@@ -11,11 +11,11 @@ features and maintain consistency.
 
 ### 1. **Single Source of Truth**
 
-All design tokens, components, and utilities are centralized:
+All design tokens, base, components, and responsive rules are consolidated:
 
-- **Colors & Spacing**: `css/variables.css`
-- **Base Styles**: `css/base.css`
-- **Components**: `css/components.css`
+- **Styles (single bundle)**: `css/styles.css`
+- **Fallbacks (optional)**: `css/fallbacks.css`
+- **Winners table**: `assets/css/components/table.css`
 - **Utilities**: `js/utils.js`
 - **Data Loading**: `js/data-loader.js`
 
@@ -37,15 +37,11 @@ Every page imports shared components instead of duplicating code.
 
 ```
 css/
-├── variables.css          # Design tokens (colors, spacing, fonts)
-├── base.css              # Reset, typography, containers
-├── components.css        # Reusable UI components
-├── header.css           # Site header & countdown
-├── winners.css          # Winner-specific components
-├── leaderboard.css      # Table components
-├── responsive.css       # Responsive utilities
-├── mobile-optimizations.css # Mobile enhancements
-└── advanced-mobile.css  # Ultra-compact mobile
+├── styles.css           # Consolidated bundle (variables, base, components, responsive)
+├── fallbacks.css        # Fallback styles
+
+assets/css/components/
+└── table.css            # Winners table component
 
 js/
 ├── utils.js             # Shared utilities (escapeHTML, etc.)
@@ -105,16 +101,9 @@ js/
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page Title</title>
 
-    <!-- Design System CSS -->
-    <link rel="stylesheet" href="css/variables.css" />
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/components.css" />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
-    <link rel="stylesheet" href="css/mobile-optimizations.css" />
-
-    <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="css/[page-name].css" />
+    <!-- Consolidated CSS -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
   </head>
   <body>
     <!-- Page content -->

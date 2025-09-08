@@ -291,15 +291,37 @@ window.FPLDataLoader = (function () {
               if (typeof _lastGwId === 'number' && _lastGwId > 0) {
                 const expectedMax = _lastGwId - 1;
                 if (_lastProcessedGW > expectedMax) {
-                  console.warn(
-                    '[loadWinnerPreview] Issue #37 Prevention: completedGameweeks (',
-                    _lastProcessedGW,
-                    ') exceeds expected max (',
-                    expectedMax,
-                    ') based on nextGW (',
-                    _lastGwId,
-                    ')'
-                  );
+                  const isTest =
+                    (window.FPLUtils && FPLUtils.isAdminMode && FPLUtils.isAdminMode()) ||
+                    new URLSearchParams(window.location.search).get('test') === 'true';
+                  if (isTest) {
+                    console.info(
+                      '[TEST DATA] completedGameweeks',
+                      _lastProcessedGW,
+                      'exceeds expected max',
+                      expectedMax,
+                      'for nextGW',
+                      _lastGwId,
+                      '— clamping to expected max for header consistency'
+                    );
+                    _lastProcessedGW = expectedMax;
+                    if (
+                      window.FPLUIManager &&
+                      typeof FPLUIManager.setLastProcessedGW === 'function'
+                    ) {
+                      FPLUIManager.setLastProcessedGW(_lastProcessedGW);
+                    }
+                  } else {
+                    console.warn(
+                      '[loadWinnerPreview] Issue #37 Prevention: completedGameweeks (',
+                      _lastProcessedGW,
+                      ') exceeds expected max (',
+                      expectedMax,
+                      ') based on nextGW (',
+                      _lastGwId,
+                      ')'
+                    );
+                  }
                 }
               }
             } else {
@@ -379,15 +401,37 @@ window.FPLDataLoader = (function () {
             if (typeof _lastGwId === 'number' && _lastGwId > 0) {
               const expectedMax = _lastGwId - 1;
               if (_lastProcessedGW > expectedMax) {
-                console.warn(
-                  '[GW] Issue #37 Prevention: completedGameweeks (',
-                  _lastProcessedGW,
-                  ') exceeds expected max (',
-                  expectedMax,
-                  ') based on nextGW (',
-                  _lastGwId,
-                  ')'
-                );
+                const isTest =
+                  (window.FPLUtils && FPLUtils.isAdminMode && FPLUtils.isAdminMode()) ||
+                  new URLSearchParams(window.location.search).get('test') === 'true';
+                if (isTest) {
+                  console.info(
+                    '[TEST DATA] completedGameweeks',
+                    _lastProcessedGW,
+                    'exceeds expected max',
+                    expectedMax,
+                    'for nextGW',
+                    _lastGwId,
+                    '— clamping to expected max for header consistency'
+                  );
+                  _lastProcessedGW = expectedMax;
+                  if (
+                    window.FPLUIManager &&
+                    typeof FPLUIManager.setLastProcessedGW === 'function'
+                  ) {
+                    FPLUIManager.setLastProcessedGW(_lastProcessedGW);
+                  }
+                } else {
+                  console.warn(
+                    '[GW] Issue #37 Prevention: completedGameweeks (',
+                    _lastProcessedGW,
+                    ') exceeds expected max (',
+                    expectedMax,
+                    ') based on nextGW (',
+                    _lastGwId,
+                    ')'
+                  );
+                }
               }
             }
           } else {

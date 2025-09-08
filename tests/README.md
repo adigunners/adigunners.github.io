@@ -1,6 +1,18 @@
-# 🧪 Testing Directory Structure
+# 🧪 Traditional Development Testing
 
-> **Standardized testing organization for consistent development workflows**
+> **Standardized testing organization for traditional development workflows**
+
+## Testing Systems Overview
+
+This project uses **two separate testing systems**:
+
+- **`tests/`** (this directory) - Traditional development testing (unit, integration, manual
+  validation)
+- **`.agent-os/testing/`** - Agent-OS spec-driven testing (visual regression, performance analysis,
+  CSS audits)
+
+This separation maintains clear concerns between traditional development testing and
+specification-driven testing workflows.
 
 ## Directory Structure
 

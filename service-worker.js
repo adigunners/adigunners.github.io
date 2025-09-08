@@ -10,21 +10,13 @@
  * @date 2025-09-04
 */
 
-const CACHE_NAME = 'fpl-iim-mumbai-v1.0.3';
+const CACHE_NAME = 'fpl-iim-mumbai-v1.0.4';
 const CACHE_URLS = [
   '/',
   '/index.html',
   '/winners.html',
-  '/css/variables.css',
-  '/css/base.css',
-  '/css/header.css',
-  '/css/components.css',
-  '/css/winners.css',
-  '/css/leaderboard.css',
-  '/css/responsive.css',
-  '/css/mobile-optimizations.css',
-  '/css/advanced-mobile.css',
-  '/css/fonts.css',
+  // Consolidated CSS bundle
+  '/css/styles.css',
   '/js/utils.js',
   '/js/data-loader.js',
   '/js/error-handler.js',

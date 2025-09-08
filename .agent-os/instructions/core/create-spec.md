@@ -18,11 +18,11 @@ EXECUTE: @.agent-os/instructions/meta/pre-flight.md
 
 <process_flow>
 
-<step number="1" subagent="context-fetcher" name="spec_initiation">
+<step number="1" subagent="general-purpose" name="spec_initiation">
 
 ### Step 1: Spec Initiation
 
-Use the context-fetcher subagent to identify spec initiation method by either finding the next uncompleted roadmap item when user asks "what's next?" or accepting a specific spec idea from the user.
+Use the general-purpose subagent to identify spec initiation method by either finding the next uncompleted roadmap item when user asks "what's next?" or accepting a specific spec idea from the user.
 
 <option_a_flow>
 <trigger_phrases> - "what's next?"
@@ -39,11 +39,11 @@ Use the context-fetcher subagent to identify spec initiation method by either fi
 
 </step>
 
-<step number="2" subagent="context-fetcher" name="context_gathering">
+<step number="2" subagent="general-purpose" name="context_gathering">
 
 ### Step 2: Context Gathering (Conditional)
 
-Use the context-fetcher subagent to read @.agent-os/product/mission-lite.md and @.agent-os/product/tech-stack.md only if not already in context to ensure minimal context for spec alignment.
+Use the general-purpose subagent to read @.agent-os/product/mission-lite.md and @.agent-os/product/tech-stack.md only if not already in context to ensure minimal context for spec alignment.
 
 <conditional_logic>
 IF both mission-lite.md AND tech-stack.md already read in current context:
@@ -61,11 +61,11 @@ CONTINUE with context analysis
 
 </step>
 
-<step number="3" subagent="context-fetcher" name="requirements_clarification">
+<step number="3" subagent="general-purpose" name="requirements_clarification">
 
 ### Step 3: Requirements Clarification
 
-Use the context-fetcher subagent to clarify scope boundaries and technical considerations by asking numbered questions as needed to ensure clear requirements before proceeding.
+Use the general-purpose subagent to clarify scope boundaries and technical considerations by asking numbered questions as needed to ensure clear requirements before proceeding.
 
 <clarification_areas>
 <scope> - in_scope: what is included - out_of_scope: what is excluded (optional)
@@ -84,23 +84,25 @@ PROCEED to_date_determination
 
 </step>
 
-<step number="4" subagent="date-checker" name="date_determination">
+<step number="4" name="date_determination">
 
 ### Step 4: Date Determination
 
-Use the date-checker subagent to determine the current date in YYYY-MM-DD format for folder naming. The subagent will output today's date which will be used in subsequent steps.
+Determine the current date in YYYY-MM-DD format for folder naming using the Bash tool with `date '+%Y-%m-%d'` command. Store this date for use in folder naming in step 5.
 
-<subagent_output>
-The date-checker subagent will provide the current date in YYYY-MM-DD format at the end of its response. Store this date for use in folder naming in step 5.
-</subagent_output>
+<implementation>
+Use: Bash tool with command `date '+%Y-%m-%d'` to get current date in required format.
+</implementation>
 
 </step>
 
-<step number="5" subagent="file-creator" name="spec_folder_creation">
+<step number="5" name="spec_folder_creation">
 
 ### Step 5: Spec Folder Creation
 
-Use the file-creator subagent to create directory: .agent-os/specs/YYYY-MM-DD-spec-name/ using the date from step 4.
+Create directory: .agent-os/specs/YYYY-MM-DD-spec-name/ using the date from step 4. Use Bash tool with `mkdir -p` command to create the directory structure.
+
+Also create spec-specific analysis folder: .agent-os/specs/YYYY-MM-DD-spec-name/analysis/ for storing spec-specific documentation and analysis files.
 
 Use kebab-case for spec name. Maximum 5 words in name.
 
@@ -120,11 +122,11 @@ Use kebab-case for spec name. Maximum 5 words in name.
 
 </step>
 
-<step number="6" subagent="file-creator" name="create_spec_md">
+<step number="6" name="create_spec_md">
 
 ### Step 6: Create spec.md
 
-Use the file-creator subagent to create the file: .agent-os/specs/YYYY-MM-DD-spec-name/spec.md using this template:
+Create the file: .agent-os/specs/YYYY-MM-DD-spec-name/spec.md using the Write tool with this template:
 
 <file_template>
 
@@ -220,11 +222,11 @@ Use the file-creator subagent to create the file: .agent-os/specs/YYYY-MM-DD-spe
 
 </step>
 
-<step number="7" subagent="file-creator" name="create_spec_lite_md">
+<step number="7" name="create_spec_lite_md">
 
 ### Step 7: Create spec-lite.md
 
-Use the file-creator subagent to create the file: .agent-os/specs/YYYY-MM-DD-spec-name/spec-lite.md for the purpose of establishing a condensed spec for efficient AI context usage.
+Create the file: .agent-os/specs/YYYY-MM-DD-spec-name/spec-lite.md using the Write tool for the purpose of establishing a condensed spec for efficient AI context usage.
 
 <file_template>
 
@@ -248,11 +250,11 @@ Use the file-creator subagent to create the file: .agent-os/specs/YYYY-MM-DD-spe
 
 </step>
 
-<step number="8" subagent="file-creator" name="create_technical_spec">
+<step number="8" name="create_technical_spec">
 
 ### Step 8: Create Technical Specification
 
-Use the file-creator subagent to create the file: sub-specs/technical-spec.md using this template:
+Create the file: sub-specs/technical-spec.md using the Write tool with this template:
 
 <file_template>
 
@@ -295,11 +297,11 @@ OMIT section entirely
 
 </step>
 
-<step number="9" subagent="file-creator" name="create_database_schema">
+<step number="9" name="create_database_schema">
 
 ### Step 9: Create Database Schema (Conditional)
 
-Use the file-creator subagent to create the file: sub-specs/database-schema.md ONLY IF database changes needed for this task.
+Create the file: sub-specs/database-schema.md using the Write tool ONLY IF database changes needed for this task.
 
 <decision_tree>
 IF spec_requires_database_changes:
@@ -329,11 +331,11 @@ SKIP this_step
 
 </step>
 
-<step number="10" subagent="file-creator" name="create_api_spec">
+<step number="10" name="create_api_spec">
 
 ### Step 10: Create API Specification (Conditional)
 
-Use the file-creator subagent to create file: sub-specs/api-spec.md ONLY IF API changes needed.
+Create file: sub-specs/api-spec.md using the Write tool ONLY IF API changes needed.
 
 <decision_tree>
 IF spec_requires_api_changes:
@@ -375,9 +377,38 @@ SKIP this_step
 
 </step>
 
-<step number="11" name="user_review">
+<step number="11" name="setup_testing_infrastructure">
 
-### Step 11: User Review
+### Step 11: Setup Centralized Testing Infrastructure
+
+Check if centralized testing infrastructure exists at .agent-os/testing/. If not, create the shared testing structure for reuse across all specs.
+
+<testing_infrastructure_check>
+IF .agent-os/testing/ directory exists:
+SKIP infrastructure creation, reuse existing
+ELSE:
+CREATE centralized testing structure:
+
+- .agent-os/testing/visual-regression/
+- .agent-os/testing/performance/
+- .agent-os/testing/css-analysis/
+- .agent-os/testing/utils/
+
+</testing_infrastructure_check>
+
+<shared_testing_benefits>
+
+- Consistent testing standards across all specs
+- Reusable testing utilities and frameworks
+- Cleaner repository structure
+- Reduced duplication of testing infrastructure
+</shared_testing_benefits>
+
+</step>
+
+<step number="12" name="user_review">
+
+### Step 12: User Review
 
 Request user review of spec.md and all sub-specs files, waiting for approval or revision requests.
 
