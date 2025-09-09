@@ -6,6 +6,7 @@ server.log
 updated_test_winner_stats_function.js
 updated_winner_stats_function.js
 *.log
+logs/
 
 # Google Apps Script development files
 *_function.js
