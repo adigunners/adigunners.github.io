@@ -21,7 +21,7 @@ These documents contain:
   `/Users/aditya.garg/Documents/VS Code Workspace/Personal Workspace/fml-admin-docs`
 - Core system docs:
   `/Users/aditya.garg/Documents/VS Code Workspace/Personal Workspace/IIM-Mumbai-Fantasy-League-AppScript/docs`
-- Contact: aditya.garg.2006@gmail.com for access
+- Contact: [aditya.garg.2006@gmail.com](mailto:aditya.garg.2006@gmail.com) for access
 
 ## Archived Documents
 
