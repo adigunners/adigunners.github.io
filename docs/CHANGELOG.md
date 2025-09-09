@@ -1,38 +1,32 @@
-# 📝 Changelog - IIM Mumbai FPL League
+# 📝 Changelog - Fantasy League Website
 
-**All notable changes to the fantasy league management system will be documented in this file.**
+**All notable changes to the fantasy league website will be documented in this file.**
 
-## 2025-09-08 – CSS Consolidation Pivot (18 → 1)
+## [1.4.3] - 2025-09-08 – Performance & Design Improvements
 
-- Consolidated 18 CSS files into a single bundle `css/styles.css` (design tokens, base, components,
-  responsive).
-- Kept `css/fallbacks.css` for external resource failure handling.
-- Winners page continues to use `assets/css/components/table.css` for table component.
-- Updated HTML to load a single stylesheet with noscript fallback; removed all other CSS links.
-- Deleted deprecated CSS files: variables.css, base.css, components.css, header.css, winners.css,
-  winners-specific.css, leaderboard.css, responsive.css, mobile-optimizations.css,
-  advanced-mobile.css, unified-spacing.css, desktop-tablet-optimizations.css, fonts.css,
-  error-handling.css, countdown-enhancements.css, mobile-consolidated.css and backup
-  `winners-consolidated.css.bak`.
-- Critical CSS: stabilized above‑the‑fold by aligning inline styles with final bundle; added a
-  reference guide section in `styles.css`.
-- FOUC: eliminated across hard refresh and throttled (3G) loads; countdown/sections render styled
-  immediately; subtitles visible on first paint.
-- Offline: added immediate offline banner detection and ensured countdown displays static zeros on
-  offline reload.
-- Test mode: added floating controls + `[TEST MODE]` subtitle on winners; QA panel revamped with
-  minimize/expand toggle and session persistence; added winners QA panel to match index.
-- Vertical rhythm: standardized inter‑section spacing and header‑to‑first‑section spacing across
-  desktop/tablet/mobile; tightened spacing overall for a denser look.
-- Demo pages: `demos/countdown-demo.html` and `tests/manual/test-stat-boxes.html` updated to use
-  `css/styles.css`.
-- Documentation: updated `docs/CSS_ARCHITECTURE_STATUS.md` and `docs/DESIGN_SYSTEM_GUIDE.md` to
-  reflect the consolidated architecture.
+### 🚀 New Features
 
-### Developer Notes
+- **Performance**: Consolidated CSS files for significantly faster loading
+- **Offline Support**: Better offline experience with automatic detection and fallbacks
+- **Test Mode**: Enhanced development tools with floating controls and QA panels
+- **Design**: Improved spacing and visual rhythm across all devices
 
-- Service worker cache bumped to `v1.0.4`; pre‑caches `css/styles.css` and no longer pre‑caches
-  removed files.
+### 🧩 Changes
+
+- Streamlined stylesheet architecture for better performance
+- Eliminated flash of unstyled content (FOUC) issues
+- Improved mobile responsive design and spacing consistency
+- Enhanced countdown timer display and reliability
+
+### 🐛 Bug Fixes
+
+- Fixed countdown display issues on offline reload
+- Resolved styling inconsistencies across different screen sizes
+- Improved cross-browser compatibility
+
+### 📋 Technical Notes
+
+- Updated demo pages and test files to use new stylesheet architecture
 - To update inline critical CSS, mirror the reference in `css/styles.css` (Critical Inline Reference
   block) and the `<style>` blocks in HTML heads.
 
