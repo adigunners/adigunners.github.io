@@ -50,7 +50,6 @@
 
 - Header transforms are disabled for users with reduced‑motion preference (CSS + JS guard).
 
-
 **All notable changes to the fantasy league website will be documented in this file.**
 
 ## [1.4.3] - 2025-09-08 – Performance & Design Improvements

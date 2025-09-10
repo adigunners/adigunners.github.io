@@ -368,8 +368,7 @@ window.FPLUIManager = (function () {
     }
 
     if (!winners || !Array.isArray(winners) || winners.length === 0) {
-      container.innerHTML =
-        '<div class="winner-loading">No winner data available yet.</div>';
+      container.innerHTML = '<div class="winner-loading">No winner data available yet.</div>';
       return;
     }
 

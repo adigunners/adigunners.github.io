@@ -68,7 +68,7 @@
 
   /* Table Surface Colors */
   --surface: var(--card-background); /* Unified surface color */
-  
+
   /* Mobile stat box tuning */
   --stat-box-mobile-height: 160px; /* Consistent mobile card height */
   --stat-box-mobile-max: 360px; /* Centered max width for single-column */
