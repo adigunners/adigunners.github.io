@@ -39,6 +39,7 @@ const CACHE_URLS = [
   '/assets/twemoji/svg/1f386.svg', // 🎆
   '/assets/twemoji/svg/1f3c6.svg', // 🏆
   '/assets/twemoji/svg/1f4b0.svg', // 💰
+  '/assets/twemoji/svg/1f4c3.svg', // 📃 (rules)
   '/assets/twemoji/svg/1f6aa.svg', // 🚪
   '/assets/twemoji/svg/1f4c5.svg', // 📅
   '/assets/twemoji/svg/1f5d3.svg', // 🗓️

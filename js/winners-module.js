@@ -193,37 +193,41 @@ async function renderWinnersTable() {
 // Desktop: one semantic table, fixed four columns, robust to CSS overrides
 function renderDesktopTable(container, pageData, startIndex) {
   let html = `
-  <div class="table-scroll winners-table">
-    <table class="c-table c-table--winners" role="table">
+  <div class=\"c-table-wrap\">
+    <table class=\"c-table c-table--winners\" role=\"table\">
       <colgroup>
-        <col style="width:64px" />
+        <col style=\"width:80px\" />
         <col />
-        <col style="width:140px" />
-        <col style="width:240px" />
+        <col style=\"width:180px\" />
+        <col style=\"width:220px\" />
       </colgroup>
-      <thead class="c-table__head">
+      <thead class=\"c-table__head\">
         <tr>
-          <th scope="col" class="col-rank">RANK</th>
-          <th scope="col" class="col-player">PLAYER</th>
-          <th scope="col" class="col-total">TOTAL PRIZE WON</th>
-          <th scope="col" class="col-highlights">HIGHLIGHTS</th>
+          <th scope=\"col\" class=\"col-rank\">#</th>
+          <th scope=\"col\" class=\"col-player\">PLAYER</th>
+          <th scope=\"col\" class=\"col-total\">PRIZE WON</th>
+          <th scope=\"col\" class=\"col-highlights\">HIGHLIGHTS</th>
         </tr>
       </thead>
-      <tbody class="c-table__body" id="winners-tbody">`;
+      <tbody class=\"c-table__body\" id=\"winners-tbody\">`;
 
   pageData.forEach((w, i) => {
     const rank = startIndex + i + 1;
     const h = w.highlights || {};
     const chips = [];
-    if (h.gameWeeks > 0) chips.push(`<span class="c-chip">${h.gameWeeks}GW</span>`);
-    if (h.gameMonths > 0) chips.push(`<span class="c-chip">${h.gameMonths}GM</span>`);
-    if (h.overallRank) chips.push(`<span class="muted">League Rank ${h.overallRank}</span>`);
+    if (h.gameWeeks > 0) chips.push(`<span class=\"pill pill-gw\">${h.gameWeeks} GW</span>`);
+    if (h.gameMonths > 0) chips.push(`<span class=\"pill pill-gm\">${h.gameMonths} GM</span>`);
+    if (h.overallRank) chips.push(`<span class=\"muted\">League Rank ${h.overallRank}</span>`);
 
     const topClass = RANK_CLASSES && RANK_CLASSES[rank] ? ` ${RANK_CLASSES[rank]}` : '';
+    let rankCell = String(rank);
+    if (rank === 1 || rank === 2 || rank === 3) {
+      rankCell = `<span class=\"leaderboard-rank rank-${rank}\">${rank}</span>`;
+    }
 
     html += `
       <tr class="${topClass.trim()}">
-        <td class="col-rank">${rank}</td>
+        <td class="col-rank">${rankCell}</td>
         <td class="col-player">${w.playerName}</td>
         <td class="col-total">₹${(w.totalPrizeWon || 0).toLocaleString('en-IN')}</td>
         <td class="col-highlights">${chips.join(' ')}</td>

@@ -689,16 +689,12 @@
               <!-- populated by JS -->
             </section>
             <footer class="prize-meta">
-              <!-- Prize timestamp removed - using unified footer timestamp -->
-              <a
-                href="#prize-structure"
-                onclick="document.getElementById('rules-pre').scrollIntoView({behavior:'smooth'}); return false;"
-                >Full rules</a
-              >
+              <!-- Replace dead link with modal-trigger button -->
+              <button id="rules-btn" type="button" class="btn-primary" aria-haspopup="dialog" aria-controls="rules-modal" aria-expanded="false">Mini-League Rules</button>
             </footer>
-            <aside class="prize-note" id="prize-note" role="note"></aside>
-          </aside>
-        </section>
+          <aside class="prize-note" id="prize-note" role="note"></aside>
+         </aside>
+       </section>
 
         <!-- LATE REGISTRATION SECTION (During Season) -->
         <section
@@ -733,6 +729,37 @@
           </p>
         </section>
       </main>
+
+      <!-- Rules Modal -->
+      <div id="rules-modal" class="modal-overlay is-hidden" role="dialog" aria-modal="true" aria-labelledby="rules-modal-title">
+        <div class="modal" role="document">
+          <header class="modal-header">
+            <h3 id="rules-modal-title"><img class="emoji-icon" src="assets/twemoji/svg/1f4c3.svg" alt="" aria-hidden="true" /> Mini-League Rules</h3>
+            <button type="button" class="modal-close" aria-label="Close rules">✕</button>
+          </header>
+          <div class="modal-body">
+            <section>
+              <h4>Game Week Winner</h4>
+              <ul>
+                <li>No cap on wins: You can win as many GWs as you manage.</li>
+                <li>Score used: Net GW Score = GW Points − Transfer Cost (points lost for transfers are deducted).</li>
+                <li>Ties: If players have the same Net GW Score, the GW prize is split equally among them.</li>
+              </ul>
+            </section>
+            <section>
+              <h4>Game Month Winner</h4>
+              <ul>
+                <li>No cap on wins: You can win multiple months.</li>
+                <li>Score used: The Monthly Score shown in the app — it’s the sum of Net GW Scores for all gameweeks whose start/deadline date falls in that month (GMT).</li>
+                <li>Ties: If players have the same Monthly Score, the month’s prize is split equally among them.</li>
+              </ul>
+            </section>
+          </div>
+          <footer class="modal-footer">
+            <button type="button" class="btn-primary modal-close">Got it</button>
+          </footer>
+        </div>
+      </div>
 
       <footer>
         <p>developed by Aditya Garg (@addygunners)</p>
@@ -1130,35 +1157,47 @@
         return (list || []).reduce((s, x) => s + (Number(x.amount) || 0), 0);
       }
 
+      function iconImg(code, alt) {
+        return `<img class="emoji-icon" src="assets/twemoji/svg/${code}.svg" alt="${alt}">`;
+      }
+
       function buildWeeklyCard(weekly) {
         const total = sumAmounts(weekly);
-        const breakdown = weekly
-          .map((p) => `${ordinal(p.rank)} ${formatINR(p.amount)}`)
-          .join(' | ');
+        const topTwo = (weekly || [])
+          .filter((p) => p.rank === 1 || p.rank === 2)
+          .sort((a, b) => a.rank - b.rank);
+        const pills = topTwo
+          .map((p) => {
+            const cls = p.rank === 1 ? 'pill-gold' : 'pill-silver';
+            return `<span class="pill ${cls}"><span class="rank">${ordinal(p.rank)}</span>${formatINR(p.amount)}</span>`;
+          })
+          .join('');
         return `
           <article class="prize-card" aria-labelledby="weekly-prize-title">
-            <div class="header">
-              <div class="icon" aria-hidden="true">📅</div>
-              <h3 id="weekly-prize-title" class="title">Weekly</h3>
-            </div>
-            <div class="amount" aria-label="Total weekly prize amount">${formatINR(total)}</div>
-            <div class="breakdown" aria-label="Prize breakdown">${breakdown}</div>
+            <div class="pc-line icon-line" aria-hidden="true">${iconImg('1f4c5','Calendar')}</div>
+            <div class="pc-line pc-label" id="weekly-prize-title">Weekly</div>
+            <div class="pc-line amount" aria-label="Total weekly prize amount">${formatINR(total)}</div>
+            <div class="pc-line breakdown" aria-label="Top prizes">${pills}</div>
           </article>`;
       }
 
       function buildMonthlyCard(monthly) {
         const total = sumAmounts(monthly);
-        const breakdown = monthly
-          .map((p) => `${ordinal(p.rank)} ${formatINR(p.amount)}`)
-          .join(' | ');
+        const topTwo = (monthly || [])
+          .filter((p) => p.rank === 1 || p.rank === 2)
+          .sort((a, b) => a.rank - b.rank);
+        const pills = topTwo
+          .map((p) => {
+            const cls = p.rank === 1 ? 'pill-gold' : 'pill-silver';
+            return `<span class="pill ${cls}"><span class="rank">${ordinal(p.rank)}</span>${formatINR(p.amount)}</span>`;
+          })
+          .join('');
         return `
           <article class="prize-card" aria-labelledby="monthly-prize-title">
-            <div class="header">
-              <div class="icon" aria-hidden="true">🗓️</div>
-              <h3 id="monthly-prize-title" class="title">Monthly</h3>
-            </div>
-            <div class="amount" aria-label="Total monthly prize amount">${formatINR(total)}</div>
-            <div class="breakdown" aria-label="Prize breakdown">${breakdown}</div>
+            <div class="pc-line icon-line" aria-hidden="true">${iconImg('1f5d3','Spiral calendar')}</div>
+            <div class="pc-line pc-label" id="monthly-prize-title">Monthly</div>
+            <div class="pc-line amount" aria-label="Total monthly prize amount">${formatINR(total)}</div>
+            <div class="pc-line breakdown" aria-label="Top prizes">${pills}</div>
           </article>`;
       }
 
@@ -1170,40 +1209,36 @@
         const totalOverallPrize = sumAmounts(annual);
         const topThree = (annual || [])
           .slice(0, 3)
-          .map((p) => `${ordinal(p.rank)} ${formatINR(p.amount)}`)
-          .join(' | ');
+          .map((p) => {
+            const cls = p.rank === 1 ? 'pill-gold' : p.rank === 2 ? 'pill-silver' : 'pill-bronze';
+            return `<span class=\"pill ${cls}\"><span class=\"rank\">${ordinal(p.rank)}</span>${formatINR(p.amount)}</span>`;
+          })
+          .join('');
 
-        // Build tooltip content with better formatting
-        const allPrizes = (annual || [])
+        const allList = (annual || [])
+          .slice(0, 15)
           .map(
             (p) => `
-            <div class="prize-item">
-              <span class="prize-rank">${ordinal(p.rank)}</span>
-              <span class="prize-amount">${formatINR(p.amount)}</span>
-            </div>`
+              <div class="more-item">
+                <span class="rank">${ordinal(p.rank)}</span>
+                <span class="value">${formatINR(p.amount)}</span>
+              </div>`
           )
           .join('');
 
+        const panelId = 'annual-tip-panel';
+        const btnId = 'annual-tip-btn';
+
         return `
           <article class="prize-card" aria-labelledby="annual-prize-title">
-            <div class="header">
-              <div class="icon" aria-hidden="true">🏆</div>
-              <h3 id="annual-prize-title" class="title">
-                Overall
-                <button class="tooltip" type="button" aria-describedby="overall-tooltip" aria-expanded="false" aria-label="Show season-end prize breakdown">
-                  ℹ️
-                  <span id="overall-tooltip" class="tooltip-content" role="tooltip">
-                    <span class="tooltip-arrow" aria-hidden="true"></span>
-                    <strong>All Season-End Prizes</strong>
-                    <div class="prize-list">
-                      ${allPrizes}
-                    </div>
-                  </span>
-                </button>
-              </h3>
+            <div class="overlay-action" id="${btnId}" aria-label="View top 15 prizes" aria-haspopup="dialog" aria-controls="${panelId}" aria-expanded="false"><span class="dots-icon" aria-hidden="true">⋯</span></div>
+            <div class="pc-line icon-line" aria-hidden="true">${iconImg('1f3c6','Trophy')}</div>
+            <div class="pc-line pc-label" id="annual-prize-title">Overall</div>
+            <div class="pc-line amount" aria-label="Total annual prize amount">${formatINR(totalOverallPrize)}</div>
+            <div class="pc-line breakdown" aria-label="Top three prizes">${topThree}</div>
+            <div id="${panelId}" class="tooltip-panel" role="dialog" aria-label="Top 15 prizes" hidden>
+              <div class="more-list">${allList}</div>
             </div>
-            <div class="amount" aria-label="Total annual prize amount">${formatINR(totalOverallPrize)}</div>
-            <div class="breakdown" aria-label="Top three prize breakdown">${topThree}</div>
           </article>`;
       }
 
@@ -1216,6 +1251,38 @@
         const monthly = buildMonthlyCard(data.monthlyPrizes || []);
         const annual = buildAnnualCard(data.annualPrizes || []);
         container.innerHTML = `${weekly}${monthly}${annual}`;
+        // Wire up annual toggle
+        const btn = document.getElementById('annual-tip-btn');
+        const panel = document.getElementById('annual-tip-panel');
+        if (btn && panel) {
+          function closePanel() {
+            panel.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            setTimeout(() => (panel.hidden = true), 150);
+            document.removeEventListener('click', onDocClick, true);
+            window.removeEventListener('keydown', onKey);
+          }
+          function onDocClick(e) {
+            if (panel.contains(e.target) || btn.contains(e.target)) return;
+            closePanel();
+          }
+          function onKey(e) {
+            if (e.key === 'Escape') closePanel();
+          }
+          btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const opening = !panel.classList.contains('open');
+            if (opening) {
+              panel.hidden = false;
+              requestAnimationFrame(() => panel.classList.add('open'));
+              btn.setAttribute('aria-expanded', 'true');
+              document.addEventListener('click', onDocClick, true);
+              window.addEventListener('keydown', onKey);
+            } else {
+              closePanel();
+            }
+          });
+        }
         if (window.applyTwemoji) {
           window.applyTwemoji(container);
         }
@@ -2176,6 +2243,41 @@
       window.addEventListener('resize', debouncedAdjustForZFold);
 
       // Remove duplicate loadPrizeSummary - the correct one is already defined above
+    </script>
+    <!-- Rules modal wiring -->
+    <script>
+      (function(){
+        function qs(id){ return document.getElementById(id); }
+        function openModal(){
+          var overlay = qs('rules-modal');
+          var btn = qs('rules-btn');
+          if (!overlay) return;
+          overlay.classList.remove('is-hidden');
+          if (btn) btn.setAttribute('aria-expanded','true');
+          // focus modal close for keyboard users
+          var closeBtn = overlay.querySelector('.modal-close');
+          if (closeBtn) closeBtn.focus();
+          document.addEventListener('keydown', onKey);
+          overlay.addEventListener('click', onBackdrop, { once: true });
+        }
+        function closeModal(){
+          var overlay = qs('rules-modal');
+          var btn = qs('rules-btn');
+          if (!overlay) return;
+          overlay.classList.add('is-hidden');
+          if (btn) btn.setAttribute('aria-expanded','false');
+          document.removeEventListener('keydown', onKey);
+        }
+        function onKey(e){ if (e.key === 'Escape') closeModal(); }
+        function onBackdrop(e){ if (e.target && e.target.id === 'rules-modal') closeModal(); }
+
+        document.addEventListener('DOMContentLoaded', function(){
+          var btn = qs('rules-btn');
+          var overlay = qs('rules-modal');
+          if (btn && overlay) btn.addEventListener('click', openModal);
+          overlay && overlay.querySelectorAll('.modal-close').forEach(function(el){ el.addEventListener('click', closeModal); });
+        });
+      })();
     </script>
     <!-- Twemoji for stat-box icons -->
     <script defer src="assets/twemoji/twemoji.min.js"></script>
