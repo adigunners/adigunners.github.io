@@ -18,6 +18,7 @@
 ### Release Information
 
 - **[📝 CHANGELOG.md](CHANGELOG.md)** - Public release notes and version history
+- **[🚀 CACHING_AND_DEPLOYMENT.md](CACHING_AND_DEPLOYMENT.md)** - Build, caching, and rollout strategy
 
 ## 🔒 Internal Documentation
 
@@ -40,6 +41,7 @@ docs/
 ├── CONTRIBUTING.md    # Contributor guidelines
 ├── SETUP_GUIDE.md     # Local development setup
 ├── CHANGELOG.md       # Public release notes
+├── CACHING_AND_DEPLOYMENT.md  # Build and caching workflow
 └── archive/          # Archived internal documents
 ```
 

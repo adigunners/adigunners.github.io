@@ -132,7 +132,7 @@
     />
 
     <!-- CSS: Consolidated foundation (variables, fonts, base, spacing) -->
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css?v=1.0.5" />
 
     <!-- Critical CSS: minimal above-the-fold styles for stable first paint -->
     <style>
@@ -291,7 +291,7 @@
     <!-- 6. Responsive: merged into styles.css -->
 
     <!-- 7. Fallback CSS (loads only if external resources fail) -->
-    <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
+    <link rel="stylesheet" href="css/fallbacks.css?v=1.0.5" id="fallback-css" disabled />
 
     <!-- Load test/admin wrappers only when needed to reduce main bundle size -->
     <script>
@@ -299,7 +299,7 @@
         var qp = new URLSearchParams(location.search);
         if (qp.get('test') === 'true' || qp.get('admin') === 'true') {
           var s = document.createElement('script');
-          s.src = 'js/test-admin-wrappers.js';
+          s.src = 'js/test-admin-wrappers.js?v=1.0.5';
           s.defer = true;
           document.head.appendChild(s);
         }
@@ -804,14 +804,16 @@
     </div>
 
     <!-- === JS: MODULAR STRUCTURE === -->
+    <script src="/version.js?v=1" defer></script>
     <!-- Core modules -->
-    <script src="js/error-handler.js" defer></script>
-    <script src="js/utils.js" defer></script>
-    <script src="js/data-loader.js" defer></script>
-    <script src="js/ui-manager.js" defer></script>
-    <script src="js/header-scroll.js" defer></script>
-    <script src="js/countdown.js" defer></script>
-    <script src="js/prize-structure.js" defer></script>
+    <script src="js/error-handler.js?v=1.0.5" defer></script>
+    <script src="js/utils.js?v=1.0.5" defer></script>
+    <script src="js/data-loader.js?v=1.0.5" defer></script>
+    <script src="js/ui-manager.js?v=1.0.5" defer></script>
+    <script src="js/header-scroll.js?v=1.0.5" defer></script>
+    <script src="js/countdown.js?v=1.0.5" defer></script>
+    <script src="js/prize-structure.js?v=1.0.5" defer></script>
+    <script src="js/sw-update.js?v=1" defer></script>
     <!-- Main application script -->
     <script>
       /*
@@ -1775,17 +1777,7 @@
         }
       }
 
-      // Service worker registration for offline support (if service-worker.js exists)
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker
-            .register('/service-worker.js')
-            .then((registration) => console.log('SW registered:', registration))
-            .catch((registrationError) =>
-              console.log('SW registration failed:', registrationError)
-            );
-        });
-      }
+      // Service worker registration moved to js/sw-update.js (with update prompt)
 
       // =============== LEADERBOARD FUNCTIONS ===============
 

@@ -1,6 +1,6 @@
 {
   "name": "adigunners-github-io",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "description": "IIM Mumbai Fantasy Premier League - Automated fantasy football league management system",
   "private": true,
   "scripts": {
@@ -19,7 +19,9 @@
     "spec:new": "node .codex/bin/new-spec.js",
     "spec:tasks": "node .codex/bin/new-tasks.js",
     "codex:date": "node .codex/bin/date-checker.js",
-    "codex:new": "node .codex/bin/codex-workflow.js"
+    "codex:new": "node .codex/bin/codex-workflow.js",
+    "version:apply": "node scripts/set-version.js",
+    "build": "node scripts/build.js"
   },
   "engines": {
     "node": ">=18.0.0",

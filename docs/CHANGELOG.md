@@ -1,5 +1,35 @@
 # 📝 Changelog - Fantasy League Website
 
+## [1.4.5] - 2025-09-10 – Robust Caching + Fingerprinted Build + SW Update Prompt
+
+### 🚀 New
+
+- Single-source version via `version.js` generated from `package.json` (used by pages and Service Worker).
+- Build pipeline that outputs a fingerprinted site to `docs/` with content-hashed CSS/JS and a precache manifest.
+- In-page “New version available” banner; one click refreshes to the latest version when the SW updates.
+
+### 🧩 Changes
+
+- Service Worker now uses a network-first strategy for HTML navigations so normal refresh gets fresh pages, with offline fallback.
+- SW cache name derives from site version; old caches are cleaned on activate.
+- HTML now references a shared `version.js` and delegates SW registration to `js/sw-update.js`.
+
+### 🧪 Deployment & Caching
+
+- GitHub Pages compatible: `npm run build` writes a ready-to-serve site to `docs/` (Pages can point to `/docs`).
+- Netlify-compatible `_headers` file added:
+  - HTML + `service-worker.js`: `no-cache`
+  - Hashed assets under `/css`, `/js`, `/assets`: `public, max-age=31536000, immutable`
+
+### 📂 Files (key)
+
+- Added: `version.js`, `js/sw-update.js`, `scripts/set-version.js`, `scripts/build.js`, `_headers`
+- Updated: `service-worker.js`, `index.html`, `winners.html`, `package.json`
+
+### 🔎 Notes
+
+- See `docs/CACHING_AND_DEPLOYMENT.md` for workflow and rollout steps.
+
 ## [1.4.4] - 2025-09-10 – Header Autohide + Winners UX Polish
 
 ### 🚀 New
