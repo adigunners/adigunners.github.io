@@ -22,7 +22,7 @@ Command: `npm run build`
 
 What it does:
 - Writes `version.js` from `package.json`.
-- Copies the site to `docs/` (excluding dev folders).
+- Copies the site to `public/` (excluding dev folders and docs/).
 - Appends content hashes to CSS/JS filenames (e.g., `styles.abc12345.css`).
 - Rewrites `index.html` and `winners.html` to reference the hashed assets.
 - Generates `/precache-manifest.json` used by the Service Worker during install.
@@ -55,8 +55,8 @@ GitHub Pages ignores custom headers, but the hashing still ensures fresh assets.
 
 ## GitHub Pages
 
-- Set Pages source to “Deploy from a branch” → your default branch, folder `/docs`.
-- After `npm run build`, commit and push `docs/` to publish.
+- Set Pages source to “Deploy from a branch” → your default branch, folder `/public`.
+- After `npm run build`, commit and push `public/` to publish.
 
 ## Local Development
 
@@ -75,4 +75,3 @@ GitHub Pages ignores custom headers, but the hashing still ensures fresh assets.
 - Seeing stale pages: do a hard reload, or wait for the banner and click Refresh.
 - SW not updating: confirm `version.js` changed and `CACHE_NAME` reflects the new version.
 - Hashed assets missing: ensure `npm run build` ran and `docs/` contains hashed files.
-

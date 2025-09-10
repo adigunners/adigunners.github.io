@@ -16,7 +16,7 @@
 
 ### 🧪 Deployment & Caching
 
-- GitHub Pages compatible: `npm run build` writes a ready-to-serve site to `docs/` (Pages can point to `/docs`).
+- GitHub Pages compatible: `npm run build` writes a ready-to-serve site to `public/` (configure Pages to point to `/public`).
 - Netlify-compatible `_headers` file added:
   - HTML + `service-worker.js`: `no-cache`
   - Hashed assets under `/css`, `/js`, `/assets`: `public, max-age=31536000, immutable`
