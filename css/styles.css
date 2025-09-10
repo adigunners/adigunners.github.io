@@ -68,6 +68,10 @@
 
   /* Table Surface Colors */
   --surface: var(--card-background); /* Unified surface color */
+  
+  /* Mobile stat box tuning */
+  --stat-box-mobile-height: 160px; /* Consistent mobile card height */
+  --stat-box-mobile-max: 360px; /* Centered max width for single-column */
 }
 
 /* FIX: mobile sticky header opacity — adaptive backdrop token */
@@ -333,6 +337,14 @@ section {
   width: 100%;
 }
 
+/* Shared section card utility for consistent container padding/radius */
+.section-card {
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  background-color: var(--card-background);
+}
+
 h2 {
   color: var(--heading-color);
   border-bottom: 2px solid #f0f2f5;
@@ -593,6 +605,9 @@ section {
   .stat-box {
     padding: calc(var(--spacing-md) * var(--spacing-mobile-multiplier)); /* ~12px internal */
     border-radius: var(--radius-md); /* 6px corners */
+    /* Enforce consistent mobile height across pages */
+    height: var(--stat-box-mobile-height, 160px);
+    min-height: auto;
   }
 
   /* Winner cards mobile optimization */
@@ -845,16 +860,34 @@ section {
 @media (max-width: 700px) {
   .stats-row {
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* center stacked stat boxes */
   }
   .stat-box {
     width: 100%;
-    max-width: none;
-    min-height: 140px;
-    margin: 0;
+    max-width: var(--stat-box-mobile-max, 360px);
+    height: var(--stat-box-mobile-height, 160px);
+    min-height: auto;
+    margin: 0 auto; /* center within container */
   }
   .stat-box__title {
     margin-bottom: 0;
+  }
+}
+
+/* Larger mobile: two-column stat layout for compactness */
+@media (min-width: 480px) and (max-width: 700px) {
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--box-gap);
+    align-items: stretch;
+    justify-items: stretch;
+  }
+  .stat-box {
+    max-width: none; /* let grid define width */
+    margin: 0; /* remove centering margins in 2-col */
+    width: 100%;
+    height: var(--stat-box-mobile-height, 160px);
   }
 }
 
@@ -1262,11 +1295,16 @@ section {
   padding-top: calc(8px + var(--safe-top));
   padding-bottom: 0;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+  /* Progressive auto-hide via JS-updated CSS variables */
+  transform: translateY(calc(-1 * var(--header-offset, 0px)));
+  will-change: transform;
 }
 .header-inner {
   width: 100%;
   margin: 0 auto;
   padding: 0;
+  /* Optional fade as header hides */
+  opacity: var(--header-opacity, 1);
 }
 header {
   background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
@@ -1552,6 +1590,16 @@ header p {
   }
 }
 
+/* Respect accessibility preference to reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transform: none !important;
+  }
+  .header-inner {
+    opacity: 1 !important;
+  }
+}
+
 /* ===================== 7) PAGE STYLES ===================== */
 /* Source: css/winners.css */
 .muted {
@@ -1582,6 +1630,7 @@ header p {
     box-shadow 0.2s ease;
   position: relative;
 }
+
 .winner-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -1625,6 +1674,12 @@ header p {
   line-height: 1.3;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  /* Clamp long names to two lines to keep highlights close to prize */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .winner-prize {
   font-size: 1.5rem;
@@ -1636,6 +1691,8 @@ header p {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+  justify-content: flex-end;
+  width: 100%;
 }
 .highlight-badge {
   padding: 4px 8px;
@@ -2782,6 +2839,12 @@ header p {
     margin-bottom: 4px;
     line-height: 1.2;
     color: var(--heading-color);
+    /* Keep clamp on mobile as well */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .winner-prize {
     font-size: 1.1rem;
@@ -2795,7 +2858,7 @@ header p {
     gap: 4px;
     flex-wrap: wrap;
     margin-top: 2px;
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
   .highlight-badge {
     padding: 2px 6px;

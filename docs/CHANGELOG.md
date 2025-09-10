@@ -1,5 +1,56 @@
 # 📝 Changelog - Fantasy League Website
 
+## [1.4.4] - 2025-09-10 – Header Autohide + Winners UX Polish
+
+### 🚀 New
+
+- Progressive auto-hide sticky header across pages with smooth scroll behavior
+  - Shared module `js/header-scroll.js` updates CSS variables for transform/opacity
+  - Honors user accessibility setting via `prefers-reduced-motion` (JS early exit + CSS override)
+
+### 🧩 Changes
+
+- Section titles and CTAs
+  - Index: League stats title → “🧮 Mini-League Snapshot”
+  - Index: Winners CTA → “See All Winners” (removed icon)
+  - Index: “🏆 League Standings” → “🏆 Overall Leaderboard”
+  - Index: “💰 Prize Structure” → “💰 Prize Breakdown”
+  - Index: “🚪 Still Want to Join?” → “🚪 Missed Registration?”
+  - Winners: “📊 League Statistics” → “📊 Season Summary”
+  - Winners: “🏅 Complete Winner Rankings” → “🏅 Season Earnings (All Winners)”
+
+- Consistent containers (critical + external CSS)
+  - Introduced `.section-card` utility; applied to key sections on both pages
+  - Replaced page‑specific inline stubs with shared class for first‑paint stability
+
+- Winners preview consistency
+  - Removed unintended inner “box” by rendering preview wrapper as `<div class="winner-preview">`
+    instead of `<section>` (keeps outer section styling; removes nested card look)
+
+- Mobile stat boxes (global standard)
+  - Consistent mobile height via `--stat-box-mobile-height` (default 160px)
+  - Centered single‑column layout; two‑column layout on 480–700px for better use of space
+  - Tunable width via `--stat-box-mobile-max` (default 360px)
+
+- Winner cards
+  - Right‑aligned highlights row across pages
+  - Two‑line clamp for player names to keep highlights close to prize
+
+### 🐛 Fixes
+
+- Winners page (mobile): container padding matched to other sections (added id + `.section-card`)
+- Index winners preview: removed extra nested card while keeping section styling
+
+### 📂 Files (key)
+
+- Added: `js/header-scroll.js`
+- Updated: `index.html`, `winners.html`, `css/styles.css`, `js/ui-manager.js`
+
+### 🔎 Notes
+
+- Header transforms are disabled for users with reduced‑motion preference (CSS + JS guard).
+
+
 **All notable changes to the fantasy league website will be documented in this file.**
 
 ## [1.4.3] - 2025-09-08 – Performance & Design Improvements

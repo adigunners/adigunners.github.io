@@ -369,7 +369,7 @@ window.FPLUIManager = (function () {
 
     if (!winners || !Array.isArray(winners) || winners.length === 0) {
       container.innerHTML =
-        '<section class="winner-loading">No winner data available yet.</section>';
+        '<div class="winner-loading">No winner data available yet.</div>';
       return;
     }
 
@@ -386,7 +386,7 @@ window.FPLUIManager = (function () {
     const topWinners = isWinnersPage ? sortedWinners : sortedWinners.slice(0, 6);
 
     const previewHTML = `
-      <section class="winner-preview" aria-label="Top prize winners">
+      <div class="winner-preview" aria-label="Top prize winners">
         ${topWinners
           .map(
             (winner, index) => `
@@ -421,7 +421,7 @@ window.FPLUIManager = (function () {
         `
           )
           .join('')}
-      </section>
+      </div>
     `;
 
     container.innerHTML = previewHTML;
