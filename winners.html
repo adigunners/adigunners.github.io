@@ -47,7 +47,7 @@
 
     <!-- MODULAR CSS ARCHITECTURE (standardized async loading like index.html) -->
     <!-- 1. Foundation: Consolidated (variables, fonts, base, spacing) -->
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css?v=1.0.5" />
 
     <!-- 2. Layout: Core layout and spacing (merged into styles.css) -->
 
@@ -55,10 +55,10 @@
     <link
       rel="preload"
       as="style"
-      href="assets/css/components/table.css"
+      href="assets/css/components/table.css?v=1.0.5"
       onload="this.onload=null;this.rel='stylesheet'"
     />
-    <noscript><link rel="stylesheet" href="assets/css/components/table.css" /></noscript>
+    <noscript><link rel="stylesheet" href="assets/css/components/table.css?v=1.0.5" /></noscript>
     <!-- header.css merged into styles.css -->
 
     <!-- 4. Page-specific (async loading for non-critical styles) -->
@@ -69,7 +69,7 @@
     <!-- 5. Responsive (merged into styles.css) -->
 
     <!-- 6. Fallback CSS (loads only if external resources fail; kept last) -->
-    <link rel="stylesheet" href="css/fallbacks.css" id="fallback-css" disabled />
+    <link rel="stylesheet" href="css/fallbacks.css?v=1.0.5" id="fallback-css" disabled />
 
     <!-- Critical CSS: Above-the-fold styles for stable first paint -->
     <style>
@@ -478,13 +478,13 @@
       // Identify this as winners page to prevent UI manager from running index.html-specific code
       window.FPL_PAGE_TYPE = 'winners';
     </script>
-    <script src="js/error-handler.js" defer></script>
-    <script src="js/utils.js" defer></script>
-    <script src="js/data-loader.js" defer></script>
-    <script src="js/ui-manager.js" defer></script>
-    <script src="js/header-scroll.js" defer></script>
-    <script src="js/countdown.js" defer></script>
-    <script src="js/prize-structure.js" defer></script>
+    <script src="js/error-handler.js?v=1.0.5" defer></script>
+    <script src="js/utils.js?v=1.0.5" defer></script>
+    <script src="js/data-loader.js?v=1.0.5" defer></script>
+    <script src="js/ui-manager.js?v=1.0.5" defer></script>
+    <script src="js/header-scroll.js?v=1.0.5" defer></script>
+    <script src="js/countdown.js?v=1.0.5" defer></script>
+    <script src="js/prize-structure.js?v=1.0.5" defer></script>
 
     <!-- Winners page module loader -->
     <script type="module" src="js/winners-module.js" defer></script>
@@ -639,18 +639,8 @@
       });
     </script>
 
-    <!-- Service worker registration for offline support (match index.html) -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker
-            .register('/service-worker.js')
-            .then((registration) => console.log('SW registered:', registration))
-            .catch((registrationError) =>
-              console.log('SW registration failed:', registrationError)
-            );
-        });
-      }
-    </script>
+    <!-- Version + SW update handling -->
+    <script src="/version.js?v=1" defer></script>
+    <script src="js/sw-update.js?v=1" defer></script>
   </body>
 </html>

@@ -10,7 +10,13 @@
  * @date 2025-09-04
 */
 
-const CACHE_NAME = 'fpl-iim-mumbai-v1.0.4';
+// Import shared version (available both in window and worker scope)
+try {
+  importScripts('/version.js');
+} catch (_) {}
+
+const VERSION = (typeof self !== 'undefined' && self.SITE_VERSION) ? self.SITE_VERSION : 'dev';
+const CACHE_NAME = `fpl-iim-mumbai-v${VERSION}`;
 const CACHE_URLS = [
   '/',
   '/index.html',
@@ -53,12 +59,24 @@ self.addEventListener('install', (event) => {
   console.log('[ServiceWorker] Installing...');
 
   event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then((cache) => {
-        console.log('[ServiceWorker] Caching app shell');
-        return cache.addAll(CACHE_URLS.map((url) => new Request(url, { cache: 'no-cache' })));
-      })
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      let urlsToCache = [...CACHE_URLS];
+      // Try to include build-time precache manifest if present
+      try {
+        const resp = await fetch('/precache-manifest.json', { cache: 'no-store' });
+        if (resp.ok) {
+          const manifest = await resp.json();
+          if (Array.isArray(manifest) && manifest.length) {
+            urlsToCache = Array.from(new Set(urlsToCache.concat(manifest)));
+          }
+        }
+      } catch (e) {
+        // No manifest available; continue with defaults
+      }
+      console.log('[ServiceWorker] Caching app shell:', urlsToCache.length, 'items');
+      await cache.addAll(urlsToCache.map((url) => new Request(url, { cache: 'no-cache' })));
+    })()
       .catch((error) => {
         console.warn('[ServiceWorker] Cache installation failed:', error);
         // Don't fail the entire installation if caching fails
@@ -97,26 +115,56 @@ self.addEventListener('activate', (event) => {
 // Fetch event - serve cached content when offline
 self.addEventListener('fetch', (event) => {
   // Only handle GET requests
-  if (event.request.method !== 'GET') {
-    return;
-  }
+  if (event.request.method !== 'GET') return;
 
   // Skip cross-origin requests (APIs, external resources)
-  if (!event.request.url.startsWith(self.location.origin)) {
+  if (!event.request.url.startsWith(self.location.origin)) return;
+
+  const req = event.request;
+
+  // Detect navigation/HTML requests
+  const isNavigation =
+    req.mode === 'navigate' ||
+    (req.headers && req.headers.get('accept') && req.headers.get('accept').includes('text/html'));
+
+  if (isNavigation) {
+    // Network-first for navigations so reload gets freshest HTML
+    event.respondWith(
+      fetch(req, { cache: 'no-store' })
+        .then((networkResp) => {
+          // Cache a copy as offline fallback
+          if (networkResp && networkResp.status === 200) {
+            const copy = networkResp.clone();
+            event.waitUntil(
+              caches.open(CACHE_NAME).then((cache) => cache.put(req, copy)).catch(() => {})
+            );
+          }
+          return networkResp;
+        })
+        .catch(async () => {
+          const cached = await caches.match(req);
+          if (cached) return cached;
+          // Fallback simple offline page
+          return new Response(
+            `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Offline</title><style>body{font-family:Arial,sans-serif;background:#f5f5f5;margin:0;padding:32px;text-align:center}.card{max-width:520px;margin:0 auto;background:#fff;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.1);padding:24px}h1{color:#37003c;margin:0 0 8px}button{background:#37003c;color:#fff;border:none;border-radius:6px;padding:10px 16px;cursor:pointer;margin-top:16px}</style></head><body><div class="card"><h1>🏈 FPL IIM Mumbai</h1><p>You're offline. Please reconnect and try again.</p><button onclick="location.reload()">Retry</button></div></body></html>`,
+            { headers: { 'Content-Type': 'text/html' } }
+          );
+        })
+    );
     return;
   }
 
+  // Cache-first with background update for static assets
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      // Return cached immediately if available (stale-while-revalidate)
+    caches.match(req).then((cachedResponse) => {
       if (cachedResponse) {
-        // Kick off background update
+        // Background revalidation
         event.waitUntil(
-          fetch(event.request)
+          fetch(req)
             .then((networkResp) => {
               if (networkResp && networkResp.status === 200 && networkResp.type === 'basic') {
                 return caches.open(CACHE_NAME).then((cache) =>
-                  cache.put(event.request, withLongTTL(networkResp.clone(), event.request))
+                  cache.put(req, withLongTTL(networkResp.clone(), req))
                 );
               }
             })
@@ -125,90 +173,24 @@ self.addEventListener('fetch', (event) => {
         return cachedResponse;
       }
 
-      // Otherwise, fetch from network
-      return fetch(event.request)
+      return fetch(req)
         .then((response) => {
-          // Don't cache if not a valid response
           if (!response || response.status !== 200 || response.type !== 'basic') {
             return response;
           }
 
-          // Cache the new response for static assets
-          if (shouldCache(event.request.url)) {
-            const responseToCache = withLongTTL(response.clone(), event.request);
+          if (shouldCache(req.url)) {
+            const responseToCache = withLongTTL(response.clone(), req);
             caches
               .open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              })
-              .catch((error) => {
-                console.warn('[ServiceWorker] Failed to cache response:', error);
-              });
+              .then((cache) => cache.put(req, responseToCache))
+              .catch((error) => console.warn('[ServiceWorker] Failed to cache response:', error));
           }
 
-          return withLongTTL(response, event.request);
+          return withLongTTL(response, req);
         })
         .catch((error) => {
-          console.warn('[ServiceWorker] Network request failed:', event.request.url, error);
-
-          // For navigation requests, return a basic offline page
-          if (event.request.mode === 'navigate') {
-            return new Response(
-              `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                  <title>FPL IIM Mumbai - Offline</title>
-                  <meta charset="UTF-8">
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                  <style>
-                    body { 
-                      font-family: Arial, sans-serif; 
-                      text-align: center; 
-                      padding: 50px; 
-                      background: #f5f5f5;
-                    }
-                    .offline-container { 
-                      max-width: 500px; 
-                      margin: 0 auto; 
-                      background: white; 
-                      padding: 30px; 
-                      border-radius: 8px; 
-                      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                    }
-                    h1 { color: #37003c; }
-                    .retry-btn {
-                      background: #37003c;
-                      color: white;
-                      border: none;
-                      padding: 10px 20px;
-                      border-radius: 5px;
-                      cursor: pointer;
-                      margin-top: 20px;
-                    }
-                  </style>
-                </head>
-                <body>
-                  <div class="offline-container">
-                    <h1>🏈 FPL IIM Mumbai</h1>
-                    <h2>You're Offline</h2>
-                    <p>Please check your internet connection and try again.</p>
-                    <button class="retry-btn" onclick="window.location.reload()">
-                      Retry
-                    </button>
-                  </div>
-                </body>
-                </html>
-                `,
-              {
-                headers: {
-                  'Content-Type': 'text/html',
-                },
-              }
-            );
-          }
-
-          // For other requests, just fail
+          console.warn('[ServiceWorker] Network request failed:', req.url, error);
           throw error;
         });
     })
