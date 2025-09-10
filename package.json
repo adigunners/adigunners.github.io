@@ -15,6 +15,7 @@
     "audit:winners": "lighthouse http://localhost:${PORT:-8000}/winners.html --output html --output json --quiet --chrome-flags=\"--headless\" --output-path ./tests/integration/performance/reports/lighthouse-winners",
     "audit": "npm run audit:index && npm run audit:winners",
     "twemoji:fetch": "node scripts/fetch-twemoji.js",
+    "twemoji:rules": "node scripts/fetch-twemoji.js 1f4c3",
     "agentos": "node .codex/bin/agentos.js",
     "spec:new": "node .codex/bin/new-spec.js",
     "spec:tasks": "node .codex/bin/new-tasks.js",

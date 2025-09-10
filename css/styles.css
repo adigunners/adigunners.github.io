@@ -66,12 +66,38 @@
   --silver-1: #9e9e9e; /* Silver for 2nd place */
   --bronze-1: #d4b106; /* Bronze for 3rd place */
 
+  /* Global prize palette — solid fills */
+  --gold-solid-bg: #f5c443;
+  --gold-solid-text: #2f2300;
+  --silver-solid-bg: #e0e0e0;
+  --silver-solid-text: #2b2b2b;
+  --bronze-solid-bg: #c67c2e;
+  --bronze-solid-text: #ffffff;
+
+  /* Global prize palette — translucent/soft fills (for previews/badges) */
+  --gold-soft-bg: rgba(245, 196, 67, 0.18);
+  --silver-soft-bg: rgba(224, 224, 224, 0.35);
+  --bronze-soft-bg: rgba(198, 124, 46, 0.20);
+
   /* Table Surface Colors */
   --surface: var(--card-background); /* Unified surface color */
 
   /* Mobile stat box tuning */
   --stat-box-mobile-height: 160px; /* Consistent mobile card height */
   --stat-box-mobile-max: 360px; /* Centered max width for single-column */
+
+  /* Global buttons */
+  --btn-height: 42px;
+  --btn-radius: 8px;
+  --btn-pad-x: 16px;
+  --btn-gap: 8px;
+  --btn-font-size: 0.95rem;
+  --btn-font-weight: 600;
+  --btn-shadow: 0 2px 6px rgba(55, 0, 60, 0.15);
+  --btn-shadow-hover: 0 6px 12px rgba(55, 0, 60, 0.22);
+  --btn-shadow-active: 0 2px 6px rgba(55, 0, 60, 0.18);
+  --btn-raise: -2px;
+  --btn-press: 1px;
 }
 
 /* FIX: mobile sticky header opacity — adaptive backdrop token */
@@ -501,13 +527,64 @@ section {
   }
 
   /* Buttons standardization */
-  .cta-button,
-  .view-all-winners,
-  .btn-primary {
-    padding: var(--spacing-sm) var(--spacing-lg); /* 8px vertical, 24px horizontal */
-    border-radius: var(--radius-md); /* 6px corners */
-    margin-top: var(--spacing-md); /* 16px top margin */
-  }
+.cta-button,
+.view-all-winners,
+.btn-primary,
+.btn-secondary,
+.leaderboard-nav-btn,
+.winner-nav-btn,
+.btn.nav-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+  padding: 0 var(--btn-pad-x);
+  height: var(--btn-height);
+  min-height: var(--btn-height);
+  border-radius: var(--btn-radius);
+  margin-top: var(--spacing-sm);
+  line-height: 1;
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  box-shadow: var(--btn-shadow);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease,
+    filter 0.18s ease;
+}
+
+/* Secondary button variant: same sizing, neutral style */
+.btn-secondary {
+  background: #fff;
+  color: var(--heading-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Unified hover/active interactions */
+.cta-button:hover,
+.view-all-winners:hover,
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn.nav-back:hover,
+.leaderboard-nav-btn:hover:not(:disabled),
+.winner-nav-btn:hover:not(:disabled) {
+  transform: translateY(var(--btn-raise));
+  box-shadow: var(--btn-shadow-hover);
+  filter: brightness(1.03);
+}
+
+.cta-button:active,
+.view-all-winners:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn.nav-back:active,
+.leaderboard-nav-btn:active:not(:disabled),
+.winner-nav-btn:active:not(:disabled) {
+  transform: translateY(var(--btn-press));
+  box-shadow: var(--btn-shadow-active);
+  filter: none;
+}
 
   /* Navigation standardization */
   .leaderboard-navigation {
@@ -558,6 +635,19 @@ section {
 
 /* =============== MOBILE STANDARDIZATION (≤768px) =============== */
 @media (max-width: 768px) {
+  /* Uniform header/body row heights for leaderboard on mobile */
+  .leaderboard-table thead th,
+  .leaderboard-table tbody tr {
+    height: 44px;
+  }
+  .leaderboard-table thead th {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .leaderboard-table td {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
   /* Mobile container spacing */
   .container {
     margin: calc(var(--spacing-md) * var(--spacing-mobile-multiplier)) auto; /* ~12px */
@@ -673,6 +763,24 @@ section {
     border-radius: var(--radius-sm); /* 4px corners */
   }
 }
+
+/* Global pill (used in tables & cards) */
+.pill {
+  display: inline-block;
+  background: var(--light-gray);
+  color: var(--text-color);
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.pill .rank { opacity: 0.8; margin-right: 6px; }
+.pill-gold { background: var(--gold-solid-bg); color: var(--gold-solid-text); }
+.pill-silver { background: var(--silver-solid-bg); color: var(--silver-solid-text); }
+.pill-bronze { background: var(--bronze-solid-bg); color: var(--bronze-solid-text); }
+.pill-gw { background: var(--secondary-color); color: var(--primary-color); }
+.pill-gm { background: #ff6b6b; color: #fff; }
 
 /* =============== ULTRA-COMPACT MOBILE (≤480px) =============== */
 @media (max-width: 480px) {
@@ -1061,56 +1169,69 @@ section {
 }
 
 .cta-button {
-  display: inline-block;
+  display: inline-flex;
   background-color: var(--secondary-color);
   color: var(--primary-color);
-  padding: 12px 25px;
   text-decoration: none;
-  font-weight: 600;
-  border-radius: var(--radius-md);
-  margin-top: 10px;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-.cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 255, 133, 0.3);
 }
 .btn-primary {
   background: var(--primary-color);
   color: #fff;
   border: none;
-  padding: 12px 25px;
-  border-radius: var(--radius-lg);
   cursor: pointer;
-  font-weight: 600;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
 }
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(93, 33, 99, 0.3);
+.btn-primary .emoji-icon,
+.cta-button .emoji-icon,
+.view-all-winners .emoji-icon {
+  width: 18px;
+  height: 18px;
 }
 .view-all-winners {
-  display: inline-block;
+  display: inline-flex;
   background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
   color: #fff;
-  padding: 12px 25px;
   text-decoration: none;
-  font-weight: 600;
-  border-radius: var(--radius-md);
-  margin-top: 20px;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
   text-align: center;
 }
-.view-all-winners:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(93, 33, 99, 0.3);
+
+/* ================== Modal (rules) ================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
 }
+.modal-overlay.is-hidden { display: none; }
+.modal {
+  width: min(560px, 92vw);
+  max-height: 70vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  padding: 10px; /* create inset so header doesn't touch edges */
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px; /* ultra-compact header */
+  background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+  color: #fff;
+  border-radius: var(--radius-md);
+  min-height: 70px; /* ensure compact ~70px header on widescreen */
+}
+.modal-header h3 { margin: 0; font-size: 1.3rem; line-height: 1.1; display: inline-flex; align-items: center; gap: 6px; }
+.modal-header .emoji-icon { width: 16px; height: 16px; }
+.modal-body { padding: 8px 10px; font-size: 0.95rem; }
+.modal-body h4 { margin: 8px 0 4px; color: var(--heading-color); font-size: 0.95rem; }
+.modal-body ul { margin: 0 0 6px 0; padding-left: 12px; list-style-position: inside; }
+.modal-body li { margin: 4px 0; }
+.modal-footer { display: none !important; }
+.modal-close { background: transparent; border: none; font-size: 16px; cursor: pointer; color: #fff; }
 
 .prize-summary {
   display: grid;
@@ -1127,9 +1248,11 @@ section {
 .prize-card {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
-  padding: 16px 18px;
+  text-align: center;
+  gap: 8px;
+  padding: 14px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   background: var(--card-background);
@@ -1143,6 +1266,10 @@ section {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
+.prize-card .pc-header { display: none; }
+.prize-card .pc-line { width: 100%; display: flex; align-items: center; justify-content: center; }
+.prize-card .icon-line { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.emoji-icon { width: 26px; height: 26px; display: inline-block; vertical-align: middle; }
 .prize-card .icon {
   width: 40px;
   height: 40px;
@@ -1153,6 +1280,141 @@ section {
   background: linear-gradient(135deg, var(--primary-color), #59215e);
   color: #fff;
   font-size: 1.05rem;
+}
+.prize-card .pc-label {
+  font-weight: 700;
+  color: var(--heading-color);
+  font-size: 1rem;
+  text-align: center;
+}
+.prize-card .amount {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  white-space: nowrap;
+  text-align: center;
+}
+.prize-card .breakdown {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.prize-card .pill {
+  background: var(--light-gray);
+  color: var(--text-color);
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.prize-card .pill .rank {
+  opacity: 0.8;
+  margin-right: 6px;
+}
+/* Rank-themed pills */
+.prize-card .pill.pill-gold {
+  background: var(--gold-solid-bg);
+  color: var(--gold-solid-text);
+  border: none;
+}
+.prize-card .pill.pill-silver {
+  background: var(--silver-solid-bg);
+  color: var(--silver-solid-text);
+  border: none;
+}
+.prize-card .pill.pill-bronze {
+  background: var(--bronze-solid-bg);
+  color: var(--bronze-solid-text);
+  border: none;
+}
+.prize-card .more-toggle {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--heading-color);
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+}
+.prize-card .popup-panel {
+  position: absolute;
+  right: 12px;
+  bottom: -8px;
+  transform: translateY(100%);
+  z-index: 50;
+  width: min(360px, 92vw);
+  max-height: 50vh;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 150ms ease, visibility 150ms ease;
+}
+.prize-card .popup-panel.open { opacity: 1; visibility: visible; }
+.popup-panel .more-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 10px; }
+@media (max-width: 480px) { .popup-panel .more-list { grid-template-columns: 1fr; } }
+.popup-panel .more-item { display:flex; align-items:center; justify-content:space-between; padding:8px 10px; background:#fff; border:1px solid var(--border-color); border-radius: var(--radius-sm); }
+
+/* ================== Prize card overlays ================== */
+.prize-card .overlay-action {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  color: var(--heading-color);
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  z-index: 5;
+  transition: background-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+.prize-card .overlay-action:hover { background: rgba(55,0,60,0.06); box-shadow: 0 2px 6px rgba(0,0,0,.12); transform: translateY(-1px); }
+.prize-card .overlay-action:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+.prize-card .overlay-action .emoji-icon { width: 18px; height: 18px; }
+.prize-card .overlay-action .dots-icon { font-size: 22px; line-height: 1; font-weight: 700; }
+@media (max-width: 480px) { .prize-card .overlay-action { width: 30px; height: 30px; } .prize-card .overlay-action .dots-icon { font-size: 20px; } }
+
+.prize-card .tooltip-panel {
+  position: absolute;
+  top: 36px; /* just below the icon */
+  right: 8px;
+  z-index: 60;
+  width: min(360px, 92vw);
+  max-height: 50vh;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 150ms ease, visibility 150ms ease;
+}
+.prize-card .tooltip-panel.open { opacity: 1; visibility: visible; }
+.tooltip-panel .more-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 10px; }
+@media (max-width: 480px) { .tooltip-panel .more-list { grid-template-columns: 1fr; } }
+.tooltip-panel .more-item { display:flex; align-items:center; justify-content:space-between; padding:8px 10px; background:#fff; border:1px solid var(--border-color); border-radius: var(--radius-sm); }
+
+/* Mobile fine-tuning to avoid line wrapping */
+@media (max-width: 480px) {
+  .emoji-icon { width: 22px; height: 22px; }
+  .prize-card { gap: 6px; padding: 12px; }
+  .prize-card .pc-label { white-space: nowrap; }
+  .prize-card .amount { font-size: 1.2rem; }
+  .prize-card .breakdown { gap: 6px; }
+  .prize-card .pill { padding: 3px 6px; font-size: 0.78rem; }
 }
 .svg-icon {
   width: 1em;
@@ -1701,6 +1963,9 @@ header p {
   font-weight: 600;
   white-space: nowrap;
 }
+.highlight-badge.soft-gold { background: var(--gold-soft-bg); color: var(--gold-solid-text); }
+.highlight-badge.soft-silver { background: var(--silver-soft-bg); color: var(--silver-solid-text); }
+.highlight-badge.soft-bronze { background: var(--bronze-soft-bg); color: var(--bronze-solid-text); }
 .highlight-badge.gw {
   background: var(--secondary-color);
   color: var(--primary-color);
@@ -1888,13 +2153,10 @@ header p {
   background: var(--primary-color);
   color: #fff;
   border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   transition: background 0.2s ease;
-  min-height: 40px;
-  min-width: 80px;
+  min-width: 96px;
 }
 .leaderboard-nav-btn:hover:not(:disabled) {
   background: var(--heading-color);
@@ -2109,19 +2371,15 @@ header p {
   background: var(--primary-color);
   color: #fff;
   border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
   cursor: pointer;
   font-weight: 600;
   transition: all 0.2s ease;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--btn-gap);
 }
 .winner-nav-btn:hover:not(:disabled) {
   background: var(--heading-color);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(93, 33, 99, 0.3);
 }
 .winner-nav-btn:disabled {
   background: #ccc;
@@ -2651,18 +2909,10 @@ header p {
   background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
   color: #fff;
   border: 0;
-  box-shadow: 0 2px 6px rgba(55, 0, 60, 0.15);
   font-size: 0.9rem;
-  padding: 0.45rem 1rem;
-  border-radius: var(--radius-md);
 }
 .btn.nav-back:hover {
-  filter: brightness(1.05);
-  transform: translateY(-1px);
-}
-.btn.nav-back:active {
-  transform: translateY(1px);
-  filter: brightness(1);
+  filter: brightness(1.03);
 }
 .btn.nav-back.nav-back--sm {
   font-size: 0.9rem;
@@ -3007,6 +3257,31 @@ header p {
   }
 }
 
+/* Mobile CTA unification: same size, radius, font, and full-width layout */
+@media (max-width: 600px) {
+  .btn-primary,
+  .btn-secondary,
+  .cta-button,
+  .view-all-winners,
+  .leaderboard-nav-btn,
+  .winner-nav-btn,
+  .btn.nav-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--btn-gap);
+    width: 100%;
+    height: var(--btn-height);
+    min-height: var(--btn-height);
+    border-radius: var(--btn-radius);
+    padding: 0 var(--btn-pad-x);
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+    box-shadow: var(--btn-shadow);
+    margin-top: var(--spacing-sm);
+  }
+}
+
 /* Final countdown standardization from responsive.css */
 @media (min-width: 1024.01px) {
   .site-header header .countdown-clock {
@@ -3086,9 +3361,14 @@ header p {
     max-width: 1200px;
     margin: 0 auto;
   }
+  .winner-card { padding: 14px; }
+  .winner-rank { font-size: 1.1rem; margin-bottom: 6px; }
+  .winner-name { margin-bottom: 8px; }
+  .winner-prize { font-size: 1.4rem; margin-bottom: 8px; }
   .leaderboard-table {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: none;
+    width: 100%;
+    margin: 0;
   }
 }
 @media (min-width: 1024.01px) and (max-width: 1400px) {
@@ -3110,8 +3390,8 @@ header p {
     margin: 20px 0;
   }
   .winner-card {
-    padding: 16px;
-    min-height: 140px;
+    padding: 12px;
+    min-height: 120px;
   }
   .leaderboard-table {
     font-size: 0.9rem;

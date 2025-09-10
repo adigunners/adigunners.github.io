@@ -32,7 +32,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background: #2c0037;
+  background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -48,50 +48,21 @@
 .c-table--winners tbody tr {
   position: relative;
 }
-.c-table--winners tbody tr::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  border-radius: 4px 0 0 4px;
-  background: #f4c430;
+/* Remove left accent bar to keep perfect column alignment across all rows */
+.c-table--winners tbody tr::before { display: none; }
+
+/* Light zebra rows (subtle) for non-top rows to avoid visual jumps */
+.c-table--winners tbody tr:nth-child(odd):not(.winner-gold):not(.winner-silver):not(.winner-bronze) {
+  background: #fafafa;
+}
+.c-table--winners tbody tr:nth-child(even):not(.winner-gold):not(.winner-silver):not(.winner-bronze) {
+  background: #ffffff;
 }
 
-/* Zebra rows (only for non-winner rows) */
-.c-table--winners
-  tbody
-  tr:not(.winner-gold):not(.winner-silver):not(.winner-bronze):nth-child(odd) {
-  background: #fff8e9;
-}
-.c-table--winners
-  tbody
-  tr:not(.winner-gold):not(.winner-silver):not(.winner-bronze):nth-child(even) {
-  background: #f6f7fb;
-}
-
-/* TOP 3 WINNER HIGHLIGHTING */
-.c-table--winners tbody tr.winner-gold {
-  background: linear-gradient(145deg, #fffbf0, #fff8e1) !important;
-  border-left: 4px solid #f9a825;
-}
-
-.c-table--winners tbody tr.winner-silver {
-  background: linear-gradient(145deg, #f8f9fa, #f1f3f4) !important;
-  border-left: 4px solid #9e9e9e;
-}
-
-.c-table--winners tbody tr.winner-bronze {
-  background: linear-gradient(145deg, #fef7e0, #fff3cd) !important;
-  border-left: 4px solid #d4b106;
-}
-
-.c-table--winners tbody tr.winner-gold::before,
-.c-table--winners tbody tr.winner-silver::before,
-.c-table--winners tbody tr.winner-bronze::before {
-  display: none; /* Hide default accent bar for top 3 */
-}
+/* TOP 3 WINNER HIGHLIGHTING — match overall leaderboard: accent stripe only */
+.c-table--winners tbody tr.winner-gold { box-shadow: inset 4px 0 0 var(--gold-1); }
+.c-table--winners tbody tr.winner-silver { box-shadow: inset 4px 0 0 var(--silver-1); }
+.c-table--winners tbody tr.winner-bronze { box-shadow: inset 4px 0 0 var(--bronze-1); }
 
 /* Column widths and alignment */
 .c-table--winners td:nth-child(1),
@@ -109,18 +80,31 @@
 
 /* numeric right align */
 .c-table--winners td.is-num,
-.c-table--winners th.is-num,
-.c-table--winners td:nth-child(3),
-.c-table--winners th:nth-child(3) {
+.c-table--winners td:nth-child(3) {
   text-align: right;
   font-variant-numeric: tabular-nums;
   font-weight: 700;
   color: var(--primary-color);
 }
+.c-table--winners th.is-num,
+.c-table--winners thead th:nth-child(3) {
+  text-align: right;
+  color: #fff;
+}
 
 .c-table--winners td:nth-child(4),
 .c-table--winners th:nth-child(4) {
-  text-align: left;
+  text-align: right;
+}
+
+/* Uniform row sizing like index table */
+.c-table--winners thead th,
+.c-table--winners tbody tr {
+  height: 56px;
+}
+.c-table--winners th,
+.c-table--winners td {
+  padding: 14px 16px;
 }
 
 /* badge */

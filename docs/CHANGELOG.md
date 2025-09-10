@@ -1,5 +1,34 @@
 # 📝 Changelog - Fantasy League Website
 
+## [1.4.6] - 2025-09-10 – Winners Table + CTA/UI Unification + Compact Rules Modal
+
+### 🚀 New
+
+- Winners (desktop): Clean 4‑column “Season Earnings” table with global table design, sticky header, uniform row heights, and right‑aligned numeric columns/pills.
+- Rules: Ultra‑compact modal with “📃 Mini‑League Rules” header; accessible open/close via Esc, backdrop, and buttons.
+
+### 🧩 Changes
+
+- Prize Cards: 4‑line, center‑aligned structure; weekly/monthly show top‑2 pills; annual shows top‑3 with compact overlay (three‑dots) for top‑15.
+- Icons: Twemoji usage expanded; rules icon switched to subtle document (📃, 1f4c3) with local fetch helper.
+- Buttons: Global CTA sizing tokens (height, radius, padding, font); unified hover/active shadow/raise across `.btn-primary`, `.cta-button`, `.view-all-winners`, nav buttons; full‑width CTAs on mobile.
+- Index winners preview (desktop): Reduced card height and spacing for denser view.
+- Leaderboard (desktop): Table uses whole container width; mobile rows/header use uniform heights.
+- Winners table (desktop):
+  - Header label “PRIZE WON”; header text forced white and right‑aligned; body numeric stays purple.
+  - Highlights column right‑aligned with global pills (GW: green, GM: red) consistent with card colors.
+  - Top‑3 styling matches “Overall Leaderboard” (solid rank badges in first column; removed full‑row shading).
+
+### 🐛 Fixes
+
+- Fixed conflicting styles that shifted top‑3 rows and hid the third column header on winners table.
+- Removed legacy left‑accent bars that caused misalignment between rows.
+
+### 📂 Files (key)
+
+- Updated: `assets/css/components/table.css`, `css/styles.css`, `js/winners-module.js`, `index.html`, `service-worker.js`
+- Added: `assets/twemoji/svg/1f4c3.svg` (download via `scripts/fetch-twemoji.js`)
+
 ## [1.4.5] - 2025-09-10 – Robust Caching + Fingerprinted Build + SW Update Prompt
 
 ### 🚀 New
