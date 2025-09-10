@@ -129,12 +129,17 @@
         padding-top: calc(8px + var(--safe-top));
         padding-bottom: 0;
         margin-bottom: var(--spacing-lg);
+        /* Progressive auto-hide via CSS variables set by JS */
+        transform: translateY(calc(-1 * var(--header-offset, 0px)));
+        will-change: transform;
       }
 
       .header-inner {
         width: 100%;
         margin: 0 auto;
         padding: 0;
+        /* Optional fade as header hides */
+        opacity: var(--header-opacity, 1);
       }
 
       header {
@@ -214,8 +219,8 @@
         visibility: hidden;
       }
 
-      /* Critical section spacing to prevent layout shifts */
-      #league-statistics {
+      /* Shared critical container styling to prevent layout shifts */
+      .section-card {
         padding: var(--spacing-xl);
         margin-bottom: var(--spacing-lg);
         border-radius: var(--radius-lg);
@@ -333,9 +338,9 @@
 
       <main id="main-content">
         <!-- LEAGUE STATISTICS SECTION (using original winners.html structure) -->
-        <section id="league-statistics" aria-labelledby="stats-heading">
+        <section id="league-statistics" class="section-card" aria-labelledby="stats-heading">
           <h2 class="section-heading" id="stats-heading">
-            <span class="heading-main"><span class="section-emoji">📊</span>League Statistics</span>
+            <span class="heading-main"><span class="section-emoji">📊</span>Season Summary</span>
           </h2>
           <div class="stats-row" id="stats-summary">
             <article class="stat-box" aria-live="polite">
@@ -362,11 +367,11 @@
         </section>
 
         <!-- WINNERS SECTION -->
-        <section aria-labelledby="winners-heading">
+        <section id="winners-section" class="section-card" aria-labelledby="winners-heading">
           <div class="winners-header">
             <h2 class="section-heading" id="winners-heading">
               <span class="heading-main"
-                ><span class="section-emoji">🏅</span>Complete Winner Rankings</span
+                ><span class="section-emoji">🏅</span>Season Earnings (All Winners)</span
               >
               <span class="heading-subtitle" id="winners-page-after-gw">Loading…</span>
             </h2>
@@ -477,6 +482,7 @@
     <script src="js/utils.js" defer></script>
     <script src="js/data-loader.js" defer></script>
     <script src="js/ui-manager.js" defer></script>
+    <script src="js/header-scroll.js" defer></script>
     <script src="js/countdown.js" defer></script>
     <script src="js/prize-structure.js" defer></script>
 

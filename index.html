@@ -165,11 +165,16 @@
         padding-top: calc(8px + var(--safe-top));
         padding-bottom: 0;
         margin-bottom: var(--spacing-lg);
+        /* Progressive auto-hide via CSS variables set by JS */
+        transform: translateY(calc(-1 * var(--header-offset, 0px)));
+        will-change: transform;
       }
       .header-inner {
         width: 100%;
         margin: 0 auto;
         padding: 0;
+        /* Optional fade as header hides */
+        opacity: var(--header-opacity, 1);
       }
       header {
         background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
@@ -241,17 +246,12 @@
         display: block !important;
         visibility: hidden;
       }
-      /* First section spacing to avoid post-paint jumps */
-      #league-statistics {
+      /* Shared critical container styling to avoid post-paint jumps */
+      .section-card {
         padding: var(--spacing-xl);
         margin-bottom: var(--spacing-lg);
         border-radius: var(--radius-lg);
-      }
-      /* Second section (registration) spacing to avoid CLS */
-      #registration {
-        padding: var(--spacing-xl);
-        margin-bottom: var(--spacing-lg);
-        border-radius: var(--radius-lg);
+        background-color: var(--card-background);
       }
       /* Stats row minimal critical styles (defer sizes to components.css) */
       .stats-row {
@@ -545,11 +545,15 @@
         <!-- LEAGUE STATISTICS -->
         <section
           id="league-statistics"
-          class="league-stats"
+          class="league-stats section-card"
           aria-labelledby="stats-heading"
           tabindex="-1"
         >
-          <h2 id="stats-heading" class="visually-hidden">League Statistics</h2>
+          <h2 class="section-heading" id="stats-heading">
+            <span class="heading-main"
+              ><span class="section-emoji">🧮</span>Mini-League Snapshot</span
+            >
+          </h2>
           <div class="stats-row">
             <!-- PLAYER COUNT BOX -->
             <article class="stat-box" aria-labelledby="player-count-title">
@@ -569,7 +573,7 @@
         </section>
 
         <!-- REGISTRATION SECTION (Before Season) -->
-        <section id="registration" class="season-section pre-season" tabindex="-1">
+        <section id="registration" class="season-section section-card pre-season" tabindex="-1">
           <h2>Join the League!</h2>
           <p>
             Ready to prove your FPL skills? Registration is now open. Click the button below to fill
@@ -587,7 +591,7 @@
         <!-- WINNER SCORECARD SECTION (During Season) -->
         <section
           id="winners-section"
-          class="winner-scorecard season-section during-season is-hidden"
+          class="winner-scorecard season-section section-card during-season is-hidden"
           tabindex="-1"
         >
           <h2 class="section-heading" id="winners-heading">
@@ -605,20 +609,20 @@
           <div class="winner-summary" id="winner-summary"></div>
 
           <div class="text-center">
-            <a href="winners.html" class="view-all-winners" id="winners-link">
-              🎯 View Complete Scorecard
-            </a>
+            <a href="winners.html" class="view-all-winners" id="winners-link"> See All Winners </a>
           </div>
         </section>
 
         <!-- LEADERBOARD SECTION (During Season) -->
         <section
           id="leaderboard-section"
-          class="winner-scorecard season-section during-season is-hidden"
+          class="winner-scorecard season-section section-card during-season is-hidden"
           tabindex="-1"
         >
           <h2 class="section-heading" id="leaderboard-heading">
-            <span class="heading-main"><span class="section-emoji">🏆</span>League Standings</span>
+            <span class="heading-main"
+              ><span class="section-emoji">🏆</span>Overall Leaderboard</span
+            >
             <span class="heading-subtitle" id="leaderboard-after-gw">Loading…</span>
           </h2>
           <p>Complete league table showing all players ranked by their overall FPL performance.</p>
@@ -651,9 +655,9 @@
         </section>
 
         <!-- RULES SECTION -->
-        <section id="prize-structure" class="winner-scorecard" tabindex="-1">
+        <section id="prize-structure" class="winner-scorecard section-card" tabindex="-1">
           <h2 class="section-heading">
-            <span class="heading-main"><span class="section-emoji">💰</span>Prize Structure</span>
+            <span class="heading-main"><span class="section-emoji">💰</span>Prize Breakdown</span>
           </h2>
           <!-- Pre-season view: keep full text (unchanged) -->
           <div id="rules-pre" class="pre-season">
@@ -697,10 +701,13 @@
         </section>
 
         <!-- LATE REGISTRATION SECTION (During Season) -->
-        <section id="late-register" class="winner-scorecard season-section during-season is-hidden">
+        <section
+          id="late-register"
+          class="winner-scorecard season-section section-card during-season is-hidden"
+        >
           <h2 class="section-heading">
             <span class="heading-main"
-              ><span class="section-emoji">🚪</span>Still Want to Join?</span
+              ><span class="section-emoji">🚪</span>Missed Registration?</span
             >
           </h2>
           <p>
@@ -802,6 +809,7 @@
     <script src="js/utils.js" defer></script>
     <script src="js/data-loader.js" defer></script>
     <script src="js/ui-manager.js" defer></script>
+    <script src="js/header-scroll.js" defer></script>
     <script src="js/countdown.js" defer></script>
     <script src="js/prize-structure.js" defer></script>
     <!-- Main application script -->
@@ -1662,7 +1670,7 @@
         const topWinners = sortedWinners.slice(0, 6);
 
         const previewHTML = `
-          <section class="winner-preview" aria-label="Top prize winners">
+          <div class="winner-preview" aria-label="Top prize winners">
             ${topWinners
               .map(
                 (winner, index) => `
@@ -1697,7 +1705,7 @@
             `
               )
               .join('')}
-          </section>
+          </div>
         `;
 
         container.innerHTML = previewHTML;
