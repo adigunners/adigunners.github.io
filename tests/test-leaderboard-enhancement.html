@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard Enhancement Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .test-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .test-result {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+      .pass {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .fail {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .info {
+        background: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+
+      .mock-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      .mock-table th,
+      .mock-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      .mock-table th {
+        background: #f8f9fa;
+        font-weight: bold;
+      }
+      .rank-1 {
+        background: #fff3cd;
+      }
+      .rank-2 {
+        background: #f1f3f5;
+      }
+      .rank-3 {
+        background: #f8f9fa;
+      }
+
+      .movement-up {
+        color: #28a745;
+      }
+      .movement-down {
+        color: #dc3545;
+      }
+      .movement-same {
+        color: #6c757d;
+      }
+      .movement-new {
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🏆 Leaderboard Enhancement Test</h1>
+
+    <div class="test-container">
+      <h2>Test Results</h2>
+      <div id="test-results"></div>
+    </div>
+
+    <div class="test-container">
+      <h2>Mock Data Preview</h2>
+      <h3>Current Rankings with Movement Indicators</h3>
+      <div id="mock-preview"></div>
+    </div>
+
+    <div class="test-container">
+      <h2>Enhanced 5-Column Leaderboard Preview</h2>
+      <div id="enhanced-preview"></div>
+    </div>
+
+    <script src="../js/leaderboard-enhancement.js"></script>
+    <script>
+      const testResults = document.getElementById('test-results');
+      const mockPreview = document.getElementById('mock-preview');
+      const enhancedPreview = document.getElementById('enhanced-preview');
+
+      function logResult(test, status, message) {
+        const div = document.createElement('div');
+        div.className = `test-result ${status}`;
+        div.innerHTML = `<strong>${test}:</strong> ${message}`;
+        testResults.appendChild(div);
+      }
+
+      // Test 1: Mock data generation
+      try {
+        const mockData = LeaderboardEnhancement.generateMockDataWithMovement();
+        logResult(
+          'Mock Data Generation',
+          'pass',
+          `Generated ${mockData.current.length} current players and ${mockData.previous.length} previous rankings`
+        );
+
+        // Test 2: Data enhancement
+        const enhancedData = LeaderboardEnhancement.enhanceLeaderboardData(
+          mockData.current,
+          mockData.previous
+        );
+        logResult(
+          'Data Enhancement',
+          'pass',
+          `Enhanced data with movement indicators and deficit calculations`
+        );
+
+        // Test 3: Movement calculation
+        let movementTests = 0;
+        enhancedData.forEach((player) => {
+          if (player.movement && player.movement.direction) {
+            movementTests++;
+          }
+        });
+        logResult(
+          'Movement Calculation',
+          'pass',
+          `Calculated movement for ${movementTests} players`
+        );
+
+        // Test 4: Deficit calculation
+        const leader = enhancedData.find((p) => p.highlights.overallRank === 1);
+        const leaderDeficit = leader ? leader.deficitFromLeader : null;
+        logResult(
+          'Deficit Calculation',
+          leaderDeficit === 0 ? 'pass' : 'fail',
+          `Leader deficit: ${leaderDeficit} (should be 0)`
+        );
+
+        // Display mock data preview
+        displayMockPreview(enhancedData);
+        displayEnhancedPreview(enhancedData);
+      } catch (error) {
+        logResult('Test Execution', 'fail', `Error: ${error.message}`);
+        console.error('Test error:', error);
+      }
+
+      function displayMockPreview(data) {
+        const html = `
+                <table class="mock-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Movement</th>
+                            <th>Player</th>
+                            <th>Current GW</th>
+                            <th>Total Points</th>
+                            <th>Deficit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data
+                          .map(
+                            (player) => `
+                            <tr class="rank-${player.highlights.overallRank <= 3 ? player.highlights.overallRank : 'other'}">
+                                <td>${player.highlights.overallRank}</td>
+                                <td class="movement-${player.movement.direction}">
+                                    ${player.movement.icon}
+                                    ${player.movement.change > 0 ? player.movement.change : ''}
+                                </td>
+                                <td>${player.playerName}</td>
+                                <td>${player.highlights.currentGWPoints || 0}</td>
+                                <td>${player.highlights.totalPoints}</td>
+                                <td>${player.deficitFromLeader}</td>
+                            </tr>
+                        `
+                          )
+                          .join('')}
+                    </tbody>
+                </table>
+            `;
+        mockPreview.innerHTML = html;
+      }
+
+      function displayEnhancedPreview(data) {
+        const html = `
+                <p><strong>This preview shows how the enhanced 5-column table will look:</strong></p>
+                <table class="mock-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">Rank</th>
+                            <th style="width: auto;">Team & Manager</th>
+                            <th style="width: 60px;">GW</th>
+                            <th style="width: 80px;">Total</th>
+                            <th style="width: 80px;">Deficit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data
+                          .slice(0, 8)
+                          .map(
+                            (player) => `
+                            <tr class="rank-${player.highlights.overallRank <= 3 ? player.highlights.overallRank : 'other'}">
+                                <td>
+                                    <span class="movement-${player.movement.direction}">
+                                        ${player.movement.icon}
+                                    </span>
+                                    ${player.highlights.overallRank}
+                                </td>
+                                <td>
+                                    <div style="font-weight: bold;">${player.playerName}</div>
+                                    <div style="font-size: 0.9em; color: #666;">Manager Name</div>
+                                </td>
+                                <td>${player.highlights.currentGWPoints || 0}</td>
+                                <td>${player.highlights.totalPoints.toLocaleString()}</td>
+                                <td>${player.deficitFromLeader === 0 ? '—' : player.deficitFromLeader}</td>
+                            </tr>
+                        `
+                          )
+                          .join('')}
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                    <strong>Legend:</strong> 
+                    <span class="movement-up">⬆ Up</span> | 
+                    <span class="movement-down">⬇ Down</span> | 
+                    <span class="movement-same">⚬ No Change</span> | 
+                    <span class="movement-new">● New</span>
+                </p>
+            `;
+        enhancedPreview.innerHTML = html;
+      }
+    </script>
+  </body>
+</html>
