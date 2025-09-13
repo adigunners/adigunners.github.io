@@ -1,6 +1,7 @@
 # 🚀 Caching & Deployment Strategy
 
-This document explains how we ensure returning users always see the latest site with fast loads and reliable offline behavior.
+This document explains how we ensure returning users always see the latest site with fast loads and
+reliable offline behavior.
 
 ## Overview
 
@@ -8,7 +9,8 @@ This document explains how we ensure returning users always see the latest site 
 - Fingerprinted assets: content-hashed CSS/JS outputs in `docs/`
 - Service Worker strategy: network‑first for HTML; cache‑first for static assets
 - Update prompt: banner invites users to refresh when a new version is ready
-- Headers: Netlify `_headers` for optimal cache control (GitHub Pages ignores headers but hashed assets still work)
+- Headers: Netlify `_headers` for optimal cache control (GitHub Pages ignores headers but hashed
+  assets still work)
 
 ## Versioning
 
@@ -21,6 +23,7 @@ This document explains how we ensure returning users always see the latest site 
 Command: `npm run build`
 
 What it does:
+
 - Writes `version.js` from `package.json`.
 - Copies the site to `public/` (excluding dev folders and docs/).
 - Appends content hashes to CSS/JS filenames (e.g., `styles.abc12345.css`).
@@ -28,21 +31,26 @@ What it does:
 - Generates `/precache-manifest.json` used by the Service Worker during install.
 
 Why this helps:
-- Browsers can cache hashed assets for a year (`immutable`), yet fetch fresh copies whenever content changes.
+
+- Browsers can cache hashed assets for a year (`immutable`), yet fetch fresh copies whenever content
+  changes.
 - HTML is short‑cached, so a normal refresh picks up new versions.
 
 ## Service Worker
 
 - Navigations (HTML) use network‑first with an offline fallback page.
 - Static assets use cache‑first with background revalidation.
-- On install, the SW precaches default URLs plus any files in `/precache-manifest.json` (hashed build outputs).
+- On install, the SW precaches default URLs plus any files in `/precache-manifest.json` (hashed
+  build outputs).
 - On activate, it removes old cache versions automatically.
 
 ## Update Prompt
 
 - `js/sw-update.js` registers the SW and listens for updates.
-- When a new SW is installed and waiting, a small banner appears: “New version available” with a Refresh button.
-- Clicking Refresh sends `SKIP_WAITING` to the SW and reloads once the new version controls the page.
+- When a new SW is installed and waiting, a small banner appears: “New version available” with a
+  Refresh button.
+- Clicking Refresh sends `SKIP_WAITING` to the SW and reloads once the new version controls the
+  page.
 
 ## Headers (Netlify)
 

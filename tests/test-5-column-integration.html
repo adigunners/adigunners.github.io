@@ -42,16 +42,23 @@
         color: #004085;
         border-left-color: #007bff;
       }
-      h1 { color: #343a40; margin-bottom: 8px; }
-      h2 { color: #495057; margin-bottom: 16px; font-size: 20px; }
+      h1 {
+        color: #343a40;
+        margin-bottom: 8px;
+      }
+      h2 {
+        color: #495057;
+        margin-bottom: 16px;
+        font-size: 20px;
+      }
     </style>
     <!-- Import the CSS styles -->
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css" />
   </head>
   <body>
     <h1>🏆 5-Column Leaderboard Integration Test</h1>
     <p style="color: #6c757d; margin-bottom: 32px">
-      Complete integration test for the enhanced 5-column leaderboard with movement indicators, 
+      Complete integration test for the enhanced 5-column leaderboard with movement indicators,
       current GW points, and deficit calculations.
     </p>
 
@@ -71,7 +78,7 @@
     <!-- Import enhancement modules -->
     <script src="../js/leaderboard-enhancement.js"></script>
     <script src="../js/current-gw-points.js"></script>
-    
+
     <script>
       const testResults = document.getElementById('test-results');
       const leaderboardPreview = document.getElementById('leaderboard-preview');
@@ -175,19 +182,22 @@
       try {
         // Test 1: Enhanced JSON detection
         const isEnhanced = mockEnhancedData.enhancements?.leaderboardEnhanced === true;
-        logResult('Enhanced JSON Detection', isEnhanced ? 'pass' : 'fail', 
-          `Enhanced JSON ${isEnhanced ? 'detected' : 'not detected'}`);
+        logResult(
+          'Enhanced JSON Detection',
+          isEnhanced ? 'pass' : 'fail',
+          `Enhanced JSON ${isEnhanced ? 'detected' : 'not detected'}`
+        );
 
         // Test 2: Data structure validation
         const firstPlayer = mockEnhancedData.winners[0];
         const hasRequiredFields = [
           'highlights.overallRank',
           'highlights.totalPoints',
-          'highlights.currentGWPoints', 
+          'highlights.currentGWPoints',
           'highlights.deficitFromLeader',
           'movement.direction',
-          'movement.icon'
-        ].every(field => {
+          'movement.icon',
+        ].every((field) => {
           const keys = field.split('.');
           let obj = firstPlayer;
           for (const key of keys) {
@@ -196,43 +206,59 @@
           }
           return true;
         });
-        
-        logResult('Data Structure Validation', hasRequiredFields ? 'pass' : 'fail',
-          `All required enhanced fields ${hasRequiredFields ? 'present' : 'missing'}`);
+
+        logResult(
+          'Data Structure Validation',
+          hasRequiredFields ? 'pass' : 'fail',
+          `All required enhanced fields ${hasRequiredFields ? 'present' : 'missing'}`
+        );
 
         // Test 3: Movement indicator validation
         const movementTypes = ['up', 'down', 'same', 'new'];
-        const allMovementValid = mockEnhancedData.winners.every(player => 
-          movementTypes.includes(player.movement?.direction) && player.movement?.icon
+        const allMovementValid = mockEnhancedData.winners.every(
+          (player) => movementTypes.includes(player.movement?.direction) && player.movement?.icon
         );
-        
-        logResult('Movement Indicators', allMovementValid ? 'pass' : 'fail',
-          `Movement indicators ${allMovementValid ? 'valid' : 'invalid'}`);
+
+        logResult(
+          'Movement Indicators',
+          allMovementValid ? 'pass' : 'fail',
+          `Movement indicators ${allMovementValid ? 'valid' : 'invalid'}`
+        );
 
         // Test 4: Deficit calculation validation
-        const leader = mockEnhancedData.winners.find(p => p.highlights.overallRank === 1);
+        const leader = mockEnhancedData.winners.find((p) => p.highlights.overallRank === 1);
         const leaderDeficitCorrect = leader.highlights.deficitFromLeader === 0;
         const othersHaveDeficit = mockEnhancedData.winners
-          .filter(p => p.highlights.overallRank !== 1)
-          .every(p => p.highlights.deficitFromLeader > 0);
-        
-        logResult('Deficit Calculations', (leaderDeficitCorrect && othersHaveDeficit) ? 'pass' : 'fail',
-          `Leader deficit: ${leader.highlights.deficitFromLeader}, Others have positive deficits: ${othersHaveDeficit}`);
+          .filter((p) => p.highlights.overallRank !== 1)
+          .every((p) => p.highlights.deficitFromLeader > 0);
+
+        logResult(
+          'Deficit Calculations',
+          leaderDeficitCorrect && othersHaveDeficit ? 'pass' : 'fail',
+          `Leader deficit: ${leader.highlights.deficitFromLeader}, Others have positive deficits: ${othersHaveDeficit}`
+        );
 
         // Test 5: Current GW points validation
-        const allHaveGWPoints = mockEnhancedData.winners.every(p => 
-          typeof p.highlights.currentGWPoints === 'number' && p.highlights.currentGWPoints > 0
+        const allHaveGWPoints = mockEnhancedData.winners.every(
+          (p) =>
+            typeof p.highlights.currentGWPoints === 'number' && p.highlights.currentGWPoints > 0
         );
-        
-        logResult('Current GW Points', allHaveGWPoints ? 'pass' : 'fail',
-          `All players have valid GW points: ${allHaveGWPoints}`);
+
+        logResult(
+          'Current GW Points',
+          allHaveGWPoints ? 'pass' : 'fail',
+          `All players have valid GW points: ${allHaveGWPoints}`
+        );
 
         // Test 6: Generate and display 5-column table
         generateLeaderboardTable(mockEnhancedData.winners);
-        logResult('5-Column Table Generation', 'pass', 'Successfully generated 5-column leaderboard table');
+        logResult(
+          '5-Column Table Generation',
+          'pass',
+          'Successfully generated 5-column leaderboard table'
+        );
 
         logResult('Overall Integration Test', 'pass', 'All integration tests passed! 🎉');
-
       } catch (error) {
         logResult('Integration Test', 'fail', `Test failed: ${error.message}`);
         console.error('Integration test error:', error);
@@ -259,20 +285,32 @@
                 </tr>
               </thead>
               <tbody>
-                ${players.map(player => {
-                  const actualRank = player.highlights.overallRank;
-                  const scoreDisplay = player.highlights.totalPoints.toLocaleString('en-IN');
-                  const movementIcon = player.movement?.icon || '';
-                  const movementClass = player.movement?.direction ? `movement-${player.movement.direction}` : '';
-                  const gwDisplay = player.highlights.currentGWPoints ? player.highlights.currentGWPoints.toString() : '—';
-                  const deficitDisplay = player.highlights.deficitFromLeader === 0 ? '—' : player.highlights.deficitFromLeader.toString();
+                ${players
+                  .map((player) => {
+                    const actualRank = player.highlights.overallRank;
+                    const scoreDisplay = player.highlights.totalPoints.toLocaleString('en-IN');
+                    const movementIcon = player.movement?.icon || '';
+                    const movementClass = player.movement?.direction
+                      ? `movement-${player.movement.direction}`
+                      : '';
+                    const gwDisplay = player.highlights.currentGWPoints
+                      ? player.highlights.currentGWPoints.toString()
+                      : '—';
+                    const deficitDisplay =
+                      player.highlights.deficitFromLeader === 0
+                        ? '—'
+                        : player.highlights.deficitFromLeader.toString();
 
-                  return `
+                    return `
                     <tr>
                       <td class="leaderboard-rank col-rank${
-                        actualRank === 1 ? ' rank-1' : 
-                        actualRank === 2 ? ' rank-2' : 
-                        actualRank === 3 ? ' rank-3' : ''
+                        actualRank === 1
+                          ? ' rank-1'
+                          : actualRank === 2
+                            ? ' rank-2'
+                            : actualRank === 3
+                              ? ' rank-3'
+                              : ''
                       }">
                         <span class="rank-movement ${movementClass}">${movementIcon}</span>${actualRank}
                       </td>
@@ -284,7 +322,8 @@
                       <td class="leaderboard-deficit">${deficitDisplay}</td>
                     </tr>
                   `;
-                }).join('')}
+                  })
+                  .join('')}
               </tbody>
             </table>
           </div>
@@ -298,7 +337,7 @@
             <strong>Columns:</strong> Rank (with movement) | Team | Current GW Points | Total Points | Deficit from Leader
           </div>
         `;
-        
+
         leaderboardPreview.innerHTML = tableHTML;
       }
     </script>

@@ -49,20 +49,32 @@
   position: relative;
 }
 /* Remove left accent bar to keep perfect column alignment across all rows */
-.c-table--winners tbody tr::before { display: none; }
+.c-table--winners tbody tr::before {
+  display: none;
+}
 
 /* Light zebra rows (subtle) for non-top rows to avoid visual jumps */
-.c-table--winners tbody tr:nth-child(odd):not(.winner-gold):not(.winner-silver):not(.winner-bronze) {
+.c-table--winners
+  tbody
+  tr:nth-child(odd):not(.winner-gold):not(.winner-silver):not(.winner-bronze) {
   background: #fafafa;
 }
-.c-table--winners tbody tr:nth-child(even):not(.winner-gold):not(.winner-silver):not(.winner-bronze) {
+.c-table--winners
+  tbody
+  tr:nth-child(even):not(.winner-gold):not(.winner-silver):not(.winner-bronze) {
   background: #ffffff;
 }
 
 /* TOP 3 WINNER HIGHLIGHTING — match overall leaderboard: accent stripe only */
-.c-table--winners tbody tr.winner-gold { box-shadow: inset 4px 0 0 var(--gold-1); }
-.c-table--winners tbody tr.winner-silver { box-shadow: inset 4px 0 0 var(--silver-1); }
-.c-table--winners tbody tr.winner-bronze { box-shadow: inset 4px 0 0 var(--bronze-1); }
+.c-table--winners tbody tr.winner-gold {
+  box-shadow: inset 4px 0 0 var(--gold-1);
+}
+.c-table--winners tbody tr.winner-silver {
+  box-shadow: inset 4px 0 0 var(--silver-1);
+}
+.c-table--winners tbody tr.winner-bronze {
+  box-shadow: inset 4px 0 0 var(--bronze-1);
+}
 
 /* Column widths and alignment */
 .c-table--winners td:nth-child(1),

@@ -24,28 +24,28 @@ window.FPLUIManager = (function () {
   function processEnhancedLeaderboardData(data, winnersData) {
     try {
       console.log('🏆 Processing enhanced leaderboard data...');
-      
+
       // Check if this is enhanced JSON (has enhancement metadata)
       const isEnhancedJson = data.enhancements?.leaderboardEnhanced === true;
-      
+
       if (isEnhancedJson) {
         console.log('✅ Enhanced JSON detected, using server-side enhancements');
         // Server-enhanced JSON already contains all required data:
         // - highlights.currentGWPoints
-        // - highlights.deficitFromLeader  
+        // - highlights.deficitFromLeader
         // - movement.direction, movement.icon, etc.
         // No client-side processing needed!
         return winnersData;
       } else {
         console.log('ℹ️ Standard JSON detected, applying legacy frontend enhancements');
-        
+
         // LEGACY FALLBACK: Apply frontend enhancement modules for backward compatibility
         // NOTE: This path is only used when server-side enhancement is unavailable
         if (window.LeaderboardEnhancement && window.CurrentGWPoints) {
           // Apply legacy enhancement pipeline
           let enhancedData = window.CurrentGWPoints.enhancePlayersWithCurrentGW(winnersData);
           enhancedData = window.LeaderboardEnhancement.enhanceLeaderboardData(enhancedData);
-          
+
           console.log('✅ Legacy frontend enhancement applied as fallback');
           return enhancedData;
         } else {

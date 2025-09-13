@@ -4,20 +4,28 @@
 
 ### 🚀 New
 
-- Winners (desktop): Clean 4‑column “Season Earnings” table with global table design, sticky header, uniform row heights, and right‑aligned numeric columns/pills.
-- Rules: Ultra‑compact modal with “📃 Mini‑League Rules” header; accessible open/close via Esc, backdrop, and buttons.
+- Winners (desktop): Clean 4‑column “Season Earnings” table with global table design, sticky header,
+  uniform row heights, and right‑aligned numeric columns/pills.
+- Rules: Ultra‑compact modal with “📃 Mini‑League Rules” header; accessible open/close via Esc,
+  backdrop, and buttons.
 
 ### 🧩 Changes
 
-- Prize Cards: 4‑line, center‑aligned structure; weekly/monthly show top‑2 pills; annual shows top‑3 with compact overlay (three‑dots) for top‑15.
-- Icons: Twemoji usage expanded; rules icon switched to subtle document (📃, 1f4c3) with local fetch helper.
-- Buttons: Global CTA sizing tokens (height, radius, padding, font); unified hover/active shadow/raise across `.btn-primary`, `.cta-button`, `.view-all-winners`, nav buttons; full‑width CTAs on mobile.
+- Prize Cards: 4‑line, center‑aligned structure; weekly/monthly show top‑2 pills; annual shows top‑3
+  with compact overlay (three‑dots) for top‑15.
+- Icons: Twemoji usage expanded; rules icon switched to subtle document (📃, 1f4c3) with local fetch
+  helper.
+- Buttons: Global CTA sizing tokens (height, radius, padding, font); unified hover/active
+  shadow/raise across `.btn-primary`, `.cta-button`, `.view-all-winners`, nav buttons; full‑width
+  CTAs on mobile.
 - Index winners preview (desktop): Reduced card height and spacing for denser view.
 - Leaderboard (desktop): Table uses whole container width; mobile rows/header use uniform heights.
 - Winners table (desktop):
   - Header label “PRIZE WON”; header text forced white and right‑aligned; body numeric stays purple.
-  - Highlights column right‑aligned with global pills (GW: green, GM: red) consistent with card colors.
-  - Top‑3 styling matches “Overall Leaderboard” (solid rank badges in first column; removed full‑row shading).
+  - Highlights column right‑aligned with global pills (GW: green, GM: red) consistent with card
+    colors.
+  - Top‑3 styling matches “Overall Leaderboard” (solid rank badges in first column; removed full‑row
+    shading).
 
 ### 🐛 Fixes
 
@@ -26,26 +34,32 @@
 
 ### 📂 Files (key)
 
-- Updated: `assets/css/components/table.css`, `css/styles.css`, `js/winners-module.js`, `index.html`, `service-worker.js`
+- Updated: `assets/css/components/table.css`, `css/styles.css`, `js/winners-module.js`,
+  `index.html`, `service-worker.js`
 - Added: `assets/twemoji/svg/1f4c3.svg` (download via `scripts/fetch-twemoji.js`)
 
 ## [1.4.5] - 2025-09-10 – Robust Caching + Fingerprinted Build + SW Update Prompt
 
 ### 🚀 New
 
-- Single-source version via `version.js` generated from `package.json` (used by pages and Service Worker).
-- Build pipeline that outputs a fingerprinted site to `docs/` with content-hashed CSS/JS and a precache manifest.
-- In-page “New version available” banner; one click refreshes to the latest version when the SW updates.
+- Single-source version via `version.js` generated from `package.json` (used by pages and Service
+  Worker).
+- Build pipeline that outputs a fingerprinted site to `docs/` with content-hashed CSS/JS and a
+  precache manifest.
+- In-page “New version available” banner; one click refreshes to the latest version when the SW
+  updates.
 
 ### 🧩 Changes
 
-- Service Worker now uses a network-first strategy for HTML navigations so normal refresh gets fresh pages, with offline fallback.
+- Service Worker now uses a network-first strategy for HTML navigations so normal refresh gets fresh
+  pages, with offline fallback.
 - SW cache name derives from site version; old caches are cleaned on activate.
 - HTML now references a shared `version.js` and delegates SW registration to `js/sw-update.js`.
 
 ### 🧪 Deployment & Caching
 
-- GitHub Pages compatible: `npm run build` writes a ready-to-serve site to `public/` (configure Pages to point to `/public`).
+- GitHub Pages compatible: `npm run build` writes a ready-to-serve site to `public/` (configure
+  Pages to point to `/public`).
 - Netlify-compatible `_headers` file added:
   - HTML + `service-worker.js`: `no-cache`
   - Hashed assets under `/css`, `/js`, `/assets`: `public, max-age=31536000, immutable`

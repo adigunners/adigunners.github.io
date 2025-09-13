@@ -690,11 +690,20 @@
             </section>
             <footer class="prize-meta">
               <!-- Replace dead link with modal-trigger button -->
-              <button id="rules-btn" type="button" class="btn-primary" aria-haspopup="dialog" aria-controls="rules-modal" aria-expanded="false">Mini-League Rules</button>
+              <button
+                id="rules-btn"
+                type="button"
+                class="btn-primary"
+                aria-haspopup="dialog"
+                aria-controls="rules-modal"
+                aria-expanded="false"
+              >
+                Mini-League Rules
+              </button>
             </footer>
-          <aside class="prize-note" id="prize-note" role="note"></aside>
-         </aside>
-       </section>
+            <aside class="prize-note" id="prize-note" role="note"></aside>
+          </aside>
+        </section>
 
         <!-- LATE REGISTRATION SECTION (During Season) -->
         <section
@@ -731,10 +740,24 @@
       </main>
 
       <!-- Rules Modal -->
-      <div id="rules-modal" class="modal-overlay is-hidden" role="dialog" aria-modal="true" aria-labelledby="rules-modal-title">
+      <div
+        id="rules-modal"
+        class="modal-overlay is-hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rules-modal-title"
+      >
         <div class="modal" role="document">
           <header class="modal-header">
-            <h3 id="rules-modal-title"><img class="emoji-icon" src="assets/twemoji/svg/1f4c3.svg" alt="" aria-hidden="true" /> Mini-League Rules</h3>
+            <h3 id="rules-modal-title">
+              <img
+                class="emoji-icon"
+                src="assets/twemoji/svg/1f4c3.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              Mini-League Rules
+            </h3>
             <button type="button" class="modal-close" aria-label="Close rules">✕</button>
           </header>
           <div class="modal-body">
@@ -742,16 +765,28 @@
               <h4>Game Week Winner</h4>
               <ul>
                 <li>No cap on wins: You can win as many GWs as you manage.</li>
-                <li>Score used: Net GW Score = GW Points − Transfer Cost (points lost for transfers are deducted).</li>
-                <li>Ties: If players have the same Net GW Score, the GW prize is split equally among them.</li>
+                <li>
+                  Score used: Net GW Score = GW Points − Transfer Cost (points lost for transfers
+                  are deducted).
+                </li>
+                <li>
+                  Ties: If players have the same Net GW Score, the GW prize is split equally among
+                  them.
+                </li>
               </ul>
             </section>
             <section>
               <h4>Game Month Winner</h4>
               <ul>
                 <li>No cap on wins: You can win multiple months.</li>
-                <li>Score used: The Monthly Score shown in the app — it’s the sum of Net GW Scores for all gameweeks whose start/deadline date falls in that month (GMT).</li>
-                <li>Ties: If players have the same Monthly Score, the month’s prize is split equally among them.</li>
+                <li>
+                  Score used: The Monthly Score shown in the app — it’s the sum of Net GW Scores for
+                  all gameweeks whose start/deadline date falls in that month (GMT).
+                </li>
+                <li>
+                  Ties: If players have the same Monthly Score, the month’s prize is split equally
+                  among them.
+                </li>
               </ul>
             </section>
           </div>
@@ -1174,7 +1209,7 @@
           .join('');
         return `
           <article class="prize-card" aria-labelledby="weekly-prize-title">
-            <div class="pc-line icon-line" aria-hidden="true">${iconImg('1f4c5','Calendar')}</div>
+            <div class="pc-line icon-line" aria-hidden="true">${iconImg('1f4c5', 'Calendar')}</div>
             <div class="pc-line pc-label" id="weekly-prize-title">Weekly</div>
             <div class="pc-line amount" aria-label="Total weekly prize amount">${formatINR(total)}</div>
             <div class="pc-line breakdown" aria-label="Top prizes">${pills}</div>
@@ -1194,7 +1229,7 @@
           .join('');
         return `
           <article class="prize-card" aria-labelledby="monthly-prize-title">
-            <div class="pc-line icon-line" aria-hidden="true">${iconImg('1f5d3','Spiral calendar')}</div>
+            <div class="pc-line icon-line" aria-hidden="true">${iconImg('1f5d3', 'Spiral calendar')}</div>
             <div class="pc-line pc-label" id="monthly-prize-title">Monthly</div>
             <div class="pc-line amount" aria-label="Total monthly prize amount">${formatINR(total)}</div>
             <div class="pc-line breakdown" aria-label="Top prizes">${pills}</div>
@@ -1232,7 +1267,7 @@
         return `
           <article class="prize-card" aria-labelledby="annual-prize-title">
             <div class="overlay-action" id="${btnId}" aria-label="View top 15 prizes" aria-haspopup="dialog" aria-controls="${panelId}" aria-expanded="false"><span class="dots-icon" aria-hidden="true">⋯</span></div>
-            <div class="pc-line icon-line" aria-hidden="true">${iconImg('1f3c6','Trophy')}</div>
+            <div class="pc-line icon-line" aria-hidden="true">${iconImg('1f3c6', 'Trophy')}</div>
             <div class="pc-line pc-label" id="annual-prize-title">Overall</div>
             <div class="pc-line amount" aria-label="Total annual prize amount">${formatINR(totalOverallPrize)}</div>
             <div class="pc-line breakdown" aria-label="Top three prizes">${topThree}</div>
@@ -2048,10 +2083,10 @@
               // ENHANCEMENT: Process enhanced JSON data if available
               try {
                 console.log('🏆 Checking for enhanced leaderboard data...');
-                
+
                 // Check if this is enhanced JSON (has enhancement metadata)
                 const isEnhancedJson = data.enhancements?.leaderboardEnhanced === true;
-                
+
                 if (isEnhancedJson) {
                   console.log('✅ Enhanced JSON detected, using server-side enhancements');
                   // Enhanced JSON already has movement, current GW points, and deficit data
@@ -2059,28 +2094,31 @@
                   leaderboardData = winnersData;
                 } else {
                   console.log('ℹ️ Standard JSON detected, applying frontend enhancements');
-                  
+
                   // Apply frontend enhancement modules for backward compatibility
                   if (window.LeaderboardEnhancement && window.CurrentGWPoints) {
                     // First enhance with current GW points
                     winnersData = CurrentGWPoints.enhancePlayersWithCurrentGW(winnersData);
-                    
+
                     // Then add movement indicators and deficit calculations
                     winnersData = LeaderboardEnhancement.enhanceLeaderboardData(winnersData);
-                    
+
                     console.log('✅ Frontend enhancement modules applied successfully');
                   } else {
                     console.warn('⚠️ Enhancement modules not available, using basic data');
                   }
-                  
+
                   leaderboardData = winnersData;
                 }
-                
+
                 // Store enhanced data globally for modular access
                 window.leaderboardData = leaderboardData;
-                
-                console.log('📊 Enhanced leaderboard data ready:', leaderboardData.length, 'players');
-                
+
+                console.log(
+                  '📊 Enhanced leaderboard data ready:',
+                  leaderboardData.length,
+                  'players'
+                );
               } catch (enhancementError) {
                 console.error('❌ Error applying leaderboard enhancements:', enhancementError);
                 // Fallback to basic data processing
@@ -2198,7 +2236,7 @@
               ${currentPageData
                 .map((player, index) => {
                   const actualRank = player.highlights.overallRank;
-                  
+
                   // Overall score field may be named differently depending on data source.
                   const rawScore =
                     (player.highlights && player.highlights.totalPoints) ||
@@ -2211,15 +2249,25 @@
 
                   // Enhanced data: Movement indicators
                   const movementIcon = player.movement?.icon || '';
-                  const movementClass = player.movement?.direction ? `movement-${player.movement.direction}` : '';
-                  
+                  const movementClass = player.movement?.direction
+                    ? `movement-${player.movement.direction}`
+                    : '';
+
                   // Enhanced data: Current GW points
-                  const currentGWPoints = player.highlights?.currentGWPoints || player.currentGWPoints || null;
-                  const gwDisplay = currentGWPoints && currentGWPoints > 0 ? currentGWPoints.toString() : '—';
-                  
+                  const currentGWPoints =
+                    player.highlights?.currentGWPoints || player.currentGWPoints || null;
+                  const gwDisplay =
+                    currentGWPoints && currentGWPoints > 0 ? currentGWPoints.toString() : '—';
+
                   // Enhanced data: Deficit from leader
-                  const deficitValue = player.highlights?.deficitFromLeader ?? player.deficitFromLeader ?? null;
-                  const deficitDisplay = deficitValue === 0 ? '—' : (deficitValue && deficitValue > 0 ? deficitValue.toString() : '—');
+                  const deficitValue =
+                    player.highlights?.deficitFromLeader ?? player.deficitFromLeader ?? null;
+                  const deficitDisplay =
+                    deficitValue === 0
+                      ? '—'
+                      : deficitValue && deficitValue > 0
+                        ? deficitValue.toString()
+                        : '—';
 
                   return `
                 <tr>
@@ -2309,36 +2357,45 @@
     </script>
     <!-- Rules modal wiring -->
     <script>
-      (function(){
-        function qs(id){ return document.getElementById(id); }
-        function openModal(){
+      (function () {
+        function qs(id) {
+          return document.getElementById(id);
+        }
+        function openModal() {
           var overlay = qs('rules-modal');
           var btn = qs('rules-btn');
           if (!overlay) return;
           overlay.classList.remove('is-hidden');
-          if (btn) btn.setAttribute('aria-expanded','true');
+          if (btn) btn.setAttribute('aria-expanded', 'true');
           // focus modal close for keyboard users
           var closeBtn = overlay.querySelector('.modal-close');
           if (closeBtn) closeBtn.focus();
           document.addEventListener('keydown', onKey);
           overlay.addEventListener('click', onBackdrop, { once: true });
         }
-        function closeModal(){
+        function closeModal() {
           var overlay = qs('rules-modal');
           var btn = qs('rules-btn');
           if (!overlay) return;
           overlay.classList.add('is-hidden');
-          if (btn) btn.setAttribute('aria-expanded','false');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
           document.removeEventListener('keydown', onKey);
         }
-        function onKey(e){ if (e.key === 'Escape') closeModal(); }
-        function onBackdrop(e){ if (e.target && e.target.id === 'rules-modal') closeModal(); }
+        function onKey(e) {
+          if (e.key === 'Escape') closeModal();
+        }
+        function onBackdrop(e) {
+          if (e.target && e.target.id === 'rules-modal') closeModal();
+        }
 
-        document.addEventListener('DOMContentLoaded', function(){
+        document.addEventListener('DOMContentLoaded', function () {
           var btn = qs('rules-btn');
           var overlay = qs('rules-modal');
           if (btn && overlay) btn.addEventListener('click', openModal);
-          overlay && overlay.querySelectorAll('.modal-close').forEach(function(el){ el.addEventListener('click', closeModal); });
+          overlay &&
+            overlay.querySelectorAll('.modal-close').forEach(function (el) {
+              el.addEventListener('click', closeModal);
+            });
         });
       })();
     </script>
