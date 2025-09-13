@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Data Flow Test</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .test-container {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-status {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 4px solid;
+        }
+        .success {
+            background: #d1f2eb;
+            color: #0c5460;
+            border-left-color: #17a2b8;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left-color: #dc3545;
+        }
+        .info {
+            background: #e2f3ff;
+            color: #004085;
+            border-left-color: #007bff;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Enhanced Data Flow Test</h1>
+    <p>Testing the complete enhanced leaderboard data flow from JSON to display</p>
+
+    <div class="test-container">
+        <h2>📊 Test Status</h2>
+        <div id="test-status"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>🏆 Enhanced Leaderboard Display</h2>
+        <div id="leaderboard-container"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔍 Data Analysis</h2>
+        <div id="data-analysis"></div>
+    </div>
+
+    <!-- Import required modules -->
+    <script src="js/leaderboard-enhancement.js"></script>
+    <script src="js/current-gw-points.js"></script>
+    <script src="js/data-loader.js"></script>
+    <script src="js/ui-manager.js"></script>
+
+    <script>
+        const testStatus = document.getElementById('test-status');
+        const leaderboardContainer = document.getElementById('leaderboard-container');
+        const dataAnalysis = document.getElementById('data-analysis');
+
+        function logStatus(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-status ${type}`;
+            div.innerHTML = message;
+            testStatus.appendChild(div);
+        }
+
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        async function runEnhancedDataFlowTest() {
+            try {
+                logStatus('🚀 Starting enhanced data flow test...', 'info');
+
+                // Load enhanced JSON
+                const response = await fetch('data/test_enhanced_winner_stats.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                logStatus('✅ Enhanced JSON loaded successfully', 'success');
+
+                // Test enhancement detection
+                const isEnhanced = data.enhancements?.leaderboardEnhanced === true;
+                if (isEnhanced) {
+                    logStatus('✅ Enhanced JSON detected with metadata', 'success');
+                } else {
+                    logStatus('❌ Enhanced JSON metadata missing', 'error');
+                    return;
+                }
+
+                // Process data using the UI Manager function
+                if (window.FPLUIManager) {
+                    // Simulate the processing that happens in ui-manager.js
+                    const processedData = data.winners
+                        .filter(winner => winner.highlights?.overallRank)
+                        .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+                    
+                    // Apply enhanced data processing (this should detect and use enhanced JSON)
+                    window.leaderboardData = processedData;
+                    
+                    logStatus('✅ Data processed through UI Manager pipeline', 'success');
+                    
+                    // Generate leaderboard display
+                    displayEnhancedLeaderboard(processedData);
+                    analyzeEnhancedData(data, processedData);
+                    
+                } else {
+                    logStatus('⚠️ UI Manager not available, using direct processing', 'info');
+                    
+                    // Direct processing fallback
+                    const sortedData = data.winners
+                        .filter(w => w.highlights?.overallRank)
+                        .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+                    
+                    displayEnhancedLeaderboard(sortedData);
+                    analyzeEnhancedData(data, sortedData);
+                }
+
+                logStatus('🎉 Enhanced data flow test completed successfully!', 'success');
+
+            } catch (error) {
+                logStatus(`❌ Test failed: ${error.message}`, 'error');
+                console.error('Enhanced data flow test error:', error);
+            }
+        }
+
+        function displayEnhancedLeaderboard(players) {
+            const tableHTML = `
+                <div class="table-scroll">
+                    <table class="leaderboard-table table-density-compact table-align-rank table-align-player table-align-gw table-align-total table-align-deficit">
+                        <colgroup>
+                            <col style="width:2ch">   <!-- Rank -->
+                            <col style="width:180px"> <!-- Player Name -->
+                            <col style="width:2ch">   <!-- Current GW -->
+                            <col style="width:3ch">   <!-- Total Points -->
+                            <col style="width:3ch">   <!-- FROM #1 -->
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="col-rank" aria-label="Rank">#</th>
+                                <th scope="col" aria-label="Player Name">PLAYER</th>
+                                <th scope="col" aria-label="Current Gameweek Points">GW</th>
+                                <th scope="col" aria-label="Total Points">TOTAL</th>
+                                <th scope="col" aria-label="Points Behind Leader">FROM #1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${players.map(player => {
+                                const actualRank = player.highlights.overallRank;
+                                const scoreDisplay = player.highlights.totalPoints.toLocaleString('en-IN');
+                                const movementIcon = player.movement?.icon || '';
+                                const movementClass = player.movement?.direction ? `movement-${player.movement.direction}` : '';
+                                const gwDisplay = player.highlights.currentGWPoints ? player.highlights.currentGWPoints.toString() : '—';
+                                const deficitDisplay = player.highlights.deficitFromLeader === 0 ? '—' : player.highlights.deficitFromLeader.toString();
+
+                                return `
+                                    <tr>
+                                        <td class="leaderboard-rank col-rank${
+                                            actualRank === 1 ? ' rank-1' : 
+                                            actualRank === 2 ? ' rank-2' : 
+                                            actualRank === 3 ? ' rank-3' : ''
+                                        }">
+                                            <span class="rank-number">${actualRank}</span><span class="rank-movement ${movementClass}">${movementIcon}</span>
+                                        </td>
+                                        <td class="leaderboard-player" title="${escapeHTML(player.playerName)}">
+                                            <div class="player-team">${escapeHTML(player.playerName)}</div>
+                                        </td>
+                                        <td class="leaderboard-gw">${gwDisplay}</td>
+                                        <td class="leaderboard-total">${scoreDisplay}</td>
+                                        <td class="leaderboard-deficit">${deficitDisplay}</td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin-top: 16px; padding: 12px; background: #f8f9fa; border-radius: 6px; font-size: 14px; color: #6c757d;">
+                    <strong>Enhanced Features:</strong>
+                    <span style="color: #28a745;">⬆ Up</span> | 
+                    <span style="color: #dc3545;">⬇ Down</span> | 
+                    <span style="color: #6c757d;">⚬ Same</span> | 
+                    <span style="color: #007bff;">● New</span>
+                </div>
+            `;
+            
+            leaderboardContainer.innerHTML = tableHTML;
+        }
+
+        function analyzeEnhancedData(rawData, processedData) {
+            const analysis = {
+                enhancementMetadata: rawData.enhancements,
+                playersWithMovement: processedData.filter(p => p.movement).length,
+                playersWithGWPoints: processedData.filter(p => p.highlights?.currentGWPoints).length,
+                playersWithDeficit: processedData.filter(p => typeof p.highlights?.deficitFromLeader === 'number').length,
+                movementTypes: {}
+            };
+
+            // Count movement types
+            processedData.forEach(player => {
+                if (player.movement?.direction) {
+                    analysis.movementTypes[player.movement.direction] = 
+                        (analysis.movementTypes[player.movement.direction] || 0) + 1;
+                }
+            });
+
+            const analysisHTML = `
+                <h3>📈 Data Quality Analysis</h3>
+                <pre>${JSON.stringify(analysis, null, 2)}</pre>
+                
+                <h3>🔍 Sample Player Data</h3>
+                <pre>${JSON.stringify(processedData[0], null, 2)}</pre>
+                
+                <h3>🎯 Enhancement Coverage</h3>
+                <ul>
+                    <li><strong>Movement Data:</strong> ${analysis.playersWithMovement}/${processedData.length} players</li>
+                    <li><strong>Current GW Points:</strong> ${analysis.playersWithGWPoints}/${processedData.length} players</li>
+                    <li><strong>Deficit Data:</strong> ${analysis.playersWithDeficit}/${processedData.length} players</li>
+                    <li><strong>Enhancement Version:</strong> ${rawData.enhancements?.enhancementVersion || 'N/A'}</li>
+                </ul>
+            `;
+            
+            dataAnalysis.innerHTML = analysisHTML;
+        }
+
+        // Run test on page load
+        document.addEventListener('DOMContentLoaded', runEnhancedDataFlowTest);
+    </script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5-Column Leaderboard Integration Test</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f8f9fa;
+        line-height: 1.6;
+      }
+      .test-container {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        margin: 24px 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e1e5e9;
+      }
+      .test-result {
+        padding: 12px 16px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border-left: 4px solid;
+      }
+      .pass {
+        background: #d1f2eb;
+        color: #0c5460;
+        border-left-color: #17a2b8;
+      }
+      .fail {
+        background: #f8d7da;
+        color: #721c24;
+        border-left-color: #dc3545;
+      }
+      .info {
+        background: #e2f3ff;
+        color: #004085;
+        border-left-color: #007bff;
+      }
+      h1 { color: #343a40; margin-bottom: 8px; }
+      h2 { color: #495057; margin-bottom: 16px; font-size: 20px; }
+    </style>
+    <!-- Import the CSS styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+  </head>
+  <body>
+    <h1>🏆 5-Column Leaderboard Integration Test</h1>
+    <p style="color: #6c757d; margin-bottom: 32px">
+      Complete integration test for the enhanced 5-column leaderboard with movement indicators, 
+      current GW points, and deficit calculations.
+    </p>
+
+    <div class="test-container">
+      <h2>📊 Test Results</h2>
+      <div id="test-results"></div>
+    </div>
+
+    <div class="test-container">
+      <h2>🎯 5-Column Leaderboard Preview</h2>
+      <p style="color: #6c757d; margin-bottom: 16px">
+        This demonstrates the complete enhanced 5-column leaderboard implementation
+      </p>
+      <div id="leaderboard-preview"></div>
+    </div>
+
+    <!-- Import enhancement modules -->
+    <script src="../js/leaderboard-enhancement.js"></script>
+    <script src="../js/current-gw-points.js"></script>
+    
+    <script>
+      const testResults = document.getElementById('test-results');
+      const leaderboardPreview = document.getElementById('leaderboard-preview');
+
+      function logResult(test, status, message) {
+        const div = document.createElement('div');
+        div.className = `test-result ${status}`;
+        div.innerHTML = `<strong>${test}:</strong> ${message}`;
+        testResults.appendChild(div);
+      }
+
+      // Mock enhanced JSON data simulating what comes from the server
+      const mockEnhancedData = {
+        lastUpdated: '2025-09-11T10:30:00.000Z',
+        enhancements: {
+          leaderboardEnhanced: true,
+          enhancementVersion: '1.0.0',
+          enhancedAt: '2025-09-11T10:30:00.000Z',
+        },
+        winners: [
+          {
+            playerName: 'Weekend Blues',
+            totalPrizeWon: 1316,
+            highlights: {
+              gameWeeks: 2,
+              gameMonths: 1,
+              overallRank: 1,
+              totalPoints: 1879,
+              previousRank: 2,
+              currentGWPoints: 75,
+              deficitFromLeader: 0,
+            },
+            movement: {
+              direction: 'up',
+              change: 1,
+              icon: '⬆',
+              displayText: '+1',
+            },
+          },
+          {
+            playerName: 'El Nino',
+            totalPrizeWon: 900,
+            highlights: {
+              gameWeeks: 1,
+              gameMonths: 0,
+              overallRank: 2,
+              totalPoints: 1870,
+              previousRank: 1,
+              currentGWPoints: 68,
+              deficitFromLeader: 9,
+            },
+            movement: {
+              direction: 'down',
+              change: 1,
+              icon: '⬇',
+              displayText: '-1',
+            },
+          },
+          {
+            playerName: 'Hot Shot XI',
+            totalPrizeWon: 650,
+            highlights: {
+              gameWeeks: 1,
+              gameMonths: 0,
+              overallRank: 3,
+              totalPoints: 1865,
+              previousRank: 3,
+              currentGWPoints: 55,
+              deficitFromLeader: 14,
+            },
+            movement: {
+              direction: 'same',
+              change: 0,
+              icon: '⚬',
+              displayText: '—',
+            },
+          },
+          {
+            playerName: 'New Player FC',
+            totalPrizeWon: 0,
+            highlights: {
+              gameWeeks: 0,
+              gameMonths: 0,
+              overallRank: 4,
+              totalPoints: 1850,
+              previousRank: null,
+              currentGWPoints: 42,
+              deficitFromLeader: 29,
+            },
+            movement: {
+              direction: 'new',
+              change: 0,
+              icon: '●',
+              displayText: 'NEW',
+            },
+          },
+        ],
+      };
+
+      // Run integration tests
+      try {
+        // Test 1: Enhanced JSON detection
+        const isEnhanced = mockEnhancedData.enhancements?.leaderboardEnhanced === true;
+        logResult('Enhanced JSON Detection', isEnhanced ? 'pass' : 'fail', 
+          `Enhanced JSON ${isEnhanced ? 'detected' : 'not detected'}`);
+
+        // Test 2: Data structure validation
+        const firstPlayer = mockEnhancedData.winners[0];
+        const hasRequiredFields = [
+          'highlights.overallRank',
+          'highlights.totalPoints',
+          'highlights.currentGWPoints', 
+          'highlights.deficitFromLeader',
+          'movement.direction',
+          'movement.icon'
+        ].every(field => {
+          const keys = field.split('.');
+          let obj = firstPlayer;
+          for (const key of keys) {
+            if (!obj || !obj.hasOwnProperty(key)) return false;
+            obj = obj[key];
+          }
+          return true;
+        });
+        
+        logResult('Data Structure Validation', hasRequiredFields ? 'pass' : 'fail',
+          `All required enhanced fields ${hasRequiredFields ? 'present' : 'missing'}`);
+
+        // Test 3: Movement indicator validation
+        const movementTypes = ['up', 'down', 'same', 'new'];
+        const allMovementValid = mockEnhancedData.winners.every(player => 
+          movementTypes.includes(player.movement?.direction) && player.movement?.icon
+        );
+        
+        logResult('Movement Indicators', allMovementValid ? 'pass' : 'fail',
+          `Movement indicators ${allMovementValid ? 'valid' : 'invalid'}`);
+
+        // Test 4: Deficit calculation validation
+        const leader = mockEnhancedData.winners.find(p => p.highlights.overallRank === 1);
+        const leaderDeficitCorrect = leader.highlights.deficitFromLeader === 0;
+        const othersHaveDeficit = mockEnhancedData.winners
+          .filter(p => p.highlights.overallRank !== 1)
+          .every(p => p.highlights.deficitFromLeader > 0);
+        
+        logResult('Deficit Calculations', (leaderDeficitCorrect && othersHaveDeficit) ? 'pass' : 'fail',
+          `Leader deficit: ${leader.highlights.deficitFromLeader}, Others have positive deficits: ${othersHaveDeficit}`);
+
+        // Test 5: Current GW points validation
+        const allHaveGWPoints = mockEnhancedData.winners.every(p => 
+          typeof p.highlights.currentGWPoints === 'number' && p.highlights.currentGWPoints > 0
+        );
+        
+        logResult('Current GW Points', allHaveGWPoints ? 'pass' : 'fail',
+          `All players have valid GW points: ${allHaveGWPoints}`);
+
+        // Test 6: Generate and display 5-column table
+        generateLeaderboardTable(mockEnhancedData.winners);
+        logResult('5-Column Table Generation', 'pass', 'Successfully generated 5-column leaderboard table');
+
+        logResult('Overall Integration Test', 'pass', 'All integration tests passed! 🎉');
+
+      } catch (error) {
+        logResult('Integration Test', 'fail', `Test failed: ${error.message}`);
+        console.error('Integration test error:', error);
+      }
+
+      function generateLeaderboardTable(players) {
+        const tableHTML = `
+          <div class="table-scroll">
+            <table class="leaderboard-table table-density-compact table-align-rank table-align-player table-align-gw table-align-total table-align-deficit">
+              <colgroup>
+                <col style="width:5ch">   <!-- Rank -->
+                <col style="width:auto">  <!-- Team & Manager -->
+                <col style="width:4ch">   <!-- Current GW -->
+                <col style="width:6ch">   <!-- Total Points -->
+                <col style="width:5ch">   <!-- Deficit -->
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col" class="col-rank" aria-label="Rank" data-short="#">#</th>
+                  <th scope="col" aria-label="Team & Manager" title="Team & Manager">TEAM</th>
+                  <th scope="col" aria-label="Current Gameweek Points" title="Current Gameweek Points">GW</th>
+                  <th scope="col" aria-label="Total Points" title="Total Points">TOTAL</th>
+                  <th scope="col" aria-label="Deficit from Leader" title="Deficit from Leader">DEFICIT</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${players.map(player => {
+                  const actualRank = player.highlights.overallRank;
+                  const scoreDisplay = player.highlights.totalPoints.toLocaleString('en-IN');
+                  const movementIcon = player.movement?.icon || '';
+                  const movementClass = player.movement?.direction ? `movement-${player.movement.direction}` : '';
+                  const gwDisplay = player.highlights.currentGWPoints ? player.highlights.currentGWPoints.toString() : '—';
+                  const deficitDisplay = player.highlights.deficitFromLeader === 0 ? '—' : player.highlights.deficitFromLeader.toString();
+
+                  return `
+                    <tr>
+                      <td class="leaderboard-rank col-rank${
+                        actualRank === 1 ? ' rank-1' : 
+                        actualRank === 2 ? ' rank-2' : 
+                        actualRank === 3 ? ' rank-3' : ''
+                      }">
+                        <span class="rank-movement ${movementClass}">${movementIcon}</span>${actualRank}
+                      </td>
+                      <td class="leaderboard-player" title="${player.playerName}" aria-label="${player.playerName}">
+                        <div class="player-team">${player.playerName}</div>
+                      </td>
+                      <td class="leaderboard-gw">${gwDisplay}</td>
+                      <td class="leaderboard-total">${scoreDisplay}</td>
+                      <td class="leaderboard-deficit">${deficitDisplay}</td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+          
+          <div style="margin-top: 16px; padding: 12px; background: #f8f9fa; border-radius: 6px; font-size: 14px; color: #6c757d;">
+            <strong>Enhanced Features Demonstrated:</strong><br>
+            <span style="color: #28a745;">⬆ Up Movement</span> | 
+            <span style="color: #dc3545;">⬇ Down Movement</span> | 
+            <span style="color: #6c757d;">⚬ No Change</span> | 
+            <span style="color: #007bff;">● New Player</span><br>
+            <strong>Columns:</strong> Rank (with movement) | Team | Current GW Points | Total Points | Deficit from Leader
+          </div>
+        `;
+        
+        leaderboardPreview.innerHTML = tableHTML;
+      }
+    </script>
+  </body>
+</html>

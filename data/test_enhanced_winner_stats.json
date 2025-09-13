@@ -1,0 +1,182 @@
+{
+  "lastUpdated": "2025-09-11T10:30:00.000Z",
+  "enhancements": {
+    "leaderboardEnhanced": true,
+    "enhancementVersion": "1.0.0",
+    "enhancedAt": "2025-09-11T10:30:00.000Z",
+    "enhancementFeatures": [
+      "previousRank",
+      "currentGWPoints", 
+      "deficitFromLeader",
+      "movementIndicators"
+    ]
+  },
+  "summary": {
+    "totalPrizeDistributed": 4998,
+    "totalPaid": 2000,
+    "totalPending": 2998,
+    "gameweekPrizes": 3000,
+    "monthlyPrizes": 1998,
+    "completedGameweeks": 3,
+    "completedMonths": 1,
+    "totalWinners": 54,
+    "lastProcessedGW": 2
+  },
+  "winners": [
+    {
+      "playerName": "Kiran Kanoj",
+      "totalPrizeWon": 1316,
+      "totalPaid": 650,
+      "totalPending": 666,
+      "prizeBreakdown": {
+        "gameWeeks": 1,
+        "gameMonths": 1
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 1,
+        "overallRank": 1,
+        "totalPoints": 179,
+        "previousRank": 2,
+        "currentGWPoints": 75,
+        "deficitFromLeader": 0
+      },
+      "movement": {
+        "direction": "up",
+        "change": 1,
+        "icon": "⬆",
+        "displayText": "+1"
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 2,
+            "position": "1st",
+            "prize": 650,
+            "status": "Paid",
+            "points": 75
+          }
+        ],
+        "months": [
+          {
+            "month": 1,
+            "position": "1st",
+            "prize": 666,
+            "status": "Pending",
+            "points": 179
+          }
+        ]
+      }
+    },
+    {
+      "playerName": "Shivam Singh",
+      "totalPrizeWon": 900,
+      "totalPaid": 450,
+      "totalPending": 450,
+      "prizeBreakdown": {
+        "gameWeeks": 2,
+        "gameMonths": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 2,
+        "totalPoints": 170,
+        "previousRank": 1,
+        "currentGWPoints": 68,
+        "deficitFromLeader": 9
+      },
+      "movement": {
+        "direction": "down",
+        "change": 1,
+        "icon": "⬇",
+        "displayText": "-1"
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 1,
+            "position": "1st",
+            "prize": 650,
+            "status": "Paid",
+            "points": 68
+          },
+          {
+            "week": 3,
+            "position": "2nd",
+            "prize": 400,
+            "status": "Pending",
+            "points": 55
+          }
+        ],
+        "months": []
+      }
+    },
+    {
+      "playerName": "Rohit Sharma",
+      "totalPrizeWon": 400,
+      "totalPaid": 400,
+      "totalPending": 0,
+      "prizeBreakdown": {
+        "gameWeeks": 1,
+        "gameMonths": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 3,
+        "totalPoints": 165,
+        "previousRank": 3,
+        "currentGWPoints": 52,
+        "deficitFromLeader": 14
+      },
+      "movement": {
+        "direction": "same",
+        "change": 0,
+        "icon": "⚬",
+        "displayText": "—"
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 1,
+            "position": "2nd",
+            "prize": 400,
+            "status": "Paid",
+            "points": 52
+          }
+        ],
+        "months": []
+      }
+    },
+    {
+      "playerName": "New Player FC",
+      "totalPrizeWon": 0,
+      "totalPaid": 0,
+      "totalPending": 0,
+      "prizeBreakdown": {
+        "gameWeeks": 0,
+        "gameMonths": 0
+      },
+      "highlights": {
+        "gameWeeks": 0,
+        "gameMonths": 0,
+        "overallRank": 4,
+        "totalPoints": 158,
+        "previousRank": null,
+        "currentGWPoints": 42,
+        "deficitFromLeader": 21
+      },
+      "movement": {
+        "direction": "new",
+        "change": 0,
+        "icon": "●",
+        "displayText": "NEW"
+      },
+      "achievements": {
+        "gameweeks": [],
+        "months": []
+      }
+    }
+  ]
+}

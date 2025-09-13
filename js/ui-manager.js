@@ -18,6 +18,48 @@ window.FPLUIManager = (function () {
   const SYNC_BADGE_ENABLED = true;
 
   /**
+   * Enhanced leaderboard data processing
+   * Applies enhanced JSON processing or frontend enhancement modules
+   */
+  function processEnhancedLeaderboardData(data, winnersData) {
+    try {
+      console.log('🏆 Processing enhanced leaderboard data...');
+      
+      // Check if this is enhanced JSON (has enhancement metadata)
+      const isEnhancedJson = data.enhancements?.leaderboardEnhanced === true;
+      
+      if (isEnhancedJson) {
+        console.log('✅ Enhanced JSON detected, using server-side enhancements');
+        // Server-enhanced JSON already contains all required data:
+        // - highlights.currentGWPoints
+        // - highlights.deficitFromLeader  
+        // - movement.direction, movement.icon, etc.
+        // No client-side processing needed!
+        return winnersData;
+      } else {
+        console.log('ℹ️ Standard JSON detected, applying legacy frontend enhancements');
+        
+        // LEGACY FALLBACK: Apply frontend enhancement modules for backward compatibility
+        // NOTE: This path is only used when server-side enhancement is unavailable
+        if (window.LeaderboardEnhancement && window.CurrentGWPoints) {
+          // Apply legacy enhancement pipeline
+          let enhancedData = window.CurrentGWPoints.enhancePlayersWithCurrentGW(winnersData);
+          enhancedData = window.LeaderboardEnhancement.enhanceLeaderboardData(enhancedData);
+          
+          console.log('✅ Legacy frontend enhancement applied as fallback');
+          return enhancedData;
+        } else {
+          console.warn('⚠️ Enhancement modules not available, using basic data');
+          return winnersData;
+        }
+      }
+    } catch (enhancementError) {
+      console.error('❌ Error applying leaderboard enhancements:', enhancementError);
+      return winnersData; // Always return data, even if enhancement fails
+    }
+  }
+
+  /**
    * SINGLE SOURCE: Idempotent header updater - only accepts winner data
    *
    * CONTRACT: Headers update only from winners data; season/countdown writes are blocked.
@@ -121,8 +163,8 @@ window.FPLUIManager = (function () {
         FPLDataLoader.loadLeaderboardData()
           .then((data) => {
             if (data && data.winners) {
-              // Populate the global leaderboardData variable that displayLeaderboard expects
-              window.leaderboardData = data.winners
+              // Filter and sort the winners data
+              const filteredWinners = data.winners
                 .filter(
                   (winner) =>
                     winner.highlights &&
@@ -130,6 +172,9 @@ window.FPLUIManager = (function () {
                     winner.highlights.overallRank !== undefined
                 )
                 .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+
+              // Apply enhanced data processing
+              window.leaderboardData = processEnhancedLeaderboardData(data, filteredWinners);
 
               if (typeof window.displayLeaderboard === 'function') {
                 window.displayLeaderboard();
@@ -203,8 +248,8 @@ window.FPLUIManager = (function () {
         FPLDataLoader.loadLeaderboardData()
           .then((data) => {
             if (data && data.winners) {
-              // Populate the global leaderboardData variable that displayLeaderboard expects
-              window.leaderboardData = data.winners
+              // Filter and sort the winners data
+              const filteredWinners = data.winners
                 .filter(
                   (winner) =>
                     winner.highlights &&
@@ -212,6 +257,9 @@ window.FPLUIManager = (function () {
                     winner.highlights.overallRank !== undefined
                 )
                 .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+
+              // Apply enhanced data processing
+              window.leaderboardData = processEnhancedLeaderboardData(data, filteredWinners);
 
               if (typeof window.displayLeaderboard === 'function') {
                 window.displayLeaderboard();
@@ -256,8 +304,8 @@ window.FPLUIManager = (function () {
       FPLDataLoader.loadLeaderboardData()
         .then((data) => {
           if (data && data.winners) {
-            // Populate the global leaderboardData variable that displayLeaderboard expects
-            window.leaderboardData = data.winners
+            // Filter and sort the winners data
+            const filteredWinners = data.winners
               .filter(
                 (winner) =>
                   winner.highlights &&
@@ -265,6 +313,9 @@ window.FPLUIManager = (function () {
                   winner.highlights.overallRank !== undefined
               )
               .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+
+            // Apply enhanced data processing
+            window.leaderboardData = processEnhancedLeaderboardData(data, filteredWinners);
 
             console.log(
               '📊 Leaderboard data loaded and processed:',

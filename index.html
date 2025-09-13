@@ -2036,7 +2036,7 @@
 
             if (data.winners) {
               // Sort by overall rank (ascending) - lower rank number = better position
-              leaderboardData = data.winners
+              let winnersData = data.winners
                 .filter(
                   (winner) =>
                     winner.highlights &&
@@ -2044,6 +2044,48 @@
                     winner.highlights.overallRank !== undefined
                 ) // Include all players with a rank (including rank 0)
                 .sort((a, b) => a.highlights.overallRank - b.highlights.overallRank);
+
+              // ENHANCEMENT: Process enhanced JSON data if available
+              try {
+                console.log('🏆 Checking for enhanced leaderboard data...');
+                
+                // Check if this is enhanced JSON (has enhancement metadata)
+                const isEnhancedJson = data.enhancements?.leaderboardEnhanced === true;
+                
+                if (isEnhancedJson) {
+                  console.log('✅ Enhanced JSON detected, using server-side enhancements');
+                  // Enhanced JSON already has movement, current GW points, and deficit data
+                  // Just ensure proper ordering and any missing fallback processing
+                  leaderboardData = winnersData;
+                } else {
+                  console.log('ℹ️ Standard JSON detected, applying frontend enhancements');
+                  
+                  // Apply frontend enhancement modules for backward compatibility
+                  if (window.LeaderboardEnhancement && window.CurrentGWPoints) {
+                    // First enhance with current GW points
+                    winnersData = CurrentGWPoints.enhancePlayersWithCurrentGW(winnersData);
+                    
+                    // Then add movement indicators and deficit calculations
+                    winnersData = LeaderboardEnhancement.enhanceLeaderboardData(winnersData);
+                    
+                    console.log('✅ Frontend enhancement modules applied successfully');
+                  } else {
+                    console.warn('⚠️ Enhancement modules not available, using basic data');
+                  }
+                  
+                  leaderboardData = winnersData;
+                }
+                
+                // Store enhanced data globally for modular access
+                window.leaderboardData = leaderboardData;
+                
+                console.log('📊 Enhanced leaderboard data ready:', leaderboardData.length, 'players');
+                
+              } catch (enhancementError) {
+                console.error('❌ Error applying leaderboard enhancements:', enhancementError);
+                // Fallback to basic data processing
+                leaderboardData = winnersData;
+              }
 
               displayLeaderboard();
 
@@ -2135,25 +2177,28 @@
         // Generate table HTML
 
         const tableHTML = `
-          <table class="leaderboard-table table-density-compact table-align-rank table-align-player table-align-prize table-align-points">
+          <table class="leaderboard-table table-density-compact table-align-rank table-align-player table-align-gw table-align-total table-align-deficit">
             <colgroup>
-              <col style="width:4.75ch"> <!-- Rank -->
-              <col style="width:auto">  <!-- Player name -->
-              <col style="width:8ch">   <!-- Prize -->
-              <col style="width:6ch">   <!-- Points -->
+              <col style="width:2ch">   <!-- Rank -->
+              <col style="width:180px"> <!-- Player Name -->
+              <col style="width:2ch">   <!-- Current GW -->
+              <col style="width:3ch">   <!-- Total Points -->
+              <col style="width:3ch">   <!-- FROM #1 -->
             </colgroup>
             <thead>
               <tr>
                 <th scope="col" class="col-rank" aria-label="Rank" data-short="#">#</th>
                 <th scope="col" aria-label="Player Name" title="Player Name">PLAYER</th>
-                <th scope="col" aria-label="Prize Won" title="Prize Won">PRIZE</th>
-                <th scope="col" aria-label="Points" title="Points">PTS</th>
+                <th scope="col" aria-label="Current Gameweek Points" title="Current Gameweek Points">GW</th>
+                <th scope="col" aria-label="Total Points" title="Total Points">TOTAL</th>
+                <th scope="col" aria-label="Points Behind Leader" title="Points Behind Leader">FROM #1</th>
               </tr>
             </thead>
             <tbody>
               ${currentPageData
                 .map((player, index) => {
                   const actualRank = player.highlights.overallRank;
+                  
                   // Overall score field may be named differently depending on data source.
                   const rawScore =
                     (player.highlights && player.highlights.totalPoints) ||
@@ -2163,6 +2208,19 @@
                     overallScore === null || isNaN(overallScore)
                       ? '—'
                       : overallScore.toLocaleString('en-IN');
+
+                  // Enhanced data: Movement indicators
+                  const movementIcon = player.movement?.icon || '';
+                  const movementClass = player.movement?.direction ? `movement-${player.movement.direction}` : '';
+                  
+                  // Enhanced data: Current GW points
+                  const currentGWPoints = player.highlights?.currentGWPoints || player.currentGWPoints || null;
+                  const gwDisplay = currentGWPoints && currentGWPoints > 0 ? currentGWPoints.toString() : '—';
+                  
+                  // Enhanced data: Deficit from leader
+                  const deficitValue = player.highlights?.deficitFromLeader ?? player.deficitFromLeader ?? null;
+                  const deficitDisplay = deficitValue === 0 ? '—' : (deficitValue && deficitValue > 0 ? deficitValue.toString() : '—');
+
                   return `
                 <tr>
                   <td class="leaderboard-rank col-rank${
@@ -2173,10 +2231,15 @@
                         : actualRank === 3
                           ? ' rank-3'
                           : ''
-                  }">${actualRank}</td>
-                  <td class="leaderboard-player" title="${escapeHTML(player.playerName)}" aria-label="${escapeHTML(player.playerName)}">${escapeHTML(player.playerName)}</td>
-                  <td class="leaderboard-prize">₹${player.totalPrizeWon.toLocaleString('en-IN')}</td>
-                  <td class="leaderboard-score">${scoreDisplay}</td>
+                  }">
+                    <span class="rank-number">${actualRank}</span><span class="rank-movement ${movementClass}">${movementIcon}</span>
+                  </td>
+                  <td class="leaderboard-player" title="${escapeHTML(player.playerName)}" aria-label="${escapeHTML(player.playerName)}">
+                    <div class="player-team">${escapeHTML(player.playerName)}</div>
+                  </td>
+                  <td class="leaderboard-gw">${gwDisplay}</td>
+                  <td class="leaderboard-total">${scoreDisplay}</td>
+                  <td class="leaderboard-deficit">${deficitDisplay}</td>
                 </tr>
               `;
                 })
