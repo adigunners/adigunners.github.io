@@ -267,7 +267,8 @@
       function generateLeaderboardTable(players) {
         const tableHTML = `
           <div class="table-scroll">
-            <table class="leaderboard-table table-density-compact">
+            <div class="leaderboard">
+              <table class="leaderboard-table table-density-compact leaderboard__table leaderboard__table--compact">
               <colgroup>
                 <col style="width:5ch">   <!-- Rank -->
                 <col style="width:auto">  <!-- Team & Manager -->
@@ -275,16 +276,16 @@
                 <col style="width:6ch">   <!-- Total Points -->
                 <col style="width:5ch">   <!-- Deficit -->
               </colgroup>
-              <thead>
-                <tr>
-                  <th scope="col" class="col-rank" aria-label="Rank" data-short="#">#</th>
-                  <th scope="col" aria-label="Team & Manager" title="Team & Manager">TEAM</th>
-                  <th scope="col" aria-label="Current Gameweek Points" title="Current Gameweek Points">GW</th>
-                  <th scope="col" aria-label="Total Points" title="Total Points">TOTAL</th>
-                  <th scope="col" aria-label="Deficit from Leader" title="Deficit from Leader">DEFICIT</th>
+              <thead class="leaderboard__header">
+                <tr class="leaderboard__row">
+                  <th scope="col" class="col-rank leaderboard__cell leaderboard__cell--rank u-text-center" aria-label="Rank" data-short="#">#</th>
+                  <th scope="col" class="leaderboard__cell leaderboard__cell--player u-text-left" aria-label="Team & Manager" title="Team & Manager">PLAYER</th>
+                  <th scope="col" class="leaderboard__cell leaderboard__cell--gw u-text-right" aria-label="Current Gameweek Points" title="Current Gameweek Points">GW</th>
+                  <th scope="col" class="leaderboard__cell leaderboard__cell--total u-text-right" aria-label="Total Points" title="Total Points">TOTAL</th>
+                  <th scope="col" class="leaderboard__cell leaderboard__cell--deficit u-text-right" aria-label="Deficit from Leader" title="Deficit from Leader">FROM #1</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="leaderboard__body">
                 ${players
                   .map((player) => {
                     const actualRank = player.highlights.overallRank;
@@ -302,8 +303,8 @@
                         : player.highlights.deficitFromLeader.toString();
 
                     return `
-                    <tr>
-                      <td class="leaderboard-rank col-rank${
+                    <tr class="leaderboard__row${actualRank <= 3 ? ' leaderboard__row--winner' : ''}">
+                      <td class="leaderboard-rank col-rank leaderboard__cell leaderboard__cell--rank u-text-center${
                         actualRank === 1
                           ? ' rank-1'
                           : actualRank === 2
@@ -312,14 +313,14 @@
                               ? ' rank-3'
                               : ''
                       }">
-                        <span class="rank-movement ${movementClass}">${movementIcon}</span>${actualRank}
+                        <span class="rank-number">${actualRank}</span><span class="rank-movement ${movementClass}">${movementIcon}</span>
                       </td>
-                      <td class="leaderboard-player" title="${player.playerName}" aria-label="${player.playerName}">
+                      <td class="leaderboard-player leaderboard__cell leaderboard__cell--player u-text-left" title="${player.playerName}" aria-label="${player.playerName}">
                         <div class="player-team">${player.playerName}</div>
                       </td>
-                      <td class="leaderboard-gw">${gwDisplay}</td>
-                      <td class="leaderboard-total">${scoreDisplay}</td>
-                      <td class="leaderboard-deficit">${deficitDisplay}</td>
+                      <td class="leaderboard-gw leaderboard__cell leaderboard__cell--gw u-text-right">${gwDisplay}</td>
+                      <td class="leaderboard-total leaderboard__cell leaderboard__cell--total u-text-right">${scoreDisplay}</td>
+                      <td class="leaderboard-deficit leaderboard__cell leaderboard__cell--deficit u-text-right">${deficitDisplay}</td>
                     </tr>
                   `;
                   })
@@ -327,6 +328,7 @@
               </tbody>
             </table>
           </div>
+        </div>
           
           <div style="margin-top: 16px; padding: 12px; background: #f8f9fa; border-radius: 6px; font-size: 14px; color: #6c757d;">
             <strong>Enhanced Features Demonstrated:</strong><br>
