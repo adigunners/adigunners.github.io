@@ -1,29 +1,29 @@
 {
-  "lastUpdated": "2025-09-13T22:35:49.704Z",
+  "lastUpdated": "2025-09-13T22:41:16.064Z",
   "summary": {
-    "totalPrizeDistributed": 2998,
-    "totalPaid": 2998,
+    "totalPrizeDistributed": 1000,
+    "totalPaid": 1000,
     "totalPending": 0,
     "gameweekPrizes": 1000,
-    "monthlyPrizes": 1998,
+    "monthlyPrizes": 0,
     "completedGameweeks": 1,
-    "completedMonths": 1,
+    "completedMonths": 0,
     "totalWinners": 54,
     "lastProcessedGW": 1
   },
   "winners": [
     {
       "playerName": "Avanit Kaushal",
-      "totalPrizeWon": 1316,
+      "totalPrizeWon": 650,
       "totalPaid": 0,
       "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 650,
-        "monthly": 666
+        "monthly": 0
       },
       "highlights": {
         "gameWeeks": 1,
-        "gameMonths": 1,
+        "gameMonths": 0,
         "overallRank": 1,
         "totalPoints": 78,
         "previousRank": null,
@@ -39,102 +39,13 @@
             "status": "Paid"
           }
         ],
-        "months": [
-          {
-            "month": 1,
-            "position": "1st",
-            "prize": 666,
-            "status": "Paid"
-          }
-        ]
+        "months": []
       },
       "positions": {
-        "first": 2,
+        "first": 1,
         "second": 0
       },
       "totalPoints": 78,
-      "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "?",
-        "displayText": "NEW"
-      }
-    },
-    {
-      "playerName": "B V Dhananjay",
-      "totalPrizeWon": 666,
-      "totalPaid": 0,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 666
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 1,
-        "overallRank": 9,
-        "totalPoints": 61,
-        "previousRank": null,
-        "currentGWPoints": 0,
-        "deficitFromLeader": 17
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": [
-          {
-            "month": 1,
-            "position": "1st",
-            "prize": 666,
-            "status": "Paid"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 61,
-      "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "?",
-        "displayText": "NEW"
-      }
-    },
-    {
-      "playerName": "Kiran Kanoj",
-      "totalPrizeWon": 666,
-      "totalPaid": 0,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 666
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 1,
-        "overallRank": 4,
-        "totalPoints": 67,
-        "previousRank": null,
-        "currentGWPoints": 0,
-        "deficitFromLeader": 11
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": [
-          {
-            "month": 1,
-            "position": "1st",
-            "prize": 666,
-            "status": "Paid"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 67,
       "movement": {
         "direction": "new",
         "change": 0,
@@ -320,6 +231,40 @@
       }
     },
     {
+      "playerName": "B V Dhananjay",
+      "totalPrizeWon": 0,
+      "totalPaid": 0,
+      "totalPending": 0,
+      "prizeBreakdown": {
+        "gameweek": 0,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 0,
+        "gameMonths": 0,
+        "overallRank": 9,
+        "totalPoints": 61,
+        "previousRank": null,
+        "currentGWPoints": 0,
+        "deficitFromLeader": 17
+      },
+      "achievements": {
+        "gameweeks": [],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 0
+      },
+      "totalPoints": 61,
+      "movement": {
+        "direction": "new",
+        "change": 0,
+        "icon": "?",
+        "displayText": "NEW"
+      }
+    },
+    {
       "playerName": "Soman Panda",
       "totalPrizeWon": 0,
       "totalPaid": 0,
@@ -414,6 +359,40 @@
         "second": 0
       },
       "totalPoints": 60,
+      "movement": {
+        "direction": "new",
+        "change": 0,
+        "icon": "?",
+        "displayText": "NEW"
+      }
+    },
+    {
+      "playerName": "Kiran Kanoj",
+      "totalPrizeWon": 0,
+      "totalPaid": 0,
+      "totalPending": 0,
+      "prizeBreakdown": {
+        "gameweek": 0,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 0,
+        "gameMonths": 0,
+        "overallRank": 4,
+        "totalPoints": 67,
+        "previousRank": null,
+        "currentGWPoints": 0,
+        "deficitFromLeader": 11
+      },
+      "achievements": {
+        "gameweeks": [],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 0
+      },
+      "totalPoints": 67,
       "movement": {
         "direction": "new",
         "change": 0,
@@ -1887,7 +1866,7 @@
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2025-09-13T22:35:49.900Z",
+    "enhancedAt": "2025-09-13T22:41:16.263Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
