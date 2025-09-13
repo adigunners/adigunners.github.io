@@ -1,29 +1,29 @@
 {
-  "lastUpdated": "2025-09-13T22:41:21.498Z",
+  "lastUpdated": "2025-09-13T22:45:16.184Z",
   "summary": {
-    "totalPrizeDistributed": 3000,
-    "totalPaid": 3000,
+    "totalPrizeDistributed": 4998,
+    "totalPaid": 4998,
     "totalPending": 0,
     "gameweekPrizes": 3000,
-    "monthlyPrizes": 0,
+    "monthlyPrizes": 1998,
     "completedGameweeks": 3,
-    "completedMonths": 0,
+    "completedMonths": 1,
     "totalWinners": 54,
     "lastProcessedGW": 3
   },
   "winners": [
     {
       "playerName": "Kiran Kanoj",
-      "totalPrizeWon": 650,
+      "totalPrizeWon": 1316,
       "totalPaid": 0,
       "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 650,
-        "monthly": 0
+        "monthly": 666
       },
       "highlights": {
         "gameWeeks": 1,
-        "gameMonths": 0,
+        "gameMonths": 1,
         "overallRank": 1,
         "totalPoints": 179,
         "previousRank": 1,
@@ -39,10 +39,17 @@
             "status": "Paid"
           }
         ],
-        "months": []
+        "months": [
+          {
+            "month": 1,
+            "position": "1st",
+            "prize": 666,
+            "status": "Paid"
+          }
+        ]
       },
       "positions": {
-        "first": 1,
+        "first": 2,
         "second": 0
       },
       "totalPoints": 179,
@@ -55,16 +62,16 @@
     },
     {
       "playerName": "Avanit Kaushal",
-      "totalPrizeWon": 650,
+      "totalPrizeWon": 1316,
       "totalPaid": 0,
       "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 650,
-        "monthly": 0
+        "monthly": 666
       },
       "highlights": {
         "gameWeeks": 1,
-        "gameMonths": 0,
+        "gameMonths": 1,
         "overallRank": 1,
         "totalPoints": 179,
         "previousRank": 2,
@@ -80,10 +87,17 @@
             "status": "Paid"
           }
         ],
-        "months": []
+        "months": [
+          {
+            "month": 1,
+            "position": "1st",
+            "prize": 666,
+            "status": "Paid"
+          }
+        ]
       },
       "positions": {
-        "first": 1,
+        "first": 2,
         "second": 0
       },
       "totalPoints": 179,
@@ -92,6 +106,47 @@
         "change": 1,
         "icon": "?",
         "displayText": "+1"
+      }
+    },
+    {
+      "playerName": "B V Dhananjay",
+      "totalPrizeWon": 666,
+      "totalPaid": 0,
+      "totalPending": 0,
+      "prizeBreakdown": {
+        "gameweek": 0,
+        "monthly": 666
+      },
+      "highlights": {
+        "gameWeeks": 0,
+        "gameMonths": 1,
+        "overallRank": 1,
+        "totalPoints": 179,
+        "previousRank": 4,
+        "currentGWPoints": 0,
+        "deficitFromLeader": 0
+      },
+      "achievements": {
+        "gameweeks": [],
+        "months": [
+          {
+            "month": 1,
+            "position": "1st",
+            "prize": 666,
+            "status": "Paid"
+          }
+        ]
+      },
+      "positions": {
+        "first": 1,
+        "second": 0
+      },
+      "totalPoints": 179,
+      "movement": {
+        "direction": "up",
+        "change": 3,
+        "icon": "?",
+        "displayText": "+3"
       }
     },
     {
@@ -392,40 +447,6 @@
         "change": 9,
         "icon": "?",
         "displayText": "-9"
-      }
-    },
-    {
-      "playerName": "B V Dhananjay",
-      "totalPrizeWon": 0,
-      "totalPaid": 0,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 0,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 0,
-        "gameMonths": 0,
-        "overallRank": 1,
-        "totalPoints": 179,
-        "previousRank": 4,
-        "currentGWPoints": 0,
-        "deficitFromLeader": 0
-      },
-      "achievements": {
-        "gameweeks": [],
-        "months": []
-      },
-      "positions": {
-        "first": 0,
-        "second": 0
-      },
-      "totalPoints": 179,
-      "movement": {
-        "direction": "up",
-        "change": 3,
-        "icon": "?",
-        "displayText": "+3"
       }
     },
     {
@@ -1894,7 +1915,7 @@
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2025-09-13T22:41:21.705Z",
+    "enhancedAt": "2025-09-13T22:45:16.399Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
