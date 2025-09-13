@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-13T23:09:07.076Z",
+  "lastUpdated": "2025-09-13T23:16:15.508Z",
   "summary": {
     "totalPrizeDistributed": 4998,
     "totalPaid": 4998,
@@ -26,8 +26,8 @@
         "gameMonths": 1,
         "overallRank": 1,
         "totalPoints": 179,
+        "currentGWPoints": 37,
         "previousRank": 1,
-        "currentGWPoints": 100,
         "deficitFromLeader": 0
       },
       "achievements": {
@@ -37,13 +37,6 @@
             "position": "1st",
             "prize": 650,
             "status": "Paid"
-          },
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 100
           }
         ],
         "months": [
@@ -81,8 +74,8 @@
         "gameMonths": 1,
         "overallRank": 1,
         "totalPoints": 179,
+        "currentGWPoints": 42,
         "previousRank": 1,
-        "currentGWPoints": 100,
         "deficitFromLeader": 0
       },
       "achievements": {
@@ -92,13 +85,6 @@
             "position": "1st",
             "prize": 650,
             "status": "Paid"
-          },
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 100
           }
         ],
         "months": [
@@ -136,20 +122,12 @@
         "gameMonths": 1,
         "overallRank": 1,
         "totalPoints": 179,
+        "currentGWPoints": 62,
         "previousRank": 1,
-        "currentGWPoints": 52,
         "deficitFromLeader": 0
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 52
-          }
-        ],
+        "gameweeks": [],
         "months": [
           {
             "month": 1,
@@ -185,8 +163,8 @@
         "gameMonths": 0,
         "overallRank": 11,
         "totalPoints": 160,
+        "currentGWPoints": 73,
         "previousRank": 11,
-        "currentGWPoints": 89,
         "deficitFromLeader": 19
       },
       "achievements": {
@@ -226,8 +204,8 @@
         "gameMonths": 0,
         "overallRank": 33,
         "totalPoints": 142,
+        "currentGWPoints": 47,
         "previousRank": 33,
-        "currentGWPoints": 80,
         "deficitFromLeader": 37
       },
       "achievements": {
@@ -237,13 +215,6 @@
             "position": "2nd",
             "prize": 350,
             "status": "Paid"
-          },
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 80
           }
         ],
         "months": []
@@ -274,8 +245,8 @@
         "gameMonths": 0,
         "overallRank": 11,
         "totalPoints": 160,
+        "currentGWPoints": 70,
         "previousRank": 11,
-        "currentGWPoints": 87,
         "deficitFromLeader": 19
       },
       "achievements": {
@@ -315,8 +286,8 @@
         "gameMonths": 0,
         "overallRank": 11,
         "totalPoints": 160,
+        "currentGWPoints": 47,
         "previousRank": 11,
-        "currentGWPoints": 87,
         "deficitFromLeader": 19
       },
       "achievements": {
@@ -326,13 +297,6 @@
             "position": "2nd",
             "prize": 350,
             "status": "Paid"
-          },
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 87
           }
         ],
         "months": []
@@ -363,20 +327,12 @@
         "gameMonths": 0,
         "overallRank": 29,
         "totalPoints": 148,
+        "currentGWPoints": 50,
         "previousRank": 29,
-        "currentGWPoints": 57,
         "deficitFromLeader": 31
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 57
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -405,20 +361,12 @@
         "gameMonths": 0,
         "overallRank": 6,
         "totalPoints": 167,
+        "currentGWPoints": 58,
         "previousRank": 6,
-        "currentGWPoints": 51,
         "deficitFromLeader": 12
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 51
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -447,20 +395,12 @@
         "gameMonths": 0,
         "overallRank": 32,
         "totalPoints": 143,
+        "currentGWPoints": 49,
         "previousRank": 32,
-        "currentGWPoints": 43,
         "deficitFromLeader": 36
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 43
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -489,20 +429,12 @@
         "gameMonths": 0,
         "overallRank": 14,
         "totalPoints": 159,
+        "currentGWPoints": 44,
         "previousRank": 14,
-        "currentGWPoints": 47,
         "deficitFromLeader": 20
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 47
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -531,20 +463,12 @@
         "gameMonths": 0,
         "overallRank": 42,
         "totalPoints": 133,
+        "currentGWPoints": 58,
         "previousRank": 42,
-        "currentGWPoints": 37,
         "deficitFromLeader": 46
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 37
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -573,20 +497,12 @@
         "gameMonths": 0,
         "overallRank": 39,
         "totalPoints": 136,
+        "currentGWPoints": 36,
         "previousRank": 39,
-        "currentGWPoints": 32,
         "deficitFromLeader": 43
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 32
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -615,20 +531,12 @@
         "gameMonths": 0,
         "overallRank": 7,
         "totalPoints": 166,
-        "previousRank": 7,
         "currentGWPoints": 55,
+        "previousRank": 7,
         "deficitFromLeader": 13
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 55
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -657,20 +565,12 @@
         "gameMonths": 0,
         "overallRank": 27,
         "totalPoints": 150,
+        "currentGWPoints": 50,
         "previousRank": 27,
-        "currentGWPoints": 44,
         "deficitFromLeader": 29
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 44
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -699,20 +599,12 @@
         "gameMonths": 0,
         "overallRank": 25,
         "totalPoints": 151,
+        "currentGWPoints": 46,
         "previousRank": 25,
-        "currentGWPoints": 52,
         "deficitFromLeader": 28
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 52
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -741,20 +633,12 @@
         "gameMonths": 0,
         "overallRank": 27,
         "totalPoints": 150,
+        "currentGWPoints": 46,
         "previousRank": 27,
-        "currentGWPoints": 43,
         "deficitFromLeader": 29
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 43
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -783,20 +667,12 @@
         "gameMonths": 0,
         "overallRank": 51,
         "totalPoints": 123,
+        "currentGWPoints": 52,
         "previousRank": 51,
-        "currentGWPoints": 42,
         "deficitFromLeader": 56
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 42
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -825,20 +701,12 @@
         "gameMonths": 0,
         "overallRank": 20,
         "totalPoints": 154,
+        "currentGWPoints": 56,
         "previousRank": 20,
-        "currentGWPoints": 41,
         "deficitFromLeader": 25
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 41
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -867,20 +735,12 @@
         "gameMonths": 0,
         "overallRank": 53,
         "totalPoints": 104,
+        "currentGWPoints": 33,
         "previousRank": 53,
-        "currentGWPoints": 54,
         "deficitFromLeader": 75
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 54
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -909,20 +769,12 @@
         "gameMonths": 0,
         "overallRank": 4,
         "totalPoints": 174,
+        "currentGWPoints": 61,
         "previousRank": 4,
-        "currentGWPoints": 52,
         "deficitFromLeader": 5
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 52
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -951,20 +803,12 @@
         "gameMonths": 0,
         "overallRank": 44,
         "totalPoints": 130,
+        "currentGWPoints": 49,
         "previousRank": 44,
-        "currentGWPoints": 31,
         "deficitFromLeader": 49
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 31
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -993,20 +837,12 @@
         "gameMonths": 0,
         "overallRank": 25,
         "totalPoints": 151,
+        "currentGWPoints": 44,
         "previousRank": 25,
-        "currentGWPoints": 53,
         "deficitFromLeader": 28
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 53
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1035,20 +871,12 @@
         "gameMonths": 0,
         "overallRank": 46,
         "totalPoints": 128,
+        "currentGWPoints": 43,
         "previousRank": 46,
-        "currentGWPoints": 46,
         "deficitFromLeader": 51
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 46
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1077,20 +905,12 @@
         "gameMonths": 0,
         "overallRank": 20,
         "totalPoints": 154,
+        "currentGWPoints": 48,
         "previousRank": 20,
-        "currentGWPoints": 61,
         "deficitFromLeader": 25
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 61
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1119,20 +939,12 @@
         "gameMonths": 0,
         "overallRank": 35,
         "totalPoints": 141,
+        "currentGWPoints": 43,
         "previousRank": 35,
-        "currentGWPoints": 31,
         "deficitFromLeader": 38
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 31
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1161,20 +973,12 @@
         "gameMonths": 0,
         "overallRank": 46,
         "totalPoints": 128,
+        "currentGWPoints": 55,
         "previousRank": 46,
-        "currentGWPoints": 51,
         "deficitFromLeader": 51
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 51
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1203,20 +1007,12 @@
         "gameMonths": 0,
         "overallRank": 16,
         "totalPoints": 158,
+        "currentGWPoints": 44,
         "previousRank": 16,
-        "currentGWPoints": 41,
         "deficitFromLeader": 21
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 41
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1245,20 +1041,12 @@
         "gameMonths": 0,
         "overallRank": 29,
         "totalPoints": 148,
+        "currentGWPoints": 50,
         "previousRank": 29,
-        "currentGWPoints": 40,
         "deficitFromLeader": 31
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 40
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1287,20 +1075,12 @@
         "gameMonths": 0,
         "overallRank": 43,
         "totalPoints": 132,
+        "currentGWPoints": 46,
         "previousRank": 43,
-        "currentGWPoints": 38,
         "deficitFromLeader": 47
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 38
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1329,20 +1109,12 @@
         "gameMonths": 0,
         "overallRank": 46,
         "totalPoints": 128,
+        "currentGWPoints": 35,
         "previousRank": 46,
-        "currentGWPoints": 30,
         "deficitFromLeader": 51
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 30
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1371,20 +1143,12 @@
         "gameMonths": 0,
         "overallRank": 10,
         "totalPoints": 161,
+        "currentGWPoints": 51,
         "previousRank": 10,
-        "currentGWPoints": 60,
         "deficitFromLeader": 18
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 60
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1413,20 +1177,12 @@
         "gameMonths": 0,
         "overallRank": 20,
         "totalPoints": 154,
+        "currentGWPoints": 58,
         "previousRank": 20,
-        "currentGWPoints": 63,
         "deficitFromLeader": 25
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 63
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1455,20 +1211,12 @@
         "gameMonths": 0,
         "overallRank": 33,
         "totalPoints": 142,
+        "currentGWPoints": 40,
         "previousRank": 33,
-        "currentGWPoints": 46,
         "deficitFromLeader": 37
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 46
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1497,20 +1245,12 @@
         "gameMonths": 0,
         "overallRank": 23,
         "totalPoints": 152,
+        "currentGWPoints": 50,
         "previousRank": 23,
-        "currentGWPoints": 41,
         "deficitFromLeader": 27
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 41
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1539,20 +1279,12 @@
         "gameMonths": 0,
         "overallRank": 52,
         "totalPoints": 109,
+        "currentGWPoints": 27,
         "previousRank": 52,
-        "currentGWPoints": 34,
         "deficitFromLeader": 70
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 34
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1581,20 +1313,12 @@
         "gameMonths": 0,
         "overallRank": 17,
         "totalPoints": 155,
+        "currentGWPoints": 43,
         "previousRank": 17,
-        "currentGWPoints": 57,
         "deficitFromLeader": 24
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 57
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1623,20 +1347,12 @@
         "gameMonths": 0,
         "overallRank": 49,
         "totalPoints": 127,
+        "currentGWPoints": 30,
         "previousRank": 49,
-        "currentGWPoints": 35,
         "deficitFromLeader": 52
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 35
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1665,20 +1381,12 @@
         "gameMonths": 0,
         "overallRank": 38,
         "totalPoints": 137,
+        "currentGWPoints": 50,
         "previousRank": 38,
-        "currentGWPoints": 48,
         "deficitFromLeader": 42
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 48
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1707,20 +1415,12 @@
         "gameMonths": 0,
         "overallRank": 9,
         "totalPoints": 163,
+        "currentGWPoints": 42,
         "previousRank": 9,
-        "currentGWPoints": 56,
         "deficitFromLeader": 16
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 56
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1749,20 +1449,12 @@
         "gameMonths": 0,
         "overallRank": 40,
         "totalPoints": 134,
+        "currentGWPoints": 39,
         "previousRank": 40,
-        "currentGWPoints": 53,
         "deficitFromLeader": 45
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 53
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1791,20 +1483,12 @@
         "gameMonths": 0,
         "overallRank": 5,
         "totalPoints": 169,
-        "previousRank": 5,
         "currentGWPoints": 54,
+        "previousRank": 5,
         "deficitFromLeader": 10
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 54
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1833,20 +1517,12 @@
         "gameMonths": 0,
         "overallRank": 54,
         "totalPoints": 103,
+        "currentGWPoints": 32,
         "previousRank": 54,
-        "currentGWPoints": 54,
         "deficitFromLeader": 76
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 54
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1875,20 +1551,12 @@
         "gameMonths": 0,
         "overallRank": 40,
         "totalPoints": 134,
+        "currentGWPoints": 43,
         "previousRank": 40,
-        "currentGWPoints": 45,
         "deficitFromLeader": 45
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 45
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1917,20 +1585,12 @@
         "gameMonths": 0,
         "overallRank": 23,
         "totalPoints": 152,
+        "currentGWPoints": 50,
         "previousRank": 23,
-        "currentGWPoints": 45,
         "deficitFromLeader": 27
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 45
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -1959,20 +1619,12 @@
         "gameMonths": 0,
         "overallRank": 17,
         "totalPoints": 155,
+        "currentGWPoints": 62,
         "previousRank": 17,
-        "currentGWPoints": 43,
         "deficitFromLeader": 24
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 43
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -2001,20 +1653,12 @@
         "gameMonths": 0,
         "overallRank": 31,
         "totalPoints": 144,
+        "currentGWPoints": 50,
         "previousRank": 31,
-        "currentGWPoints": 35,
         "deficitFromLeader": 35
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 35
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -2043,20 +1687,12 @@
         "gameMonths": 0,
         "overallRank": 14,
         "totalPoints": 159,
+        "currentGWPoints": 48,
         "previousRank": 14,
-        "currentGWPoints": 59,
         "deficitFromLeader": 20
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 59
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -2085,20 +1721,12 @@
         "gameMonths": 0,
         "overallRank": 45,
         "totalPoints": 129,
+        "currentGWPoints": 40,
         "previousRank": 45,
-        "currentGWPoints": 35,
         "deficitFromLeader": 50
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 35
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -2127,20 +1755,12 @@
         "gameMonths": 0,
         "overallRank": 8,
         "totalPoints": 165,
+        "currentGWPoints": 58,
         "previousRank": 8,
-        "currentGWPoints": 57,
         "deficitFromLeader": 14
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 57
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -2169,20 +1789,12 @@
         "gameMonths": 0,
         "overallRank": 50,
         "totalPoints": 125,
+        "currentGWPoints": 36,
         "previousRank": 50,
-        "currentGWPoints": 46,
         "deficitFromLeader": 54
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 46
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -2211,20 +1823,12 @@
         "gameMonths": 0,
         "overallRank": 36,
         "totalPoints": 140,
+        "currentGWPoints": 42,
         "previousRank": 36,
-        "currentGWPoints": 44,
         "deficitFromLeader": 39
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 44
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -2253,20 +1857,12 @@
         "gameMonths": 0,
         "overallRank": 17,
         "totalPoints": 155,
+        "currentGWPoints": 49,
         "previousRank": 17,
-        "currentGWPoints": 41,
         "deficitFromLeader": 24
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 41
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -2295,20 +1891,12 @@
         "gameMonths": 0,
         "overallRank": 37,
         "totalPoints": 138,
-        "previousRank": 37,
         "currentGWPoints": 42,
+        "previousRank": 37,
         "deficitFromLeader": 41
       },
       "achievements": {
-        "gameweeks": [
-          {
-            "week": 3,
-            "position": "TBD",
-            "prize": 0,
-            "status": "In Progress",
-            "points": 42
-          }
-        ],
+        "gameweeks": [],
         "months": []
       },
       "positions": {
@@ -2327,7 +1915,7 @@
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2025-09-13T23:09:38.882Z",
+    "enhancedAt": "2025-09-13T23:16:15.718Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
