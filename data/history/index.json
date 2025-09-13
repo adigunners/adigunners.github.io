@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2025-09-13T23:36:12.245Z",
+  "latestGW": 3,
+  "files": [
+    {
+      "gw": 1,
+      "path": "data/history/winner_stats_gw1.json"
+    },
+    {
+      "gw": 2,
+      "path": "data/history/winner_stats_gw2.json"
+    },
+    {
+      "gw": 3,
+      "path": "data/history/winner_stats_gw3.json"
+    }
+  ]
+}
