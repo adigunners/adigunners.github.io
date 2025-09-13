@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-13T22:45:16.184Z",
+  "lastUpdated": "2025-09-13T23:03:53.570Z",
   "summary": {
     "totalPrizeDistributed": 4998,
     "totalPaid": 4998,
@@ -15,7 +15,7 @@
     {
       "playerName": "Kiran Kanoj",
       "totalPrizeWon": 1316,
-      "totalPaid": 0,
+      "totalPaid": 1316,
       "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 650,
@@ -26,8 +26,8 @@
         "gameMonths": 1,
         "overallRank": 1,
         "totalPoints": 179,
+        "currentGWPoints": 37,
         "previousRank": 1,
-        "currentGWPoints": 0,
         "deficitFromLeader": 0
       },
       "achievements": {
@@ -63,7 +63,7 @@
     {
       "playerName": "Avanit Kaushal",
       "totalPrizeWon": 1316,
-      "totalPaid": 0,
+      "totalPaid": 1316,
       "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 650,
@@ -74,8 +74,8 @@
         "gameMonths": 1,
         "overallRank": 1,
         "totalPoints": 179,
+        "currentGWPoints": 42,
         "previousRank": 2,
-        "currentGWPoints": 0,
         "deficitFromLeader": 0
       },
       "achievements": {
@@ -111,7 +111,7 @@
     {
       "playerName": "B V Dhananjay",
       "totalPrizeWon": 666,
-      "totalPaid": 0,
+      "totalPaid": 666,
       "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 0,
@@ -122,8 +122,8 @@
         "gameMonths": 1,
         "overallRank": 1,
         "totalPoints": 179,
+        "currentGWPoints": 62,
         "previousRank": 4,
-        "currentGWPoints": 0,
         "deficitFromLeader": 0
       },
       "achievements": {
@@ -152,7 +152,7 @@
     {
       "playerName": "Lakshman Aravind ",
       "totalPrizeWon": 650,
-      "totalPaid": 0,
+      "totalPaid": 650,
       "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 650,
@@ -163,8 +163,8 @@
         "gameMonths": 0,
         "overallRank": 11,
         "totalPoints": 160,
+        "currentGWPoints": 73,
         "previousRank": 44,
-        "currentGWPoints": 0,
         "deficitFromLeader": 19
       },
       "achievements": {
@@ -193,7 +193,7 @@
     {
       "playerName": "Sidharthshankar Pati",
       "totalPrizeWon": 350,
-      "totalPaid": 0,
+      "totalPaid": 350,
       "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 350,
@@ -204,8 +204,8 @@
         "gameMonths": 0,
         "overallRank": 33,
         "totalPoints": 142,
+        "currentGWPoints": 47,
         "previousRank": 34,
-        "currentGWPoints": 0,
         "deficitFromLeader": 37
       },
       "achievements": {
@@ -234,7 +234,7 @@
     {
       "playerName": "Bhushan Wagh",
       "totalPrizeWon": 350,
-      "totalPaid": 0,
+      "totalPaid": 350,
       "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 350,
@@ -245,8 +245,8 @@
         "gameMonths": 0,
         "overallRank": 11,
         "totalPoints": 160,
+        "currentGWPoints": 70,
         "previousRank": 41,
-        "currentGWPoints": 0,
         "deficitFromLeader": 19
       },
       "achievements": {
@@ -275,7 +275,7 @@
     {
       "playerName": "Sanchay Srivastava",
       "totalPrizeWon": 350,
-      "totalPaid": 0,
+      "totalPaid": 350,
       "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 350,
@@ -286,8 +286,8 @@
         "gameMonths": 0,
         "overallRank": 11,
         "totalPoints": 160,
+        "currentGWPoints": 47,
         "previousRank": 8,
-        "currentGWPoints": 0,
         "deficitFromLeader": 19
       },
       "achievements": {
@@ -327,8 +327,8 @@
         "gameMonths": 0,
         "overallRank": 29,
         "totalPoints": 148,
+        "currentGWPoints": 50,
         "previousRank": 26,
-        "currentGWPoints": 0,
         "deficitFromLeader": 31
       },
       "achievements": {
@@ -361,8 +361,8 @@
         "gameMonths": 0,
         "overallRank": 6,
         "totalPoints": 167,
+        "currentGWPoints": 58,
         "previousRank": 14,
-        "currentGWPoints": 0,
         "deficitFromLeader": 12
       },
       "achievements": {
@@ -395,8 +395,8 @@
         "gameMonths": 0,
         "overallRank": 32,
         "totalPoints": 143,
+        "currentGWPoints": 49,
         "previousRank": 36,
-        "currentGWPoints": 0,
         "deficitFromLeader": 36
       },
       "achievements": {
@@ -429,8 +429,8 @@
         "gameMonths": 0,
         "overallRank": 14,
         "totalPoints": 159,
+        "currentGWPoints": 44,
         "previousRank": 5,
-        "currentGWPoints": 0,
         "deficitFromLeader": 20
       },
       "achievements": {
@@ -463,8 +463,8 @@
         "gameMonths": 0,
         "overallRank": 42,
         "totalPoints": 133,
+        "currentGWPoints": 58,
         "previousRank": 50,
-        "currentGWPoints": 0,
         "deficitFromLeader": 46
       },
       "achievements": {
@@ -497,8 +497,8 @@
         "gameMonths": 0,
         "overallRank": 39,
         "totalPoints": 136,
+        "currentGWPoints": 36,
         "previousRank": 24,
-        "currentGWPoints": 0,
         "deficitFromLeader": 43
       },
       "achievements": {
@@ -531,8 +531,8 @@
         "gameMonths": 0,
         "overallRank": 7,
         "totalPoints": 166,
+        "currentGWPoints": 55,
         "previousRank": 11,
-        "currentGWPoints": 0,
         "deficitFromLeader": 13
       },
       "achievements": {
@@ -565,8 +565,8 @@
         "gameMonths": 0,
         "overallRank": 27,
         "totalPoints": 150,
+        "currentGWPoints": 50,
         "previousRank": 24,
-        "currentGWPoints": 0,
         "deficitFromLeader": 29
       },
       "achievements": {
@@ -599,8 +599,8 @@
         "gameMonths": 0,
         "overallRank": 25,
         "totalPoints": 151,
+        "currentGWPoints": 46,
         "previousRank": 19,
-        "currentGWPoints": 0,
         "deficitFromLeader": 28
       },
       "achievements": {
@@ -633,8 +633,8 @@
         "gameMonths": 0,
         "overallRank": 27,
         "totalPoints": 150,
+        "currentGWPoints": 46,
         "previousRank": 20,
-        "currentGWPoints": 0,
         "deficitFromLeader": 29
       },
       "achievements": {
@@ -667,8 +667,8 @@
         "gameMonths": 0,
         "overallRank": 51,
         "totalPoints": 123,
+        "currentGWPoints": 52,
         "previousRank": 52,
-        "currentGWPoints": 0,
         "deficitFromLeader": 56
       },
       "achievements": {
@@ -701,8 +701,8 @@
         "gameMonths": 0,
         "overallRank": 20,
         "totalPoints": 154,
+        "currentGWPoints": 56,
         "previousRank": 26,
-        "currentGWPoints": 0,
         "deficitFromLeader": 25
       },
       "achievements": {
@@ -735,8 +735,8 @@
         "gameMonths": 0,
         "overallRank": 53,
         "totalPoints": 104,
+        "currentGWPoints": 33,
         "previousRank": 52,
-        "currentGWPoints": 0,
         "deficitFromLeader": 75
       },
       "achievements": {
@@ -769,8 +769,8 @@
         "gameMonths": 0,
         "overallRank": 4,
         "totalPoints": 174,
+        "currentGWPoints": 61,
         "previousRank": 8,
-        "currentGWPoints": 0,
         "deficitFromLeader": 5
       },
       "achievements": {
@@ -803,8 +803,8 @@
         "gameMonths": 0,
         "overallRank": 44,
         "totalPoints": 130,
+        "currentGWPoints": 49,
         "previousRank": 49,
-        "currentGWPoints": 0,
         "deficitFromLeader": 49
       },
       "achievements": {
@@ -837,8 +837,8 @@
         "gameMonths": 0,
         "overallRank": 25,
         "totalPoints": 151,
+        "currentGWPoints": 44,
         "previousRank": 15,
-        "currentGWPoints": 0,
         "deficitFromLeader": 28
       },
       "achievements": {
@@ -871,8 +871,8 @@
         "gameMonths": 0,
         "overallRank": 46,
         "totalPoints": 128,
+        "currentGWPoints": 43,
         "previousRank": 47,
-        "currentGWPoints": 0,
         "deficitFromLeader": 51
       },
       "achievements": {
@@ -905,8 +905,8 @@
         "gameMonths": 0,
         "overallRank": 20,
         "totalPoints": 154,
+        "currentGWPoints": 48,
         "previousRank": 17,
-        "currentGWPoints": 0,
         "deficitFromLeader": 25
       },
       "achievements": {
@@ -939,8 +939,8 @@
         "gameMonths": 0,
         "overallRank": 35,
         "totalPoints": 141,
+        "currentGWPoints": 43,
         "previousRank": 26,
-        "currentGWPoints": 0,
         "deficitFromLeader": 38
       },
       "achievements": {
@@ -973,8 +973,8 @@
         "gameMonths": 0,
         "overallRank": 46,
         "totalPoints": 128,
+        "currentGWPoints": 55,
         "previousRank": 51,
-        "currentGWPoints": 0,
         "deficitFromLeader": 51
       },
       "achievements": {
@@ -1007,8 +1007,8 @@
         "gameMonths": 0,
         "overallRank": 16,
         "totalPoints": 158,
+        "currentGWPoints": 44,
         "previousRank": 7,
-        "currentGWPoints": 0,
         "deficitFromLeader": 21
       },
       "achievements": {
@@ -1041,8 +1041,8 @@
         "gameMonths": 0,
         "overallRank": 29,
         "totalPoints": 148,
+        "currentGWPoints": 50,
         "previousRank": 26,
-        "currentGWPoints": 0,
         "deficitFromLeader": 31
       },
       "achievements": {
@@ -1075,8 +1075,8 @@
         "gameMonths": 0,
         "overallRank": 43,
         "totalPoints": 132,
+        "currentGWPoints": 46,
         "previousRank": 46,
-        "currentGWPoints": 0,
         "deficitFromLeader": 47
       },
       "achievements": {
@@ -1109,8 +1109,8 @@
         "gameMonths": 0,
         "overallRank": 46,
         "totalPoints": 128,
+        "currentGWPoints": 35,
         "previousRank": 38,
-        "currentGWPoints": 0,
         "deficitFromLeader": 51
       },
       "achievements": {
@@ -1143,8 +1143,8 @@
         "gameMonths": 0,
         "overallRank": 10,
         "totalPoints": 161,
+        "currentGWPoints": 51,
         "previousRank": 13,
-        "currentGWPoints": 0,
         "deficitFromLeader": 18
       },
       "achievements": {
@@ -1177,8 +1177,8 @@
         "gameMonths": 0,
         "overallRank": 20,
         "totalPoints": 154,
+        "currentGWPoints": 58,
         "previousRank": 32,
-        "currentGWPoints": 0,
         "deficitFromLeader": 25
       },
       "achievements": {
@@ -1211,8 +1211,8 @@
         "gameMonths": 0,
         "overallRank": 33,
         "totalPoints": 142,
+        "currentGWPoints": 40,
         "previousRank": 21,
-        "currentGWPoints": 0,
         "deficitFromLeader": 37
       },
       "achievements": {
@@ -1245,8 +1245,8 @@
         "gameMonths": 0,
         "overallRank": 23,
         "totalPoints": 152,
+        "currentGWPoints": 50,
         "previousRank": 21,
-        "currentGWPoints": 0,
         "deficitFromLeader": 27
       },
       "achievements": {
@@ -1279,8 +1279,8 @@
         "gameMonths": 0,
         "overallRank": 52,
         "totalPoints": 109,
+        "currentGWPoints": 27,
         "previousRank": 48,
-        "currentGWPoints": 0,
         "deficitFromLeader": 70
       },
       "achievements": {
@@ -1313,8 +1313,8 @@
         "gameMonths": 0,
         "overallRank": 17,
         "totalPoints": 155,
+        "currentGWPoints": 43,
         "previousRank": 10,
-        "currentGWPoints": 0,
         "deficitFromLeader": 24
       },
       "achievements": {
@@ -1347,8 +1347,8 @@
         "gameMonths": 0,
         "overallRank": 49,
         "totalPoints": 127,
+        "currentGWPoints": 30,
         "previousRank": 31,
-        "currentGWPoints": 0,
         "deficitFromLeader": 52
       },
       "achievements": {
@@ -1381,8 +1381,8 @@
         "gameMonths": 0,
         "overallRank": 38,
         "totalPoints": 137,
+        "currentGWPoints": 50,
         "previousRank": 44,
-        "currentGWPoints": 0,
         "deficitFromLeader": 42
       },
       "achievements": {
@@ -1415,8 +1415,8 @@
         "gameMonths": 0,
         "overallRank": 9,
         "totalPoints": 163,
+        "currentGWPoints": 42,
         "previousRank": 3,
-        "currentGWPoints": 0,
         "deficitFromLeader": 16
       },
       "achievements": {
@@ -1449,8 +1449,8 @@
         "gameMonths": 0,
         "overallRank": 40,
         "totalPoints": 134,
+        "currentGWPoints": 39,
         "previousRank": 34,
-        "currentGWPoints": 0,
         "deficitFromLeader": 45
       },
       "achievements": {
@@ -1483,8 +1483,8 @@
         "gameMonths": 0,
         "overallRank": 5,
         "totalPoints": 169,
+        "currentGWPoints": 54,
         "previousRank": 5,
-        "currentGWPoints": 0,
         "deficitFromLeader": 10
       },
       "achievements": {
@@ -1517,8 +1517,8 @@
         "gameMonths": 0,
         "overallRank": 54,
         "totalPoints": 103,
+        "currentGWPoints": 32,
         "previousRank": 52,
-        "currentGWPoints": 0,
         "deficitFromLeader": 76
       },
       "achievements": {
@@ -1551,8 +1551,8 @@
         "gameMonths": 0,
         "overallRank": 40,
         "totalPoints": 134,
+        "currentGWPoints": 43,
         "previousRank": 40,
-        "currentGWPoints": 0,
         "deficitFromLeader": 45
       },
       "achievements": {
@@ -1585,8 +1585,8 @@
         "gameMonths": 0,
         "overallRank": 23,
         "totalPoints": 152,
+        "currentGWPoints": 50,
         "previousRank": 21,
-        "currentGWPoints": 0,
         "deficitFromLeader": 27
       },
       "achievements": {
@@ -1619,8 +1619,8 @@
         "gameMonths": 0,
         "overallRank": 17,
         "totalPoints": 155,
+        "currentGWPoints": 62,
         "previousRank": 38,
-        "currentGWPoints": 0,
         "deficitFromLeader": 24
       },
       "achievements": {
@@ -1653,8 +1653,8 @@
         "gameMonths": 0,
         "overallRank": 31,
         "totalPoints": 144,
+        "currentGWPoints": 50,
         "previousRank": 36,
-        "currentGWPoints": 0,
         "deficitFromLeader": 35
       },
       "achievements": {
@@ -1687,8 +1687,8 @@
         "gameMonths": 0,
         "overallRank": 14,
         "totalPoints": 159,
+        "currentGWPoints": 48,
         "previousRank": 11,
-        "currentGWPoints": 0,
         "deficitFromLeader": 20
       },
       "achievements": {
@@ -1721,8 +1721,8 @@
         "gameMonths": 0,
         "overallRank": 45,
         "totalPoints": 129,
+        "currentGWPoints": 40,
         "previousRank": 42,
-        "currentGWPoints": 0,
         "deficitFromLeader": 50
       },
       "achievements": {
@@ -1755,8 +1755,8 @@
         "gameMonths": 0,
         "overallRank": 8,
         "totalPoints": 165,
+        "currentGWPoints": 58,
         "previousRank": 15,
-        "currentGWPoints": 0,
         "deficitFromLeader": 14
       },
       "achievements": {
@@ -1789,8 +1789,8 @@
         "gameMonths": 0,
         "overallRank": 50,
         "totalPoints": 125,
+        "currentGWPoints": 36,
         "previousRank": 42,
-        "currentGWPoints": 0,
         "deficitFromLeader": 54
       },
       "achievements": {
@@ -1823,8 +1823,8 @@
         "gameMonths": 0,
         "overallRank": 36,
         "totalPoints": 140,
+        "currentGWPoints": 42,
         "previousRank": 26,
-        "currentGWPoints": 0,
         "deficitFromLeader": 39
       },
       "achievements": {
@@ -1857,8 +1857,8 @@
         "gameMonths": 0,
         "overallRank": 17,
         "totalPoints": 155,
+        "currentGWPoints": 49,
         "previousRank": 17,
-        "currentGWPoints": 0,
         "deficitFromLeader": 24
       },
       "achievements": {
@@ -1891,8 +1891,8 @@
         "gameMonths": 0,
         "overallRank": 37,
         "totalPoints": 138,
+        "currentGWPoints": 42,
         "previousRank": 32,
-        "currentGWPoints": 0,
         "deficitFromLeader": 41
       },
       "achievements": {
@@ -1915,7 +1915,7 @@
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2025-09-13T22:45:16.399Z",
+    "enhancedAt": "2025-09-13T23:03:53.998Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
