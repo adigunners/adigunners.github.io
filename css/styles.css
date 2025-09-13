@@ -197,10 +197,6 @@ body {
   display: none !important;
 }
 
-.text-center {
-  text-align: center;
-}
-
 .rounded {
   border-radius: var(--border-radius) !important;
 }
@@ -314,190 +310,203 @@ body {
 }
 
 /* ==========================================================================
-   UTILITY CLASSES - Foundation Layer (Phase 3.3)
+   CSS LAYER DEFINITIONS - Cascade Control (Phase 5.1)
+   ========================================================================== */
+@layer base, components, utilities, overrides;
+
+/* ==========================================================================
+   UTILITY CLASSES - Utilities Layer (Phase 3.3 + 5.1)
    ========================================================================== */
 
 /* Text Alignment Utilities - Replace 66+ duplicates */
-.u-text-left {
-  text-align: left !important;
-}
+@layer utilities {
+  .u-text-left {
+    text-align: left;
+  }
 
-.u-text-center {
-  text-align: center !important;
-}
+  .u-text-center {
+    text-align: center;
+  }
 
-.u-text-right {
-  text-align: right !important;
-}
+  .u-text-right {
+    text-align: right;
+  }
 
-.u-text-justify {
-  text-align: justify !important;
+  .u-text-justify {
+    text-align: justify;
+  }
 }
 
 /* Font Weight Utilities - Replace 90+ duplicates */
-.u-font-light {
-  font-weight: 300 !important;
-}
+@layer utilities {
+  .u-font-light {
+    font-weight: 300;
+  }
 
-.u-font-normal {
-  font-weight: 400 !important;
-}
+  .u-font-normal {
+    font-weight: 400;
+  }
 
-.u-font-medium {
-  font-weight: 500 !important;
-}
+  .u-font-medium {
+    font-weight: 500;
+  }
 
-.u-font-semibold {
-  font-weight: 600 !important;
-}
+  .u-font-semibold {
+    font-weight: 600;
+  }
 
-.u-font-bold {
-  font-weight: 700 !important;
-}
+  .u-font-bold {
+    font-weight: 700;
+  }
 
-.u-font-black {
-  font-weight: 900 !important;
+  .u-font-black {
+    font-weight: 900;
+  }
 }
 
 /* Display Utilities */
-.u-block {
-  display: block !important;
-}
+@layer utilities {
+  .u-block {
+    display: block;
+  }
 
-.u-inline {
-  display: inline !important;
-}
+  .u-inline {
+    display: inline;
+  }
 
-.u-inline-block {
-  display: inline-block !important;
-}
+  .u-inline-block {
+    display: inline-block;
+  }
 
-.u-flex {
-  display: flex !important;
-}
+  .u-flex {
+    display: flex;
+  }
 
-.u-inline-flex {
-  display: inline-flex !important;
-}
+  .u-inline-flex {
+    display: inline-flex;
+  }
 
-.u-grid {
-  display: grid !important;
-}
+  .u-grid {
+    display: grid;
+  }
 
-.u-hidden {
-  display: none !important;
+  .u-hidden {
+    display: none;
+  }
 }
 
 /* Flexbox Utilities */
-.u-flex-row {
-  flex-direction: row !important;
-}
+@layer utilities {
+  .u-flex-row {
+    flex-direction: row;
+  }
 
-.u-flex-col {
-  flex-direction: column !important;
-}
+  .u-flex-col {
+    flex-direction: column;
+  }
 
-.u-flex-wrap {
-  flex-wrap: wrap !important;
-}
+  .u-flex-wrap {
+    flex-wrap: wrap;
+  }
 
-.u-flex-nowrap {
-  flex-wrap: nowrap !important;
-}
+  .u-flex-nowrap {
+    flex-wrap: nowrap;
+  }
 
-.u-justify-start {
-  justify-content: flex-start !important;
-}
+  .u-justify-start {
+    justify-content: flex-start;
+  }
 
-.u-justify-center {
-  justify-content: center !important;
-}
+  .u-justify-center {
+    justify-content: center;
+  }
 
-.u-justify-end {
-  justify-content: flex-end !important;
-}
+  .u-justify-end {
+    justify-content: flex-end;
+  }
 
-.u-justify-between {
-  justify-content: space-between !important;
-}
+  .u-justify-between {
+    justify-content: space-between;
+  }
 
-.u-items-start {
-  align-items: flex-start !important;
-}
+  .u-items-start {
+    align-items: flex-start;
+  }
 
-.u-items-center {
-  align-items: center !important;
-}
+  .u-items-center {
+    align-items: center;
+  }
 
-.u-items-end {
-  align-items: flex-end !important;
-}
+  .u-items-end {
+    align-items: flex-end;
+  }
 
-.u-items-stretch {
-  align-items: stretch !important;
+  .u-items-stretch {
+    align-items: stretch;
+  }
 }
 
 /* Color Utilities */
 .u-text-primary {
-  color: var(--primary-color) !important;
+  color: var(--primary-color);
 }
 
 .u-text-secondary {
-  color: var(--secondary-color) !important;
+  color: var(--secondary-color);
 }
 
 .u-text-accent {
-  color: var(--accent-color) !important;
+  color: var(--accent-color);
 }
 
 .u-text-muted {
-  color: var(--text-muted) !important;
+  color: var(--text-muted);
 }
 
 .u-text-white {
-  color: #fff !important;
+  color: #fff;
 }
 
 .u-text-black {
-  color: #000 !important;
+  color: #000;
 }
 
 /* Status colors */
 .u-text-success {
-  color: var(--success-color, #28a745) !important;
+  color: var(--success-color, #28a745);
 }
 
 .u-text-warning {
-  color: var(--warning-color, #ffc107) !important;
+  color: var(--warning-color, #ffc107);
 }
 
 .u-text-error {
-  color: var(--error-color, #dc3545) !important;
+  color: var(--error-color, #dc3545);
 }
 
 .u-text-info {
-  color: var(--info-color, #17a2b8) !important;
+  color: var(--info-color, #17a2b8);
 }
 
 /* Background Colors */
 .u-bg-primary {
-  background-color: var(--primary-color) !important;
+  background-color: var(--primary-color);
 }
 
 .u-bg-secondary {
-  background-color: var(--secondary-color) !important;
+  background-color: var(--secondary-color);
 }
 
 .u-bg-white {
-  background-color: #fff !important;
+  background-color: #fff;
 }
 
 .u-bg-gray {
-  background-color: var(--light-gray) !important;
+  background-color: var(--light-gray);
 }
 
 .u-bg-transparent {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
 /* Spacing Utilities - All Sides Margin */
@@ -506,23 +515,23 @@ body {
 }
 
 .u-margin-xs {
-  margin: var(--spacing-xs) !important; /* 4px */
+  margin: var(--spacing-xs); /* 4px */
 }
 
 .u-margin-sm {
-  margin: var(--spacing-sm) !important; /* 8px */
+  margin: var(--spacing-sm); /* 8px */
 }
 
 .u-margin-md {
-  margin: var(--spacing-md) !important; /* 16px */
+  margin: var(--spacing-md); /* 16px */
 }
 
 .u-margin-lg {
-  margin: var(--spacing-lg) !important; /* 24px */
+  margin: var(--spacing-lg); /* 24px */
 }
 
 .u-margin-xl {
-  margin: var(--spacing-xl) !important; /* 32px */
+  margin: var(--spacing-xl); /* 32px */
 }
 
 /* Directional Margins */
@@ -531,30 +540,30 @@ body {
 }
 
 .u-margin-top-sm {
-  margin-top: var(--spacing-sm) !important;
+  margin-top: var(--spacing-sm);
 }
 
 .u-margin-right-md {
-  margin-right: var(--spacing-md) !important;
+  margin-right: var(--spacing-md);
 }
 
 .u-margin-bottom-lg {
-  margin-bottom: var(--spacing-lg) !important;
+  margin-bottom: var(--spacing-lg);
 }
 
 .u-margin-left-xl {
-  margin-left: var(--spacing-xl) !important;
+  margin-left: var(--spacing-xl);
 }
 
 /* Axis Margins */
 .u-margin-x-auto {
-  margin-left: auto !important;
-  margin-right: auto !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .u-margin-y-0 {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Spacing Utilities - All Sides Padding */
@@ -563,104 +572,104 @@ body {
 }
 
 .u-padding-xs {
-  padding: var(--spacing-xs) !important; /* 4px */
+  padding: var(--spacing-xs); /* 4px */
 }
 
 .u-padding-sm {
-  padding: var(--spacing-sm) !important; /* 8px */
+  padding: var(--spacing-sm); /* 8px */
 }
 
 .u-padding-md {
-  padding: var(--spacing-md) !important; /* 16px */
+  padding: var(--spacing-md); /* 16px */
 }
 
 .u-padding-lg {
-  padding: var(--spacing-lg) !important; /* 24px */
+  padding: var(--spacing-lg); /* 24px */
 }
 
 /* Directional Paddings */
 .u-padding-top-sm {
-  padding-top: var(--spacing-sm) !important;
+  padding-top: var(--spacing-sm);
 }
 
 .u-padding-right-md {
-  padding-right: var(--spacing-md) !important;
+  padding-right: var(--spacing-md);
 }
 
 .u-padding-bottom-lg {
-  padding-bottom: var(--spacing-lg) !important;
+  padding-bottom: var(--spacing-lg);
 }
 
 .u-padding-left-xl {
-  padding-left: var(--spacing-xl) !important;
+  padding-left: var(--spacing-xl);
 }
 
 /* Project-Specific Utilities */
 /* Leaderboard-Specific */
 .u-rank-gold {
-  color: var(--gold-1) !important;
+  color: var(--gold-1);
 }
 
 .u-rank-silver {
-  color: var(--silver-1) !important;
+  color: var(--silver-1);
 }
 
 .u-rank-bronze {
-  color: var(--bronze-1) !important;
+  color: var(--bronze-1);
 }
 
 .u-movement-up {
-  color: var(--movement-up-color) !important;
+  color: var(--movement-up-color);
 }
 
 .u-movement-down {
-  color: var(--movement-down-color) !important;
+  color: var(--movement-down-color);
 }
 
 .u-movement-same {
-  color: var(--movement-same-color) !important;
+  color: var(--movement-same-color);
 }
 
 .u-movement-new {
-  color: var(--movement-new-color) !important;
+  color: var(--movement-new-color);
 }
 
 .u-tabular-nums {
-  font-variant-numeric: tabular-nums !important;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Table-Specific */
 .u-table-fixed {
-  table-layout: fixed !important;
+  table-layout: fixed;
 }
 
 .u-table-auto {
-  table-layout: auto !important;
+  table-layout: auto;
 }
 
 .u-border-collapse {
-  border-collapse: collapse !important;
+  border-collapse: collapse;
 }
 
 .u-border-separate {
-  border-collapse: separate !important;
+  border-collapse: separate;
 }
 
 /* Visibility & State Utilities */
 .u-visible {
-  visibility: visible !important;
+  visibility: visible;
 }
 
 .u-invisible {
-  visibility: hidden !important;
+  visibility: hidden;
 }
 
 .u-opacity-0 {
-  opacity: 0 !important;
+  opacity: 0;
 }
 
 .u-opacity-50 {
-  opacity: 0.5 !important;
+  opacity: 0.5;
 }
 
 .u-opacity-100 {
@@ -4541,153 +4550,155 @@ header p {
 }
 
 /* ==========================================================================
-   LEADERBOARD COMPONENT - BEM Structure (Phase 4.1)
+   LEADERBOARD COMPONENT - BEM Structure (Phase 4.1 + 5.2)
    ========================================================================== */
 
-/* BLOCK: Main leaderboard component */
-.leaderboard {
-  /* Component container - allows for future expansion */
-  position: relative;
-}
+@layer components {
+  /* BLOCK: Main leaderboard component */
+  .leaderboard {
+    /* Component container - allows for future expansion */
+    position: relative;
+  }
 
-/* ELEMENT: Table within leaderboard */
-.leaderboard__table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+  /* ELEMENT: Table within leaderboard */
+  .leaderboard__table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
 
-/* ELEMENT: Table sections */
-.leaderboard__header {
-  background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
-}
+  /* ELEMENT: Table sections */
+  .leaderboard__header {
+    background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+  }
 
-.leaderboard__body {
-  background: #fff;
-}
+  .leaderboard__body {
+    background: #fff;
+  }
 
-/* ELEMENT: Row within leaderboard table */
-.leaderboard__row {
-  border-bottom: 1px solid var(--border-color);
-  transition: background-color 0.2s ease;
-}
+  /* ELEMENT: Row within leaderboard table */
+  .leaderboard__row {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+  }
 
-/* ELEMENT: Generic cell within leaderboard */
-.leaderboard__cell {
-  padding: var(--spacing-sm) var(--spacing-md);
-  vertical-align: middle;
-  font-size: 0.9rem;
-}
+  /* ELEMENT: Generic cell within leaderboard */
+  .leaderboard__cell {
+    padding: var(--spacing-sm) var(--spacing-md);
+    vertical-align: middle;
+    font-size: 0.9rem;
+  }
 
-/* Header cell styling */
-.leaderboard__header .leaderboard__cell {
-  color: #fff;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  padding: var(--spacing-md);
-}
+  /* Header cell styling */
+  .leaderboard__header .leaderboard__cell {
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: var(--spacing-md);
+  }
 
-/* MODIFIER: Specific cell types */
-.leaderboard__cell--rank {
-  /* Rank-specific cell styling */
-  font-weight: 600;
-  min-width: 3ch;
-}
+  /* MODIFIER: Specific cell types */
+  .leaderboard__cell--rank {
+    /* Rank-specific cell styling */
+    font-weight: 600;
+    min-width: 3ch;
+  }
 
-.leaderboard__cell--player {
-  /* Player name cell styling */
-  font-weight: 500;
-  min-width: 180px;
-}
+  .leaderboard__cell--player {
+    /* Player name cell styling */
+    font-weight: 500;
+    min-width: 180px;
+  }
 
-.leaderboard__cell--gw {
-  /* Gameweek points cell styling */
-  font-weight: 600;
-  min-width: 3ch;
-  font-variant-numeric: tabular-nums;
-}
+  .leaderboard__cell--gw {
+    /* Gameweek points cell styling */
+    font-weight: 600;
+    min-width: 3ch;
+    font-variant-numeric: tabular-nums;
+  }
 
-.leaderboard__cell--total {
-  /* Total points cell styling */
-  font-weight: 600;
-  min-width: 4ch;
-  font-variant-numeric: tabular-nums;
-}
+  .leaderboard__cell--total {
+    /* Total points cell styling */
+    font-weight: 600;
+    min-width: 4ch;
+    font-variant-numeric: tabular-nums;
+  }
 
-.leaderboard__cell--deficit {
-  /* Deficit cell styling */
-  font-weight: 500;
-  min-width: 4ch;
-  font-variant-numeric: tabular-nums;
-}
+  .leaderboard__cell--deficit {
+    /* Deficit cell styling */
+    font-weight: 500;
+    min-width: 4ch;
+    font-variant-numeric: tabular-nums;
+  }
 
-/* MODIFIER: Row states */
-.leaderboard__row--winner {
-  /* Winner row highlighting - top 3 positions */
-  background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
-}
+  /* MODIFIER: Row states */
+  .leaderboard__row--winner {
+    /* Winner row highlighting - top 3 positions */
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+  }
 
-.leaderboard__row--hover:hover {
-  /* Hover state styling */
-  background: rgba(55, 0, 60, 0.05);
-}
+  .leaderboard__row--hover:hover {
+    /* Hover state styling */
+    background: rgba(55, 0, 60, 0.05);
+  }
 
-.leaderboard__row--even {
-  /* Even row styling (zebra stripes) */
-  background: rgba(0, 0, 0, 0.02);
-}
+  .leaderboard__row--even {
+    /* Even row styling (zebra stripes) */
+    background: rgba(0, 0, 0, 0.02);
+  }
 
-.leaderboard__row--odd {
-  /* Odd row styling (zebra stripes) */
-  background: #fff;
-}
+  .leaderboard__row--odd {
+    /* Odd row styling (zebra stripes) */
+    background: #fff;
+  }
 
-/* Remove border from last row */
-.leaderboard__row:last-child {
-  border-bottom: none;
-}
+  /* Remove border from last row */
+  .leaderboard__row:last-child {
+    border-bottom: none;
+  }
 
-/* MODIFIER: Table density variations */
-.leaderboard__table--compact .leaderboard__cell {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  font-size: 0.85rem;
-}
+  /* MODIFIER: Table density variations */
+  .leaderboard__table--compact .leaderboard__cell {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.85rem;
+  }
 
-.leaderboard__table--compact .leaderboard__header .leaderboard__cell {
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: 0.75rem;
-}
+  .leaderboard__table--compact .leaderboard__header .leaderboard__cell {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.75rem;
+  }
 
-.leaderboard__table--comfortable .leaderboard__cell {
-  /* Default spacing - inherits from base .leaderboard__cell */
-  padding: var(--spacing-sm) var(--spacing-md);
-}
+  .leaderboard__table--comfortable .leaderboard__cell {
+    /* Default spacing - inherits from base .leaderboard__cell */
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
 
-.leaderboard__table--spacious .leaderboard__cell {
-  padding: var(--spacing-md) var(--spacing-lg);
-  font-size: 1rem;
-}
+  .leaderboard__table--spacious .leaderboard__cell {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1rem;
+  }
 
-/* Rank highlighting for top positions */
-.leaderboard__cell--rank.rank-1 {
-  color: var(--gold-1, #ffd700);
-  font-weight: 700;
-}
+  /* Rank highlighting for top positions */
+  .leaderboard__cell--rank.rank-1 {
+    color: var(--gold-1, #ffd700);
+    font-weight: 700;
+  }
 
-.leaderboard__cell--rank.rank-2 {
-  color: var(--silver-1, #c0c0c0);
-  font-weight: 700;
-}
+  .leaderboard__cell--rank.rank-2 {
+    color: var(--silver-1, #c0c0c0);
+    font-weight: 700;
+  }
 
-.leaderboard__cell--rank.rank-3 {
-  color: var(--bronze-1, #cd7f32);
-  font-weight: 700;
-}
+  .leaderboard__cell--rank.rank-3 {
+    color: var(--bronze-1, #cd7f32);
+    font-weight: 700;
+  }
+} /* End @layer components for leaderboard */
 
 /* ==========================================================================
    LEADERBOARD RESPONSIVE STYLES
@@ -5541,135 +5552,135 @@ header p {
 /* Small screens and up (640px+) */
 @media (min-width: 640px) {
   .u-sm-text-left {
-    text-align: left !important;
+    text-align: left;
   }
 
   .u-sm-text-center {
-    text-align: center !important;
+    text-align: center;
   }
 
   .u-sm-text-right {
-    text-align: right !important;
+    text-align: right;
   }
 
   .u-sm-block {
-    display: block !important;
+    display: block;
   }
 
   .u-sm-flex {
-    display: flex !important;
+    display: flex;
   }
 
   .u-sm-grid {
-    display: grid !important;
+    display: grid;
   }
 
   .u-sm-hidden {
-    display: none !important;
+    display: none;
   }
 }
 
 /* Medium screens and up (768px+) */
 @media (min-width: 768px) {
   .u-md-text-left {
-    text-align: left !important;
+    text-align: left;
   }
 
   .u-md-text-center {
-    text-align: center !important;
+    text-align: center;
   }
 
   .u-md-text-right {
-    text-align: right !important;
+    text-align: right;
   }
 
   .u-md-block {
-    display: block !important;
+    display: block;
   }
 
   .u-md-flex {
-    display: flex !important;
+    display: flex;
   }
 
   .u-md-grid {
-    display: grid !important;
+    display: grid;
   }
 
   .u-md-hidden {
-    display: none !important;
+    display: none;
   }
 
   .u-md-flex-row {
-    flex-direction: row !important;
+    flex-direction: row;
   }
 
   .u-md-flex-col {
-    flex-direction: column !important;
+    flex-direction: column;
   }
 
   .u-md-justify-center {
-    justify-content: center !important;
+    justify-content: center;
   }
 
   .u-md-justify-between {
-    justify-content: space-between !important;
+    justify-content: space-between;
   }
 }
 
 /* Large screens and up (1024px+) */
 @media (min-width: 1024px) {
   .u-lg-text-left {
-    text-align: left !important;
+    text-align: left;
   }
 
   .u-lg-text-center {
-    text-align: center !important;
+    text-align: center;
   }
 
   .u-lg-text-right {
-    text-align: right !important;
+    text-align: right;
   }
 
   .u-lg-block {
-    display: block !important;
+    display: block;
   }
 
   .u-lg-flex {
-    display: flex !important;
+    display: flex;
   }
 
   .u-lg-grid {
-    display: grid !important;
+    display: grid;
   }
 
   .u-lg-hidden {
-    display: none !important;
+    display: none;
   }
 
   .u-lg-flex-row {
-    flex-direction: row !important;
+    flex-direction: row;
   }
 
   .u-lg-flex-col {
-    flex-direction: column !important;
+    flex-direction: column;
   }
 }
 
 /* Extra large screens and up (1280px+) */
 @media (min-width: 1280px) {
   .u-xl-text-center {
-    text-align: center !important;
+    text-align: center;
   }
 
   .u-xl-flex {
-    display: flex !important;
+    display: flex;
   }
 
   .u-xl-grid {
-    display: grid !important;
+    display: grid;
   }
 
   .u-xl-hidden {
-    display: none !important;
+    display: none;
   }
 }

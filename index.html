@@ -629,7 +629,7 @@
 
           <div class="winner-summary" id="winner-summary"></div>
 
-          <div class="text-center">
+          <div class="u-text-center">
             <a href="winners.html" class="view-all-winners" id="winners-link"> See All Winners </a>
           </div>
         </section>
@@ -765,7 +765,7 @@
         <!-- IN-SEASON VIEW TOGGLE (Test Mode Only) - Moved to bottom for better mobile UX -->
         <section
           id="season-toggle"
-          class="season-section section__card section__card--season test-only text-center is-hidden"
+          class="season-section section__card section__card--season test-only u-text-center is-hidden"
         >
           <button id="phase-toggle-btn" class="btn-primary" onclick="toggleSeasonMode()">
             📊 Preview In-season View
@@ -2263,7 +2263,7 @@
               </colgroup>
               <thead class="leaderboard__header">
                 <tr class="leaderboard__row">
-                  <th scope="col" class="col-rank leaderboard__cell leaderboard__cell--rank u-text-center" aria-label="Rank" data-short="#">#</th>
+                  <th scope="col" class="col-rank leaderboard__cell leaderboard__cell--rank u-u-text-center" aria-label="Rank" data-short="#">#</th>
                   <th scope="col" class="leaderboard__cell leaderboard__cell--player u-text-left" aria-label="Player Name" title="Player Name">PLAYER</th>
                   <th scope="col" class="leaderboard__cell leaderboard__cell--gw u-text-right" aria-label="Current Gameweek Points" title="Current Gameweek Points">GW</th>
                   <th scope="col" class="leaderboard__cell leaderboard__cell--total u-text-right" aria-label="Total Points" title="Total Points">TOTAL</th>
@@ -2309,7 +2309,7 @@
 
                   return `
                 <tr class="leaderboard__row${actualRank <= 3 ? ' leaderboard__row--winner' : ''}">
-                  <td class="leaderboard-rank col-rank leaderboard__cell leaderboard__cell--rank u-text-center${
+                  <td class="leaderboard-rank col-rank leaderboard__cell leaderboard__cell--rank u-u-text-center${
                     actualRank === 1
                       ? ' rank-1'
                       : actualRank === 2
