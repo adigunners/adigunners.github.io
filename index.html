@@ -2215,7 +2215,7 @@
         // Generate table HTML
 
         const tableHTML = `
-          <table class="leaderboard-table table-density-compact table-align-rank table-align-player table-align-gw table-align-total table-align-deficit">
+          <table class="leaderboard-table table-density-compact">
             <colgroup>
               <col style="width:2ch">   <!-- Rank -->
               <col style="width:180px"> <!-- Player Name -->
@@ -2225,11 +2225,11 @@
             </colgroup>
             <thead>
               <tr>
-                <th scope="col" class="col-rank" aria-label="Rank" data-short="#">#</th>
-                <th scope="col" aria-label="Player Name" title="Player Name">PLAYER</th>
-                <th scope="col" aria-label="Current Gameweek Points" title="Current Gameweek Points">GW</th>
-                <th scope="col" aria-label="Total Points" title="Total Points">TOTAL</th>
-                <th scope="col" aria-label="Points Behind Leader" title="Points Behind Leader">FROM #1</th>
+                <th scope="col" class="col-rank u-text-center" aria-label="Rank" data-short="#">#</th>
+                <th scope="col" class="u-text-left" aria-label="Player Name" title="Player Name">PLAYER</th>
+                <th scope="col" class="u-text-right" aria-label="Current Gameweek Points" title="Current Gameweek Points">GW</th>
+                <th scope="col" class="u-text-right" aria-label="Total Points" title="Total Points">TOTAL</th>
+                <th scope="col" class="u-text-right" aria-label="Points Behind Leader" title="Points Behind Leader">FROM #1</th>
               </tr>
             </thead>
             <tbody>
@@ -2271,7 +2271,7 @@
 
                   return `
                 <tr>
-                  <td class="leaderboard-rank col-rank${
+                  <td class="leaderboard-rank col-rank u-text-center${
                     actualRank === 1
                       ? ' rank-1'
                       : actualRank === 2
@@ -2282,12 +2282,12 @@
                   }">
                     <span class="rank-number">${actualRank}</span><span class="rank-movement ${movementClass}">${movementIcon}</span>
                   </td>
-                  <td class="leaderboard-player" title="${escapeHTML(player.playerName)}" aria-label="${escapeHTML(player.playerName)}">
+                  <td class="leaderboard-player u-text-left" title="${escapeHTML(player.playerName)}" aria-label="${escapeHTML(player.playerName)}">
                     <div class="player-team">${escapeHTML(player.playerName)}</div>
                   </td>
-                  <td class="leaderboard-gw">${gwDisplay}</td>
-                  <td class="leaderboard-total">${scoreDisplay}</td>
-                  <td class="leaderboard-deficit">${deficitDisplay}</td>
+                  <td class="leaderboard-gw u-text-right">${gwDisplay}</td>
+                  <td class="leaderboard-total u-text-right">${scoreDisplay}</td>
+                  <td class="leaderboard-deficit u-text-right">${deficitDisplay}</td>
                 </tr>
               `;
                 })
