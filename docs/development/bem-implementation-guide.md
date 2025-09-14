@@ -16,10 +16,9 @@ methodology in the adigunners Fantasy Premier League website, with real examples
 4. [Naming Patterns](#naming-patterns)
 5. [HTML Integration](#html-integration)
 6. [CSS Layer Integration](#css-layer-integration)
-7. [Component Examples](#component-examples)
-8. [Best Practices](#best-practices)
-9. [Common Pitfalls](#common-pitfalls)
-10. [Migration Guidelines](#migration-guidelines)
+7. [Best Practices](#best-practices)
+8. [Common Pitfalls](#common-pitfalls)
+9. [Migration Guidelines](#migration-guidelines)
 
 ## BEM Methodology Overview
 

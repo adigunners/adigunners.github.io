@@ -101,7 +101,7 @@
           logStatus('🚀 Starting enhanced data flow test...', 'info');
 
           // Load enhanced JSON
-          const response = await fetch('data/test_enhanced_winner_stats.json');
+          const response = await fetch('data/history/winner_stats_gw3.json');
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
