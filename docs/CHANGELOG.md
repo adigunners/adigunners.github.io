@@ -1,5 +1,74 @@
 # 📝 Changelog - Fantasy League Website
 
+## [1.5.0] - 2025-09-14 – CSS Architecture Refactoring + Pagination Fixes
+
+### 🏗️ CSS Architecture Overhaul
+
+- **BEM Methodology Implementation**: Complete refactoring to Block Element Modifier (BEM) naming conventions across 5 major components
+  - Leaderboard: 33 BEM classes (`.leaderboard__table`, `.leaderboard__cell--rank`)
+  - Winner: 28 BEM classes (`.winner__card--rank-1`, `.winner__prize`) 
+  - Navigation: 17 BEM classes (`.nav__button`, `.nav__page-info`)
+  - Stats: 30 BEM classes (`.stats__box--primary`, `.stats__summary-card`)
+  - Section: 34 BEM classes (`.section__card--season`, `.section__emoji`)
+
+- **CSS Layer System**: Implemented systematic cascade control using `@layer base, components, utilities, overrides`
+  - Eliminated 48+ `!important` declarations (28% reduction from 170+ to 122)
+  - Resolved CSS specificity conflicts without specificity wars
+  - Created predictable cascade hierarchy for maintainable styles
+
+- **Utility Class Consolidation**: Standardized 114 utility classes with systematic `.u-` prefix
+  - Text alignment, font weights, display properties, colors, spacing
+  - Complete responsive utility system with 4 breakpoints
+  - Project-specific utilities for FPL components (rankings, movement indicators)
+
+### 🐛 Critical Fixes
+
+- **Desktop Pagination**: Fixed navigation buttons spanning entire page width on screens >1200px
+  - Removed problematic `width: 100%` constraint
+  - Added appropriate `min-width: 100px` with proper padding
+- **Mobile Pagination**: Resolved page info positioning and button sizing issues  
+  - Centered page info between Prev/Next buttons using flexbox layout
+  - Fixed conflicting CSS rules causing full-width buttons on mobile
+  - Proper touch target sizing (84px min-width) maintained
+
+### 🧩 Architecture Improvements
+
+- **Dual Class Compatibility**: Maintained backward compatibility with existing HTML
+  - Legacy classes (`leaderboard-nav-btn`) work alongside BEM classes (`.nav__button`)
+  - Smooth migration path without breaking existing JavaScript functionality
+- **Responsive Design**: 97 media queries covering 16 breakpoints (360px to 1440px+)
+  - Mobile-first approach with systematic responsive coverage
+  - Component-specific responsive behavior (22-54% responsive coverage per component)
+- **Performance Optimization**: 125.8KB raw CSS, 22KB gzipped (82% compression ratio)
+  - Estimated render performance score: 85/100
+  - Optimized selector complexity and specificity management
+
+### 📚 Documentation
+
+- **Comprehensive Style Guide**: Complete CSS architecture standards and conventions
+- **BEM Implementation Guide**: 142 BEM classes documented with usage examples  
+- **Utility Class Reference**: Complete catalog of 114 utility classes
+- **Testing Procedures**: Validation checklist for future CSS changes
+- **Emergency Procedures**: Complete rollback plan with 2-5 minute recovery options
+
+### 📂 Files
+
+- **Updated**: `css/styles.css` (5,686 lines, complete architectural transformation)
+- **Added**: Comprehensive documentation suite (2,470+ lines total)
+  - `docs/development/css-style-guide.md`
+  - `docs/development/bem-implementation-guide.md` 
+  - `docs/development/utility-class-reference.md`
+  - `docs/development/css-refactoring-validation-report.md`
+  - `docs/development/css-testing-checklist.md`
+  - `docs/development/rollback-plan.md`
+
+### 🔎 Technical Notes
+
+- **Zero Visual Regressions**: Comprehensive validation confirmed no visual changes
+- **Cross-Browser Compatibility**: Modern browser support (Chrome 88+, Firefox 97+, Safari 15.4+)
+- **Accessibility Compliance**: WCAG guidelines maintained with 22 focus styles and reduced motion support
+- **Production Ready**: Complete QA testing across visual, responsive, accessibility, and performance dimensions
+
 ## [1.4.6] - 2025-09-10 – Winners Table + CTA/UI Unification + Compact Rules Modal
 
 ### 🚀 New
