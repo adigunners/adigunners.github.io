@@ -98,6 +98,11 @@
   --btn-shadow-active: 0 2px 6px rgba(55, 0, 60, 0.18);
   --btn-raise: -2px;
   --btn-press: 1px;
+
+  /* Section accent widths */
+  --section-accent-mobile: 2px; /* mobile/tablet default left accent */
+  --section-accent-desktop: 4px; /* desktop/tablet >=768px */
+  --section-accent-width: var(--section-accent-mobile);
 }
 
 /* FIX: mobile sticky header opacity — adaptive backdrop token */
@@ -116,8 +121,49 @@
   }
 }
 
-/* ===================== 2) FONTS ===================== */
-/* Source: css/fonts.css */
+/* Promote thicker accent for larger screens via variable */
+@media (min-width: 768px) {
+  :root {
+    --section-accent-width: var(--section-accent-desktop);
+  }
+}
+
+/* ===================== 2) FONTS & FALLBACKS ===================== */
+/* Source: css/fonts.css + css/fallbacks.css consolidated */
+
+/* System Font Fallbacks (from fallbacks.css) */
+.font-fallback {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+}
+
+/* Fallback for when Google Fonts fail */
+.poppins-fallback {
+  font-family:
+    'Poppins',
+    'Inter',
+    'SF Pro Display',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    sans-serif;
+}
+
 /* Self-hosted Poppins (latin subset) */
 @font-face {
   font-family: 'Poppins';
@@ -163,6 +209,7 @@ body {
   margin: 0;
   background-color: var(--background-color);
   color: var(--text-color);
+  -webkit-tap-highlight-color: transparent; /* remove blue tap highlight globally */
 }
 
 /* FIX: mobile sticky header opacity — solid page background + reduce rubber-band flash */
@@ -266,13 +313,15 @@ body {
   z-index: 10001;
 }
 
-/* Focus management for skip link targets */
-#main-content:focus,
-#league-statistics:focus,
-#registration:focus,
-#winners-section:focus,
-#leaderboard-section:focus,
-#prize-structure:focus {
+/* Focus management for skip link targets
+   Use :focus-visible to avoid showing outlines on mouse/touch clicks
+   while preserving keyboard accessibility. */
+#main-content:focus-visible,
+#league-statistics:focus-visible,
+#registration:focus-visible,
+#winners-section:focus-visible,
+#leaderboard-section:focus-visible,
+#prize-structure:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
@@ -1262,7 +1311,149 @@ section {
 /* ===================== END PHASE 1 MERGE ===================== */
 
 /* ===================== 5) COMPONENTS ===================== */
-/* Source: css/components.css */
+/* Source: css/components.css + assets/css/components/table.css consolidated */
+
+/* =============== TABLE COMPONENT =============== */
+/* Generic table component with BEM methodology */
+
+/* container must own the overflow for sticky headers to work */
+.c-table-wrap {
+  overflow: auto;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
+  width: 100%;
+}
+
+.c-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+/* guard against migration overrides */
+.c-table th,
+.c-table td {
+  display: table-cell;
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+
+/* sticky header, single row across 4 columns */
+.c-table--winners thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.c-table--winners thead th:first-child {
+  border-top-left-radius: 8px;
+}
+.c-table--winners thead th:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* Basic row styling */
+.c-table--winners tbody tr {
+  position: relative;
+}
+/* Remove left accent bar to keep perfect column alignment across all rows */
+.c-table--winners tbody tr::before {
+  display: none;
+}
+
+/* Light zebra rows (subtle) for non-top rows to avoid visual jumps */
+.c-table--winners
+  tbody
+  tr:nth-child(odd):not(.winner-gold):not(.winner-silver):not(.winner-bronze) {
+  background: #fafafa;
+}
+.c-table--winners
+  tbody
+  tr:nth-child(even):not(.winner-gold):not(.winner-silver):not(.winner-bronze) {
+  background: #ffffff;
+}
+
+/* TOP 3 WINNER HIGHLIGHTING — match overall leaderboard: accent stripe only */
+.c-table--winners tbody tr.winner-gold {
+  box-shadow: inset 4px 0 0 var(--gold-1);
+}
+.c-table--winners tbody tr.winner-silver {
+  box-shadow: inset 4px 0 0 var(--silver-1);
+}
+.c-table--winners tbody tr.winner-bronze {
+  box-shadow: inset 4px 0 0 var(--bronze-1);
+}
+
+/* Column widths and alignment */
+.c-table--winners td:nth-child(1),
+.c-table--winners th:nth-child(1) {
+  width: 72px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.c-table--winners td:nth-child(2),
+.c-table--winners th:nth-child(2) {
+  text-align: left;
+  font-weight: 600;
+}
+
+/* numeric right align */
+.c-table--winners td.is-num,
+.c-table--winners td:nth-child(3) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+.c-table--winners th.is-num,
+.c-table--winners thead th:nth-child(3) {
+  text-align: right;
+  color: #fff;
+}
+
+.c-table--winners td:nth-child(4),
+.c-table--winners th:nth-child(4) {
+  text-align: right;
+}
+
+/* Uniform row sizing like index table */
+.c-table--winners thead th,
+.c-table--winners tbody tr {
+  height: 56px;
+}
+.c-table--winners th,
+.c-table--winners td {
+  padding: 14px 16px;
+}
+
+/* badge */
+.c-chip {
+  display: inline-block;
+  min-width: 40px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+  background: #28f0b0;
+  color: #0b1330;
+  text-align: center;
+}
+
+/* responsive table adjustments */
+@media (max-width: 640px) {
+  .c-table th,
+  .c-table td {
+    padding: 12px;
+  }
+}
+
 /* 
  * =============== COMPONENTS.CSS - MASTER SHARED STYLES ===============
  */
@@ -1415,6 +1606,12 @@ section {
   border: 2px solid transparent;
 }
 
+.stat-box:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 2px solid transparent;
+}
+
 .stat-box__icon {
   font-size: var(--icon-size);
   color: var(--primary-color);
@@ -1495,6 +1692,12 @@ section {
   transform: translateY(-4px);
   box-shadow: var(--box-shadow-primary-hover);
   border-color: var(--primary-color);
+}
+
+.stat-box--primary:active {
+  transform: translateY(-4px);
+  box-shadow: var(--box-shadow-primary-hover);
+  border: 2px solid var(--primary-color);
 }
 .stat-box--primary .stat-box__icon {
   font-size: var(--icon-size-primary);
@@ -2416,6 +2619,7 @@ header p {
   background: #fff;
   border-radius: var(--radius-lg);
   padding: 20px;
+  -webkit-tap-highlight-color: transparent; /* remove blue tap highlight */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border-left: 4px solid var(--secondary-color);
   transition:
@@ -2809,10 +3013,23 @@ header p {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
   border-color: var(--secondary-color);
 }
+
+.summary-card:active {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border: 2px solid var(--secondary-color);
+}
+
 .summary-card.primary-metric:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 30px rgba(55, 0, 60, 0.18);
   border-color: var(--primary-color);
+}
+
+.summary-card.primary-metric:active {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(55, 0, 60, 0.18);
+  border: 2px solid var(--primary-color);
 }
 .summary-icon {
   font-size: 1.8rem;
@@ -4764,12 +4981,22 @@ header p {
   background: #fff;
   border-radius: var(--radius-lg);
   padding: 20px;
+  -webkit-tap-highlight-color: transparent; /* remove blue tap highlight */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  border-left: 4px solid var(--secondary-color);
+  /* Responsive left accent strip - mobile first */
+  border-left: 2px solid var(--primary-color);
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    border 0.2s ease;
   position: relative;
+}
+
+/* Desktop/tablet - thicker accent strip for winner cards */
+@media (min-width: 768px) {
+  .winner__card {
+    border-left: 4px solid var(--primary-color);
+  }
 }
 
 /* ELEMENT: Winner card elements */
@@ -4811,9 +5038,38 @@ header p {
 }
 
 /* STATE MODIFIERS: Card states */
-.winner__card:hover {
+.winner__card:hover,
+.winner__card:active {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  /* Transition from left strip to full border on hover/touch */
+  border: 2px solid var(--primary-color);
+}
+
+/* Desktop/tablet hover - maintain 4px left border */
+@media (min-width: 768px) {
+  .winner__card:hover,
+  .winner__card:active {
+    border: 4px solid var(--primary-color);
+  }
+}
+
+/* Focus state for keyboard accessibility */
+.winner__card:focus-within,
+.winner__card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  /* Same full border treatment as hover */
+  border: 2px solid var(--primary-color);
+  outline: none; /* Remove default focus outline since we have custom border */
+}
+
+/* Desktop/tablet focus - maintain 4px left border */
+@media (min-width: 768px) {
+  .winner__card:focus-within,
+  .winner__card:focus-visible {
+    border: 4px solid var(--primary-color);
+  }
 }
 
 /* RANK MODIFIERS: Rank-specific styling */
@@ -5215,7 +5471,17 @@ header p {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.stats__box:active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 .stats__summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stats__summary-card:active {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -5346,16 +5612,29 @@ header p {
   position: relative;
 }
 
-/* ELEMENT: Section card container */
-.section__card {
+/* ELEMENT: Section card container - BEM and Legacy support */
+.section__card,
+.section-card {
   padding: var(--spacing-xl);
   margin-bottom: var(--spacing-lg);
   border-radius: var(--radius-lg);
   background-color: var(--card-background);
+  -webkit-tap-highlight-color: transparent; /* remove blue tap highlight on iOS/Android */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* Responsive left accent strip - mobile first */
+  border-left: var(--section-accent-width) solid var(--primary-color);
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    border 0.2s ease;
+}
+
+/* Desktop/tablet - thicker accent strip */
+@media (min-width: 768px) {
+  .section__card,
+  .section-card {
+    border-left: var(--section-accent-width) solid var(--primary-color);
+  }
 }
 
 /* ELEMENT: Section heading container */
@@ -5403,9 +5682,63 @@ header p {
 }
 
 /* STATE MODIFIERS: Section states */
-.section__card:hover {
+.section__card:hover,
+.section-card:hover,
+.section__card:active,
+.section-card:active {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* Transition from left strip to full border on hover/touch */
+  border: 2px solid var(--primary-color);
+}
+
+/* Desktop/tablet hover - maintain 4px left border */
+@media (min-width: 768px) {
+  .section__card:hover,
+  .section-card:hover,
+  .section__card:active,
+  .section-card:active {
+    border: 4px solid var(--primary-color);
+  }
+}
+
+/* Focus state for keyboard accessibility */
+.section__card:focus-within,
+.section__card:focus-visible,
+.section-card:focus-within,
+.section-card:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* Same full border treatment as hover */
+  border: 2px solid var(--primary-color);
+  outline: none; /* Remove default focus outline since we have custom border */
+}
+
+/* Remove default outline on pointer focus while preserving :focus-visible above */
+.section__card:focus,
+.section-card:focus {
+  outline: none;
+}
+
+/* Desktop/tablet focus - maintain 4px left border */
+@media (min-width: 768px) {
+  .section__card:focus-within,
+  .section__card:focus-visible,
+  .section-card:focus-within,
+  .section-card:focus-visible {
+    border: 4px solid var(--primary-color);
+  }
+}
+
+/* On touch devices, avoid sticky hover that turns the accent into a full border */
+@media (hover: none) and (pointer: coarse) {
+  .section__card:hover:not(:active),
+  .section-card:hover:not(:active) {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-left: var(--section-accent-width) solid var(--primary-color);
+  }
 }
 
 .section__heading-subtitle--show {
@@ -5420,7 +5753,7 @@ header p {
 
 /* TYPE MODIFIERS: Different section types */
 .section__card--season {
-  border-left: 4px solid var(--secondary-color);
+  border-left: var(--section-accent-width) solid var(--secondary-color);
   background: linear-gradient(145deg, #fafbfc, #ffffff);
 }
 
@@ -5428,12 +5761,10 @@ header p {
   background: var(--card-background);
   border-radius: var(--border-radius);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  border-left: 4px solid var(--primary-color);
 }
 
 .section__card--stats {
   background: linear-gradient(135deg, #f8f9fa, #ffffff);
-  border: 2px solid var(--accent-color);
 }
 
 /* SEASON PHASE MODIFIERS */

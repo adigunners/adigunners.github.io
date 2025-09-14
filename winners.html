@@ -52,13 +52,7 @@
     <!-- 2. Layout: Core layout and spacing (merged into styles.css) -->
 
     <!-- 3. Components (base first, then component extensions) - merged into styles.css -->
-    <link
-      rel="preload"
-      as="style"
-      href="assets/css/components/table.css?v=1.0.5"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="assets/css/components/table.css?v=1.0.5" /></noscript>
+    <!-- table.css consolidated into styles.css for better maintainability -->
     <!-- header.css merged into styles.css -->
 
     <!-- 4. Page-specific (async loading for non-critical styles) -->
@@ -68,8 +62,7 @@
 
     <!-- 5. Responsive (merged into styles.css) -->
 
-    <!-- 6. Fallback CSS (loads only if external resources fail; kept last) -->
-    <link rel="stylesheet" href="css/fallbacks.css?v=1.0.5" id="fallback-css" disabled />
+    <!-- 6. Fallback CSS consolidated into styles.css for better maintainability -->
 
     <!-- Critical CSS: Above-the-fold styles for stable first paint -->
     <style>
