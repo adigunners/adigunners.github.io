@@ -5044,6 +5044,8 @@ header p {
 @media (max-width: 768px) {
   .nav__leaderboard {
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
     padding: 10px 0;
   }
@@ -5054,10 +5056,22 @@ header p {
     border-radius: var(--radius-sm);
     min-height: 40px;
     min-width: 84px;
+    flex: 0 0 auto;
   }
 
   .nav__page-info {
     font-size: 0.9rem;
+    flex: 1;
+    text-align: center;
+    order: 0;
+  }
+
+  .nav__button:first-of-type {
+    order: -1;
+  }
+
+  .nav__button:last-of-type {
+    order: 1;
   }
 }
 
@@ -5084,13 +5098,16 @@ header p {
   .nav__button {
     padding: 8px 16px;
     font-size: 0.9rem;
+    min-width: 90px;
   }
 }
 
 /* Desktop styles (1200px+) */
 @media (min-width: 1200px) {
   .nav__button {
-    width: 100%;
+    padding: 10px 20px;
+    font-size: 1rem;
+    min-width: 100px;
     height: var(--btn-height);
   }
 }
