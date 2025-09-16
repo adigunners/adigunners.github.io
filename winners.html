@@ -213,7 +213,7 @@
       }
 
       /* Shared critical container styling to prevent layout shifts */
-      .section-card {
+      .section__card {
         padding: var(--spacing-xl);
         margin-bottom: var(--spacing-lg);
         border-radius: var(--radius-lg);
@@ -331,45 +331,57 @@
 
       <main id="main-content">
         <!-- LEAGUE STATISTICS SECTION (using original winners.html structure) -->
-        <section id="league-statistics" class="section-card" aria-labelledby="stats-heading">
-          <h2 class="section-heading" id="stats-heading">
-            <span class="heading-main"><span class="section-emoji">📊</span>Season Summary</span>
+        <section
+          id="league-statistics"
+          class="section section__card section__card--stats"
+          aria-labelledby="stats-heading"
+        >
+          <h2 class="section__heading" id="stats-heading">
+            <span class="section__heading-main"
+              ><span class="section__emoji">📊</span>Season Summary</span
+            >
           </h2>
-          <div class="stats-row" id="stats-summary">
-            <article class="stat-box" aria-live="polite">
-              <div class="stat-box__icon" aria-hidden="true">📅</div>
-              <div class="stat-box__number" id="completed-gameweeks">--</div>
-              <h3 class="stat-box__title">Completed Gameweeks</h3>
-            </article>
-            <article class="stat-box" aria-live="polite">
-              <div class="stat-box__icon" aria-hidden="true">🗓️</div>
-              <div class="stat-box__number" id="completed-gamemonths">--</div>
-              <h3 class="stat-box__title">Completed Gamemonths</h3>
-            </article>
-            <article class="stat-box" aria-live="polite">
-              <div class="stat-box__icon" aria-hidden="true">🏅</div>
-              <div class="stat-box__number" id="total-winners">--</div>
-              <h3 class="stat-box__title">Total Winners</h3>
-            </article>
-            <article class="stat-box stat-box--primary" aria-live="polite">
-              <div class="stat-box__icon" aria-hidden="true">💰</div>
-              <div class="stat-box__number" id="total-prize-money">--</div>
-              <h3 class="stat-box__title">Total Prize Money</h3>
-            </article>
+          <div class="stats" id="stats-summary">
+            <div class="stats__row">
+              <article class="stats__box" aria-live="polite">
+                <div class="stats__icon" aria-hidden="true">📅</div>
+                <div class="stats__number" id="completed-gameweeks">--</div>
+                <h3 class="stats__title">Completed Gameweeks</h3>
+              </article>
+              <article class="stats__box" aria-live="polite">
+                <div class="stats__icon" aria-hidden="true">🗓️</div>
+                <div class="stats__number" id="completed-gamemonths">--</div>
+                <h3 class="stats__title">Completed Gamemonths</h3>
+              </article>
+              <article class="stats__box" aria-live="polite">
+                <div class="stats__icon" aria-hidden="true">🏅</div>
+                <div class="stats__number" id="total-winners">--</div>
+                <h3 class="stats__title">Total Winners</h3>
+              </article>
+              <article class="stats__box" aria-live="polite">
+                <div class="stats__icon" aria-hidden="true">💰</div>
+                <div class="stats__number" id="total-prize-money">--</div>
+                <h3 class="stats__title">Total Prize Money</h3>
+              </article>
+            </div>
           </div>
         </section>
 
         <!-- WINNERS SECTION -->
-        <section id="winners-section" class="section-card" aria-labelledby="winners-heading">
+        <section
+          id="winners-section"
+          class="section section__card section__card--winner"
+          aria-labelledby="winners-heading"
+        >
           <div class="winners-header">
-            <h2 class="section-heading" id="winners-heading">
-              <span class="heading-main"
-                ><span class="section-emoji">🏅</span>Season Earnings (All Winners)</span
+            <h2 class="section__heading" id="winners-heading">
+              <span class="section__heading-main"
+                ><span class="section__emoji">🏅</span>Season Earnings (All Winners)</span
               >
-              <span class="heading-subtitle" id="winners-page-after-gw">Loading…</span>
+              <span class="section__heading-subtitle" id="winners-page-after-gw">Loading…</span>
             </h2>
             <div class="winners-descrow">
-              <p class="section-desc">All players ranked by total prize money won this season.</p>
+              <p class="section__desc">All players ranked by total prize money won this season.</p>
               <a
                 href="index.html"
                 class="btn nav-back nav-back--sm"
@@ -386,16 +398,20 @@
           </div>
 
           <!-- Pagination -->
-          <div
-            class="winner-navigation is-hidden"
+          <nav
+            class="nav__leaderboard nav__leaderboard--compact is-hidden"
             id="winner-navigation"
             role="navigation"
             aria-label="Winners navigation"
           >
-            <button id="winner-prev-page" class="winner-nav-btn" disabled>◀️ Previous</button>
-            <span id="winner-page-info" class="page-info" aria-live="polite">Page 1 of 1</span>
-            <button id="winner-next-page" class="winner-nav-btn" disabled>Next ▶️</button>
-          </div>
+            <button id="winner-prev-page" class="nav__button nav__button--compact" disabled>
+              ◀️ Previous
+            </button>
+            <span id="winner-page-info" class="nav__page-info" aria-live="polite">Page 1 of 1</span>
+            <button id="winner-next-page" class="nav__button nav__button--compact" disabled>
+              Next ▶️
+            </button>
+          </nav>
         </section>
       </main>
 
@@ -504,7 +520,7 @@
       })();
     </script>
 
-    <!-- Twemoji for stat-box icons -->
+    <!-- Twemoji for stats icons -->
     <script defer src="assets/twemoji/twemoji.min.js"></script>
     <script>
       window.applyTwemoji = function (root) {

@@ -164,26 +164,26 @@ export function createTable({ caption, headers, rows, className }) {
  */
 export function createCard(data, rank) {
   const card = document.createElement('div');
-  card.className = `winner-card${rank <= 3 ? ` rank-${rank}` : ''}`;
+  card.className = `winner__card${rank <= 3 ? ` winner__card--rank-${rank}` : ''}`;
 
   const rankEl = document.createElement('div');
-  rankEl.className = 'winner-rank';
+  rankEl.className = 'winner__rank';
   rankEl.textContent = `#${rank}`;
   card.appendChild(rankEl);
 
   const nameEl = document.createElement('div');
-  nameEl.className = 'winner-name';
+  nameEl.className = 'winner__name';
   nameEl.textContent = data.playerName;
   card.appendChild(nameEl);
 
   const prizeEl = document.createElement('div');
-  prizeEl.className = 'winner-prize';
+  prizeEl.className = 'winner__prize';
   prizeEl.textContent = `₹${data.totalPrizeWon.toLocaleString('en-IN')}`;
   card.appendChild(prizeEl);
 
   if (data.highlights) {
     const highlightsEl = document.createElement('div');
-    highlightsEl.className = 'winner-highlights';
+    highlightsEl.className = 'winner__highlights';
 
     const badges = [];
     if (data.highlights.gameWeeks > 0) {

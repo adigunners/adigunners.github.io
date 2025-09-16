@@ -436,21 +436,22 @@ window.FPLUIManager = (function () {
     const topWinners = isWinnersPage ? sortedWinners : sortedWinners.slice(0, 6);
 
     const previewHTML = `
-      <div class="winner-preview" aria-label="Top prize winners">
-        ${topWinners
-          .map(
-            (winner, index) => `
-          <article class="winner-card${
-            index < 3 ? ` rank-${index + 1}` : ''
-          }" aria-labelledby="winner-name-${index}">
-            <div class="winner-rank" aria-label="Position">#${index + 1}</div>
-            <h4 id="winner-name-${index}" class="winner-name" title="${FPLUtils.escapeHTML(winner.playerName)}">${FPLUtils.escapeHTML(winner.playerName)}</h4>
-            <div class="winner-prize" title="Total prize won: ₹${winner.totalPrizeWon.toLocaleString(
-              'en-IN'
-            )}" aria-label="Total prize won">
-              ₹${winner.totalPrizeWon.toLocaleString('en-IN')}
-            </div>
-            <div class="winner-highlights" aria-label="Achievements">
+      <div class="winner">
+        <div class="winner__preview" aria-label="Top prize winners">
+          ${topWinners
+            .map(
+              (winner, index) => `
+            <article class="winner__card${
+              index < 3 ? ` winner__card--rank-${index + 1}` : ''
+            }" aria-labelledby="winner-name-${index}">
+              <div class="winner__rank" aria-label="Position">#${index + 1}</div>
+              <h4 id="winner-name-${index}" class="winner__name" title="${FPLUtils.escapeHTML(winner.playerName)}">${FPLUtils.escapeHTML(winner.playerName)}</h4>
+              <div class="winner__prize" title="Total prize won: ₹${winner.totalPrizeWon.toLocaleString(
+                'en-IN'
+              )}" aria-label="Total prize won">
+                ₹${winner.totalPrizeWon.toLocaleString('en-IN')}
+              </div>
+              <div class="winner__highlights" aria-label="Achievements">
               ${
                 winner.highlights.gameWeeks > 0
                   ? `<span class="highlight-badge gw" title="${FPLUtils.escapeHTML(winner.highlights.gameWeeks + ' gameweek wins')}">${FPLUtils.escapeHTML(winner.highlights.gameWeeks + 'GW')}</span>`
@@ -466,11 +467,12 @@ window.FPLUIManager = (function () {
                   ? `<span class="highlight-badge" title="Current league position">League Rank ${FPLUtils.escapeHTML(winner.highlights.overallRank)}</span>`
                   : ''
               }
-            </div>
-          </article>
-        `
-          )
-          .join('')}
+              </div>
+            </article>
+          `
+            )
+            .join('')}
+        </div>
       </div>
     `;
 

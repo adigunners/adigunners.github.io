@@ -247,7 +247,6 @@
         visibility: hidden;
       }
       /* Shared critical container styling to avoid post-paint jumps */
-      .section-card,
       .section__card {
         padding: var(--spacing-xl);
         margin-bottom: var(--spacing-lg);
@@ -255,7 +254,6 @@
         background-color: var(--card-background);
       }
       /* Stats row minimal critical styles (defer sizes to components.css) */
-      .stats-row,
       .stats__row {
         display: flex;
         flex-wrap: wrap;
@@ -264,7 +262,6 @@
         margin-bottom: var(--spacing-lg);
         width: 100%;
       }
-      .stat-box,
       .stats__box {
         flex: 1 1 0;
         min-width: var(--box-min-width);
@@ -547,53 +544,45 @@
         <!-- LEAGUE STATISTICS -->
         <section
           id="league-statistics"
-          class="league-stats section-card section__card section__card--stats"
+          class="section section__card section__card--stats"
           aria-labelledby="stats-heading"
           tabindex="-1"
         >
-          <h2 class="section-heading section__heading" id="stats-heading">
-            <span class="heading-main section__heading-main"
-              ><span class="section-emoji section__emoji">🧮</span>Mini-League Snapshot</span
+          <h2 class="section__heading" id="stats-heading">
+            <span class="section__heading-main"
+              ><span class="section__emoji">🧮</span>Mini-League Snapshot</span
             >
           </h2>
-          <div class="stats-row stats__row">
-            <!-- PLAYER COUNT BOX -->
-            <article class="stat-box stats__box" aria-labelledby="player-count-title">
-              <div
-                class="stat-box__icon stats__icon"
-                title="Fantasy Football Managers"
-                aria-hidden="true"
-              >
-                👥
-              </div>
-              <div id="player-count" class="stat-box__number stats__number" aria-live="polite">
-                --
-              </div>
-              <h3 id="player-count-title" class="stat-box__title stats__title">
-                Total Registered Players
-              </h3>
-            </article>
-            <!-- POT AMOUNT BOX -->
-            <article class="stat-box stats__box" aria-labelledby="pot-amount-title">
-              <div class="stat-box__icon stats__icon" title="Prize Money Pot" aria-hidden="true">
-                💰
-              </div>
-              <div id="pot-amount" class="stat-box__number stats__number" aria-live="polite">
-                --
-              </div>
-              <h3 id="pot-amount-title" class="stat-box__title stats__title">Total Pot Amount</h3>
-            </article>
+          <div class="stats">
+            <div class="stats__row">
+              <!-- PLAYER COUNT BOX -->
+              <article class="stats__box" aria-labelledby="player-count-title">
+                <div class="stats__icon" title="Fantasy Football Managers" aria-hidden="true">
+                  👥
+                </div>
+                <div id="player-count" class="stats__number" aria-live="polite">--</div>
+                <h3 id="player-count-title" class="stats__title">Total Registered Players</h3>
+              </article>
+              <!-- POT AMOUNT BOX -->
+              <article class="stats__box" aria-labelledby="pot-amount-title">
+                <div class="stats__icon" title="Prize Money Pot" aria-hidden="true">💰</div>
+                <div id="pot-amount" class="stats__number" aria-live="polite">--</div>
+                <h3 id="pot-amount-title" class="stats__title">Total Pot Amount</h3>
+              </article>
+            </div>
           </div>
         </section>
 
         <!-- REGISTRATION SECTION (Before Season) -->
         <section
           id="registration"
-          class="season-section section-card section__card section__card--season section__card--pre-season pre-season"
+          class="section section__card section__card--season section__card--pre-season pre-season"
           tabindex="-1"
         >
-          <h2>Join the League!</h2>
-          <p>
+          <h2 class="section__heading">
+            <span class="section__heading-main">Join the League!</span>
+          </h2>
+          <p class="section__desc">
             Ready to prove your FPL skills? Registration is now open. Click the button below to fill
             out the form and join the action.
           </p>
@@ -609,18 +598,18 @@
         <!-- WINNER SCORECARD SECTION (During Season) -->
         <section
           id="winners-section"
-          class="winner-scorecard season-section section-card section__card section__card--winner section__card--season section__card--during-season during-season is-hidden"
+          class="section section__card section__card--winner section__card--season section__card--during-season during-season is-hidden"
           tabindex="-1"
         >
-          <h2 class="section-heading section__heading" id="winners-heading">
-            <span class="heading-main section__heading-main"
-              ><span class="section-emoji section__emoji">🎆</span>Top Earners So Far</span
+          <h2 class="section__heading" id="winners-heading">
+            <span class="section__heading-main"
+              ><span class="section__emoji">🎆</span>Top Earners So Far</span
             >
-            <span class="heading-subtitle section__heading-subtitle" id="winners-after-gw"
-              >Loading…</span
-            >
+            <span class="section__heading-subtitle" id="winners-after-gw">Loading…</span>
           </h2>
-          <p>Leading players and their prize money achievements this season.</p>
+          <p class="section__desc">
+            Leading players and their prize money achievements this season.
+          </p>
 
           <div id="winner-preview-container">
             <div class="winner-loading">Loading winner data...</div>
@@ -636,42 +625,37 @@
         <!-- LEADERBOARD SECTION (During Season) -->
         <section
           id="leaderboard-section"
-          class="winner-scorecard season-section section-card section__card section__card--winner section__card--season section__card--during-season during-season is-hidden"
+          class="section section__card section__card--winner section__card--season section__card--during-season during-season is-hidden"
           tabindex="-1"
         >
-          <h2 class="section-heading section__heading" id="leaderboard-heading">
-            <span class="heading-main section__heading-main"
-              ><span class="section-emoji section__emoji">🏆</span>Overall Leaderboard</span
+          <h2 class="section__heading" id="leaderboard-heading">
+            <span class="section__heading-main"
+              ><span class="section__emoji">🏆</span>Overall Leaderboard</span
             >
-            <span class="heading-subtitle section__heading-subtitle" id="leaderboard-after-gw"
-              >Loading…</span
-            >
+            <span class="section__heading-subtitle" id="leaderboard-after-gw">Loading…</span>
           </h2>
-          <p>Complete league table showing all players ranked by their overall FPL performance.</p>
+          <p class="section__desc">
+            Complete league table showing all players ranked by their overall FPL performance.
+          </p>
 
           <div id="leaderboard-container">
             <div class="leaderboard-loading">Loading league standings...</div>
           </div>
 
-          <nav
-            class="leaderboard-navigation nav__leaderboard is-hidden"
-            aria-label="Leaderboard pagination"
-          >
+          <nav class="nav__leaderboard is-hidden" aria-label="Leaderboard pagination">
             <button
               id="leaderboard-prev-page"
-              class="leaderboard-nav-btn nav__button"
+              class="nav__button"
               onclick="previousLeaderboardPage()"
               disabled
               title="Previous page"
             >
               ◀︎ Prev
             </button>
-            <span id="leaderboard-page-info" class="page-info nav__page-info" aria-live="polite"
-              >1 / 1</span
-            >
+            <span id="leaderboard-page-info" class="nav__page-info" aria-live="polite">1 / 1</span>
             <button
               id="leaderboard-next-page"
-              class="leaderboard-nav-btn nav__button"
+              class="nav__button"
               onclick="nextLeaderboardPage()"
               disabled
               title="Next page"
@@ -684,12 +668,12 @@
         <!-- RULES SECTION -->
         <section
           id="prize-structure"
-          class="winner-scorecard section-card section__card section__card--winner"
+          class="section section__card section__card--winner"
           tabindex="-1"
         >
-          <h2 class="section-heading section__heading">
-            <span class="heading-main section__heading-main"
-              ><span class="section-emoji section__emoji">💰</span>Prize Breakdown</span
+          <h2 class="section__heading">
+            <span class="section__heading-main"
+              ><span class="section__emoji">💰</span>Prize Breakdown</span
             >
           </h2>
           <!-- Pre-season view: keep full text (unchanged) -->
@@ -741,14 +725,14 @@
         <!-- LATE REGISTRATION SECTION (During Season) -->
         <section
           id="late-register"
-          class="winner-scorecard season-section section-card section__card section__card--winner section__card--season section__card--during-season during-season is-hidden"
+          class="section section__card section__card--winner section__card--season section__card--during-season during-season is-hidden"
         >
-          <h2 class="section-heading section__heading">
-            <span class="heading-main section__heading-main"
-              ><span class="section-emoji section__emoji">🚪</span>Missed Registration?</span
+          <h2 class="section__heading">
+            <span class="section__heading-main"
+              ><span class="section__emoji">🚪</span>Missed Registration?</span
             >
           </h2>
-          <p>
+          <p class="section__desc">
             Missed the initial registration? Contact us to check if late entries are still
             available.
           </p>
@@ -764,7 +748,7 @@
         <!-- IN-SEASON VIEW TOGGLE (Test Mode Only) - Moved to bottom for better mobile UX -->
         <section
           id="season-toggle"
-          class="season-section section__card section__card--season test-only u-text-center is-hidden"
+          class="section section__card section__card--season test-only u-text-center is-hidden"
         >
           <button id="phase-toggle-btn" class="btn-primary" onclick="toggleSeasonMode()">
             📊 Preview In-season View
@@ -1810,21 +1794,22 @@
         const topWinners = sortedWinners.slice(0, 6);
 
         const previewHTML = `
-          <div class="winner-preview winner__preview" aria-label="Top prize winners">
-            ${topWinners
-              .map(
-                (winner, index) => `
-              <article class="winner-card winner__card${
-                index < 3 ? ` rank-${index + 1} winner__card--rank-${index + 1}` : ''
-              }" aria-labelledby="winner-name-${index}">
-                <div class="winner-rank winner__rank" aria-label="Position">#${index + 1}</div>
-                <p id="winner-name-${index}" class="winner-name winner__name" title="${escapeHTML(winner.playerName)}">${escapeHTML(winner.playerName)}</p>
-                <div class="winner-prize winner__prize" title="Total prize won: ₹${winner.totalPrizeWon.toLocaleString(
-                  'en-IN'
-                )}" aria-label="Total prize won">
-                  ₹${winner.totalPrizeWon.toLocaleString('en-IN')}
-                </div>
-                <div class="winner-highlights winner__highlights" aria-label="Achievements">
+          <div class="winner">
+            <div class="winner__preview" aria-label="Top prize winners">
+              ${topWinners
+                .map(
+                  (winner, index) => `
+                <article class="winner__card${
+                  index < 3 ? ` winner__card--rank-${index + 1}` : ''
+                }" aria-labelledby="winner-name-${index}">
+                  <div class="winner__rank" aria-label="Position">#${index + 1}</div>
+                  <p id="winner-name-${index}" class="winner__name" title="${escapeHTML(winner.playerName)}">${escapeHTML(winner.playerName)}</p>
+                  <div class="winner__prize" title="Total prize won: ₹${winner.totalPrizeWon.toLocaleString(
+                    'en-IN'
+                  )}" aria-label="Total prize won">
+                    ₹${winner.totalPrizeWon.toLocaleString('en-IN')}
+                  </div>
+                  <div class="winner__highlights" aria-label="Achievements">
                   ${
                     winner.highlights.gameWeeks > 0
                       ? `<span class="highlight-badge gw" title="${escapeHTML(winner.highlights.gameWeeks + ' gameweek wins')}">${escapeHTML(winner.highlights.gameWeeks + 'GW')}</span>`
@@ -1843,8 +1828,9 @@
                 </div>
               </article>
             `
-              )
-              .join('')}
+                )
+                .join('')}
+            </div>
           </div>
         `;
 
@@ -2214,7 +2200,7 @@
       // Display leaderboard with pagination
       function displayLeaderboard() {
         const container = document.getElementById('leaderboard-container');
-        const navigation = document.querySelector('.leaderboard-navigation');
+        const navigation = document.querySelector('.nav__leaderboard');
 
         if (!container) {
           console.error('Leaderboard container not found');
@@ -2252,17 +2238,17 @@
 
         const tableHTML = `
           <div class="leaderboard">
-            <table class="leaderboard-table table-density-compact leaderboard__table leaderboard__table--compact">
+            <table class="leaderboard__table leaderboard__table--compact">
               <colgroup>
-                <col style="width:2ch">   <!-- Rank -->
-                <col style="width:180px"> <!-- Player Name -->
-                <col style="width:2ch">   <!-- Current GW -->
-                <col style="width:3ch">   <!-- Total Points -->
-                <col style="width:3ch">   <!-- FROM #1 -->
+                <col class="leaderboard__col leaderboard__col--rank" />
+                <col class="leaderboard__col leaderboard__col--player" />
+                <col class="leaderboard__col leaderboard__col--gw" />
+                <col class="leaderboard__col leaderboard__col--total" />
+                <col class="leaderboard__col leaderboard__col--deficit" />
               </colgroup>
               <thead class="leaderboard__header">
                 <tr class="leaderboard__row">
-                  <th scope="col" class="col-rank leaderboard__cell leaderboard__cell--rank u-u-text-center" aria-label="Rank" data-short="#">#</th>
+                  <th scope="col" class="leaderboard__cell leaderboard__cell--rank u-text-center" aria-label="Rank" data-short="#">#</th>
                   <th scope="col" class="leaderboard__cell leaderboard__cell--player u-text-left" aria-label="Player Name" title="Player Name">PLAYER</th>
                   <th scope="col" class="leaderboard__cell leaderboard__cell--gw u-text-right" aria-label="Current Gameweek Points" title="Current Gameweek Points">GW</th>
                   <th scope="col" class="leaderboard__cell leaderboard__cell--total u-text-right" aria-label="Total Points" title="Total Points">TOTAL</th>
@@ -2308,7 +2294,7 @@
 
                   return `
                 <tr class="leaderboard__row${actualRank <= 3 ? ' leaderboard__row--winner' : ''}">
-                  <td class="leaderboard-rank col-rank leaderboard__cell leaderboard__cell--rank u-u-text-center${
+                  <td class="leaderboard__cell leaderboard__cell--rank u-text-center${
                     actualRank === 1
                       ? ' rank-1'
                       : actualRank === 2
@@ -2319,12 +2305,12 @@
                   }">
                     <span class="rank-number">${actualRank}</span><span class="rank-movement ${movementClass}">${movementIcon}</span>
                   </td>
-                  <td class="leaderboard-player leaderboard__cell leaderboard__cell--player u-text-left" title="${escapeHTML(player.playerName)}" aria-label="${escapeHTML(player.playerName)}">
+                  <td class="leaderboard__cell leaderboard__cell--player u-text-left" title="${escapeHTML(player.playerName)}" aria-label="${escapeHTML(player.playerName)}">
                     <div class="player-team">${escapeHTML(player.playerName)}</div>
                   </td>
-                  <td class="leaderboard-gw leaderboard__cell leaderboard__cell--gw u-text-right">${gwDisplay}</td>
-                  <td class="leaderboard-total leaderboard__cell leaderboard__cell--total u-text-right">${scoreDisplay}</td>
-                  <td class="leaderboard-deficit leaderboard__cell leaderboard__cell--deficit u-text-right">${deficitDisplay}</td>
+                  <td class="leaderboard__cell leaderboard__cell--gw u-text-right">${gwDisplay}</td>
+                  <td class="leaderboard__cell leaderboard__cell--total u-text-right">${scoreDisplay}</td>
+                  <td class="leaderboard__cell leaderboard__cell--deficit u-text-right">${deficitDisplay}</td>
                 </tr>
               `;
                 })
@@ -2437,7 +2423,7 @@
         });
       })();
     </script>
-    <!-- Twemoji for stat-box icons -->
+    <!-- Twemoji for stats icons -->
     <script defer src="assets/twemoji/twemoji.min.js"></script>
     <script>
       window.applyTwemoji = function (root) {
