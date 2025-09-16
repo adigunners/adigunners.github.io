@@ -8,8 +8,9 @@ window.CurrentGWPoints = (function () {
 
   /**
    * Extract current gameweek points from player data
-   * @deprecated Server-side enhanced JSON now provides current GW points directly in player.highlights.currentGWPoints
-   * This function is maintained for backward compatibility only when enhanced JSON is unavailable
+   * @deprecated Server-side enhanced JSON now provides current GW points directly in
+   * player.highlights.currentGWPoints. This function exists only for backward compatibility
+   * when enhanced JSON is unavailable.
    * @param {Object} player - Player data object
    * @returns {number|null} Current GW points or null if not available
    */

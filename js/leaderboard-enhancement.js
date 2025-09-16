@@ -44,8 +44,9 @@ window.LeaderboardEnhancement = (function () {
 
   /**
    * Calculate rank movement for a specific player
-   * @deprecated Server-side enhanced JSON now provides movement data directly in player.movement
-   * This function is maintained for backward compatibility only when enhanced JSON is unavailable
+   * @deprecated Server-side enhanced JSON now provides movement data directly in
+   * player.movement. This function remains for backward compatibility when enhanced JSON
+   * is unavailable.
    * @param {string} playerName - Name of the player
    * @param {Array} currentRanking - Current leaderboard data
    * @param {Array} previousRanking - Previous leaderboard data (optional, can use enhanced JSON data)
