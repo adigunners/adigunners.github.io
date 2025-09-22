@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2025-09-22T05:40:19.283Z",
+  "lastUpdated": "2025-09-22T19:24:50.754Z",
   "summary": {
     "totalPrizeDistributed": 6998,
-    "totalPaid": 5998,
-    "totalPending": 1000,
+    "totalPaid": 6998,
+    "totalPending": 0,
     "gameweekPrizes": 5000,
     "monthlyPrizes": 1998,
     "completedGameweeks": 5,
@@ -15,8 +15,8 @@
     {
       "playerName": "Bhushan Wagh",
       "totalPrizeWon": 1650,
-      "totalPaid": 1000,
-      "totalPending": 650,
+      "totalPaid": 1650,
+      "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 1650,
         "monthly": 0
@@ -48,7 +48,7 @@
             "week": 5,
             "position": "1st",
             "prize": 650,
-            "status": "Pending"
+            "status": "Paid"
           }
         ],
         "months": []
@@ -61,8 +61,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -109,8 +109,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -157,8 +157,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -198,8 +198,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -239,15 +239,15 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
       "playerName": "Harshit Gupta",
       "totalPrizeWon": 350,
-      "totalPaid": 0,
-      "totalPending": 350,
+      "totalPaid": 350,
+      "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 350,
         "monthly": 0
@@ -267,7 +267,7 @@
             "week": 5,
             "position": "2nd",
             "prize": 350,
-            "status": "Pending"
+            "status": "Paid"
           }
         ],
         "months": []
@@ -280,8 +280,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -321,8 +321,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -362,8 +362,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -403,8 +403,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -437,8 +437,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -471,8 +471,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -505,8 +505,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -539,8 +539,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -573,8 +573,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -607,8 +607,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -641,8 +641,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -675,8 +675,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -709,8 +709,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -743,8 +743,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -777,8 +777,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -811,8 +811,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -845,8 +845,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -879,8 +879,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -913,8 +913,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -947,8 +947,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -981,8 +981,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1015,8 +1015,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1049,8 +1049,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1083,8 +1083,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1117,8 +1117,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1151,8 +1151,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1185,8 +1185,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1219,8 +1219,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1253,8 +1253,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1287,8 +1287,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1321,8 +1321,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1355,8 +1355,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1389,8 +1389,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1423,8 +1423,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1457,8 +1457,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1491,8 +1491,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1525,8 +1525,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1559,8 +1559,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1593,8 +1593,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1627,8 +1627,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1661,8 +1661,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1695,8 +1695,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1729,8 +1729,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1763,8 +1763,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1797,8 +1797,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1831,8 +1831,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1865,8 +1865,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1899,8 +1899,8 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1933,15 +1933,15 @@
       "movement": {
         "direction": "same",
         "change": 0,
-        "icon": "?",
-        "displayText": "?"
+        "icon": "⚬",
+        "displayText": "—"
       }
     }
   ],
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2025-09-22T05:40:19.442Z",
+    "enhancedAt": "2025-09-22T19:24:50.802Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
