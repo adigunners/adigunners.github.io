@@ -1,1 +1,8 @@
-npx --no-install lint-staged
+#!/bin/shnpx --no-install lint-staged
+# Check if npx is available before running lint-staged
+if command -v npx >/dev/null 2>&1; then
+    npx --no-install lint-staged
+else
+    echo "Warning: npx not found. Skipping lint-staged checks."
+    echo "Please install Node.js to enable pre-commit linting."
+fi
