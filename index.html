@@ -298,7 +298,7 @@
         var qp = new URLSearchParams(location.search);
         if (qp.get('test') === 'true' || qp.get('admin') === 'true') {
           var s = document.createElement('script');
-          s.src='js/test-admin-wrappers.js?v=test';
+          s.src = 'js/test-admin-wrappers.js?v=test';
           s.defer = true;
           document.head.appendChild(s);
         }
@@ -618,7 +618,9 @@
           <div class="winner-summary" id="winner-summary"></div>
 
           <div class="u-text-center">
-            <a href="winners.html?v=test" class="view-all-winners" id="winners-link"> See All Winners </a>
+            <a href="winners.html?v=test" class="view-all-winners" id="winners-link">
+              See All Winners
+            </a>
           </div>
         </section>
 
@@ -2440,7 +2442,7 @@
       document.addEventListener('DOMContentLoaded', function () {
         if (!window.twemoji) {
           var s = document.createElement('script');
-          s.src='https://twemoji.maxcdn.com/v/latest/twemoji.min.js';
+          s.src = 'https://twemoji.maxcdn.com/v/latest/twemoji.min.js';
           s.crossOrigin = 'anonymous';
           s.onload = function () {
             window.applyTwemoji(document.body);

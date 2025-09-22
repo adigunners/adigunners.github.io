@@ -7,11 +7,14 @@
 
 ## Overview
 
-This document outlines the comprehensive rollback strategy for the CSS architecture refactoring project. While extensive testing has confirmed zero visual regressions, this plan ensures rapid recovery in case of unexpected issues post-deployment.
+This document outlines the comprehensive rollback strategy for the CSS architecture refactoring
+project. While extensive testing has confirmed zero visual regressions, this plan ensures rapid
+recovery in case of unexpected issues post-deployment.
 
 ## Rollback Triggers
 
 ### Immediate Rollback Required (Emergency)
+
 - [ ] **Visual Layout Breaking**: Any component rendering incorrectly
 - [ ] **Critical Functionality Loss**: Interactive elements stop working
 - [ ] **Performance Degradation**: >25% increase in load times or CLS
@@ -19,6 +22,7 @@ This document outlines the comprehensive rollback strategy for the CSS architect
 - [ ] **Cross-Browser Failures**: Major browsers unable to render correctly
 
 ### Scheduled Rollback Consideration (Non-Emergency)
+
 - [ ] **Minor Visual Issues**: Subtle styling inconsistencies reported
 - [ ] **Performance Regression**: 10-25% performance impact
 - [ ] **User Complaints**: Multiple reports of usability issues
@@ -34,13 +38,14 @@ This document outlines the comprehensive rollback strategy for the CSS architect
 **Downtime**: Minimal
 
 #### Steps:
+
 ```bash
 # 1. Identify the commit to revert
 git log --oneline -10
 
 # 2. Revert the specific commit(s)
 git revert b4081bf  # Phase 7 commit
-git revert 4993fd1  # Phase 6 commit  
+git revert 4993fd1  # Phase 6 commit
 git revert 11a80d6  # Phase 5 commit
 git revert 04e9523  # Phase 4 commit
 
@@ -51,12 +56,14 @@ git push origin feature/enhanced-leaderboard-5-column
 ```
 
 #### Advantages:
+
 - Preserves git history
 - Can revert specific commits
 - Safe and reversible
 - Automated deployment compatible
 
 #### Disadvantages:
+
 - Multiple commits if reverting entire refactoring
 - May conflict with interim changes
 
@@ -67,6 +74,7 @@ git push origin feature/enhanced-leaderboard-5-column
 **Downtime**: Minimal
 
 #### Steps:
+
 ```bash
 # 1. Restore backup CSS file
 cp css/styles.css.backup css/styles.css
@@ -80,11 +88,13 @@ git push origin main
 ```
 
 #### Advantages:
+
 - Fastest rollback option
 - Immediately restores visual appearance
 - Minimal git history impact
 
 #### Disadvantages:
+
 - Loses all refactoring benefits
 - May not address non-CSS issues
 - Requires manual cleanup later
@@ -96,6 +106,7 @@ git push origin main
 **Downtime**: Moderate
 
 #### Steps:
+
 ```bash
 # 1. Create backup of current state
 git branch backup-before-rollback
@@ -108,6 +119,7 @@ git push --force-with-lease origin main
 ```
 
 #### ⚠️ **WARNING**: Use only as last resort
+
 - Destroys commit history
 - Cannot be easily reversed
 - Requires force push
@@ -115,17 +127,18 @@ git push --force-with-lease origin main
 
 ## Rollback Decision Matrix
 
-| Issue Severity | Performance Impact | User Complaints | Rollback Option | Timeline |
-|---------------|-------------------|-----------------|-----------------|----------|
-| Critical Visual | Any | Any | Option 2 (CSS Replace) | Immediate |
-| Functionality Loss | Any | Any | Option 1 (Git Revert) | Within 5 min |
-| Major Performance | >25% | Multiple | Option 1 (Git Revert) | Within 10 min |
-| Minor Issues | <10% | Few | Monitor/Patch | 24-48 hours |
-| Accessibility | Any impact | Any | Option 1 (Git Revert) | Within 15 min |
+| Issue Severity     | Performance Impact | User Complaints | Rollback Option        | Timeline      |
+| ------------------ | ------------------ | --------------- | ---------------------- | ------------- |
+| Critical Visual    | Any                | Any             | Option 2 (CSS Replace) | Immediate     |
+| Functionality Loss | Any                | Any             | Option 1 (Git Revert)  | Within 5 min  |
+| Major Performance  | >25%               | Multiple        | Option 1 (Git Revert)  | Within 10 min |
+| Minor Issues       | <10%               | Few             | Monitor/Patch          | 24-48 hours   |
+| Accessibility      | Any impact         | Any             | Option 1 (Git Revert)  | Within 15 min |
 
 ## Pre-Rollback Checklist
 
 ### Before Initiating Rollback
+
 1. [ ] **Confirm Issue Severity**: Validate that rollback is necessary
 2. [ ] **Document Problem**: Screenshot/describe the issue for post-mortem
 3. [ ] **Check Multiple Browsers**: Ensure it's not browser-specific
@@ -133,6 +146,7 @@ git push --force-with-lease origin main
 5. [ ] **Backup Current State**: Create recovery point if rollback fails
 
 ### Communication Protocol
+
 1. [ ] **Notify Team**: Alert development team of rollback initiation
 2. [ ] **User Communication**: Prepare user-facing status update if needed
 3. [ ] **Stakeholder Alert**: Inform project stakeholders
@@ -143,6 +157,7 @@ git push --force-with-lease origin main
 ### Step-by-Step Rollback Process
 
 #### Phase 1: Immediate Response (0-5 minutes)
+
 1. **Assess and Confirm**
    - [ ] Reproduce the issue
    - [ ] Confirm trigger criteria met
@@ -159,6 +174,7 @@ git push --force-with-lease origin main
    - [ ] Confirm mobile responsiveness
 
 #### Phase 2: Validation (5-15 minutes)
+
 1. **Cross-Browser Testing**
    - [ ] Chrome: Functionality restored
    - [ ] Firefox: No regressions
@@ -176,6 +192,7 @@ git push --force-with-lease origin main
    - [ ] Focus indicators visible
 
 #### Phase 3: Monitoring (15 minutes - 2 hours)
+
 1. **User Monitoring**
    - [ ] Monitor error rates
    - [ ] Check user feedback channels
@@ -189,18 +206,21 @@ git push --force-with-lease origin main
 ## Post-Rollback Actions
 
 ### Immediate Actions (Within 1 Hour)
+
 1. [ ] **User Communication**: Update status page/notifications
 2. [ ] **Team Notification**: Confirm rollback completion
 3. [ ] **Issue Investigation**: Begin root cause analysis
 4. [ ] **Monitoring Setup**: Enhanced monitoring for stability
 
 ### Short-Term Actions (1-24 Hours)
+
 1. [ ] **Post-Mortem Planning**: Schedule incident review
 2. [ ] **Fix Development**: Begin addressing root cause
 3. [ ] **Testing Enhancement**: Improve testing procedures
 4. [ ] **Documentation Update**: Record lessons learned
 
 ### Long-Term Actions (1-7 Days)
+
 1. [ ] **Code Review**: Re-examine refactoring approach
 2. [ ] **Testing Strategy**: Enhance validation procedures
 3. [ ] **Deployment Process**: Improve rollback procedures
@@ -209,16 +229,19 @@ git push --force-with-lease origin main
 ## Recovery and Re-Deployment
 
 ### Option 1: Incremental Re-Deployment
+
 - Deploy changes in smaller phases
 - Validate each phase before proceeding
 - Maintain faster rollback capability
 
 ### Option 2: Hot-Fix Approach
+
 - Address specific issues identified
 - Test thoroughly in staging
 - Deploy targeted fixes only
 
 ### Option 3: Complete Re-Engineering
+
 - Revise entire refactoring approach
 - Enhanced testing and validation
 - Staged rollout with feature flags
@@ -226,6 +249,7 @@ git push --force-with-lease origin main
 ## Prevention Measures
 
 ### Enhanced Testing
+
 1. **Automated Visual Regression**
    - Screenshot comparison tools
    - Automated cross-browser testing
@@ -242,6 +266,7 @@ git push --force-with-lease origin main
    - A/B testing framework
 
 ### Monitoring and Alerting
+
 1. **Real-Time Monitoring**
    - Performance metrics tracking
    - Error rate monitoring
@@ -255,11 +280,13 @@ git push --force-with-lease origin main
 ## Emergency Contacts
 
 ### Technical Team
+
 - **Lead Developer**: Primary rollback executor
 - **DevOps Engineer**: Deployment and infrastructure
 - **QA Lead**: Post-rollback validation
 
 ### Business Team
+
 - **Product Manager**: User communication
 - **Project Stakeholder**: Decision authority
 - **Customer Support**: User issue handling
@@ -267,12 +294,14 @@ git push --force-with-lease origin main
 ## Rollback Artifacts
 
 ### Files and Resources
+
 - **CSS Backup**: `css/styles.css.backup`
 - **Git Commits**: Pre-refactoring commit hashes
 - **Documentation**: This rollback plan
 - **Test Scripts**: Validation procedures
 
 ### Monitoring Dashboards
+
 - Performance metrics
 - Error tracking
 - User analytics
@@ -280,7 +309,8 @@ git push --force-with-lease origin main
 
 ---
 
-**Remember**: This rollback plan is a safety net. The comprehensive testing performed indicates minimal risk, but preparedness ensures confidence in deployment decisions.
+**Remember**: This rollback plan is a safety net. The comprehensive testing performed indicates
+minimal risk, but preparedness ensures confidence in deployment decisions.
 
 **Last Updated**: September 2025  
 **Next Review**: Post-deployment or after 30 days

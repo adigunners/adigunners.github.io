@@ -141,7 +141,7 @@ adigunners.github.io/
 
 ### CSS
 
-- **Follow BEM methodology** for new components (Block__Element--Modifier)
+- **Follow BEM methodology** for new components (Block\_\_Element--Modifier)
 - **Use CSS layers** for proper cascade control (base, components, utilities, overrides)
 - **Leverage utility classes** with `.u-` prefix for common styles
 - Use existing CSS classes when possible
@@ -150,6 +150,7 @@ adigunners.github.io/
 - Avoid `!important` unless absolutely necessary
 
 **CSS Architecture Resources:**
+
 - [CSS Style Guide](development/css-style-guide.md) - Complete architectural standards
 - [BEM Implementation Guide](development/bem-implementation-guide.md) - Component naming conventions
 - [Utility Class Reference](development/utility-class-reference.md) - Available utility classes
