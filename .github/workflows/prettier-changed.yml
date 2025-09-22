@@ -40,10 +40,18 @@ jobs:
         run: |
           files=$(echo "${{ steps.changed-files.outputs.changed-files }}" | tr '\n' ' ')
           echo "Files found: $files"
-          # Limit to files supported by Prettier
-          targets="$(echo $files | tr ' ' '\n' | grep -Ei '\.(js|ts|json|css|html|md|mdx|yml|yaml)$' || true)"
-          if [ -z "$targets" ]; then
+          # Limit to files supported by Prettier and ignore deleted files
+          filtered=$(echo "$files" | tr ' ' '\n' | grep -Ei '\.(js|ts|json|css|html|md|mdx|yml|yaml)$' || true)
+          targets=""
+          for file in $filtered; do
+            if [ -f "$file" ]; then
+              targets="$targets $file"
+            else
+              echo "Skipping deleted file: $file"
+            fi
+          done
+          if [ -z "${targets// }" ]; then
             echo "No files to check with Prettier. Skipping."; exit 0
           fi
-          echo "Running Prettier check on: "$targets
+          echo "Running Prettier check on:$targets"
           npx prettier --check $targets
