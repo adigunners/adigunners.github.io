@@ -220,14 +220,9 @@ function renderDesktopTable(container, pageData, startIndex) {
     if (h.overallRank) chips.push(`<span class=\"muted\">League Rank ${h.overallRank}</span>`);
 
     const topClass = RANK_CLASSES && RANK_CLASSES[rank] ? ` ${RANK_CLASSES[rank]}` : '';
-    let rankCell = String(rank);
-    if (rank === 1 || rank === 2 || rank === 3) {
-      rankCell = `<span class=\"leaderboard-rank rank-${rank}\">${rank}</span>`;
-    }
-
     html += `
       <tr class="${topClass.trim()}">
-        <td class="col-rank">${rankCell}</td>
+        <td class="col-rank">${rank}</td>
         <td class="col-player">${w.playerName}</td>
         <td class="col-total">₹${(w.totalPrizeWon || 0).toLocaleString('en-IN')}</td>
         <td class="col-highlights">${chips.join(' ')}</td>
@@ -240,13 +235,17 @@ function renderDesktopTable(container, pageData, startIndex) {
 
 // Mobile/Tablet: cards (reuse shared createCard)
 function renderMobileCards(container, pageData, startIndex) {
+  const root = document.createElement('div');
+  root.className = 'winner';
+
   const wrap = document.createElement('div');
-  wrap.className = 'winner-preview';
+  wrap.className = 'winner__preview';
   pageData.forEach((w, i) => {
     const rank = startIndex + i + 1;
     wrap.appendChild(createCard(w, rank));
   });
-  container.appendChild(wrap);
+  root.appendChild(wrap);
+  container.appendChild(root);
 }
 
 // ------------------ Pagination ------------------

@@ -135,7 +135,7 @@
         <h3>🖼️ Winners Page Preview</h3>
         <p>Live preview of winners.html with applied fixes:</p>
         <div class="iframe-container">
-          <iframe src="../../../winners.html" title="Winners Page Preview"></iframe>
+          <iframe src="../../../winners.html?v=test" title="Winners Page Preview"></iframe>
         </div>
       </div>
     </div>
@@ -162,7 +162,7 @@
               return new Promise((resolve) => {
                 const iframe = document.createElement('iframe');
                 iframe.style.display = 'none';
-                iframe.src = '../../../winners.html';
+                iframe.src = '../../../winners.html?v=test';
 
                 iframe.onload = () => {
                   try {

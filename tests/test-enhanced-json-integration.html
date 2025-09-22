@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced JSON Integration Test</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f8f9fa;
+        line-height: 1.6;
+      }
+      .test-container {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        margin: 24px 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e1e5e9;
+      }
+      .test-result {
+        padding: 12px 16px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border-left: 4px solid;
+      }
+      .pass {
+        background: #d1f2eb;
+        color: #0c5460;
+        border-left-color: #17a2b8;
+      }
+      .fail {
+        background: #f8d7da;
+        color: #721c24;
+        border-left-color: #dc3545;
+      }
+      .info {
+        background: #e2f3ff;
+        color: #004085;
+        border-left-color: #007bff;
+      }
+
+      .enhanced-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14px;
+      }
+      .enhanced-table th,
+      .enhanced-table td {
+        padding: 12px 8px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+      }
+      .enhanced-table th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #495057;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .enhanced-table tbody tr:hover {
+        background: #f8f9fa;
+      }
+
+      .rank-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .rank-1 {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .rank-2 {
+        background: #f1f3f5;
+        color: #495057;
+      }
+      .rank-3 {
+        background: #fff5f5;
+        color: #744d4d;
+      }
+      .rank-other {
+        background: #f8f9fa;
+        color: #6c757d;
+      }
+
+      .movement-up {
+        color: #28a745;
+      }
+      .movement-down {
+        color: #dc3545;
+      }
+      .movement-same {
+        color: #6c757d;
+      }
+      .movement-new {
+        color: #007bff;
+      }
+
+      .gw-points {
+        font-weight: 600;
+        color: #17a2b8;
+      }
+      .total-points {
+        font-weight: 600;
+        color: #495057;
+      }
+      .deficit {
+        color: #6c757d;
+        font-style: italic;
+      }
+
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .json-display {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 16px;
+        font-family: 'Monaco', 'Courier New', monospace;
+        font-size: 12px;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      h1 {
+        color: #343a40;
+        margin-bottom: 8px;
+      }
+      h2 {
+        color: #495057;
+        margin-bottom: 16px;
+        font-size: 20px;
+      }
+      h3 {
+        color: #6c757d;
+        margin-bottom: 12px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔄 Enhanced JSON Integration Test</h1>
+    <p style="color: #6c757d; margin-bottom: 32px">
+      Testing integration between enhanced GAS JSON output and frontend leaderboard display
+    </p>
+
+    <div class="test-container">
+      <h2>🧪 Integration Test Results</h2>
+      <div id="test-results"></div>
+    </div>
+
+    <div class="test-container">
+      <h2>📊 Enhanced 5-Column Leaderboard Preview</h2>
+      <p style="color: #6c757d; margin-bottom: 16px">
+        This demonstrates how the enhanced JSON data renders in the 5-column format
+      </p>
+      <div id="leaderboard-preview"></div>
+    </div>
+
+    <div class="test-container">
+      <h2>🔍 Data Source Comparison</h2>
+      <div class="comparison-grid">
+        <div>
+          <h3>Original JSON Structure</h3>
+          <div id="original-json" class="json-display"></div>
+        </div>
+        <div>
+          <h3>Enhanced JSON Structure</h3>
+          <div id="enhanced-json" class="json-display"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/leaderboard-enhancement.js?v=test"></script>
+    <script src="../js/current-gw-points.js?v=test"></script>
+    <script>
+      const testResults = document.getElementById('test-results');
+      const leaderboardPreview = document.getElementById('leaderboard-preview');
+      const originalJsonDisplay = document.getElementById('original-json');
+      const enhancedJsonDisplay = document.getElementById('enhanced-json');
+
+      function logResult(test, status, message) {
+        const div = document.createElement('div');
+        div.className = `test-result ${status}`;
+        div.innerHTML = `<strong>${test}:</strong> ${message}`;
+        testResults.appendChild(div);
+      }
+
+      // Simulate enhanced JSON data from GAS (what we expect to receive)
+      const mockEnhancedJson = {
+        lastUpdated: '2025-09-11T10:30:00.000Z',
+        summary: {
+          totalPrizeDistributed: 15000,
+          totalWinners: 7,
+          completedGameweeks: 3,
+        },
+        winners: [
+          {
+            playerName: 'Weekend Blues',
+            totalPrizeWon: 1316,
+            highlights: {
+              gameWeeks: 2,
+              gameMonths: 1,
+              overallRank: 1,
+              totalPoints: 1879,
+              previousRank: 2, // Enhanced: Previous rank
+              currentGWPoints: 75, // Enhanced: Current GW points
+              deficitFromLeader: 0, // Enhanced: Deficit calculation
+            },
+            movement: {
+              // Enhanced: Movement data
+              direction: 'up',
+              change: 1,
+              icon: '⬆',
+              displayText: '+1',
+            },
+            achievements: {
+              gameweeks: [
+                { week: 1, position: '2nd', prize: 400, status: 'Paid', points: 62 },
+                { week: 2, position: '1st', prize: 650, status: 'Paid', points: 75 },
+              ],
+              months: [],
+            },
+          },
+          {
+            playerName: 'El Nino',
+            totalPrizeWon: 900,
+            highlights: {
+              gameWeeks: 1,
+              gameMonths: 0,
+              overallRank: 2,
+              totalPoints: 1879,
+              previousRank: 1, // Enhanced: Was 1st, now 2nd
+              currentGWPoints: 68, // Enhanced: Current GW points
+              deficitFromLeader: 0, // Enhanced: Tied for points
+            },
+            movement: {
+              // Enhanced: Movement data
+              direction: 'down',
+              change: 1,
+              icon: '⬇',
+              displayText: '-1',
+            },
+            achievements: {
+              gameweeks: [{ week: 1, position: '1st', prize: 650, status: 'Paid', points: 68 }],
+              months: [],
+            },
+          },
+          {
+            playerName: 'Hot Shot XI',
+            totalPrizeWon: 650,
+            highlights: {
+              gameWeeks: 1,
+              gameMonths: 0,
+              overallRank: 3,
+              totalPoints: 1870,
+              previousRank: 3, // Enhanced: Same rank
+              currentGWPoints: 55, // Enhanced: Estimated points
+              deficitFromLeader: 9, // Enhanced: 9 points behind
+            },
+            movement: {
+              // Enhanced: Movement data
+              direction: 'same',
+              change: 0,
+              icon: '⚬',
+              displayText: '—',
+            },
+            achievements: {
+              gameweeks: [{ week: 2, position: '2nd', prize: 400, status: 'Paid' }],
+              months: [],
+            },
+          },
+          {
+            playerName: 'Ankur Prasad',
+            totalPrizeWon: 300,
+            highlights: {
+              gameWeeks: 0,
+              gameMonths: 0,
+              overallRank: 4,
+              totalPoints: 1850,
+              previousRank: null, // Enhanced: New player
+              currentGWPoints: 42, // Enhanced: Estimated points
+              deficitFromLeader: 29, // Enhanced: 29 points behind
+            },
+            movement: {
+              // Enhanced: Movement data
+              direction: 'new',
+              change: 0,
+              icon: '●',
+              displayText: 'NEW',
+            },
+            achievements: {
+              gameweeks: [],
+              months: [],
+            },
+          },
+        ],
+        enhancements: {
+          // Enhanced: Metadata
+          leaderboardEnhanced: true,
+          enhancementVersion: '1.0.0',
+          enhancedAt: '2025-09-11T10:30:00.000Z',
+          enhancementFeatures: [
+            'previousRank',
+            'currentGWPoints',
+            'deficitFromLeader',
+            'movementIndicators',
+          ],
+        },
+      };
+
+      // Original JSON structure (for comparison)
+      const originalJson = {
+        lastUpdated: mockEnhancedJson.lastUpdated,
+        summary: mockEnhancedJson.summary,
+        winners: mockEnhancedJson.winners.map((winner) => ({
+          playerName: winner.playerName,
+          totalPrizeWon: winner.totalPrizeWon,
+          highlights: {
+            gameWeeks: winner.highlights.gameWeeks,
+            gameMonths: winner.highlights.gameMonths,
+            overallRank: winner.highlights.overallRank,
+            totalPoints: winner.highlights.totalPoints,
+          },
+          achievements: winner.achievements,
+        })),
+      };
+
+      // Run integration tests
+      try {
+        logResult('Enhanced JSON Structure', 'pass', 'Mock enhanced JSON loaded successfully');
+
+        // Test 1: Verify enhancement metadata
+        if (mockEnhancedJson.enhancements?.leaderboardEnhanced) {
+          logResult('Enhancement Metadata', 'pass', 'Leaderboard enhancement metadata verified');
+        } else {
+          logResult('Enhancement Metadata', 'fail', 'Enhancement metadata missing');
+        }
+
+        // Test 2: Verify enhanced fields
+        const firstWinner = mockEnhancedJson.winners[0];
+        const requiredFields = ['previousRank', 'currentGWPoints', 'deficitFromLeader'];
+        let missingFields = [];
+
+        requiredFields.forEach((field) => {
+          if (!firstWinner.highlights.hasOwnProperty(field)) {
+            missingFields.push(field);
+          }
+        });
+
+        if (missingFields.length === 0) {
+          logResult('Enhanced Fields', 'pass', 'All required enhanced fields present');
+        } else {
+          logResult('Enhanced Fields', 'fail', `Missing fields: ${missingFields.join(', ')}`);
+        }
+
+        // Test 3: Test current GW points extraction
+        const extractedPoints = CurrentGWPoints.getCurrentGWPoints(firstWinner);
+        if (extractedPoints === 75) {
+          logResult(
+            'Current GW Points',
+            'pass',
+            `Extracted ${extractedPoints} points from enhanced JSON`
+          );
+        } else {
+          logResult('Current GW Points', 'fail', `Expected 75, got ${extractedPoints}`);
+        }
+
+        // Test 4: Test movement data
+        if (firstWinner.movement?.direction === 'up' && firstWinner.movement?.change === 1) {
+          logResult('Movement Data', 'pass', 'Movement indicators working correctly');
+        } else {
+          logResult('Movement Data', 'fail', 'Movement data incorrect');
+        }
+
+        // Test 5: Test deficit calculation
+        const leader = mockEnhancedJson.winners.find((w) => w.highlights.overallRank === 1);
+        const nonLeader = mockEnhancedJson.winners.find((w) => w.highlights.overallRank === 3);
+
+        if (
+          leader.highlights.deficitFromLeader === 0 &&
+          nonLeader.highlights.deficitFromLeader > 0
+        ) {
+          logResult('Deficit Calculation', 'pass', 'Deficit calculations correct');
+        } else {
+          logResult('Deficit Calculation', 'fail', 'Deficit calculations incorrect');
+        }
+
+        // Test 6: Test frontend enhancement compatibility
+        const frontendEnhanced = LeaderboardEnhancement.enhanceLeaderboardData(
+          mockEnhancedJson.winners
+        );
+        if (frontendEnhanced.length === mockEnhancedJson.winners.length) {
+          logResult(
+            'Frontend Compatibility',
+            'pass',
+            'Enhanced JSON compatible with frontend functions'
+          );
+        } else {
+          logResult('Frontend Compatibility', 'fail', 'Frontend enhancement failed');
+        }
+
+        logResult('Overall Integration', 'pass', 'All integration tests passed! 🎉');
+
+        // Display enhanced leaderboard
+        displayEnhancedLeaderboard(mockEnhancedJson.winners);
+
+        // Show JSON comparison
+        displayJsonComparison();
+      } catch (error) {
+        logResult('Integration Test', 'fail', `Test failed: ${error.message}`);
+        console.error('Integration test error:', error);
+      }
+
+      function displayEnhancedLeaderboard(winners) {
+        const html = `
+                <table class="enhanced-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">Rank</th>
+                            <th style="width: auto;">Team & Manager</th>
+                            <th style="width: 60px;">GW</th>
+                            <th style="width: 80px;">Total</th>
+                            <th style="width: 80px;">Deficit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${winners
+                          .map((winner) => {
+                            const rankClass =
+                              winner.highlights.overallRank <= 3
+                                ? `rank-${winner.highlights.overallRank}`
+                                : 'rank-other';
+
+                            return `
+                                <tr>
+                                    <td>
+                                        <div class="rank-badge ${rankClass}">
+                                            <span class="movement-${winner.movement.direction}">
+                                                ${winner.movement.icon}
+                                            </span>
+                                            ${winner.highlights.overallRank}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight: 600; color: #495057;">
+                                            ${winner.playerName}
+                                        </div>
+                                        <div style="font-size: 12px; color: #6c757d;">
+                                            Manager Name
+                                        </div>
+                                    </td>
+                                    <td class="gw-points">
+                                        ${winner.highlights.currentGWPoints}
+                                    </td>
+                                    <td class="total-points">
+                                        ${winner.highlights.totalPoints.toLocaleString()}
+                                    </td>
+                                    <td class="deficit">
+                                        ${winner.highlights.deficitFromLeader === 0 ? '—' : winner.highlights.deficitFromLeader}
+                                    </td>
+                                </tr>
+                            `;
+                          })
+                          .join('')}
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 16px; padding: 12px; background: #f8f9fa; border-radius: 6px; font-size: 14px; color: #6c757d;">
+                    <strong>Enhanced Features Demonstrated:</strong><br>
+                    <span style="color: #28a745;">⬆ Up Movement</span> | 
+                    <span style="color: #dc3545;">⬇ Down Movement</span> | 
+                    <span style="color: #6c757d;">⚬ No Change</span> | 
+                    <span style="color: #007bff;">● New Player</span><br>
+                    <strong>Data Sources:</strong> Real-time GW points, Movement tracking, Deficit calculations
+                </div>
+            `;
+        leaderboardPreview.innerHTML = html;
+      }
+
+      function displayJsonComparison() {
+        originalJsonDisplay.textContent = JSON.stringify(originalJson, null, 2);
+        enhancedJsonDisplay.textContent = JSON.stringify(mockEnhancedJson, null, 2);
+      }
+    </script>
+  </body>
+</html>

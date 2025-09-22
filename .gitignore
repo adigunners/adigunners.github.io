@@ -31,6 +31,9 @@ node_modules/
 /secrets/
 /config/
 /scripts/
+!/scripts/build.js
+!/scripts/set-version.js
+!/scripts/fetch-twemoji.js
 /gas/
 /src/
 /admin/

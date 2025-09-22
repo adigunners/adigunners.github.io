@@ -16,7 +16,7 @@
     <title>Complete Winner Scorecard - IIM Mumbai Fantasy League</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png?v=test" />
 
     <!-- Preload fonts for better performance -->
     <!-- Preload self-hosted fonts for fast paint -->
@@ -24,21 +24,21 @@
       rel="preload"
       as="font"
       type="font/woff2"
-      href="assets/fonts/poppins/poppins-latin-400.woff2"
+      href="assets/fonts/poppins/poppins-latin-400.woff2?v=test"
       crossorigin
     />
     <link
       rel="preload"
       as="font"
       type="font/woff2"
-      href="assets/fonts/poppins/poppins-latin-600.woff2"
+      href="assets/fonts/poppins/poppins-latin-600.woff2?v=test"
       crossorigin
     />
     <link
       rel="preload"
       as="font"
       type="font/woff2"
-      href="assets/fonts/poppins/poppins-latin-700.woff2"
+      href="assets/fonts/poppins/poppins-latin-700.woff2?v=test"
       crossorigin
     />
     <!-- Font Awesome removed: replaced with emoji/SVG to avoid render-blocking CSS -->
@@ -47,18 +47,12 @@
 
     <!-- MODULAR CSS ARCHITECTURE (standardized async loading like index.html) -->
     <!-- 1. Foundation: Consolidated (variables, fonts, base, spacing) -->
-    <link rel="stylesheet" href="css/styles.css?v=1.0.5" />
+    <link rel="stylesheet" href="css/styles.css?v=test" />
 
     <!-- 2. Layout: Core layout and spacing (merged into styles.css) -->
 
     <!-- 3. Components (base first, then component extensions) - merged into styles.css -->
-    <link
-      rel="preload"
-      as="style"
-      href="assets/css/components/table.css?v=1.0.5"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="assets/css/components/table.css?v=1.0.5" /></noscript>
+    <!-- table.css consolidated into styles.css for better maintainability -->
     <!-- header.css merged into styles.css -->
 
     <!-- 4. Page-specific (async loading for non-critical styles) -->
@@ -68,8 +62,7 @@
 
     <!-- 5. Responsive (merged into styles.css) -->
 
-    <!-- 6. Fallback CSS (loads only if external resources fail; kept last) -->
-    <link rel="stylesheet" href="css/fallbacks.css?v=1.0.5" id="fallback-css" disabled />
+    <!-- 6. Fallback CSS consolidated into styles.css for better maintainability -->
 
     <!-- Critical CSS: Above-the-fold styles for stable first paint -->
     <style>
@@ -220,7 +213,7 @@
       }
 
       /* Shared critical container styling to prevent layout shifts */
-      .section-card {
+      .section__card {
         padding: var(--spacing-xl);
         margin-bottom: var(--spacing-lg);
         border-radius: var(--radius-lg);
@@ -338,47 +331,59 @@
 
       <main id="main-content">
         <!-- LEAGUE STATISTICS SECTION (using original winners.html structure) -->
-        <section id="league-statistics" class="section-card" aria-labelledby="stats-heading">
-          <h2 class="section-heading" id="stats-heading">
-            <span class="heading-main"><span class="section-emoji">📊</span>Season Summary</span>
+        <section
+          id="league-statistics"
+          class="section section__card section__card--stats"
+          aria-labelledby="stats-heading"
+        >
+          <h2 class="section__heading" id="stats-heading">
+            <span class="section__heading-main"
+              ><span class="section__emoji">📊</span>Season Summary</span
+            >
           </h2>
-          <div class="stats-row" id="stats-summary">
-            <article class="stat-box" aria-live="polite">
-              <div class="stat-box__icon" aria-hidden="true">📅</div>
-              <div class="stat-box__number" id="completed-gameweeks">--</div>
-              <h3 class="stat-box__title">Completed Gameweeks</h3>
-            </article>
-            <article class="stat-box" aria-live="polite">
-              <div class="stat-box__icon" aria-hidden="true">🗓️</div>
-              <div class="stat-box__number" id="completed-gamemonths">--</div>
-              <h3 class="stat-box__title">Completed Gamemonths</h3>
-            </article>
-            <article class="stat-box" aria-live="polite">
-              <div class="stat-box__icon" aria-hidden="true">🏅</div>
-              <div class="stat-box__number" id="total-winners">--</div>
-              <h3 class="stat-box__title">Total Winners</h3>
-            </article>
-            <article class="stat-box stat-box--primary" aria-live="polite">
-              <div class="stat-box__icon" aria-hidden="true">💰</div>
-              <div class="stat-box__number" id="total-prize-money">--</div>
-              <h3 class="stat-box__title">Total Prize Money</h3>
-            </article>
+          <div class="stats" id="stats-summary">
+            <div class="stats__row">
+              <article class="stats__box" aria-live="polite">
+                <div class="stats__icon" aria-hidden="true">📅</div>
+                <div class="stats__number" id="completed-gameweeks">--</div>
+                <h3 class="stats__title">Completed Gameweeks</h3>
+              </article>
+              <article class="stats__box" aria-live="polite">
+                <div class="stats__icon" aria-hidden="true">🗓️</div>
+                <div class="stats__number" id="completed-gamemonths">--</div>
+                <h3 class="stats__title">Completed Gamemonths</h3>
+              </article>
+              <article class="stats__box" aria-live="polite">
+                <div class="stats__icon" aria-hidden="true">🏅</div>
+                <div class="stats__number" id="total-winners">--</div>
+                <h3 class="stats__title">Total Winners</h3>
+              </article>
+              <article class="stats__box" aria-live="polite">
+                <div class="stats__icon" aria-hidden="true">💰</div>
+                <div class="stats__number" id="total-prize-money">--</div>
+                <h3 class="stats__title">Total Prize Money</h3>
+              </article>
+            </div>
           </div>
         </section>
 
         <!-- WINNERS SECTION -->
-        <section id="winners-section" class="section-card" aria-labelledby="winners-heading">
+        <section
+          id="winners-section"
+          class="section section__card section__card--winner"
+          aria-labelledby="winners-heading"
+        >
           <div class="winners-header">
-            <h2 class="section-heading" id="winners-heading">
-              <span class="heading-main"
-                ><span class="section-emoji">🏅</span>Season Earnings (All Winners)</span
+            <h2 class="section__heading" id="winners-heading">
+              <span class="section__heading-main"
+                ><span class="section__emoji">🏅</span>Season Earnings (All Winners)</span
               >
-              <span class="heading-subtitle" id="winners-page-after-gw">Loading…</span>
+              <span class="section__heading-subtitle" id="winners-page-after-gw">Loading…</span>
             </h2>
             <div class="winners-descrow">
-              <p class="section-desc">All players ranked by total prize money won this season.</p>
+              <p class="section__desc">All players ranked by total prize money won this season.</p>
               <a
-                href="index.html"
+                href="index.html?v=test"
                 class="btn nav-back nav-back--sm"
                 aria-label="Go back to home page"
               >
@@ -393,16 +398,20 @@
           </div>
 
           <!-- Pagination -->
-          <div
-            class="winner-navigation is-hidden"
+          <nav
+            class="nav__leaderboard nav__leaderboard--compact is-hidden"
             id="winner-navigation"
             role="navigation"
             aria-label="Winners navigation"
           >
-            <button id="winner-prev-page" class="winner-nav-btn" disabled>◀️ Previous</button>
-            <span id="winner-page-info" class="page-info" aria-live="polite">Page 1 of 1</span>
-            <button id="winner-next-page" class="winner-nav-btn" disabled>Next ▶️</button>
-          </div>
+            <button id="winner-prev-page" class="nav__button nav__button--compact" disabled>
+              ◀️ Previous
+            </button>
+            <span id="winner-page-info" class="nav__page-info" aria-live="polite">Page 1 of 1</span>
+            <button id="winner-next-page" class="nav__button nav__button--compact" disabled>
+              Next ▶️
+            </button>
+          </nav>
         </section>
       </main>
 
@@ -465,7 +474,7 @@
       ⬅️
       <a
         id="back-index-test"
-        href="index.html?test=true"
+        href="index.html?test=true&v=test"
         class="btn nav-back nav-back--sm"
         title="Back to Home (test)"
       >
@@ -478,16 +487,16 @@
       // Identify this as winners page to prevent UI manager from running index.html-specific code
       window.FPL_PAGE_TYPE = 'winners';
     </script>
-    <script src="js/error-handler.js?v=1.0.5" defer></script>
-    <script src="js/utils.js?v=1.0.5" defer></script>
-    <script src="js/data-loader.js?v=1.0.5" defer></script>
-    <script src="js/ui-manager.js?v=1.0.5" defer></script>
-    <script src="js/header-scroll.js?v=1.0.5" defer></script>
-    <script src="js/countdown.js?v=1.0.5" defer></script>
-    <script src="js/prize-structure.js?v=1.0.5" defer></script>
+    <script src="js/error-handler.js?v=test" defer></script>
+    <script src="js/utils.js?v=test" defer></script>
+    <script src="js/data-loader.js?v=test" defer></script>
+    <script src="js/ui-manager.js?v=test" defer></script>
+    <script src="js/header-scroll.js?v=test" defer></script>
+    <script src="js/countdown.js?v=test" defer></script>
+    <script src="js/prize-structure.js?v=test" defer></script>
 
     <!-- Winners page module loader -->
-    <script type="module" src="js/winners-module.js" defer></script>
+    <script type="module" src="js/winners-module.js?v=test" defer></script>
 
     <!-- Ensure test-only controls appear on winners when ?test=true -->
     <script>
@@ -511,8 +520,8 @@
       })();
     </script>
 
-    <!-- Twemoji for stat-box icons -->
-    <script defer src="assets/twemoji/twemoji.min.js"></script>
+    <!-- Twemoji for stats icons -->
+    <script defer src="assets/twemoji/twemoji.min.js?v=test"></script>
     <script>
       window.applyTwemoji = function (root) {
         try {
@@ -640,7 +649,7 @@
     </script>
 
     <!-- Version + SW update handling -->
-    <script src="/version.js?v=1" defer></script>
-    <script src="js/sw-update.js?v=1" defer></script>
+    <script src="/version.js?v=test" defer></script>
+    <script src="js/sw-update.js?v=test" defer></script>
   </body>
 </html>

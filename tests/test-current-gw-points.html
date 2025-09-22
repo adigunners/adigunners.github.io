@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Current GW Points Integration Test</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f8f9fa;
+        line-height: 1.6;
+      }
+      .test-container {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        margin: 24px 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e1e5e9;
+      }
+      .test-result {
+        padding: 12px 16px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border-left: 4px solid;
+      }
+      .pass {
+        background: #d1f2eb;
+        color: #0c5460;
+        border-left-color: #17a2b8;
+      }
+      .fail {
+        background: #f8d7da;
+        color: #721c24;
+        border-left-color: #dc3545;
+      }
+      .info {
+        background: #e2f3ff;
+        color: #004085;
+        border-left-color: #007bff;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14px;
+      }
+      .data-table th,
+      .data-table td {
+        padding: 12px 8px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+      }
+      .data-table th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #495057;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .data-table tbody tr:hover {
+        background: #f8f9fa;
+      }
+
+      .rank-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .rank-1 {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .rank-2 {
+        background: #f1f3f5;
+        color: #495057;
+      }
+      .rank-3 {
+        background: #fff5f5;
+        color: #744d4d;
+      }
+      .rank-other {
+        background: #f8f9fa;
+        color: #6c757d;
+      }
+
+      .gw-points {
+        font-weight: 600;
+        color: #28a745;
+      }
+      .gw-estimated {
+        color: #ffc107;
+      }
+      .gw-missing {
+        color: #6c757d;
+        font-style: italic;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .stat-card {
+        background: #f8f9fa;
+        padding: 16px;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .stat-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #495057;
+        display: block;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 4px;
+      }
+
+      h1 {
+        color: #343a40;
+        margin-bottom: 8px;
+      }
+      h2 {
+        color: #495057;
+        margin-bottom: 16px;
+        font-size: 20px;
+      }
+      h3 {
+        color: #6c757d;
+        margin-bottom: 12px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🏆 Current GW Points Integration Test</h1>
+    <p style="color: #6c757d; margin-bottom: 32px">
+      Testing current gameweek points extraction, estimation, and display functionality
+    </p>
+
+    <div class="test-container">
+      <h2>📊 Test Results</h2>
+      <div id="test-results"></div>
+    </div>
+
+    <div class="test-container">
+      <h2>🎯 Current GW Points Analysis</h2>
+      <div class="stats-grid" id="stats-grid"></div>
+    </div>
+
+    <div class="test-container">
+      <h2>📋 Enhanced Player Data with Current GW Points</h2>
+      <div id="player-data-preview"></div>
+    </div>
+
+    <script src="../js/current-gw-points.js?v=test"></script>
+    <script>
+      const testResults = document.getElementById('test-results');
+      const statsGrid = document.getElementById('stats-grid');
+      const playerPreview = document.getElementById('player-data-preview');
+
+      function logResult(test, status, message) {
+        const div = document.createElement('div');
+        div.className = `test-result ${status}`;
+        div.innerHTML = `<strong>${test}:</strong> ${message}`;
+        testResults.appendChild(div);
+      }
+
+      // Test data based on actual winner_stats.json structure
+      const testPlayers = [
+        {
+          playerName: 'Weekend Blues',
+          totalPrizeWon: 1316,
+          highlights: { gameWeeks: 2, gameMonths: 1, overallRank: 1, totalPoints: 179 },
+          achievements: {
+            gameweeks: [
+              { week: 1, position: '2nd', prize: 400, status: 'Paid', points: 62 },
+              { week: 2, position: '1st', prize: 650, status: 'Paid', points: 75 },
+            ],
+            months: [{ month: 1, position: '1st', prize: 666, status: 'Pending' }],
+          },
+        },
+        {
+          playerName: 'El Nino',
+          totalPrizeWon: 900,
+          highlights: { gameWeeks: 1, gameMonths: 0, overallRank: 2, totalPoints: 179 },
+          achievements: {
+            gameweeks: [{ week: 1, position: '1st', prize: 650, status: 'Paid', points: 68 }],
+            months: [],
+          },
+        },
+        {
+          playerName: 'Hot Shot XI',
+          totalPrizeWon: 650,
+          highlights: { gameWeeks: 1, gameMonths: 0, overallRank: 3, totalPoints: 179 },
+          achievements: {
+            gameweeks: [{ week: 2, position: '2nd', prize: 400, status: 'Paid' }], // Missing points
+            months: [],
+          },
+        },
+        {
+          playerName: 'Ankur Prasad',
+          totalPrizeWon: 300,
+          highlights: { gameWeeks: 0, gameMonths: 0, overallRank: 4, totalPoints: 174 },
+          achievements: { gameweeks: [], months: [] },
+        },
+        {
+          playerName: 'VickedredsXI',
+          totalPrizeWon: 0,
+          highlights: { gameWeeks: 0, gameMonths: 0, overallRank: 15, totalPoints: 155 },
+          achievements: { gameweeks: [], months: [] },
+        },
+      ];
+
+      // Run tests
+      try {
+        logResult('Module Loading', 'pass', 'CurrentGWPoints module loaded successfully');
+
+        // Test 1: Current GW Points Extraction
+        const actualPoints = CurrentGWPoints.getCurrentGWPoints(testPlayers[0]);
+        logResult(
+          'Current GW Points Extraction',
+          'pass',
+          `Extracted ${actualPoints} points from player with GW data`
+        );
+
+        // Test 2: Missing Points Handling
+        const missingPoints = CurrentGWPoints.getCurrentGWPoints(testPlayers[2]);
+        logResult(
+          'Missing Points Handling',
+          missingPoints === null ? 'pass' : 'fail',
+          `Handled missing points: ${missingPoints === null ? 'correctly returned null' : 'unexpected value'}`
+        );
+
+        // Test 3: Point Estimation
+        const estimatedPoints = CurrentGWPoints.estimateCurrentGWPoints(testPlayers[3]);
+        const validEstimate = estimatedPoints >= 20 && estimatedPoints <= 100;
+        logResult(
+          'Point Estimation',
+          validEstimate ? 'pass' : 'fail',
+          `Estimated ${estimatedPoints} points (range check: ${validEstimate})`
+        );
+
+        // Test 4: Formatting
+        const formatted1 = CurrentGWPoints.formatCurrentGWPoints(75);
+        const formatted2 = CurrentGWPoints.formatCurrentGWPoints(null);
+        logResult(
+          'Point Formatting',
+          formatted1 === '75' && formatted2 === '—' ? 'pass' : 'fail',
+          `Formatted 75 as "${formatted1}", null as "${formatted2}"`
+        );
+
+        // Test 5: Current Gameweek Detection
+        const currentGW = CurrentGWPoints.getCurrentGameweek(testPlayers);
+        logResult(
+          'Current Gameweek Detection',
+          currentGW >= 1 ? 'pass' : 'fail',
+          `Detected current gameweek: ${currentGW}`
+        );
+
+        // Test 6: Player Enhancement
+        const enhanced = CurrentGWPoints.enhancePlayersWithCurrentGW(testPlayers);
+        const allHaveGWData = enhanced.every(
+          (p) =>
+            p.hasOwnProperty('currentGWPoints') &&
+            p.hasOwnProperty('currentGWDisplay') &&
+            p.highlights.hasOwnProperty('currentGWPoints')
+        );
+        logResult(
+          'Player Enhancement',
+          allHaveGWData ? 'pass' : 'fail',
+          `Enhanced ${enhanced.length} players with current GW data`
+        );
+
+        // Display statistics
+        displayStatistics(enhanced);
+
+        // Display enhanced player data
+        displayPlayerData(enhanced);
+
+        logResult('Overall Test Suite', 'pass', 'All tests completed successfully! ✅');
+      } catch (error) {
+        logResult('Test Execution', 'fail', `Error: ${error.message}`);
+        console.error('Test error:', error);
+      }
+
+      function displayStatistics(enhancedPlayers) {
+        const stats = {
+          totalPlayers: enhancedPlayers.length,
+          withActualData: enhancedPlayers.filter(
+            (p) => CurrentGWPoints.getCurrentGWPoints(p) !== null
+          ).length,
+          withEstimatedData: enhancedPlayers.filter(
+            (p) => CurrentGWPoints.getCurrentGWPoints(p) === null
+          ).length,
+          avgGWPoints: Math.round(
+            enhancedPlayers.reduce((sum, p) => sum + p.currentGWPoints, 0) / enhancedPlayers.length
+          ),
+          maxGWPoints: Math.max(...enhancedPlayers.map((p) => p.currentGWPoints)),
+          minGWPoints: Math.min(...enhancedPlayers.map((p) => p.currentGWPoints)),
+        };
+
+        statsGrid.innerHTML = `
+                <div class="stat-card">
+                    <span class="stat-value">${stats.totalPlayers}</span>
+                    <div class="stat-label">Total Players</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">${stats.withActualData}</span>
+                    <div class="stat-label">With Actual Data</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">${stats.withEstimatedData}</span>
+                    <div class="stat-label">With Estimated Data</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">${stats.avgGWPoints}</span>
+                    <div class="stat-label">Avg GW Points</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">${stats.maxGWPoints}</span>
+                    <div class="stat-label">Max GW Points</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">${stats.minGWPoints}</span>
+                    <div class="stat-label">Min GW Points</div>
+                </div>
+            `;
+      }
+
+      function displayPlayerData(enhancedPlayers) {
+        const html = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player Name</th>
+                            <th>Current GW Points</th>
+                            <th>Data Source</th>
+                            <th>Total Points</th>
+                            <th>Prize Won</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${enhancedPlayers
+                          .map((player) => {
+                            const hasActualData =
+                              CurrentGWPoints.getCurrentGWPoints(player) !== null;
+                            const rankClass =
+                              player.highlights.overallRank <= 3
+                                ? `rank-${player.highlights.overallRank}`
+                                : 'rank-other';
+                            const gwClass = hasActualData ? 'gw-points' : 'gw-estimated';
+
+                            return `
+                                <tr>
+                                    <td>
+                                        <span class="rank-badge ${rankClass}">${player.highlights.overallRank}</span>
+                                    </td>
+                                    <td style="font-weight: 500;">${player.playerName}</td>
+                                    <td class="${gwClass}" style="font-weight: 600;">
+                                        ${player.currentGWDisplay}
+                                        ${!hasActualData ? '<small style="color: #6c757d; font-weight: 400;"> (est.)</small>' : ''}
+                                    </td>
+                                    <td>
+                                        <span style="font-size: 12px; padding: 2px 6px; border-radius: 4px; ${
+                                          hasActualData
+                                            ? 'background: #d1f2eb; color: #0c5460;">Actual'
+                                            : 'background: #fff3cd; color: #856404;">Estimated'
+                                        }</span>
+                                    </td>
+                                    <td>${player.highlights.totalPoints}</td>
+                                    <td>₹${player.totalPrizeWon.toLocaleString()}</td>
+                                </tr>
+                            `;
+                          })
+                          .join('')}
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 16px; padding: 12px; background: #f8f9fa; border-radius: 6px; font-size: 14px; color: #6c757d;">
+                    <strong>Data Sources:</strong><br>
+                    <span style="color: #0c5460;">● Actual</span> - Extracted from achievements.gameweeks[].points<br>
+                    <span style="color: #856404;">● Estimated</span> - Calculated based on historical performance and rank
+                </div>
+            `;
+        playerPreview.innerHTML = html;
+      }
+    </script>
+  </body>
+</html>

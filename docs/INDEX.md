@@ -18,7 +18,8 @@
 ### Release Information
 
 - **[📝 CHANGELOG.md](CHANGELOG.md)** - Public release notes and version history
-- **[🚀 CACHING_AND_DEPLOYMENT.md](CACHING_AND_DEPLOYMENT.md)** - Build, caching, and rollout strategy
+- **[🚀 CACHING_AND_DEPLOYMENT.md](CACHING_AND_DEPLOYMENT.md)** - Build, caching, and rollout
+  strategy
 
 ## 🔒 Internal Documentation
 
