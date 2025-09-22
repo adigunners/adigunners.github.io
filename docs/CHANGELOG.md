@@ -1,5 +1,15 @@
 # 📝 Changelog - Fantasy League Website
 
+## [Unreleased]
+
+### 🔧 Fixed
+
+- **Mobile Leaderboard Rank Layout**: Rank cell now spans the full row on phones, aligning the number and movement icon without affecting tablet/desktop layouts (`css/styles.css`).
+
+### ⚙️ Infrastructure
+
+- **GitHub Pages Deploy Stability**: Added workflow concurrency guard so rapid commits cancel older runs instead of failing with “deployment in progress” errors (`.github/workflows/deploy.yml`).
+
 ## [1.5.0] - 2025-09-14 – CSS Architecture Refactoring + Pagination Fixes
 
 ### 🏗️ CSS Architecture Overhaul

@@ -253,7 +253,7 @@
         // Create a link that will fail to load
         const testLink = document.createElement('link');
         testLink.rel = 'stylesheet';
-        testLink.href = 'https://nonexistent-domain-for-testing.com/fail.css';
+        testLink.href='https://nonexistent-domain-for-testing.com/fail.css';
         testLink.onerror = () => {
           console.info('✅ Error handler triggered successfully');
           testResults.errorHandlers = true;

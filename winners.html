@@ -16,7 +16,7 @@
     <title>Complete Winner Scorecard - IIM Mumbai Fantasy League</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png?v=test" />
 
     <!-- Preload fonts for better performance -->
     <!-- Preload self-hosted fonts for fast paint -->
@@ -24,21 +24,21 @@
       rel="preload"
       as="font"
       type="font/woff2"
-      href="assets/fonts/poppins/poppins-latin-400.woff2"
+      href="assets/fonts/poppins/poppins-latin-400.woff2?v=test"
       crossorigin
     />
     <link
       rel="preload"
       as="font"
       type="font/woff2"
-      href="assets/fonts/poppins/poppins-latin-600.woff2"
+      href="assets/fonts/poppins/poppins-latin-600.woff2?v=test"
       crossorigin
     />
     <link
       rel="preload"
       as="font"
       type="font/woff2"
-      href="assets/fonts/poppins/poppins-latin-700.woff2"
+      href="assets/fonts/poppins/poppins-latin-700.woff2?v=test"
       crossorigin
     />
     <!-- Font Awesome removed: replaced with emoji/SVG to avoid render-blocking CSS -->
@@ -47,7 +47,7 @@
 
     <!-- MODULAR CSS ARCHITECTURE (standardized async loading like index.html) -->
     <!-- 1. Foundation: Consolidated (variables, fonts, base, spacing) -->
-    <link rel="stylesheet" href="css/styles.css?v=1.0.5" />
+    <link rel="stylesheet" href="css/styles.css?v=test" />
 
     <!-- 2. Layout: Core layout and spacing (merged into styles.css) -->
 
@@ -383,7 +383,7 @@
             <div class="winners-descrow">
               <p class="section__desc">All players ranked by total prize money won this season.</p>
               <a
-                href="index.html"
+                href="index.html?v=test"
                 class="btn nav-back nav-back--sm"
                 aria-label="Go back to home page"
               >
@@ -474,7 +474,7 @@
       ⬅️
       <a
         id="back-index-test"
-        href="index.html?test=true"
+        href="index.html?test=true&v=test"
         class="btn nav-back nav-back--sm"
         title="Back to Home (test)"
       >
@@ -487,16 +487,16 @@
       // Identify this as winners page to prevent UI manager from running index.html-specific code
       window.FPL_PAGE_TYPE = 'winners';
     </script>
-    <script src="js/error-handler.js?v=1.0.5" defer></script>
-    <script src="js/utils.js?v=1.0.5" defer></script>
-    <script src="js/data-loader.js?v=1.0.5" defer></script>
-    <script src="js/ui-manager.js?v=1.0.5" defer></script>
-    <script src="js/header-scroll.js?v=1.0.5" defer></script>
-    <script src="js/countdown.js?v=1.0.5" defer></script>
-    <script src="js/prize-structure.js?v=1.0.5" defer></script>
+    <script src="js/error-handler.js?v=test" defer></script>
+    <script src="js/utils.js?v=test" defer></script>
+    <script src="js/data-loader.js?v=test" defer></script>
+    <script src="js/ui-manager.js?v=test" defer></script>
+    <script src="js/header-scroll.js?v=test" defer></script>
+    <script src="js/countdown.js?v=test" defer></script>
+    <script src="js/prize-structure.js?v=test" defer></script>
 
     <!-- Winners page module loader -->
-    <script type="module" src="js/winners-module.js" defer></script>
+    <script type="module" src="js/winners-module.js?v=test" defer></script>
 
     <!-- Ensure test-only controls appear on winners when ?test=true -->
     <script>
@@ -521,7 +521,7 @@
     </script>
 
     <!-- Twemoji for stats icons -->
-    <script defer src="assets/twemoji/twemoji.min.js"></script>
+    <script defer src="assets/twemoji/twemoji.min.js?v=test"></script>
     <script>
       window.applyTwemoji = function (root) {
         try {
@@ -537,7 +537,7 @@
       document.addEventListener('DOMContentLoaded', function () {
         if (!window.twemoji) {
           var s = document.createElement('script');
-          s.src = 'https://twemoji.maxcdn.com/v/latest/twemoji.min.js';
+          s.src='https://twemoji.maxcdn.com/v/latest/twemoji.min.js';
           s.crossOrigin = 'anonymous';
           s.onload = function () {
             window.applyTwemoji(document.body);
@@ -649,7 +649,7 @@
     </script>
 
     <!-- Version + SW update handling -->
-    <script src="/version.js?v=1" defer></script>
-    <script src="js/sw-update.js?v=1" defer></script>
+    <script src="/version.js?v=test" defer></script>
+    <script src="js/sw-update.js?v=test" defer></script>
   </body>
 </html>

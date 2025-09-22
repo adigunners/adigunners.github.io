@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Countdown Stress Test - IIM Mumbai Fantasy League</title>
-    <link rel="stylesheet" href="../../css/variables.css" />
-    <link rel="stylesheet" href="../../css/base.css" />
-    <link rel="stylesheet" href="../../css/header.css" />
+    <link rel="stylesheet" href="../../css/variables.css?v=test" />
+    <link rel="stylesheet" href="../../css/base.css?v=test" />
+    <link rel="stylesheet" href="../../css/header.css?v=test" />
     <style>
       body {
         font-family: 'Poppins', sans-serif;
@@ -147,8 +147,8 @@
       </div>
     </div>
 
-    <script src="../../js/utils.js"></script>
-    <script src="../../js/data-loader.js"></script>
+    <script src="../../js/utils.js?v=test"></script>
+    <script src="../../js/data-loader.js?v=test"></script>
     <script>
       (function () {
         const sysTimeEl = document.getElementById('sys-time');
@@ -233,13 +233,13 @@
           const qstr = `?${qs.toString()}`;
 
           const a1 = document.createElement('a');
-          a1.href = 'index.html' + qstr;
+          a1.href='index.html?v=test' + qstr;
           a1.className = 'btn link';
           a1.textContent = 'Open index (new tab)';
           a1.target = '_blank';
 
           const a2 = document.createElement('a');
-          a2.href = 'winners.html' + qstr;
+          a2.href='winners.html?v=test' + qstr;
           a2.className = 'btn link';
           a2.textContent = 'Open winners (new tab)';
           a2.target = '_blank';

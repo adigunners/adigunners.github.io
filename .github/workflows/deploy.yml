@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   pages: write
   id-token: write
@@ -38,4 +42,3 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
-

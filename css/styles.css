@@ -4046,9 +4046,15 @@ header p {
   .leaderboard__cell--rank {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 4px;
     text-align: center;
+    width: 100%;
+    padding: 10px 8px;
+  }
+  .leaderboard__header .leaderboard__cell--rank {
+    justify-content: center;
+    padding: 10px 6px;
   }
   .leaderboard__cell--rank .rank-number {
     min-width: 2ch;
@@ -6383,8 +6389,14 @@ header p {
   .leaderboard__cell--rank {
     display: flex;
     gap: 3px;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
+    padding: 10px 8px;
+  }
+  .leaderboard__header .leaderboard__cell--rank {
+    justify-content: center;
+    padding: 10px 6px;
   }
 
   .leaderboard__cell--rank .rank-number {

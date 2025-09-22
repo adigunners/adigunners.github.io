@@ -100,8 +100,8 @@
     <meta name="twitter:image:alt" content="IIM Mumbai Fantasy Premier League 2025-26" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png?v=test" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=test" />
 
     <!-- Performance Optimizations -->
     <link rel="dns-prefetch" href="//fantasy.premierleague.com" />
@@ -113,26 +113,26 @@
       rel="preload"
       as="font"
       type="font/woff2"
-      href="assets/fonts/poppins/poppins-latin-400.woff2"
+      href="assets/fonts/poppins/poppins-latin-400.woff2?v=test"
       crossorigin
     />
     <link
       rel="preload"
       as="font"
       type="font/woff2"
-      href="assets/fonts/poppins/poppins-latin-600.woff2"
+      href="assets/fonts/poppins/poppins-latin-600.woff2?v=test"
       crossorigin
     />
     <link
       rel="preload"
       as="font"
       type="font/woff2"
-      href="assets/fonts/poppins/poppins-latin-700.woff2"
+      href="assets/fonts/poppins/poppins-latin-700.woff2?v=test"
       crossorigin
     />
 
     <!-- CSS: Consolidated foundation (variables, fonts, base, spacing) -->
-    <link rel="stylesheet" href="css/styles.css?v=1.0.5" />
+    <link rel="stylesheet" href="css/styles.css?v=test" />
 
     <!-- Critical CSS: minimal above-the-fold styles for stable first paint -->
     <style>
@@ -298,7 +298,7 @@
         var qp = new URLSearchParams(location.search);
         if (qp.get('test') === 'true' || qp.get('admin') === 'true') {
           var s = document.createElement('script');
-          s.src = 'js/test-admin-wrappers.js?v=1.0.5';
+          s.src='js/test-admin-wrappers.js?v=test';
           s.defer = true;
           document.head.appendChild(s);
         }
@@ -618,7 +618,7 @@
           <div class="winner-summary" id="winner-summary"></div>
 
           <div class="u-text-center">
-            <a href="winners.html" class="view-all-winners" id="winners-link"> See All Winners </a>
+            <a href="winners.html?v=test" class="view-all-winners" id="winners-link"> See All Winners </a>
           </div>
         </section>
 
@@ -772,7 +772,7 @@
             <h3 id="rules-modal-title">
               <img
                 class="emoji-icon"
-                src="assets/twemoji/svg/1f4c3.svg"
+                src="assets/twemoji/svg/1f4c3.svg?v=test"
                 alt=""
                 aria-hidden="true"
               />
@@ -886,16 +886,16 @@
     </div>
 
     <!-- === JS: MODULAR STRUCTURE === -->
-    <script src="/version.js?v=1" defer></script>
+    <script src="/version.js?v=test" defer></script>
     <!-- Core modules -->
-    <script src="js/error-handler.js?v=1.0.5" defer></script>
-    <script src="js/utils.js?v=1.0.5" defer></script>
-    <script src="js/data-loader.js?v=1.0.5" defer></script>
-    <script src="js/ui-manager.js?v=1.0.5" defer></script>
-    <script src="js/header-scroll.js?v=1.0.5" defer></script>
-    <script src="js/countdown.js?v=1.0.5" defer></script>
-    <script src="js/prize-structure.js?v=1.0.5" defer></script>
-    <script src="js/sw-update.js?v=1" defer></script>
+    <script src="js/error-handler.js?v=test" defer></script>
+    <script src="js/utils.js?v=test" defer></script>
+    <script src="js/data-loader.js?v=test" defer></script>
+    <script src="js/ui-manager.js?v=test" defer></script>
+    <script src="js/header-scroll.js?v=test" defer></script>
+    <script src="js/countdown.js?v=test" defer></script>
+    <script src="js/prize-structure.js?v=test" defer></script>
+    <script src="js/sw-update.js?v=test" defer></script>
     <!-- Main application script -->
     <script>
       /*
@@ -1213,7 +1213,7 @@
       }
 
       function iconImg(code, alt) {
-        return `<img class="emoji-icon" src="assets/twemoji/svg/${code}.svg" alt="${alt}">`;
+        return `<img class="emoji-icon" src="assets/twemoji/svg/${code}.svg?v=test" alt="${alt}">`;
       }
 
       function buildWeeklyCard(weekly) {
@@ -1868,7 +1868,7 @@
             titleContainer.innerHTML = `
               <span class=\"header-icon\">⚽</span>
               <span>IIM-M Fantasy League</span>
-              <img src=\"FPL logo.jpg\" alt=\"FPL\" class=\"fpl-logo\" title=\"Fantasy Premier League\">
+              <img src=\"FPL?v=test logo.jpg\" alt=\"FPL\" class=\"fpl-logo\" title=\"Fantasy Premier League\">
             `;
           }
         } else {
@@ -1878,7 +1878,7 @@
             titleContainer.innerHTML = `
               <span class=\"header-icon\">⚽</span>
               <span>IIM Mumbai Fantasy League</span>
-              <img src=\"FPL logo.jpg\" alt=\"Fantasy Premier League\" class=\"fpl-logo\" title=\"Fantasy Premier League\">
+              <img src=\"FPL?v=test logo.jpg\" alt=\"Fantasy Premier League\" class=\"fpl-logo\" title=\"Fantasy Premier League\">
             `;
           }
           h1.style.fontSize = ''; // Clear any inline styles
@@ -2424,7 +2424,7 @@
       })();
     </script>
     <!-- Twemoji for stats icons -->
-    <script defer src="assets/twemoji/twemoji.min.js"></script>
+    <script defer src="assets/twemoji/twemoji.min.js?v=test"></script>
     <script>
       window.applyTwemoji = function (root) {
         try {
@@ -2440,7 +2440,7 @@
       document.addEventListener('DOMContentLoaded', function () {
         if (!window.twemoji) {
           var s = document.createElement('script');
-          s.src = 'https://twemoji.maxcdn.com/v/latest/twemoji.min.js';
+          s.src='https://twemoji.maxcdn.com/v/latest/twemoji.min.js';
           s.crossOrigin = 'anonymous';
           s.onload = function () {
             window.applyTwemoji(document.body);
