@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-22T18:55:12.838Z",
+  "lastUpdated": "2025-09-22T19:00:27.173Z",
   "summary": {
     "totalPrizeDistributed": 2000,
     "totalPaid": 2000,
@@ -1880,7 +1880,7 @@
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2025-09-22T18:55:12.881Z",
+    "enhancedAt": "2025-09-22T19:00:27.306Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
