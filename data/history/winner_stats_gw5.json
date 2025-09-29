@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2025-09-29T18:07:07.676Z",
+  "lastUpdated": "2025-09-29T18:31:16.070Z",
   "summary": {
-    "totalPrizeDistributed": 7298,
+    "totalPrizeDistributed": 6998,
     "totalPaid": 5998,
-    "totalPending": 1300,
-    "gameweekPrizes": 5300,
+    "totalPending": 1000,
+    "gameweekPrizes": 5000,
     "monthlyPrizes": 1998,
     "completedGameweeks": 5,
     "completedMonths": 1,
@@ -14,11 +14,11 @@
   "winners": [
     {
       "playerName": "Bhushan Wagh",
-      "totalPrizeWon": 1800,
+      "totalPrizeWon": 1650,
       "totalPaid": 1000,
-      "totalPending": 800,
+      "totalPending": 650,
       "prizeBreakdown": {
-        "gameweek": 1800,
+        "gameweek": 1650,
         "monthly": 0
       },
       "highlights": {
@@ -47,7 +47,7 @@
           {
             "week": 5,
             "position": "1st",
-            "prize": 800,
+            "prize": 650,
             "status": "Pending"
           }
         ],
@@ -245,11 +245,11 @@
     },
     {
       "playerName": "Harshit Gupta",
-      "totalPrizeWon": 500,
+      "totalPrizeWon": 350,
       "totalPaid": 0,
-      "totalPending": 500,
+      "totalPending": 350,
       "prizeBreakdown": {
-        "gameweek": 500,
+        "gameweek": 350,
         "monthly": 0
       },
       "highlights": {
@@ -266,7 +266,7 @@
           {
             "week": 5,
             "position": "2nd",
-            "prize": 500,
+            "prize": 350,
             "status": "Pending"
           }
         ],
@@ -1941,7 +1941,7 @@
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2025-09-29T18:07:07.776Z",
+    "enhancedAt": "2025-09-29T18:31:16.210Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
