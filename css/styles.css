@@ -13,6 +13,10 @@
   CSS links from HTML once visual parity is validated.
 */
 
+/* ===================== CSS CASCADE LAYERS ===================== */
+/* Define layer ordering for predictable specificity */
+@layer reset, base, components, utilities;
+
 /* ===================== 1) CSS VARIABLES ===================== */
 /* Source: css/variables.css */
 :root {
@@ -54,9 +58,17 @@
 
   /* Container Sizes */
   --container-max-width: 1200px; /* Increased from 1000px for better screen utilization */
-  --container-wide-max-width: 1400px; /* Increased from 1200px for ultra-wide screens */
+  --container-wide-max-width: 1440px; /* Updated to match 2xl breakpoint */
 
-  /* Breakpoints (for JS reference) */
+  /* Responsive Breakpoint Tokens (Shared with JS) */
+  --bp-xs: 375px; /* Extra Small - Mobile portrait (optional) */
+  --bp-sm: 480px; /* Small - Mobile landscape */
+  --bp-md: 768px; /* Medium - Tablet portrait */
+  --bp-lg: 1024px; /* Large - Tablet landscape / Small desktop */
+  --bp-xl: 1200px; /* Extra Large - Desktop */
+  --bp-2xl: 1440px; /* 2X Large - Large desktop */
+
+  /* Legacy breakpoints (deprecated, use tokens above) */
   --mobile-max: 600px;
   --tablet-max: 1024px;
   --desktop-min: 1025px;

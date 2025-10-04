@@ -3,8 +3,16 @@
  * Centralized configuration and state management
  */
 
-// Responsive breakpoints
+// Responsive breakpoints - aligned with CSS tokens
 export const BREAKPOINTS = {
+  XS: 375, // Extra Small - Mobile portrait (optional)
+  SM: 480, // Small - Mobile landscape
+  MD: 768, // Medium - Tablet portrait
+  LG: 1024, // Large - Tablet landscape / Small desktop
+  XL: 1200, // Extra Large - Desktop
+  XXL: 1440, // 2X Large - Large desktop
+
+  // Legacy (deprecated - use tokens above)
   DESKTOP_MIN_PX: 1025,
   TABLET_MIN_PX: 701,
   MOBILE_MAX_PX: 700,
@@ -90,27 +98,50 @@ export function getDataSource(type) {
 }
 
 /**
- * Check if current viewport matches desktop breakpoint
+ * Check if current viewport is mobile (below MD breakpoint)
+ * @returns {boolean} True if mobile viewport
+ */
+export function isMobile() {
+  return window.matchMedia(`(max-width: ${BREAKPOINTS.MD - 1}px)`).matches;
+}
+
+/**
+ * Check if current viewport is tablet (MD to LG)
+ * @returns {boolean} True if tablet viewport
+ */
+export function isTablet() {
+  return window.matchMedia(
+    `(min-width: ${BREAKPOINTS.MD}px) and (max-width: ${BREAKPOINTS.LG - 1}px)`
+  ).matches;
+}
+
+/**
+ * Check if current viewport is desktop (LG and above)
  * @returns {boolean} True if desktop viewport
  */
+export function isDesktop() {
+  return window.matchMedia(`(min-width: ${BREAKPOINTS.LG}px)`).matches;
+}
+
+/**
+ * Check if current viewport is large desktop (XL and above)
+ * @returns {boolean} True if large desktop viewport
+ */
+export function isLargeDesktop() {
+  return window.matchMedia(`(min-width: ${BREAKPOINTS.XL}px)`).matches;
+}
+
+// Legacy functions (deprecated - use new functions above)
 export function isDesktopViewport() {
   return window.matchMedia(`(min-width: ${BREAKPOINTS.DESKTOP_MIN_PX}px)`).matches;
 }
 
-/**
- * Check if current viewport matches tablet breakpoint
- * @returns {boolean} True if tablet viewport
- */
 export function isTabletViewport() {
   return window.matchMedia(
     `(min-width: ${BREAKPOINTS.TABLET_MIN_PX}px) and (max-width: ${BREAKPOINTS.DESKTOP_MIN_PX - 1}px)`
   ).matches;
 }
 
-/**
- * Check if current viewport matches mobile breakpoint
- * @returns {boolean} True if mobile viewport
- */
 export function isMobileViewport() {
   return window.matchMedia(`(max-width: ${BREAKPOINTS.MOBILE_MAX_PX}px)`).matches;
 }
