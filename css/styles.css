@@ -1486,9 +1486,10 @@ section {
 /* Grid layout for HIGHLIGHTS column - 3 sub-columns for alignment (body cells only) */
 .c-table--winners tbody td.col-highlights {
   display: grid;
-  grid-template-columns: 60px 60px 1fr;
+  grid-template-columns: 60px 60px auto;
   gap: 8px;
   align-items: center;
+  justify-content: center;
 }
 
 /* Center align HIGHLIGHTS header text and ensure it doesn't use grid */
