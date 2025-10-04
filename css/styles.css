@@ -225,7 +225,11 @@ body {
 }
 
 /* FIX: mobile sticky header opacity — solid page background + reduce rubber-band flash */
-html,
+html {
+  /* Fluid typography: scales between 14px (mobile) and 18px (desktop) */
+  font-size: clamp(14px, 1.6vw, 18px);
+}
+
 body {
   margin: 0;
   padding: 0;
