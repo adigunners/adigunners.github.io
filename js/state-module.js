@@ -13,7 +13,7 @@ export const BREAKPOINTS = {
   XXL: 1440, // 2X Large - Large desktop
 
   // Legacy (deprecated - use tokens above)
-  DESKTOP_MIN_PX: 1025,
+  DESKTOP_MIN_PX: 1024,
   TABLET_MIN_PX: 701,
   MOBILE_MAX_PX: 700,
 };
