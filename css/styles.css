@@ -2865,15 +2865,10 @@ header p {
 }
 .leaderboard-table th:nth-child(1),
 .leaderboard__table th:nth-child(1) {
-  width: 80px;
-  min-width: 80px;
-  max-width: 80px;
   text-align: center;
-  padding: 14px 8px;
-  overflow: hidden;
 }
-.leaderboard-table thead tr:first-child th:nth-child(1),
-.leaderboard__table thead tr:first-child th:nth-child(1) {
+.leaderboard-table thead tr:first-child th:first-child,
+.leaderboard__table thead tr:first-child th:first-child {
   border-top-left-radius: var(--radius-lg);
 }
 .leaderboard-table th:nth-child(2),
@@ -2905,11 +2900,7 @@ header p {
 }
 .leaderboard-table td:nth-child(1),
 .leaderboard__table td:nth-child(1) {
-  width: 80px;
-  min-width: 80px;
-  max-width: 80px;
   padding: 0;
-  overflow: hidden;
 }
 .leaderboard-table tbody tr,
 .leaderboard__table tbody tr {
@@ -2939,12 +2930,12 @@ header p {
   font-weight: 700;
   color: var(--primary-color);
   position: relative;
-  padding: 0 4px;
+  padding: 14px 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 80px;
+  min-height: 56px;
   box-sizing: border-box;
 }
 
@@ -6432,10 +6423,11 @@ header p {
   .leaderboard__cell--rank {
     display: flex;
     gap: 3px;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 10px 8px;
+    padding: 0 4px;
+    min-height: 56px;
   }
   .leaderboard__header .leaderboard__cell--rank {
     justify-content: center;
