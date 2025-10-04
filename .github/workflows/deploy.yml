@@ -23,15 +23,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build
+        run: npm run build
 
       - name: Stamp asset URLs with commit SHA
         run: |
-          node .github/scripts/stamp-version.js "$GITHUB_SHA"
+          cd public
+          node ../.github/scripts/stamp-version.js "$GITHUB_SHA"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: public
 
   deploy:
     needs: build

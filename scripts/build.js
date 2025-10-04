@@ -112,7 +112,7 @@ function rewriteHTML(file){
   for (const [from,to] of renameMap.entries()){
     const fromEsc = from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     // Replace both with and without query strings
-    html = html.replace(new RegExp(fromEsc + '(\?[^"\']*)?', 'g'), to);
+    html = html.replace(new RegExp(fromEsc + '(\\?[^"\']*)?', 'g'), to);
   }
   // Remove old ?v=... from local css/js
   html = html.replace(/(href|src)=("|')(\/[^"']+\.(?:css|js))\?v=[^"']+("|')/g, '$1=$2$3$4');

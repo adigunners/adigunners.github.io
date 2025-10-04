@@ -1,5 +1,8 @@
 .DS_Store
 
+# Build output
+public/
+
 # Development and temporary files
 clean_function.js
 server.log
