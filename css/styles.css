@@ -2278,15 +2278,8 @@ section {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@media (min-width: 768px) and (max-width: 1024px) {
-  .prize-summary {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-}
 @media (min-width: 1024px) {
   .prize-summary {
-    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
 }
@@ -4522,12 +4515,6 @@ header p {
   .winner__card {
     padding: 14px;
     min-height: 130px;
-  }
-  .prize-summary {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin: 16px 0;
   }
   .prize-card {
     padding: 14px;
