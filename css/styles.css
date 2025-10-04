@@ -1395,6 +1395,8 @@ section {
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.02em;
+  border-left: none;
+  border-right: none;
 }
 .c-table--winners thead th:first-child {
   border-top-left-radius: 8px;
