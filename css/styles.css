@@ -6374,6 +6374,17 @@ header p {
     margin: 12px 0;
   }
 
+  .table-scroll {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .table-scroll thead th:first-child,
+  .leaderboard-table thead tr:first-child th:first-child,
+  .leaderboard__table thead tr:first-child th:first-child {
+    border-top-left-radius: var(--radius-lg);
+  }
+
   .leaderboard-table,
   .leaderboard__table {
     min-width: 100% !important;
