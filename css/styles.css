@@ -1264,12 +1264,92 @@ section {
   color: var(--bronze-solid-text);
 }
 .pill-gw {
-  background: var(--secondary-color);
-  color: var(--primary-color);
+  background: var(--primary-color);
+  color: var(--secondary-color);
 }
 .pill-gm {
-  background: #ff6b6b;
+  background: var(--accent-color);
   color: #fff;
+}
+
+/* Tooltip for pills - shows position breakdown */
+.pill {
+  position: relative;
+  cursor: help;
+}
+
+.pill .tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(55, 0, 60, 0.95);
+  backdrop-filter: blur(8px);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 255, 135, 0.3);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10000;
+  box-shadow: 0 8px 24px rgba(55, 0, 60, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.pill .tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(55, 0, 60, 0.95);
+}
+
+.pill:hover .tooltip {
+  opacity: 1;
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 0;
+  width: 100%;
+  min-width: max-content;
+}
+
+.tooltip-row + .tooltip-row {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0, 255, 135, 0.2);
+}
+
+.tooltip-label {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.75rem;
+}
+
+.tooltip-value {
+  font-weight: 600;
+  color: white;
+}
+
+/* League rank text - left aligned */
+.rank-text {
+  text-align: left;
+}
+
+/* League rank number - right aligned in fixed-width container */
+.rank-number {
+  display: inline-block;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 /* =============== ULTRA-COMPACT MOBILE (≤480px) =============== */
@@ -1364,11 +1444,14 @@ section {
 
 /* container must own the overflow for sticky headers to work */
 .c-table-wrap {
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: visible;
   border-radius: 14px;
   background: #fff;
   box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
   width: 100%;
+  padding-top: 80px;
+  margin-top: -80px;
 }
 
 .c-table {
@@ -1390,14 +1473,47 @@ section {
 /* sticky header, single row across 4 columns */
 .c-table--winners thead th {
   position: sticky;
-  top: 0;
-  z-index: 1;
+  top: -80px;
+  z-index: 100;
   background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.02em;
   border-left: none;
   border-right: none;
+}
+
+/* Grid layout for HIGHLIGHTS column - 3 sub-columns for alignment (body cells only) */
+.c-table--winners tbody td.col-highlights {
+  display: grid;
+  grid-template-columns: 60px 60px 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Center align HIGHLIGHTS header text and ensure it doesn't use grid */
+.c-table--winners thead th.col-highlights {
+  text-align: center !important;
+  display: table-cell !important;
+}
+
+/* Center-align pill content */
+.c-table--winners .col-highlights .pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Ensure empty placeholder spans don't show any styling */
+.c-table--winners .col-highlights span:empty {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
 }
 .c-table--winners thead th:first-child {
   border-top-left-radius: 8px;
@@ -1415,27 +1531,32 @@ section {
   display: none;
 }
 
-/* Light zebra rows (subtle) for non-top rows to avoid visual jumps */
-.c-table--winners
-  tbody
-  tr:nth-child(odd):not(.winner-gold):not(.winner-silver):not(.winner-bronze) {
+/* Light zebra rows (subtle) for all rows */
+.c-table--winners tbody tr:nth-child(odd) {
   background: #fafafa;
 }
-.c-table--winners
-  tbody
-  tr:nth-child(even):not(.winner-gold):not(.winner-silver):not(.winner-bronze) {
+.c-table--winners tbody tr:nth-child(even) {
   background: #ffffff;
 }
 
-/* TOP 3 WINNER HIGHLIGHTING — match overall leaderboard: accent stripe only */
-.c-table--winners tbody tr.winner-gold {
-  box-shadow: inset 4px 0 0 var(--gold-1);
+/* TOP 3 WINNER HIGHLIGHTING — match leaderboard implementation exactly */
+.c-table--winners tbody tr.winner-gold td:first-child {
+  border-left: 4px solid #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+  color: #d4a017;
+  font-weight: 700;
 }
-.c-table--winners tbody tr.winner-silver {
-  box-shadow: inset 4px 0 0 var(--silver-1);
+.c-table--winners tbody tr.winner-silver td:first-child {
+  border-left: 4px solid #c0c0c0;
+  background: rgba(192, 192, 192, 0.1);
+  color: #6c6c6c;
+  font-weight: 700;
 }
-.c-table--winners tbody tr.winner-bronze {
-  box-shadow: inset 4px 0 0 var(--bronze-1);
+.c-table--winners tbody tr.winner-bronze td:first-child {
+  border-left: 4px solid #cd7f32;
+  background: rgba(205, 127, 50, 0.1);
+  color: #cd7f32;
+  font-weight: 700;
 }
 
 /* Column widths and alignment */
