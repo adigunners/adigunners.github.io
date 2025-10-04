@@ -2867,6 +2867,7 @@ header p {
 .leaderboard__table th:nth-child(1) {
   width: 80px;
   text-align: center;
+  border-top-left-radius: var(--radius-lg);
 }
 .leaderboard-table th:nth-child(2),
 .leaderboard__table th:nth-child(2) {
@@ -2881,6 +2882,12 @@ header p {
 .leaderboard__table th:nth-child(4) {
   text-align: right;
   width: 110px;
+}
+.leaderboard-table th:nth-child(5),
+.leaderboard__table th:nth-child(5) {
+  text-align: right;
+  width: 110px;
+  border-top-right-radius: var(--radius-lg);
 }
 .leaderboard-table td,
 .leaderboard__table td {
@@ -2919,6 +2926,9 @@ header p {
   position: relative;
   padding-left: 8px;
   padding-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rank-number {
