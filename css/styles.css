@@ -2836,7 +2836,8 @@ header p {
   width: 100%;
   min-width: 600px; /* Increased for 5-column layout */
   table-layout: fixed;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   margin-top: 20px;
   background: #fff;
   border-radius: var(--radius-lg);
@@ -5013,7 +5014,8 @@ header p {
   /* ELEMENT: Table within leaderboard */
   .leaderboard__table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     background: #fff;
     border-radius: var(--radius-lg);
     overflow: hidden;
