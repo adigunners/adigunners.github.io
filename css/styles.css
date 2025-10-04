@@ -6440,6 +6440,10 @@ header p {
   .leaderboard__cell--player {
     font-size: 0.88rem;
     line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 0;
   }
 
   .leaderboard__cell--gw,
