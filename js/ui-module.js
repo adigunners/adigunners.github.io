@@ -160,9 +160,10 @@ export function createTable({ caption, headers, rows, className }) {
  * Create responsive card element
  * @param {Object} data - Card data
  * @param {number} rank - Card rank (1-based)
+ * @param {number} maxRank - Total number of winners (for dynamic padding)
  * @returns {HTMLElement} Card element
  */
-export function createCard(data, rank) {
+export function createCard(data, rank, maxRank = 100) {
   const card = document.createElement('div');
   card.className = `winner__card${rank <= 3 ? ` winner__card--rank-${rank}` : ''}`;
 
@@ -186,19 +187,53 @@ export function createCard(data, rank) {
     highlightsEl.className = 'winner__highlights';
 
     const badges = [];
+    const achievements = data.achievements || {};
+
+    // GW badge with tooltip - count from achievements.gameweeks array
     if (data.highlights.gameWeeks > 0) {
-      badges.push(`<span class="highlight-badge gw">${data.highlights.gameWeeks}GW</span>`);
+      const gameweeks = achievements.gameweeks || [];
+      const gwFirst = gameweeks.filter((gw) => gw.position === '1st').length;
+      const gwSecond = gameweeks.filter((gw) => gw.position === '2nd').length;
+
+      let tooltipContent = '';
+      if (gwFirst > 0) {
+        tooltipContent += `<div class="tooltip-row"><span class="tooltip-label">🥇 1st:</span><span class="tooltip-value">${gwFirst} win${gwFirst > 1 ? 's' : ''}</span></div>`;
+      }
+      if (gwSecond > 0) {
+        tooltipContent += `<div class="tooltip-row"><span class="tooltip-label">🥈 2nd:</span><span class="tooltip-value">${gwSecond} win${gwSecond > 1 ? 's' : ''}</span></div>`;
+      }
+      // Only add tooltip if there's content
+      const tooltip = tooltipContent ? `<span class="tooltip">${tooltipContent}</span>` : '';
+      badges.push(`<span class="pill pill-gw">${data.highlights.gameWeeks} GW${tooltip}</span>`);
     }
+
+    // GM badge with tooltip - count from achievements.months array
     if (data.highlights.gameMonths > 0) {
-      badges.push(`<span class="highlight-badge gm">${data.highlights.gameMonths}GM</span>`);
+      const months = achievements.months || [];
+      const gmFirst = months.filter((m) => m.position === '1st').length;
+      const gmSecond = months.filter((m) => m.position === '2nd').length;
+
+      let tooltipContent = '';
+      if (gmFirst > 0) {
+        tooltipContent += `<div class="tooltip-row"><span class="tooltip-label">🥇 1st:</span><span class="tooltip-value">${gmFirst} win${gmFirst > 1 ? 's' : ''}</span></div>`;
+      }
+      if (gmSecond > 0) {
+        tooltipContent += `<div class="tooltip-row"><span class="tooltip-label">🥈 2nd:</span><span class="tooltip-value">${gmSecond} win${gmSecond > 1 ? 's' : ''}</span></div>`;
+      }
+      // Only add tooltip if there's content
+      const tooltip = tooltipContent ? `<span class="tooltip">${tooltipContent}</span>` : '';
+      badges.push(`<span class="pill pill-gm">${data.highlights.gameMonths} GM${tooltip}</span>`);
     }
+
+    // Dynamic rank with right-aligned number in fixed-width span
     if (data.highlights.overallRank) {
+      const rankWidth = String(maxRank).length;
       badges.push(
-        `<span class="highlight-badge">League Rank ${data.highlights.overallRank}</span>`
+        `<span class="rank-text">League Rank <span class="rank-number" style="min-width: ${rankWidth}ch;">${data.highlights.overallRank}</span></span>`
       );
     }
 
-    highlightsEl.innerHTML = badges.join('');
+    highlightsEl.innerHTML = badges.join(' ');
     card.appendChild(highlightsEl);
   }
 

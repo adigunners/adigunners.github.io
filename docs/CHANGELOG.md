@@ -2,6 +2,28 @@
 
 ## [Unreleased]
 
+### 🎨 Responsive Design Enhancement
+
+- **Standardized Breakpoint System**: Implemented consistent responsive breakpoint tokens across CSS
+  and JavaScript
+  - Eliminated all fractional breakpoints (.01px) for standard values: 480px, 768px, 1024px, 1200px,
+    1440px
+  - Updated JavaScript constants in `js/state-module.js` with matching breakpoint tokens
+  - Mobile-first responsive patterns with `min-width` queries
+  - Visual regression testing at 360px, 768px, 1024px, 1440px viewports
+
+- **Winner Table Enhancements**: Desktop table view with advanced features
+  - CSS Grid layout for HIGHLIGHTS column (3 sub-columns for perfect alignment)
+  - Interactive tooltips showing position breakdown (1st/2nd place wins) for GW/GM badges
+  - Dynamic rank number alignment scaling with player count (supports 10-1000+ players)
+  - FPL Official pill colors: Purple bg + green text (GW), teal (GM)
+  - Top 3 winner highlighting consistent with leaderboard design
+
+- **Mobile Optimizations**: Improved card layout and readability
+  - Right-aligned badges and league rank for visual consistency
+  - Ellipsis with tooltip for long player names at mobile breakpoints
+  - 3-column prize breakdown layout from 768px (tablet) onwards
+
 ### 🔧 Fixed
 
 - **Mobile Leaderboard Rank Layout**: Rank cell now spans the full row on phones, aligning the
@@ -10,7 +32,7 @@
 ### ⚙️ Infrastructure
 
 - **GitHub Pages Deploy Stability**: Added workflow concurrency guard so rapid commits cancel older
-  runs instead of failing with “deployment in progress” errors (`.github/workflows/deploy.yml`).
+  runs instead of failing with "deployment in progress" errors (`.github/workflows/deploy.yml`).
 
 ## [1.5.0] - 2025-09-14 – CSS Architecture Refactoring + Pagination Fixes
 

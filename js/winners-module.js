@@ -192,14 +192,18 @@ async function renderWinnersTable() {
 
 // Desktop: one semantic table, fixed four columns, robust to CSS overrides
 function renderDesktopTable(container, pageData, startIndex) {
+  // Calculate max rank width dynamically based on total winners
+  const maxRank = winnersWithPrizes.length;
+  const rankWidth = String(maxRank).length;
+
   let html = `
   <div class=\"c-table-wrap\">
     <table class=\"c-table c-table--winners\" role=\"table\">
       <colgroup>
-        <col style=\"width:80px\" />
-        <col />
-        <col style=\"width:180px\" />
-        <col style=\"width:220px\" />
+        <col style=\"width:8%\" />
+        <col style=\"width:42%\" />
+        <col style=\"width:15%\" />
+        <col style=\"width:35%\" />
       </colgroup>
       <thead class=\"c-table__head\">
         <tr>
@@ -214,10 +218,50 @@ function renderDesktopTable(container, pageData, startIndex) {
   pageData.forEach((w, i) => {
     const rank = startIndex + i + 1;
     const h = w.highlights || {};
-    const chips = [];
-    if (h.gameWeeks > 0) chips.push(`<span class=\"pill pill-gw\">${h.gameWeeks} GW</span>`);
-    if (h.gameMonths > 0) chips.push(`<span class=\"pill pill-gm\">${h.gameMonths} GM</span>`);
-    if (h.overallRank) chips.push(`<span class=\"muted\">League Rank ${h.overallRank}</span>`);
+    const achievements = w.achievements || {};
+
+    // Build GW badge with tooltip - count from achievements.gameweeks array
+    let gwBadge = '<span></span>';
+    if (h.gameWeeks > 0) {
+      const gameweeks = achievements.gameweeks || [];
+      const gwFirst = gameweeks.filter((gw) => gw.position === '1st').length;
+      const gwSecond = gameweeks.filter((gw) => gw.position === '2nd').length;
+
+      let tooltipContent = '';
+      if (gwFirst > 0) {
+        tooltipContent += `<div class="tooltip-row"><span class="tooltip-label">🥇 1st:</span><span class="tooltip-value">${gwFirst} win${gwFirst > 1 ? 's' : ''}</span></div>`;
+      }
+      if (gwSecond > 0) {
+        tooltipContent += `<div class="tooltip-row"><span class="tooltip-label">🥈 2nd:</span><span class="tooltip-value">${gwSecond} win${gwSecond > 1 ? 's' : ''}</span></div>`;
+      }
+      // Only add tooltip if there's content
+      const tooltip = tooltipContent ? `<span class="tooltip">${tooltipContent}</span>` : '';
+      gwBadge = `<span class="pill pill-gw">${h.gameWeeks} GW${tooltip}</span>`;
+    }
+
+    // Build GM badge with tooltip - count from achievements.months array
+    let gmBadge = '<span></span>';
+    if (h.gameMonths > 0) {
+      const months = achievements.months || [];
+      const gmFirst = months.filter((m) => m.position === '1st').length;
+      const gmSecond = months.filter((m) => m.position === '2nd').length;
+
+      let tooltipContent = '';
+      if (gmFirst > 0) {
+        tooltipContent += `<div class="tooltip-row"><span class="tooltip-label">🥇 1st:</span><span class="tooltip-value">${gmFirst} win${gmFirst > 1 ? 's' : ''}</span></div>`;
+      }
+      if (gmSecond > 0) {
+        tooltipContent += `<div class="tooltip-row"><span class="tooltip-label">🥈 2nd:</span><span class="tooltip-value">${gmSecond} win${gmSecond > 1 ? 's' : ''}</span></div>`;
+      }
+      // Only add tooltip if there's content
+      const tooltip = tooltipContent ? `<span class="tooltip">${tooltipContent}</span>` : '';
+      gmBadge = `<span class="pill pill-gm">${h.gameMonths} GM${tooltip}</span>`;
+    }
+
+    // Dynamic rank with right-aligned number in fixed-width span
+    const rankText = h.overallRank
+      ? `<span class=\"rank-text\">League Rank <span class=\"rank-number\" style=\"min-width: ${rankWidth}ch;\">${h.overallRank}</span></span>`
+      : '<span></span>';
 
     const topClass = RANK_CLASSES && RANK_CLASSES[rank] ? ` ${RANK_CLASSES[rank]}` : '';
     html += `
@@ -225,7 +269,7 @@ function renderDesktopTable(container, pageData, startIndex) {
         <td class="col-rank">${rank}</td>
         <td class="col-player">${w.playerName}</td>
         <td class="col-total">₹${(w.totalPrizeWon || 0).toLocaleString('en-IN')}</td>
-        <td class="col-highlights">${chips.join(' ')}</td>
+        <td class="col-highlights">${gwBadge}${gmBadge}${rankText}</td>
       </tr>`;
   });
 
@@ -240,9 +284,10 @@ function renderMobileCards(container, pageData, startIndex) {
 
   const wrap = document.createElement('div');
   wrap.className = 'winner__preview';
+  const maxRank = winnersWithPrizes.length; // Pass max rank for dynamic padding
   pageData.forEach((w, i) => {
     const rank = startIndex + i + 1;
-    wrap.appendChild(createCard(w, rank));
+    wrap.appendChild(createCard(w, rank, maxRank));
   });
   root.appendChild(wrap);
   container.appendChild(root);
