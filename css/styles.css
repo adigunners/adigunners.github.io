@@ -1384,6 +1384,7 @@ section {
   display: table-cell;
   padding: 14px 16px;
   vertical-align: middle;
+  border: none;
 }
 
 /* sticky header, single row across 4 columns */
