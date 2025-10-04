@@ -244,7 +244,7 @@ body {
 }
 
 /* Enhanced container for wide screens */
-@media (min-width: 1201px) {
+@media (min-width: 1200px) {
   .container {
     max-width: var(--container-wide-max-width);
     padding: 0 var(--spacing-lg); /* Use spacing variable instead of hardcoded 24px */
@@ -820,7 +820,7 @@ h2 {
 }
 
 /* Desktop h2 sizing to match .winners-heading */
-@media (min-width: 768.01px) {
+@media (min-width: 768px) {
   h2 {
     font-size: 1.8rem;
   }
@@ -894,7 +894,7 @@ section {
 }
 
 /* =============== DESKTOP/TABLET STANDARDIZATION (≥769px) =============== */
-@media (min-width: 768.01px) {
+@media (min-width: 768px) {
   /* Main container and section spacing */
   .container {
     margin: var(--spacing-lg) auto; /* 24px top/bottom */
@@ -1070,7 +1070,7 @@ section {
 }
 
 /* =============== TABLET OPTIMIZATION (769px - 1024px) =============== */
-@media (min-width: 768.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   /* Slightly reduced spacing for tablets */
   .container {
     margin: calc(var(--spacing-lg) * var(--spacing-tablet-multiplier)) auto; /* ~21px */
@@ -1288,7 +1288,7 @@ section {
 }
 
 /* =============== ULTRA-WIDE DESKTOP (≥1401px) =============== */
-@media (min-width: 1400.01px) {
+@media (min-width: 1440px) {
   /* Slightly increased spacing for ultra-wide screens */
   .container {
     margin: calc(var(--spacing-xl) * 1.25) auto; /* 40px top/bottom */
@@ -1489,7 +1489,7 @@ section {
 }
 
 /* responsive table adjustments */
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .c-table th,
   .c-table td {
     padding: 12px;
@@ -1529,7 +1529,7 @@ section {
   --primary-background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 249, 250, 0.8));
 }
 
-@media (min-width: 700.01px) {
+@media (min-width: 768px) {
   :root {
     --box-min-width: 160px;
     --box-gap: 16px;
@@ -1547,7 +1547,7 @@ section {
   }
 }
 
-@media (min-width: 1024.01px) {
+@media (min-width: 1024px) {
   :root {
     --box-min-width: 160px;
     --box-max-width: 280px;
@@ -1595,7 +1595,7 @@ section {
   width: 100%;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .stats-row {
     flex-direction: column;
     align-items: center; /* center stacked stat boxes */
@@ -1613,7 +1613,7 @@ section {
 }
 
 /* Larger mobile: two-column stat layout for compactness */
-@media (min-width: 480px) and (max-width: 700px) {
+@media (min-width: 480px) and (max-width: 767px) {
   .stats-row {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1915,7 +1915,7 @@ section {
   padding: 0;
   background: transparent;
 }
-@media (min-width: 768.01px) {
+@media (min-width: 768px) {
   .prize-summary {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -2269,25 +2269,25 @@ section {
   background: linear-gradient(145deg, #fef7e0, #fff3cd);
 }
 
-@media (min-width: 768.01px) {
+@media (min-width: 768px) {
   .prize-summary {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@media (min-width: 768.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .prize-summary {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 }
-@media (min-width: 1024.01px) {
+@media (min-width: 1024px) {
   .prize-summary {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .stats-row > .stat-box .stat-box__icon,
   .stats-row > .stat-box .stat-icon {
     font-size: var(--icon-size);
@@ -2305,7 +2305,7 @@ section {
     padding: var(--box-padding);
   }
 }
-@media (min-width: 768.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .stats-row > .stat-box .stat-box__number,
   .stats-row > .stat-box .stat-number {
     font-size: var(--number-size);
@@ -2562,12 +2562,12 @@ header p {
     padding: 0;
   }
 }
-@media (min-width: 1024.01px) {
+@media (min-width: 1024px) {
   .site-header header .countdown-clock {
     max-width: 300px;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .site-header header .countdown-clock {
     max-width: 200px;
   }
@@ -3309,7 +3309,7 @@ header p {
   font-size: 0.9rem;
   white-space: nowrap;
 }
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .stats-summary {
     grid-template-columns: 1fr;
     gap: 12px;
@@ -3606,7 +3606,7 @@ header p {
   padding: 0.5rem 1rem;
   font-size: 0.8rem;
 }
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .error-handler-error {
     padding: 1.5rem 1rem;
     gap: 0.75rem;
@@ -3723,7 +3723,7 @@ header p {
   margin-top: 4px;
   margin-bottom: 0;
 }
-@media (min-width: 768.01px) {
+@media (min-width: 768px) {
   .section-heading .heading-main {
     font-size: 1.8rem;
   }
@@ -3792,7 +3792,7 @@ header p {
   background: #111;
   transform: rotate(45deg);
 }
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .tooltip .tooltip-content {
     left: 0;
     right: auto;
@@ -3848,7 +3848,7 @@ header p {
 /* ===================== 9) RESPONSIVE ===================== */
 /* Source: css/responsive.css */
 /* Wide screens */
-@media (min-width: 1201px) {
+@media (min-width: 1200px) {
   header {
     padding: 40px;
     justify-content: space-between;
@@ -3869,7 +3869,7 @@ header p {
 }
 
 /* Tablets and medium screens */
-@media (max-width: 1024px) and (min-width: 768.01px) {
+@media (max-width: 1024px) and (min-width: 768px) {
   header h1 {
     font-size: clamp(1.3rem, 3.5vw, 2rem);
     letter-spacing: -0.3px;
@@ -3906,7 +3906,7 @@ header p {
 }
 
 /* Specific fix for iPad Air, Surface Pro (820-950px) */
-@media (min-width: 820px) and (max-width: 950px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   header {
     padding: 30px 15px;
   }
@@ -3923,7 +3923,7 @@ header p {
 }
 
 /* Mobile devices */
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .container {
     padding: 0 12px;
   }
@@ -4237,7 +4237,7 @@ header p {
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 479px) {
   .leaderboard-table .leaderboard-player {
     white-space: normal;
     display: -webkit-box;
@@ -4280,7 +4280,7 @@ header p {
 /* Ultra-narrow stacked layout and other utilities omitted here for brevity in consolidation. Full behavior retained from source files. */
 
 /* Winners table headers: allow wrapping on narrow screens too */
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .winner-table thead th {
     font-size: 0.8rem;
     padding: 8px 10px;
@@ -4292,7 +4292,7 @@ header p {
 }
 
 /* Mobile CTA unification: same size, radius, font, and full-width layout */
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .btn-primary,
   .btn-secondary,
   .cta-button,
@@ -4318,7 +4318,7 @@ header p {
 }
 
 /* Final countdown standardization from responsive.css */
-@media (min-width: 1024.01px) {
+@media (min-width: 1024px) {
   .site-header header .countdown-clock {
     max-width: 300px;
   }
@@ -4337,7 +4337,7 @@ header p {
     font-size: 1em;
   }
 }
-@media (min-width: 600.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .site-header header .countdown-clock {
     max-width: 250px;
   }
@@ -4356,7 +4356,7 @@ header p {
     font-size: 1em;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .site-header header .countdown-clock {
     max-width: 200px;
   }
@@ -4375,7 +4375,7 @@ header p {
 }
 
 /* Source: css/desktop-tablet-optimizations.css */
-@media (min-width: 1400.01px) {
+@media (min-width: 1440px) {
   .container {
     max-width: var(--container-wide-max-width);
     padding: 0 var(--spacing-lg);
@@ -4422,7 +4422,7 @@ header p {
     margin: 0;
   }
 }
-@media (min-width: 1024.01px) and (max-width: 1400px) {
+@media (min-width: 1024px) and (max-width: 1439px) {
   .container {
     max-width: var(--container-max-width);
     padding: 0 var(--spacing-lg);
@@ -4469,7 +4469,7 @@ header p {
     min-height: 140px;
   }
 }
-@media (min-width: 768.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .container {
     max-width: 100%;
     padding: 0 var(--spacing-md);
@@ -4537,7 +4537,7 @@ header p {
     width: 3ch !important;
   }
 }
-@media (min-width: 768.01px) {
+@media (min-width: 768px) {
   main > * {
     margin-bottom: 16px;
   }
@@ -4582,7 +4582,7 @@ header p {
     font-size: 1rem;
   }
 }
-@media (min-width: 1024.01px) {
+@media (min-width: 1024px) {
   .main-content-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -4627,7 +4627,7 @@ header p {
     width: 3ch !important;
   }
 }
-@media (min-width: 768.01px) {
+@media (min-width: 768px) {
   h2 {
     margin-bottom: 16px;
     padding-bottom: 8px;
@@ -4683,7 +4683,7 @@ header p {
     font-size: 0.85rem;
   }
 }
-@media (min-width: 768.01px) {
+@media (min-width: 768px) {
   footer {
     padding: 16px 20px;
     margin-top: 20px;
@@ -4722,7 +4722,7 @@ header p {
 }
 
 /* Source: css/mobile-consolidated.css + mobile-optimizations.css + advanced-mobile.css */
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .container {
     margin: 6px auto;
     padding: 0 8px;
@@ -4855,7 +4855,7 @@ header p {
     padding: 12px 8px;
   }
 }
-@media (max-width: 360px) {
+@media (max-width: 479px) {
   .container {
     padding: 0 4px;
   }
@@ -4875,28 +4875,28 @@ header p {
 
 /* ===================== CANVAS NORMALIZATION (FINAL OVERRIDES) ===================== */
 /* Enforce identical container width/padding across pages at key breakpoints */
-@media (min-width: 1400.01px) {
+@media (min-width: 1440px) {
   .container {
     max-width: var(--container-wide-max-width) !important;
     padding-left: var(--spacing-lg) !important;
     padding-right: var(--spacing-lg) !important;
   }
 }
-@media (min-width: 1024.01px) and (max-width: 1400px) {
+@media (min-width: 1024px) and (max-width: 1439px) {
   .container {
     max-width: var(--container-max-width) !important;
     padding-left: var(--spacing-lg) !important;
     padding-right: var(--spacing-lg) !important;
   }
 }
-@media (min-width: 768.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .container {
     max-width: 100% !important;
     padding-left: var(--spacing-md) !important;
     padding-right: var(--spacing-md) !important;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .container {
     max-width: 100% !important;
     padding-left: 8px !important;
@@ -4948,7 +4948,7 @@ header p {
 
 /* ===================== TIGHTER VERTICAL RHYTHM ===================== */
 /* Reduce spacing between containers (sections) across viewports */
-@media (min-width: 1024.01px) {
+@media (min-width: 1024px) {
   main > * {
     margin-bottom: var(--spacing-md) !important;
   }
@@ -4957,7 +4957,7 @@ header p {
   }
 }
 
-@media (min-width: 768.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   main > * {
     margin-bottom: calc(var(--spacing-md) * 0.9) !important;
   }
@@ -5207,7 +5207,7 @@ header p {
 }
 
 /* Tablet styles (768px to 1024px) */
-@media (min-width: 768.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .leaderboard__cell {
     padding: var(--spacing-sm) var(--spacing-md);
   }
@@ -5218,7 +5218,7 @@ header p {
 }
 
 /* Desktop styles (1024px+) */
-@media (min-width: 1024.01px) {
+@media (min-width: 1024px) {
   .leaderboard__table {
     font-size: 0.9rem;
   }
@@ -5421,7 +5421,7 @@ header p {
 }
 
 /* Tablet styles (768px - 1024px) */
-@media (min-width: 768.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .winner__card {
     padding: 14px;
   }
@@ -5437,7 +5437,7 @@ header p {
 }
 
 /* Small desktop styles (1024px - 1200px) */
-@media (min-width: 1024.01px) and (max-width: 1200px) {
+@media (min-width: 1024px) and (max-width: 1200px) {
   .winner__card {
     padding: 12px;
     min-height: 120px;
@@ -5597,7 +5597,7 @@ header p {
 }
 
 /* Tablet styles (768px - 1024px) */
-@media (min-width: 768.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .nav__leaderboard {
     gap: var(--spacing-md); /* 16px between nav elements */
     padding: var(--spacing-md) 0; /* 16px top/bottom */
@@ -5610,7 +5610,7 @@ header p {
 }
 
 /* Small desktop styles (1024px - 1200px) */
-@media (min-width: 1024.01px) and (max-width: 1200px) {
+@media (min-width: 1024px) and (max-width: 1200px) {
   .nav__leaderboard {
     padding: 12px 0;
     gap: 16px;
@@ -5784,7 +5784,7 @@ header p {
    ========================================================================== */
 
 /* Mobile styles (up to 700px) */
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .stats__row {
     flex-direction: column;
     align-items: center;
@@ -5815,7 +5815,7 @@ header p {
 }
 
 /* Larger mobile: two-column layout (480px - 700px) */
-@media (min-width: 480px) and (max-width: 700px) {
+@media (min-width: 480px) and (max-width: 767px) {
   .stats__row {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -5830,7 +5830,7 @@ header p {
 }
 
 /* Tablet styles (768px - 1024px) */
-@media (min-width: 768.01px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .stats__row {
     gap: var(--spacing-lg); /* 24px between stat boxes */
     margin-bottom: var(--spacing-lg); /* 24px after stats */
@@ -5851,7 +5851,7 @@ header p {
 }
 
 /* Small desktop styles (1024px+) */
-@media (min-width: 1024.01px) {
+@media (min-width: 1024px) {
   .stats__row {
     justify-content: space-between;
     gap: 20px;
@@ -6094,7 +6094,7 @@ header p {
 }
 
 /* Tablet styles (768px+) */
-@media (min-width: 768.01px) {
+@media (min-width: 768px) {
   .section__heading-main {
     font-size: 1.8rem;
   }
@@ -6107,7 +6107,7 @@ header p {
 }
 
 /* Small desktop styles (1024px+) */
-@media (min-width: 1024.01px) {
+@media (min-width: 1024px) {
   .section__card {
     padding: 20px 30px;
   }
@@ -6163,7 +6163,7 @@ header p {
    ========================================================================== */
 
 /* Small screens and up (640px+) */
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .u-sm-text-left {
     text-align: left;
   }
@@ -6279,8 +6279,8 @@ header p {
   }
 }
 
-/* Extra large screens and up (1280px+) */
-@media (min-width: 1280px) {
+/* Extra large screens and up (1200px+) */
+@media (min-width: 1200px) {
   .u-xl-text-center {
     text-align: center;
   }
@@ -6324,7 +6324,7 @@ header p {
   width: 16% !important;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1023px) {
   .leaderboard-table col.leaderboard__col--rank,
   .leaderboard__table col.leaderboard__col--rank {
     width: 12% !important;
@@ -6345,7 +6345,7 @@ header p {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .leaderboard {
     margin: 12px 0;
   }
@@ -6446,7 +6446,7 @@ header p {
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 479px) {
   .leaderboard__header .leaderboard__cell {
     font-size: 0.66rem;
   }
