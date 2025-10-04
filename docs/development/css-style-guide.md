@@ -542,42 +542,65 @@ Each major component follows this structure:
 
 ### Breakpoint System
 
-```css
-/* Mobile First Approach */
+**Standard Breakpoint Tokens** (Updated 2025-10-04):
 
-/* Base: Mobile (up to 768px) */
+```css
+/* Mobile First Approach - Standard Breakpoints Only */
+
+/* Base: Mobile (up to 480px) */
 .component {
 }
 
-/* Small screens and up (640px+) */
-@media (min-width: 640px) {
+/* Small screens and up (480px+) */
+@media (min-width: 480px) {
   .u-sm-* {
   }
 }
 
-/* Medium screens and up (768px+) */
+/* Medium screens and up (768px+) - Tablets */
 @media (min-width: 768px) {
   .u-md-* {
   }
 }
 
-/* Large screens and up (1024px+) */
+/* Large screens and up (1024px+) - Desktop */
 @media (min-width: 1024px) {
   .u-lg-* {
   }
 }
 
-/* Extra large screens and up (1280px+) */
-@media (min-width: 1280px) {
+/* Extra large screens (1200px+) */
+@media (min-width: 1200px) {
   .u-xl-* {
   }
 }
 
-/* Ultra-wide screens (1400px+) */
-@media (min-width: 1400px) {
-  /* Enhanced spacing and layout */
+/* Ultra-wide screens (1440px+) */
+@media (min-width: 1440px) {
+  .u-2xl-* {
+  }
 }
 ```
+
+**JavaScript Constants** (`js/state-module.js`):
+
+```javascript
+export const BREAKPOINTS = {
+  XS: 375, // Extra small (reference only)
+  SM: 480, // Small
+  MD: 768, // Medium (tablets)
+  LG: 1024, // Large (desktop)
+  XL: 1200, // Extra large
+  XXL: 1440, // Ultra-wide
+};
+```
+
+**Important Rules**:
+
+- ❌ No fractional breakpoints (.01px) - Use exact standard values
+- ✅ Mobile-first only - Use `min-width` queries exclusively
+- ✅ Standard tokens only - 480px, 768px, 1024px, 1200px, 1440px
+- ✅ Consistent with JavaScript constants
 
 ### Responsive Patterns
 
