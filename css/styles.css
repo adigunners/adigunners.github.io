@@ -4088,7 +4088,9 @@ header p {
   }
   .leaderboard__header .leaderboard__cell--rank {
     justify-content: center;
-    padding: 10px 6px;
+    padding: 14px 4px;
+    min-height: 56px;
+    box-sizing: border-box;
   }
   .leaderboard__cell--rank .rank-number {
     min-width: 2ch;
@@ -6399,9 +6401,11 @@ header p {
 
   .leaderboard__header .leaderboard__cell {
     font-size: 0.7rem;
-    padding: 8px 4px;
+    padding: 14px 4px;
     white-space: normal;
     line-height: 1.2;
+    min-height: 56px;
+    box-sizing: border-box;
   }
 
   .leaderboard__cell {
@@ -6431,7 +6435,9 @@ header p {
   }
   .leaderboard__header .leaderboard__cell--rank {
     justify-content: center;
-    padding: 10px 6px;
+    padding: 14px 4px;
+    min-height: 56px;
+    box-sizing: border-box;
   }
 
   .leaderboard__cell--rank .rank-number {
