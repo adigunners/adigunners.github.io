@@ -5422,6 +5422,7 @@ header p {
   flex-wrap: wrap;
   gap: 6px;
   margin-top: auto;
+  justify-content: flex-end;
 }
 
 /* ELEMENT: Winner preview container */
