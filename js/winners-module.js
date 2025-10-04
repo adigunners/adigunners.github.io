@@ -196,10 +196,10 @@ function renderDesktopTable(container, pageData, startIndex) {
   <div class=\"c-table-wrap\">
     <table class=\"c-table c-table--winners\" role=\"table\">
       <colgroup>
-        <col style=\"width:70px\" />
-        <col />
-        <col style=\"width:150px\" />
-        <col style=\"width:320px\" />
+        <col style=\"width:8%\" />
+        <col style=\"width:25%\" />
+        <col style=\"width:15%\" />
+        <col style=\"width:52%\" />
       </colgroup>
       <thead class=\"c-table__head\">
         <tr>
