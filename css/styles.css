@@ -5027,6 +5027,8 @@ header p {
   /* ELEMENT: Table sections */
   .leaderboard__header {
     background: linear-gradient(135deg, var(--primary-color), var(--heading-color));
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
   }
 
   .leaderboard__body {
