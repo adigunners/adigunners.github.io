@@ -2214,7 +2214,7 @@ section {
 /* Table containment helpers */
 .table-scroll,
 .card-table {
-  overflow: hidden;
+  overflow-y: hidden;
   border-radius: var(--radius-lg);
   width: 100%;
   max-width: 100%;
@@ -6376,7 +6376,7 @@ header p {
 
   .table-scroll {
     border-radius: var(--radius-lg);
-    overflow: hidden;
+    overflow-y: hidden;
   }
 
   .table-scroll thead th:first-child,
