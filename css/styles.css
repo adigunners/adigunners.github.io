@@ -1535,8 +1535,8 @@ section {
 
 @media (min-width: 768px) {
   :root {
-    --box-min-width: 160px;
-    --box-gap: 16px;
+    --box-min-width: 150px;
+    --box-gap: 14px;
     --box-padding: 16px 18px 12px 18px;
     --icon-size: 1.8rem;
     --icon-size-primary: 2rem;
