@@ -6443,7 +6443,13 @@ header p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 0;
+    max-width: 1px; /* Forces ellipsis while allowing column to use allocated width */
+  }
+
+  .leaderboard__cell--player .player-team {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .leaderboard__cell--gw,
