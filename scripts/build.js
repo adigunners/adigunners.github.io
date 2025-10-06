@@ -15,10 +15,19 @@ const crypto = require('crypto');
 const root = path.join(__dirname, '..');
 const outDir = path.join(root, 'public');
 
-function readJSON(p) { return JSON.parse(fs.readFileSync(p, 'utf8')); }
-function ensureDir(p){ if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true }); }
-function copyFile(src, dest){ ensureDir(path.dirname(dest)); fs.copyFileSync(src, dest); }
-function hashContent(buf){ return crypto.createHash('md5').update(buf).digest('hex').slice(0,8); }
+function readJSON(p) {
+  return JSON.parse(fs.readFileSync(p, 'utf8'));
+}
+function ensureDir(p) {
+  if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
+}
+function copyFile(src, dest) {
+  ensureDir(path.dirname(dest));
+  fs.copyFileSync(src, dest);
+}
+function hashContent(buf) {
+  return crypto.createHash('md5').update(buf).digest('hex').slice(0, 8);
+}
 
 // 1) Set version.js from package.json
 const pkg = readJSON(path.join(root, 'package.json'));
@@ -26,31 +35,34 @@ const version = pkg.version || '0.0.0-dev';
 require('./set-version'); // rewrites version.js at project root
 
 // 2) Clean docs/
-function emptyDir(dir){
+function emptyDir(dir) {
   if (!fs.existsSync(dir)) return;
-  for (const entry of fs.readdirSync(dir)){
+  for (const entry of fs.readdirSync(dir)) {
     const p = path.join(dir, entry);
     fs.rmSync(p, { recursive: true, force: true });
   }
 }
-ensureDir(outDir); emptyDir(outDir);
+ensureDir(outDir);
+emptyDir(outDir);
 
 // 3) Copy everything first (except node_modules, tests, .git, scripts)
-function shouldCopy(rel){
-  return !rel.startsWith('node_modules') &&
-         !rel.startsWith('.git') &&
-         !rel.startsWith('tests') &&
-         !rel.startsWith('scripts') &&
-         !rel.startsWith('.codex') &&
-         !rel.startsWith('.agent-os') &&
-         !rel.startsWith('.claude') &&
-         !rel.startsWith('.husky') &&
-         !rel.startsWith('.github') &&
-         rel !== 'server.log';
+function shouldCopy(rel) {
+  return (
+    !rel.startsWith('node_modules') &&
+    !rel.startsWith('.git') &&
+    !rel.startsWith('tests') &&
+    !rel.startsWith('scripts') &&
+    !rel.startsWith('.codex') &&
+    !rel.startsWith('.agent-os') &&
+    !rel.startsWith('.claude') &&
+    !rel.startsWith('.husky') &&
+    !rel.startsWith('.github') &&
+    rel !== 'server.log'
+  );
 }
 
-function copyTree(srcDir, dstDir){
-  for (const entry of fs.readdirSync(srcDir)){
+function copyTree(srcDir, dstDir) {
+  for (const entry of fs.readdirSync(srcDir)) {
     const srcPath = path.join(srcDir, entry);
     const rel = path.relative(root, srcPath);
     if (!shouldCopy(rel)) continue;
@@ -58,7 +70,7 @@ function copyTree(srcDir, dstDir){
     if (srcPath === outDir) continue;
     const dstPath = path.join(dstDir, entry);
     const stat = fs.statSync(srcPath);
-    if (stat.isDirectory()){
+    if (stat.isDirectory()) {
       ensureDir(dstPath);
       copyTree(srcPath, dstPath);
     } else {
@@ -70,7 +82,9 @@ copyTree(root, outDir);
 
 // 4) Fingerprint CSS/JS
 const toFingerprint = [];
-function enqueueIfExists(p){ if (fs.existsSync(p)) toFingerprint.push(p); }
+function enqueueIfExists(p) {
+  if (fs.existsSync(p)) toFingerprint.push(p);
+}
 
 // CSS
 enqueueIfExists(path.join(outDir, 'css', 'styles.css'));
@@ -79,15 +93,15 @@ enqueueIfExists(path.join(outDir, 'assets', 'css', 'components', 'table.css'));
 
 // JS: all files under js/
 const jsDir = path.join(outDir, 'js');
-if (fs.existsSync(jsDir)){
-  for (const f of fs.readdirSync(jsDir)){
+if (fs.existsSync(jsDir)) {
+  for (const f of fs.readdirSync(jsDir)) {
     if (f.endsWith('.js')) enqueueIfExists(path.join(jsDir, f));
   }
 }
 
 const manifest = [];
 const renameMap = new Map();
-for (const p of toFingerprint){
+for (const p of toFingerprint) {
   const buf = fs.readFileSync(p);
   const h = hashContent(buf);
   const dir = path.dirname(p);
@@ -106,10 +120,10 @@ for (const p of toFingerprint){
 }
 
 // 5) Rewrite HTML references in docs/index.html and docs/winners.html
-function rewriteHTML(file){
+function rewriteHTML(file) {
   if (!fs.existsSync(file)) return;
   let html = fs.readFileSync(file, 'utf8');
-  for (const [from,to] of renameMap.entries()){
+  for (const [from, to] of renameMap.entries()) {
     const fromEsc = from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     // Replace both with and without query strings
     html = html.replace(new RegExp(fromEsc + '(\\?[^"\']*)?', 'g'), to);
