@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2025-09-30T04:52:24.083Z",
+  "lastUpdated": "2025-10-06T04:33:10.177Z",
   "summary": {
     "totalPrizeDistributed": 9998,
-    "totalPaid": 6998,
-    "totalPending": 3000,
+    "totalPaid": 9998,
+    "totalPending": 0,
     "gameweekPrizes": 6000,
     "monthlyPrizes": 3998,
     "completedGameweeks": 6,
@@ -15,8 +15,8 @@
     {
       "playerName": "Bhushan Wagh",
       "totalPrizeWon": 2350,
-      "totalPaid": 1650,
-      "totalPending": 700,
+      "totalPaid": 2350,
+      "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 1650,
         "monthly": 700
@@ -27,7 +27,7 @@
         "overallRank": 1,
         "totalPoints": 385,
         "currentGWPoints": 57,
-        "previousRank": null,
+        "previousRank": 1,
         "deficitFromLeader": 0
       },
       "achievements": {
@@ -56,7 +56,7 @@
             "month": 2,
             "position": "2nd",
             "prize": 700,
-            "status": "Pending"
+            "status": "Paid"
           }
         ]
       },
@@ -66,17 +66,17 @@
       },
       "totalPoints": 385,
       "movement": {
-        "direction": "new",
+        "direction": "same",
         "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
       "playerName": "Shubham Tripathi",
       "totalPrizeWon": 1950,
-      "totalPaid": 0,
-      "totalPending": 1950,
+      "totalPaid": 1950,
+      "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 650,
         "monthly": 1300
@@ -87,7 +87,7 @@
         "overallRank": 12,
         "totalPoints": 355,
         "currentGWPoints": 100,
-        "previousRank": null,
+        "previousRank": 31,
         "deficitFromLeader": 30
       },
       "achievements": {
@@ -96,7 +96,7 @@
             "week": 6,
             "position": "1st",
             "prize": 650,
-            "status": "Pending"
+            "status": "Paid"
           }
         ],
         "months": [
@@ -104,7 +104,7 @@
             "month": 2,
             "position": "1st",
             "prize": 1300,
-            "status": "Pending"
+            "status": "Paid"
           }
         ]
       },
@@ -114,10 +114,10 @@
       },
       "totalPoints": 355,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 19,
+        "icon": "⬆",
+        "displayText": "+19"
       }
     },
     {
@@ -135,7 +135,7 @@
         "overallRank": 3,
         "totalPoints": 373,
         "currentGWPoints": 65,
-        "previousRank": null,
+        "previousRank": 3,
         "deficitFromLeader": 12
       },
       "achievements": {
@@ -162,10 +162,10 @@
       },
       "totalPoints": 373,
       "movement": {
-        "direction": "new",
+        "direction": "same",
         "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -183,7 +183,7 @@
         "overallRank": 4,
         "totalPoints": 371,
         "currentGWPoints": 66,
-        "previousRank": null,
+        "previousRank": 4,
         "deficitFromLeader": 14
       },
       "achievements": {
@@ -210,17 +210,17 @@
       },
       "totalPoints": 371,
       "movement": {
-        "direction": "new",
+        "direction": "same",
         "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
       "playerName": "Lakshman Aravind ",
       "totalPrizeWon": 1000,
-      "totalPaid": 650,
-      "totalPending": 350,
+      "totalPaid": 1000,
+      "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 1000,
         "monthly": 0
@@ -231,7 +231,7 @@
         "overallRank": 13,
         "totalPoints": 353,
         "currentGWPoints": 84,
-        "previousRank": null,
+        "previousRank": 17,
         "deficitFromLeader": 32
       },
       "achievements": {
@@ -246,7 +246,7 @@
             "week": 6,
             "position": "2nd",
             "prize": 350,
-            "status": "Pending"
+            "status": "Paid"
           }
         ],
         "months": []
@@ -257,10 +257,10 @@
       },
       "totalPoints": 353,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 4,
+        "icon": "⬆",
+        "displayText": "+4"
       }
     },
     {
@@ -278,7 +278,7 @@
         "overallRank": 2,
         "totalPoints": 384,
         "currentGWPoints": 82,
-        "previousRank": null,
+        "previousRank": 5,
         "deficitFromLeader": 1
       },
       "achievements": {
@@ -298,10 +298,10 @@
       },
       "totalPoints": 384,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 3,
+        "icon": "⬆",
+        "displayText": "+3"
       }
     },
     {
@@ -319,7 +319,7 @@
         "overallRank": 35,
         "totalPoints": 305,
         "currentGWPoints": 39,
-        "previousRank": null,
+        "previousRank": 21,
         "deficitFromLeader": 80
       },
       "achievements": {
@@ -339,10 +339,10 @@
       },
       "totalPoints": 305,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 14,
+        "icon": "⬇",
+        "displayText": "-14"
       }
     },
     {
@@ -360,7 +360,7 @@
         "overallRank": 25,
         "totalPoints": 324,
         "currentGWPoints": 61,
-        "previousRank": null,
+        "previousRank": 24,
         "deficitFromLeader": 61
       },
       "achievements": {
@@ -380,10 +380,10 @@
       },
       "totalPoints": 324,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 1,
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -401,7 +401,7 @@
         "overallRank": 7,
         "totalPoints": 365,
         "currentGWPoints": 56,
-        "previousRank": null,
+        "previousRank": 2,
         "deficitFromLeader": 20
       },
       "achievements": {
@@ -421,10 +421,10 @@
       },
       "totalPoints": 365,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 5,
+        "icon": "⬇",
+        "displayText": "-5"
       }
     },
     {
@@ -442,7 +442,7 @@
         "overallRank": 9,
         "totalPoints": 359,
         "currentGWPoints": 68,
-        "previousRank": null,
+        "previousRank": 8,
         "deficitFromLeader": 26
       },
       "achievements": {
@@ -462,10 +462,10 @@
       },
       "totalPoints": 359,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 1,
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -483,7 +483,7 @@
         "overallRank": 16,
         "totalPoints": 338,
         "currentGWPoints": 69,
-        "previousRank": null,
+        "previousRank": 17,
         "deficitFromLeader": 47
       },
       "achievements": {
@@ -496,10 +496,10 @@
       },
       "totalPoints": 338,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 1,
+        "icon": "⬆",
+        "displayText": "+1"
       }
     },
     {
@@ -517,7 +517,7 @@
         "overallRank": 15,
         "totalPoints": 344,
         "currentGWPoints": 57,
-        "previousRank": null,
+        "previousRank": 9,
         "deficitFromLeader": 41
       },
       "achievements": {
@@ -530,10 +530,10 @@
       },
       "totalPoints": 344,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 6,
+        "icon": "⬇",
+        "displayText": "-6"
       }
     },
     {
@@ -551,7 +551,7 @@
         "overallRank": 7,
         "totalPoints": 365,
         "currentGWPoints": 83,
-        "previousRank": null,
+        "previousRank": 12,
         "deficitFromLeader": 20
       },
       "achievements": {
@@ -564,10 +564,10 @@
       },
       "totalPoints": 365,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 5,
+        "icon": "⬆",
+        "displayText": "+5"
       }
     },
     {
@@ -585,7 +585,7 @@
         "overallRank": 27,
         "totalPoints": 322,
         "currentGWPoints": 68,
-        "previousRank": null,
+        "previousRank": 32,
         "deficitFromLeader": 63
       },
       "achievements": {
@@ -598,10 +598,10 @@
       },
       "totalPoints": 322,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 5,
+        "icon": "⬆",
+        "displayText": "+5"
       }
     },
     {
@@ -619,7 +619,7 @@
         "overallRank": 25,
         "totalPoints": 324,
         "currentGWPoints": 57,
-        "previousRank": null,
+        "previousRank": 20,
         "deficitFromLeader": 61
       },
       "achievements": {
@@ -632,10 +632,10 @@
       },
       "totalPoints": 324,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 5,
+        "icon": "⬇",
+        "displayText": "-5"
       }
     },
     {
@@ -653,7 +653,7 @@
         "overallRank": 16,
         "totalPoints": 338,
         "currentGWPoints": 64,
-        "previousRank": null,
+        "previousRank": 15,
         "deficitFromLeader": 47
       },
       "achievements": {
@@ -666,10 +666,10 @@
       },
       "totalPoints": 338,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 1,
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -687,7 +687,7 @@
         "overallRank": 20,
         "totalPoints": 330,
         "currentGWPoints": 69,
-        "previousRank": null,
+        "previousRank": 25,
         "deficitFromLeader": 55
       },
       "achievements": {
@@ -700,10 +700,10 @@
       },
       "totalPoints": 330,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 5,
+        "icon": "⬆",
+        "displayText": "+5"
       }
     },
     {
@@ -721,7 +721,7 @@
         "overallRank": 28,
         "totalPoints": 318,
         "currentGWPoints": 59,
-        "previousRank": null,
+        "previousRank": 29,
         "deficitFromLeader": 67
       },
       "achievements": {
@@ -734,10 +734,10 @@
       },
       "totalPoints": 318,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 1,
+        "icon": "⬆",
+        "displayText": "+1"
       }
     },
     {
@@ -755,7 +755,7 @@
         "overallRank": 45,
         "totalPoints": 284,
         "currentGWPoints": 49,
-        "previousRank": null,
+        "previousRank": 47,
         "deficitFromLeader": 101
       },
       "achievements": {
@@ -768,10 +768,10 @@
       },
       "totalPoints": 284,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 2,
+        "icon": "⬆",
+        "displayText": "+2"
       }
     },
     {
@@ -789,7 +789,7 @@
         "overallRank": 34,
         "totalPoints": 310,
         "currentGWPoints": 57,
-        "previousRank": null,
+        "previousRank": 34,
         "deficitFromLeader": 75
       },
       "achievements": {
@@ -802,10 +802,10 @@
       },
       "totalPoints": 310,
       "movement": {
-        "direction": "new",
+        "direction": "same",
         "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -823,7 +823,7 @@
         "overallRank": 53,
         "totalPoints": 229,
         "currentGWPoints": 39,
-        "previousRank": null,
+        "previousRank": 54,
         "deficitFromLeader": 156
       },
       "achievements": {
@@ -836,10 +836,10 @@
       },
       "totalPoints": 229,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 1,
+        "icon": "⬆",
+        "displayText": "+1"
       }
     },
     {
@@ -857,7 +857,7 @@
         "overallRank": 21,
         "totalPoints": 329,
         "currentGWPoints": 58,
-        "previousRank": null,
+        "previousRank": 16,
         "deficitFromLeader": 56
       },
       "achievements": {
@@ -870,10 +870,10 @@
       },
       "totalPoints": 329,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 5,
+        "icon": "⬇",
+        "displayText": "-5"
       }
     },
     {
@@ -891,7 +891,7 @@
         "overallRank": 39,
         "totalPoints": 297,
         "currentGWPoints": 53,
-        "previousRank": null,
+        "previousRank": 43,
         "deficitFromLeader": 88
       },
       "achievements": {
@@ -904,10 +904,10 @@
       },
       "totalPoints": 297,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 4,
+        "icon": "⬆",
+        "displayText": "+4"
       }
     },
     {
@@ -925,7 +925,7 @@
         "overallRank": 46,
         "totalPoints": 282,
         "currentGWPoints": 36,
-        "previousRank": null,
+        "previousRank": 39,
         "deficitFromLeader": 103
       },
       "achievements": {
@@ -938,10 +938,10 @@
       },
       "totalPoints": 282,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 7,
+        "icon": "⬇",
+        "displayText": "-7"
       }
     },
     {
@@ -959,7 +959,7 @@
         "overallRank": 22,
         "totalPoints": 328,
         "currentGWPoints": 77,
-        "previousRank": null,
+        "previousRank": 36,
         "deficitFromLeader": 57
       },
       "achievements": {
@@ -972,10 +972,10 @@
       },
       "totalPoints": 328,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 14,
+        "icon": "⬆",
+        "displayText": "+14"
       }
     },
     {
@@ -993,7 +993,7 @@
         "overallRank": 18,
         "totalPoints": 337,
         "currentGWPoints": 61,
-        "previousRank": null,
+        "previousRank": 13,
         "deficitFromLeader": 48
       },
       "achievements": {
@@ -1006,10 +1006,10 @@
       },
       "totalPoints": 337,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 5,
+        "icon": "⬇",
+        "displayText": "-5"
       }
     },
     {
@@ -1027,7 +1027,7 @@
         "overallRank": 48,
         "totalPoints": 280,
         "currentGWPoints": 35,
-        "previousRank": null,
+        "previousRank": 40,
         "deficitFromLeader": 105
       },
       "achievements": {
@@ -1040,10 +1040,10 @@
       },
       "totalPoints": 280,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 8,
+        "icon": "⬇",
+        "displayText": "-8"
       }
     },
     {
@@ -1061,7 +1061,7 @@
         "overallRank": 18,
         "totalPoints": 337,
         "currentGWPoints": 72,
-        "previousRank": null,
+        "previousRank": 23,
         "deficitFromLeader": 48
       },
       "achievements": {
@@ -1074,10 +1074,10 @@
       },
       "totalPoints": 337,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 5,
+        "icon": "⬆",
+        "displayText": "+5"
       }
     },
     {
@@ -1095,7 +1095,7 @@
         "overallRank": 23,
         "totalPoints": 326,
         "currentGWPoints": 65,
-        "previousRank": null,
+        "previousRank": 25,
         "deficitFromLeader": 59
       },
       "achievements": {
@@ -1108,10 +1108,10 @@
       },
       "totalPoints": 326,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 2,
+        "icon": "⬆",
+        "displayText": "+2"
       }
     },
     {
@@ -1129,7 +1129,7 @@
         "overallRank": 24,
         "totalPoints": 325,
         "currentGWPoints": 71,
-        "previousRank": null,
+        "previousRank": 32,
         "deficitFromLeader": 60
       },
       "achievements": {
@@ -1142,10 +1142,10 @@
       },
       "totalPoints": 325,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 8,
+        "icon": "⬆",
+        "displayText": "+8"
       }
     },
     {
@@ -1163,7 +1163,7 @@
         "overallRank": 42,
         "totalPoints": 288,
         "currentGWPoints": 54,
-        "previousRank": null,
+        "previousRank": 48,
         "deficitFromLeader": 97
       },
       "achievements": {
@@ -1176,10 +1176,10 @@
       },
       "totalPoints": 288,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 6,
+        "icon": "⬆",
+        "displayText": "+6"
       }
     },
     {
@@ -1197,7 +1197,7 @@
         "overallRank": 54,
         "totalPoints": 227,
         "currentGWPoints": 24,
-        "previousRank": null,
+        "previousRank": 53,
         "deficitFromLeader": 158
       },
       "achievements": {
@@ -1210,10 +1210,10 @@
       },
       "totalPoints": 227,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 1,
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -1231,7 +1231,7 @@
         "overallRank": 9,
         "totalPoints": 359,
         "currentGWPoints": 72,
-        "previousRank": null,
+        "previousRank": 9,
         "deficitFromLeader": 26
       },
       "achievements": {
@@ -1244,10 +1244,10 @@
       },
       "totalPoints": 359,
       "movement": {
-        "direction": "new",
+        "direction": "same",
         "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1265,7 +1265,7 @@
         "overallRank": 11,
         "totalPoints": 356,
         "currentGWPoints": 81,
-        "previousRank": null,
+        "previousRank": 14,
         "deficitFromLeader": 29
       },
       "achievements": {
@@ -1278,10 +1278,10 @@
       },
       "totalPoints": 356,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 3,
+        "icon": "⬆",
+        "displayText": "+3"
       }
     },
     {
@@ -1299,7 +1299,7 @@
         "overallRank": 36,
         "totalPoints": 304,
         "currentGWPoints": 62,
-        "previousRank": null,
+        "previousRank": 44,
         "deficitFromLeader": 81
       },
       "achievements": {
@@ -1312,10 +1312,10 @@
       },
       "totalPoints": 304,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 8,
+        "icon": "⬆",
+        "displayText": "+8"
       }
     },
     {
@@ -1333,7 +1333,7 @@
         "overallRank": 31,
         "totalPoints": 315,
         "currentGWPoints": 47,
-        "previousRank": null,
+        "previousRank": 19,
         "deficitFromLeader": 70
       },
       "achievements": {
@@ -1346,10 +1346,10 @@
       },
       "totalPoints": 315,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 12,
+        "icon": "⬇",
+        "displayText": "-12"
       }
     },
     {
@@ -1367,7 +1367,7 @@
         "overallRank": 51,
         "totalPoints": 245,
         "currentGWPoints": 37,
-        "previousRank": null,
+        "previousRank": 52,
         "deficitFromLeader": 140
       },
       "achievements": {
@@ -1380,10 +1380,10 @@
       },
       "totalPoints": 245,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 1,
+        "icon": "⬆",
+        "displayText": "+1"
       }
     },
     {
@@ -1401,7 +1401,7 @@
         "overallRank": 30,
         "totalPoints": 316,
         "currentGWPoints": 56,
-        "previousRank": null,
+        "previousRank": 27,
         "deficitFromLeader": 69
       },
       "achievements": {
@@ -1414,10 +1414,10 @@
       },
       "totalPoints": 316,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 3,
+        "icon": "⬇",
+        "displayText": "-3"
       }
     },
     {
@@ -1435,7 +1435,7 @@
         "overallRank": 28,
         "totalPoints": 318,
         "currentGWPoints": 71,
-        "previousRank": null,
+        "previousRank": 38,
         "deficitFromLeader": 67
       },
       "achievements": {
@@ -1448,10 +1448,10 @@
       },
       "totalPoints": 318,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 10,
+        "icon": "⬆",
+        "displayText": "+10"
       }
     },
     {
@@ -1469,7 +1469,7 @@
         "overallRank": 38,
         "totalPoints": 299,
         "currentGWPoints": 61,
-        "previousRank": null,
+        "previousRank": 46,
         "deficitFromLeader": 86
       },
       "achievements": {
@@ -1482,10 +1482,10 @@
       },
       "totalPoints": 299,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 8,
+        "icon": "⬆",
+        "displayText": "+8"
       }
     },
     {
@@ -1503,7 +1503,7 @@
         "overallRank": 13,
         "totalPoints": 353,
         "currentGWPoints": 66,
-        "previousRank": null,
+        "previousRank": 9,
         "deficitFromLeader": 32
       },
       "achievements": {
@@ -1516,10 +1516,10 @@
       },
       "totalPoints": 353,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 4,
+        "icon": "⬇",
+        "displayText": "-4"
       }
     },
     {
@@ -1537,7 +1537,7 @@
         "overallRank": 44,
         "totalPoints": 286,
         "currentGWPoints": 66,
-        "previousRank": null,
+        "previousRank": 49,
         "deficitFromLeader": 99
       },
       "achievements": {
@@ -1550,10 +1550,10 @@
       },
       "totalPoints": 286,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 5,
+        "icon": "⬆",
+        "displayText": "+5"
       }
     },
     {
@@ -1571,7 +1571,7 @@
         "overallRank": 31,
         "totalPoints": 315,
         "currentGWPoints": 49,
-        "previousRank": null,
+        "previousRank": 21,
         "deficitFromLeader": 70
       },
       "achievements": {
@@ -1584,10 +1584,10 @@
       },
       "totalPoints": 315,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 10,
+        "icon": "⬇",
+        "displayText": "-10"
       }
     },
     {
@@ -1605,7 +1605,7 @@
         "overallRank": 49,
         "totalPoints": 276,
         "currentGWPoints": 58,
-        "previousRank": null,
+        "previousRank": 51,
         "deficitFromLeader": 109
       },
       "achievements": {
@@ -1618,10 +1618,10 @@
       },
       "totalPoints": 276,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 2,
+        "icon": "⬆",
+        "displayText": "+2"
       }
     },
     {
@@ -1639,7 +1639,7 @@
         "overallRank": 40,
         "totalPoints": 295,
         "currentGWPoints": 39,
-        "previousRank": null,
+        "previousRank": 30,
         "deficitFromLeader": 90
       },
       "achievements": {
@@ -1652,10 +1652,10 @@
       },
       "totalPoints": 295,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 10,
+        "icon": "⬇",
+        "displayText": "-10"
       }
     },
     {
@@ -1673,7 +1673,7 @@
         "overallRank": 31,
         "totalPoints": 315,
         "currentGWPoints": 62,
-        "previousRank": null,
+        "previousRank": 34,
         "deficitFromLeader": 70
       },
       "achievements": {
@@ -1686,10 +1686,10 @@
       },
       "totalPoints": 315,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 3,
+        "icon": "⬆",
+        "displayText": "+3"
       }
     },
     {
@@ -1707,7 +1707,7 @@
         "overallRank": 6,
         "totalPoints": 367,
         "currentGWPoints": 73,
-        "previousRank": null,
+        "previousRank": 7,
         "deficitFromLeader": 18
       },
       "achievements": {
@@ -1720,10 +1720,10 @@
       },
       "totalPoints": 367,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 1,
+        "icon": "⬆",
+        "displayText": "+1"
       }
     },
     {
@@ -1741,7 +1741,7 @@
         "overallRank": 43,
         "totalPoints": 287,
         "currentGWPoints": 39,
-        "previousRank": null,
+        "previousRank": 37,
         "deficitFromLeader": 98
       },
       "achievements": {
@@ -1754,10 +1754,10 @@
       },
       "totalPoints": 287,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 6,
+        "icon": "⬇",
+        "displayText": "-6"
       }
     },
     {
@@ -1775,7 +1775,7 @@
         "overallRank": 41,
         "totalPoints": 289,
         "currentGWPoints": 29,
-        "previousRank": null,
+        "previousRank": 27,
         "deficitFromLeader": 96
       },
       "achievements": {
@@ -1788,10 +1788,10 @@
       },
       "totalPoints": 289,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 14,
+        "icon": "⬇",
+        "displayText": "-14"
       }
     },
     {
@@ -1809,7 +1809,7 @@
         "overallRank": 37,
         "totalPoints": 302,
         "currentGWPoints": 57,
-        "previousRank": null,
+        "previousRank": 40,
         "deficitFromLeader": 83
       },
       "achievements": {
@@ -1822,10 +1822,10 @@
       },
       "totalPoints": 302,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 3,
+        "icon": "⬆",
+        "displayText": "+3"
       }
     },
     {
@@ -1843,7 +1843,7 @@
         "overallRank": 5,
         "totalPoints": 370,
         "currentGWPoints": 70,
-        "previousRank": null,
+        "previousRank": 6,
         "deficitFromLeader": 15
       },
       "achievements": {
@@ -1856,10 +1856,10 @@
       },
       "totalPoints": 370,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "up",
+        "change": 1,
+        "icon": "⬆",
+        "displayText": "+1"
       }
     },
     {
@@ -1877,7 +1877,7 @@
         "overallRank": 51,
         "totalPoints": 245,
         "currentGWPoints": 26,
-        "previousRank": null,
+        "previousRank": 50,
         "deficitFromLeader": 140
       },
       "achievements": {
@@ -1890,10 +1890,10 @@
       },
       "totalPoints": 245,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 1,
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -1911,7 +1911,7 @@
         "overallRank": 46,
         "totalPoints": 282,
         "currentGWPoints": 42,
-        "previousRank": null,
+        "previousRank": 45,
         "deficitFromLeader": 103
       },
       "achievements": {
@@ -1924,10 +1924,10 @@
       },
       "totalPoints": 282,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 1,
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -1945,7 +1945,7 @@
         "overallRank": 50,
         "totalPoints": 274,
         "currentGWPoints": 29,
-        "previousRank": null,
+        "previousRank": 40,
         "deficitFromLeader": 111
       },
       "achievements": {
@@ -1958,17 +1958,17 @@
       },
       "totalPoints": 274,
       "movement": {
-        "direction": "new",
-        "change": 0,
-        "icon": "●",
-        "displayText": "NEW"
+        "direction": "down",
+        "change": 10,
+        "icon": "⬇",
+        "displayText": "-10"
       }
     }
   ],
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2025-09-30T04:52:24.232Z",
+    "enhancedAt": "2025-10-06T04:33:10.367Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
