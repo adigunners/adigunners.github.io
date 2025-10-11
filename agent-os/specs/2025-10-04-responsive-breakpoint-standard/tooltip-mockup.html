@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tooltip Mockup - GW/GM Breakdown</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+          sans-serif;
+        padding: 40px;
+        background: #f5f5f5;
+      }
+
+      .mockup-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #37003c;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        color: #666;
+        margin-bottom: 30px;
+      }
+
+      /* Table Styles */
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      thead th {
+        background: linear-gradient(135deg, #37003c, #2d0030);
+        color: white;
+        padding: 14px 16px;
+        text-align: left;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+      }
+
+      thead th:first-child {
+        border-top-left-radius: 8px;
+      }
+      thead th:last-child {
+        border-top-right-radius: 8px;
+      }
+
+      tbody tr {
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      tbody td {
+        padding: 14px 16px;
+        vertical-align: middle;
+      }
+
+      /* Highlights Column with Grid */
+      .col-highlights {
+        display: grid;
+        grid-template-columns: 60px 60px 1fr;
+        gap: 8px;
+        align-items: center;
+      }
+
+      /* Pills */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        position: relative;
+        cursor: help;
+      }
+
+      .pill-gw {
+        background: #22c55e;
+        color: white;
+      }
+
+      .pill-gm {
+        background: #ef4444;
+        color: white;
+      }
+
+      /* Tooltip Styles */
+      .tooltip {
+        position: absolute;
+        bottom: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: #1f2937;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .tooltip::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 6px solid transparent;
+        border-top-color: #1f2937;
+      }
+
+      .pill:hover .tooltip {
+        opacity: 1;
+      }
+
+      .tooltip-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 2px 0;
+      }
+
+      .tooltip-row + .tooltip-row {
+        margin-top: 4px;
+        padding-top: 4px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .tooltip-label {
+        color: #9ca3af;
+        font-size: 0.75rem;
+      }
+
+      .tooltip-value {
+        font-weight: 600;
+        color: white;
+      }
+
+      .rank-text {
+        font-size: 0.8rem;
+        color: #666;
+      }
+
+      /* Demo instruction */
+      .demo-note {
+        background: #eff6ff;
+        border: 1px solid #3b82f6;
+        color: #1e40af;
+        padding: 12px 16px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+      }
+
+      .demo-note strong {
+        color: #1e3a8a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mockup-container">
+      <h1>🏆 Tooltip Mockup - Win Breakdown</h1>
+      <p class="subtitle">Hover over GW/GM badges to see position breakdown</p>
+
+      <div class="demo-note">
+        <strong>📌 Demo Instructions:</strong> Hover your mouse over the green "GW" or red "GM"
+        badges to see the detailed breakdown of 1st and 2nd place finishes.
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 8%">#</th>
+            <th style="width: 45%">PLAYER</th>
+            <th style="width: 15%">PRIZE WON</th>
+            <th style="width: 32%">HIGHLIGHTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Bhushan Wagh</td>
+            <td>₹2,350</td>
+            <td>
+              <div class="col-highlights">
+                <span class="pill pill-gw">
+                  3 GW
+                  <span class="tooltip">
+                    <div class="tooltip-row">
+                      <span class="tooltip-label">🥇 1st Place:</span>
+                      <span class="tooltip-value">2 wins</span>
+                    </div>
+                    <div class="tooltip-row">
+                      <span class="tooltip-label">🥈 2nd Place:</span>
+                      <span class="tooltip-value">1 win</span>
+                    </div>
+                  </span>
+                </span>
+                <span class="pill pill-gm">
+                  1 GM
+                  <span class="tooltip">
+                    <div class="tooltip-row">
+                      <span class="tooltip-label">🥈 2nd Place:</span>
+                      <span class="tooltip-value">1 win</span>
+                    </div>
+                  </span>
+                </span>
+                <span class="rank-text">League Rank 1</span>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>Shubham Tripathi</td>
+            <td>₹1,950</td>
+            <td>
+              <div class="col-highlights">
+                <span class="pill pill-gw">
+                  1 GW
+                  <span class="tooltip">
+                    <div class="tooltip-row">
+                      <span class="tooltip-label">🥇 1st Place:</span>
+                      <span class="tooltip-value">1 win</span>
+                    </div>
+                  </span>
+                </span>
+                <span class="pill pill-gm">
+                  1 GM
+                  <span class="tooltip">
+                    <div class="tooltip-row">
+                      <span class="tooltip-label">🥇 1st Place:</span>
+                      <span class="tooltip-value">1 win</span>
+                    </div>
+                  </span>
+                </span>
+                <span class="rank-text">League Rank 12</span>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td>Kiran Kanoj</td>
+            <td>₹1,316</td>
+            <td>
+              <div class="col-highlights">
+                <span class="pill pill-gw">
+                  1 GW
+                  <span class="tooltip">
+                    <div class="tooltip-row">
+                      <span class="tooltip-label">🥇 1st Place:</span>
+                      <span class="tooltip-value">1 win</span>
+                    </div>
+                  </span>
+                </span>
+                <span class="pill pill-gm">
+                  1 GM
+                  <span class="tooltip">
+                    <div class="tooltip-row">
+                      <span class="tooltip-label">🥇 1st Place:</span>
+                      <span class="tooltip-value">1 win</span>
+                    </div>
+                  </span>
+                </span>
+                <span class="rank-text">League Rank 3</span>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>4</td>
+            <td>Avanit Kaushal</td>
+            <td>₹1,316</td>
+            <td>
+              <div class="col-highlights">
+                <span class="pill pill-gw">
+                  5 GW
+                  <span class="tooltip">
+                    <div class="tooltip-row">
+                      <span class="tooltip-label">🥇 1st Place:</span>
+                      <span class="tooltip-value">4 wins</span>
+                    </div>
+                    <div class="tooltip-row">
+                      <span class="tooltip-label">🥈 2nd Place:</span>
+                      <span class="tooltip-value">1 win</span>
+                    </div>
+                  </span>
+                </span>
+                <span></span>
+                <span class="rank-text">League Rank 4</span>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>5</td>
+            <td>Lakshman Aravind</td>
+            <td>₹1,000</td>
+            <td>
+              <div class="col-highlights">
+                <span class="pill pill-gw">
+                  2 GW
+                  <span class="tooltip">
+                    <div class="tooltip-row">
+                      <span class="tooltip-label">🥈 2nd Place:</span>
+                      <span class="tooltip-value">2 wins</span>
+                    </div>
+                  </span>
+                </span>
+                <span></span>
+                <span class="rank-text">League Rank 13</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top: 30px; padding: 20px; background: #f9fafb; border-radius: 6px">
+        <h3 style="margin-bottom: 12px; color: #374151">Tooltip Features:</h3>
+        <ul style="color: #6b7280; line-height: 1.8; margin-left: 20px">
+          <li>Shows on hover with smooth fade-in animation</li>
+          <li>Displays breakdown: 🥇 1st Place and 🥈 2nd Place counts</li>
+          <li>Works for both GW (Gameweek) and GM (Game Month) badges</li>
+          <li>Only shows positions that exist (if only 2nd place, only that is shown)</li>
+          <li>Dark tooltip with white text for good contrast</li>
+          <li>Arrow pointing to the badge for clarity</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

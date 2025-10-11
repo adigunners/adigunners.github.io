@@ -22,9 +22,7 @@ logs/
 # Node.js dependencies
 node_modules/
 
-# Claude Code and Agent OS development files
-.claude/
-.agent-os/
+# Development files
 .codex/
 .vscode/
 
