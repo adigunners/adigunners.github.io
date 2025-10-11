@@ -41,7 +41,7 @@
     ],
     "*.{md,mdx}": [
       "prettier --write",
-      "markdownlint-cli2"
+      "markdownlint-cli2 --fix"
     ]
   },
   "keywords": [
