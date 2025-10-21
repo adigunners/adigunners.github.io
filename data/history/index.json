@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2025-10-06T04:33:15.964Z",
-  "latestGW": 7,
+  "generatedAt": "2025-10-21T05:42:13.181Z",
+  "latestGW": 8,
   "files": [
     {
       "gw": 1,
@@ -29,6 +29,10 @@
     {
       "gw": 7,
       "path": "data/history/winner_stats_gw7.json"
+    },
+    {
+      "gw": 8,
+      "path": "data/history/winner_stats_gw8.json"
     }
   ]
 }
