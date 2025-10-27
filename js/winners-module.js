@@ -162,6 +162,33 @@ function updatePageSubtitle(completedGameweeks) {
   }
 }
 
+// ------------------ Tie-Aware Ranking Helper ------------------
+/**
+ * Calculate rankings with proper tie handling (standard competition ranking)
+ * Players with identical prize amounts get the same rank
+ * Next rank after a tie accounts for number of tied players (e.g., 1, 2, 2, 4)
+ *
+ * @param {Array} winners - Sorted array of winners
+ * @returns {Array} Array of rank numbers matching winner positions
+ */
+function calculateTieAwareRanks(winners) {
+  const ranks = [];
+  let currentRank = 1;
+
+  for (let i = 0; i < winners.length; i++) {
+    if (i > 0 && winners[i].totalPrizeWon === winners[i - 1].totalPrizeWon) {
+      // Tie: same prize as previous player, assign same rank
+      ranks.push(ranks[i - 1]);
+    } else {
+      // New prize amount: assign current position as rank
+      ranks.push(currentRank);
+    }
+    currentRank = i + 2; // Next available rank (position + 1)
+  }
+
+  return ranks;
+}
+
 // ------------------ Renderers ------------------
 async function renderWinnersTable() {
   const container = document.getElementById(SEL.CONTAINER);
@@ -196,6 +223,9 @@ function renderDesktopTable(container, pageData, startIndex) {
   const maxRank = winnersWithPrizes.length;
   const rankWidth = String(maxRank).length;
 
+  // Calculate tie-aware ranks for the entire winners list
+  const allRanks = calculateTieAwareRanks(winnersWithPrizes);
+
   let html = `
   <div class=\"c-table-wrap\">
     <table class=\"c-table c-table--winners\" role=\"table\">
@@ -216,7 +246,8 @@ function renderDesktopTable(container, pageData, startIndex) {
       <tbody class=\"c-table__body\" id=\"winners-tbody\">`;
 
   pageData.forEach((w, i) => {
-    const rank = startIndex + i + 1;
+    // Use pre-calculated rank from allRanks array (accounts for ties)
+    const rank = allRanks[startIndex + i];
     const h = w.highlights || {};
     const achievements = w.achievements || {};
 
@@ -285,8 +316,13 @@ function renderMobileCards(container, pageData, startIndex) {
   const wrap = document.createElement('div');
   wrap.className = 'winner__preview';
   const maxRank = winnersWithPrizes.length; // Pass max rank for dynamic padding
+
+  // Calculate tie-aware ranks for the entire winners list
+  const allRanks = calculateTieAwareRanks(winnersWithPrizes);
+
   pageData.forEach((w, i) => {
-    const rank = startIndex + i + 1;
+    // Use pre-calculated rank from allRanks array (accounts for ties)
+    const rank = allRanks[startIndex + i];
     wrap.appendChild(createCard(w, rank, maxRank));
   });
   root.appendChild(wrap);
