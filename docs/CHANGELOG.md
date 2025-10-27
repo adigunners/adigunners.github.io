@@ -2,6 +2,62 @@
 
 ## [Unreleased]
 
+### 🔥 Production Hot Fix - Season Earnings Tie-Aware Ranking (October 28, 2025)
+
+**Issue**: Players with identical prize amounts (e.g., Kiran Kanoj and Avanit Kaushal both at
+₹1,316) were ranked sequentially (5, 6) instead of both receiving the same rank (5, 5) in the Season
+Earnings table.
+
+**Root Cause**: The ranking algorithm used simple sequential indexing (`rank = startIndex + i + 1`)
+without checking for tied prize amounts. This violated standard competition ranking principles where
+tied players should receive the same rank.
+
+**Impact**:
+
+- Incorrect ranking display for tied winners in Season Earnings table
+- Affected both desktop table view and mobile card view
+- Inconsistent with FPL official ranking conventions
+
+**Fix Implemented**:
+
+1. **Added `calculateTieAwareRanks()` function** (`js/winners-module.js:165-190`)
+   - Implements standard competition ranking algorithm (1, 2, 2, 4)
+   - Players with identical `totalPrizeWon` values receive the same rank
+   - Next rank after a tie accounts for number of tied players
+
+2. **Updated Desktop Table Renderer** (`js/winners-module.js:220-250`)
+   - Pre-calculates tie-aware ranks for entire winners list
+   - Uses `allRanks` array for correct rank display across pagination
+
+3. **Updated Mobile Cards Renderer** (`js/winners-module.js:311-330`)
+   - Applies same tie-aware ranking system
+   - Ensures consistent ranking across responsive breakpoints
+
+**Algorithm Example**:
+
+```javascript
+// Before (sequential): [1, 2, 3, 4, 5, 6]
+// After (tie-aware):   [1, 2, 2, 4, 5, 5, 7]
+//                          ^^tie    ^^tie
+```
+
+**Testing**:
+
+- Verified with live data showing Kiran Kanoj and Avanit Kaushal both at rank 5
+- Tested pagination to ensure ranks remain consistent across pages
+- Validated both desktop table and mobile card layouts
+
+**Files Modified**:
+
+- `js/winners-module.js` - Added tie-aware ranking algorithm
+
+**References**:
+
+- Related to Apps Script backend hot fixes (GW9 data fetch and historical rankings)
+- Part of coordinated production hot fix deployment across both repositories
+
+---
+
 ### 🎨 Responsive Design Enhancement
 
 - **Standardized Breakpoint System**: Implemented consistent responsive breakpoint tokens across CSS
