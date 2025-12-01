@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2025-12-01T05:07:19.308Z",
+  "lastUpdated": "2025-12-01T06:09:16.722Z",
   "summary": {
     "totalPrizeDistributed": 20998,
-    "totalPaid": 16998,
-    "totalPending": 4000,
+    "totalPaid": 17998,
+    "totalPending": 3000,
     "gameweekPrizes": 13000,
     "monthlyPrizes": 7998,
     "completedGameweeks": 13,
@@ -176,11 +176,11 @@
     },
     {
       "playerName": "Siddharth Sharma",
-      "totalPrizeWon": 1625,
+      "totalPrizeWon": 1800,
       "totalPaid": 0,
-      "totalPending": 1625,
+      "totalPending": 1800,
       "prizeBreakdown": {
-        "gameweek": 325,
+        "gameweek": 500,
         "monthly": 1300
       },
       "highlights": {
@@ -197,7 +197,7 @@
           {
             "week": 13,
             "position": "1st",
-            "prize": 325,
+            "prize": 500,
             "status": "Pending"
           }
         ],
@@ -367,54 +367,6 @@
       }
     },
     {
-      "playerName": "Alen Aloysius",
-      "totalPrizeWon": 1050,
-      "totalPaid": 0,
-      "totalPending": 1050,
-      "prizeBreakdown": {
-        "gameweek": 350,
-        "monthly": 700
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 1,
-        "overallRank": 10,
-        "totalPoints": 757,
-        "currentGWPoints": 71,
-        "previousRank": 16,
-        "deficitFromLeader": 30
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 13,
-            "position": "2nd",
-            "prize": 350,
-            "status": "Pending"
-          }
-        ],
-        "months": [
-          {
-            "month": 4,
-            "position": "2nd",
-            "prize": 700,
-            "status": "Pending"
-          }
-        ]
-      },
-      "positions": {
-        "first": 0,
-        "second": 2
-      },
-      "totalPoints": 757,
-      "movement": {
-        "direction": "up",
-        "change": 6,
-        "icon": "⬆",
-        "displayText": "+6"
-      }
-    },
-    {
       "playerName": "Lakshman Aravind ",
       "totalPrizeWon": 1000,
       "totalPaid": 1000,
@@ -459,6 +411,47 @@
         "change": 2,
         "icon": "⬆",
         "displayText": "+2"
+      }
+    },
+    {
+      "playerName": "Alen Aloysius",
+      "totalPrizeWon": 700,
+      "totalPaid": 0,
+      "totalPending": 700,
+      "prizeBreakdown": {
+        "gameweek": 0,
+        "monthly": 700
+      },
+      "highlights": {
+        "gameWeeks": 0,
+        "gameMonths": 1,
+        "overallRank": 10,
+        "totalPoints": 757,
+        "currentGWPoints": 71,
+        "previousRank": 16,
+        "deficitFromLeader": 30
+      },
+      "achievements": {
+        "gameweeks": [],
+        "months": [
+          {
+            "month": 4,
+            "position": "2nd",
+            "prize": 700,
+            "status": "Pending"
+          }
+        ]
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 757,
+      "movement": {
+        "direction": "up",
+        "change": 6,
+        "icon": "⬆",
+        "displayText": "+6"
       }
     },
     {
@@ -587,8 +580,8 @@
     {
       "playerName": "Tulasi Ram Garapati",
       "totalPrizeWon": 650,
-      "totalPaid": 0,
-      "totalPending": 650,
+      "totalPaid": 650,
+      "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 650,
         "monthly": 0
@@ -608,7 +601,7 @@
             "week": 12,
             "position": "1st",
             "prize": 650,
-            "status": "Pending"
+            "status": "Paid"
           }
         ],
         "months": []
@@ -664,6 +657,47 @@
         "change": 1,
         "icon": "⬇",
         "displayText": "-1"
+      }
+    },
+    {
+      "playerName": "Tejeshwar Singh",
+      "totalPrizeWon": 500,
+      "totalPaid": 0,
+      "totalPending": 500,
+      "prizeBreakdown": {
+        "gameweek": 500,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 4,
+        "totalPoints": 775,
+        "currentGWPoints": 74,
+        "previousRank": 10,
+        "deficitFromLeader": 12
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 13,
+            "position": "1st",
+            "prize": 500,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 0
+      },
+      "totalPoints": 775,
+      "movement": {
+        "direction": "up",
+        "change": 6,
+        "icon": "⬆",
+        "displayText": "+6"
       }
     },
     {
@@ -997,8 +1031,8 @@
     {
       "playerName": "Sivakumar N",
       "totalPrizeWon": 350,
-      "totalPaid": 0,
-      "totalPending": 350,
+      "totalPaid": 350,
+      "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 350,
         "monthly": 0
@@ -1018,7 +1052,7 @@
             "week": 12,
             "position": "2nd",
             "prize": 350,
-            "status": "Pending"
+            "status": "Paid"
           }
         ],
         "months": []
@@ -1033,47 +1067,6 @@
         "change": 2,
         "icon": "⬇",
         "displayText": "-2"
-      }
-    },
-    {
-      "playerName": "Tejeshwar Singh",
-      "totalPrizeWon": 325,
-      "totalPaid": 0,
-      "totalPending": 325,
-      "prizeBreakdown": {
-        "gameweek": 325,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 4,
-        "totalPoints": 775,
-        "currentGWPoints": 74,
-        "previousRank": 10,
-        "deficitFromLeader": 12
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 13,
-            "position": "1st",
-            "prize": 325,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 775,
-      "movement": {
-        "direction": "up",
-        "change": 6,
-        "icon": "⬆",
-        "displayText": "+6"
       }
     },
     {
@@ -2100,7 +2093,7 @@
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2025-12-01T05:07:19.719Z",
+    "enhancedAt": "2025-12-01T06:09:17.290Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
