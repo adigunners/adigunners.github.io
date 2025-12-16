@@ -1,15 +1,15 @@
 {
-  "lastUpdated": "2025-12-09T07:24:31.820Z",
+  "lastUpdated": "2025-12-16T08:41:31.588Z",
   "summary": {
-    "totalPrizeDistributed": 22997,
-    "totalPaid": 21997,
+    "totalPrizeDistributed": 23997,
+    "totalPaid": 22997,
     "totalPending": 1000,
-    "gameweekPrizes": 14999,
+    "gameweekPrizes": 15999,
     "monthlyPrizes": 7998,
-    "completedGameweeks": 15,
+    "completedGameweeks": 16,
     "completedMonths": 4,
     "totalWinners": 54,
-    "lastProcessedGW": 15
+    "lastProcessedGW": 16
   },
   "winners": [
     {
@@ -24,11 +24,11 @@
       "highlights": {
         "gameWeeks": 3,
         "gameMonths": 1,
-        "overallRank": 20,
-        "totalPoints": 843,
-        "currentGWPoints": 54,
-        "previousRank": 19,
-        "deficitFromLeader": 82
+        "overallRank": 19,
+        "totalPoints": 931,
+        "currentGWPoints": 88,
+        "previousRank": 20,
+        "deficitFromLeader": 81
       },
       "achievements": {
         "gameweeks": [
@@ -64,12 +64,12 @@
         "first": 2,
         "second": 2
       },
-      "totalPoints": 843,
+      "totalPoints": 931,
       "movement": {
-        "direction": "down",
+        "direction": "up",
         "change": 1,
-        "icon": "⬇",
-        "displayText": "-1"
+        "icon": "⬆",
+        "displayText": "+1"
       }
     },
     {
@@ -84,11 +84,11 @@
       "highlights": {
         "gameWeeks": 2,
         "gameMonths": 1,
-        "overallRank": 36,
-        "totalPoints": 794,
-        "currentGWPoints": 49,
-        "previousRank": 34,
-        "deficitFromLeader": 131
+        "overallRank": 38,
+        "totalPoints": 849,
+        "currentGWPoints": 55,
+        "previousRank": 36,
+        "deficitFromLeader": 163
       },
       "achievements": {
         "gameweeks": [
@@ -118,12 +118,66 @@
         "first": 2,
         "second": 1
       },
-      "totalPoints": 794,
+      "totalPoints": 849,
       "movement": {
         "direction": "down",
         "change": 2,
         "icon": "⬇",
         "displayText": "-2"
+      }
+    },
+    {
+      "playerName": "Siddharth Krishna",
+      "totalPrizeWon": 2000,
+      "totalPaid": 1350,
+      "totalPending": 650,
+      "prizeBreakdown": {
+        "gameweek": 1300,
+        "monthly": 700
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 1,
+        "overallRank": 10,
+        "totalPoints": 950,
+        "currentGWPoints": 103,
+        "previousRank": 18,
+        "deficitFromLeader": 62
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 8,
+            "position": "1st",
+            "prize": 650,
+            "status": "Paid"
+          },
+          {
+            "week": 16,
+            "position": "1st",
+            "prize": 650,
+            "status": "Pending"
+          }
+        ],
+        "months": [
+          {
+            "month": 3,
+            "position": "2nd",
+            "prize": 700,
+            "status": "Paid"
+          }
+        ]
+      },
+      "positions": {
+        "first": 2,
+        "second": 1
+      },
+      "totalPoints": 950,
+      "movement": {
+        "direction": "up",
+        "change": 8,
+        "icon": "⬆",
+        "displayText": "+8"
       }
     },
     {
@@ -139,10 +193,10 @@
         "gameWeeks": 1,
         "gameMonths": 1,
         "overallRank": 3,
-        "totalPoints": 904,
-        "currentGWPoints": 44,
-        "previousRank": 1,
-        "deficitFromLeader": 21
+        "totalPoints": 973,
+        "currentGWPoints": 69,
+        "previousRank": 3,
+        "deficitFromLeader": 39
       },
       "achievements": {
         "gameweeks": [
@@ -166,12 +220,12 @@
         "first": 2,
         "second": 0
       },
-      "totalPoints": 904,
+      "totalPoints": 973,
       "movement": {
-        "direction": "down",
-        "change": 2,
-        "icon": "⬇",
-        "displayText": "-2"
+        "direction": "same",
+        "change": 0,
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -187,10 +241,10 @@
         "gameWeeks": 1,
         "gameMonths": 1,
         "overallRank": 4,
-        "totalPoints": 899,
-        "currentGWPoints": 58,
+        "totalPoints": 966,
+        "currentGWPoints": 67,
         "previousRank": 4,
-        "deficitFromLeader": 26
+        "deficitFromLeader": 46
       },
       "achievements": {
         "gameweeks": [
@@ -214,60 +268,12 @@
         "first": 2,
         "second": 0
       },
-      "totalPoints": 899,
+      "totalPoints": 966,
       "movement": {
         "direction": "same",
         "change": 0,
         "icon": "⚬",
         "displayText": "—"
-      }
-    },
-    {
-      "playerName": "Siddharth Krishna",
-      "totalPrizeWon": 1350,
-      "totalPaid": 1350,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 650,
-        "monthly": 700
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 1,
-        "overallRank": 18,
-        "totalPoints": 847,
-        "currentGWPoints": 46,
-        "previousRank": 14,
-        "deficitFromLeader": 78
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 8,
-            "position": "1st",
-            "prize": 650,
-            "status": "Paid"
-          }
-        ],
-        "months": [
-          {
-            "month": 3,
-            "position": "2nd",
-            "prize": 700,
-            "status": "Paid"
-          }
-        ]
-      },
-      "positions": {
-        "first": 1,
-        "second": 1
-      },
-      "totalPoints": 847,
-      "movement": {
-        "direction": "down",
-        "change": 4,
-        "icon": "⬇",
-        "displayText": "-4"
       }
     },
     {
@@ -283,10 +289,10 @@
         "gameWeeks": 1,
         "gameMonths": 1,
         "overallRank": 2,
-        "totalPoints": 915,
-        "currentGWPoints": 67,
-        "previousRank": 3,
-        "deficitFromLeader": 10
+        "totalPoints": 986,
+        "currentGWPoints": 71,
+        "previousRank": 2,
+        "deficitFromLeader": 26
       },
       "achievements": {
         "gameweeks": [
@@ -310,12 +316,12 @@
         "first": 2,
         "second": 0
       },
-      "totalPoints": 915,
+      "totalPoints": 986,
       "movement": {
-        "direction": "up",
-        "change": 1,
-        "icon": "⬆",
-        "displayText": "+1"
+        "direction": "same",
+        "change": 0,
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -330,11 +336,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 1,
-        "overallRank": 10,
-        "totalPoints": 871,
-        "currentGWPoints": 37,
-        "previousRank": 5,
-        "deficitFromLeader": 54
+        "overallRank": 20,
+        "totalPoints": 925,
+        "currentGWPoints": 54,
+        "previousRank": 10,
+        "deficitFromLeader": 87
       },
       "achievements": {
         "gameweeks": [
@@ -358,12 +364,12 @@
         "first": 2,
         "second": 0
       },
-      "totalPoints": 871,
+      "totalPoints": 925,
       "movement": {
         "direction": "down",
-        "change": 5,
+        "change": 10,
         "icon": "⬇",
-        "displayText": "-5"
+        "displayText": "-10"
       }
     },
     {
@@ -378,11 +384,11 @@
       "highlights": {
         "gameWeeks": 2,
         "gameMonths": 0,
-        "overallRank": 9,
-        "totalPoints": 873,
-        "currentGWPoints": 46,
-        "previousRank": 8,
-        "deficitFromLeader": 52
+        "overallRank": 11,
+        "totalPoints": 946,
+        "currentGWPoints": 73,
+        "previousRank": 9,
+        "deficitFromLeader": 66
       },
       "achievements": {
         "gameweeks": [
@@ -405,12 +411,12 @@
         "first": 1,
         "second": 1
       },
-      "totalPoints": 873,
+      "totalPoints": 946,
       "movement": {
         "direction": "down",
-        "change": 1,
+        "change": 2,
         "icon": "⬇",
-        "displayText": "-1"
+        "displayText": "-2"
       }
     },
     {
@@ -425,11 +431,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 1,
-        "overallRank": 8,
-        "totalPoints": 876,
-        "currentGWPoints": 50,
-        "previousRank": 9,
-        "deficitFromLeader": 49
+        "overallRank": 5,
+        "totalPoints": 965,
+        "currentGWPoints": 89,
+        "previousRank": 8,
+        "deficitFromLeader": 47
       },
       "achievements": {
         "gameweeks": [],
@@ -446,12 +452,12 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 876,
+      "totalPoints": 965,
       "movement": {
         "direction": "up",
-        "change": 1,
+        "change": 3,
         "icon": "⬆",
-        "displayText": "+1"
+        "displayText": "+3"
       }
     },
     {
@@ -466,11 +472,11 @@
       "highlights": {
         "gameWeeks": 2,
         "gameMonths": 0,
-        "overallRank": 32,
-        "totalPoints": 808,
-        "currentGWPoints": 59,
-        "previousRank": 33,
-        "deficitFromLeader": 117
+        "overallRank": 34,
+        "totalPoints": 880,
+        "currentGWPoints": 72,
+        "previousRank": 32,
+        "deficitFromLeader": 132
       },
       "achievements": {
         "gameweeks": [
@@ -493,12 +499,59 @@
         "first": 1,
         "second": 1
       },
-      "totalPoints": 808,
+      "totalPoints": 880,
+      "movement": {
+        "direction": "down",
+        "change": 2,
+        "icon": "⬇",
+        "displayText": "-2"
+      }
+    },
+    {
+      "playerName": "Ashish Kumar",
+      "totalPrizeWon": 683,
+      "totalPaid": 333,
+      "totalPending": 350,
+      "prizeBreakdown": {
+        "gameweek": 683,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 2,
+        "gameMonths": 0,
+        "overallRank": 31,
+        "totalPoints": 885,
+        "currentGWPoints": 100,
+        "previousRank": 37,
+        "deficitFromLeader": 127
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 14,
+            "position": "1st",
+            "prize": 333,
+            "status": "Paid"
+          },
+          {
+            "week": 16,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 1
+      },
+      "totalPoints": 885,
       "movement": {
         "direction": "up",
-        "change": 1,
+        "change": 6,
         "icon": "⬆",
-        "displayText": "+1"
+        "displayText": "+6"
       }
     },
     {
@@ -514,9 +567,9 @@
         "gameWeeks": 0,
         "gameMonths": 1,
         "overallRank": 1,
-        "totalPoints": 925,
-        "currentGWPoints": 70,
-        "previousRank": 2,
+        "totalPoints": 1012,
+        "currentGWPoints": 87,
+        "previousRank": 1,
         "deficitFromLeader": 0
       },
       "achievements": {
@@ -534,12 +587,12 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 925,
+      "totalPoints": 1012,
       "movement": {
-        "direction": "up",
-        "change": 1,
-        "icon": "⬆",
-        "displayText": "+1"
+        "direction": "same",
+        "change": 0,
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -554,11 +607,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 31,
-        "totalPoints": 809,
-        "currentGWPoints": 54,
-        "previousRank": 32,
-        "deficitFromLeader": 116
+        "overallRank": 30,
+        "totalPoints": 888,
+        "currentGWPoints": 79,
+        "previousRank": 31,
+        "deficitFromLeader": 124
       },
       "achievements": {
         "gameweeks": [
@@ -575,7 +628,7 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 809,
+      "totalPoints": 888,
       "movement": {
         "direction": "up",
         "change": 1,
@@ -596,10 +649,10 @@
         "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 53,
-        "totalPoints": 668,
-        "currentGWPoints": 54,
+        "totalPoints": 705,
+        "currentGWPoints": 37,
         "previousRank": 53,
-        "deficitFromLeader": 257
+        "deficitFromLeader": 307
       },
       "achievements": {
         "gameweeks": [
@@ -616,7 +669,7 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 668,
+      "totalPoints": 705,
       "movement": {
         "direction": "same",
         "change": 0,
@@ -637,10 +690,10 @@
         "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 50,
-        "totalPoints": 726,
-        "currentGWPoints": 46,
+        "totalPoints": 774,
+        "currentGWPoints": 48,
         "previousRank": 50,
-        "deficitFromLeader": 199
+        "deficitFromLeader": 238
       },
       "achievements": {
         "gameweeks": [
@@ -657,7 +710,7 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 726,
+      "totalPoints": 774,
       "movement": {
         "direction": "same",
         "change": 0,
@@ -677,11 +730,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 34,
-        "totalPoints": 804,
-        "currentGWPoints": 64,
-        "previousRank": 35,
-        "deficitFromLeader": 121
+        "overallRank": 28,
+        "totalPoints": 892,
+        "currentGWPoints": 88,
+        "previousRank": 34,
+        "deficitFromLeader": 120
       },
       "achievements": {
         "gameweeks": [
@@ -698,7 +751,48 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 804,
+      "totalPoints": 892,
+      "movement": {
+        "direction": "up",
+        "change": 6,
+        "icon": "⬆",
+        "displayText": "+6"
+      }
+    },
+    {
+      "playerName": "Vikranth Reddy",
+      "totalPrizeWon": 500,
+      "totalPaid": 500,
+      "totalPending": 0,
+      "prizeBreakdown": {
+        "gameweek": 500,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 15,
+        "totalPoints": 934,
+        "currentGWPoints": 78,
+        "previousRank": 16,
+        "deficitFromLeader": 78
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 15,
+            "position": "1st",
+            "prize": 500,
+            "status": "Paid"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 1,
+        "second": 0
+      },
+      "totalPoints": 934,
       "movement": {
         "direction": "up",
         "change": 1,
@@ -707,10 +801,10 @@
       }
     },
     {
-      "playerName": "Vikranth Reddy",
+      "playerName": "Varun Gupta",
       "totalPrizeWon": 500,
-      "totalPaid": 0,
-      "totalPending": 500,
+      "totalPaid": 500,
+      "totalPending": 0,
       "prizeBreakdown": {
         "gameweek": 500,
         "monthly": 0
@@ -719,10 +813,10 @@
         "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 16,
-        "totalPoints": 856,
-        "currentGWPoints": 71,
-        "previousRank": 20,
-        "deficitFromLeader": 69
+        "totalPoints": 932,
+        "currentGWPoints": 66,
+        "previousRank": 12,
+        "deficitFromLeader": 80
       },
       "achievements": {
         "gameweeks": [
@@ -730,7 +824,7 @@
             "week": 15,
             "position": "1st",
             "prize": 500,
-            "status": "Pending"
+            "status": "Paid"
           }
         ],
         "months": []
@@ -739,53 +833,12 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 856,
+      "totalPoints": 932,
       "movement": {
-        "direction": "up",
+        "direction": "down",
         "change": 4,
-        "icon": "⬆",
-        "displayText": "+4"
-      }
-    },
-    {
-      "playerName": "Varun Gupta",
-      "totalPrizeWon": 500,
-      "totalPaid": 0,
-      "totalPending": 500,
-      "prizeBreakdown": {
-        "gameweek": 500,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 12,
-        "totalPoints": 866,
-        "currentGWPoints": 71,
-        "previousRank": 17,
-        "deficitFromLeader": 59
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 15,
-            "position": "1st",
-            "prize": 500,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 866,
-      "movement": {
-        "direction": "up",
-        "change": 5,
-        "icon": "⬆",
-        "displayText": "+5"
+        "icon": "⬇",
+        "displayText": "-4"
       }
     },
     {
@@ -800,11 +853,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 6,
-        "totalPoints": 882,
-        "currentGWPoints": 59,
-        "previousRank": 10,
-        "deficitFromLeader": 43
+        "overallRank": 7,
+        "totalPoints": 958,
+        "currentGWPoints": 76,
+        "previousRank": 6,
+        "deficitFromLeader": 54
       },
       "achievements": {
         "gameweeks": [
@@ -821,12 +874,12 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 882,
+      "totalPoints": 958,
       "movement": {
-        "direction": "up",
-        "change": 4,
-        "icon": "⬆",
-        "displayText": "+4"
+        "direction": "down",
+        "change": 1,
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -841,11 +894,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 46,
-        "totalPoints": 746,
-        "currentGWPoints": 52,
-        "previousRank": 49,
-        "deficitFromLeader": 179
+        "overallRank": 47,
+        "totalPoints": 812,
+        "currentGWPoints": 66,
+        "previousRank": 46,
+        "deficitFromLeader": 200
       },
       "achievements": {
         "gameweeks": [
@@ -862,12 +915,12 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 746,
+      "totalPoints": 812,
       "movement": {
-        "direction": "up",
-        "change": 3,
-        "icon": "⬆",
-        "displayText": "+3"
+        "direction": "down",
+        "change": 1,
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -882,11 +935,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 12,
-        "totalPoints": 866,
-        "currentGWPoints": 68,
-        "previousRank": 15,
-        "deficitFromLeader": 59
+        "overallRank": 14,
+        "totalPoints": 940,
+        "currentGWPoints": 74,
+        "previousRank": 12,
+        "deficitFromLeader": 72
       },
       "achievements": {
         "gameweeks": [
@@ -903,12 +956,12 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 866,
+      "totalPoints": 940,
       "movement": {
-        "direction": "up",
-        "change": 3,
-        "icon": "⬆",
-        "displayText": "+3"
+        "direction": "down",
+        "change": 2,
+        "icon": "⬇",
+        "displayText": "-2"
       }
     },
     {
@@ -923,11 +976,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 24,
-        "totalPoints": 831,
-        "currentGWPoints": 46,
-        "previousRank": 20,
-        "deficitFromLeader": 94
+        "overallRank": 29,
+        "totalPoints": 891,
+        "currentGWPoints": 60,
+        "previousRank": 24,
+        "deficitFromLeader": 121
       },
       "achievements": {
         "gameweeks": [
@@ -944,12 +997,12 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 831,
+      "totalPoints": 891,
       "movement": {
         "direction": "down",
-        "change": 4,
+        "change": 5,
         "icon": "⬇",
-        "displayText": "-4"
+        "displayText": "-5"
       }
     },
     {
@@ -964,11 +1017,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 18,
-        "totalPoints": 847,
-        "currentGWPoints": 66,
-        "previousRank": 23,
-        "deficitFromLeader": 78
+        "overallRank": 16,
+        "totalPoints": 932,
+        "currentGWPoints": 85,
+        "previousRank": 18,
+        "deficitFromLeader": 80
       },
       "achievements": {
         "gameweeks": [
@@ -985,12 +1038,12 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 847,
+      "totalPoints": 932,
       "movement": {
         "direction": "up",
-        "change": 5,
+        "change": 2,
         "icon": "⬆",
-        "displayText": "+5"
+        "displayText": "+2"
       }
     },
     {
@@ -1005,11 +1058,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 22,
-        "totalPoints": 836,
-        "currentGWPoints": 57,
-        "previousRank": 24,
-        "deficitFromLeader": 89
+        "overallRank": 21,
+        "totalPoints": 920,
+        "currentGWPoints": 84,
+        "previousRank": 22,
+        "deficitFromLeader": 92
       },
       "achievements": {
         "gameweeks": [
@@ -1026,12 +1079,12 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 836,
+      "totalPoints": 920,
       "movement": {
         "direction": "up",
-        "change": 2,
+        "change": 1,
         "icon": "⬆",
-        "displayText": "+2"
+        "displayText": "+1"
       }
     },
     {
@@ -1046,11 +1099,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 5,
-        "totalPoints": 893,
+        "overallRank": 9,
+        "totalPoints": 954,
         "currentGWPoints": 61,
-        "previousRank": 6,
-        "deficitFromLeader": 32
+        "previousRank": 5,
+        "deficitFromLeader": 58
       },
       "achievements": {
         "gameweeks": [
@@ -1067,12 +1120,12 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 893,
+      "totalPoints": 954,
       "movement": {
-        "direction": "up",
-        "change": 1,
-        "icon": "⬆",
-        "displayText": "+1"
+        "direction": "down",
+        "change": 4,
+        "icon": "⬇",
+        "displayText": "-4"
       }
     },
     {
@@ -1087,11 +1140,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 27,
-        "totalPoints": 820,
+        "overallRank": 33,
+        "totalPoints": 882,
         "currentGWPoints": 62,
-        "previousRank": 31,
-        "deficitFromLeader": 105
+        "previousRank": 27,
+        "deficitFromLeader": 130
       },
       "achievements": {
         "gameweeks": [
@@ -1108,12 +1161,12 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 820,
+      "totalPoints": 882,
       "movement": {
-        "direction": "up",
-        "change": 4,
-        "icon": "⬆",
-        "displayText": "+4"
+        "direction": "down",
+        "change": 6,
+        "icon": "⬇",
+        "displayText": "-6"
       }
     },
     {
@@ -1128,11 +1181,11 @@
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 0,
-        "overallRank": 47,
-        "totalPoints": 745,
-        "currentGWPoints": 45,
+        "overallRank": 48,
+        "totalPoints": 803,
+        "currentGWPoints": 58,
         "previousRank": 47,
-        "deficitFromLeader": 180
+        "deficitFromLeader": 209
       },
       "achievements": {
         "gameweeks": [
@@ -1149,12 +1202,12 @@
         "first": 0,
         "second": 1
       },
-      "totalPoints": 745,
+      "totalPoints": 803,
       "movement": {
-        "direction": "same",
-        "change": 0,
-        "icon": "⚬",
-        "displayText": "—"
+        "direction": "down",
+        "change": 1,
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -1170,10 +1223,10 @@
         "gameWeeks": 1,
         "gameMonths": 0,
         "overallRank": 23,
-        "totalPoints": 834,
-        "currentGWPoints": 41,
-        "previousRank": 18,
-        "deficitFromLeader": 91
+        "totalPoints": 909,
+        "currentGWPoints": 75,
+        "previousRank": 23,
+        "deficitFromLeader": 103
       },
       "achievements": {
         "gameweeks": [
@@ -1190,53 +1243,12 @@
         "first": 1,
         "second": 0
       },
-      "totalPoints": 834,
+      "totalPoints": 909,
       "movement": {
-        "direction": "down",
-        "change": 5,
-        "icon": "⬇",
-        "displayText": "-5"
-      }
-    },
-    {
-      "playerName": "Ashish Kumar",
-      "totalPrizeWon": 333,
-      "totalPaid": 333,
-      "totalPending": 0,
-      "prizeBreakdown": {
-        "gameweek": 333,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 37,
-        "totalPoints": 785,
-        "currentGWPoints": 51,
-        "previousRank": 38,
-        "deficitFromLeader": 140
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 14,
-            "position": "1st",
-            "prize": 333,
-            "status": "Paid"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 785,
-      "movement": {
-        "direction": "up",
-        "change": 1,
-        "icon": "⬆",
-        "displayText": "+1"
+        "direction": "same",
+        "change": 0,
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1251,11 +1263,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 14,
-        "totalPoints": 862,
-        "currentGWPoints": 65,
-        "previousRank": 16,
-        "deficitFromLeader": 63
+        "overallRank": 13,
+        "totalPoints": 941,
+        "currentGWPoints": 79,
+        "previousRank": 14,
+        "deficitFromLeader": 71
       },
       "achievements": {
         "gameweeks": [],
@@ -1265,12 +1277,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 862,
+      "totalPoints": 941,
       "movement": {
         "direction": "up",
-        "change": 2,
+        "change": 1,
         "icon": "⬆",
-        "displayText": "+2"
+        "displayText": "+1"
       }
     },
     {
@@ -1285,11 +1297,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 7,
-        "totalPoints": 878,
-        "currentGWPoints": 47,
+        "overallRank": 6,
+        "totalPoints": 964,
+        "currentGWPoints": 86,
         "previousRank": 7,
-        "deficitFromLeader": 47
+        "deficitFromLeader": 48
       },
       "achievements": {
         "gameweeks": [],
@@ -1299,12 +1311,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 878,
+      "totalPoints": 964,
       "movement": {
-        "direction": "same",
-        "change": 0,
-        "icon": "⚬",
-        "displayText": "—"
+        "direction": "up",
+        "change": 1,
+        "icon": "⬆",
+        "displayText": "+1"
       }
     },
     {
@@ -1319,11 +1331,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 15,
-        "totalPoints": 858,
-        "currentGWPoints": 42,
-        "previousRank": 12,
-        "deficitFromLeader": 67
+        "overallRank": 12,
+        "totalPoints": 944,
+        "currentGWPoints": 86,
+        "previousRank": 15,
+        "deficitFromLeader": 68
       },
       "achievements": {
         "gameweeks": [],
@@ -1333,12 +1345,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 858,
+      "totalPoints": 944,
       "movement": {
-        "direction": "down",
+        "direction": "up",
         "change": 3,
-        "icon": "⬇",
-        "displayText": "-3"
+        "icon": "⬆",
+        "displayText": "+3"
       }
     },
     {
@@ -1353,11 +1365,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 35,
-        "totalPoints": 803,
-        "currentGWPoints": 64,
-        "previousRank": 36,
-        "deficitFromLeader": 122
+        "overallRank": 32,
+        "totalPoints": 883,
+        "currentGWPoints": 80,
+        "previousRank": 35,
+        "deficitFromLeader": 129
       },
       "achievements": {
         "gameweeks": [],
@@ -1367,12 +1379,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 803,
+      "totalPoints": 883,
       "movement": {
         "direction": "up",
-        "change": 1,
+        "change": 3,
         "icon": "⬆",
-        "displayText": "+1"
+        "displayText": "+3"
       }
     },
     {
@@ -1387,11 +1399,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 41,
-        "totalPoints": 771,
-        "currentGWPoints": 63,
-        "previousRank": 44,
-        "deficitFromLeader": 154
+        "overallRank": 39,
+        "totalPoints": 843,
+        "currentGWPoints": 72,
+        "previousRank": 41,
+        "deficitFromLeader": 169
       },
       "achievements": {
         "gameweeks": [],
@@ -1401,12 +1413,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 771,
+      "totalPoints": 843,
       "movement": {
         "direction": "up",
-        "change": 3,
+        "change": 2,
         "icon": "⬆",
-        "displayText": "+3"
+        "displayText": "+2"
       }
     },
     {
@@ -1421,11 +1433,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 42,
-        "totalPoints": 768,
-        "currentGWPoints": 56,
-        "previousRank": 43,
-        "deficitFromLeader": 157
+        "overallRank": 43,
+        "totalPoints": 832,
+        "currentGWPoints": 64,
+        "previousRank": 42,
+        "deficitFromLeader": 180
       },
       "achievements": {
         "gameweeks": [],
@@ -1435,12 +1447,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 768,
+      "totalPoints": 832,
       "movement": {
-        "direction": "up",
+        "direction": "down",
         "change": 1,
-        "icon": "⬆",
-        "displayText": "+1"
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -1455,11 +1467,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 52,
-        "totalPoints": 691,
-        "currentGWPoints": 46,
-        "previousRank": 51,
-        "deficitFromLeader": 234
+        "overallRank": 51,
+        "totalPoints": 747,
+        "currentGWPoints": 56,
+        "previousRank": 52,
+        "deficitFromLeader": 265
       },
       "achievements": {
         "gameweeks": [],
@@ -1469,12 +1481,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 691,
+      "totalPoints": 747,
       "movement": {
-        "direction": "down",
+        "direction": "up",
         "change": 1,
-        "icon": "⬇",
-        "displayText": "-1"
+        "icon": "⬆",
+        "displayText": "+1"
       }
     },
     {
@@ -1489,11 +1501,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 33,
-        "totalPoints": 807,
-        "currentGWPoints": 48,
-        "previousRank": 30,
-        "deficitFromLeader": 118
+        "overallRank": 36,
+        "totalPoints": 866,
+        "currentGWPoints": 59,
+        "previousRank": 33,
+        "deficitFromLeader": 146
       },
       "achievements": {
         "gameweeks": [],
@@ -1503,7 +1515,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 807,
+      "totalPoints": 866,
       "movement": {
         "direction": "down",
         "change": 3,
@@ -1523,11 +1535,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 51,
-        "totalPoints": 699,
-        "currentGWPoints": 57,
-        "previousRank": 52,
-        "deficitFromLeader": 226
+        "overallRank": 52,
+        "totalPoints": 742,
+        "currentGWPoints": 43,
+        "previousRank": 51,
+        "deficitFromLeader": 270
       },
       "achievements": {
         "gameweeks": [],
@@ -1537,12 +1549,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 699,
+      "totalPoints": 742,
       "movement": {
-        "direction": "up",
+        "direction": "down",
         "change": 1,
-        "icon": "⬆",
-        "displayText": "+1"
+        "icon": "⬇",
+        "displayText": "-1"
       }
     },
     {
@@ -1557,11 +1569,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 29,
-        "totalPoints": 816,
-        "currentGWPoints": 52,
+        "overallRank": 27,
+        "totalPoints": 893,
+        "currentGWPoints": 77,
         "previousRank": 29,
-        "deficitFromLeader": 109
+        "deficitFromLeader": 119
       },
       "achievements": {
         "gameweeks": [],
@@ -1571,12 +1583,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 816,
+      "totalPoints": 893,
       "movement": {
-        "direction": "same",
-        "change": 0,
-        "icon": "⚬",
-        "displayText": "—"
+        "direction": "up",
+        "change": 2,
+        "icon": "⬆",
+        "displayText": "+2"
       }
     },
     {
@@ -1592,10 +1604,10 @@
         "gameWeeks": 0,
         "gameMonths": 0,
         "overallRank": 45,
-        "totalPoints": 748,
-        "currentGWPoints": 47,
+        "totalPoints": 815,
+        "currentGWPoints": 67,
         "previousRank": 45,
-        "deficitFromLeader": 177
+        "deficitFromLeader": 197
       },
       "achievements": {
         "gameweeks": [],
@@ -1605,7 +1617,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 748,
+      "totalPoints": 815,
       "movement": {
         "direction": "same",
         "change": 0,
@@ -1625,11 +1637,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 11,
-        "totalPoints": 870,
-        "currentGWPoints": 59,
-        "previousRank": 13,
-        "deficitFromLeader": 55
+        "overallRank": 7,
+        "totalPoints": 958,
+        "currentGWPoints": 88,
+        "previousRank": 11,
+        "deficitFromLeader": 54
       },
       "achievements": {
         "gameweeks": [],
@@ -1639,12 +1651,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 870,
+      "totalPoints": 958,
       "movement": {
         "direction": "up",
-        "change": 2,
+        "change": 4,
         "icon": "⬆",
-        "displayText": "+2"
+        "displayText": "+4"
       }
     },
     {
@@ -1659,11 +1671,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 28,
-        "totalPoints": 817,
-        "currentGWPoints": 50,
-        "previousRank": 27,
-        "deficitFromLeader": 108
+        "overallRank": 23,
+        "totalPoints": 909,
+        "currentGWPoints": 92,
+        "previousRank": 28,
+        "deficitFromLeader": 103
       },
       "achievements": {
         "gameweeks": [],
@@ -1673,12 +1685,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 817,
+      "totalPoints": 909,
       "movement": {
-        "direction": "down",
-        "change": 1,
-        "icon": "⬇",
-        "displayText": "-1"
+        "direction": "up",
+        "change": 5,
+        "icon": "⬆",
+        "displayText": "+5"
       }
     },
     {
@@ -1693,11 +1705,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 21,
-        "totalPoints": 840,
-        "currentGWPoints": 62,
-        "previousRank": 26,
-        "deficitFromLeader": 85
+        "overallRank": 16,
+        "totalPoints": 932,
+        "currentGWPoints": 92,
+        "previousRank": 21,
+        "deficitFromLeader": 80
       },
       "achievements": {
         "gameweeks": [],
@@ -1707,7 +1719,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 840,
+      "totalPoints": 932,
       "movement": {
         "direction": "up",
         "change": 5,
@@ -1728,10 +1740,10 @@
         "gameWeeks": 0,
         "gameMonths": 0,
         "overallRank": 54,
-        "totalPoints": 606,
-        "currentGWPoints": 67,
+        "totalPoints": 657,
+        "currentGWPoints": 51,
         "previousRank": 54,
-        "deficitFromLeader": 319
+        "deficitFromLeader": 355
       },
       "achievements": {
         "gameweeks": [],
@@ -1741,7 +1753,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 606,
+      "totalPoints": 657,
       "movement": {
         "direction": "same",
         "change": 0,
@@ -1761,11 +1773,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 17,
-        "totalPoints": 853,
-        "currentGWPoints": 35,
-        "previousRank": 11,
-        "deficitFromLeader": 72
+        "overallRank": 22,
+        "totalPoints": 912,
+        "currentGWPoints": 59,
+        "previousRank": 17,
+        "deficitFromLeader": 100
       },
       "achievements": {
         "gameweeks": [],
@@ -1775,12 +1787,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 853,
+      "totalPoints": 912,
       "movement": {
         "direction": "down",
-        "change": 6,
+        "change": 5,
         "icon": "⬇",
-        "displayText": "-6"
+        "displayText": "-5"
       }
     },
     {
@@ -1795,11 +1807,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 40,
-        "totalPoints": 775,
-        "currentGWPoints": 37,
-        "previousRank": 37,
-        "deficitFromLeader": 150
+        "overallRank": 41,
+        "totalPoints": 833,
+        "currentGWPoints": 58,
+        "previousRank": 40,
+        "deficitFromLeader": 179
       },
       "achievements": {
         "gameweeks": [],
@@ -1809,12 +1821,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 775,
+      "totalPoints": 833,
       "movement": {
         "direction": "down",
-        "change": 3,
+        "change": 1,
         "icon": "⬇",
-        "displayText": "-3"
+        "displayText": "-1"
       }
     },
     {
@@ -1829,11 +1841,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 48,
-        "totalPoints": 743,
-        "currentGWPoints": 47,
+        "overallRank": 41,
+        "totalPoints": 833,
+        "currentGWPoints": 90,
         "previousRank": 48,
-        "deficitFromLeader": 182
+        "deficitFromLeader": 179
       },
       "achievements": {
         "gameweeks": [],
@@ -1843,12 +1855,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 743,
+      "totalPoints": 833,
       "movement": {
-        "direction": "same",
-        "change": 0,
-        "icon": "⚬",
-        "displayText": "—"
+        "direction": "up",
+        "change": 7,
+        "icon": "⬆",
+        "displayText": "+7"
       }
     },
     {
@@ -1863,11 +1875,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 25,
-        "totalPoints": 829,
-        "currentGWPoints": 50,
-        "previousRank": 24,
-        "deficitFromLeader": 96
+        "overallRank": 23,
+        "totalPoints": 909,
+        "currentGWPoints": 80,
+        "previousRank": 25,
+        "deficitFromLeader": 103
       },
       "achievements": {
         "gameweeks": [],
@@ -1877,12 +1889,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 829,
+      "totalPoints": 909,
       "movement": {
-        "direction": "down",
-        "change": 1,
-        "icon": "⬇",
-        "displayText": "-1"
+        "direction": "up",
+        "change": 2,
+        "icon": "⬆",
+        "displayText": "+2"
       }
     },
     {
@@ -1898,10 +1910,10 @@
         "gameWeeks": 0,
         "gameMonths": 0,
         "overallRank": 26,
-        "totalPoints": 827,
-        "currentGWPoints": 44,
-        "previousRank": 22,
-        "deficitFromLeader": 98
+        "totalPoints": 897,
+        "currentGWPoints": 70,
+        "previousRank": 26,
+        "deficitFromLeader": 115
       },
       "achievements": {
         "gameweeks": [],
@@ -1911,12 +1923,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 827,
+      "totalPoints": 897,
       "movement": {
-        "direction": "down",
-        "change": 4,
-        "icon": "⬇",
-        "displayText": "-4"
+        "direction": "same",
+        "change": 0,
+        "icon": "⚬",
+        "displayText": "—"
       }
     },
     {
@@ -1931,11 +1943,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 44,
-        "totalPoints": 758,
-        "currentGWPoints": 37,
-        "previousRank": 40,
-        "deficitFromLeader": 167
+        "overallRank": 49,
+        "totalPoints": 798,
+        "currentGWPoints": 40,
+        "previousRank": 44,
+        "deficitFromLeader": 214
       },
       "achievements": {
         "gameweeks": [],
@@ -1945,12 +1957,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 758,
+      "totalPoints": 798,
       "movement": {
         "direction": "down",
-        "change": 4,
+        "change": 5,
         "icon": "⬇",
-        "displayText": "-4"
+        "displayText": "-5"
       }
     },
     {
@@ -1965,11 +1977,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 48,
-        "totalPoints": 743,
-        "currentGWPoints": 42,
-        "previousRank": 45,
-        "deficitFromLeader": 182
+        "overallRank": 44,
+        "totalPoints": 819,
+        "currentGWPoints": 76,
+        "previousRank": 48,
+        "deficitFromLeader": 193
       },
       "achievements": {
         "gameweeks": [],
@@ -1979,12 +1991,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 743,
+      "totalPoints": 819,
       "movement": {
-        "direction": "down",
-        "change": 3,
-        "icon": "⬇",
-        "displayText": "-3"
+        "direction": "up",
+        "change": 4,
+        "icon": "⬆",
+        "displayText": "+4"
       }
     },
     {
@@ -1999,11 +2011,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 43,
-        "totalPoints": 766,
-        "currentGWPoints": 49,
-        "previousRank": 41,
-        "deficitFromLeader": 159
+        "overallRank": 46,
+        "totalPoints": 813,
+        "currentGWPoints": 47,
+        "previousRank": 43,
+        "deficitFromLeader": 199
       },
       "achievements": {
         "gameweeks": [],
@@ -2013,12 +2025,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 766,
+      "totalPoints": 813,
       "movement": {
         "direction": "down",
-        "change": 2,
+        "change": 3,
         "icon": "⬇",
-        "displayText": "-2"
+        "displayText": "-3"
       }
     },
     {
@@ -2033,11 +2045,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 39,
-        "totalPoints": 778,
-        "currentGWPoints": 61,
-        "previousRank": 41,
-        "deficitFromLeader": 147
+        "overallRank": 37,
+        "totalPoints": 861,
+        "currentGWPoints": 83,
+        "previousRank": 39,
+        "deficitFromLeader": 151
       },
       "achievements": {
         "gameweeks": [],
@@ -2047,7 +2059,7 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 778,
+      "totalPoints": 861,
       "movement": {
         "direction": "up",
         "change": 2,
@@ -2067,11 +2079,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 38,
-        "totalPoints": 781,
-        "currentGWPoints": 59,
-        "previousRank": 39,
-        "deficitFromLeader": 144
+        "overallRank": 40,
+        "totalPoints": 838,
+        "currentGWPoints": 57,
+        "previousRank": 38,
+        "deficitFromLeader": 174
       },
       "achievements": {
         "gameweeks": [],
@@ -2081,12 +2093,12 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 781,
+      "totalPoints": 838,
       "movement": {
-        "direction": "up",
-        "change": 1,
-        "icon": "⬆",
-        "displayText": "+1"
+        "direction": "down",
+        "change": 2,
+        "icon": "⬇",
+        "displayText": "-2"
       }
     },
     {
@@ -2101,11 +2113,11 @@
       "highlights": {
         "gameWeeks": 0,
         "gameMonths": 0,
-        "overallRank": 30,
-        "totalPoints": 815,
-        "currentGWPoints": 48,
-        "previousRank": 27,
-        "deficitFromLeader": 110
+        "overallRank": 35,
+        "totalPoints": 878,
+        "currentGWPoints": 63,
+        "previousRank": 30,
+        "deficitFromLeader": 134
       },
       "achievements": {
         "gameweeks": [],
@@ -2115,19 +2127,19 @@
         "first": 0,
         "second": 0
       },
-      "totalPoints": 815,
+      "totalPoints": 878,
       "movement": {
         "direction": "down",
-        "change": 3,
+        "change": 5,
         "icon": "⬇",
-        "displayText": "-3"
+        "displayText": "-5"
       }
     }
   ],
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2025-12-09T07:24:32.086Z",
+    "enhancedAt": "2025-12-16T08:41:31.858Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
