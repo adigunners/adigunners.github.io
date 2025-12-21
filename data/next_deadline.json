@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2025-12-20T05:48:50.508Z",
+  "lastUpdated": "2025-12-21T05:48:45.958Z",
   "source": "apps-script",
   "nextGameweek": {
-    "id": 17,
-    "deadline_time": "2025-12-20T11:00:00Z",
-    "label": "GW17 deadline"
+    "id": 18,
+    "deadline_time": "2025-12-26T18:30:00Z",
+    "label": "GW18 deadline"
   }
 }
