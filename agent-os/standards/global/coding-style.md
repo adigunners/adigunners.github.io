@@ -11,6 +11,6 @@
   editor/linter to enforce it
 - **Remove Dead Code**: Delete unused code, commented-out blocks, and imports rather than leaving
   them as clutter
-- **Backward compatability only when required:** Unless specifically instructed otherwise, assume
-  you do not need to write additional code logic to handle backward compatability.
+- **Backward compatibility only when required:** Unless specifically instructed otherwise, assume
+  you do not need to write additional code logic to handle backward compatibility.
 - **DRY Principle**: Avoid duplication by extracting common logic into reusable functions or modules

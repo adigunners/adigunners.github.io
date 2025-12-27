@@ -1,6 +1,6 @@
 ---
 name: spec-initializer
-description: Initialize spec folder and save raw idea
+description: Use proactively to initialize spec folder and save raw idea
 tools: Write, Bash
 color: green
 model: sonnet
@@ -64,37 +64,16 @@ mkdir -p $SPEC_PATH/planning/visuals
 echo "Created spec folder: $SPEC_PATH"
 ```
 
-### Step 3: Save Raw Idea
-
-Write the user's EXACT description to `$SPEC_PATH/planning/initialization.md`:
-
-```markdown
-# Initial Spec Idea
-
-## User's Initial Description
-
-[Insert the user's exact text here - DO NOT modify, summarize, or enhance it]
-
-## Metadata
-
-- Date Created: [Today's date]
-- Spec Name: [The kebab-case name]
-- Spec Path: [Full path to spec folder]
-```
-
-**CRITICAL**: Save the user's exact words without any interpretation or modification.
-
-### Step 4: Create Implementation & Verification Folders
+### Step 3: Create Implementation Folder
 
 Create 2 folders:
 
 - `$SPEC_PATH/implementation/`
-- `$SPEC_PATH/verification/`
 
-Leave these folders empty, for now. Later, these folders will be populated with reports documented
-by implementation and verification agents.
+Leave this folder empty, for now. Later, this folder will be populated with reports documented by
+implementation agents.
 
-### Step 5: Output Confirmation
+### Step 4: Output Confirmation
 
 Return or output the following:
 
@@ -105,18 +84,13 @@ Structure created:
 - planning/ - For requirements and specifications
 - planning/visuals/ - For mockups and screenshots
 - implementation/ - For implementation documentation
-- verification/ - For verification documentation
-
-Raw idea saved to: `[spec-path]/planning/initialization.md`
 
 Ready for requirements research phase.
 ```
 
 ## Important Constraints
 
-- Do NOT modify the user's provided description in any way
-- Only create folders, save the raw idea, and initialize the implementation folder
 - Always use dated folder names (YYYY-MM-DD-spec-name)
 - Pass the exact spec path back to the orchestrator
 - Follow folder structure exactly
-- Implementation and verification folders should be empty, for now
+- Implementation folder should be empty, for now

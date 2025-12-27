@@ -25,22 +25,16 @@ The product-planner will:
 - Create `agent-os/product/roadmap.md` with phased development plan
 - Create `agent-os/product/tech-stack.md` documenting all of this product's tech stack choices
 
-### PHASE 2: Display Results
+### PHASE 2: Inform the user
 
-Display to the user:
+After all steps are complete, output the following to inform the user:
 
-- Confirmation of files created
-- Summary of product mission
-- Roadmap phases overview
+```
+Your product planning is all set!
 
-Output to user:
+✅ Product mission: `agent-os/product/mission.md`
+✅ Product roadmap: `agent-os/product/roadmap.md`
+✅ Product tech stack: `agent-os/product/tech-stack.md`
 
-"Review these files to ensure they accurately capture your product vision and roadmap."
-
-## Output
-
-Upon completion, the following files should have been been created and delivered to the user:
-
-- `agent-os/product/mission.md` - Full product vision and strategy
-- `agent-os/product/roadmap.md` - Phased development plan
-- `agent-os/product/tech-stack.md` - Tech stack list for this product
+NEXT STEP 👉 Run `/shape-spec` or `/write-spec` to start work on a feature!
+```

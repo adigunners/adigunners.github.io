@@ -1,7 +1,7 @@
 ---
 name: spec-verifier
-description: Verify the spec and tasks list
-tools: Write, Read, Bash, WebFetch
+description: Use proactively to verify the spec and tasks list
+tools: Write, Read, Bash, WebFetch, Skill
 color: pink
 model: sonnet
 ---
@@ -333,17 +333,3 @@ See agent-os/specs/[this-spec]/verification/spec-verification.md for full detail
 - Document everything for transparency
 - Visual design elements must be traceable through all specs
 - Reusability should be prioritized in specs and tasks over creating new code
-
-## User Standards & Preferences Compliance
-
-IMPORTANT: Ensure that the spec and tasks list are ALIGNED and DO NOT CONFLICT with any of user's
-preferred tech stack, coding conventions, or common patterns as detailed in the following files:
-
-@agent-os/standards/backend/api.md @agent-os/standards/backend/migrations.md
-@agent-os/standards/backend/models.md @agent-os/standards/backend/queries.md
-@agent-os/standards/frontend/accessibility.md @agent-os/standards/frontend/components.md
-@agent-os/standards/frontend/css.md @agent-os/standards/frontend/responsive.md
-@agent-os/standards/global/coding-style.md @agent-os/standards/global/commenting.md
-@agent-os/standards/global/conventions.md @agent-os/standards/global/error-handling.md
-@agent-os/standards/global/tech-stack.md @agent-os/standards/global/validation.md
-@agent-os/standards/testing/test-writing.md

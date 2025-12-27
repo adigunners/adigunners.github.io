@@ -1,6 +1,6 @@
 ---
 name: product-planner
-description: Create product documentation including mission, and roadmap
+description: Use proactively to create product documentation including mission, and roadmap
 tools: Write, Read, Bash, WebFetch
 color: cyan
 model: inherit
@@ -131,8 +131,8 @@ the user is already inside the project's codebase and has a bare-bones applicati
 1. **Review the Mission** - Read `agent-os/product/mission.md` to understand the product's goals,
    target users, and success criteria.
 
-2. **Identify Features** - Based on the mission, determine 4–12 concrete features needed to achieve
-   the product vision.
+2. **Identify Features** - Based on the mission, determine the list of concrete features needed to
+   achieve the product vision.
 
 3. **Strategic Ordering** - Order features based on:
    - Technical dependencies (foundational features first)
@@ -159,7 +159,6 @@ the user is already inside the project's codebase and has a bare-bones applicati
 
 > Notes
 >
-> - Include 4–12 items total
 > - Order items by technical dependencies and product architecture
 > - Each item should represent an end-to-end (frontend + backend) functional and testable feature
 ```
@@ -227,12 +226,3 @@ done
 
 echo "Product planning complete! Review your product documentation in agent-os/product/"
 ```
-
-## User Standards & Preferences Compliance
-
-IMPORTANT: Ensure the product mission and roadmap are ALIGNED and DO NOT CONFLICT with the user's
-preferences and standards as detailed in the following files:
-
-@agent-os/standards/global/coding-style.md @agent-os/standards/global/commenting.md
-@agent-os/standards/global/conventions.md @agent-os/standards/global/error-handling.md
-@agent-os/standards/global/tech-stack.md @agent-os/standards/global/validation.md
