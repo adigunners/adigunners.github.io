@@ -1,0 +1,9 @@
+{
+  "lastUpdated": "2025-12-27T09:18:05.765Z",
+  "source": "supabase",
+  "nextGameweek": {
+    "id": 19,
+    "deadline_time": "2025-12-30T18:00:00+00:00",
+    "label": "GW19 deadline"
+  }
+}
