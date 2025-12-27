@@ -1,9 +1,21 @@
 ---
 name: Frontend Responsive
 description:
-  Your approach to handling frontend responsive. Use this skill when working on files where frontend
-  responsive comes into play.
+  Responsive design standards for mobile-first development. Use this skill when implementing
+  responsive layouts, mobile breakpoints, or ensuring the site works across all device sizes. Apply
+  when working on viewport meta tags, media queries, responsive CSS, or mobile-optimized JavaScript
+  interactions.
 ---
+
+## When to use this skill
+
+- When implementing responsive layouts that adapt to mobile, tablet, and desktop
+- When writing media queries in css/styles.css for different screen sizes
+- When ensuring touch-friendly interactions for mobile users
+- When optimizing images and assets for different viewport sizes
+- When testing and debugging layout issues across device breakpoints
+- When implementing mobile-first design patterns
+- When configuring viewport meta tags in HTML files
 
 # Frontend Responsive
 

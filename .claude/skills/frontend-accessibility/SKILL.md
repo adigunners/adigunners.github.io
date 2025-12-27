@@ -1,9 +1,20 @@
 ---
 name: Frontend Accessibility
 description:
-  Your approach to handling frontend accessibility. Use this skill when working on files where
-  frontend accessibility comes into play.
+  Web accessibility (a11y) standards for inclusive design. Use this skill when adding semantic HTML,
+  ARIA attributes, keyboard navigation, or ensuring screen reader compatibility. Apply when working
+  on HTML structure, interactive elements, forms, or any user-facing features.
 ---
+
+## When to use this skill
+
+- When writing semantic HTML markup in .html files
+- When adding ARIA labels, roles, and attributes to interactive elements
+- When implementing keyboard navigation for buttons, links, and custom controls
+- When ensuring proper heading hierarchy (h1, h2, h3) for screen readers
+- When adding alt text to images and meaningful labels to form inputs
+- When testing color contrast and visual accessibility
+- When creating focus states and visible focus indicators for keyboard users
 
 # Frontend Accessibility
 

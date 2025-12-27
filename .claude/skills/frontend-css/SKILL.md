@@ -1,9 +1,21 @@
 ---
 name: Frontend CSS
 description:
-  Your approach to handling frontend CSS. Use this skill when working on files where frontend CSS
-  comes into play.
+  CSS best practices for this static website. Use this skill when writing or modifying CSS in
+  css/styles.css, applying consistent styling patterns, managing design tokens, or ensuring
+  performance. Apply when working on visual styling, layout, responsive design, or maintaining the
+  design system.
 ---
+
+## When to use this skill
+
+- When editing css/styles.css for styling updates
+- When applying consistent CSS methodology and design patterns across the site
+- When defining or using design tokens (colors, spacing, typography)
+- When optimizing CSS for performance and minimizing file size
+- When implementing responsive layouts and media queries
+- When ensuring visual consistency across pages (index.html, winners.html)
+- When refactoring CSS to reduce duplication and improve maintainability
 
 # Frontend CSS
 

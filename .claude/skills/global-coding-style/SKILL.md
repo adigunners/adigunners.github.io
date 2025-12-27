@@ -1,9 +1,20 @@
 ---
 name: Global Coding Style
 description:
-  Your approach to handling global coding style. Use this skill when working on files where global
-  coding style comes into play.
+  Coding style standards enforced by Prettier and ESLint. Use this skill when writing JavaScript,
+  HTML, CSS, or JSON to ensure consistent formatting, naming conventions, and code quality. Apply
+  when creating new files, refactoring code, or ensuring adherence to automated formatting rules.
 ---
+
+## When to use this skill
+
+- When writing JavaScript in any .js file to follow consistent naming and formatting
+- When ensuring Prettier formatting is applied correctly to .html, .css, .js, .json, and .md files
+- When choosing meaningful, descriptive variable and function names
+- When keeping functions small and focused on a single task
+- When removing dead code, unused imports, or commented-out blocks
+- When applying DRY principle to avoid code duplication
+- When writing code that will pass lint-staged pre-commit hooks
 
 # Global Coding Style
 
