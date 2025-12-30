@@ -7,7 +7,46 @@ window.FPLDataLoader = (function () {
   'use strict';
 
   // State tracking
-  let seasonDataSource = 'unknown'; // backend | proxy | fallback | unknown
+  let seasonDataSource = 'unknown'; // backend | proxy | fallback | unknown | supabase
+
+  /**
+   * Get the data path prefix based on version (v1 or v2)
+   * V2 uses Supabase backend data from data/v2/ folder
+   */
+  function getDataPath() {
+    if (window.FPLUtils && typeof FPLUtils.getDataPath === 'function') {
+      return FPLUtils.getDataPath();
+    }
+    // Fallback if FPLUtils not loaded yet
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('data') === 'v2' ? 'data/v2/' : 'data/';
+  }
+
+  /**
+   * Check if using V2 data source (Supabase backend)
+   */
+  function isV2Data() {
+    if (window.FPLUtils && typeof FPLUtils.isV2Data === 'function') {
+      return FPLUtils.isV2Data();
+    }
+    // Fallback if FPLUtils not loaded yet
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('data') === 'v2';
+  }
+
+  /**
+   * Get data source label for logging
+   */
+  function getDataSourceLabel() {
+    if (window.FPLUtils && typeof FPLUtils.getDataSourceLabel === 'function') {
+      return FPLUtils.getDataSourceLabel();
+    }
+    // Fallback
+    if (isV2Data()) return 'supabase';
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('test') === 'true') return 'testing';
+    return 'appscript';
+  }
   let lastWinnersDataMode = 'auto';
   let lastLeaderboardDataMode = 'auto';
   let lastWinnersDataFile = '';
@@ -68,8 +107,10 @@ window.FPLDataLoader = (function () {
       lastUpdatedEl.textContent = 'Fetching latest data...';
     }
 
-    // Load stats data
-    return ErrorHandler.safeFetch('data/league_stats.json?cache=' + Date.now())
+    // Load stats data - use v2 path if enabled
+    const statsUrl = getDataPath() + 'league_stats.json?cache=' + Date.now();
+    console.log(`📊 Loading league stats from ${getDataSourceLabel()} (${statsUrl})`);
+    return ErrorHandler.safeFetch(statsUrl)
       .then((data) => {
         console.log('League stats loaded:', data);
 
@@ -137,8 +178,9 @@ window.FPLDataLoader = (function () {
       console.warn('Deadline override parse failed:', e);
     }
 
-    // First try backend-synced JSON published by Apps Script
-    const backendUrl = 'data/next_deadline.json?cache=' + Date.now();
+    // First try backend-synced JSON (from AppScript or Supabase depending on data version)
+    const backendUrl = getDataPath() + 'next_deadline.json?cache=' + Date.now();
+    console.log(`⏰ Loading deadline from ${getDataSourceLabel()} (${backendUrl})`);
     return fetch(backendUrl)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error('backend 404'))))
       .then((data) => {
@@ -151,7 +193,8 @@ window.FPLDataLoader = (function () {
           FPLDataLoader.setCachedGameweek({ id: gw.id, deadline_time: gw.deadline_time });
           FPLDataLoader.setLastSyncInfo(gw.id, data.lastUpdated || new Date().toISOString());
           updateDataTimestamp('countdown', data.lastUpdated || new Date().toISOString());
-          seasonDataSource = 'backend';
+          // Track data source - v2 uses supabase, v1 uses backend (appscript)
+          seasonDataSource = isV2Data() ? 'supabase' : 'backend';
 
           return { deadline, gameweek: gw };
         }
@@ -256,15 +299,22 @@ window.FPLDataLoader = (function () {
       const isTestMode = urlParams.get('test') === 'true';
       const dataOverride = window.FPLUtils ? FPLUtils.getDataOverride() : 'auto';
 
+      // V2 mode uses supabase data, no separate test file
+      const useV2 = isV2Data();
       let useTestData = isTestMode;
       if (dataOverride === 'test') useTestData = true;
       if (dataOverride === 'live') useTestData = false;
+      if (useV2) useTestData = false; // V2 always uses live supabase data
 
-      const winnersFile = useTestData ? 'data/test_winner_stats.json' : 'data/winner_stats.json';
+      const winnersFile = useV2
+        ? 'data/v2/winner_stats.json'
+        : useTestData
+          ? 'data/test_winner_stats.json'
+          : 'data/winner_stats.json';
       const winnerUrl = winnersFile + '?cache=' + new Date().getTime();
 
       console.debug(
-        `[loadWinnerPreview] Using ${useTestData ? 'test' : 'live'} data: ${winnersFile}`
+        `[loadWinnerPreview] Using ${getDataSourceLabel()} data: ${winnersFile}`
       );
 
       return fetchWithRetry(winnerUrl, 3)
@@ -360,17 +410,26 @@ window.FPLDataLoader = (function () {
   ) {
     const urlParams = new URLSearchParams(window.location.search);
     const testContext = urlParams.get('test') === 'true' || isTestSection;
+
+    // V2 mode uses supabase data, no separate test file
+    const useV2 = isV2Data();
     let useTestData = testContext;
     if (dataOverride === 'test') useTestData = true;
     if (dataOverride === 'live') useTestData = false;
+    if (useV2) useTestData = false; // V2 always uses live supabase data
 
-    const winnersFile = useTestData ? 'data/test_winner_stats.json' : 'data/winner_stats.json';
+    const winnersFile = useV2
+      ? 'data/v2/winner_stats.json'
+      : useTestData
+        ? 'data/test_winner_stats.json'
+        : 'data/winner_stats.json';
     const winnerUrl = winnersFile + '?cache=' + new Date().getTime();
 
-    lastWinnersDataMode = useTestData ? 'test' : 'live';
+    lastWinnersDataMode = useV2 ? 'v2' : useTestData ? 'test' : 'live';
     lastWinnersDataFile = winnersFile;
 
-    console.log(useTestData ? '🧪 Loading TEST winner data' : '📊 Loading LIVE winner data');
+    const sourceLabel = getDataSourceLabel();
+    console.log(`📊 Loading winner data from ${sourceLabel} (${winnersFile})`);
 
     return fetchWithRetry(winnerUrl, 3)
       .then((data) => {
@@ -382,6 +441,10 @@ window.FPLDataLoader = (function () {
           if (headerP && !headerP.textContent.includes('[TEST MODE]')) {
             headerP.textContent = headerP.textContent + ' [TEST MODE - Demo Data]';
             headerP.style.color = '#ff6b6b';
+            // Re-attach V2 badge after header text change
+            if (window.FPLUIManager && typeof FPLUIManager.attachV2Badge === 'function') {
+              FPLUIManager.attachV2Badge();
+            }
           }
         }
 
@@ -579,19 +642,26 @@ window.FPLDataLoader = (function () {
     const urlParams = new URLSearchParams(window.location.search);
     const isTestParam = urlParams.get('test') === 'true';
     const dataOverride = FPLUtils.getDataOverride();
+
+    // V2 mode uses supabase data, no separate test file
+    const useV2 = isV2Data();
     let useTestData = isTestParam;
     if (dataOverride === 'test') useTestData = true;
     if (dataOverride === 'live') useTestData = false;
+    if (useV2) useTestData = false; // V2 always uses live supabase data
 
-    const lbFile = useTestData ? 'data/test_winner_stats.json' : 'data/winner_stats.json';
+    const lbFile = useV2
+      ? 'data/v2/winner_stats.json'
+      : useTestData
+        ? 'data/test_winner_stats.json'
+        : 'data/winner_stats.json';
     const winnerUrl = lbFile + '?cache=' + new Date().getTime();
 
-    lastLeaderboardDataMode = useTestData ? 'test' : 'live';
+    lastLeaderboardDataMode = useV2 ? 'v2' : useTestData ? 'test' : 'live';
     lastLeaderboardDataFile = lbFile;
 
-    console.log(
-      useTestData ? '🧪 Loading TEST leaderboard data' : '📊 Loading LIVE leaderboard data'
-    );
+    const sourceLabel = getDataSourceLabel();
+    console.log(`📊 Loading leaderboard data from ${sourceLabel} (${lbFile})`);
 
     return fetchWithRetry(winnerUrl, 3)
       .then((data) => {
@@ -678,6 +748,10 @@ window.FPLDataLoader = (function () {
     setCachedGameweek,
     setLastSyncInfo,
     getLastFinishedGW,
+    // V2 data source helpers
+    isV2Data,
+    getDataPath,
+    getDataSourceLabel,
     // State getters
     getSeasonDataSource: () => seasonDataSource,
     getLastWinnersDataMode: () => lastWinnersDataMode,

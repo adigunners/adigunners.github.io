@@ -1148,6 +1148,10 @@
               if (headerP && !headerP.textContent.includes('[TEST MODE]')) {
                 headerP.textContent = headerP.textContent + ' [TEST MODE - Demo Data]';
                 headerP.style.color = '#ff6b6b';
+                // Re-attach V2 badge after header text change
+                if (window.FPLUIManager && typeof FPLUIManager.attachV2Badge === 'function') {
+                  FPLUIManager.attachV2Badge();
+                }
               }
             }
 

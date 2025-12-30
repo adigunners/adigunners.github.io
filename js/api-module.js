@@ -51,17 +51,48 @@ export async function fetchJSON(url, { timeoutMs = 8000, retries = 1 } = {}) {
 }
 
 /**
+ * Check if using V2 data source from URL params
+ */
+function isV2() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('data') === 'v2';
+}
+
+/**
+ * Get the data path prefix based on version
+ */
+function getDataPrefix() {
+  return isV2() ? 'data/v2/' : 'data/';
+}
+
+/**
  * Get API endpoints with cache busting
+ * Supports both V1 (AppScript) and V2 (Supabase) data sources
  */
 export const endpoints = {
   winnerStats: (isTest = false) => {
+    // V2 doesn't have separate test data - uses same file
+    if (isV2()) {
+      return `data/v2/winner_stats.json?cache=${Date.now()}`;
+    }
     const file = isTest ? 'data/test_winner_stats.json' : 'data/winner_stats.json';
     return `${file}?cache=${Date.now()}`;
   },
 
-  leagueStats: () => `data/league_stats.json?cache=${Date.now()}`,
+  leagueStats: () => `${getDataPrefix()}league_stats.json?cache=${Date.now()}`,
 
-  nextDeadline: () => `data/next_deadline.json?cache=${Date.now()}`,
+  nextDeadline: () => `${getDataPrefix()}next_deadline.json?cache=${Date.now()}`,
 
-  prizes: () => `data/prizes.json?cache=${Date.now()}`,
+  prizes: () => `${getDataPrefix()}prizes.json?cache=${Date.now()}`,
 };
+
+/**
+ * Get data source label for logging
+ * @returns {string} 'supabase' | 'appscript' | 'testing'
+ */
+export function getDataSourceLabel() {
+  if (isV2()) return 'supabase';
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('test') === 'true' || urlParams.get('data') === 'test') return 'testing';
+  return 'appscript';
+}

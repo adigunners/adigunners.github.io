@@ -112,7 +112,10 @@ window.FPLUIManager = (function () {
     FPLUtils.hideGroup('.pre-season');
     FPLUtils.showGroup('.during-season');
     const headerP = document.querySelector('header p');
-    if (headerP) headerP.textContent = 'Season 2025-26 - Live Updates';
+    if (headerP) {
+      headerP.textContent = 'Season 2025-26 - Live Updates';
+      attachV2Badge(); // Re-attach V2 badge after header text change
+    }
 
     // Load concise prize payouts when season UI is active
     try {
@@ -151,6 +154,7 @@ window.FPLUIManager = (function () {
         if (headerP) {
           headerP.textContent = 'Season 2025-26 - Live Updates [TEST MODE]';
           headerP.style.color = '#ff6b6b';
+          attachV2Badge();
         }
         // Load test data sources when forcing in-season
         FPLDataLoader.loadWinnerData('winner-preview-container', 'winner-summary', true)
@@ -199,6 +203,7 @@ window.FPLUIManager = (function () {
         if (headerP) {
           headerP.textContent = 'Season 2025-26 - Registration Open [TEST MODE]';
           headerP.style.color = '#ff6b6b';
+          attachV2Badge();
         }
         FPLCountdown.updateCountdownDisplay(seasonStartDate);
       }
@@ -236,6 +241,7 @@ window.FPLUIManager = (function () {
         if (headerP) {
           headerP.textContent = 'Season 2025-26 - Live Updates [TEST MODE]';
           headerP.style.color = '#ff6b6b';
+          attachV2Badge();
         }
         // Load test data sources
         FPLDataLoader.loadWinnerData('winner-preview-container', 'winner-summary', true)
@@ -284,6 +290,7 @@ window.FPLUIManager = (function () {
         if (headerP) {
           headerP.textContent = 'Season 2025-26 - Registration Open [TEST MODE]';
           headerP.style.color = '#ff6b6b';
+          attachV2Badge();
         }
         FPLCountdown.updateCountdownDisplay(seasonStartDate);
       }
@@ -394,6 +401,7 @@ window.FPLUIManager = (function () {
       const headerP = document.querySelector('header p');
       if (headerP) {
         headerP.textContent = 'Season 2025-26 - Registration Open';
+        attachV2Badge(); // Re-attach V2 badge after header text change
       }
       // Update only the digital countdown clock for season start (GW1)
       FPLCountdown.updateCountdownDisplay(seasonStartDate);
@@ -855,11 +863,54 @@ window.FPLUIManager = (function () {
   }
 
   /**
+   * Attach V2 data source badge to header
+   * Shows "V2 Data - Supabase" badge when using ?data=v2
+   */
+  function attachV2Badge() {
+    const isV2 = FPLUtils.isV2Data ? FPLUtils.isV2Data() : false;
+    if (!isV2) return;
+
+    const headerP = document.querySelector('header p');
+    if (!headerP) return;
+
+    // Don't add duplicate badge
+    if (headerP.querySelector('.v2-badge')) return;
+
+    // Create V2 badge
+    const badge = document.createElement('span');
+    badge.className = 'v2-badge';
+    badge.textContent = 'V2 Data';
+    badge.title = 'Using Supabase backend data from data/v2/ folder';
+    badge.style.cssText = `
+      display: inline-block;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 8px;
+      vertical-align: middle;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    `;
+
+    headerP.appendChild(badge);
+    console.log('🔄 V2 badge attached - using Supabase backend data');
+  }
+
+  /**
    * Check if we're in test mode and update UI accordingly
    */
   function checkTestMode() {
     const urlParams = new URLSearchParams(window.location.search);
     const testMode = urlParams.get('test') === 'true';
+    const isV2 = urlParams.get('data') === 'v2';
+
+    // Always attach V2 badge if using V2 data
+    if (isV2) {
+      attachV2Badge();
+    }
 
     if (testMode) {
       // Mark body for test-mode specific styling
@@ -882,11 +933,15 @@ window.FPLUIManager = (function () {
       const inlineToggle = document.getElementById('season-toggle');
       if (inlineToggle) FPLUtils.hide(inlineToggle);
 
-      // Ensure header shows test badge
+      // Ensure header shows test badge (but not if using V2 data which has its own badge)
       const headerPTest = document.querySelector('header p');
-      if (headerPTest && !headerPTest.textContent.includes('[TEST MODE]')) {
+      if (headerPTest && !headerPTest.textContent.includes('[TEST MODE]') && !isV2) {
         headerPTest.textContent = headerPTest.textContent + ' [TEST MODE]';
         headerPTest.style.color = '#ff6b6b';
+      }
+      // Always re-attach V2 badge if in V2 mode
+      if (isV2) {
+        attachV2Badge();
       }
 
       // Update winners link to include test parameter
@@ -900,6 +955,14 @@ window.FPLUIManager = (function () {
 
       console.log('🧪 Test mode activated!');
       updateQAPanel();
+    } else if (isV2) {
+      // V2 mode without test mode: update winners link to preserve data=v2
+      const winnersLink = document.getElementById('winners-link');
+      if (winnersLink) {
+        winnersLink.href = 'winners.html' + FPLUtils.buildNavQuery();
+      }
+
+      console.log('🔄 V2 mode: Using Supabase backend data');
     } else {
       // Live mode: FORCE HIDE all test-only elements
       FPLUtils.hideGroup('.test-only');
@@ -933,6 +996,7 @@ window.FPLUIManager = (function () {
     if (headerP) {
       if (headerP.textContent.includes('Registration Open')) {
         headerP.textContent = 'Season 2025-26 - Live Updates (Testing Mode)';
+        attachV2Badge();
 
         // Load data when switching to season mode
         console.log('🔄 Toggle: Loading data for season mode...');
@@ -955,6 +1019,7 @@ window.FPLUIManager = (function () {
       } else {
         headerP.textContent = 'Season 2025-26 - Registration Open (Testing Mode)';
         headerP.style.color = '';
+        attachV2Badge();
         updatePhaseToggleButtons();
       }
     }
@@ -1058,6 +1123,7 @@ window.FPLUIManager = (function () {
     updateWinnersHeaderGW,
     updateLeaderboardHeaderGW,
     attachAdminBadge,
+    attachV2Badge,
     setLastSyncInfo,
     showSyncedJustNow,
     removeCachedLabel,
