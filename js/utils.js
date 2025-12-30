@@ -37,7 +37,45 @@ window.FPLUtils = (function () {
    */
   function getDataOverride() {
     const param = (urlParams.get('data') || 'auto').toLowerCase();
+    // Support v2 as a valid data override
+    if (param === 'v2') return 'v2';
     return param === 'test' || param === 'live' ? param : 'auto';
+  }
+
+  /**
+   * Get data version (v1 or v2) from URL parameters
+   * v2 uses Supabase backend data from data/v2/ folder
+   */
+  function getDataVersion() {
+    const param = (urlParams.get('data') || '').toLowerCase();
+    return param === 'v2' ? 'v2' : 'v1';
+  }
+
+  /**
+   * Check if using v2 data source (Supabase backend)
+   */
+  function isV2Data() {
+    return getDataVersion() === 'v2';
+  }
+
+  /**
+   * Get the data path prefix based on version
+   * Returns 'data/v2/' for v2, 'data/' for v1
+   */
+  function getDataPath() {
+    return isV2Data() ? 'data/v2/' : 'data/';
+  }
+
+  /**
+   * Get the data source label for logging
+   * Returns 'supabase' for v2, 'appscript' for v1 live, 'testing' for test mode
+   */
+  function getDataSourceLabel() {
+    if (isV2Data()) return 'supabase';
+    const override = getDataOverride();
+    if (override === 'test') return 'testing';
+    if (urlParams.get('test') === 'true') return 'testing';
+    return 'appscript';
   }
 
   /**
@@ -124,6 +162,10 @@ window.FPLUtils = (function () {
     now,
     escapeHTML,
     getDataOverride,
+    getDataVersion,
+    isV2Data,
+    getDataPath,
+    getDataSourceLabel,
     isAdminMode,
     buildNavQuery,
     show,

@@ -38,11 +38,17 @@ export const FEATURE_FLAGS = {
 
 // Data source configuration
 export const DATA_SOURCES = {
+  // V1 (AppScript backend) paths
   WINNERS_LIVE: 'data/winner_stats.json',
   WINNERS_TEST: 'data/test_winner_stats.json',
   LEAGUE_STATS: 'data/league_stats.json',
   NEXT_DEADLINE: 'data/next_deadline.json',
   PRIZES: 'data/prizes.json',
+  // V2 (Supabase backend) paths
+  V2_WINNERS: 'data/v2/winner_stats.json',
+  V2_LEAGUE_STATS: 'data/v2/league_stats.json',
+  V2_NEXT_DEADLINE: 'data/v2/next_deadline.json',
+  V2_PRIZES: 'data/v2/prizes.json',
 };
 
 // Error messages
@@ -69,28 +75,39 @@ export const RANK_CLASSES = {
 };
 
 /**
+ * Check if using V2 data source (Supabase backend)
+ * @returns {boolean} True if using V2 data
+ */
+export function isV2DataSource() {
+  return FEATURE_FLAGS.dataOverride === 'v2';
+}
+
+/**
  * Get data source based on test mode and overrides
- * @param {string} type - Data type ('winners', 'stats', 'deadline')
+ * @param {string} type - Data type ('winners', 'stats', 'deadline', 'prizes')
  * @returns {string} Data source URL
  */
 export function getDataSource(type) {
+  // V2 (Supabase backend) takes priority if specified
+  const isV2 = isV2DataSource();
   const isTest = FEATURE_FLAGS.isTestMode || FEATURE_FLAGS.dataOverride === 'test';
   const isLive = FEATURE_FLAGS.dataOverride === 'live';
 
   switch (type) {
     case 'winners':
+      if (isV2) return DATA_SOURCES.V2_WINNERS;
       if (isLive) return DATA_SOURCES.WINNERS_LIVE;
       if (isTest) return DATA_SOURCES.WINNERS_TEST;
       return FEATURE_FLAGS.isTestMode ? DATA_SOURCES.WINNERS_TEST : DATA_SOURCES.WINNERS_LIVE;
 
     case 'stats':
-      return DATA_SOURCES.LEAGUE_STATS;
+      return isV2 ? DATA_SOURCES.V2_LEAGUE_STATS : DATA_SOURCES.LEAGUE_STATS;
 
     case 'deadline':
-      return DATA_SOURCES.NEXT_DEADLINE;
+      return isV2 ? DATA_SOURCES.V2_NEXT_DEADLINE : DATA_SOURCES.NEXT_DEADLINE;
 
     case 'prizes':
-      return DATA_SOURCES.PRIZES;
+      return isV2 ? DATA_SOURCES.V2_PRIZES : DATA_SOURCES.PRIZES;
 
     default:
       throw new Error(`Unknown data source type: ${type}`);

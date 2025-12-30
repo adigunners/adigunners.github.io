@@ -171,6 +171,10 @@ window.FPLCountdown = (function () {
 
         if (headerP) {
           headerP.textContent = 'Season 2025-26 - Live Updates';
+          // Re-attach V2 badge after header text change
+          if (window.FPLUIManager && typeof FPLUIManager.attachV2Badge === 'function') {
+            FPLUIManager.attachV2Badge();
+          }
         }
 
         if (countdownClock) {
