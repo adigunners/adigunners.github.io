@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-02T07:22:44.041Z",
+  "lastUpdated": "2026-01-02T13:11:17.901Z",
   "summary": {
     "totalPrizeDistributed": 28997,
     "totalPaid": 0,
@@ -26,7 +26,7 @@
         "gameMonths": 1,
         "overallRank": 20,
         "totalPoints": 1084,
-        "currentGWPoints": 37,
+        "currentGWPoints": 25,
         "previousRank": 18,
         "deficitFromLeader": 80
       },
@@ -86,7 +86,7 @@
         "gameMonths": 1,
         "overallRank": 43,
         "totalPoints": 986,
-        "currentGWPoints": 44,
+        "currentGWPoints": 36,
         "previousRank": 43,
         "deficitFromLeader": 178
       },
@@ -296,7 +296,7 @@
         "gameMonths": 1,
         "overallRank": 5,
         "totalPoints": 1139,
-        "currentGWPoints": 34,
+        "currentGWPoints": 30,
         "previousRank": 4,
         "deficitFromLeader": 25
       },
@@ -440,7 +440,7 @@
         "gameMonths": 1,
         "overallRank": 14,
         "totalPoints": 1102,
-        "currentGWPoints": 31,
+        "currentGWPoints": 23,
         "previousRank": 9,
         "deficitFromLeader": 62
       },
@@ -1045,7 +1045,7 @@
         "gameMonths": 0,
         "overallRank": 12,
         "totalPoints": 1114,
-        "currentGWPoints": 59,
+        "currentGWPoints": 55,
         "previousRank": 18,
         "deficitFromLeader": 50
       },
@@ -1209,7 +1209,7 @@
         "gameMonths": 0,
         "overallRank": 15,
         "totalPoints": 1101,
-        "currentGWPoints": 42,
+        "currentGWPoints": 38,
         "previousRank": 16,
         "deficitFromLeader": 63
       },
@@ -1455,7 +1455,7 @@
         "gameMonths": 0,
         "overallRank": 27,
         "totalPoints": 1068,
-        "currentGWPoints": 47,
+        "currentGWPoints": 43,
         "previousRank": 26,
         "deficitFromLeader": 96
       },
@@ -2006,7 +2006,7 @@
         "gameMonths": 0,
         "overallRank": 46,
         "totalPoints": 977,
-        "currentGWPoints": 34,
+        "currentGWPoints": 30,
         "previousRank": 44,
         "deficitFromLeader": 187
       },
@@ -2200,7 +2200,7 @@
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2026-01-02T07:22:44.041Z",
+    "enhancedAt": "2026-01-02T13:11:17.901Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
