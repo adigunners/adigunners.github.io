@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-01-02T13:11:17.901Z",
+  "lastUpdated": "2026-01-03T11:47:17.547Z",
   "summary": {
     "totalPrizeDistributed": 28997,
     "totalPaid": 0,
@@ -427,29 +427,29 @@
       }
     },
     {
-      "playerName": "Avinash Jayashankar",
-      "totalPrizeWon": 1050,
+      "playerName": "Varun Gupta",
+      "totalPrizeWon": 1200,
       "totalPaid": 0,
-      "totalPending": 1050,
+      "totalPending": 1200,
       "prizeBreakdown": {
-        "gameweek": 350,
+        "gameweek": 500,
         "monthly": 700
       },
       "highlights": {
         "gameWeeks": 1,
         "gameMonths": 1,
-        "overallRank": 14,
-        "totalPoints": 1102,
-        "currentGWPoints": 23,
-        "previousRank": 9,
-        "deficitFromLeader": 62
+        "overallRank": 12,
+        "totalPoints": 1114,
+        "currentGWPoints": 55,
+        "previousRank": 18,
+        "deficitFromLeader": 50
       },
       "achievements": {
         "gameweeks": [
           {
-            "week": 18,
-            "position": "2nd",
-            "prize": 350,
+            "week": 15,
+            "position": "1st",
+            "prize": 500,
             "status": "Pending"
           }
         ],
@@ -463,15 +463,15 @@
         ]
       },
       "positions": {
-        "first": 0,
-        "second": 2
+        "first": 1,
+        "second": 1
       },
-      "totalPoints": 1102,
+      "totalPoints": 1114,
       "movement": {
-        "direction": "down",
-        "change": 5,
-        "icon": "\u2b07",
-        "displayText": "-5"
+        "direction": "up",
+        "change": 6,
+        "icon": "\u2b06",
+        "displayText": "+6"
       }
     },
     {
@@ -1032,47 +1032,6 @@
       }
     },
     {
-      "playerName": "Varun Gupta",
-      "totalPrizeWon": 500,
-      "totalPaid": 0,
-      "totalPending": 500,
-      "prizeBreakdown": {
-        "gameweek": 500,
-        "monthly": 0
-      },
-      "highlights": {
-        "gameWeeks": 1,
-        "gameMonths": 0,
-        "overallRank": 12,
-        "totalPoints": 1114,
-        "currentGWPoints": 55,
-        "previousRank": 18,
-        "deficitFromLeader": 50
-      },
-      "achievements": {
-        "gameweeks": [
-          {
-            "week": 15,
-            "position": "1st",
-            "prize": 500,
-            "status": "Pending"
-          }
-        ],
-        "months": []
-      },
-      "positions": {
-        "first": 1,
-        "second": 0
-      },
-      "totalPoints": 1114,
-      "movement": {
-        "direction": "up",
-        "change": 6,
-        "icon": "\u2b06",
-        "displayText": "+6"
-      }
-    },
-    {
       "playerName": "Vikranth Reddy",
       "totalPrizeWon": 500,
       "totalPaid": 0,
@@ -1193,6 +1152,47 @@
         "change": 0,
         "icon": "\u26ac",
         "displayText": "\u2014"
+      }
+    },
+    {
+      "playerName": "Avinash Jayashankar",
+      "totalPrizeWon": 350,
+      "totalPaid": 0,
+      "totalPending": 350,
+      "prizeBreakdown": {
+        "gameweek": 350,
+        "monthly": 0
+      },
+      "highlights": {
+        "gameWeeks": 1,
+        "gameMonths": 0,
+        "overallRank": 14,
+        "totalPoints": 1102,
+        "currentGWPoints": 23,
+        "previousRank": 9,
+        "deficitFromLeader": 62
+      },
+      "achievements": {
+        "gameweeks": [
+          {
+            "week": 18,
+            "position": "2nd",
+            "prize": 350,
+            "status": "Pending"
+          }
+        ],
+        "months": []
+      },
+      "positions": {
+        "first": 0,
+        "second": 1
+      },
+      "totalPoints": 1102,
+      "movement": {
+        "direction": "down",
+        "change": 5,
+        "icon": "\u2b07",
+        "displayText": "-5"
       }
     },
     {
@@ -2200,7 +2200,7 @@
   "enhancements": {
     "leaderboardEnhanced": true,
     "enhancementVersion": "1.0.0",
-    "enhancedAt": "2026-01-02T13:11:17.901Z",
+    "enhancedAt": "2026-01-03T11:47:17.547Z",
     "enhancementFeatures": [
       "previousRank",
       "currentGWPoints",
