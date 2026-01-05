@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-01-02T13:11:17.904Z",
-  "latestGW": 19,
+  "generatedAt": "2026-01-05T07:26:49.866Z",
+  "latestGW": 20,
   "files": [
     {
       "gw": 17,
@@ -13,6 +13,10 @@
     {
       "gw": 19,
       "path": "data/v2/history/winner_stats_gw19.json"
+    },
+    {
+      "gw": 20,
+      "path": "data/v2/history/winner_stats_gw20.json"
     }
   ]
 }
