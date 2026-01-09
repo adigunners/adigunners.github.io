@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-01-05T07:26:45.169Z",
+  "lastUpdated": "2026-01-09T10:34:24.862Z",
   "source": "supabase",
   "nextGameweek": {
-    "id": 21,
-    "deadline_time": "2026-01-06T18:30:00+00:00",
-    "label": "GW21 deadline"
+    "id": 22,
+    "deadline_time": "2026-01-17T11:00:00+00:00",
+    "label": "GW22 deadline"
   }
 }
