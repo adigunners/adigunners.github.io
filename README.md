@@ -23,13 +23,6 @@ organization (scalable to multiple leagues):
 - **🌐 Live Website** - Real-time leaderboards and winner statistics
 - **📊 Admin Dashboard** - Complete league management in Google Sheets
 
-## Website updates
-
-- 2025-08-17: Added dynamic "After GWx" subtitles to Winners & Leaderboard headings for parity with
-  the countdown widget. Mobile-first stacked subtitle and accessibility improvements.
-- 2025-08-18: Bugfix — hide "After GW0" subtitle when no finished gameweek has been processed
-  (pre-season). Files: `index.html`, `winners.html`.
-
 ## 🚀 Live Features
 
 ### For Players
@@ -74,9 +67,9 @@ _💡 Tip: Right-click links to open in new tab_
 
 | Document                                                      | Purpose                                                 |
 | ------------------------------------------------------------- | ------------------------------------------------------- |
-| [🔧 Technical Documentation](docs/TECHNICAL_DOCUMENTATION.md) | Complete system architecture and implementation details |
+| [🔧 Technical Documentation](docs/archive/TECHNICAL_DOCUMENTATION.md) | Complete system architecture and implementation details |
 | [⚙️ Setup Guide](docs/SETUP_GUIDE.md)                         | Step-by-step deployment instructions                    |
-| [📖 API Reference](docs/API_REFERENCE.md)                     | All functions, endpoints, and configurations            |
+| [📖 API Reference](docs/archive/API_REFERENCE.md)             | All functions, endpoints, and configurations            |
 | 🆘 Troubleshooting (Admin Only)                               | Maintained in the private fml-admin-docs repository     |
 | [📝 Changelog](docs/CHANGELOG.md)                             | Version history and updates                             |
 
@@ -185,7 +178,7 @@ collaboration opportunities, please reach out via the contact information below.
 
 ## 🏗 Project Status
 
-**Current Phase**: Active Season Management (2025-26) | **Version**: 1.0.4
+**Current Phase**: Active Season Management (2025-26) | **Version**: 1.0.6
 
 - ✅ Player registration completed (registration closes on 15th Aug)
 - ✅ Automated processing live
@@ -205,7 +198,7 @@ collaboration opportunities, please reach out via the contact information below.
 - **[🧪 Test Demo](https://adigunners.github.io/?test=true)** - Experience with sample data
 - **[🏆 Winner Leaderboard](https://adigunners.github.io/winners.html)** - Complete winner rankings
   (paginated)
-- **[📖 Technical Docs](docs/TECHNICAL_DOCUMENTATION.md)** - Full implementation details
+- **[📖 Technical Docs](docs/archive/TECHNICAL_DOCUMENTATION.md)** - Full implementation details
 
 ---
 
