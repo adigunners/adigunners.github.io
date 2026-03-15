@@ -1,208 +1,283 @@
+[![Live Site](https://img.shields.io/badge/live-myfplminileague.com-2E7D32?style=flat-square&logo=googlechrome&logoColor=white)](https://adigunners.github.io/) ![Users](https://img.shields.io/badge/users-60+-388E3C?style=flat-square) ![PWA](https://img.shields.io/badge/PWA-enabled-43A047?style=flat-square) ![Google Apps Script](https://img.shields.io/badge/backend-Google%20Apps%20Script-F9A825?style=flat-square&logo=googleappsscript&logoColor=white) ![GitHub Pages](https://img.shields.io/badge/hosting-GitHub%20Pages-FFB300?style=flat-square&logo=githubpages&logoColor=white) ![License](https://img.shields.io/badge/license-MIT-2E7D32?style=flat-square) ![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fadigunners.github.io&style=flat-square&label=status)
+
 # Fantasy Mini-League Management (FML)
 
-**Automated fantasy football mini-league management system for any private or public group**
+**Automated fantasy football mini-league management system serving 60+ IIM Mumbai alumni with live leaderboards, scoring, and email campaigns.**
 
-<a href="https://adigunners.github.io/" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/Live-Website-success?style=for-the-badge" alt="Live Website" />
-</a>
-<a href="https://adigunners.github.io/?test=true" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/Test-Demo-orange?style=for-the-badge" alt="Test Demo" />
-</a>
+What started as a Google Sheet became a production system: one-click daily processing, tie-handling algorithms, personalized email campaigns with 5-day countdown escalation, and a PWA that 60+ users rely on every gameweek. This project demonstrates full product ownership — from requirements gathering with real users to automated deployment serving a live audience.
 
----
+## Key Metrics
 
-## 🎯 What This Project Does
+| Metric | Value | Metric | Value |
+|---|---|---|---|
+| Active users | 60+ | Gameweeks per season | 38 |
+| Prize pool entry fee | INR 3,000/player | Email campaigns | 5-day countdown |
+| Frontend JS modules | 14 | Data files (live + historical) | 70+ JSON |
 
-This system automatically manages a complete fantasy football mini-league for any group, club, or
-organization (scalable to multiple leagues):
+## Architecture
 
-- **🔄 Automated Data Processing** - Fetches live FPL scores and calculates winners
-- **💰 Prize Management** - Tracks weekly/monthly prizes and payments
-- **📧 Email Notifications** - Sends personalized league updates and countdown campaigns to all
-  players
-- **🌐 Live Website** - Real-time leaderboards and winner statistics
-- **📊 Admin Dashboard** - Complete league management in Google Sheets
+```mermaid
+graph LR
+    subgraph Data Source
+        A["FPL Official API"]
+    end
 
-## 🚀 Live Features
+    subgraph "Google Apps Script Backend"
+        B["dailyMasterProcess()"]
+        C["Winner Calculation<br/><i>tie-handling, splits</i>"]
+        D["Prize Tracking<br/><i>weekly / monthly / season</i>"]
+        E["Email Engine<br/><i>5-day countdown</i>"]
+        F["GitHub API Push<br/><i>auto-update JSON</i>"]
+    end
 
-### For Players
+    subgraph "GitHub Pages Frontend"
+        G["Leaderboard"]
+        H["Winner Stats"]
+        I["GW Countdown"]
+    end
 
-- Automatic score tracking from official FPL API
-- Weekly and monthly prize calculations
-- Personalized email updates with league standings
-- Live website with winner leaderboards and paginated rankings
+    J(("60+ Users"))
 
-### For Admins
-
-- One-click league processing with `dailyMasterProcess()`
-- Automated winner calculations with tie-handling
-- Prize tracking with payment status management
-- Email system with beautiful HTML templates
-
-## 🛠 Tech Stack
-
-- **Backend**: Google Apps Script (JavaScript)
-- **Database**: Google Sheets
-- **Frontend**: Static HTML/CSS/JavaScript
-- **Hosting**: GitHub Pages
-- **Email**: Gmail API
-- **Data Source**: Official FPL API
-
-## 📈 Current Scale
-
-- **~60 Active Players** from IIM Mumbai alumni network
-- **Prize Pool** (₹3,000 entry fee per player)
-- **Automated Processing** of 38 gameweeks per season
-- **Weekly & Monthly Prizes** with automated calculations
-
-## 🎮 Try the Demo
-
-Experience the system with realistic test data:
-
-**[📱 Live Demo](https://adigunners.github.io/?test=true)** - See the system in action with test
-winner data  
-_💡 Tip: Right-click links to open in new tab_
-
-## 📚 Documentation
-
-| Document                                                      | Purpose                                                 |
-| ------------------------------------------------------------- | ------------------------------------------------------- |
-| [🔧 Technical Documentation](docs/archive/TECHNICAL_DOCUMENTATION.md) | Complete system architecture and implementation details |
-| [⚙️ Setup Guide](docs/SETUP_GUIDE.md)                         | Step-by-step deployment instructions                    |
-| [📖 API Reference](docs/archive/API_REFERENCE.md)             | All functions, endpoints, and configurations            |
-| 🆘 Troubleshooting (Admin Only)                               | Maintained in the private fml-admin-docs repository     |
-| [📝 Changelog](docs/CHANGELOG.md)                             | Version history and updates                             |
-
-## 🚀 Quick Start
-
-### For Admins
-
-```javascript
-// Daily league processing (run once per day)
-dailyMasterProcess();
-
-// Manual winner stats update
-manualUpdateWinnerStats();
-
-// Send test emails
-testEmailSending();
+    A --> B --> C --> D
+    D --> E
+    D --> F
+    F --> G & H & I
+    G & H & I --> J
+    E --> J
 ```
+
+## Features
+
+**One-Click Processing** — `dailyMasterProcess()` fetches FPL scores, calculates winners, updates prize tracking, and pushes website data in a single invocation
+
+**Smart Winner Calculation** — Handles ties with automatic prize splitting, tracks weekly and monthly winners, and maintains season-long leaderboard rankings
+
+**5-Day Email Campaigns** — Escalating countdown emails with personalized greetings, "6 HOURS REMAINING" Day 0 urgency with blinking animation, mobile-responsive HTML templates
+
+**Live PWA** — Service worker caching, offline support, real-time gameweek countdown, paginated leaderboards with historical gameweek data
+
+**Automated Deployment** — Google Apps Script pushes updated JSON to GitHub via API, GitHub Pages serves instantly — zero manual deployment steps
+
+**Test Mode** — Full demo environment with realistic data at `?test=true`, safe testing that never touches live data, admin-only email delivery for QA
+
+## Getting Started
+
+### For Users
+
+Visit the **[live leaderboard](https://adigunners.github.io/)** or try the **[demo with test data](https://adigunners.github.io/?test=true)**.
 
 ### For Developers
 
-```javascript
-// Set up test environment
-setupCompleteTestDemo();
-
-// Check system status
-checkTestDataStatus();
-
-// Clean up test data
-cleanupTestDataDirect();
+```bash
+git clone https://github.com/adigunners/adigunners.github.io.git
+cd adigunners.github.io
+npm install
+npm run build
 ```
 
-## 🎯 Key Features
+Open `index.html` in a browser. Append `?test=true` for demo data.
 
-### ⚡ Automated Workflows
+### Admin Functions (Google Apps Script)
 
-- **Daily processing** of FPL scores and winner calculations
-- **Tie-handling** for multiple winners with prize splitting
-- **Email automation** with personalized content for each player
-- **Website updates** via GitHub API integration
+```javascript
+dailyMasterProcess();         // Daily league processing
+manualUpdateWinnerStats();    // Force winner stats refresh
+testEmailSending();           // Test email to admin only
+```
 
-### 💎 Professional Features
+---
 
-- **Prize tracking** with payment status management
-- **Admin notifications** for errors and important events
-- **Data validation** against official FPL API
-- **Comprehensive logging** for debugging and monitoring
+<details>
+<summary><b>System Architecture</b></summary>
 
-### 📧 Countdown Email System
+### Backend: Google Apps Script
 
-- **5-day countdown campaign** for registration deadlines with escalating urgency
-- **Smart personalization** with intelligent name handling for greetings
-- **Day 0 enhancement** shows "6 HOURS REMAINING" with blinking animation
-- **Mobile-responsive design** with optimized layouts for all devices
-- **Professional FPL branding** with official colors and styling
+The backend runs as a Google Apps Script project attached to a Google Sheet that serves as the database. Key components:
 
-### ⏱️ Countdown System (Public Overview)
+- **Daily Trigger** — `dailyMasterProcess()` runs on a time-driven trigger, fetching live data from the FPL API
+- **Winner Calculation** — Compares gameweek scores across all players, handles ties with prize-splitting logic
+- **Prize Tracking** — Maintains running totals for weekly, monthly, and season prizes with payment status
+- **GitHub Integration** — Pushes updated JSON files (`league_stats.json`, `winner_stats.json`, `next_deadline.json`, `prizes.json`) directly to this repo via GitHub API using a Personal Access Token
 
-- Unified countdown logic shared across pages (see `js/countdown.js`).
-- Before the next gameweek deadline: shows `GWx Deadline` with days/hours/minutes.
-- After a deadline passes: shows `GWx LIVE` and polls only `data/next_deadline.json` until the
-  backend publishes the next GW; then switches to the next countdown.
-- Local testing: `tools/testing/countdown-stress.html` generates `?clockOffset` and override params
-  (`dl`, `gw`) for test/admin mode.
-- See `docs/TESTING.md` for step‑by‑step guidance and `docs/RELEASE_CHECKLIST.md` for safe rollout.
+### Frontend: GitHub Pages
 
-### 🧪 Testing & Demo System
+A static PWA built with vanilla JavaScript (no framework), structured as 14 ES6 modules:
 
-- **Test mode** with realistic demo data for presentations
-- **Safe testing environment** that doesn't affect live data
-- **Email testing** with admin-only delivery
-- **Easy cleanup** functions for resetting test state
-
-## 🔗 System Integration
-
-### External APIs
-
-- **FPL Official API** - Live player scores and gameweek data
-- **GitHub API** - Automated website updates
-- **Gmail API** - Email delivery system
+| Module | Purpose |
+|---|---|
+| `ui-manager.js` | Main UI orchestration |
+| `data-loader.js` | JSON data fetching with caching |
+| `countdown.js` | Gameweek countdown timer |
+| `winners-module.js` | Winner display and pagination |
+| `leaderboard-enhancement.js` | Leaderboard features |
+| `prize-structure.js` | Prize calculations |
+| `state-module.js` | Application state management |
+| `error-handler.js` | Error handling and recovery |
+| `service-worker.js` | PWA caching and offline support |
 
 ### Data Flow
 
 ```
-FPL API → Google Sheets → Winner Calculations → Email System → Website Updates
+FPL API → Google Sheets (database)
+       → Google Apps Script (processing)
+       → GitHub API (JSON push)
+       → GitHub Pages (static site)
+       → 60+ users (PWA)
 ```
 
-## 📊 Prize Structure
+</details>
 
-- **Weekly Prizes**: 1st and 2nd prizes
-- **Monthly Prizes**: 1st and 2nd prizes
-- **Season Prizes**: Top 10 players share remaining prize pool
-- **Entry Fee**: ₹3,000 per player
+<details>
+<summary><b>Email Campaign System</b></summary>
 
-## 🤝 Contributing
+### 5-Day Countdown Escalation
 
-This project is currently in private development for IIM Mumbai alumni. For technical discussions or
-collaboration opportunities, please reach out via the contact information below.
+The registration deadline email campaign sends personalized messages with increasing urgency:
 
-## 📧 Contact
+| Day | Subject Tone | Key Element |
+|---|---|---|
+| Day 5 | Friendly reminder | League details, prize structure |
+| Day 4 | Gentle nudge | Current registration count |
+| Day 3 | Mid-campaign push | Testimonials, FOMO elements |
+| Day 2 | Urgency ramp | "2 days left" prominent |
+| Day 1 | Last chance | "FINAL DAY" banner |
+| Day 0 | Deadline day | "6 HOURS REMAINING" with blinking animation |
 
-**Project Admin**: Aditya Garg
+All emails use:
+- Smart name personalization (handles compound names, formal/informal)
+- Mobile-responsive HTML templates with FPL branding
+- Professional styling with official FPL color scheme
+- Admin-only test delivery mode for QA
 
-- Email: <aditya.garg.2006@gmail.com>
-- Based in: Amsterdam, NL
-- Role: Chief Mini-League Manager (CML)
+</details>
 
-## 🏗 Project Status
+<details>
+<summary><b>Prize Structure</b></summary>
 
-**Current Phase**: Active Season Management (2025-26) | **Version**: 1.0.6
+| Prize Type | Frequency | Awards |
+|---|---|---|
+| Weekly | Every gameweek (38/season) | 1st and 2nd place |
+| Monthly | Every calendar month | 1st and 2nd place |
+| Season | End of season | Top 10 share remaining pool |
 
-- ✅ Player registration completed (registration closes on 15th Aug)
-- ✅ Automated processing live
-- ✅ Email system operational
-- ✅ Website deployment successful
-- ✅ UI/UX consistency improvements deployed
-- ✅ Performance optimizations implemented
-- 🔄 Weekly/monthly winner calculations ongoing
+- Entry fee: INR 3,000 per player
+- All calculations automated with tie-handling (prize splitting)
+- Payment status tracked per winner in admin dashboard
+
+</details>
+
+<details>
+<summary><b>Testing & Demo</b></summary>
+
+### Test Mode
+
+Append `?test=true` to any page URL to load demo data without affecting live state.
+
+```
+https://adigunners.github.io/?test=true
+https://adigunners.github.io/winners.html?test=true
+```
+
+### Additional Query Parameters
+
+| Parameter | Purpose |
+|---|---|
+| `?test=true` | Load test/demo data |
+| `?clockOffset=<ms>` | Shift countdown clock for testing |
+| `?dl=<timestamp>` | Override next deadline |
+| `?gw=<number>` | Override current gameweek |
+
+### Admin Testing
+
+```javascript
+setupCompleteTestDemo();      // Create full test environment
+checkTestDataStatus();        // Verify test data integrity
+cleanupTestDataDirect();      // Remove all test data
+testEmailSending();           // Send test email to admin only
+```
+
+</details>
+
+<details>
+<summary><b>Tech Stack</b></summary>
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| Backend | Google Apps Script | Processing, API integration, email |
+| Database | Google Sheets | Player data, scores, winners, settings |
+| Frontend | HTML5 / CSS3 / ES6+ | 14 modular JS files, BEM methodology |
+| Hosting | GitHub Pages | Static site serving |
+| PWA | Service Worker | Offline support, caching |
+| Email | Gmail API | Personalized HTML email campaigns |
+| Data | FPL Official API | Live scores and gameweek data |
+| Deployment | GitHub API | Automated JSON updates from Apps Script |
+| Fonts | Poppins (woff2) | Typography |
+| Code Quality | Prettier, markdownlint, Husky | Formatting and linting |
+| CI/CD | GitHub Actions | Automated checks |
+
+</details>
+
+<details>
+<summary><b>Project Structure</b></summary>
+
+```
+adigunners.github.io/
+├── index.html                  # Main leaderboard page
+├── winners.html                # Winner rankings page
+├── service-worker.js           # PWA service worker
+├── CNAME                       # Custom domain config
+│
+├── css/
+│   └── styles.css              # BEM methodology stylesheet
+│
+├── js/                         # 14 ES6 modules
+│   ├── ui-manager.js           # Main UI orchestration
+│   ├── data-loader.js          # Data fetching + caching
+│   ├── countdown.js            # Gameweek countdown
+│   ├── winners-module.js       # Winner display
+│   ├── leaderboard-enhancement.js
+│   ├── prize-structure.js
+│   ├── state-module.js
+│   ├── error-handler.js
+│   └── ...
+│
+├── data/                       # Auto-generated JSON
+│   ├── league_stats.json       # Player count, pot, last updated
+│   ├── winner_stats.json       # Complete rankings (49KB)
+│   ├── next_deadline.json      # Countdown target
+│   ├── prizes.json             # Prize structure
+│   ├── history/                # GW1-GW23 snapshots
+│   └── test_history/           # GW1-GW38 test data
+│
+├── assets/
+│   ├── fonts/                  # Poppins woff2
+│   ├── images/                 # Logos (IIM, FPL)
+│   └── twemoji/                # Emoji SVGs
+│
+├── docs/                       # Documentation
+│   ├── CHANGELOG.md
+│   ├── SETUP_GUIDE.md
+│   └── development/            # CSS guides, BEM reference
+│
+├── tests/                      # Test suites
+│   ├── unit/
+│   ├── integration/
+│   └── manual/
+│
+├── scripts/                    # Build tools
+│   ├── build.js
+│   └── set-version.js
+│
+└── .github/
+    └── workflows/              # CI/CD pipelines
+```
+
+</details>
 
 ---
 
-## 📱 Quick Links
+Built with [Claude Code](https://claude.ai/claude-code) as the primary development partner.
 
-> 💡 **Tip:** Right-click any link below and select "Open in new tab" to keep this README open
+Version 1.0.6 | [Live Site](https://adigunners.github.io/) | [Demo](https://adigunners.github.io/?test=true) | [Winner Leaderboard](https://adigunners.github.io/winners.html)
 
-- **[🌐 Live Website](https://adigunners.github.io/)** - Current league standings
-- **[🧪 Test Demo](https://adigunners.github.io/?test=true)** - Experience with sample data
-- **[🏆 Winner Leaderboard](https://adigunners.github.io/winners.html)** - Complete winner rankings
-  (paginated)
-- **[📖 Technical Docs](docs/archive/TECHNICAL_DOCUMENTATION.md)** - Full implementation details
-
----
-
-_Built with ❤️ for the FPL mini-league managers community_
-
-Note: Troubleshooting content is maintained exclusively in the private admin repository
-(fml-admin-docs) and not in this public repo.
+MIT License — see [LICENSE](LICENSE) file.
