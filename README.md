@@ -281,3 +281,4 @@ Built with [Claude Code](https://claude.ai/claude-code) as the primary developme
 Version 1.0.6 | [Live Site](https://adigunners.github.io/) | [Demo](https://adigunners.github.io/?test=true) | [Winner Leaderboard](https://adigunners.github.io/winners.html)
 
 MIT License — see [LICENSE](LICENSE) file.
+
